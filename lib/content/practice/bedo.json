@@ -1,0 +1,2858 @@
+[
+ {
+  "set": "bedo1",
+  "promptId": "Kakak perempuan saya seorang perawat di sebuah rumah sakit di Bandung.",
+  "prompt": "My sister ___ (a nurse) at a hospital in Bandung.",
+  "hint": "profesi, kata benda",
+  "ans": "My sister is a nurse at a hospital in Bandung.",
+  "why": "Sebelum kata benda (a nurse) kalimat butuh be; subjek tunggal → is.",
+  "wrong": [
+   [
+    "My sister a nurse at a hospital in Bandung.",
+    "Kalimat bahasa Inggris wajib punya kata kerja; sebelum kata benda perlu is."
+   ],
+   [
+    "My sister is as a nurse at a hospital in Bandung.",
+    "Setelah is tidak perlu as (sebagai); cukup is a nurse."
+   ],
+   [
+    "My sister are a nurse at a hospital in Bandung.",
+    "My sister tunggal, jadi pakai is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Mereka sudah ada di stasiun.",
+  "prompt": "They ___ (already / at the station).",
+  "hint": "sudah, keterangan tempat",
+  "ans": "They are already at the station.",
+  "why": "Keterangan tempat memakai be; already diletakkan setelah are: are already at the station.",
+  "wrong": [
+   [
+    "They already at the station.",
+    "Tanpa are kalimat ini tidak punya kata kerja; already bukan kata kerja."
+   ],
+   [
+    "They have already at the station.",
+    "Sudah ada di suatu tempat memakai be (are already), bukan have already."
+   ],
+   [
+    "They is already at the station.",
+    "They jamak, jadi pakai are, bukan is."
+   ]
+  ],
+  "alt": [
+   "They are at the station already.",
+   "They already are at the station."
+  ],
+  "orders": [
+   "They are at the station already."
+  ]
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Kami siap untuk perjalanan ini.",
+  "prompt": "We ___ (ready) for the trip.",
+  "hint": "ready kata sifat",
+  "ans": "We are ready for the trip.",
+  "why": "Ready kata sifat, jadi perlu be; subjek we → are.",
+  "wrong": [
+   [
+    "We ready for the trip.",
+    "Kata sifat tidak bisa berdiri sendiri sebagai predikat; perlu are."
+   ],
+   [
+    "We do ready for the trip.",
+    "Do dipakai untuk kata kerja biasa, bukan kata sifat seperti ready."
+   ],
+   [
+    "We is ready for the trip.",
+    "We jamak, jadi pakai are, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Orang tua saya berasal dari Medan.",
+  "prompt": "My parents ___ (from Medan).",
+  "hint": "asal daerah",
+  "ans": "My parents are from Medan.",
+  "why": "Untuk asal dengan from saja, pakai be: are from Medan.",
+  "wrong": [
+   [
+    "My parents from Medan.",
+    "Tanpa are kalimat ini tidak punya kata kerja."
+   ],
+   [
+    "My parents are come from Medan.",
+    "Pilih salah satu: are from atau come from, jangan digabung."
+   ],
+   [
+    "My parents is from Medan.",
+    "My parents jamak, jadi pakai are, bukan is."
+   ]
+  ],
+  "alt": [
+   "My parents come from Medan."
+  ]
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Tas ini berat sekali.",
+  "prompt": "This bag ___ (very heavy).",
+  "hint": "heavy kata sifat",
+  "ans": "This bag is very heavy.",
+  "why": "Heavy kata sifat, jadi perlu be; subjek tunggal → is.",
+  "wrong": [
+   [
+    "This bag very heavy.",
+    "Kata sifat butuh is sebagai kata kerjanya."
+   ],
+   [
+    "This bag does very heavy.",
+    "Does hanya untuk kata kerja biasa, bukan kata sifat."
+   ],
+   [
+    "This bag are very heavy.",
+    "This bag tunggal, jadi pakai is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Kakak laki-laki saya seorang insinyur.",
+  "prompt": "My brother ___ (an engineer).",
+  "hint": "profesi, kata benda",
+  "ans": "My brother is an engineer.",
+  "why": "Sebelum kata benda (an engineer) perlu be; subjek tunggal → is.",
+  "wrong": [
+   [
+    "My brother an engineer.",
+    "Tanpa is kalimat ini tidak punya kata kerja."
+   ],
+   [
+    "My brother is engineer.",
+    "Profesi tunggal butuh a/an: is an engineer."
+   ],
+   [
+    "My brother are an engineer.",
+    "My brother tunggal, jadi pakai is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Anak-anak ada di dalam kelas.",
+  "prompt": "The children ___ (in the classroom).",
+  "hint": "keterangan tempat",
+  "ans": "The children are in the classroom.",
+  "why": "Sebelum keterangan tempat perlu be; children jamak → are.",
+  "wrong": [
+   [
+    "The children in the classroom.",
+    "Tanpa are ini hanya frasa, bukan kalimat."
+   ],
+   [
+    "The children is in the classroom.",
+    "Children jamak, jadi pakai are, bukan is."
+   ],
+   [
+    "The children am in the classroom.",
+    "Am hanya untuk I; children memakai are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Nenek saya berumur delapan puluh tahun.",
+  "prompt": "My grandmother ___ (eighty years old).",
+  "hint": "umur, pakai be",
+  "ans": "My grandmother is eighty years old.",
+  "why": "Umur dinyatakan dengan be + years old: is eighty years old.",
+  "wrong": [
+   [
+    "My grandmother eighty years old.",
+    "Tanpa is kalimat ini tidak punya kata kerja."
+   ],
+   [
+    "My grandmother has eighty years old.",
+    "Umur memakai be, bukan have/has."
+   ],
+   [
+    "My grandmother are eighty years old.",
+    "My grandmother tunggal, jadi pakai is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Kantor kami ada di lantai tiga.",
+  "prompt": "Our office ___ (on the third floor).",
+  "hint": "keterangan tempat",
+  "ans": "Our office is on the third floor.",
+  "why": "Sebelum keterangan tempat perlu be; subjek tunggal → is.",
+  "wrong": [
+   [
+    "Our office on the third floor.",
+    "Tanpa is ini hanya frasa, bukan kalimat."
+   ],
+   [
+    "Our office located on the third floor.",
+    "Located butuh is (is located); tanpa is kalimat ini tidak punya kata kerja."
+   ],
+   [
+    "Our office are on the third floor.",
+    "Our office tunggal, jadi pakai is, bukan are."
+   ]
+  ],
+  "alt": [
+   "Our office is located on the third floor."
+  ]
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Saya takut anjing.",
+  "prompt": "I ___ (afraid) of dogs.",
+  "hint": "afraid kata sifat",
+  "ans": "I am afraid of dogs.",
+  "why": "Afraid kata sifat, jadi perlu be; subjek I → am.",
+  "wrong": [
+   [
+    "I afraid of dogs.",
+    "Kata sifat butuh am sebagai kata kerjanya."
+   ],
+   [
+    "I do afraid of dogs.",
+    "Do hanya untuk kata kerja biasa, bukan kata sifat seperti afraid."
+   ],
+   [
+    "I am fear of dogs.",
+    "Fear bukan kata sifat; setelah am pakai afraid: am afraid of."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Hari ini Ayah sedang di tempat kerja.",
+  "prompt": "Dad ___ (at work) today.",
+  "hint": "keterangan tempat",
+  "ans": "Dad is at work today.",
+  "why": "At work menunjukkan tempat, jadi perlu be: is at work.",
+  "wrong": [
+   [
+    "Dad at work today.",
+    "Tanpa is kalimat ini tidak punya kata kerja."
+   ],
+   [
+    "Dad is work today.",
+    "Is tidak diikuti kata kerja dasar work; artinya di tempat kerja → is at work."
+   ],
+   [
+    "Dad are at work today.",
+    "Dad tunggal, jadi pakai is, bukan are."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Today Dad is at work."
+  ]
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Di Lembang dingin pada malam hari.",
+  "prompt": "It ___ (cold) in Lembang at night.",
+  "hint": "cold kata sifat",
+  "ans": "It is cold in Lembang at night.",
+  "why": "Cold kata sifat, jadi perlu be: it is cold.",
+  "wrong": [
+   [
+    "It cold in Lembang at night.",
+    "Kata sifat butuh is sebagai kata kerjanya."
+   ],
+   [
+    "It does cold in Lembang at night.",
+    "Does hanya untuk kata kerja biasa, bukan kata sifat."
+   ],
+   [
+    "It has cold in Lembang at night.",
+    "Cuaca dingin dinyatakan dengan it is cold, bukan has."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "It is cold at night in Lembang.",
+   "In Lembang, it is cold at night.",
+   "At night, it is cold in Lembang."
+  ]
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Kamu sahabat terbaikku.",
+  "prompt": "You ___ (my best friend).",
+  "hint": "kata benda, pakai be",
+  "ans": "You are my best friend.",
+  "why": "Sebelum kata benda perlu be; subjek you → are.",
+  "wrong": [
+   [
+    "You my best friend.",
+    "Tanpa are kalimat ini tidak punya kata kerja."
+   ],
+   [
+    "You is my best friend.",
+    "Subjek you selalu memakai are, bukan is."
+   ],
+   [
+    "You am my best friend.",
+    "Am hanya untuk I; you memakai are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Saya sangat senang dengan pekerjaan baru saya.",
+  "prompt": "I ___ (very happy) with my new job.",
+  "hint": "happy kata sifat",
+  "ans": "I am very happy with my new job.",
+  "why": "Happy kata sifat, jadi perlu be; subjek I → am.",
+  "wrong": [
+   [
+    "I very happy with my new job.",
+    "Kata sifat butuh am sebagai kata kerjanya."
+   ],
+   [
+    "I do very happy with my new job.",
+    "Do hanya untuk kata kerja biasa, bukan kata sifat."
+   ],
+   [
+    "I is very happy with my new job.",
+    "Subjek I memakai am, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Bahasa Inggrismu sangat bagus.",
+  "prompt": "Your English ___ (very good).",
+  "hint": "good kata sifat",
+  "ans": "Your English is very good.",
+  "why": "Good kata sifat, jadi perlu be; subjek tunggal → is.",
+  "wrong": [
+   [
+    "Your English very good.",
+    "Kata sifat butuh is sebagai kata kerjanya."
+   ],
+   [
+    "Your English does very good.",
+    "Does hanya untuk kata kerja biasa, bukan kata sifat."
+   ],
+   [
+    "Your English are very good.",
+    "Your English tunggal, jadi pakai is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Saya setuju dengan idemu.",
+  "prompt": "I ___ (agree) with your idea.",
+  "hint": "agree kata kerja",
+  "ans": "I agree with your idea.",
+  "why": "Agree kata kerja biasa, jadi langsung I agree tanpa am.",
+  "wrong": [
+   [
+    "I am agree with your idea.",
+    "Agree kata kerja, bukan kata sifat; jangan pakai am."
+   ],
+   [
+    "I agreeing with your idea.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "I agrees with your idea.",
+    "Subjek I tidak memakai -s."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Dia (lk) tinggal di dekat kantor saya.",
+  "prompt": "He ___ (live) near my office.",
+  "hint": "kata kerja, subjek he",
+  "ans": "He lives near my office.",
+  "why": "Live kata kerja biasa; subjek he → lives, tanpa is.",
+  "wrong": [
+   [
+    "He living near my office.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "He is lives near my office.",
+    "Is dan kata kerja biasa tidak digabung; cukup lives."
+   ],
+   [
+    "He live near my office.",
+    "Subjek he perlu -s: lives."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Rina mengajar bahasa Inggris di sekolah saya.",
+  "prompt": "Rina ___ (teach) English at my school.",
+  "hint": "pekerjaan tetap, kata kerja",
+  "ans": "Rina teaches English at my school.",
+  "why": "Teach kata kerja biasa; subjek tunggal → teaches, tanpa is.",
+  "wrong": [
+   [
+    "Rina is teach English at my school.",
+    "Teach kata kerja biasa, jadi tidak didahului is."
+   ],
+   [
+    "Rina teaching English at my school.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "Rina is teaches English at my school.",
+    "Is dan kata kerja biasa tidak digabung; cukup teaches."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Saya butuh laptop baru untuk bekerja.",
+  "prompt": "I ___ (need) a new laptop for work.",
+  "hint": "need kata kerja",
+  "ans": "I need a new laptop for work.",
+  "why": "Need kata kerja biasa, jadi langsung I need tanpa am.",
+  "wrong": [
+   [
+    "I am need a new laptop for work.",
+    "Need kata kerja, jadi tidak didahului am."
+   ],
+   [
+    "I needing a new laptop for work.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "I needs a new laptop for work.",
+    "Subjek I tidak memakai -s."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Dia (pr) menguasai tiga bahasa.",
+  "prompt": "She ___ (speak) three languages.",
+  "hint": "fakta, kata kerja",
+  "ans": "She speaks three languages.",
+  "why": "Speak kata kerja biasa; subjek she → speaks, tanpa is.",
+  "wrong": [
+   [
+    "She is speak three languages.",
+    "Speak kata kerja biasa, jadi tidak didahului is."
+   ],
+   [
+    "She speaking three languages.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "She speak three languages.",
+    "Subjek she perlu -s: speaks."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Kami ingin menonton film baru itu.",
+  "prompt": "We ___ (want) to see the new film.",
+  "hint": "want kata kerja",
+  "ans": "We want to see the new film.",
+  "why": "Want kata kerja biasa, jadi langsung we want tanpa are.",
+  "wrong": [
+   [
+    "We are want to see the new film.",
+    "Want kata kerja, jadi tidak didahului are."
+   ],
+   [
+    "We wanting to see the new film.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "We wants to see the new film.",
+    "Subjek we tidak memakai -s."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Andi bermain sepak bola setiap hari Minggu.",
+  "prompt": "Andi ___ (play) football every Sunday.",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "Andi plays football every Sunday.",
+  "why": "Play kata kerja biasa; subjek tunggal → plays, tanpa is.",
+  "wrong": [
+   [
+    "Andi is play football every Sunday.",
+    "Play kata kerja biasa, jadi tidak didahului is."
+   ],
+   [
+    "Andi playing football every Sunday.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "Andi play football every Sunday.",
+    "Subjek Andi (dia) perlu -s: plays."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Every Sunday, Andi plays football."
+  ]
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Saya tahu nomor teleponnya.",
+  "prompt": "I ___ (know) his phone number.",
+  "hint": "know kata kerja",
+  "ans": "I know his phone number.",
+  "why": "Know kata kerja biasa, jadi langsung I know tanpa am.",
+  "wrong": [
+   [
+    "I am know his phone number.",
+    "Know kata kerja, jadi tidak didahului am."
+   ],
+   [
+    "I knowing his phone number.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "I knows his phone number.",
+    "Subjek I tidak memakai -s."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Dia (pr) mirip ibunya.",
+  "prompt": "She ___ (look) like her mother.",
+  "hint": "look like = mirip",
+  "ans": "She looks like her mother.",
+  "why": "Look kata kerja biasa; subjek she → looks like, tanpa is.",
+  "wrong": [
+   [
+    "She is look like her mother.",
+    "Look kata kerja biasa, jadi tidak didahului is."
+   ],
+   [
+    "She looking like her mother.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "She look like her mother.",
+    "Subjek she perlu -s: looks."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Di Bogor sering sekali hujan.",
+  "prompt": "It ___ (rain) a lot in Bogor.",
+  "hint": "fakta, kata kerja",
+  "ans": "It rains a lot in Bogor.",
+  "why": "Rain di sini kata kerja biasa; subjek it → rains.",
+  "wrong": [
+   [
+    "It raining a lot in Bogor.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "It rain a lot in Bogor.",
+    "Subjek it perlu -s: rains."
+   ],
+   [
+    "It is rains a lot in Bogor.",
+    "Is dan kata kerja biasa tidak digabung; cukup rains."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In Bogor, it rains a lot."
+  ]
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Dia (lk) punya dua mobil.",
+  "prompt": "He ___ (own) two cars.",
+  "hint": "own kata kerja",
+  "ans": "He owns two cars.",
+  "why": "Own kata kerja biasa; subjek he → owns, tanpa is.",
+  "wrong": [
+   [
+    "He is own two cars.",
+    "Own di sini kata kerja, jadi tidak didahului is."
+   ],
+   [
+    "He owning two cars.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "He own two cars.",
+    "Subjek he perlu -s: owns."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Atasan saya memahami masalahnya.",
+  "prompt": "My boss ___ (understand) the problem.",
+  "hint": "understand kata kerja",
+  "ans": "My boss understands the problem.",
+  "why": "Understand kata kerja biasa; subjek tunggal → understands, tanpa is.",
+  "wrong": [
+   [
+    "My boss is understand the problem.",
+    "Understand kata kerja, jadi tidak didahului is."
+   ],
+   [
+    "My boss understanding the problem.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "My boss understand the problem.",
+    "Subjek my boss (dia) perlu -s: understands."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Mereka berjalan kaki ke sekolah setiap pagi.",
+  "prompt": "They ___ (walk) to school every morning.",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "They walk to school every morning.",
+  "why": "Walk kata kerja biasa; subjek they → walk, tanpa are.",
+  "wrong": [
+   [
+    "They are walk to school every morning.",
+    "Walk kata kerja biasa, jadi tidak didahului are."
+   ],
+   [
+    "They walking to school every morning.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "They walks to school every morning.",
+    "Subjek they tidak memakai -s."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Every morning, they walk to school."
+  ]
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Kami menikmati kelas bahasa Inggris kami.",
+  "prompt": "We ___ (enjoy) our English class.",
+  "hint": "enjoy kata kerja",
+  "ans": "We enjoy our English class.",
+  "why": "Enjoy kata kerja biasa; subjek we → enjoy, tanpa are.",
+  "wrong": [
+   [
+    "We are enjoy our English class.",
+    "Enjoy kata kerja, jadi tidak didahului are."
+   ],
+   [
+    "We enjoying our English class.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "We enjoys our English class.",
+    "Subjek we tidak memakai -s."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo1",
+  "promptId": "Sepupu saya bekerja di sebuah bank di Surabaya.",
+  "prompt": "My cousin ___ (work) at a bank in Surabaya.",
+  "hint": "pekerjaan tetap, kata kerja",
+  "ans": "My cousin works at a bank in Surabaya.",
+  "why": "Work kata kerja biasa; subjek tunggal → works, tanpa is.",
+  "wrong": [
+   [
+    "My cousin is work at a bank in Surabaya.",
+    "Work kata kerja biasa, jadi tidak didahului is."
+   ],
+   [
+    "My cousin working at a bank in Surabaya.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "My cousin work at a bank in Surabaya.",
+    "Subjek my cousin (dia) perlu -s: works."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Saya tidak sibuk sore ini.",
+  "prompt": "I ___ (not / busy) this afternoon.",
+  "hint": "busy kata sifat",
+  "ans": "I am not busy this afternoon.",
+  "why": "Busy kata sifat, jadi negatifnya am not busy.",
+  "wrong": [
+   [
+    "I do not busy this afternoon.",
+    "Do not hanya untuk kata kerja biasa; busy kata sifat."
+   ],
+   [
+    "I not busy this afternoon.",
+    "Not butuh kata bantu; di sini am not."
+   ],
+   [
+    "I no busy this afternoon.",
+    "Negatif kata sifat memakai am not, bukan no."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "This afternoon, I am not busy."
+  ]
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Dia (pr) sedang tidak di rumah sekarang.",
+  "prompt": "She ___ (not / at home) right now.",
+  "hint": "keterangan tempat",
+  "ans": "She is not at home right now.",
+  "why": "Keterangan tempat memakai be, jadi negatifnya is not at home.",
+  "wrong": [
+   [
+    "She does not at home right now.",
+    "Does not hanya untuk kata kerja biasa; at home keterangan tempat."
+   ],
+   [
+    "She not at home right now.",
+    "Not butuh kata bantu; di sini is not."
+   ],
+   [
+    "She are not at home right now.",
+    "She memakai is, bukan are."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now, she is not at home."
+  ]
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Supnya kurang panas.",
+  "prompt": "The soup ___ (not / hot) enough.",
+  "hint": "hot kata sifat",
+  "ans": "The soup is not hot enough.",
+  "why": "Hot kata sifat, jadi negatifnya is not hot.",
+  "wrong": [
+   [
+    "The soup does not hot enough.",
+    "Does not hanya untuk kata kerja biasa; hot kata sifat."
+   ],
+   [
+    "The soup not hot enough.",
+    "Not butuh kata bantu; di sini is not."
+   ],
+   [
+    "The soup do not hot enough.",
+    "Do not untuk kata kerja biasa, dan the soup juga bukan subjek jamak."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Kami tidak terlambat masuk kelas.",
+  "prompt": "We ___ (not / late) for class.",
+  "hint": "late kata sifat",
+  "ans": "We are not late for class.",
+  "why": "Late kata sifat, jadi negatifnya are not late.",
+  "wrong": [
+   [
+    "We do not late for class.",
+    "Do not hanya untuk kata kerja biasa; late kata sifat."
+   ],
+   [
+    "We not late for class.",
+    "Not butuh kata bantu; di sini are not."
+   ],
+   [
+    "We is not late for class.",
+    "We memakai are, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Ayah saya bukan dokter. Dia dokter gigi.",
+  "prompt": "My father ___ (not / a doctor). He is a dentist.",
+  "hint": "kata benda, profesi",
+  "ans": "My father is not a doctor. He is a dentist.",
+  "why": "Sebelum kata benda negatifnya is not: is not a doctor.",
+  "wrong": [
+   [
+    "My father does not a doctor. He is a dentist.",
+    "Does not hanya untuk kata kerja biasa; a doctor kata benda."
+   ],
+   [
+    "My father not a doctor. He is a dentist.",
+    "Not butuh kata bantu; di sini is not."
+   ],
+   [
+    "My father do not a doctor. He is a dentist.",
+    "Do not untuk kata kerja biasa, dan my father tunggal."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Mereka belum lelah.",
+  "prompt": "They ___ (not / tired) yet.",
+  "hint": "tired kata sifat",
+  "ans": "They are not tired yet.",
+  "why": "Tired kata sifat, jadi negatifnya are not tired.",
+  "wrong": [
+   [
+    "They do not tired yet.",
+    "Do not hanya untuk kata kerja biasa; tired kata sifat."
+   ],
+   [
+    "They not tired yet.",
+    "Not butuh kata bantu; di sini are not."
+   ],
+   [
+    "They are not tire yet.",
+    "Artinya lelah memakai kata sifat tired, bukan tire."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Ruangan ini tidak cukup besar untuk sepuluh orang.",
+  "prompt": "This room ___ (not / big enough) for ten people.",
+  "hint": "big kata sifat",
+  "ans": "This room is not big enough for ten people.",
+  "why": "Big kata sifat, jadi negatifnya is not big enough.",
+  "wrong": [
+   [
+    "This room does not big enough for ten people.",
+    "Does not hanya untuk kata kerja biasa; big kata sifat."
+   ],
+   [
+    "This room not big enough for ten people.",
+    "Not butuh kata bantu; di sini is not."
+   ],
+   [
+    "This room are not big enough for ten people.",
+    "This room tunggal, jadi pakai is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Saya tidak yakin dengan jawabannya.",
+  "prompt": "I ___ (not / sure) about the answer.",
+  "hint": "sure kata sifat",
+  "ans": "I am not sure about the answer.",
+  "why": "Sure kata sifat, jadi negatifnya am not sure.",
+  "wrong": [
+   [
+    "I do not sure about the answer.",
+    "Do not hanya untuk kata kerja biasa; sure kata sifat."
+   ],
+   [
+    "I not sure about the answer.",
+    "Not butuh kata bantu; di sini am not."
+   ],
+   [
+    "I is not sure about the answer.",
+    "Subjek I memakai am, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Museumnya tidak jauh dari sini.",
+  "prompt": "The museum ___ (not / far) from here.",
+  "hint": "far kata sifat",
+  "ans": "The museum is not far from here.",
+  "why": "Far di sini kata sifat (jarak), jadi negatifnya is not far.",
+  "wrong": [
+   [
+    "The museum does not far from here.",
+    "Does not hanya untuk kata kerja biasa; far bukan kata kerja."
+   ],
+   [
+    "The museum not far from here.",
+    "Not butuh kata bantu; di sini is not."
+   ],
+   [
+    "The museum are not far from here.",
+    "The museum tunggal, jadi pakai is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Ponsel saya tidak ada di tas saya.",
+  "prompt": "My phone ___ (not / in my bag).",
+  "hint": "keterangan tempat",
+  "ans": "My phone is not in my bag.",
+  "why": "Keterangan tempat memakai be, jadi negatifnya is not in my bag.",
+  "wrong": [
+   [
+    "My phone does not in my bag.",
+    "Does not hanya untuk kata kerja biasa; in my bag keterangan tempat."
+   ],
+   [
+    "My phone not in my bag.",
+    "Not butuh kata bantu; di sini is not."
+   ],
+   [
+    "My phone has not in my bag.",
+    "Ada di suatu tempat memakai be, bukan has."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Kamu tidak sendirian. Kami ada untukmu.",
+  "prompt": "You ___ (not / alone). We are here for you.",
+  "hint": "alone kata sifat",
+  "ans": "You are not alone. We are here for you.",
+  "why": "Alone di sini kata sifat, jadi negatifnya are not alone.",
+  "wrong": [
+   [
+    "You do not alone. We are here for you.",
+    "Do not hanya untuk kata kerja biasa; alone bukan kata kerja."
+   ],
+   [
+    "You not alone. We are here for you.",
+    "Not butuh kata bantu; di sini are not."
+   ],
+   [
+    "You is not alone. We are here for you.",
+    "Subjek you memakai are, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Dia (lk) tidak marah padamu.",
+  "prompt": "He ___ (not / angry) with you.",
+  "hint": "angry kata sifat",
+  "ans": "He is not angry with you.",
+  "why": "Angry kata sifat, jadi negatifnya is not angry.",
+  "wrong": [
+   [
+    "He does not angry with you.",
+    "Does not hanya untuk kata kerja biasa; angry kata sifat."
+   ],
+   [
+    "He not angry with you.",
+    "Not butuh kata bantu; di sini is not."
+   ],
+   [
+    "He is not anger with you.",
+    "Anger kata benda; setelah is not perlu kata sifat angry."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Tiket konsernya tidak mahal.",
+  "prompt": "The concert tickets ___ (not / expensive).",
+  "hint": "expensive kata sifat",
+  "ans": "The concert tickets are not expensive.",
+  "why": "Expensive kata sifat, jadi negatifnya are not expensive.",
+  "wrong": [
+   [
+    "The concert tickets do not expensive.",
+    "Do not hanya untuk kata kerja biasa; expensive kata sifat."
+   ],
+   [
+    "The concert tickets not expensive.",
+    "Not butuh kata bantu; di sini are not."
+   ],
+   [
+    "The concert tickets is not expensive.",
+    "The concert tickets jamak, jadi pakai are, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Itu bukan payung saya.",
+  "prompt": "That ___ (not / my umbrella).",
+  "hint": "kata benda",
+  "ans": "That is not my umbrella.",
+  "why": "Sebelum kata benda negatifnya is not: is not my umbrella.",
+  "wrong": [
+   [
+    "That does not my umbrella.",
+    "Does not hanya untuk kata kerja biasa; my umbrella kata benda."
+   ],
+   [
+    "That not my umbrella.",
+    "Not butuh kata bantu; di sini is not."
+   ],
+   [
+    "That are not my umbrella.",
+    "That tunggal, jadi pakai is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Guru kami tidak galak.",
+  "prompt": "Our teacher ___ (not / strict).",
+  "hint": "strict kata sifat",
+  "ans": "Our teacher is not strict.",
+  "why": "Strict kata sifat, jadi negatifnya is not strict.",
+  "wrong": [
+   [
+    "Our teacher does not strict.",
+    "Does not hanya untuk kata kerja biasa; strict kata sifat."
+   ],
+   [
+    "Our teacher not strict.",
+    "Not butuh kata bantu; di sini is not."
+   ],
+   [
+    "Our teacher do not strict.",
+    "Do not untuk kata kerja biasa, dan our teacher tunggal."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Saya tidak mengerti pertanyaan ini.",
+  "prompt": "I ___ (not / understand) this question.",
+  "hint": "understand kata kerja",
+  "ans": "I do not understand this question.",
+  "why": "Understand kata kerja biasa, jadi negatifnya do not understand.",
+  "wrong": [
+   [
+    "I am not understand this question.",
+    "Am not tidak dipakai sebelum kata kerja dasar; pakai do not."
+   ],
+   [
+    "I not understand this question.",
+    "Not butuh kata bantu; di sini do not."
+   ],
+   [
+    "I do not understanding this question.",
+    "Setelah do not pakai bentuk dasar: understand."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Dia (pr) tidak makan daging.",
+  "prompt": "She ___ (not / eat) meat.",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "She does not eat meat.",
+  "why": "Eat kata kerja biasa; subjek she → does not eat.",
+  "wrong": [
+   [
+    "She is not eat meat.",
+    "Is not tidak dipakai sebelum kata kerja dasar; pakai does not."
+   ],
+   [
+    "She does not eats meat.",
+    "Setelah does not kata kerjanya kembali ke bentuk dasar: eat."
+   ],
+   [
+    "She not eat meat.",
+    "Not butuh kata bantu; di sini does not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Anak-anak saya tidak menonton TV pada malam hari kalau besoknya sekolah.",
+  "prompt": "My children ___ (not / watch) TV on school nights.",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "My children do not watch TV on school nights.",
+  "why": "Watch kata kerja biasa; children jamak → do not watch.",
+  "wrong": [
+   [
+    "My children are not watch TV on school nights.",
+    "Are not tidak dipakai sebelum kata kerja dasar; pakai do not."
+   ],
+   [
+    "My children does not watch TV on school nights.",
+    "Children jamak, jadi pakai do not, bukan does not."
+   ],
+   [
+    "My children not watch TV on school nights.",
+    "Not butuh kata bantu; di sini do not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "On school nights, my children do not watch TV."
+  ]
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Paman saya tidak berenang, jadi dia tetap di pinggir pantai saja.",
+  "prompt": "My uncle ___ (not / swim), so he stays on the beach.",
+  "hint": "swim kata kerja",
+  "ans": "My uncle does not swim, so he stays on the beach.",
+  "why": "Swim kata kerja biasa; subjek tunggal → does not swim.",
+  "wrong": [
+   [
+    "My uncle is not swim, so he stays on the beach.",
+    "Is not tidak dipakai sebelum kata kerja dasar; pakai does not."
+   ],
+   [
+    "My uncle not swim, so he stays on the beach.",
+    "Not butuh kata bantu; di sini does not."
+   ],
+   [
+    "My uncle does not swims, so he stays on the beach.",
+    "Setelah does not kata kerjanya bentuk dasar: swim."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Kami tidak punya mobil.",
+  "prompt": "We ___ (not / have) a car.",
+  "hint": "have kata kerja",
+  "ans": "We do not have a car.",
+  "why": "Have (punya) di sini kata kerja biasa, jadi negatifnya do not have.",
+  "wrong": [
+   [
+    "We are not have a car.",
+    "Are not tidak dipakai sebelum kata kerja dasar; pakai do not."
+   ],
+   [
+    "We not have a car.",
+    "Not butuh kata bantu; di sini do not."
+   ],
+   [
+    "We does not have a car.",
+    "We memakai do, bukan does."
+   ]
+  ],
+  "alt": [
+   "We have not got a car."
+  ]
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Maaf, saya tidak tahu namanya.",
+  "prompt": "Sorry, I ___ (not / know) her name.",
+  "hint": "know kata kerja",
+  "ans": "Sorry, I do not know her name.",
+  "why": "Know kata kerja biasa, jadi negatifnya do not know.",
+  "wrong": [
+   [
+    "Sorry, I am not know her name.",
+    "Am not tidak dipakai sebelum kata kerja dasar; pakai do not."
+   ],
+   [
+    "Sorry, I not know her name.",
+    "Not butuh kata bantu; di sini do not."
+   ],
+   [
+    "Sorry, I does not know her name.",
+    "Subjek I memakai do, bukan does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Mereka tidak tinggal di Jakarta. Mereka tinggal di Depok.",
+  "prompt": "They ___ (not / live) in Jakarta. They live in Depok.",
+  "hint": "live kata kerja",
+  "ans": "They do not live in Jakarta. They live in Depok.",
+  "why": "Live kata kerja biasa; subjek they → do not live.",
+  "wrong": [
+   [
+    "They not live in Jakarta. They live in Depok.",
+    "Not butuh kata bantu; di sini do not."
+   ],
+   [
+    "They does not live in Jakarta. They live in Depok.",
+    "They memakai do, bukan does."
+   ],
+   [
+    "They do not living in Jakarta. They live in Depok.",
+    "Setelah do not pakai bentuk dasar: live."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Kakak perempuan saya tidak minum kopi.",
+  "prompt": "My sister ___ (not / drink) coffee.",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "My sister does not drink coffee.",
+  "why": "Drink kata kerja biasa; subjek tunggal → does not drink.",
+  "wrong": [
+   [
+    "My sister is not drink coffee.",
+    "Is not tidak dipakai sebelum kata kerja dasar; pakai does not."
+   ],
+   [
+    "My sister does not drinks coffee.",
+    "Setelah does not kata kerjanya bentuk dasar: drink."
+   ],
+   [
+    "My sister do not drink coffee.",
+    "My sister tunggal (dia), jadi pakai does not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Bus ini tidak berhenti di bandara.",
+  "prompt": "This bus ___ (not / stop) at the airport.",
+  "hint": "rute tetap, kata kerja",
+  "ans": "This bus does not stop at the airport.",
+  "why": "Stop kata kerja biasa; subjek tunggal → does not stop.",
+  "wrong": [
+   [
+    "This bus is not stop at the airport.",
+    "Is not tidak dipakai sebelum kata kerja dasar; pakai does not."
+   ],
+   [
+    "This bus not stop at the airport.",
+    "Not butuh kata bantu; di sini does not."
+   ],
+   [
+    "This bus does not stops at the airport.",
+    "Setelah does not kata kerjanya bentuk dasar: stop."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Saya tidak mau ada gula di teh saya.",
+  "prompt": "I ___ (not / want) any sugar in my tea.",
+  "hint": "want kata kerja",
+  "ans": "I do not want any sugar in my tea.",
+  "why": "Want kata kerja biasa, jadi negatifnya do not want.",
+  "wrong": [
+   [
+    "I am not want any sugar in my tea.",
+    "Am not tidak dipakai sebelum kata kerja dasar; pakai do not."
+   ],
+   [
+    "I not want any sugar in my tea.",
+    "Not butuh kata bantu; di sini do not."
+   ],
+   [
+    "I do not wanting any sugar in my tea.",
+    "Setelah do not pakai bentuk dasar: want."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Manajer kami tidak bisa berbahasa Jepang.",
+  "prompt": "Our manager ___ (not / speak) Japanese.",
+  "hint": "speak kata kerja",
+  "ans": "Our manager does not speak Japanese.",
+  "why": "Speak kata kerja biasa; subjek tunggal → does not speak.",
+  "wrong": [
+   [
+    "Our manager is not speak Japanese.",
+    "Is not tidak dipakai sebelum kata kerja dasar; pakai does not."
+   ],
+   [
+    "Our manager do not speak Japanese.",
+    "Our manager tunggal (dia), jadi pakai does not."
+   ],
+   [
+    "Our manager not speak Japanese.",
+    "Not butuh kata bantu; di sini does not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Kamu tidak perlu jaket hari ini.",
+  "prompt": "You ___ (not / need) a jacket today.",
+  "hint": "need kata kerja",
+  "ans": "You do not need a jacket today.",
+  "why": "Need kata kerja biasa; subjek you → do not need.",
+  "wrong": [
+   [
+    "You are not need a jacket today.",
+    "Are not tidak dipakai sebelum kata kerja dasar; pakai do not."
+   ],
+   [
+    "You not need a jacket today.",
+    "Not butuh kata bantu; di sini do not."
+   ],
+   [
+    "You does not need a jacket today.",
+    "Subjek you memakai do, bukan does."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Today, you do not need a jacket."
+  ]
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Anak-anak tidak pergi ke sekolah pada hari Minggu.",
+  "prompt": "The children ___ (not / go) to school on Sundays.",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "The children do not go to school on Sundays.",
+  "why": "Go kata kerja biasa; children jamak → do not go.",
+  "wrong": [
+   [
+    "The children are not go to school on Sundays.",
+    "Are not tidak dipakai sebelum kata kerja dasar; pakai do not."
+   ],
+   [
+    "The children does not go to school on Sundays.",
+    "Children jamak, jadi pakai do not, bukan does not."
+   ],
+   [
+    "The children do not going to school on Sundays.",
+    "Setelah do not pakai bentuk dasar: go."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "On Sundays, the children do not go to school."
+  ]
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Kakek saya tidak memakai ponsel pintar.",
+  "prompt": "My grandfather ___ (not / use) a smartphone.",
+  "hint": "use kata kerja",
+  "ans": "My grandfather does not use a smartphone.",
+  "why": "Use kata kerja biasa; subjek tunggal → does not use.",
+  "wrong": [
+   [
+    "My grandfather is not use a smartphone.",
+    "Is not tidak dipakai sebelum kata kerja dasar; pakai does not."
+   ],
+   [
+    "My grandfather does not uses a smartphone.",
+    "Setelah does not kata kerjanya bentuk dasar: use."
+   ],
+   [
+    "My grandfather not use a smartphone.",
+    "Not butuh kata bantu; di sini does not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo2",
+  "promptId": "Istri saya tidak setuju dengan saya soal harganya.",
+  "prompt": "My wife ___ (not / agree) with me about the price.",
+  "hint": "agree kata kerja",
+  "ans": "My wife does not agree with me about the price.",
+  "why": "Agree kata kerja biasa; subjek tunggal → does not agree.",
+  "wrong": [
+   [
+    "My wife is not agree with me about the price.",
+    "Agree kata kerja, bukan kata sifat; negatifnya does not agree."
+   ],
+   [
+    "My wife not agree with me about the price.",
+    "Not butuh kata bantu; di sini does not."
+   ],
+   [
+    "My wife do not agree with me about the price.",
+    "My wife tunggal (dia), jadi pakai does not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah kamu lapar setelah jalan jauh tadi?",
+  "prompt": "___ (you / hungry) after the long walk?",
+  "hint": "hungry kata sifat",
+  "ans": "Are you hungry after the long walk?",
+  "why": "Hungry kata sifat, jadi pertanyaannya dibuka dengan are: Are you hungry?",
+  "wrong": [
+   [
+    "Do you hungry after the long walk?",
+    "Do hanya untuk kata kerja biasa; hungry kata sifat."
+   ],
+   [
+    "Is you hungry after the long walk?",
+    "You memakai are, bukan is."
+   ],
+   [
+    "Do you are hungry after the long walk?",
+    "Do dan are tidak dipakai bersama; cukup Are you."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah ibumu seorang guru?",
+  "prompt": "___ (your mother / a teacher)?",
+  "hint": "kata benda, profesi",
+  "ans": "Is your mother a teacher?",
+  "why": "Sebelum kata benda pakai be; subjek tunggal → Is your mother…?",
+  "wrong": [
+   [
+    "Does your mother a teacher?",
+    "Does hanya untuk kata kerja biasa; a teacher kata benda."
+   ],
+   [
+    "Does your mother is a teacher?",
+    "Does dan is tidak dipakai bersama; cukup Is your mother."
+   ],
+   [
+    "Are your mother a teacher?",
+    "Your mother tunggal, jadi pakai is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah mereka ada di hotel sekarang?",
+  "prompt": "___ (they / at the hotel) now?",
+  "hint": "keterangan tempat",
+  "ans": "Are they at the hotel now?",
+  "why": "Keterangan tempat memakai be; subjek they → Are they…?",
+  "wrong": [
+   [
+    "Do they at the hotel now?",
+    "Do hanya untuk kata kerja biasa; at the hotel keterangan tempat."
+   ],
+   [
+    "Is they at the hotel now?",
+    "They jamak, jadi pakai are."
+   ],
+   [
+    "Do they are at the hotel now?",
+    "Do dan are tidak dipakai bersama; cukup Are they."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah airnya aman untuk diminum?",
+  "prompt": "___ (the water / safe) to drink?",
+  "hint": "safe kata sifat",
+  "ans": "Is the water safe to drink?",
+  "why": "Safe kata sifat, jadi pertanyaannya dibuka dengan is.",
+  "wrong": [
+   [
+    "Does the water safe to drink?",
+    "Does hanya untuk kata kerja biasa; safe kata sifat."
+   ],
+   [
+    "Are the water safe to drink?",
+    "The water tidak bisa dihitung (tunggal), jadi pakai is."
+   ],
+   [
+    "Does the water is safe to drink?",
+    "Does dan is tidak dipakai bersama; cukup Is the water."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah kakak laki-lakimu sudah menikah?",
+  "prompt": "___ (your brother / married)?",
+  "hint": "married kata sifat",
+  "ans": "Is your brother married?",
+  "why": "Married di sini kata sifat (status), jadi pakai is: Is your brother married?",
+  "wrong": [
+   [
+    "Does your brother married?",
+    "Does tidak dipakai sebelum kata sifat married."
+   ],
+   [
+    "Does your brother is married?",
+    "Does dan is tidak dipakai bersama; cukup Is your brother."
+   ],
+   [
+    "Are your brother married?",
+    "Your brother tunggal, jadi pakai is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah Anda sudah siap memesan?",
+  "prompt": "___ (you / ready) to order?",
+  "hint": "ready kata sifat",
+  "ans": "Are you ready to order?",
+  "why": "Ready kata sifat, jadi pertanyaannya dibuka dengan are.",
+  "wrong": [
+   [
+    "Do you ready to order?",
+    "Do hanya untuk kata kerja biasa; ready kata sifat."
+   ],
+   [
+    "Is you ready to order?",
+    "You memakai are, bukan is."
+   ],
+   [
+    "Do you are ready to order?",
+    "Do dan are tidak dipakai bersama; cukup Are you."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah kursi ini kosong?",
+  "prompt": "___ (this seat / free)?",
+  "hint": "free kata sifat",
+  "ans": "Is this seat free?",
+  "why": "Free kata sifat, jadi pertanyaannya dibuka dengan is.",
+  "wrong": [
+   [
+    "Does this seat free?",
+    "Does hanya untuk kata kerja biasa; free di sini kata sifat."
+   ],
+   [
+    "Is this seat is free?",
+    "Is cukup satu kali, di depan subjek."
+   ],
+   [
+    "Are this seat free?",
+    "This seat tunggal, jadi pakai is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah anak-anak sudah tidur?",
+  "prompt": "___ (the children / asleep)?",
+  "hint": "asleep kata sifat",
+  "ans": "Are the children asleep?",
+  "why": "Asleep kata sifat, jadi pertanyaannya dibuka dengan are.",
+  "wrong": [
+   [
+    "Do the children asleep?",
+    "Do hanya untuk kata kerja biasa; asleep kata sifat."
+   ],
+   [
+    "Are the children sleep?",
+    "Setelah are perlu asleep (kata sifat), bukan sleep (kata kerja dasar)."
+   ],
+   [
+    "Is the children asleep?",
+    "Children jamak, jadi pakai are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah dia (lk) atasanmu?",
+  "prompt": "___ (he / your boss)?",
+  "hint": "kata benda",
+  "ans": "Is he your boss?",
+  "why": "Sebelum kata benda pakai be; subjek he → Is he…?",
+  "wrong": [
+   [
+    "Does he your boss?",
+    "Does hanya untuk kata kerja biasa; your boss kata benda."
+   ],
+   [
+    "Does he is your boss?",
+    "Does dan is tidak dipakai bersama; cukup Is he."
+   ],
+   [
+    "Are he your boss?",
+    "He memakai is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah orang tuamu ada di Bali minggu ini?",
+  "prompt": "___ (your parents / in Bali) this week?",
+  "hint": "keterangan tempat",
+  "ans": "Are your parents in Bali this week?",
+  "why": "Keterangan tempat memakai be; your parents jamak → Are…?",
+  "wrong": [
+   [
+    "Do your parents in Bali this week?",
+    "Do hanya untuk kata kerja biasa; in Bali keterangan tempat."
+   ],
+   [
+    "Is your parents in Bali this week?",
+    "Your parents jamak, jadi pakai are."
+   ],
+   [
+    "Do your parents are in Bali this week?",
+    "Do dan are tidak dipakai bersama; cukup Are your parents."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah kopinya terlalu manis?",
+  "prompt": "___ (the coffee / too sweet)?",
+  "hint": "sweet kata sifat",
+  "ans": "Is the coffee too sweet?",
+  "why": "Sweet kata sifat, jadi pertanyaannya dibuka dengan is.",
+  "wrong": [
+   [
+    "Does the coffee too sweet?",
+    "Does hanya untuk kata kerja biasa; sweet kata sifat."
+   ],
+   [
+    "Is the coffee is too sweet?",
+    "Is cukup satu kali, di depan subjek."
+   ],
+   [
+    "Are the coffee too sweet?",
+    "The coffee tunggal, jadi pakai is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah kita naik kereta yang benar?",
+  "prompt": "___ (we / on the right train)?",
+  "hint": "keterangan tempat",
+  "ans": "Are we on the right train?",
+  "why": "On the right train keterangan tempat, jadi pakai be: Are we…?",
+  "wrong": [
+   [
+    "Do we on the right train?",
+    "Do hanya untuk kata kerja biasa; on the right train keterangan tempat."
+   ],
+   [
+    "Is we on the right train?",
+    "We memakai are, bukan is."
+   ],
+   [
+    "Do we are on the right train?",
+    "Do dan are tidak dipakai bersama; cukup Are we."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah Budi sakit hari ini?",
+  "prompt": "___ (Budi / sick) today?",
+  "hint": "sick kata sifat",
+  "ans": "Is Budi sick today?",
+  "why": "Sick kata sifat, jadi pertanyaannya dibuka dengan is.",
+  "wrong": [
+   [
+    "Does Budi sick today?",
+    "Does hanya untuk kata kerja biasa; sick kata sifat."
+   ],
+   [
+    "Are Budi sick today?",
+    "Budi satu orang, jadi pakai is."
+   ],
+   [
+    "Does Budi is sick today?",
+    "Does dan is tidak dipakai bersama; cukup Is Budi."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah restorannya dekat pantai?",
+  "prompt": "___ (the restaurant / near the beach)?",
+  "hint": "keterangan tempat",
+  "ans": "Is the restaurant near the beach?",
+  "why": "Near the beach keterangan tempat, jadi pakai be: Is the restaurant…?",
+  "wrong": [
+   [
+    "Does the restaurant near the beach?",
+    "Does hanya untuk kata kerja biasa; near di sini kata depan, bukan kata kerja."
+   ],
+   [
+    "Does the restaurant is near the beach?",
+    "Does dan is tidak dipakai bersama; cukup Is the restaurant."
+   ],
+   [
+    "Is the restaurant is near the beach?",
+    "Is cukup satu kali, di depan subjek."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah sepatu ini baru?",
+  "prompt": "___ (these shoes / new)?",
+  "hint": "new kata sifat",
+  "ans": "Are these shoes new?",
+  "why": "New kata sifat, jadi pakai be; these shoes jamak → Are…?",
+  "wrong": [
+   [
+    "Do these shoes new?",
+    "Do hanya untuk kata kerja biasa; new kata sifat."
+   ],
+   [
+    "Is these shoes new?",
+    "These shoes jamak, jadi pakai are."
+   ],
+   [
+    "Does these shoes new?",
+    "Does hanya untuk kata kerja, dan these shoes jamak."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah kamu bisa berbahasa Inggris?",
+  "prompt": "___ (you / speak) English?",
+  "hint": "speak kata kerja",
+  "ans": "Do you speak English?",
+  "why": "Speak kata kerja biasa, jadi pertanyaannya dibuka dengan do.",
+  "wrong": [
+   [
+    "Are you speak English?",
+    "Are tidak dipakai sebelum kata kerja dasar; pakai Do you speak."
+   ],
+   [
+    "Do you speaking English?",
+    "Setelah do pakai bentuk dasar: speak."
+   ],
+   [
+    "Does you speak English?",
+    "You memakai do, bukan does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah dia (pr) bekerja pada hari Sabtu?",
+  "prompt": "___ (she / work) on Saturdays?",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "Does she work on Saturdays?",
+  "why": "Work kata kerja biasa; subjek she → Does she work…?",
+  "wrong": [
+   [
+    "Is she work on Saturdays?",
+    "Is tidak dipakai sebelum kata kerja dasar; pakai Does she work."
+   ],
+   [
+    "Does she works on Saturdays?",
+    "Setelah does kata kerjanya bentuk dasar: work."
+   ],
+   [
+    "Do she work on Saturdays?",
+    "She memakai does, bukan do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah ayahmu menyetir mobil ke tempat kerja?",
+  "prompt": "___ (your father / drive) to work?",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "Does your father drive to work?",
+  "why": "Drive kata kerja biasa; subjek tunggal → Does your father drive…?",
+  "wrong": [
+   [
+    "Is your father drive to work?",
+    "Is tidak dipakai sebelum kata kerja dasar; pakai Does."
+   ],
+   [
+    "Does your father drives to work?",
+    "Setelah does kata kerjanya bentuk dasar: drive."
+   ],
+   [
+    "Does your father driving to work?",
+    "Setelah does pakai bentuk dasar, bukan -ing."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah mereka tinggal di dekat sekolah?",
+  "prompt": "___ (they / live) near the school?",
+  "hint": "live kata kerja",
+  "ans": "Do they live near the school?",
+  "why": "Live kata kerja biasa; subjek they → Do they live…?",
+  "wrong": [
+   [
+    "Do they living near the school?",
+    "Setelah do pakai bentuk dasar: live."
+   ],
+   [
+    "Does they live near the school?",
+    "They memakai do, bukan does."
+   ],
+   [
+    "Do they lives near the school?",
+    "Setelah do kata kerjanya bentuk dasar tanpa -s."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah kamu mau teh?",
+  "prompt": "___ (you / want) some tea?",
+  "hint": "want kata kerja",
+  "ans": "Do you want some tea?",
+  "why": "Want kata kerja biasa, jadi pertanyaannya dibuka dengan do.",
+  "wrong": [
+   [
+    "Are you want some tea?",
+    "Are tidak dipakai sebelum kata kerja dasar; pakai Do you want."
+   ],
+   [
+    "Do you wants some tea?",
+    "Setelah do kata kerjanya bentuk dasar tanpa -s."
+   ],
+   [
+    "Does you want some tea?",
+    "You memakai do, bukan does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah dia (lk) tahu jalan ke bandara?",
+  "prompt": "___ (he / know) the way to the airport?",
+  "hint": "know kata kerja",
+  "ans": "Does he know the way to the airport?",
+  "why": "Know kata kerja biasa; subjek he → Does he know…?",
+  "wrong": [
+   [
+    "Is he know the way to the airport?",
+    "Is tidak dipakai sebelum kata kerja dasar; pakai Does he know."
+   ],
+   [
+    "Does he knows the way to the airport?",
+    "Setelah does kata kerjanya bentuk dasar: know."
+   ],
+   [
+    "Do he know the way to the airport?",
+    "He memakai does, bukan do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah anak-anakmu makan sayur?",
+  "prompt": "___ (your kids / eat) vegetables?",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "Do your kids eat vegetables?",
+  "why": "Eat kata kerja biasa; your kids jamak → Do your kids eat…?",
+  "wrong": [
+   [
+    "Are your kids eat vegetables?",
+    "Are tidak dipakai sebelum kata kerja dasar; pakai Do."
+   ],
+   [
+    "Does your kids eat vegetables?",
+    "Your kids jamak, jadi pakai do."
+   ],
+   [
+    "Do your kids eating vegetables?",
+    "Setelah do pakai bentuk dasar: eat."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah perpustakaan itu punya buku berbahasa Inggris?",
+  "prompt": "___ (the library / have) English books?",
+  "hint": "have kata kerja",
+  "ans": "Does the library have English books?",
+  "why": "Have (punya) kata kerja biasa; subjek tunggal → Does the library have…?",
+  "wrong": [
+   [
+    "Is the library have English books?",
+    "Is tidak dipakai sebelum kata kerja dasar; pakai Does."
+   ],
+   [
+    "Does the library has English books?",
+    "Setelah does kata kerjanya bentuk dasar: have."
+   ],
+   [
+    "Does the library having English books?",
+    "Setelah does pakai bentuk dasar, bukan -ing."
+   ]
+  ],
+  "alt": [
+   "Has the library got English books?"
+  ]
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah nenekmu perlu bantuan membawa tasnya?",
+  "prompt": "___ (your grandmother / need) help with her bags?",
+  "hint": "need kata kerja",
+  "ans": "Does your grandmother need help with her bags?",
+  "why": "Need kata kerja biasa; subjek tunggal → Does your grandmother need…?",
+  "wrong": [
+   [
+    "Is your grandmother need help with her bags?",
+    "Is tidak dipakai sebelum kata kerja dasar; pakai Does."
+   ],
+   [
+    "Does your grandmother needs help with her bags?",
+    "Setelah does kata kerjanya bentuk dasar: need."
+   ],
+   [
+    "Do your grandmother need help with her bags?",
+    "Your grandmother tunggal (dia), jadi pakai does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah Rudi bermain gitar?",
+  "prompt": "___ (Rudi / play) the guitar?",
+  "hint": "play kata kerja",
+  "ans": "Does Rudi play the guitar?",
+  "why": "Play kata kerja biasa; subjek tunggal → Does Rudi play…?",
+  "wrong": [
+   [
+    "Is Rudi play the guitar?",
+    "Is tidak dipakai sebelum kata kerja dasar; pakai Does."
+   ],
+   [
+    "Does Rudi plays the guitar?",
+    "Setelah does kata kerjanya bentuk dasar: play."
+   ],
+   [
+    "Does Rudi playing the guitar?",
+    "Setelah does pakai bentuk dasar, bukan -ing."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah kamu ingat nama saya?",
+  "prompt": "___ (you / remember) my name?",
+  "hint": "remember kata kerja",
+  "ans": "Do you remember my name?",
+  "why": "Remember kata kerja biasa, jadi pertanyaannya dibuka dengan do.",
+  "wrong": [
+   [
+    "Are you remember my name?",
+    "Are tidak dipakai sebelum kata kerja dasar; pakai Do you remember."
+   ],
+   [
+    "Do you remembering my name?",
+    "Setelah do pakai bentuk dasar: remember."
+   ],
+   [
+    "Does you remember my name?",
+    "You memakai do, bukan does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah perusahaanmu menyediakan makan siang gratis?",
+  "prompt": "___ (your company / provide) free lunch?",
+  "hint": "provide kata kerja",
+  "ans": "Does your company provide free lunch?",
+  "why": "Provide kata kerja biasa; subjek tunggal → Does your company provide…?",
+  "wrong": [
+   [
+    "Is your company provide free lunch?",
+    "Is tidak dipakai sebelum kata kerja dasar; pakai Does."
+   ],
+   [
+    "Does your company provides free lunch?",
+    "Setelah does kata kerjanya bentuk dasar: provide."
+   ],
+   [
+    "Is your company provides free lunch?",
+    "Is dan kata kerja biasa tidak digabung; pakai Does … provide."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah para siswa memakai seragam?",
+  "prompt": "___ (the students / wear) uniforms?",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "Do the students wear uniforms?",
+  "why": "Wear kata kerja biasa; the students jamak → Do the students wear…?",
+  "wrong": [
+   [
+    "Are the students wear uniforms?",
+    "Are tidak dipakai sebelum kata kerja dasar; pakai Do."
+   ],
+   [
+    "Does the students wear uniforms?",
+    "The students jamak, jadi pakai do."
+   ],
+   [
+    "Do the students wearing uniforms?",
+    "Setelah do pakai bentuk dasar: wear."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah dia (pr) memasak makan malam setiap hari?",
+  "prompt": "___ (she / cook) dinner every day?",
+  "hint": "kebiasaan, kata kerja",
+  "ans": "Does she cook dinner every day?",
+  "why": "Cook kata kerja biasa; subjek she → Does she cook…?",
+  "wrong": [
+   [
+    "Is she cook dinner every day?",
+    "Is tidak dipakai sebelum kata kerja dasar; pakai Does she cook."
+   ],
+   [
+    "Does she cooks dinner every day?",
+    "Setelah does kata kerjanya bentuk dasar: cook."
+   ],
+   [
+    "Is she cooks dinner every day?",
+    "Is dan kata kerja biasa tidak digabung; pakai Does she cook."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo3",
+  "promptId": "Apakah kamu percaya ceritanya?",
+  "prompt": "___ (you / believe) his story?",
+  "hint": "believe kata kerja",
+  "ans": "Do you believe his story?",
+  "why": "Believe kata kerja biasa, jadi pertanyaannya dibuka dengan do.",
+  "wrong": [
+   [
+    "Are you believe his story?",
+    "Are tidak dipakai sebelum kata kerja dasar; pakai Do you believe."
+   ],
+   [
+    "Do you believing his story?",
+    "Setelah do pakai bentuk dasar: believe."
+   ],
+   [
+    "Does you believe his story?",
+    "You memakai do, bukan does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Lihat! Bayinya sedang tidur.",
+  "prompt": "Look! The baby ___ (sleep).",
+  "hint": "sedang terjadi",
+  "ans": "Look! The baby is sleeping.",
+  "why": "Look! menunjukkan sedang terjadi → is + -ing: is sleeping.",
+  "wrong": [
+   [
+    "Look! The baby sleeping.",
+    "Bentuk -ing butuh is di depannya."
+   ],
+   [
+    "Look! The baby is sleep.",
+    "Setelah is untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "Look! The baby is sleeps.",
+    "Is dan sleeps tidak digabung; yang benar is sleeping."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Saya sedang menulis email sekarang.",
+  "prompt": "I ___ (write) an email right now.",
+  "hint": "sedang terjadi",
+  "ans": "I am writing an email right now.",
+  "why": "Right now → am + -ing: am writing.",
+  "wrong": [
+   [
+    "I am write an email right now.",
+    "Setelah am untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "I writing an email right now.",
+    "Bentuk -ing butuh am di depannya."
+   ],
+   [
+    "I am wrote an email right now.",
+    "Setelah am untuk arti sedang pakai -ing (writing), bukan V2 wrote."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now, I am writing an email."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Dengar! Ada yang sedang mengetuk pintu.",
+  "prompt": "Listen! Someone ___ (knock) on the door.",
+  "hint": "sedang terjadi",
+  "ans": "Listen! Someone is knocking on the door.",
+  "why": "Listen! menunjukkan sedang terjadi → is + -ing: is knocking.",
+  "wrong": [
+   [
+    "Listen! Someone is knock on the door.",
+    "Setelah is untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "Listen! Someone knocking on the door.",
+    "Bentuk -ing butuh is di depannya."
+   ],
+   [
+    "Listen! Someone knock on the door.",
+    "Someone tunggal perlu -s, dan Listen! menuntut is knocking."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Dia (pr) sedang berbicara di telepon saat ini.",
+  "prompt": "She ___ (talk) on the phone at the moment.",
+  "hint": "sedang terjadi",
+  "ans": "She is talking on the phone at the moment.",
+  "why": "At the moment → is + -ing: is talking.",
+  "wrong": [
+   [
+    "She is talk on the phone at the moment.",
+    "Setelah is untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "She talking on the phone at the moment.",
+    "Bentuk -ing butuh is di depannya."
+   ],
+   [
+    "She talk on the phone at the moment.",
+    "Arti sedang butuh is + -ing; lagi pula she perlu -s jika present simple."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At the moment, she is talking on the phone."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Mereka sedang menunggu kita di luar sekarang.",
+  "prompt": "They ___ (wait) for us outside now.",
+  "hint": "sedang terjadi",
+  "ans": "They are waiting for us outside now.",
+  "why": "Now → are + -ing: are waiting.",
+  "wrong": [
+   [
+    "They are wait for us outside now.",
+    "Setelah are untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "They waiting for us outside now.",
+    "Bentuk -ing butuh are di depannya."
+   ],
+   [
+    "They is waiting for us outside now.",
+    "They jamak, jadi pakai are, bukan is."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "They are waiting outside for us now.",
+   "Now they are waiting for us outside."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Kami sedang makan malam sekarang. Boleh saya telepon balik nanti?",
+  "prompt": "We ___ (have) dinner right now. Can I call you back?",
+  "hint": "sedang terjadi",
+  "ans": "We are having dinner right now. Can I call you back?",
+  "why": "Right now → are + -ing; have (makan) boleh -ing: are having.",
+  "wrong": [
+   [
+    "We are have dinner right now. Can I call you back?",
+    "Setelah are untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "We having dinner right now. Can I call you back?",
+    "Bentuk -ing butuh are di depannya."
+   ],
+   [
+    "We do having dinner right now. Can I call you back?",
+    "Bentuk sedang memakai are + -ing, bukan do."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now we are having dinner. Can I call you back?"
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Jangan berisik! Para siswa sedang mengikuti ujian.",
+  "prompt": "Be quiet! The students ___ (take) a test.",
+  "hint": "sedang terjadi",
+  "ans": "Be quiet! The students are taking a test.",
+  "why": "Be quiet! menunjukkan sedang terjadi → are + -ing: are taking.",
+  "wrong": [
+   [
+    "Be quiet! The students are take a test.",
+    "Setelah are untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "Be quiet! The students taking a test.",
+    "Bentuk -ing butuh are di depannya."
+   ],
+   [
+    "Be quiet! The students is taking a test.",
+    "The students jamak, jadi pakai are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Saya sedang tidak memakai komputernya sekarang. Kamu boleh memakainya.",
+  "prompt": "I ___ (not / use) the computer right now. You can use it.",
+  "hint": "negatif, sedang terjadi",
+  "ans": "I am not using the computer right now. You can use it.",
+  "why": "Right now → negatif bentuk sedang: am not using.",
+  "wrong": [
+   [
+    "I do not using the computer right now. You can use it.",
+    "Do not tidak dipakai dengan -ing; pakai am not using."
+   ],
+   [
+    "I am not use the computer right now. You can use it.",
+    "Setelah am not untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "I not using the computer right now. You can use it.",
+    "Not butuh kata bantu; di sini am not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now I am not using the computer. You can use it."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Apakah ponselmu sedang berbunyi? Saya mendengar sesuatu.",
+  "prompt": "___ (your phone / ring)? I can hear something.",
+  "hint": "tanya, sedang terjadi",
+  "ans": "Is your phone ringing? I can hear something.",
+  "why": "Bunyinya sedang terdengar → Is + subjek + -ing: Is your phone ringing?",
+  "wrong": [
+   [
+    "Does your phone ringing? I can hear something.",
+    "Does tidak dipakai dengan -ing; pakai Is … ringing."
+   ],
+   [
+    "Is your phone ring? I can hear something.",
+    "Setelah Is untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "Is your phone rings? I can hear something.",
+    "Is dan rings tidak digabung; yang benar Is … ringing."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Apakah kamu sedang mendengarkan saya?",
+  "prompt": "___ (you / listen) to me?",
+  "hint": "tanya, sedang terjadi",
+  "ans": "Are you listening to me?",
+  "why": "Arti sedang → Are + you + -ing: Are you listening?",
+  "wrong": [
+   [
+    "Do you listening to me?",
+    "Do tidak dipakai dengan -ing; pakai Are you listening."
+   ],
+   [
+    "Are you listen to me?",
+    "Setelah Are untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "Is you listening to me?",
+    "You memakai are, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Kakak laki-laki saya sedang belajar di kamarnya saat ini.",
+  "prompt": "My brother ___ (study) in his room at the moment.",
+  "hint": "sedang terjadi",
+  "ans": "My brother is studying in his room at the moment.",
+  "why": "At the moment → is + -ing: is studying.",
+  "wrong": [
+   [
+    "My brother is study in his room at the moment.",
+    "Setelah is untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "My brother studying in his room at the moment.",
+    "Bentuk -ing butuh is di depannya."
+   ],
+   [
+    "My brother is studies in his room at the moment.",
+    "Is dan studies tidak digabung; yang benar is studying."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At the moment, my brother is studying in his room."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Ayo cepat! Busnya sedang menuju ke sini.",
+  "prompt": "Hurry up! The bus ___ (come).",
+  "hint": "sedang terjadi",
+  "ans": "Hurry up! The bus is coming.",
+  "why": "Bus sedang dalam perjalanan ke sini → is + -ing: is coming.",
+  "wrong": [
+   [
+    "Hurry up! The bus coming.",
+    "Bentuk -ing butuh is di depannya."
+   ],
+   [
+    "Hurry up! The bus are coming.",
+    "The bus tunggal, jadi pakai is, bukan are."
+   ],
+   [
+    "Hurry up! The bus is comes.",
+    "Is dan comes tidak digabung; yang benar is coming."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Ayah sedang mencuci mobil di garasi sekarang.",
+  "prompt": "Dad ___ (wash) the car in the garage right now.",
+  "hint": "sedang terjadi",
+  "ans": "Dad is washing the car in the garage right now.",
+  "why": "Right now → is + -ing: is washing.",
+  "wrong": [
+   [
+    "Dad is wash the car in the garage right now.",
+    "Setelah is untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "Dad washing the car in the garage right now.",
+    "Bentuk -ing butuh is di depannya."
+   ],
+   [
+    "Dad is washed the car in the garage right now.",
+    "Arti sedang memakai is + -ing (washing), bukan is + V3 washed."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now, Dad is washing the car in the garage."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Hari ini dia (pr) tidak memakai kacamatanya.",
+  "prompt": "She ___ (not / wear) her glasses today.",
+  "hint": "negatif, sedang berlangsung",
+  "ans": "She is not wearing her glasses today.",
+  "why": "Keadaan sementara yang sedang berlangsung hari ini → is not + -ing: is not wearing.",
+  "wrong": [
+   [
+    "She does not wearing her glasses today.",
+    "Does not tidak dipakai dengan -ing; pakai is not wearing."
+   ],
+   [
+    "She is not wear her glasses today.",
+    "Setelah is not untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "She not wearing her glasses today.",
+    "Not butuh kata bantu; di sini is not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Today she is not wearing her glasses."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Apakah anak-anak sedang bermain di luar sekarang?",
+  "prompt": "___ (the kids / play) outside right now?",
+  "hint": "tanya, sedang terjadi",
+  "ans": "Are the kids playing outside right now?",
+  "why": "Right now → Are + subjek + -ing: Are the kids playing?",
+  "wrong": [
+   [
+    "Do the kids playing outside right now?",
+    "Do tidak dipakai dengan -ing; pakai Are … playing."
+   ],
+   [
+    "Are the kids play outside right now?",
+    "Setelah Are untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "Is the kids playing outside right now?",
+    "The kids jamak, jadi pakai are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Dia (pr) pergi ke gym tiga kali seminggu.",
+  "prompt": "She ___ (go) to the gym three times a week.",
+  "hint": "kebiasaan, tiap minggu",
+  "ans": "She goes to the gym three times a week.",
+  "why": "Three times a week = kebiasaan → present simple: she goes.",
+  "wrong": [
+   [
+    "She is go to the gym three times a week.",
+    "Kebiasaan memakai kata kerja biasa tanpa is: goes."
+   ],
+   [
+    "She going to the gym three times a week.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "She go to the gym three times a week.",
+    "Subjek she perlu -es: goes."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Three times a week, she goes to the gym."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Ayah saya bekerja enam hari seminggu.",
+  "prompt": "My father ___ (work) six days a week.",
+  "hint": "kebiasaan, tiap minggu",
+  "ans": "My father works six days a week.",
+  "why": "Six days a week = kebiasaan → present simple: works.",
+  "wrong": [
+   [
+    "My father is work six days a week.",
+    "Kebiasaan memakai kata kerja biasa tanpa is: works."
+   ],
+   [
+    "My father working six days a week.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "My father is works six days a week.",
+    "Is dan works tidak digabung; cukup works."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Suami saya biasanya bangun jam lima.",
+  "prompt": "My husband usually ___ (get up) at five.",
+  "hint": "kebiasaan, usually",
+  "ans": "My husband usually gets up at five.",
+  "why": "Usually = kebiasaan → present simple: gets up.",
+  "wrong": [
+   [
+    "My husband usually is get up at five.",
+    "Kebiasaan memakai kata kerja biasa tanpa is: gets up."
+   ],
+   [
+    "My husband usually getting up at five.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "My husband usually is gets up at five.",
+    "Is dan gets up tidak digabung; cukup gets up."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Usually my husband gets up at five."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Kereta ke Bandung berangkat jam tujuh setiap pagi.",
+  "prompt": "The train to Bandung ___ (leave) at seven every morning.",
+  "hint": "jadwal tetap",
+  "ans": "The train to Bandung leaves at seven every morning.",
+  "why": "Every morning = jadwal tetap → present simple: leaves.",
+  "wrong": [
+   [
+    "The train to Bandung is leave at seven every morning.",
+    "Jadwal tetap memakai kata kerja biasa tanpa is: leaves."
+   ],
+   [
+    "The train to Bandung leaving at seven every morning.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "The train to Bandung leave at seven every morning.",
+    "The train tunggal perlu -s: leaves."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "The train to Bandung leaves every morning at seven.",
+   "Every morning, the train to Bandung leaves at seven."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Kami mengunjungi kakek dan nenek setiap Lebaran.",
+  "prompt": "We ___ (visit) our grandparents every Lebaran.",
+  "hint": "kebiasaan tiap tahun",
+  "ans": "We visit our grandparents every Lebaran.",
+  "why": "Every Lebaran = kebiasaan → present simple: we visit.",
+  "wrong": [
+   [
+    "We are visit our grandparents every Lebaran.",
+    "Kebiasaan memakai kata kerja biasa tanpa are: visit."
+   ],
+   [
+    "We visiting our grandparents every Lebaran.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "We visits our grandparents every Lebaran.",
+    "Subjek we tidak memakai -s."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Every Lebaran, we visit our grandparents."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Dia (lk) naik bus ke kantor setiap hari.",
+  "prompt": "He ___ (take) the bus to work every day.",
+  "hint": "kebiasaan, tiap hari",
+  "ans": "He takes the bus to work every day.",
+  "why": "Every day = kebiasaan → present simple: takes.",
+  "wrong": [
+   [
+    "He is take the bus to work every day.",
+    "Kebiasaan memakai kata kerja biasa tanpa is: takes."
+   ],
+   [
+    "He taking the bus to work every day.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "He take the bus to work every day.",
+    "Subjek he perlu -s: takes."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Every day, he takes the bus to work."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Kucing saya benci air.",
+  "prompt": "My cat ___ (hate) water.",
+  "hint": "fakta, kata kerja keadaan",
+  "ans": "My cat hates water.",
+  "why": "Hate kata kerja keadaan untuk fakta → present simple: hates.",
+  "wrong": [
+   [
+    "My cat is hate water.",
+    "Hate kata kerja biasa, jadi tidak didahului is."
+   ],
+   [
+    "My cat hating water.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "My cat hate water.",
+    "My cat tunggal perlu -s: hates."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Mereka tidak sarapan pada hari kerja.",
+  "prompt": "They ___ (not / eat) breakfast on weekdays.",
+  "hint": "negatif, kebiasaan",
+  "ans": "They do not eat breakfast on weekdays.",
+  "why": "On weekdays = kebiasaan → negatif present simple: do not eat.",
+  "wrong": [
+   [
+    "They are not eat breakfast on weekdays.",
+    "Are not tidak dipakai sebelum kata kerja dasar; pakai do not."
+   ],
+   [
+    "They not eat breakfast on weekdays.",
+    "Not butuh kata bantu; di sini do not."
+   ],
+   [
+    "They do not eating breakfast on weekdays.",
+    "Setelah do not pakai bentuk dasar: eat."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "On weekdays, they do not eat breakfast."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Apakah kakak laki-lakimu bermain bulu tangkis setiap minggu?",
+  "prompt": "___ (your brother / play) badminton every week?",
+  "hint": "tanya, kebiasaan",
+  "ans": "Does your brother play badminton every week?",
+  "why": "Every week = kebiasaan → Does + subjek + V1: Does your brother play?",
+  "wrong": [
+   [
+    "Is your brother play badminton every week?",
+    "Is tidak dipakai sebelum kata kerja dasar; pakai Does."
+   ],
+   [
+    "Does your brother plays badminton every week?",
+    "Setelah does kata kerjanya bentuk dasar: play."
+   ],
+   [
+    "Is your brother plays badminton every week?",
+    "Is dan plays tidak digabung; pakai Does … play."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Saya mengecek email tiga kali sehari.",
+  "prompt": "I ___ (check) my email three times a day.",
+  "hint": "kebiasaan, tiap hari",
+  "ans": "I check my email three times a day.",
+  "why": "Three times a day = kebiasaan → present simple: I check.",
+  "wrong": [
+   [
+    "I am check my email three times a day.",
+    "Kebiasaan memakai kata kerja biasa tanpa am: check."
+   ],
+   [
+    "I checking my email three times a day.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "I checks my email three times a day.",
+    "Subjek I tidak memakai -s."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Three times a day, I check my email."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Dia (pr) butuh bantuanmu sekarang juga.",
+  "prompt": "She ___ (need) your help right now.",
+  "hint": "need kata kerja keadaan",
+  "ans": "She needs your help right now.",
+  "why": "Need kata kerja keadaan, jadi walau ada right now tetap present simple: needs.",
+  "wrong": [
+   [
+    "She is need your help right now.",
+    "Need kata kerja biasa, jadi tidak didahului is."
+   ],
+   [
+    "She needing your help right now.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be."
+   ],
+   [
+    "She need your help right now.",
+    "Subjek she perlu -s: needs."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now, she needs your help."
+  ]
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Tunggu sebentar. Saya sedang memikirkan pertanyaanmu.",
+  "prompt": "Wait a minute. I ___ (think) about your question.",
+  "hint": "sedang berpikir",
+  "ans": "Wait a minute. I am thinking about your question.",
+  "why": "Think about = sedang memikirkan (aktivitas) → am + -ing: am thinking.",
+  "wrong": [
+   [
+    "Wait a minute. I am think about your question.",
+    "Setelah am untuk arti sedang, kata kerjanya harus -ing."
+   ],
+   [
+    "Wait a minute. I thinking about your question.",
+    "Bentuk -ing butuh am di depannya."
+   ],
+   [
+    "Wait a minute. I do thinking about your question.",
+    "Bentuk sedang memakai am + -ing, bukan do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Kami sangat haus sekarang.",
+  "prompt": "We ___ (very thirsty) now.",
+  "hint": "thirsty kata sifat",
+  "ans": "We are very thirsty now.",
+  "why": "Thirsty kata sifat, jadi cukup be: are very thirsty.",
+  "wrong": [
+   [
+    "We very thirsty now.",
+    "Kata sifat butuh are sebagai kata kerjanya."
+   ],
+   [
+    "We are very thirst now.",
+    "Thirst kata benda; setelah are perlu kata sifat thirsty."
+   ],
+   [
+    "We is very thirsty now.",
+    "We memakai are, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Apakah tas ini milikmu?",
+  "prompt": "___ (this bag / belong) to you?",
+  "hint": "belong kata kerja keadaan",
+  "ans": "Does this bag belong to you?",
+  "why": "Belong kata kerja keadaan → pertanyaan present simple: Does this bag belong…?",
+  "wrong": [
+   [
+    "Is this bag belong to you?",
+    "Is tidak dipakai sebelum kata kerja dasar; pakai Does."
+   ],
+   [
+    "Does this bag belongs to you?",
+    "Setelah does kata kerjanya bentuk dasar: belong."
+   ],
+   [
+    "Do this bag belong to you?",
+    "This bag tunggal, jadi pakai does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "bedo4",
+  "promptId": "Anak laki-laki saya tidak mengantuk, jadi dia sedang membaca buku.",
+  "prompt": "My son ___ (not / sleepy), so he is reading a book.",
+  "hint": "sleepy kata sifat",
+  "ans": "My son is not sleepy, so he is reading a book.",
+  "why": "Sleepy kata sifat, jadi negatifnya is not sleepy (bukan bentuk -ing).",
+  "wrong": [
+   [
+    "My son does not sleepy, so he is reading a book.",
+    "Does not hanya untuk kata kerja biasa; sleepy kata sifat."
+   ],
+   [
+    "My son is not sleep, so he is reading a book.",
+    "Setelah is not perlu kata sifat sleepy, bukan kata kerja dasar sleep."
+   ],
+   [
+    "My son not sleepy, so he is reading a book.",
+    "Not butuh kata bantu; di sini is not."
+   ]
+  ],
+  "alt": []
+ }
+]

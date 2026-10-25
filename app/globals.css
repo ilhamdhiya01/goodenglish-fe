@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  /* Typography — loaded by next/font in app/layout.tsx, which sets the
+     --font-bricolage / --font-plex-mono / --font-newsreader variables. */
+  --font-sans: var(--font-bricolage), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), monospace;
+  --font-serif: var(--font-newsreader), Georgia, serif;
+
+  /* Kertas & tinta */
+  --color-paper: #f4f1ea;
+  --color-card: #fffdf8;
+  --color-ink: #1d1b16;
+  --color-ink-2: #3a362f;
+  --color-ink-3: #4a463e;
+  --color-ink-4: #2a2822;
+  --color-muted: #6b665c;
+  --color-faint: #9a9486;
+  --color-ondark: #bdb6a6;
+
+  /* Garis & latar hangat */
+  --color-line: #ddd6c8;
+  --color-line-2: #cfc7b6;
+  --color-hairline: #ede8dc;
+  --color-track: #e3ddcf;
+  --color-sand: #f7f4ec;
+
+  /* Hijau utama */
+  --color-green: #1f6b57;
+  --color-green-deep: #14493b;
+  --color-green-mid: #4b6f63;
+  --color-mint: #9fd4c1;
+  --color-green-bg: #f1f6f3;
+  --color-green-bg2: #e6efe9;
+  --color-green-line: #cfe3d8;
+  --color-focus-ring: #cfe5db;
+
+  /* Merah (jebakan / salah) */
+  --color-red: #b42318;
+  --color-red-deep: #7a1a11;
+  --color-red-bg: #fbe9e7;
+  --color-red-line: #f1c9c4;
+
+  /* Biru / oranye / ungu / emas — aksen konten */
+  --color-blue: #1f4e86;
+  --color-orange: #8a4a1f;
+  --color-purple: #6b2f7a;
+  --color-gold: #7a5a00;
+
+  /* Status "sudah hafal" */
+  --color-known-bg: #fbf3c9;
+  --color-known-line: #e6d37a;
+
+  /* Tint per jenis kata (dipakai const/vocab-types.ts) */
+  --color-tint-w: #efe9dc;
+  --color-ink-w: #4a463e;
+  --color-tint-pv: #e4ecf6;
+  --color-ink-pv: #1f4e86;
+  --color-tint-col: #f4e6da;
+  --color-ink-col: #8a4a1f;
+  --color-tint-st: #efe4f1;
+  --color-ink-st: #6b2f7a;
+  --color-tint-ex: #e6efe9;
+  --color-ink-ex: #14493b;
+  --color-tint-cj: #f6e9c8;
+  --color-ink-cj: #7a5a00;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Taruh di @layer base supaya utility class (text-ink, text-paper, …)
+   tetap menang atas elemen <a>. Tanpa layer, rule ini menang melawan
+   semua utility Tailwind v4. */
+@layer base {
+  a {
+    color: var(--color-green);
+  }
+  a:hover {
+    color: var(--color-green-deep);
+  }
+}
+
+input::placeholder {
+  color: var(--color-faint);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Baris yang bisa digeser ke samping tanpa scrollbar terlihat (toolbar kosakata di layar kecil). */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

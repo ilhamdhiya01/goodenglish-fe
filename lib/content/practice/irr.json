@@ -1,0 +1,3706 @@
+[
+ {
+  "set": "irr1",
+  "promptId": "Orang tua saya pergi ke Yogyakarta akhir pekan lalu.",
+  "prompt": "My parents ___ (go) to Yogyakarta last weekend.",
+  "hint": "lampau, waktunya jelas",
+  "ans": "My parents went to Yogyakarta last weekend.",
+  "why": "Last weekend = lampau yang waktunya jelas → V2 dari go: went.",
+  "wrong": [
+   [
+    "My parents goed to Yogyakarta last weekend.",
+    "Go tidak beraturan; V2-nya went, bukan goed."
+   ],
+   [
+    "My parents gone to Yogyakarta last weekend.",
+    "Gone adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "My parents go to Yogyakarta last weekend.",
+    "Last weekend menunjukkan lampau, jadi bentuk sekarang go salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last weekend my parents went to Yogyakarta."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Saya membeli ponsel baru kemarin.",
+  "prompt": "I ___ (buy) a new phone yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "I bought a new phone yesterday.",
+  "why": "Yesterday = lampau → V2 dari buy: bought.",
+  "wrong": [
+   [
+    "I buyed a new phone yesterday.",
+    "Buy tidak beraturan; V2-nya bought, bukan buyed."
+   ],
+   [
+    "I buy a new phone yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang buy salah; perlu V2."
+   ],
+   [
+    "I have bought a new phone yesterday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday I bought a new phone."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Dia (pr) menulis email panjang untuk atasannya tadi malam.",
+  "prompt": "She ___ (write) a long email to her boss last night.",
+  "hint": "lampau: last night",
+  "ans": "She wrote a long email to her boss last night.",
+  "why": "Last night = lampau → V2 dari write: wrote.",
+  "wrong": [
+   [
+    "She writed a long email to her boss last night.",
+    "Write tidak beraturan; V2-nya wrote, bukan writed."
+   ],
+   [
+    "She written a long email to her boss last night.",
+    "Written adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "She writes a long email to her boss last night.",
+    "Last night menunjukkan lampau, jadi bentuk sekarang writes salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night she wrote a long email to her boss."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Budi makan tiga piring nasi goreng di pesta tadi malam.",
+  "prompt": "Budi ___ (eat) three plates of fried rice at the party last night.",
+  "hint": "pesta tadi malam",
+  "ans": "Budi ate three plates of fried rice at the party last night.",
+  "why": "Last night = lampau → V2 dari eat: ate.",
+  "wrong": [
+   [
+    "Budi eated three plates of fried rice at the party last night.",
+    "Eat tidak beraturan; V2-nya ate, bukan eated."
+   ],
+   [
+    "Budi eaten three plates of fried rice at the party last night.",
+    "Eaten adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "Budi eats three plates of fried rice at the party last night.",
+    "Last night menunjukkan lampau, jadi bentuk sekarang eats salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night Budi ate three plates of fried rice at the party."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Mereka melihat seorang aktor terkenal di bandara kemarin.",
+  "prompt": "They ___ (see) a famous actor at the airport yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "They saw a famous actor at the airport yesterday.",
+  "why": "Yesterday = lampau → V2 dari see: saw.",
+  "wrong": [
+   [
+    "They seen a famous actor at the airport yesterday.",
+    "Seen adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "They see a famous actor at the airport yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang see salah; perlu V2."
+   ],
+   [
+    "They have seen a famous actor at the airport yesterday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday they saw a famous actor at the airport."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Saya mengambil banyak foto selama perjalanan kami ke Lombok tahun lalu.",
+  "prompt": "I ___ (take) a lot of photos during our trip to Lombok last year.",
+  "hint": "lampau: last year",
+  "ans": "I took a lot of photos during our trip to Lombok last year.",
+  "why": "Last year = lampau → V2 dari take: took.",
+  "wrong": [
+   [
+    "I taked a lot of photos during our trip to Lombok last year.",
+    "Take tidak beraturan; V2-nya took, bukan taked."
+   ],
+   [
+    "I taken a lot of photos during our trip to Lombok last year.",
+    "Taken adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "I take a lot of photos during our trip to Lombok last year.",
+    "Last year menunjukkan lampau, jadi bentuk sekarang take salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last year I took a lot of photos during our trip to Lombok.",
+   "During our trip to Lombok last year, I took a lot of photos."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Kakak laki-laki saya mengantar saya naik mobil ke kantor kemarin pagi.",
+  "prompt": "My brother ___ (drive) me to the office yesterday morning.",
+  "hint": "lampau: yesterday morning",
+  "ans": "My brother drove me to the office yesterday morning.",
+  "why": "Yesterday morning = lampau → V2 dari drive: drove.",
+  "wrong": [
+   [
+    "My brother drived me to the office yesterday morning.",
+    "Drive tidak beraturan; V2-nya drove, bukan drived."
+   ],
+   [
+    "My brother driven me to the office yesterday morning.",
+    "Driven adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "My brother drives me to the office yesterday morning.",
+    "Yesterday morning menunjukkan lampau, jadi bentuk sekarang drives salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday morning my brother drove me to the office."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Guru memberi kami banyak PR Jumat lalu.",
+  "prompt": "The teacher ___ (give) us a lot of homework last Friday.",
+  "hint": "lampau: last Friday",
+  "ans": "The teacher gave us a lot of homework last Friday.",
+  "why": "Last Friday = lampau → V2 dari give: gave.",
+  "wrong": [
+   [
+    "The teacher gived us a lot of homework last Friday.",
+    "Give tidak beraturan; V2-nya gave, bukan gived."
+   ],
+   [
+    "The teacher given us a lot of homework last Friday.",
+    "Given adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "The teacher gives us a lot of homework last Friday.",
+    "Last Friday menunjukkan lampau, jadi bentuk sekarang gives salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Friday the teacher gave us a lot of homework."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Kami berbicara bahasa Inggris dengan pemandu kami selama tur minggu lalu.",
+  "prompt": "We ___ (speak) English with our guide during the tour last week.",
+  "hint": "lampau: last week",
+  "ans": "We spoke English with our guide during the tour last week.",
+  "why": "Last week = lampau → V2 dari speak: spoke.",
+  "wrong": [
+   [
+    "We speaked English with our guide during the tour last week.",
+    "Speak tidak beraturan; V2-nya spoke, bukan speaked."
+   ],
+   [
+    "We spoken English with our guide during the tour last week.",
+    "Spoken adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "We speak English with our guide during the tour last week.",
+    "Last week menunjukkan lampau, jadi bentuk sekarang speak salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last week we spoke English with our guide during the tour.",
+   "During the tour last week, we spoke English with our guide."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Rina minum dua cangkir kopi sebelum rapat kemarin.",
+  "prompt": "Rina ___ (drink) two cups of coffee before the meeting yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "Rina drank two cups of coffee before the meeting yesterday.",
+  "why": "Yesterday = lampau → V2 dari drink: drank.",
+  "wrong": [
+   [
+    "Rina drinked two cups of coffee before the meeting yesterday.",
+    "Drink tidak beraturan; V2-nya drank, bukan drinked."
+   ],
+   [
+    "Rina drinks two cups of coffee before the meeting yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang drinks salah; perlu V2."
+   ],
+   [
+    "Rina has drunk two cups of coffee before the meeting yesterday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday Rina drank two cups of coffee before the meeting.",
+   "Before the meeting yesterday, Rina drank two cups of coffee."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Saya tahu jawabannya, tetapi saya terlalu malu untuk mengatakannya.",
+  "prompt": "I ___ (know) the answer, but I was too shy to say it.",
+  "hint": "lampau, lihat kata was",
+  "ans": "I knew the answer, but I was too shy to say it.",
+  "why": "Ceritanya lampau (was too shy) → V2 dari know: knew.",
+  "wrong": [
+   [
+    "I knowed the answer, but I was too shy to say it.",
+    "Know tidak beraturan; V2-nya knew, bukan knowed."
+   ],
+   [
+    "I known the answer, but I was too shy to say it.",
+    "Known adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "I knows the answer, but I was too shy to say it.",
+    "Knows tidak dipakai untuk subjek I, dan kalimat ini lampau sehingga perlu V2."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr1",
+  "promptId": "Rapatnya dimulai pukul sembilan kemarin.",
+  "prompt": "The meeting ___ (begin) at nine o'clock yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "The meeting began at nine o'clock yesterday.",
+  "why": "Yesterday = lampau → V2 dari begin: began.",
+  "wrong": [
+   [
+    "The meeting beginned at nine o'clock yesterday.",
+    "Begin tidak beraturan; V2-nya began, bukan beginned."
+   ],
+   [
+    "The meeting begun at nine o'clock yesterday.",
+    "Begun adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "The meeting begins at nine o'clock yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang begins salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday the meeting began at nine o'clock.",
+   "The meeting began yesterday at nine o'clock."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Adik perempuan saya memecahkan kacamata saya minggu lalu.",
+  "prompt": "My little sister ___ (break) my glasses last week.",
+  "hint": "lampau: last week",
+  "ans": "My little sister broke my glasses last week.",
+  "why": "Last week = lampau → V2 dari break: broke.",
+  "wrong": [
+   [
+    "My little sister breaked my glasses last week.",
+    "Break tidak beraturan; V2-nya broke, bukan breaked."
+   ],
+   [
+    "My little sister broken my glasses last week.",
+    "Broken adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "My little sister breaks my glasses last week.",
+    "Last week menunjukkan lampau, jadi bentuk sekarang breaks salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last week my little sister broke my glasses."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Dia (lk) memilih kemeja biru untuk pernikahan Sabtu lalu.",
+  "prompt": "He ___ (choose) the blue shirt for the wedding last Saturday.",
+  "hint": "lampau: last Saturday",
+  "ans": "He chose the blue shirt for the wedding last Saturday.",
+  "why": "Last Saturday = lampau → V2 dari choose: chose.",
+  "wrong": [
+   [
+    "He choosed the blue shirt for the wedding last Saturday.",
+    "Choose tidak beraturan; V2-nya chose, bukan choosed."
+   ],
+   [
+    "He chosen the blue shirt for the wedding last Saturday.",
+    "Chosen adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "He chooses the blue shirt for the wedding last Saturday.",
+    "Last Saturday menunjukkan lampau, jadi bentuk sekarang chooses salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Saturday he chose the blue shirt for the wedding."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Kemarin dompet saya ketinggalan di rumah.",
+  "prompt": "I ___ (leave) my wallet at home yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "I left my wallet at home yesterday.",
+  "why": "Yesterday = lampau → V2 dari leave: left.",
+  "wrong": [
+   [
+    "I leaved my wallet at home yesterday.",
+    "Leave tidak beraturan; V2-nya left, bukan leaved."
+   ],
+   [
+    "I leave my wallet at home yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang leave salah; perlu V2."
+   ],
+   [
+    "I have left my wallet at home yesterday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday I left my wallet at home."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Dia (pr) memakai gaun merah ke pesta tadi malam.",
+  "prompt": "She ___ (wear) a red dress to the party last night.",
+  "hint": "lampau: last night",
+  "ans": "She wore a red dress to the party last night.",
+  "why": "Last night = lampau → V2 dari wear: wore.",
+  "wrong": [
+   [
+    "She weared a red dress to the party last night.",
+    "Wear tidak beraturan; V2-nya wore, bukan weared."
+   ],
+   [
+    "She worn a red dress to the party last night.",
+    "Worn adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "She wears a red dress to the party last night.",
+    "Last night menunjukkan lampau, jadi bentuk sekarang wears salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night she wore a red dress to the party."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Kami terbang ke Singapura untuk rapat bisnis Selasa lalu.",
+  "prompt": "We ___ (fly) to Singapore for a business meeting last Tuesday.",
+  "hint": "lampau: last Tuesday",
+  "ans": "We flew to Singapore for a business meeting last Tuesday.",
+  "why": "Last Tuesday = lampau → V2 dari fly: flew.",
+  "wrong": [
+   [
+    "We flyed to Singapore for a business meeting last Tuesday.",
+    "Fly tidak beraturan; V2-nya flew, bukan flyed."
+   ],
+   [
+    "We flown to Singapore for a business meeting last Tuesday.",
+    "Flown adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "We fly to Singapore for a business meeting last Tuesday.",
+    "Last Tuesday menunjukkan lampau, jadi bentuk sekarang fly salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Tuesday we flew to Singapore for a business meeting."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Anak-anak berenang di kolam renang hotel sepanjang sore kemarin.",
+  "prompt": "The children ___ (swim) in the hotel pool all afternoon yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "The children swam in the hotel pool all afternoon yesterday.",
+  "why": "Yesterday = lampau → V2 dari swim: swam.",
+  "wrong": [
+   [
+    "The children swimmed in the hotel pool all afternoon yesterday.",
+    "Swim tidak beraturan; V2-nya swam, bukan swimmed."
+   ],
+   [
+    "The children swim in the hotel pool all afternoon yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang swim salah; perlu V2."
+   ],
+   [
+    "The children have swum in the hotel pool all afternoon yesterday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday the children swam in the hotel pool all afternoon."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Andi naik motor ke kampus setiap hari minggu lalu.",
+  "prompt": "Andi ___ (ride) his motorbike to campus every day last week.",
+  "hint": "lampau: last week",
+  "ans": "Andi rode his motorbike to campus every day last week.",
+  "why": "Last week = lampau → V2 dari ride: rode.",
+  "wrong": [
+   [
+    "Andi rided his motorbike to campus every day last week.",
+    "Ride tidak beraturan; V2-nya rode, bukan rided."
+   ],
+   [
+    "Andi ridden his motorbike to campus every day last week.",
+    "Ridden adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "Andi rides his motorbike to campus every day last week.",
+    "Last week menunjukkan lampau, jadi bentuk sekarang rides salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last week Andi rode his motorbike to campus every day."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Seseorang mencuri sepeda saya di depan perpustakaan kemarin.",
+  "prompt": "Someone ___ (steal) my bicycle in front of the library yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "Someone stole my bicycle in front of the library yesterday.",
+  "why": "Yesterday = lampau → V2 dari steal: stole.",
+  "wrong": [
+   [
+    "Someone stealed my bicycle in front of the library yesterday.",
+    "Steal tidak beraturan; V2-nya stole, bukan stealed."
+   ],
+   [
+    "Someone stolen my bicycle in front of the library yesterday.",
+    "Stolen adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "Someone steals my bicycle in front of the library yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang steals salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday someone stole my bicycle in front of the library."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Nenek saya jatuh di kamar mandi dua hari yang lalu.",
+  "prompt": "My grandmother ___ (fall) in the bathroom two days ago.",
+  "hint": "lampau: two days ago",
+  "ans": "My grandmother fell in the bathroom two days ago.",
+  "why": "Two days ago = lampau → V2 dari fall: fell.",
+  "wrong": [
+   [
+    "My grandmother falled in the bathroom two days ago.",
+    "Fall tidak beraturan; V2-nya fell, bukan falled."
+   ],
+   [
+    "My grandmother fallen in the bathroom two days ago.",
+    "Fallen adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "My grandmother falls in the bathroom two days ago.",
+    "Two days ago menunjukkan lampau, jadi bentuk sekarang falls salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Two days ago my grandmother fell in the bathroom."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Dewi menanam tomat di kebunnya tahun lalu.",
+  "prompt": "Dewi ___ (grow) tomatoes in her garden last year.",
+  "hint": "lampau: last year",
+  "ans": "Dewi grew tomatoes in her garden last year.",
+  "why": "Last year = lampau → V2 dari grow: grew.",
+  "wrong": [
+   [
+    "Dewi growed tomatoes in her garden last year.",
+    "Grow tidak beraturan; V2-nya grew, bukan growed."
+   ],
+   [
+    "Dewi grown tomatoes in her garden last year.",
+    "Grown adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "Dewi grows tomatoes in her garden last year.",
+    "Last year menunjukkan lampau, jadi bentuk sekarang grows salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last year Dewi grew tomatoes in her garden."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Anak laki-laki itu melempar bola ke jendela satu jam yang lalu.",
+  "prompt": "The boy ___ (throw) a ball at the window an hour ago.",
+  "hint": "lampau: an hour ago",
+  "ans": "The boy threw a ball at the window an hour ago.",
+  "why": "An hour ago = lampau → V2 dari throw: threw.",
+  "wrong": [
+   [
+    "The boy throwed a ball at the window an hour ago.",
+    "Throw tidak beraturan; V2-nya threw, bukan throwed."
+   ],
+   [
+    "The boy thrown a ball at the window an hour ago.",
+    "Thrown adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "The boy throws a ball at the window an hour ago.",
+    "An hour ago menunjukkan lampau, jadi bentuk sekarang throws salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "An hour ago the boy threw a ball at the window."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Kami bertemu manajer baru kami Senin lalu.",
+  "prompt": "We ___ (meet) our new manager last Monday.",
+  "hint": "lampau: last Monday",
+  "ans": "We met our new manager last Monday.",
+  "why": "Last Monday = lampau → V2 dari meet: met.",
+  "wrong": [
+   [
+    "We meeted our new manager last Monday.",
+    "Meet tidak beraturan; V2-nya met, bukan meeted."
+   ],
+   [
+    "We meet our new manager last Monday.",
+    "Last Monday menunjukkan lampau, jadi bentuk sekarang meet salah; perlu V2."
+   ],
+   [
+    "We have met our new manager last Monday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last Monday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Monday we met our new manager."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Saya mengirim laporan itu ke atasan saya dua jam yang lalu.",
+  "prompt": "I ___ (send) the report to my boss two hours ago.",
+  "hint": "lampau: two hours ago",
+  "ans": "I sent the report to my boss two hours ago.",
+  "why": "Two hours ago = lampau → V2 dari send: sent.",
+  "wrong": [
+   [
+    "I sended the report to my boss two hours ago.",
+    "Send tidak beraturan; V2-nya sent, bukan sended."
+   ],
+   [
+    "I send the report to my boss two hours ago.",
+    "Two hours ago menunjukkan lampau, jadi bentuk sekarang send salah; perlu V2."
+   ],
+   [
+    "I have sent the report to my boss two hours ago.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti two hours ago."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Two hours ago I sent the report to my boss."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Mereka menghabiskan seminggu di Jepang musim panas lalu.",
+  "prompt": "They ___ (spend) a week in Japan last summer.",
+  "hint": "lampau: last summer",
+  "ans": "They spent a week in Japan last summer.",
+  "why": "Last summer = lampau → V2 dari spend: spent.",
+  "wrong": [
+   [
+    "They spended a week in Japan last summer.",
+    "Spend tidak beraturan; V2-nya spent, bukan spended."
+   ],
+   [
+    "They spend a week in Japan last summer.",
+    "Last summer menunjukkan lampau, jadi bentuk sekarang spend salah; perlu V2."
+   ],
+   [
+    "They spends a week in Japan last summer.",
+    "Spends tidak cocok untuk subjek they, dan kalimat ini lampau sehingga perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last summer they spent a week in Japan."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Ayah saya mengajari saya berenang ketika saya berumur enam tahun.",
+  "prompt": "My father ___ (teach) me how to swim when I was six.",
+  "hint": "lampau: when I was six",
+  "ans": "My father taught me how to swim when I was six.",
+  "why": "When I was six = masa lampau → V2 dari teach: taught.",
+  "wrong": [
+   [
+    "My father teached me how to swim when I was six.",
+    "Teach tidak beraturan; V2-nya taught, bukan teached."
+   ],
+   [
+    "My father teaches me how to swim when I was six.",
+    "When I was six menunjukkan lampau, jadi bentuk sekarang teaches salah; perlu V2."
+   ],
+   [
+    "My father thought me how to swim when I was six.",
+    "Thought adalah V2 dari think (berpikir), bukan teach; V2 dari teach adalah taught."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When I was six, my father taught me how to swim."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Lisa menemukan kuncinya di bawah sofa kemarin.",
+  "prompt": "Lisa ___ (find) her keys under the sofa yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "Lisa found her keys under the sofa yesterday.",
+  "why": "Yesterday = lampau → V2 dari find: found.",
+  "wrong": [
+   [
+    "Lisa finded her keys under the sofa yesterday.",
+    "Find tidak beraturan; V2-nya found, bukan finded."
+   ],
+   [
+    "Lisa find her keys under the sofa yesterday.",
+    "Find salah: kalimat ini lampau (yesterday), dan subjek Lisa juga tidak cocok dengan find."
+   ],
+   [
+    "Lisa finds her keys under the sofa yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang finds salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday Lisa found her keys under the sofa."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Kucing itu bersembunyi di bawah tempat tidur saat badai tadi malam.",
+  "prompt": "The cat ___ (hide) under the bed during the storm last night.",
+  "hint": "lampau: last night",
+  "ans": "The cat hid under the bed during the storm last night.",
+  "why": "Last night = lampau → V2 dari hide: hid.",
+  "wrong": [
+   [
+    "The cat hided under the bed during the storm last night.",
+    "Hide tidak beraturan; V2-nya hid, bukan hided."
+   ],
+   [
+    "The cat hidden under the bed during the storm last night.",
+    "Hidden adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "The cat hides under the bed during the storm last night.",
+    "Last night menunjukkan lampau, jadi bentuk sekarang hides salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night the cat hid under the bed during the storm.",
+   "During the storm last night, the cat hid under the bed."
+  ]
+ },
+ {
+  "set": "irr1",
+  "promptId": "Saya tidur selama sepuluh jam tadi malam.",
+  "prompt": "I ___ (sleep) for ten hours last night.",
+  "hint": "lampau: last night",
+  "ans": "I slept for ten hours last night.",
+  "why": "Last night = lampau → V2 dari sleep: slept.",
+  "wrong": [
+   [
+    "I sleeped for ten hours last night.",
+    "Sleep tidak beraturan; V2-nya slept, bukan sleeped."
+   ],
+   [
+    "I sleep for ten hours last night.",
+    "Last night menunjukkan lampau, jadi bentuk sekarang sleep salah; perlu V2."
+   ],
+   [
+    "I have slept for ten hours last night.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last night."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night I slept for ten hours."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Saya sudah menonton film itu tiga kali.",
+  "prompt": "I have ___ (see) that movie three times.",
+  "hint": "have + V3",
+  "ans": "I have seen that movie three times.",
+  "why": "Setelah have harus V3; V3 dari see adalah seen.",
+  "wrong": [
+   [
+    "I have saw that movie three times.",
+    "Setelah have/has/had harus V3 (seen), bukan V2 (saw)."
+   ],
+   [
+    "I have see that movie three times.",
+    "Setelah have/has/had harus V3 (seen), bukan bentuk dasar see."
+   ],
+   [
+    "I have seed that movie three times.",
+    "See tidak beraturan; V3-nya seen, bukan seed."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Dia (pr) sudah pergi ke bank, jadi sekarang dia tidak ada di sini.",
+  "prompt": "She has ___ (go) to the bank, so she is not here now.",
+  "hint": "has + V3",
+  "ans": "She has gone to the bank, so she is not here now.",
+  "why": "Setelah has harus V3; V3 dari go adalah gone.",
+  "wrong": [
+   [
+    "She has went to the bank, so she is not here now.",
+    "Setelah have/has/had harus V3 (gone), bukan V2 (went)."
+   ],
+   [
+    "She has go to the bank, so she is not here now.",
+    "Setelah have/has/had harus V3 (gone), bukan bentuk dasar go."
+   ],
+   [
+    "She has goed to the bank, so she is not here now.",
+    "Go tidak beraturan; V3-nya gone, bukan goed."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Kami sudah berkali-kali makan di restoran ini.",
+  "prompt": "We have ___ (eat) at this restaurant many times.",
+  "hint": "have + V3",
+  "ans": "We have eaten at this restaurant many times.",
+  "why": "Setelah have harus V3; V3 dari eat adalah eaten.",
+  "wrong": [
+   [
+    "We have ate at this restaurant many times.",
+    "Setelah have/has/had harus V3 (eaten), bukan V2 (ate)."
+   ],
+   [
+    "We have eat at this restaurant many times.",
+    "Setelah have/has/had harus V3 (eaten), bukan bentuk dasar eat."
+   ],
+   [
+    "We have eated at this restaurant many times.",
+    "Eat tidak beraturan; V3-nya eaten, bukan eated."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Apakah kamu pernah naik kuda?",
+  "prompt": "Have you ever ___ (ride) a horse?",
+  "hint": "pengalaman: have + V3",
+  "ans": "Have you ever ridden a horse?",
+  "why": "Have you ever + V3; V3 dari ride adalah ridden.",
+  "wrong": [
+   [
+    "Have you ever rode a horse?",
+    "Setelah have/has/had harus V3 (ridden), bukan V2 (rode)."
+   ],
+   [
+    "Have you ever ride a horse?",
+    "Setelah have/has/had harus V3 (ridden), bukan bentuk dasar ride."
+   ],
+   [
+    "Have you ever rided a horse?",
+    "Ride tidak beraturan; V3-nya ridden, bukan rided."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Paman saya sudah menjadi sopir taksi selama dua puluh tahun.",
+  "prompt": "My uncle has ___ (drive) a taxi for twenty years.",
+  "hint": "has + V3",
+  "ans": "My uncle has driven a taxi for twenty years.",
+  "why": "Setelah has harus V3; V3 dari drive adalah driven.",
+  "wrong": [
+   [
+    "My uncle has drove a taxi for twenty years.",
+    "Setelah have/has/had harus V3 (driven), bukan V2 (drove)."
+   ],
+   [
+    "My uncle has drive a taxi for twenty years.",
+    "Setelah have/has/had harus V3 (driven), bukan bentuk dasar drive."
+   ],
+   [
+    "My uncle has drived a taxi for twenty years.",
+    "Drive tidak beraturan; V3-nya driven, bukan drived."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Tom sudah menulis tiga buku tentang makanan Indonesia.",
+  "prompt": "Tom has ___ (write) three books about Indonesian food.",
+  "hint": "has + V3",
+  "ans": "Tom has written three books about Indonesian food.",
+  "why": "Setelah has harus V3; V3 dari write adalah written.",
+  "wrong": [
+   [
+    "Tom has wrote three books about Indonesian food.",
+    "Setelah have/has/had harus V3 (written), bukan V2 (wrote)."
+   ],
+   [
+    "Tom has write three books about Indonesian food.",
+    "Setelah have/has/had harus V3 (written), bukan bentuk dasar write."
+   ],
+   [
+    "Tom has writed three books about Indonesian food.",
+    "Write tidak beraturan; V3-nya written, bukan writed."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Saat kami tiba, filmnya sudah dimulai.",
+  "prompt": "By the time we arrived, the movie had already ___ (begin).",
+  "hint": "had + V3",
+  "ans": "By the time we arrived, the movie had already begun.",
+  "why": "Setelah had harus V3; V3 dari begin adalah begun.",
+  "wrong": [
+   [
+    "By the time we arrived, the movie had already began.",
+    "Setelah have/has/had harus V3 (begun), bukan V2 (began)."
+   ],
+   [
+    "By the time we arrived, the movie had already begin.",
+    "Setelah have/has/had harus V3 (begun), bukan bentuk dasar begin."
+   ],
+   [
+    "By the time we arrived, the movie had already beginned.",
+    "Begin tidak beraturan; V3-nya begun, bukan beginned."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "The movie had already begun by the time we arrived."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Saya belum pernah naik helikopter.",
+  "prompt": "I have never ___ (fly) in a helicopter.",
+  "hint": "pengalaman: have + V3",
+  "ans": "I have never flown in a helicopter.",
+  "why": "Have never + V3; V3 dari fly adalah flown.",
+  "wrong": [
+   [
+    "I have never flew in a helicopter.",
+    "Setelah have/has/had harus V3 (flown), bukan V2 (flew)."
+   ],
+   [
+    "I have never fly in a helicopter.",
+    "Setelah have/has/had harus V3 (flown), bukan bentuk dasar fly."
+   ],
+   [
+    "I have never flyed in a helicopter.",
+    "Fly tidak beraturan; V3-nya flown, bukan flyed."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Mereka sudah saling kenal sejak kecil.",
+  "prompt": "They have ___ (know) each other since they were children.",
+  "hint": "have + V3",
+  "ans": "They have known each other since they were children.",
+  "why": "Setelah have harus V3; V3 dari know adalah known.",
+  "wrong": [
+   [
+    "They have knew each other since they were children.",
+    "Setelah have/has/had harus V3 (known), bukan V2 (knew)."
+   ],
+   [
+    "They have know each other since they were children.",
+    "Setelah have/has/had harus V3 (known), bukan bentuk dasar know."
+   ],
+   [
+    "They have knowed each other since they were children.",
+    "Know tidak beraturan; V3-nya known, bukan knowed."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since they were children, they have known each other."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Tim kami sudah mengambil banyak foto untuk situs web perusahaan.",
+  "prompt": "Our team has ___ (take) a lot of photos for the company website.",
+  "hint": "has + V3",
+  "ans": "Our team has taken a lot of photos for the company website.",
+  "why": "Setelah has harus V3; V3 dari take adalah taken.",
+  "wrong": [
+   [
+    "Our team has took a lot of photos for the company website.",
+    "Setelah have/has/had harus V3 (taken), bukan V2 (took)."
+   ],
+   [
+    "Our team has take a lot of photos for the company website.",
+    "Setelah have/has/had harus V3 (taken), bukan bentuk dasar take."
+   ],
+   [
+    "Our team has taked a lot of photos for the company website.",
+    "Take tidak beraturan; V3-nya taken, bukan taked."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Bos saya sudah memberi saya banyak pekerjaan minggu ini.",
+  "prompt": "My boss has ___ (give) me a lot of work this week.",
+  "hint": "has + V3",
+  "ans": "My boss has given me a lot of work this week.",
+  "why": "Has + V3: give – gave – given.",
+  "wrong": [
+   [
+    "My boss has gave me a lot of work this week.",
+    "Setelah has harus V3 (given), bukan V2 (gave)."
+   ],
+   [
+    "My boss has give me a lot of work this week.",
+    "Setelah has harus V3 (given), bukan bentuk dasar."
+   ],
+   [
+    "My boss has gived me a lot of work this week.",
+    "Give tidak beraturan; tidak ada bentuk gived."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "This week my boss has given me a lot of work."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Apakah kamu sudah bertemu teman sekamar baru saya?",
+  "prompt": "Have you ___ (meet) my new roommate?",
+  "hint": "have + V3",
+  "ans": "Have you met my new roommate?",
+  "why": "Setelah have harus V3; V3 dari meet adalah met (V2 = V3).",
+  "wrong": [
+   [
+    "Have you meet my new roommate?",
+    "Setelah have/has/had harus V3 (met), bukan bentuk dasar meet."
+   ],
+   [
+    "Have you meeted my new roommate?",
+    "Meet tidak beraturan; V3-nya met, bukan meeted."
+   ],
+   [
+    "Have you meeting my new roommate?",
+    "Have/has/had + meeting tidak gramatikal; yang benar have/has/had + V3 (met)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Sari sudah membeli laptop baru untuk kelas daringnya.",
+  "prompt": "Sari has ___ (buy) a new laptop for her online classes.",
+  "hint": "has + V3",
+  "ans": "Sari has bought a new laptop for her online classes.",
+  "why": "Setelah has harus V3; V3 dari buy adalah bought (V2 = V3).",
+  "wrong": [
+   [
+    "Sari has buy a new laptop for her online classes.",
+    "Setelah have/has/had harus V3 (bought), bukan bentuk dasar buy."
+   ],
+   [
+    "Sari has buyed a new laptop for her online classes.",
+    "Buy tidak beraturan; V3-nya bought, bukan buyed."
+   ],
+   [
+    "Sari has buying a new laptop for her online classes.",
+    "Have/has/had + buying tidak gramatikal; yang benar have/has/had + V3 (bought)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Ponsel saya hilang lagi!",
+  "prompt": "I have ___ (lose) my phone again!",
+  "hint": "have + V3",
+  "ans": "I have lost my phone again!",
+  "why": "Setelah have harus V3; V3 dari lose adalah lost.",
+  "wrong": [
+   [
+    "I have lose my phone again!",
+    "Setelah have/has/had harus V3 (lost), bukan bentuk dasar lose."
+   ],
+   [
+    "I have losed my phone again!",
+    "Lose tidak beraturan; V3-nya lost, bukan losed."
+   ],
+   [
+    "I have loss my phone again!",
+    "Loss adalah kata benda (kehilangan); setelah have perlu V3 lost."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Surat ini dikirim dari Jakarta minggu lalu.",
+  "prompt": "This letter ___ (send) from Jakarta last week.",
+  "hint": "pasif, lampau",
+  "ans": "This letter was sent from Jakarta last week.",
+  "why": "Surat tidak mengirim sendiri, jadi pasif lampau: was + V3 (sent).",
+  "wrong": [
+   [
+    "This letter was send from Jakarta last week.",
+    "Kalimat pasif memakai be + V3 (sent), bukan bentuk dasar send."
+   ],
+   [
+    "This letter was sended from Jakarta last week.",
+    "Send tidak beraturan; V3-nya sent, bukan sended."
+   ],
+   [
+    "This letter sent from Jakarta last week.",
+    "Tanpa was, kalimat ini berarti surat itu yang mengirim; pasif butuh was + V3."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last week this letter was sent from Jakarta.",
+   "This letter was sent last week from Jakarta."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Bahasa Inggris digunakan di banyak negara.",
+  "prompt": "English is ___ (speak) in many countries.",
+  "hint": "pasif: is + V3",
+  "ans": "English is spoken in many countries.",
+  "why": "Pasif memakai be + V3; V3 dari speak adalah spoken.",
+  "wrong": [
+   [
+    "English is spoke in many countries.",
+    "Kalimat pasif memakai be + V3 (spoken), bukan V2 (spoke)."
+   ],
+   [
+    "English is speak in many countries.",
+    "Kalimat pasif memakai be + V3 (spoken), bukan bentuk dasar speak."
+   ],
+   [
+    "English is speaked in many countries.",
+    "Speak tidak beraturan; V3-nya spoken, bukan speaked."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In many countries, English is spoken."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Padi ditanam di banyak daerah di Indonesia.",
+  "prompt": "Rice is ___ (grow) in many parts of Indonesia.",
+  "hint": "pasif: is + V3",
+  "ans": "Rice is grown in many parts of Indonesia.",
+  "why": "Pasif memakai be + V3; V3 dari grow adalah grown.",
+  "wrong": [
+   [
+    "Rice is grew in many parts of Indonesia.",
+    "Kalimat pasif memakai be + V3 (grown), bukan V2 (grew)."
+   ],
+   [
+    "Rice is grow in many parts of Indonesia.",
+    "Kalimat pasif memakai be + V3 (grown), bukan bentuk dasar grow."
+   ],
+   [
+    "Rice is growed in many parts of Indonesia.",
+    "Grow tidak beraturan; V3-nya grown, bukan growed."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In many parts of Indonesia, rice is grown."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Mobil kami dicuri di depan rumah tadi malam.",
+  "prompt": "Our car was ___ (steal) in front of our house last night.",
+  "hint": "pasif: was + V3",
+  "ans": "Our car was stolen in front of our house last night.",
+  "why": "Pasif memakai be + V3; V3 dari steal adalah stolen.",
+  "wrong": [
+   [
+    "Our car was stole in front of our house last night.",
+    "Kalimat pasif memakai be + V3 (stolen), bukan V2 (stole)."
+   ],
+   [
+    "Our car was steal in front of our house last night.",
+    "Kalimat pasif memakai be + V3 (stolen), bukan bentuk dasar steal."
+   ],
+   [
+    "Our car was stealed in front of our house last night.",
+    "Steal tidak beraturan; V3-nya stolen, bukan stealed."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night our car was stolen in front of our house.",
+   "Our car was stolen last night in front of our house."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Buku-buku ini diberikan kepada kami oleh guru kami.",
+  "prompt": "These books were ___ (give) to us by our teacher.",
+  "hint": "pasif: were + V3",
+  "ans": "These books were given to us by our teacher.",
+  "why": "Pasif memakai be + V3; V3 dari give adalah given.",
+  "wrong": [
+   [
+    "These books were gave to us by our teacher.",
+    "Kalimat pasif memakai be + V3 (given), bukan V2 (gave)."
+   ],
+   [
+    "These books were give to us by our teacher.",
+    "Kalimat pasif memakai be + V3 (given), bukan bentuk dasar give."
+   ],
+   [
+    "These books were gived to us by our teacher.",
+    "Give tidak beraturan; V3-nya given, bukan gived."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Pemenangnya akan dipilih Senin depan.",
+  "prompt": "The winner will be ___ (choose) next Monday.",
+  "hint": "pasif: will be + V3",
+  "ans": "The winner will be chosen next Monday.",
+  "why": "Pasif memakai be + V3; V3 dari choose adalah chosen.",
+  "wrong": [
+   [
+    "The winner will be chose next Monday.",
+    "Kalimat pasif memakai be + V3 (chosen), bukan V2 (chose)."
+   ],
+   [
+    "The winner will be choose next Monday.",
+    "Kalimat pasif memakai be + V3 (chosen), bukan bentuk dasar choose."
+   ],
+   [
+    "The winner will be choosed next Monday.",
+    "Choose tidak beraturan; V3-nya chosen, bukan choosed."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Next Monday the winner will be chosen."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Guru kami sudah mengajar di sekolah ini sejak 2015.",
+  "prompt": "Our teacher has ___ (teach) at this school since 2015.",
+  "hint": "has + V3",
+  "ans": "Our teacher has taught at this school since 2015.",
+  "why": "Setelah has harus V3; V3 dari teach adalah taught.",
+  "wrong": [
+   [
+    "Our teacher has teach at this school since 2015.",
+    "Setelah have/has/had harus V3 (taught), bukan bentuk dasar teach."
+   ],
+   [
+    "Our teacher has teached at this school since 2015.",
+    "Teach tidak beraturan; V3-nya taught, bukan teached."
+   ],
+   [
+    "Our teacher has teaching at this school since 2015.",
+    "Have/has/had + teaching tidak gramatikal; yang benar have/has/had + V3 (taught)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since 2015 our teacher has taught at this school."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Seseorang sudah menghabiskan semua susu sebelum saya sampai di rumah.",
+  "prompt": "Someone had ___ (drink) all the milk before I got home.",
+  "hint": "had + V3",
+  "ans": "Someone had drunk all the milk before I got home.",
+  "why": "Setelah had harus V3; V3 dari drink adalah drunk.",
+  "wrong": [
+   [
+    "Someone had drink all the milk before I got home.",
+    "Setelah have/has/had harus V3 (drunk), bukan bentuk dasar drink."
+   ],
+   [
+    "Someone had drinked all the milk before I got home.",
+    "Drink tidak beraturan; V3-nya drunk, bukan drinked."
+   ],
+   [
+    "Someone had drinking all the milk before I got home.",
+    "Have/has/had + drinking tidak gramatikal; yang benar have/has/had + V3 (drunk)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Before I got home, someone had drunk all the milk."
+  ]
+ },
+ {
+  "set": "irr2",
+  "promptId": "Apakah keretanya sudah berangkat?",
+  "prompt": "Has the train ___ (leave) yet?",
+  "hint": "has + V3",
+  "ans": "Has the train left yet?",
+  "why": "Setelah has harus V3; V3 dari leave adalah left.",
+  "wrong": [
+   [
+    "Has the train leave yet?",
+    "Setelah have/has/had harus V3 (left), bukan bentuk dasar leave."
+   ],
+   [
+    "Has the train leaved yet?",
+    "Leave tidak beraturan; V3-nya left, bukan leaved."
+   ],
+   [
+    "Has the train leaving yet?",
+    "Have/has/had + leaving tidak gramatikal; yang benar have/has/had + V3 (left)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Kakak laki-laki saya sudah memakai jaket yang sama selama tiga tahun.",
+  "prompt": "My brother has ___ (wear) the same jacket for three years.",
+  "hint": "has + V3",
+  "ans": "My brother has worn the same jacket for three years.",
+  "why": "Setelah has harus V3; V3 dari wear adalah worn.",
+  "wrong": [
+   [
+    "My brother has wore the same jacket for three years.",
+    "Setelah have/has/had harus V3 (worn), bukan V2 (wore)."
+   ],
+   [
+    "My brother has wear the same jacket for three years.",
+    "Setelah have/has/had harus V3 (worn), bukan bentuk dasar wear."
+   ],
+   [
+    "My brother has weared the same jacket for three years.",
+    "Wear tidak beraturan; V3-nya worn, bukan weared."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Saya sudah banyak mendengar tentang kamu.",
+  "prompt": "I have ___ (hear) a lot about you.",
+  "hint": "have + V3",
+  "ans": "I have heard a lot about you.",
+  "why": "Setelah have harus V3; V3 dari hear adalah heard.",
+  "wrong": [
+   [
+    "I have hear a lot about you.",
+    "Setelah have/has/had harus V3 (heard), bukan bentuk dasar hear."
+   ],
+   [
+    "I have heared a lot about you.",
+    "Hear tidak beraturan; V3-nya heard, bukan heared."
+   ],
+   [
+    "I have hears a lot about you.",
+    "Setelah have harus V3 (heard), bukan bentuk -s hears."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Lukisan ini terjual seharga lima puluh juta rupiah.",
+  "prompt": "This painting was ___ (sell) for fifty million rupiah.",
+  "hint": "pasif: was + V3",
+  "ans": "This painting was sold for fifty million rupiah.",
+  "why": "Pasif memakai be + V3; V3 dari sell adalah sold.",
+  "wrong": [
+   [
+    "This painting was sell for fifty million rupiah.",
+    "Kalimat pasif memakai be + V3 (sold), bukan bentuk dasar sell."
+   ],
+   [
+    "This painting was selled for fifty million rupiah.",
+    "Sell tidak beraturan; V3-nya sold, bukan selled."
+   ],
+   [
+    "This painting was sale for fifty million rupiah.",
+    "Sale adalah kata benda (penjualan); pasif butuh was + V3 sold."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Siapa yang melempar kertas-kertas ini ke lantai?",
+  "prompt": "Who has ___ (throw) these papers on the floor?",
+  "hint": "has + V3",
+  "ans": "Who has thrown these papers on the floor?",
+  "why": "Setelah has harus V3; V3 dari throw adalah thrown.",
+  "wrong": [
+   [
+    "Who has threw these papers on the floor?",
+    "Setelah have/has/had harus V3 (thrown), bukan V2 (threw)."
+   ],
+   [
+    "Who has throw these papers on the floor?",
+    "Setelah have/has/had harus V3 (thrown), bukan bentuk dasar throw."
+   ],
+   [
+    "Who has throwed these papers on the floor?",
+    "Throw tidak beraturan; V3-nya thrown, bukan throwed."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Maaf, saya belum mengerjakan PR saya.",
+  "prompt": "Sorry, I haven't ___ (do) my homework.",
+  "hint": "have not + V3",
+  "ans": "Sorry, I haven't done my homework.",
+  "why": "Setelah haven't harus V3; V3 dari do adalah done.",
+  "wrong": [
+   [
+    "Sorry, I haven't did my homework.",
+    "Setelah have/has/had harus V3 (done), bukan V2 (did)."
+   ],
+   [
+    "Sorry, I haven't do my homework.",
+    "Setelah have/has/had harus V3 (done), bukan bentuk dasar do."
+   ],
+   [
+    "Sorry, I haven't doed my homework.",
+    "Do tidak beraturan; V3-nya done, bukan doed."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Sudah berapa kali kamu jatuh dari sepeda?",
+  "prompt": "How many times have you ___ (fall) off your bike?",
+  "hint": "have + V3",
+  "ans": "How many times have you fallen off your bike?",
+  "why": "Setelah have harus V3; V3 dari fall adalah fallen.",
+  "wrong": [
+   [
+    "How many times have you fell off your bike?",
+    "Setelah have/has/had harus V3 (fallen), bukan V2 (fell)."
+   ],
+   [
+    "How many times have you fall off your bike?",
+    "Setelah have/has/had harus V3 (fallen), bukan bentuk dasar fall."
+   ],
+   [
+    "How many times have you falled off your bike?",
+    "Fall tidak beraturan; V3-nya fallen, bukan falled."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr2",
+  "promptId": "Pencurinya ditangkap polisi tadi pagi.",
+  "prompt": "The thief was ___ (catch) by the police this morning.",
+  "hint": "pasif: was + V3",
+  "ans": "The thief was caught by the police this morning.",
+  "why": "Pasif memakai be + V3; V3 dari catch adalah caught.",
+  "wrong": [
+   [
+    "The thief was catch by the police this morning.",
+    "Kalimat pasif memakai be + V3 (caught), bukan bentuk dasar catch."
+   ],
+   [
+    "The thief was catched by the police this morning.",
+    "Catch tidak beraturan; V3-nya caught, bukan catched."
+   ],
+   [
+    "The thief was catching by the police this morning.",
+    "Arti kalimat ini pasif, jadi be + V3 (caught), bukan be + catching."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "This morning the thief was caught by the police.",
+   "The thief was caught this morning by the police."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Saya tidak melihat Rudi di kantor kemarin.",
+  "prompt": "I ___ (not / see) Rudi at the office yesterday.",
+  "hint": "negatif lampau: did not",
+  "ans": "I did not see Rudi at the office yesterday.",
+  "why": "Negatif lampau = did not + V1, jadi see tetap bentuk dasar.",
+  "wrong": [
+   [
+    "I did not saw Rudi at the office yesterday.",
+    "Setelah did/did not, kata kerja kembali ke V1 (see), bukan saw."
+   ],
+   [
+    "I not saw Rudi at the office yesterday.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not saw\" saja."
+   ],
+   [
+    "I have not seen Rudi at the office yesterday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday I did not see Rudi at the office."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Apakah kamu sarapan sebelum berangkat dari rumah?",
+  "prompt": "___ (you / eat) breakfast before you left home?",
+  "hint": "tanya lampau: Did",
+  "ans": "Did you eat breakfast before you left home?",
+  "why": "Pertanyaan lampau = Did + subjek + V1 (eat).",
+  "wrong": [
+   [
+    "Did you ate breakfast before you left home?",
+    "Setelah did/did not, kata kerja kembali ke V1 (eat), bukan ate."
+   ],
+   [
+    "Did you eaten breakfast before you left home?",
+    "Setelah did/did not, kata kerja kembali ke V1 (eat), bukan eaten."
+   ],
+   [
+    "Have you ate breakfast before you left home?",
+    "Setelah have harus V3 (eaten), bukan V2 ate; lagi pula left menunjukkan lampau, jadi pakai Did."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Dia (pr) tidak pergi bekerja karena sedang sakit.",
+  "prompt": "She didn't ___ (go) to work because she was sick.",
+  "hint": "didn't + V1",
+  "ans": "She didn't go to work because she was sick.",
+  "why": "Setelah didn't, kata kerja kembali ke V1: go.",
+  "wrong": [
+   [
+    "She didn't went to work because she was sick.",
+    "Setelah did/did not, kata kerja kembali ke V1 (go), bukan went."
+   ],
+   [
+    "She didn't gone to work because she was sick.",
+    "Setelah did/did not, kata kerja kembali ke V1 (go), bukan gone."
+   ],
+   [
+    "She didn't goes to work because she was sick.",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (go), bukan goes."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Because she was sick, she didn't go to work."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Kami tidak membeli apa-apa di mal tadi malam.",
+  "prompt": "We ___ (not / buy) anything at the mall last night.",
+  "hint": "negatif lampau: did not",
+  "ans": "We did not buy anything at the mall last night.",
+  "why": "Negatif lampau = did not + V1 (buy).",
+  "wrong": [
+   [
+    "We did not bought anything at the mall last night.",
+    "Setelah did/did not, kata kerja kembali ke V1 (buy), bukan bought."
+   ],
+   [
+    "We not bought anything at the mall last night.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not bought\" saja."
+   ],
+   [
+    "We have not bought anything at the mall last night.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last night."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night we did not buy anything at the mall."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Apakah saudara laki-lakimu mengambil potongan kue terakhir?",
+  "prompt": "Did your brother ___ (take) the last piece of cake?",
+  "hint": "Did + V1",
+  "ans": "Did your brother take the last piece of cake?",
+  "why": "Setelah did, kata kerja kembali ke V1: take.",
+  "wrong": [
+   [
+    "Did your brother took the last piece of cake?",
+    "Setelah did/did not, kata kerja kembali ke V1 (take), bukan took."
+   ],
+   [
+    "Did your brother taken the last piece of cake?",
+    "Setelah did/did not, kata kerja kembali ke V1 (take), bukan taken."
+   ],
+   [
+    "Did your brother takes the last piece of cake?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (take), bukan takes."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Saya baru saja membuang koran-koran lama.",
+  "prompt": "I have just ___ (throw) the old newspapers away.",
+  "hint": "have just + V3",
+  "ans": "I have just thrown the old newspapers away.",
+  "why": "Setelah have harus V3; V3 dari throw adalah thrown.",
+  "wrong": [
+   [
+    "I have just threw the old newspapers away.",
+    "Setelah have/has/had harus V3 (thrown), bukan V2 (threw)."
+   ],
+   [
+    "I have just throw the old newspapers away.",
+    "Setelah have/has/had harus V3 (thrown), bukan bentuk dasar throw."
+   ],
+   [
+    "I have just throwed the old newspapers away.",
+    "Throw tidak beraturan; V3-nya thrown, bukan throwed."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "I have just thrown away the old newspapers."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Kapan kamu bertemu suamimu?",
+  "prompt": "When did you ___ (meet) your husband?",
+  "hint": "did + V1",
+  "ans": "When did you meet your husband?",
+  "why": "Setelah did, kata kerja kembali ke V1: meet.",
+  "wrong": [
+   [
+    "When did you met your husband?",
+    "Setelah did/did not, kata kerja kembali ke V1 (meet), bukan met."
+   ],
+   [
+    "When did you meets your husband?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (meet), bukan meets."
+   ],
+   [
+    "When did you meeting your husband?",
+    "Setelah did/did not harus V1 (meet), bukan bentuk -ing meeting."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Andi tidak menulis namanya di lembar ujian Senin lalu.",
+  "prompt": "Andi ___ (not / write) his name on the exam paper last Monday.",
+  "hint": "negatif lampau: did not",
+  "ans": "Andi did not write his name on the exam paper last Monday.",
+  "why": "Negatif lampau = did not + V1 (write).",
+  "wrong": [
+   [
+    "Andi did not wrote his name on the exam paper last Monday.",
+    "Setelah did/did not, kata kerja kembali ke V1 (write), bukan wrote."
+   ],
+   [
+    "Andi not wrote his name on the exam paper last Monday.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not wrote\" saja."
+   ],
+   [
+    "Andi has not written his name on the exam paper last Monday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last Monday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Monday Andi did not write his name on the exam paper."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Kamu lihat kunci saya? Saya tidak bisa menemukannya.",
+  "prompt": "Have you ___ (see) my keys? I can't find them.",
+  "hint": "Have + V3",
+  "ans": "Have you seen my keys? I can't find them.",
+  "why": "Setelah have harus V3; V3 dari see adalah seen.",
+  "wrong": [
+   [
+    "Have you saw my keys? I can't find them.",
+    "Setelah have/has/had harus V3 (seen), bukan V2 (saw)."
+   ],
+   [
+    "Have you see my keys? I can't find them.",
+    "Setelah have/has/had harus V3 (seen), bukan bentuk dasar see."
+   ],
+   [
+    "Have you seeing my keys? I can't find them.",
+    "Have/has/had + seeing tidak gramatikal; yang benar have/has/had + V3 (seen)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Kemarin kami pergi ke Bandung naik mobil.",
+  "prompt": "Yesterday we ___ (drive) to Bandung.",
+  "hint": "lampau positif: V2",
+  "ans": "Yesterday we drove to Bandung.",
+  "why": "Kalimat positif lampau tanpa kata bantu → V2 dari drive: drove.",
+  "wrong": [
+   [
+    "Yesterday we driven to Bandung.",
+    "Driven adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "Yesterday we did drove to Bandung.",
+    "Did + V2 tidak gramatikal; kalimat positif lampau cukup memakai V2 drove."
+   ],
+   [
+    "Yesterday we drive to Bandung.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang drive salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We drove to Bandung yesterday."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Kenapa kamu tidak memberi tahu saya tentang pestanya?",
+  "prompt": "Why didn't you ___ (tell) me about the party?",
+  "hint": "didn't + V1",
+  "ans": "Why didn't you tell me about the party?",
+  "why": "Setelah didn't, kata kerja kembali ke V1: tell.",
+  "wrong": [
+   [
+    "Why didn't you told me about the party?",
+    "Setelah did/did not, kata kerja kembali ke V1 (tell), bukan told."
+   ],
+   [
+    "Why didn't you telling me about the party?",
+    "Setelah did/did not harus V1 (tell), bukan bentuk -ing telling."
+   ],
+   [
+    "Why didn't you tells me about the party?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (tell), bukan tells."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Dia (pr) tidak tahu jawabannya, jadi dia bertanya kepada temannya.",
+  "prompt": "She ___ (not / know) the answer, so she asked her friend.",
+  "hint": "negatif lampau: did not",
+  "ans": "She did not know the answer, so she asked her friend.",
+  "why": "Ceritanya lampau (asked) → did not + V1 (know).",
+  "wrong": [
+   [
+    "She did not knew the answer, so she asked her friend.",
+    "Setelah did/did not, kata kerja kembali ke V1 (know), bukan knew."
+   ],
+   [
+    "She not knew the answer, so she asked her friend.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not knew\" saja."
+   ],
+   [
+    "She has not known the answer, so she asked her friend.",
+    "Kalimat ini menceritakan kejadian lampau (asked), jadi pakai did not know, bukan present perfect."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Apakah mereka memenangkan pertandingan tadi malam?",
+  "prompt": "Did they ___ (win) the match last night?",
+  "hint": "Did + V1",
+  "ans": "Did they win the match last night?",
+  "why": "Setelah did, kata kerja kembali ke V1: win.",
+  "wrong": [
+   [
+    "Did they won the match last night?",
+    "Setelah did/did not, kata kerja kembali ke V1 (win), bukan won."
+   ],
+   [
+    "Did they wins the match last night?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (win), bukan wins."
+   ],
+   [
+    "Did they winned the match last night?",
+    "Win tidak beraturan (won), dan setelah did tetap V1: win."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Anak-anak sudah menyembunyikan sepatu saya di suatu tempat.",
+  "prompt": "The kids have ___ (hide) my shoes somewhere.",
+  "hint": "have + V3",
+  "ans": "The kids have hidden my shoes somewhere.",
+  "why": "Setelah have harus V3; V3 dari hide adalah hidden.",
+  "wrong": [
+   [
+    "The kids have hided my shoes somewhere.",
+    "Hide tidak beraturan; V3-nya hidden, bukan hided."
+   ],
+   [
+    "The kids have hide my shoes somewhere.",
+    "Setelah have/has/had harus V3 (hidden), bukan bentuk dasar hide."
+   ],
+   [
+    "The kids have hiding my shoes somewhere.",
+    "Have/has/had + hiding tidak gramatikal; yang benar have/has/had + V3 (hidden)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Tadi malam saya mendengar suara aneh di luar.",
+  "prompt": "Last night I ___ (hear) a strange noise outside.",
+  "hint": "lampau positif: V2",
+  "ans": "Last night I heard a strange noise outside.",
+  "why": "Kalimat positif lampau tanpa kata bantu → V2 dari hear: heard.",
+  "wrong": [
+   [
+    "Last night I heared a strange noise outside.",
+    "Hear tidak beraturan; V2-nya heard, bukan heared."
+   ],
+   [
+    "Last night I did heard a strange noise outside.",
+    "Did + V2 tidak gramatikal; kalimat positif lampau cukup memakai V2 heard."
+   ],
+   [
+    "Last night I hear a strange noise outside.",
+    "Last night menunjukkan lampau, jadi bentuk sekarang hear salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "I heard a strange noise outside last night."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Apakah dia (pr) membawa laptopnya ke rapat kemarin?",
+  "prompt": "___ (she / bring) her laptop to the meeting yesterday?",
+  "hint": "tanya lampau: Did",
+  "ans": "Did she bring her laptop to the meeting yesterday?",
+  "why": "Pertanyaan lampau = Did + subjek + V1 (bring).",
+  "wrong": [
+   [
+    "Did she brought her laptop to the meeting yesterday?",
+    "Setelah did/did not, kata kerja kembali ke V1 (bring), bukan brought."
+   ],
+   [
+    "Has she brought her laptop to the meeting yesterday?",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ],
+   [
+    "Did she brings her laptop to the meeting yesterday?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (bring), bukan brings."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Orang tua saya tidak memberi saya uang bulan lalu.",
+  "prompt": "My parents ___ (not / give) me any money last month.",
+  "hint": "negatif lampau: did not",
+  "ans": "My parents did not give me any money last month.",
+  "why": "Negatif lampau = did not + V1 (give).",
+  "wrong": [
+   [
+    "My parents did not gave me any money last month.",
+    "Setelah did/did not, kata kerja kembali ke V1 (give), bukan gave."
+   ],
+   [
+    "My parents not gave me any money last month.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not gave\" saja."
+   ],
+   [
+    "My parents have not given me any money last month.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last month."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last month my parents did not give me any money."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Apakah ada yang mengambil charger saya? Tadi masih ada di sini.",
+  "prompt": "Has someone ___ (take) my charger? It was here a minute ago.",
+  "hint": "Has + V3",
+  "ans": "Has someone taken my charger? It was here a minute ago.",
+  "why": "Setelah has harus V3; V3 dari take adalah taken.",
+  "wrong": [
+   [
+    "Has someone took my charger? It was here a minute ago.",
+    "Setelah have/has/had harus V3 (taken), bukan V2 (took)."
+   ],
+   [
+    "Has someone take my charger? It was here a minute ago.",
+    "Setelah have/has/had harus V3 (taken), bukan bentuk dasar take."
+   ],
+   [
+    "Has someone taked my charger? It was here a minute ago.",
+    "Take tidak beraturan; V3-nya taken, bukan taked."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Kami merasa tidak enak badan setelah makan di restoran itu.",
+  "prompt": "We didn't ___ (feel) well after eating at that restaurant.",
+  "hint": "didn't + V1",
+  "ans": "We didn't feel well after eating at that restaurant.",
+  "why": "Setelah didn't, kata kerja kembali ke V1: feel.",
+  "wrong": [
+   [
+    "We didn't felt well after eating at that restaurant.",
+    "Setelah did/did not, kata kerja kembali ke V1 (feel), bukan felt."
+   ],
+   [
+    "We didn't feels well after eating at that restaurant.",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (feel), bukan feels."
+   ],
+   [
+    "We didn't feeling well after eating at that restaurant.",
+    "Setelah did/did not harus V1 (feel), bukan bentuk -ing feeling."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "After eating at that restaurant, we didn't feel well."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Saya tidak mengerti pertanyaannya, jadi saya bertanya lagi.",
+  "prompt": "I ___ (not / understand) the question, so I asked again.",
+  "hint": "negatif lampau: did not",
+  "ans": "I did not understand the question, so I asked again.",
+  "why": "Ceritanya lampau (asked) → did not + V1 (understand).",
+  "wrong": [
+   [
+    "I did not understood the question, so I asked again.",
+    "Setelah did/did not, kata kerja kembali ke V1 (understand), bukan understood."
+   ],
+   [
+    "I not understood the question, so I asked again.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not understood\" saja."
+   ],
+   [
+    "I do not understood the question, so I asked again.",
+    "Do not harus diikuti V1, dan kalimat ini lampau sehingga perlu did not understand."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Apakah kamu berbicara dengan manajer tentang gajimu?",
+  "prompt": "Did you ___ (speak) to the manager about your salary?",
+  "hint": "Did + V1",
+  "ans": "Did you speak to the manager about your salary?",
+  "why": "Setelah did, kata kerja kembali ke V1: speak.",
+  "wrong": [
+   [
+    "Did you spoke to the manager about your salary?",
+    "Setelah did/did not, kata kerja kembali ke V1 (speak), bukan spoke."
+   ],
+   [
+    "Did you spoken to the manager about your salary?",
+    "Setelah did/did not, kata kerja kembali ke V1 (speak), bukan spoken."
+   ],
+   [
+    "Did you speaks to the manager about your salary?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (speak), bukan speaks."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Mereka sudah memilih nama untuk bayi mereka.",
+  "prompt": "They have ___ (choose) a name for their baby.",
+  "hint": "have + V3",
+  "ans": "They have chosen a name for their baby.",
+  "why": "Setelah have harus V3; V3 dari choose adalah chosen.",
+  "wrong": [
+   [
+    "They have chose a name for their baby.",
+    "Setelah have/has/had harus V3 (chosen), bukan V2 (chose)."
+   ],
+   [
+    "They have choose a name for their baby.",
+    "Setelah have/has/had harus V3 (chosen), bukan bentuk dasar choose."
+   ],
+   [
+    "They have choosed a name for their baby.",
+    "Choose tidak beraturan; V3-nya chosen, bukan choosed."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Dia (lk) lupa mengunci pintu tadi malam.",
+  "prompt": "He ___ (forget) to lock the door last night.",
+  "hint": "lampau positif: V2",
+  "ans": "He forgot to lock the door last night.",
+  "why": "Kalimat positif lampau tanpa kata bantu → V2 dari forget: forgot.",
+  "wrong": [
+   [
+    "He forgotten to lock the door last night.",
+    "Forgotten adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "He did forgot to lock the door last night.",
+    "Did + V2 tidak gramatikal; kalimat positif lampau cukup memakai V2 forgot."
+   ],
+   [
+    "He forgets to lock the door last night.",
+    "Last night menunjukkan lampau, jadi bentuk sekarang forgets salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night he forgot to lock the door."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Pesawatnya tidak berangkat tepat waktu kemarin.",
+  "prompt": "The plane ___ (not / leave) on time yesterday.",
+  "hint": "negatif lampau: did not",
+  "ans": "The plane did not leave on time yesterday.",
+  "why": "Negatif lampau = did not + V1 (leave).",
+  "wrong": [
+   [
+    "The plane did not left on time yesterday.",
+    "Setelah did/did not, kata kerja kembali ke V1 (leave), bukan left."
+   ],
+   [
+    "The plane not left on time yesterday.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not left\" saja."
+   ],
+   [
+    "The plane has not left on time yesterday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday the plane did not leave on time."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Apakah kamu membayar tiketnya?",
+  "prompt": "Did you ___ (pay) for the tickets?",
+  "hint": "Did + V1",
+  "ans": "Did you pay for the tickets?",
+  "why": "Setelah did, kata kerja kembali ke V1: pay.",
+  "wrong": [
+   [
+    "Did you paid for the tickets?",
+    "Setelah did/did not, kata kerja kembali ke V1 (pay), bukan paid."
+   ],
+   [
+    "Did you pays for the tickets?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (pay), bukan pays."
+   ],
+   [
+    "Did you paying for the tickets?",
+    "Setelah did/did not harus V1 (pay), bukan bentuk -ing paying."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Dia (pr) sudah tumbuh pesat sejak tahun lalu.",
+  "prompt": "She has ___ (grow) a lot since last year.",
+  "hint": "has + V3",
+  "ans": "She has grown a lot since last year.",
+  "why": "Setelah has harus V3; V3 dari grow adalah grown.",
+  "wrong": [
+   [
+    "She has grew a lot since last year.",
+    "Setelah have/has/had harus V3 (grown), bukan V2 (grew)."
+   ],
+   [
+    "She has grow a lot since last year.",
+    "Setelah have/has/had harus V3 (grown), bukan bentuk dasar grow."
+   ],
+   [
+    "She has growed a lot since last year.",
+    "Grow tidak beraturan; V3-nya grown, bukan growed."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since last year she has grown a lot."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Kami naik taksi ke bandara Minggu lalu.",
+  "prompt": "We ___ (catch) a taxi to the airport last Sunday.",
+  "hint": "lampau positif: V2",
+  "ans": "We caught a taxi to the airport last Sunday.",
+  "why": "Kalimat positif lampau tanpa kata bantu → V2 dari catch: caught.",
+  "wrong": [
+   [
+    "We catched a taxi to the airport last Sunday.",
+    "Catch tidak beraturan; V2-nya caught, bukan catched."
+   ],
+   [
+    "We did caught a taxi to the airport last Sunday.",
+    "Did + V2 tidak gramatikal; kalimat positif lampau cukup memakai V2 caught."
+   ],
+   [
+    "We catch a taxi to the airport last Sunday.",
+    "Last Sunday menunjukkan lampau, jadi bentuk sekarang catch salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Sunday we caught a taxi to the airport."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Apa yang kamu lakukan akhir pekan lalu?",
+  "prompt": "What ___ (you / do) last weekend?",
+  "hint": "tanya lampau: did",
+  "ans": "What did you do last weekend?",
+  "why": "Pertanyaan lampau = did + subjek + V1 (do).",
+  "wrong": [
+   [
+    "What did you did last weekend?",
+    "Setelah did/did not, kata kerja kembali ke V1 (do), bukan did."
+   ],
+   [
+    "What have you done last weekend?",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last weekend."
+   ],
+   [
+    "What you did last weekend?",
+    "Pertanyaan dengan What butuh kata bantu did sebelum subjek: What did you do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr3",
+  "promptId": "Filmnya baru dimulai pukul delapan tadi malam.",
+  "prompt": "The movie ___ (not / begin) until eight o'clock last night.",
+  "hint": "negatif lampau: did not",
+  "ans": "The movie did not begin until eight o'clock last night.",
+  "why": "Negatif lampau = did not + V1 (begin).",
+  "wrong": [
+   [
+    "The movie did not began until eight o'clock last night.",
+    "Setelah did/did not, kata kerja kembali ke V1 (begin), bukan began."
+   ],
+   [
+    "The movie not began until eight o'clock last night.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not began\" saja."
+   ],
+   [
+    "The movie has not begun until eight o'clock last night.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last night."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night the movie did not begin until eight o'clock."
+  ]
+ },
+ {
+  "set": "irr3",
+  "promptId": "Apakah ada yang menemukan dompet hitam?",
+  "prompt": "Has anyone ___ (find) a black wallet?",
+  "hint": "Has + V3",
+  "ans": "Has anyone found a black wallet?",
+  "why": "Setelah has harus V3; V3 dari find adalah found.",
+  "wrong": [
+   [
+    "Has anyone find a black wallet?",
+    "Setelah have/has/had harus V3 (found), bukan bentuk dasar find."
+   ],
+   [
+    "Has anyone finded a black wallet?",
+    "Find tidak beraturan; V3-nya found, bukan finded."
+   ],
+   [
+    "Has anyone finding a black wallet?",
+    "Have/has/had + finding tidak gramatikal; yang benar have/has/had + V3 (found)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Jari ibu saya teriris saat dia memasak kemarin.",
+  "prompt": "My mother ___ (cut) her finger while she was cooking yesterday.",
+  "hint": "lampau, pola cut-cut-cut",
+  "ans": "My mother cut her finger while she was cooking yesterday.",
+  "why": "Cut termasuk pola A (cut–cut–cut), jadi V2-nya tetap cut.",
+  "wrong": [
+   [
+    "My mother cutted her finger while she was cooking yesterday.",
+    "Cut tidak beraturan; V2-nya cut, bukan cutted."
+   ],
+   [
+    "My mother cuts her finger while she was cooking yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang cuts salah; perlu V2."
+   ],
+   [
+    "My mother has cut her finger while she was cooking yesterday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday my mother cut her finger while she was cooking.",
+   "My mother cut her finger yesterday while she was cooking."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Di mana kamu menaruh kacamata saya?",
+  "prompt": "Where did you ___ (put) my glasses?",
+  "hint": "did + V1",
+  "ans": "Where did you put my glasses?",
+  "why": "Setelah did harus V1; put bentuknya sama di semua bentuk.",
+  "wrong": [
+   [
+    "Where did you putted my glasses?",
+    "Setelah did harus V1 (put); putted bukan bentuk dari put (itu bentuk lampau putt, istilah golf)."
+   ],
+   [
+    "Where did you puts my glasses?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (put), bukan puts."
+   ],
+   [
+    "Where did you putting my glasses?",
+    "Setelah did/did not harus V1 (put), bukan bentuk -ing putting."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Dia (lk) menaruh susunya kembali ke kulkas satu jam yang lalu.",
+  "prompt": "He ___ (put) the milk back in the fridge an hour ago.",
+  "hint": "lampau: an hour ago",
+  "ans": "He put the milk back in the fridge an hour ago.",
+  "why": "Put termasuk pola A (put–put–put), jadi V2-nya tetap put tanpa -s.",
+  "wrong": [
+   [
+    "He putted the milk back in the fridge an hour ago.",
+    "Put termasuk pola A (put–put–put); putted bukan V2 dari put (itu bentuk lampau putt, istilah golf)."
+   ],
+   [
+    "He puts the milk back in the fridge an hour ago.",
+    "An hour ago menunjukkan lampau, jadi bentuk sekarang puts salah; perlu V2."
+   ],
+   [
+    "He has put the milk back in the fridge an hour ago.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti an hour ago."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "An hour ago he put the milk back in the fridge."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Ponsel baru itu saya beli seharga lima juta rupiah bulan lalu.",
+  "prompt": "The new phone ___ (cost) me five million rupiah last month.",
+  "hint": "harga, bulan lalu",
+  "ans": "The new phone cost me five million rupiah last month.",
+  "why": "Untuk arti harga, cost termasuk pola A (cost–cost–cost), jadi V2-nya tetap cost.",
+  "wrong": [
+   [
+    "The new phone costed me five million rupiah last month.",
+    "Untuk arti harga, V2 cost tetap cost; costed hanya untuk arti menghitung biaya."
+   ],
+   [
+    "The new phone costs me five million rupiah last month.",
+    "Last month menunjukkan lampau, jadi bentuk sekarang costs salah; perlu V2."
+   ],
+   [
+    "The new phone has cost me five million rupiah last month.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last month."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last month the new phone cost me five million rupiah."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Tas barumu harganya berapa?",
+  "prompt": "How much did your new bag ___ (cost)?",
+  "hint": "did + V1",
+  "ans": "How much did your new bag cost?",
+  "why": "Setelah did harus V1: cost.",
+  "wrong": [
+   [
+    "How much did your new bag costed?",
+    "Setelah did harus V1 (cost); lagi pula untuk arti harga tidak ada bentuk costed."
+   ],
+   [
+    "How much did your new bag costs?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (cost), bukan costs."
+   ],
+   [
+    "How much did your new bag costing?",
+    "Setelah did/did not harus V1 (cost), bukan bentuk -ing costing."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Bola itu mengenai jendela dan memecahkannya.",
+  "prompt": "The ball ___ (hit) the window and broke it.",
+  "hint": "lampau, lihat kata broke",
+  "ans": "The ball hit the window and broke it.",
+  "why": "Kejadiannya lampau (broke); hit termasuk pola A, jadi V2-nya tetap hit.",
+  "wrong": [
+   [
+    "The ball hitted the window and broke it.",
+    "Hit tidak beraturan; V2-nya hit, bukan hitted."
+   ],
+   [
+    "The ball hits the window and broke it.",
+    "Hits adalah bentuk sekarang, padahal kejadiannya lampau (broke)."
+   ],
+   [
+    "The ball hitting the window and broke it.",
+    "Hitting tidak bisa menjadi kata kerja utama tanpa be; kalimat ini perlu V2 hit."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Orang tua saya tidak pernah mengizinkan saya pulang larut malam waktu saya remaja.",
+  "prompt": "My parents never ___ (let) me stay out late when I was a teenager.",
+  "hint": "lampau, pola let-let-let",
+  "ans": "My parents never let me stay out late when I was a teenager.",
+  "why": "When I was a teenager = lampau; let termasuk pola A, jadi V2-nya tetap let.",
+  "wrong": [
+   [
+    "My parents never letted me stay out late when I was a teenager.",
+    "Let tidak beraturan; V2-nya let, bukan letted."
+   ],
+   [
+    "My parents never lets me stay out late when I was a teenager.",
+    "Lets salah: subjeknya jamak (my parents) dan kejadiannya lampau."
+   ],
+   [
+    "My parents never have let me stay out late when I was a teenager.",
+    "Present perfect tidak cocok dengan masa yang sudah selesai (when I was a teenager)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When I was a teenager, my parents never let me stay out late."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Dia (pr) cedera punggung saat mengangkat kotak-kotak itu minggu lalu.",
+  "prompt": "She ___ (hurt) her back while carrying the boxes last week.",
+  "hint": "lampau: last week",
+  "ans": "She hurt her back while carrying the boxes last week.",
+  "why": "Hurt termasuk pola A (hurt–hurt–hurt), jadi V2-nya tetap hurt.",
+  "wrong": [
+   [
+    "She hurted her back while carrying the boxes last week.",
+    "Hurt tidak beraturan; V2-nya hurt, bukan hurted."
+   ],
+   [
+    "She hurts her back while carrying the boxes last week.",
+    "Last week menunjukkan lampau, jadi bentuk sekarang hurts salah; perlu V2."
+   ],
+   [
+    "She has hurt her back while carrying the boxes last week.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last week."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last week she hurt her back while carrying the boxes."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Dia (lk) menutup pintu pelan-pelan lalu meninggalkan ruangan.",
+  "prompt": "He ___ (shut) the door quietly and left the room.",
+  "hint": "lampau, lihat kata left",
+  "ans": "He shut the door quietly and left the room.",
+  "why": "Kejadiannya lampau (left); shut termasuk pola A, jadi V2-nya tetap shut.",
+  "wrong": [
+   [
+    "He shutted the door quietly and left the room.",
+    "Shut tidak beraturan; V2-nya shut, bukan shutted."
+   ],
+   [
+    "He shuts the door quietly and left the room.",
+    "Shuts adalah bentuk sekarang, padahal kejadiannya lampau (left)."
+   ],
+   [
+    "He shutting the door quietly and left the room.",
+    "Shutting tidak bisa menjadi kata kerja utama tanpa be; kalimat ini perlu V2 shut."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "He quietly shut the door and left the room."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Kami menata meja sebelum para tamu datang.",
+  "prompt": "We ___ (set) the table before the guests arrived.",
+  "hint": "lampau, lihat kata arrived",
+  "ans": "We set the table before the guests arrived.",
+  "why": "Kejadiannya lampau (arrived); set termasuk pola A, jadi V2-nya tetap set.",
+  "wrong": [
+   [
+    "We setted the table before the guests arrived.",
+    "Set tidak beraturan; V2-nya set, bukan setted."
+   ],
+   [
+    "We sets the table before the guests arrived.",
+    "Sets salah: subjek we tidak memakai -s, dan kejadiannya lampau."
+   ],
+   [
+    "We setting the table before the guests arrived.",
+    "Setting tidak bisa menjadi kata kerja utama tanpa be; kalimat ini perlu V2 set."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Before the guests arrived, we set the table."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Apakah kamu pernah cedera saat bermain basket?",
+  "prompt": "Have you ever ___ (hurt) yourself playing basketball?",
+  "hint": "have + V3",
+  "ans": "Have you ever hurt yourself playing basketball?",
+  "why": "Setelah have harus V3; V3 dari hurt tetap hurt.",
+  "wrong": [
+   [
+    "Have you ever hurted yourself playing basketball?",
+    "Hurt tidak beraturan; V3-nya hurt, bukan hurted."
+   ],
+   [
+    "Have you ever hurts yourself playing basketball?",
+    "Setelah have harus V3 (hurt), bukan bentuk -s hurts."
+   ],
+   [
+    "Have you ever hurting yourself playing basketball?",
+    "Have/has/had + hurting tidak gramatikal; yang benar have/has/had + V3 (hurt)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Dia (pr) sudah menjadi penyanyi terkenal.",
+  "prompt": "She has ___ (become) a famous singer.",
+  "hint": "has + V3",
+  "ans": "She has become a famous singer.",
+  "why": "Become pola C (become–became–become): setelah has pakai V3 become.",
+  "wrong": [
+   [
+    "She has became a famous singer.",
+    "Dalam bahasa Inggris standar, setelah have/has/had harus V3 (become), bukan V2 (became); bentuk ini tidak baku."
+   ],
+   [
+    "She has becomed a famous singer.",
+    "Become tidak beraturan; V3-nya become, bukan becomed."
+   ],
+   [
+    "She has becomes a famous singer.",
+    "Setelah has harus V3 (become), bukan bentuk -s becomes."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Tahun lalu sepupu saya menjadi perawat.",
+  "prompt": "Last year my cousin ___ (become) a nurse.",
+  "hint": "lampau: last year",
+  "ans": "Last year my cousin became a nurse.",
+  "why": "Last year = lampau → V2 dari become: became.",
+  "wrong": [
+   [
+    "Last year my cousin become a nurse.",
+    "Become adalah bentuk dasar/V3; dalam bahasa Inggris standar, lampau tanpa kata bantu memakai V2 became."
+   ],
+   [
+    "Last year my cousin becomed a nurse.",
+    "Become tidak beraturan; V2-nya became, bukan becomed."
+   ],
+   [
+    "Last year my cousin has become a nurse.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last year."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "My cousin became a nurse last year."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Mereka sudah datang jauh-jauh dari Medan untuk menemui kami.",
+  "prompt": "They have ___ (come) all the way from Medan to see us.",
+  "hint": "have + V3",
+  "ans": "They have come all the way from Medan to see us.",
+  "why": "Come pola C (come–came–come): setelah have pakai V3 come.",
+  "wrong": [
+   [
+    "They have came all the way from Medan to see us.",
+    "Dalam bahasa Inggris standar, setelah have/has/had harus V3 (come), bukan V2 (came); bentuk ini tidak baku."
+   ],
+   [
+    "They have comed all the way from Medan to see us.",
+    "Come tidak beraturan; V3-nya come, bukan comed."
+   ],
+   [
+    "They have coming all the way from Medan to see us.",
+    "Have/has/had + coming tidak gramatikal; yang benar have/has/had + V3 (come)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Tamu-tamu kami datang satu jam lebih awal tadi malam, jadi makanannya belum siap.",
+  "prompt": "Our guests ___ (come) an hour early last night, so the food wasn't ready.",
+  "hint": "lampau: last night",
+  "ans": "Our guests came an hour early last night, so the food wasn't ready.",
+  "why": "Last night = lampau → V2 dari come: came.",
+  "wrong": [
+   [
+    "Our guests comed an hour early last night, so the food wasn't ready.",
+    "Come tidak beraturan; V2-nya came, bukan comed."
+   ],
+   [
+    "Our guests come an hour early last night, so the food wasn't ready.",
+    "Come adalah bentuk dasar/V3; dalam bahasa Inggris standar, lampau tanpa kata bantu memakai V2 came."
+   ],
+   [
+    "Our guests comes an hour early last night, so the food wasn't ready.",
+    "Comes salah: subjeknya jamak (our guests) dan kejadiannya lampau."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night our guests came an hour early, so the food wasn't ready."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Dia (lk) berlari ke halte bus karena dia terlambat.",
+  "prompt": "He ___ (run) to the bus stop because he was late.",
+  "hint": "lampau, lihat kata was",
+  "ans": "He ran to the bus stop because he was late.",
+  "why": "Ceritanya lampau (was late) → V2 dari run: ran.",
+  "wrong": [
+   [
+    "He runned to the bus stop because he was late.",
+    "Run tidak beraturan; V2-nya ran, bukan runned."
+   ],
+   [
+    "He run to the bus stop because he was late.",
+    "Run adalah bentuk dasar/V3; dalam bahasa Inggris standar, lampau tanpa kata bantu memakai V2 ran."
+   ],
+   [
+    "He runs to the bus stop because he was late.",
+    "Runs adalah bentuk sekarang, padahal ceritanya lampau (was late)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Because he was late, he ran to the bus stop."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Saudara laki-laki saya tidak datang ke pesta ulang tahun saya karena dia harus bekerja.",
+  "prompt": "My brother ___ (not / come) to my birthday party because he had to work.",
+  "hint": "negatif lampau: did not",
+  "ans": "My brother did not come to my birthday party because he had to work.",
+  "why": "Negatif lampau = did not + V1; untuk come, V1 = come (bukan came).",
+  "wrong": [
+   [
+    "My brother did not came to my birthday party because he had to work.",
+    "Setelah did/did not, kata kerja kembali ke V1 (come), bukan V2 came."
+   ],
+   [
+    "My brother not came to my birthday party because he had to work.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not came\" saja."
+   ],
+   [
+    "My brother did not comes to my birthday party because he had to work.",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (come), bukan comes."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Because he had to work, my brother did not come to my birthday party."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Apakah guru mengizinkan kamu pulang lebih awal?",
+  "prompt": "Did the teacher ___ (let) you leave early?",
+  "hint": "Did + V1",
+  "ans": "Did the teacher let you leave early?",
+  "why": "Setelah did harus V1: let.",
+  "wrong": [
+   [
+    "Did the teacher letted you leave early?",
+    "Let termasuk pola A (let–let–let); letted bukan bentuk yang benar."
+   ],
+   [
+    "Did the teacher lets you leave early?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (let), bukan lets."
+   ],
+   [
+    "Did the teacher letting you leave early?",
+    "Setelah did/did not harus V1 (let), bukan bentuk -ing letting."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Ada orang yang menabrak mobil saya di tempat parkir.",
+  "prompt": "Someone has ___ (hit) my car in the parking area.",
+  "hint": "has + V3",
+  "ans": "Someone has hit my car in the parking area.",
+  "why": "Setelah has harus V3; V3 dari hit tetap hit.",
+  "wrong": [
+   [
+    "Someone has hitted my car in the parking area.",
+    "Hit tidak beraturan; V3-nya hit, bukan hitted."
+   ],
+   [
+    "Someone has hits my car in the parking area.",
+    "Setelah has harus V3 (hit), bukan bentuk -s hits."
+   ],
+   [
+    "Someone has hitting my car in the parking area.",
+    "Have/has/had + hitting tidak gramatikal; yang benar have/has/had + V3 (hit)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Apakah kamu kebetulan bertemu orang yang kamu kenal di mal?",
+  "prompt": "Did you ___ (run) into anyone you knew at the mall?",
+  "hint": "Did + V1",
+  "ans": "Did you run into anyone you knew at the mall?",
+  "why": "Setelah did harus V1; untuk run, V1 = run (run into = kebetulan bertemu).",
+  "wrong": [
+   [
+    "Did you ran into anyone you knew at the mall?",
+    "Setelah did/did not, kata kerja kembali ke V1 (run), bukan V2 ran."
+   ],
+   [
+    "Did you runned into anyone you knew at the mall?",
+    "Run tidak beraturan dan tidak punya bentuk runned; setelah did pakai V1 run."
+   ],
+   [
+    "Did you runs into anyone you knew at the mall?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (run), bukan runs."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Tokonya sudah tutup, jadi kita tidak bisa membeli apa-apa.",
+  "prompt": "The shop has already ___ (shut), so we can't buy anything.",
+  "hint": "has + V3",
+  "ans": "The shop has already shut, so we can't buy anything.",
+  "why": "Setelah has harus V3; V3 dari shut tetap shut.",
+  "wrong": [
+   [
+    "The shop has already shutted, so we can't buy anything.",
+    "Shut tidak beraturan; V3-nya shut, bukan shutted."
+   ],
+   [
+    "The shop has already shuts, so we can't buy anything.",
+    "Setelah has harus V3 (shut), bukan bentuk -s shuts."
+   ],
+   [
+    "The shop has already shutting, so we can't buy anything.",
+    "Have/has/had + shutting tidak gramatikal; yang benar have/has/had + V3 (shut)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "The shop has shut already, so we can't buy anything."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Apakah kamu sudah memasang alarm untuk besok pagi?",
+  "prompt": "Have you ___ (set) the alarm for tomorrow morning?",
+  "hint": "Have + V3",
+  "ans": "Have you set the alarm for tomorrow morning?",
+  "why": "Setelah have harus V3; V3 dari set tetap set.",
+  "wrong": [
+   [
+    "Have you setted the alarm for tomorrow morning?",
+    "Set tidak beraturan; V3-nya set, bukan setted."
+   ],
+   [
+    "Have you sets the alarm for tomorrow morning?",
+    "Setelah have harus V3 (set), bukan bentuk -s sets."
+   ],
+   [
+    "Have you setting the alarm for tomorrow morning?",
+    "Have/has/had + setting tidak gramatikal; yang benar have/has/had + V3 (set)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Apakah Lina sudah kembali dari makan siang?",
+  "prompt": "Has Lina ___ (come) back from lunch yet?",
+  "hint": "Has + V3",
+  "ans": "Has Lina come back from lunch yet?",
+  "why": "Come pola C (come–came–come): setelah has pakai V3 come.",
+  "wrong": [
+   [
+    "Has Lina came back from lunch yet?",
+    "Dalam bahasa Inggris standar, setelah have/has/had harus V3 (come), bukan V2 (came); bentuk ini tidak baku."
+   ],
+   [
+    "Has Lina comed back from lunch yet?",
+    "Come tidak beraturan; V3-nya come, bukan comed."
+   ],
+   [
+    "Has Lina coming back from lunch yet?",
+    "Have/has/had + coming tidak gramatikal; yang benar have/has/had + V3 (come)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Sekarang makin sulit mencari apartemen murah di kota ini.",
+  "prompt": "It has ___ (become) harder to find a cheap apartment in this city.",
+  "hint": "has + V3",
+  "ans": "It has become harder to find a cheap apartment in this city.",
+  "why": "Become pola C (become–became–become): setelah has pakai V3 become.",
+  "wrong": [
+   [
+    "It has became harder to find a cheap apartment in this city.",
+    "Dalam bahasa Inggris standar, setelah have/has/had harus V3 (become), bukan V2 (became); bentuk ini tidak baku."
+   ],
+   [
+    "It has becomed harder to find a cheap apartment in this city.",
+    "Become tidak beraturan; V3-nya become, bukan becomed."
+   ],
+   [
+    "It has becoming harder to find a cheap apartment in this city.",
+    "Have/has/had + becoming tidak gramatikal; yang benar have/has/had + V3 (become)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Tim kami kehabisan waktu saat presentasi kemarin.",
+  "prompt": "Our team ___ (run) out of time during the presentation yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "Our team ran out of time during the presentation yesterday.",
+  "why": "Yesterday = lampau → V2 dari run: ran.",
+  "wrong": [
+   [
+    "Our team runned out of time during the presentation yesterday.",
+    "Run tidak beraturan; V2-nya ran, bukan runned."
+   ],
+   [
+    "Our team run out of time during the presentation yesterday.",
+    "Run adalah bentuk dasar/V3; dalam bahasa Inggris standar, lampau tanpa kata bantu memakai V2 ran."
+   ],
+   [
+    "Our team runs out of time during the presentation yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang runs salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday our team ran out of time during the presentation.",
+   "During the presentation yesterday, our team ran out of time."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Apakah kamu pernah lari maraton?",
+  "prompt": "Have you ever ___ (run) a marathon?",
+  "hint": "pengalaman: have + V3",
+  "ans": "Have you ever run a marathon?",
+  "why": "Run pola C (run–ran–run): setelah have pakai V3 run.",
+  "wrong": [
+   [
+    "Have you ever ran a marathon?",
+    "Dalam bahasa Inggris standar, setelah have/has/had harus V3 (run), bukan V2 (ran); bentuk ini tidak baku."
+   ],
+   [
+    "Have you ever runned a marathon?",
+    "Run tidak beraturan; V3-nya run, bukan runned."
+   ],
+   [
+    "Have you ever running a marathon?",
+    "Have/has/had + running tidak gramatikal; yang benar have/has/had + V3 (run)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Anak laki-laki saya memotong rambutnya sendiri tadi malam, dan sekarang kelihatan lucu.",
+  "prompt": "My son ___ (cut) his own hair last night, and now it looks funny.",
+  "hint": "lampau: last night",
+  "ans": "My son cut his own hair last night, and now it looks funny.",
+  "why": "Last night = lampau; cut pola A, jadi V2-nya tetap cut tanpa -s.",
+  "wrong": [
+   [
+    "My son cutted his own hair last night, and now it looks funny.",
+    "Cut tidak beraturan; V2-nya cut, bukan cutted."
+   ],
+   [
+    "My son cuts his own hair last night, and now it looks funny.",
+    "Last night menunjukkan lampau, jadi bentuk sekarang cuts salah; perlu V2."
+   ],
+   [
+    "My son has cut his own hair last night, and now it looks funny.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last night."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night my son cut his own hair, and now it looks funny."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Dia (pr) membentangkan peta di atas meja dan menunjukkan rutenya kepada kami.",
+  "prompt": "She ___ (spread) the map on the table and showed us the route.",
+  "hint": "lampau, lihat kata showed",
+  "ans": "She spread the map on the table and showed us the route.",
+  "why": "Kejadiannya lampau (showed); spread pola A, jadi V2-nya tetap spread.",
+  "wrong": [
+   [
+    "She spreaded the map on the table and showed us the route.",
+    "Spread tidak beraturan; V2-nya spread, bukan spreaded."
+   ],
+   [
+    "She spreads the map on the table and showed us the route.",
+    "Spreads adalah bentuk sekarang, padahal kejadiannya lampau (showed)."
+   ],
+   [
+    "She spreading the map on the table and showed us the route.",
+    "Spreading tidak bisa menjadi kata kerja utama tanpa be; kalimat ini perlu V2 spread."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr4",
+  "promptId": "Saya membaca buku itu tahun lalu.",
+  "prompt": "I ___ (read) that book last year.",
+  "hint": "lampau: last year",
+  "ans": "I read that book last year.",
+  "why": "Read pola A: tulisannya tetap read (dibaca 'red' untuk V2/V3).",
+  "wrong": [
+   [
+    "I readed that book last year.",
+    "Read tidak beraturan; V2-nya read, bukan readed."
+   ],
+   [
+    "I reads that book last year.",
+    "Reads tidak dipakai untuk subjek I, dan kalimat ini lampau."
+   ],
+   [
+    "I have read that book last year.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last year."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last year I read that book."
+  ]
+ },
+ {
+  "set": "irr4",
+  "promptId": "Kabar buruk itu membuat nenek saya sedih kemarin.",
+  "prompt": "The bad news ___ (upset) my grandmother yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "The bad news upset my grandmother yesterday.",
+  "why": "Upset pola A (upset–upset–upset), jadi V2-nya tetap upset.",
+  "wrong": [
+   [
+    "The bad news upsetted my grandmother yesterday.",
+    "Upset tidak beraturan; V2-nya upset, bukan upsetted."
+   ],
+   [
+    "The bad news upsets my grandmother yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang upsets salah; perlu V2."
+   ],
+   [
+    "The bad news has upset my grandmother yesterday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday the bad news upset my grandmother."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Saya banyak memikirkan tawaranmu tadi malam.",
+  "prompt": "I ___ (think) about your offer a lot last night.",
+  "hint": "lampau: last night",
+  "ans": "I thought about your offer a lot last night.",
+  "why": "Last night = lampau → V2 dari think: thought.",
+  "wrong": [
+   [
+    "I thinked about your offer a lot last night.",
+    "Think tidak beraturan; V2-nya thought, bukan thinked."
+   ],
+   [
+    "I think about your offer a lot last night.",
+    "Last night menunjukkan lampau, jadi bentuk sekarang think salah; perlu V2."
+   ],
+   [
+    "I have thought about your offer a lot last night.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last night."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night I thought about your offer a lot.",
+   "I thought a lot about your offer last night.",
+   "Last night I thought a lot about your offer."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Kue ini dibuat oleh nenek saya.",
+  "prompt": "This cake was ___ (make) by my grandmother.",
+  "hint": "pasif: was + V3",
+  "ans": "This cake was made by my grandmother.",
+  "why": "Pasif memakai be + V3; V3 dari make adalah made.",
+  "wrong": [
+   [
+    "This cake was maked by my grandmother.",
+    "Make tidak beraturan; V3-nya made, bukan maked."
+   ],
+   [
+    "This cake was make by my grandmother.",
+    "Kalimat pasif memakai be + V3 (made), bukan bentuk dasar make."
+   ],
+   [
+    "This cake was making by my grandmother.",
+    "Arti kalimat ini pasif, jadi be + V3 (made), bukan be + making."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Kakek saya masih menyimpan semua surat lamanya.",
+  "prompt": "My grandfather has ___ (keep) all his old letters.",
+  "hint": "has + V3",
+  "ans": "My grandfather has kept all his old letters.",
+  "why": "Setelah has harus V3; V3 dari keep adalah kept.",
+  "wrong": [
+   [
+    "My grandfather has keep all his old letters.",
+    "Setelah have/has/had harus V3 (kept), bukan bentuk dasar keep."
+   ],
+   [
+    "My grandfather has keeped all his old letters.",
+    "Keep tidak beraturan; V3-nya kept, bukan keeped."
+   ],
+   [
+    "My grandfather has keeps all his old letters.",
+    "Setelah has harus V3 (kept), bukan bentuk -s keeps."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Mereka menjual rumah lama mereka tahun lalu.",
+  "prompt": "They ___ (sell) their old house last year.",
+  "hint": "lampau: last year",
+  "ans": "They sold their old house last year.",
+  "why": "Last year = lampau → V2 dari sell: sold.",
+  "wrong": [
+   [
+    "They selled their old house last year.",
+    "Sell tidak beraturan; V2-nya sold, bukan selled."
+   ],
+   [
+    "They sell their old house last year.",
+    "Last year menunjukkan lampau, jadi bentuk sekarang sell salah; perlu V2."
+   ],
+   [
+    "They have sold their old house last year.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last year."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last year they sold their old house."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Sekolah ini dibangun pada tahun 1975.",
+  "prompt": "This school ___ (build) in 1975.",
+  "hint": "pasif, lampau",
+  "ans": "This school was built in 1975.",
+  "why": "Sekolah dibangun orang, jadi pasif lampau: was + V3 (built).",
+  "wrong": [
+   [
+    "This school was build in 1975.",
+    "Kalimat pasif memakai be + V3 (built), bukan bentuk dasar build."
+   ],
+   [
+    "This school built in 1975.",
+    "Tanpa was, kalimat ini berarti sekolah itu yang membangun; pasif butuh was + V3."
+   ],
+   [
+    "This school has been built in 1975.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti in 1975."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Di mana kamu kehilangan payungmu?",
+  "prompt": "Where did you ___ (lose) your umbrella?",
+  "hint": "tanya lampau: did + V1",
+  "ans": "Where did you lose your umbrella?",
+  "why": "Setelah did, kata kerja kembali ke V1: lose.",
+  "wrong": [
+   [
+    "Where did you lost your umbrella?",
+    "Setelah did/did not, kata kerja kembali ke V1 (lose), bukan lost."
+   ],
+   [
+    "Where did you losed your umbrella?",
+    "Lose tidak beraturan dan tidak punya bentuk losed; setelah did pakai V1 lose."
+   ],
+   [
+    "Where did you loses your umbrella?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (lose), bukan loses."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Saya tidak tidur nyenyak tadi malam.",
+  "prompt": "I ___ (not / sleep) well last night.",
+  "hint": "negatif lampau: did not",
+  "ans": "I did not sleep well last night.",
+  "why": "Negatif lampau = did not + V1 (sleep).",
+  "wrong": [
+   [
+    "I did not slept well last night.",
+    "Setelah did/did not, kata kerja kembali ke V1 (sleep), bukan slept."
+   ],
+   [
+    "I not slept well last night.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not slept\" saja."
+   ],
+   [
+    "I have not slept well last night.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last night."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night I did not sleep well."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Dia (lk) menunjukkan apartemen barunya kepada kami akhir pekan lalu.",
+  "prompt": "He ___ (show) us his new apartment last weekend.",
+  "hint": "lampau: last weekend",
+  "ans": "He showed us his new apartment last weekend.",
+  "why": "Last weekend = lampau → V2 dari show: showed.",
+  "wrong": [
+   [
+    "He shown us his new apartment last weekend.",
+    "Shown adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "He show us his new apartment last weekend.",
+    "Show salah: kalimat ini lampau (last weekend), dan subjek he juga tidak cocok dengan show."
+   ],
+   [
+    "He shows us his new apartment last weekend.",
+    "Last weekend menunjukkan lampau, jadi bentuk sekarang shows salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last weekend he showed us his new apartment."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Apakah kamu pernah berenang di sungai?",
+  "prompt": "Have you ever ___ (swim) in a river?",
+  "hint": "pengalaman: have + V3",
+  "ans": "Have you ever swum in a river?",
+  "why": "Have you ever + V3; V3 dari swim adalah swum.",
+  "wrong": [
+   [
+    "Have you ever swim in a river?",
+    "Setelah have/has/had harus V3 (swum), bukan bentuk dasar swim."
+   ],
+   [
+    "Have you ever swimmed in a river?",
+    "Swim tidak beraturan; V3-nya swum, bukan swimmed."
+   ],
+   [
+    "Have you ever swimming in a river?",
+    "Have/has/had + swimming tidak gramatikal; yang benar have/has/had + V3 (swum)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Anak-anak tidak meminum susu mereka tadi malam.",
+  "prompt": "The children ___ (not / drink) their milk last night.",
+  "hint": "negatif lampau: did not",
+  "ans": "The children did not drink their milk last night.",
+  "why": "Negatif lampau = did not + V1 (drink).",
+  "wrong": [
+   [
+    "The children did not drank their milk last night.",
+    "Setelah did/did not, kata kerja kembali ke V1 (drink), bukan drank."
+   ],
+   [
+    "The children not drank their milk last night.",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not drank\" saja."
+   ],
+   [
+    "The children have not drunk their milk last night.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last night."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night the children did not drink their milk."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Ibu saya menyembunyikan camilan di rak paling atas supaya adik laki-laki saya tidak bisa menemukannya.",
+  "prompt": "My mother ___ (hide) the snacks on the top shelf so my little brother couldn't find them.",
+  "hint": "lampau, lihat kata couldn't",
+  "ans": "My mother hid the snacks on the top shelf so my little brother couldn't find them.",
+  "why": "Ceritanya lampau (couldn't) → V2 dari hide: hid.",
+  "wrong": [
+   [
+    "My mother hided the snacks on the top shelf so my little brother couldn't find them.",
+    "Hide tidak beraturan; V2-nya hid, bukan hided."
+   ],
+   [
+    "My mother hidden the snacks on the top shelf so my little brother couldn't find them.",
+    "Hidden adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "My mother hides the snacks on the top shelf so my little brother couldn't find them.",
+    "Hides adalah bentuk sekarang, padahal ceritanya lampau (couldn't find)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Apakah kamu merasakan gempa tadi malam?",
+  "prompt": "___ (you / feel) the earthquake last night?",
+  "hint": "tanya lampau: Did",
+  "ans": "Did you feel the earthquake last night?",
+  "why": "Pertanyaan lampau = Did + subjek + V1 (feel).",
+  "wrong": [
+   [
+    "Did you felt the earthquake last night?",
+    "Setelah did/did not, kata kerja kembali ke V1 (feel), bukan felt."
+   ],
+   [
+    "Have you felt the earthquake last night?",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti last night."
+   ],
+   [
+    "Do you feel the earthquake last night?",
+    "Do adalah bentuk sekarang; last night menunjukkan lampau, jadi pakai Did."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Dia (pr) membayar makan malam kami kemarin.",
+  "prompt": "She ___ (pay) for our dinner yesterday.",
+  "hint": "kejadian kemarin",
+  "ans": "She paid for our dinner yesterday.",
+  "why": "Yesterday = lampau → V2 dari pay: paid.",
+  "wrong": [
+   [
+    "She pays for our dinner yesterday.",
+    "Yesterday menunjukkan lampau, jadi bentuk sekarang pays salah; perlu V2."
+   ],
+   [
+    "She has paid for our dinner yesterday.",
+    "Present perfect tidak dipakai dengan keterangan waktu lampau yang jelas seperti yesterday."
+   ],
+   [
+    "She did paid for our dinner yesterday.",
+    "Did + V2 tidak gramatikal; kalimat positif lampau cukup memakai V2 paid."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday she paid for our dinner."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Harga beras sudah naik lagi.",
+  "prompt": "The price of rice has ___ (rise) again.",
+  "hint": "has + V3",
+  "ans": "The price of rice has risen again.",
+  "why": "Setelah has harus V3; V3 dari rise adalah risen.",
+  "wrong": [
+   [
+    "The price of rice has rose again.",
+    "Dalam bahasa Inggris standar, setelah have/has/had harus V3 (risen), bukan V2 (rose); bentuk ini tidak baku."
+   ],
+   [
+    "The price of rice has rise again.",
+    "Setelah have/has/had harus V3 (risen), bukan bentuk dasar rise."
+   ],
+   [
+    "The price of rice has rised again.",
+    "Rise tidak beraturan; V3-nya risen, bukan rised."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Petunjuknya ditulis dalam bahasa Jepang, jadi kami tidak bisa membacanya.",
+  "prompt": "The instructions were ___ (write) in Japanese, so we couldn't read them.",
+  "hint": "pasif: were + V3",
+  "ans": "The instructions were written in Japanese, so we couldn't read them.",
+  "why": "Pasif memakai be + V3; V3 dari write adalah written.",
+  "wrong": [
+   [
+    "The instructions were wrote in Japanese, so we couldn't read them.",
+    "Dalam bahasa Inggris standar, kalimat pasif memakai be + V3 (written), bukan V2 (wrote); bentuk ini tidak baku."
+   ],
+   [
+    "The instructions were write in Japanese, so we couldn't read them.",
+    "Kalimat pasif memakai be + V3 (written), bukan bentuk dasar write."
+   ],
+   [
+    "The instructions were writed in Japanese, so we couldn't read them.",
+    "Write tidak beraturan; V3-nya written, bukan writed."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Apakah saudara perempuanmu sudah memilih universitas?",
+  "prompt": "Has your sister ___ (choose) a university yet?",
+  "hint": "Has + V3",
+  "ans": "Has your sister chosen a university yet?",
+  "why": "Setelah has harus V3; V3 dari choose adalah chosen.",
+  "wrong": [
+   [
+    "Has your sister chose a university yet?",
+    "Dalam bahasa Inggris standar, setelah have/has/had harus V3 (chosen), bukan V2 (chose); bentuk ini tidak baku."
+   ],
+   [
+    "Has your sister choose a university yet?",
+    "Setelah have/has/had harus V3 (chosen), bukan bentuk dasar choose."
+   ],
+   [
+    "Has your sister choosed a university yet?",
+    "Choose tidak beraturan; V3-nya chosen, bukan choosed."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Maaf, saya tidak mendengar kamu. Bisa diulang?",
+  "prompt": "Sorry, I ___ (not / hear) you. Can you say that again?",
+  "hint": "negatif lampau: did not",
+  "ans": "Sorry, I did not hear you. Can you say that again?",
+  "why": "Tidak mendengar barusan = lampau → did not + V1 (hear).",
+  "wrong": [
+   [
+    "Sorry, I did not heard you. Can you say that again?",
+    "Setelah did/did not, kata kerja kembali ke V1 (hear), bukan heard."
+   ],
+   [
+    "Sorry, I not heard you. Can you say that again?",
+    "Kalimat negatif lampau butuh did not + V1, bukan \"not heard\" saja."
+   ],
+   [
+    "Sorry, I do not heard you. Can you say that again?",
+    "Do not harus diikuti V1, dan kejadiannya lampau sehingga perlu did not hear."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Permisi, apakah kursi ini sudah ada yang menempati?",
+  "prompt": "Excuse me, ___ (this seat / take)?",
+  "hint": "tanya pasif: is + V3",
+  "ans": "Excuse me, is this seat taken?",
+  "why": "Tanya pasif sekarang = is + subjek + V3; V3 dari take adalah taken.",
+  "wrong": [
+   [
+    "Excuse me, is this seat took?",
+    "Dalam bahasa Inggris standar, pasif memakai be + V3 (taken), bukan V2 (took); bentuk ini tidak baku."
+   ],
+   [
+    "Excuse me, is this seat take?",
+    "Pasif memakai be + V3 (taken), bukan bentuk dasar take."
+   ],
+   [
+    "Excuse me, does this seat taken?",
+    "Pasif memakai be (is), bukan does; does + V3 tidak gramatikal."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Dia (lk) memberi saya nomor teleponnya sebelum pergi.",
+  "prompt": "He ___ (give) me his phone number before he left.",
+  "hint": "lampau, lihat kata left",
+  "ans": "He gave me his phone number before he left.",
+  "why": "Kejadiannya lampau (before he left) → V2 dari give: gave.",
+  "wrong": [
+   [
+    "He gived me his phone number before he left.",
+    "Give tidak beraturan; V2-nya gave, bukan gived."
+   ],
+   [
+    "He given me his phone number before he left.",
+    "Given adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "He gives me his phone number before he left.",
+    "Gives adalah bentuk sekarang, padahal kejadiannya lampau (before he left)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Before he left, he gave me his phone number."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Dia (pr) sudah menghabiskan semua uangnya untuk baju.",
+  "prompt": "She has ___ (spend) all her money on clothes.",
+  "hint": "has + V3",
+  "ans": "She has spent all her money on clothes.",
+  "why": "Setelah has harus V3; V3 dari spend adalah spent.",
+  "wrong": [
+   [
+    "She has spend all her money on clothes.",
+    "Setelah have/has/had harus V3 (spent), bukan bentuk dasar spend."
+   ],
+   [
+    "She has spended all her money on clothes.",
+    "Spend tidak beraturan; V3-nya spent, bukan spended."
+   ],
+   [
+    "She has spends all her money on clothes.",
+    "Setelah has harus V3 (spent), bukan bentuk -s spends."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Kami ketiduran di tengah film tadi malam.",
+  "prompt": "We ___ (fall) asleep in the middle of the movie last night.",
+  "hint": "lampau: last night",
+  "ans": "We fell asleep in the middle of the movie last night.",
+  "why": "Last night = lampau → V2 dari fall: fell (fall asleep = tertidur).",
+  "wrong": [
+   [
+    "We falled asleep in the middle of the movie last night.",
+    "Fall tidak beraturan; V2-nya fell, bukan falled."
+   ],
+   [
+    "We fallen asleep in the middle of the movie last night.",
+    "Fallen adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "We fall asleep in the middle of the movie last night.",
+    "Last night menunjukkan lampau, jadi bentuk sekarang fall salah; perlu V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night we fell asleep in the middle of the movie."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Apakah ada yang melihat kecelakaan itu?",
+  "prompt": "Did anyone ___ (see) the accident?",
+  "hint": "Did + V1",
+  "ans": "Did anyone see the accident?",
+  "why": "Setelah did, kata kerja kembali ke V1: see.",
+  "wrong": [
+   [
+    "Did anyone saw the accident?",
+    "Setelah did/did not, kata kerja kembali ke V1 (see), bukan saw."
+   ],
+   [
+    "Did anyone seen the accident?",
+    "Setelah did/did not, kata kerja kembali ke V1 (see), bukan seen."
+   ],
+   [
+    "Did anyone sees the accident?",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (see), bukan sees."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Lagu itu dinyanyikan oleh sebuah band terkenal.",
+  "prompt": "That song was ___ (sing) by a famous band.",
+  "hint": "pasif: was + V3",
+  "ans": "That song was sung by a famous band.",
+  "why": "Pasif memakai be + V3; V3 dari sing adalah sung.",
+  "wrong": [
+   [
+    "That song was sang by a famous band.",
+    "Dalam bahasa Inggris standar, kalimat pasif memakai be + V3 (sung), bukan V2 (sang); bentuk ini tidak baku."
+   ],
+   [
+    "That song was sing by a famous band.",
+    "Kalimat pasif memakai be + V3 (sung), bukan bentuk dasar sing."
+   ],
+   [
+    "That song was singing by a famous band.",
+    "Arti kalimat ini pasif, jadi be + V3 (sung), bukan be + singing."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Apakah kamu sudah memberi tahu orang tuamu tentang pekerjaan baru itu?",
+  "prompt": "Have you ___ (tell) your parents about the new job?",
+  "hint": "Have + V3",
+  "ans": "Have you told your parents about the new job?",
+  "why": "Setelah have harus V3; V3 dari tell adalah told.",
+  "wrong": [
+   [
+    "Have you tell your parents about the new job?",
+    "Setelah have/has/had harus V3 (told), bukan bentuk dasar tell."
+   ],
+   [
+    "Have you telled your parents about the new job?",
+    "Tell tidak beraturan; V3-nya told, bukan telled."
+   ],
+   [
+    "Have you telling your parents about the new job?",
+    "Have/has/had + telling tidak gramatikal; yang benar have/has/had + V3 (told)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Saya bertemu sahabat saya ketika saya di SMA.",
+  "prompt": "I ___ (meet) my best friend when I was in high school.",
+  "hint": "lampau: when I was",
+  "ans": "I met my best friend when I was in high school.",
+  "why": "When I was in high school = masa lampau → V2 dari meet: met.",
+  "wrong": [
+   [
+    "I meeted my best friend when I was in high school.",
+    "Meet tidak beraturan; V2-nya met, bukan meeted."
+   ],
+   [
+    "I meet my best friend when I was in high school.",
+    "When I was in high school menunjukkan lampau, jadi bentuk sekarang meet salah; perlu V2."
+   ],
+   [
+    "I have met my best friend when I was in high school.",
+    "Present perfect tidak cocok dengan masa yang sudah selesai (when I was in high school)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When I was in high school, I met my best friend."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Kami meninggalkan pesta lebih awal karena kami lelah.",
+  "prompt": "We ___ (leave) the party early because we were tired.",
+  "hint": "lampau, lihat kata were",
+  "ans": "We left the party early because we were tired.",
+  "why": "Ceritanya lampau (were tired) → V2 dari leave: left.",
+  "wrong": [
+   [
+    "We leaved the party early because we were tired.",
+    "Leave tidak beraturan; V2-nya left, bukan leaved."
+   ],
+   [
+    "We leave the party early because we were tired.",
+    "Leave adalah bentuk sekarang, padahal ceritanya lampau (were tired)."
+   ],
+   [
+    "We have left the party early because we were tired.",
+    "Kalimat ini menceritakan kejadian lampau (were tired), jadi pakai V2 left, bukan present perfect."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Because we were tired, we left the party early."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Siapa yang memakan roti lapis saya? Tadi ada di meja saya.",
+  "prompt": "Who ___ (eat) my sandwich? It was on my desk.",
+  "hint": "lampau: V2",
+  "ans": "Who ate my sandwich? It was on my desk.",
+  "why": "Who sebagai subjek tidak butuh did; kalimat lampau → V2 dari eat: ate.",
+  "wrong": [
+   [
+    "Who eated my sandwich? It was on my desk.",
+    "Eat tidak beraturan; V2-nya ate, bukan eated."
+   ],
+   [
+    "Who eaten my sandwich? It was on my desk.",
+    "Eaten adalah V3; V3 tidak bisa berdiri sendiri tanpa have/has/had."
+   ],
+   [
+    "Who did ate my sandwich? It was on my desk.",
+    "Did + V2 tidak gramatikal; Who sebagai subjek langsung memakai V2 ate."
+   ]
+  ],
+  "alt": [
+   "Who has eaten my sandwich? It was on my desk."
+  ]
+ },
+ {
+  "set": "irr5",
+  "promptId": "Tiket konsernya terlalu mahal, jadi kami tidak pergi.",
+  "prompt": "The concert tickets ___ (cost) too much, so we didn't go.",
+  "hint": "harga, lihat kata didn't",
+  "ans": "The concert tickets cost too much, so we didn't go.",
+  "why": "Kejadiannya lampau (didn't go); untuk arti harga V2 dari cost tetap cost.",
+  "wrong": [
+   [
+    "The concert tickets costed too much, so we didn't go.",
+    "Untuk arti harga, V2 cost tetap cost; costed hanya untuk arti menghitung biaya."
+   ],
+   [
+    "The concert tickets costs too much, so we didn't go.",
+    "Costs salah: subjeknya jamak (tickets) dan kejadiannya lampau."
+   ],
+   [
+    "The concert tickets costing too much, so we didn't go.",
+    "Costing tidak bisa menjadi kata kerja utama tanpa be."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Dia (lk) sudah menjalankan perusahaan ini selama sepuluh tahun.",
+  "prompt": "He has ___ (run) this company for ten years.",
+  "hint": "has + V3",
+  "ans": "He has run this company for ten years.",
+  "why": "Run pola C (run–ran–run): setelah has pakai V3 run.",
+  "wrong": [
+   [
+    "He has ran this company for ten years.",
+    "Dalam bahasa Inggris standar, setelah have/has/had harus V3 (run), bukan V2 (ran); bentuk ini tidak baku."
+   ],
+   [
+    "He has runned this company for ten years.",
+    "Run tidak beraturan; V3-nya run, bukan runned."
+   ],
+   [
+    "He has running this company for ten years.",
+    "Have/has/had + running tidak gramatikal; yang benar have/has/had + V3 (run)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "irr5",
+  "promptId": "Semoga kamu tidak lupa membawa paspormu.",
+  "prompt": "I hope you didn't ___ (forget) your passport.",
+  "hint": "didn't + V1",
+  "ans": "I hope you didn't forget your passport.",
+  "why": "Setelah didn't, kata kerja kembali ke V1: forget.",
+  "wrong": [
+   [
+    "I hope you didn't forgot your passport.",
+    "Setelah did/did not, kata kerja kembali ke V1 (forget), bukan forgot."
+   ],
+   [
+    "I hope you didn't forgotten your passport.",
+    "Setelah did/did not, kata kerja kembali ke V1 (forget), bukan forgotten."
+   ],
+   [
+    "I hope you didn't forgets your passport.",
+    "Setelah did/did not, kata kerja selalu V1 tanpa -s (forget), bukan forgets."
+   ]
+  ],
+  "alt": []
+ }
+]

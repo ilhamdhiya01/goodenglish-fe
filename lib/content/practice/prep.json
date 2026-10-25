@@ -1,0 +1,2910 @@
+[
+ {
+  "set": "prep1",
+  "promptId": "Adik perempuan saya lahir pada tahun 2010.",
+  "prompt": "My little sister was born ___ (in / on / at / —) 2010.",
+  "hint": "keterangan tahun",
+  "ans": "My little sister was born in 2010.",
+  "why": "Tahun memakai in: in 2010.",
+  "wrong": [
+   [
+    "My little sister was born on 2010.",
+    "On untuk hari dan tanggal, bukan tahun."
+   ],
+   [
+    "My little sister was born at 2010.",
+    "At untuk jam atau titik waktu, bukan tahun."
+   ],
+   [
+    "My little sister was born 2010.",
+    "Tahun tanpa next / last / this tetap perlu preposisi in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep1",
+  "promptId": "Kami biasanya pergi ke Bali pada bulan Juli.",
+  "prompt": "We usually go to Bali ___ (in / on / at / —) July.",
+  "hint": "nama bulan",
+  "ans": "We usually go to Bali in July.",
+  "why": "Nama bulan memakai in: in July.",
+  "wrong": [
+   [
+    "We usually go to Bali on July.",
+    "On untuk hari atau tanggal; bulan saja memakai in."
+   ],
+   [
+    "We usually go to Bali at July.",
+    "At untuk jam, bukan bulan."
+   ],
+   [
+    "We usually go to Bali July.",
+    "Nama bulan tanpa next / last / this perlu preposisi in."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In July we usually go to Bali.",
+   "Usually we go to Bali in July."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Di sini sangat panas pada musim kemarau.",
+  "prompt": "It is very hot here ___ (in / on / at / —) the dry season.",
+  "hint": "nama musim",
+  "ans": "It is very hot here in the dry season.",
+  "why": "Musim memakai in: in the dry season.",
+  "wrong": [
+   [
+    "It is very hot here on the dry season.",
+    "On tidak dipakai untuk musim."
+   ],
+   [
+    "It is very hot here at the dry season.",
+    "At untuk titik waktu yang pendek, bukan musim yang panjang."
+   ],
+   [
+    "It is very hot here the dry season.",
+    "The dry season tanpa preposisi tidak bisa menjadi keterangan waktu; perlu in."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In the dry season it is very hot here."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Sepupu saya di Kanada bermain ski pada musim dingin.",
+  "prompt": "My cousin in Canada goes skiing ___ (in / on / at / —) winter.",
+  "hint": "nama musim",
+  "ans": "My cousin in Canada goes skiing in winter.",
+  "why": "Musim memakai in: in winter.",
+  "wrong": [
+   [
+    "My cousin in Canada goes skiing on winter.",
+    "On tidak dipakai untuk musim."
+   ],
+   [
+    "My cousin in Canada goes skiing at winter.",
+    "At tidak dipakai untuk musim."
+   ],
+   [
+    "My cousin in Canada goes skiing winter.",
+    "Winter tanpa preposisi (dan tanpa this / last / next) perlu in."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In winter my cousin in Canada goes skiing."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Saya selalu minum segelas air di pagi hari.",
+  "prompt": "I always drink a glass of water ___ (in / on / at / —) the morning.",
+  "hint": "bagian hari",
+  "ans": "I always drink a glass of water in the morning.",
+  "why": "Bagian hari memakai in: in the morning.",
+  "wrong": [
+   [
+    "I always drink a glass of water on the morning.",
+    "On + morning hanya untuk pagi pada hari/tanggal tertentu (on Monday morning, on the morning of …); untuk kebiasaan pakai in the morning."
+   ],
+   [
+    "I always drink a glass of water at the morning.",
+    "At the morning salah; untuk bagian hari pakai in."
+   ],
+   [
+    "I always drink a glass of water the morning.",
+    "The morning tanpa preposisi tidak bisa menjadi keterangan waktu; perlu in."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In the morning I always drink a glass of water."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Orang-orang belum punya ponsel pintar pada tahun 1980-an.",
+  "prompt": "People did not have smartphones ___ (in / on / at / —) the 1980s.",
+  "hint": "rentang sepuluh tahun",
+  "ans": "People did not have smartphones in the 1980s.",
+  "why": "Dekade memakai in: in the 1980s.",
+  "wrong": [
+   [
+    "People did not have smartphones on the 1980s.",
+    "On tidak dipakai untuk dekade."
+   ],
+   [
+    "People did not have smartphones at the 1980s.",
+    "At tidak dipakai untuk rentang waktu panjang seperti dekade."
+   ],
+   [
+    "People did not have smartphones the 1980s.",
+    "The 1980s tanpa preposisi tidak bisa menjadi keterangan waktu; perlu in."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In the 1980s people did not have smartphones."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Keretanya berangkat sepuluh menit lagi. Cepat!",
+  "prompt": "The train leaves ___ (in / on / at / —) ten minutes. Hurry up!",
+  "hint": "berapa lama lagi",
+  "ans": "The train leaves in ten minutes. Hurry up!",
+  "why": "In + jangka waktu = ... lagi (dari sekarang).",
+  "wrong": [
+   [
+    "The train leaves on ten minutes. Hurry up!",
+    "On tidak dipakai untuk jangka waktu."
+   ],
+   [
+    "The train leaves at ten minutes. Hurry up!",
+    "At untuk jam tertentu, bukan \"sepuluh menit lagi\"."
+   ],
+   [
+    "The train leaves ten minutes. Hurry up!",
+    "Tanpa in, ten minutes tidak bermakna \"sepuluh menit lagi\"."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep1",
+  "promptId": "Kehidupan sangat berbeda pada masa lalu.",
+  "prompt": "Life was very different ___ (in / on / at / —) the past.",
+  "hint": "masa lalu",
+  "ans": "Life was very different in the past.",
+  "why": "Ungkapan tetap: in the past.",
+  "wrong": [
+   [
+    "Life was very different on the past.",
+    "On the past salah; yang benar in the past."
+   ],
+   [
+    "Life was very different at the past.",
+    "At the past salah; yang benar in the past."
+   ],
+   [
+    "Life was very different the past.",
+    "The past tanpa preposisi tidak bisa menjadi keterangan waktu di sini."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In the past, life was very different."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Saya ingin tinggal di Jepang di masa depan.",
+  "prompt": "I want to live in Japan ___ (in / on / at / —) the future.",
+  "hint": "masa depan",
+  "ans": "I want to live in Japan in the future.",
+  "why": "Ungkapan tetap: in the future.",
+  "wrong": [
+   [
+    "I want to live in Japan on the future.",
+    "On the future salah; yang benar in the future."
+   ],
+   [
+    "I want to live in Japan at the future.",
+    "At the future salah; yang benar in the future."
+   ],
+   [
+    "I want to live in Japan the future.",
+    "The future tanpa preposisi tidak bisa menjadi keterangan waktu di sini."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In the future I want to live in Japan."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Bayi itu terbangun di tengah malam.",
+  "prompt": "The baby woke up ___ (in / on / at / —) the middle of the night.",
+  "hint": "di tengah malam",
+  "ans": "The baby woke up in the middle of the night.",
+  "why": "Ungkapan tetap: in the middle of the night.",
+  "wrong": [
+   [
+    "The baby woke up on the middle of the night.",
+    "On the middle salah; yang benar in the middle of."
+   ],
+   [
+    "The baby woke up at the middle of the night.",
+    "At night benar, tetapi dengan the middle of harus in."
+   ],
+   [
+    "The baby woke up the middle of the night.",
+    "The middle of the night tanpa in tidak bisa menjadi keterangan waktu."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In the middle of the night the baby woke up."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Kelasnya mulai jam delapan.",
+  "prompt": "The class starts ___ (in / on / at / —) eight o'clock.",
+  "hint": "jam tertentu",
+  "ans": "The class starts at eight o'clock.",
+  "why": "Jam memakai at: at eight o'clock.",
+  "wrong": [
+   [
+    "The class starts in eight o'clock.",
+    "In untuk bulan, tahun, dan bagian hari, bukan jam."
+   ],
+   [
+    "The class starts on eight o'clock.",
+    "On untuk hari dan tanggal, bukan jam."
+   ],
+   [
+    "The class starts eight o'clock.",
+    "Jam sebagai keterangan waktu perlu preposisi at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep1",
+  "promptId": "Pesawat saya berangkat jam setengah tujuh besok pagi.",
+  "prompt": "My flight leaves ___ (in / on / at / —) half past six tomorrow morning.",
+  "hint": "jam tertentu",
+  "ans": "My flight leaves at half past six tomorrow morning.",
+  "why": "Jam memakai at: at half past six.",
+  "wrong": [
+   [
+    "My flight leaves in half past six tomorrow morning.",
+    "In tidak dipakai untuk jam."
+   ],
+   [
+    "My flight leaves on half past six tomorrow morning.",
+    "On tidak dipakai untuk jam."
+   ],
+   [
+    "My flight leaves half past six tomorrow morning.",
+    "Jam keberangkatan perlu preposisi at."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "My flight leaves tomorrow morning at half past six.",
+   "Tomorrow morning my flight leaves at half past six."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Kami makan siang pukul dua belas siang.",
+  "prompt": "We have lunch ___ (in / on / at / —) noon.",
+  "hint": "tengah hari",
+  "ans": "We have lunch at noon.",
+  "why": "Noon adalah titik waktu → at noon.",
+  "wrong": [
+   [
+    "We have lunch in noon.",
+    "In noon salah; noon memakai at."
+   ],
+   [
+    "We have lunch on noon.",
+    "On noon salah; noon memakai at."
+   ],
+   [
+    "We have lunch noon.",
+    "Noon sebagai keterangan waktu perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep1",
+  "promptId": "Kembang api mulai tepat tengah malam.",
+  "prompt": "The fireworks started exactly ___ (in / on / at / —) midnight.",
+  "hint": "titik waktu",
+  "ans": "The fireworks started exactly at midnight.",
+  "why": "Midnight adalah titik waktu → at midnight.",
+  "wrong": [
+   [
+    "The fireworks started exactly in midnight.",
+    "In midnight salah; midnight memakai at."
+   ],
+   [
+    "The fireworks started exactly on midnight.",
+    "On midnight salah; midnight memakai at."
+   ],
+   [
+    "The fireworks started exactly midnight.",
+    "Midnight sebagai keterangan waktu perlu at."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "The fireworks started at exactly midnight."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Saya tidak bisa tidur nyenyak di malam hari karena bising.",
+  "prompt": "I cannot sleep well ___ (in / on / at / —) night because of the noise.",
+  "hint": "malam (umum)",
+  "ans": "I cannot sleep well at night because of the noise.",
+  "why": "Untuk malam secara umum dipakai at night.",
+  "wrong": [
+   [
+    "I cannot sleep well in night because of the noise.",
+    "In night tanpa the salah; yang umum at night."
+   ],
+   [
+    "I cannot sleep well on night because of the noise.",
+    "On night salah; yang benar at night."
+   ],
+   [
+    "I cannot sleep well night because of the noise.",
+    "Night tanpa preposisi tidak bisa menjadi keterangan waktu di sini."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At night I cannot sleep well because of the noise.",
+   "Because of the noise, I cannot sleep well at night."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Dia (pr) mendapat pekerjaan pertamanya pada usia sembilan belas tahun.",
+  "prompt": "She got her first job ___ (in / on / at / —) the age of nineteen.",
+  "hint": "umur seseorang",
+  "ans": "She got her first job at the age of nineteen.",
+  "why": "Usia memakai at: at the age of nineteen.",
+  "wrong": [
+   [
+    "She got her first job in the age of nineteen.",
+    "In the age of salah; usia memakai at."
+   ],
+   [
+    "She got her first job on the age of nineteen.",
+    "On the age of salah; usia memakai at."
+   ],
+   [
+    "She got her first job the age of nineteen.",
+    "The age of nineteen tanpa at tidak bisa menjadi keterangan waktu."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At the age of nineteen she got her first job."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Semua orang mulai bicara pada waktu yang bersamaan.",
+  "prompt": "Everybody started talking ___ (in / on / at / —) the same time.",
+  "hint": "pada waktu bersamaan",
+  "ans": "Everybody started talking at the same time.",
+  "why": "Ungkapan tetap: at the same time (bersamaan).",
+  "wrong": [
+   [
+    "Everybody started talking in the same time.",
+    "In the same time bukan berarti \"bersamaan\"; yang benar at the same time."
+   ],
+   [
+    "Everybody started talking on the same time.",
+    "On the same time salah; yang benar at the same time."
+   ],
+   [
+    "Everybody started talking the same time.",
+    "The same time tanpa at tidak bisa menjadi keterangan waktu di sini."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep1",
+  "promptId": "Banyak turis datang ke pantai ini untuk berfoto saat matahari terbenam.",
+  "prompt": "Many tourists come to this beach to take photos ___ (in / on / at / —) sunset.",
+  "hint": "momen dalam sehari",
+  "ans": "Many tourists come to this beach to take photos at sunset.",
+  "why": "Sunset adalah momen (titik waktu) → at sunset.",
+  "wrong": [
+   [
+    "Many tourists come to this beach to take photos in sunset.",
+    "In sunset salah; momen seperti sunset memakai at."
+   ],
+   [
+    "Many tourists come to this beach to take photos on sunset.",
+    "On sunset salah; momen seperti sunset memakai at."
+   ],
+   [
+    "Many tourists come to this beach to take photos sunset.",
+    "Sunset tanpa preposisi tidak bisa menjadi keterangan waktu di sini."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Many tourists come to this beach at sunset to take photos.",
+   "At sunset many tourists come to this beach to take photos."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Kami tidak pernah memakai ponsel saat sarapan.",
+  "prompt": "We never use our phones ___ (in / on / at / —) breakfast.",
+  "hint": "saat makan",
+  "ans": "We never use our phones at breakfast.",
+  "why": "Waktu makan sebagai momen memakai at: at breakfast.",
+  "wrong": [
+   [
+    "We never use our phones in breakfast.",
+    "In breakfast salah; yang benar at breakfast."
+   ],
+   [
+    "We never use our phones on breakfast.",
+    "On breakfast salah; yang benar at breakfast."
+   ],
+   [
+    "We never use our phones breakfast.",
+    "Breakfast tanpa at tidak bisa menjadi keterangan waktu di sini."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At breakfast we never use our phones."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Kami memperkenalkan diri di awal rapat.",
+  "prompt": "We introduced ourselves ___ (in / on / at / —) the start of the meeting.",
+  "hint": "awal sebuah acara",
+  "ans": "We introduced ourselves at the start of the meeting.",
+  "why": "Ungkapan tetap: at the start of (di awal).",
+  "wrong": [
+   [
+    "We introduced ourselves in the start of the meeting.",
+    "In the start of salah; yang benar at the start of."
+   ],
+   [
+    "We introduced ourselves on the start of the meeting.",
+    "On the start of salah; yang benar at the start of."
+   ],
+   [
+    "We introduced ourselves the start of the meeting.",
+    "The start of the meeting tanpa at tidak bisa menjadi keterangan waktu."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At the start of the meeting we introduced ourselves."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Ulang tahun saya jatuh pada hari Jumat tahun ini.",
+  "prompt": "My birthday falls ___ (in / on / at / —) a Friday this year.",
+  "hint": "nama hari",
+  "ans": "My birthday falls on a Friday this year.",
+  "why": "Hari memakai on: falls on a Friday.",
+  "wrong": [
+   [
+    "My birthday falls in a Friday this year.",
+    "In untuk bulan dan tahun, bukan hari."
+   ],
+   [
+    "My birthday falls at a Friday this year.",
+    "At untuk jam, bukan hari."
+   ],
+   [
+    "My birthday falls a Friday this year.",
+    "Fall dalam arti \"jatuh pada\" harus diikuti on."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "This year my birthday falls on a Friday."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Saya suka membaca novel saat hari hujan.",
+  "prompt": "I like to read novels ___ (in / on / at / —) rainy days.",
+  "hint": "hari (dengan sifat)",
+  "ans": "I like to read novels on rainy days.",
+  "why": "Hari, termasuk \"rainy days\", memakai on.",
+  "wrong": [
+   [
+    "I like to read novels in rainy days.",
+    "In rainy days salah; day/days memakai on."
+   ],
+   [
+    "I like to read novels at rainy days.",
+    "At tidak dipakai untuk hari."
+   ],
+   [
+    "I like to read novels rainy days.",
+    "Tanpa on, rainy days terbaca sebagai objek dari read."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "On rainy days I like to read novels."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Minuman dingin terasa sangat enak saat hari panas.",
+  "prompt": "Cold drinks taste great ___ (in / on / at / —) a hot day.",
+  "hint": "hari (dengan sifat)",
+  "ans": "Cold drinks taste great on a hot day.",
+  "why": "Day memakai on: on a hot day.",
+  "wrong": [
+   [
+    "Cold drinks taste great in a hot day.",
+    "In a hot day salah; day memakai on."
+   ],
+   [
+    "Cold drinks taste great at a hot day.",
+    "At a hot day salah; day memakai on."
+   ],
+   [
+    "Cold drinks taste great a hot day.",
+    "A hot day tanpa on tidak bisa menjadi keterangan waktu di sini."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "On a hot day, cold drinks taste great."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Sampai jumpa hari Senin!",
+  "prompt": "See you ___ (in / on / at) Monday!",
+  "hint": "nama hari",
+  "ans": "See you on Monday!",
+  "why": "Nama hari memakai on: on Monday.",
+  "wrong": [
+   [
+    "See you in Monday!",
+    "In untuk bulan, tahun, dan musim, bukan nama hari."
+   ],
+   [
+    "See you at Monday!",
+    "At untuk jam dan titik waktu, bukan nama hari."
+   ]
+  ],
+  "alt": [
+   "See you Monday!"
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Perpustakaan itu tutup setiap hari Minggu.",
+  "prompt": "The library is closed ___ (in / on / at) Sundays.",
+  "hint": "hari yang rutin",
+  "ans": "The library is closed on Sundays.",
+  "why": "Hari, termasuk bentuk jamak untuk kebiasaan, memakai on: on Sundays.",
+  "wrong": [
+   [
+    "The library is closed in Sundays.",
+    "In tidak dipakai untuk nama hari; in untuk bulan, tahun, dan musim."
+   ],
+   [
+    "The library is closed at Sundays.",
+    "At untuk jam dan titik waktu, bukan nama hari."
+   ]
+  ],
+  "alt": [
+   "The library is closed Sundays."
+  ],
+  "orders": [
+   "On Sundays the library is closed."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Saya ada kelas bahasa Inggris hari Kamis pagi.",
+  "prompt": "I have an English class ___ (in / on / at) Thursday morning.",
+  "hint": "hari + bagian hari",
+  "ans": "I have an English class on Thursday morning.",
+  "why": "Kalau ada nama harinya, pakai on walaupun ada morning: on Thursday morning.",
+  "wrong": [
+   [
+    "I have an English class in Thursday morning.",
+    "In the morning benar, tetapi kalau ada nama harinya harus on."
+   ],
+   [
+    "I have an English class at Thursday morning.",
+    "At tidak dipakai untuk hari atau bagian hari."
+   ]
+  ],
+  "alt": [
+   "I have an English class Thursday morning."
+  ],
+  "orders": [
+   "On Thursday morning I have an English class."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Apa yang kamu lakukan hari Sabtu malam?",
+  "prompt": "What did you do ___ (in / on / at) Saturday night?",
+  "hint": "hari + malam",
+  "ans": "What did you do on Saturday night?",
+  "why": "Kalau ada nama harinya, pakai on: on Saturday night.",
+  "wrong": [
+   [
+    "What did you do in Saturday night?",
+    "In tidak dipakai untuk nama hari."
+   ],
+   [
+    "What did you do at Saturday night?",
+    "At night benar, tetapi kalau ada nama harinya harus on: on Saturday night."
+   ]
+  ],
+  "alt": [
+   "What did you do Saturday night?"
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Ujian akhir kami tanggal 5 Mei.",
+  "prompt": "Our final exam is ___ (in / on / at) May 5th.",
+  "hint": "tanggal tertentu",
+  "ans": "Our final exam is on May 5th.",
+  "why": "Tanggal memakai on: on May 5th.",
+  "wrong": [
+   [
+    "Our final exam is in May 5th.",
+    "In May benar untuk bulan saja; kalau ada tanggalnya harus on."
+   ],
+   [
+    "Our final exam is at May 5th.",
+    "At untuk jam, bukan tanggal."
+   ]
+  ],
+  "alt": [
+   "Our final exam is May 5th."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Orang Indonesia merayakan Hari Kemerdekaan pada tanggal 17 Agustus.",
+  "prompt": "Indonesians celebrate Independence Day ___ (in / on / at) August 17th.",
+  "hint": "tanggal hari besar",
+  "ans": "Indonesians celebrate Independence Day on August 17th.",
+  "why": "Tanggal memakai on: on August 17th.",
+  "wrong": [
+   [
+    "Indonesians celebrate Independence Day in August 17th.",
+    "In August benar untuk bulan saja; kalau ada tanggalnya harus on."
+   ],
+   [
+    "Indonesians celebrate Independence Day at August 17th.",
+    "At untuk jam, bukan tanggal."
+   ]
+  ],
+  "alt": [
+   "Indonesians celebrate Independence Day August 17th."
+  ],
+  "orders": [
+   "On August 17th Indonesians celebrate Independence Day."
+  ]
+ },
+ {
+  "set": "prep1",
+  "promptId": "Kami menikah pada tanggal 20 Juni 2015.",
+  "prompt": "We got married ___ (in / on / at) June 20th, 2015.",
+  "hint": "tanggal lengkap",
+  "ans": "We got married on June 20th, 2015.",
+  "why": "Tanggal lengkap, walaupun ada tahunnya, memakai on.",
+  "wrong": [
+   [
+    "We got married in June 20th, 2015.",
+    "In dipakai untuk tahun saja (in 2015); kalau ada tanggalnya harus on."
+   ],
+   [
+    "We got married at June 20th, 2015.",
+    "At untuk jam, bukan tanggal."
+   ]
+  ],
+  "alt": [
+   "We got married June 20th, 2015."
+  ],
+  "orders": [
+   "On June 20th, 2015, we got married."
+  ]
+ },
+ {
+  "set": "prep2",
+  "promptId": "Dia (pr) tinggal di Surabaya bersama orang tuanya.",
+  "prompt": "She lives ___ (in / on / at / —) Surabaya with her parents.",
+  "hint": "nama kota",
+  "ans": "She lives in Surabaya with her parents.",
+  "why": "Kota memakai in: in Surabaya.",
+  "wrong": [
+   [
+    "She lives on Surabaya with her parents.",
+    "On untuk permukaan, bukan kota."
+   ],
+   [
+    "She lives at Surabaya with her parents.",
+    "At untuk titik atau alamat, bukan kota tempat tinggal."
+   ],
+   [
+    "She lives Surabaya with her parents.",
+    "Live harus diikuti preposisi sebelum nama tempat."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "She lives with her parents in Surabaya."
+  ]
+ },
+ {
+  "set": "prep2",
+  "promptId": "Ibu saya sedang memasak di dapur.",
+  "prompt": "My mother is cooking ___ (in / on / at / —) the kitchen.",
+  "hint": "di dalam ruangan",
+  "ans": "My mother is cooking in the kitchen.",
+  "why": "Ruangan memakai in: in the kitchen.",
+  "wrong": [
+   [
+    "My mother is cooking on the kitchen.",
+    "On the kitchen berarti di atas dapur; salah."
+   ],
+   [
+    "My mother is cooking at the kitchen.",
+    "Untuk ruangan di dalam rumah dipakai in, bukan at."
+   ],
+   [
+    "My mother is cooking the kitchen.",
+    "Cooking the kitchen berarti \"memasak dapurnya\"; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Ada terlalu banyak gula di kopi ini.",
+  "prompt": "There is too much sugar ___ (in / on / at / —) this coffee.",
+  "hint": "di dalam minuman",
+  "ans": "There is too much sugar in this coffee.",
+  "why": "Sesuatu yang tercampur di dalam memakai in.",
+  "wrong": [
+   [
+    "There is too much sugar on this coffee.",
+    "On this coffee berarti di permukaan, bukan tercampur di dalam."
+   ],
+   [
+    "There is too much sugar at this coffee.",
+    "At tidak dipakai untuk isi minuman."
+   ],
+   [
+    "There is too much sugar this coffee.",
+    "Too much sugar this coffee salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Ada tiga puluh dua siswa di kelas saya.",
+  "prompt": "There are thirty-two students ___ (in / on / at / —) my class.",
+  "hint": "anggota kelompok",
+  "ans": "There are thirty-two students in my class.",
+  "why": "Anggota sebuah kelas memakai in: in my class.",
+  "wrong": [
+   [
+    "There are thirty-two students on my class.",
+    "On my class salah; anggota kelas memakai in."
+   ],
+   [
+    "There are thirty-two students at my class.",
+    "At my class salah; anggota kelas memakai in."
+   ],
+   [
+    "There are thirty-two students my class.",
+    "Thirty-two students my class salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Saya menyimpan paspor di dalam laci.",
+  "prompt": "I keep my passport ___ (in / on / at / —) a drawer.",
+  "hint": "di dalam wadah",
+  "ans": "I keep my passport in a drawer.",
+  "why": "Di dalam wadah tertutup seperti laci memakai in.",
+  "wrong": [
+   [
+    "I keep my passport on a drawer.",
+    "On a drawer berarti di atas laci, bukan di dalamnya."
+   ],
+   [
+    "I keep my passport at a drawer.",
+    "At a drawer salah; di dalam laci memakai in."
+   ],
+   [
+    "I keep my passport a drawer.",
+    "My passport a drawer salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Ada lubang di sepatu saya.",
+  "prompt": "There is a hole ___ (in / on / at / —) my shoe.",
+  "hint": "ada lubang",
+  "ans": "There is a hole in my shoe.",
+  "why": "Lubang ada di dalam bahan → a hole in.",
+  "wrong": [
+   [
+    "There is a hole on my shoe.",
+    "A hole on salah; lubang memakai in."
+   ],
+   [
+    "There is a hole at my shoe.",
+    "A hole at salah; lubang memakai in."
+   ],
+   [
+    "There is a hole my shoe.",
+    "A hole my shoe salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Siapa pria di foto ini?",
+  "prompt": "Who is the man ___ (in / on / at / —) this photo?",
+  "hint": "orang di gambar",
+  "ans": "Who is the man in this photo?",
+  "why": "Orang yang tampak di foto memakai in: in this photo.",
+  "wrong": [
+   [
+    "Who is the man on this photo?",
+    "On this photo salah untuk orang yang tampak di foto; pakai in."
+   ],
+   [
+    "Who is the man at this photo?",
+    "At this photo salah; pakai in."
+   ],
+   [
+    "Who is the man this photo?",
+    "The man this photo salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Hari ini tidak ada awan di langit.",
+  "prompt": "There are no clouds ___ (in / on / at / —) the sky today.",
+  "hint": "di langit",
+  "ans": "There are no clouds in the sky today.",
+  "why": "Langit dianggap ruang → in the sky.",
+  "wrong": [
+   [
+    "There are no clouds on the sky today.",
+    "On the sky salah; yang benar in the sky."
+   ],
+   [
+    "There are no clouds at the sky today.",
+    "At the sky salah; yang benar in the sky."
+   ],
+   [
+    "There are no clouds the sky today.",
+    "No clouds the sky salah; perlu in."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Today there are no clouds in the sky."
+  ]
+ },
+ {
+  "set": "prep2",
+  "promptId": "Gunung Everest adalah gunung tertinggi di dunia.",
+  "prompt": "Mount Everest is the highest mountain ___ (in / on / at / —) the world.",
+  "hint": "wilayah sangat luas",
+  "ans": "Mount Everest is the highest mountain in the world.",
+  "why": "Superlatif + wilayah memakai in: in the world.",
+  "wrong": [
+   [
+    "Mount Everest is the highest mountain on the world.",
+    "On the world salah; yang benar in the world."
+   ],
+   [
+    "Mount Everest is the highest mountain at the world.",
+    "At the world salah; yang benar in the world."
+   ],
+   [
+    "Mount Everest is the highest mountain the world.",
+    "The highest mountain the world salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Saya membaca tentang kecelakaan itu di koran.",
+  "prompt": "I read about the accident ___ (in / on / at / —) the newspaper.",
+  "hint": "isi media cetak",
+  "ans": "I read about the accident in the newspaper.",
+  "why": "Isi koran atau buku memakai in: in the newspaper.",
+  "wrong": [
+   [
+    "I read about the accident on the newspaper.",
+    "On the newspaper berarti di atas kertas korannya; isi koran memakai in."
+   ],
+   [
+    "I read about the accident at the newspaper.",
+    "At the newspaper salah untuk membaca isinya."
+   ],
+   [
+    "I read about the accident the newspaper.",
+    "The accident the newspaper salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Ada foto keluarga saya di dinding.",
+  "prompt": "There is a picture of my family ___ (in / on / at / —) the wall.",
+  "hint": "menempel di permukaan",
+  "ans": "There is a picture of my family on the wall.",
+  "why": "Menempel di permukaan memakai on: on the wall.",
+  "wrong": [
+   [
+    "There is a picture of my family in the wall.",
+    "In the wall berarti tertanam di dalam dinding, bukan tergantung di dinding."
+   ],
+   [
+    "There is a picture of my family at the wall.",
+    "At the wall salah untuk sesuatu yang tergantung di dinding."
+   ],
+   [
+    "There is a picture of my family the wall.",
+    "My family the wall salah; perlu on."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "On the wall there is a picture of my family."
+  ]
+ },
+ {
+  "set": "prep2",
+  "promptId": "Seekor burung sedang hinggap di atap rumah kami.",
+  "prompt": "A bird is sitting ___ (in / on / at / —) the roof of our house.",
+  "hint": "di atas permukaan",
+  "ans": "A bird is sitting on the roof of our house.",
+  "why": "Di atas permukaan memakai on: on the roof.",
+  "wrong": [
+   [
+    "A bird is sitting in the roof of our house.",
+    "In the roof berarti di dalam atap, bukan hinggap di atasnya."
+   ],
+   [
+    "A bird is sitting at the roof of our house.",
+    "At the roof salah; di atas permukaan memakai on."
+   ],
+   [
+    "A bird is sitting the roof of our house.",
+    "Sitting the roof salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Kantor saya ada di lantai tiga.",
+  "prompt": "My office is ___ (in / on / at / —) the third floor.",
+  "hint": "lantai gedung",
+  "ans": "My office is on the third floor.",
+  "why": "Lantai bangunan memakai on: on the third floor.",
+  "wrong": [
+   [
+    "My office is in the third floor.",
+    "In the third floor salah; lantai memakai on."
+   ],
+   [
+    "My office is at the third floor.",
+    "Untuk letak ruangan di lantai tertentu dipakai on, bukan at."
+   ],
+   [
+    "My office is the third floor.",
+    "My office is the third floor berarti kantornya adalah lantainya; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Bisakah kamu menemukan Lombok di peta ini?",
+  "prompt": "Can you find Lombok ___ (in / on / at / —) this map?",
+  "hint": "di peta",
+  "ans": "Can you find Lombok on this map?",
+  "why": "Sesuatu di peta memakai on: on this map.",
+  "wrong": [
+   [
+    "Can you find Lombok in this map?",
+    "In this map salah; peta memakai on."
+   ],
+   [
+    "Can you find Lombok at this map?",
+    "At this map salah; peta memakai on."
+   ],
+   [
+    "Can you find Lombok this map?",
+    "Find Lombok this map salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Saya menemukan resep ini di internet.",
+  "prompt": "I found this recipe ___ (in / on / at / —) the internet.",
+  "hint": "dunia maya",
+  "ans": "I found this recipe on the internet.",
+  "why": "Ungkapan tetap: on the internet.",
+  "wrong": [
+   [
+    "I found this recipe in the internet.",
+    "In the internet salah; yang benar on the internet."
+   ],
+   [
+    "I found this recipe at the internet.",
+    "At the internet salah; yang benar on the internet."
+   ],
+   [
+    "I found this recipe the internet.",
+    "This recipe the internet salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Tolong jawab soal-soal di halaman 10.",
+  "prompt": "Please answer the questions ___ (in / on / at / —) page 10.",
+  "hint": "nomor halaman",
+  "ans": "Please answer the questions on page 10.",
+  "why": "Halaman memakai on: on page 10.",
+  "wrong": [
+   [
+    "Please answer the questions in page 10.",
+    "In page 10 salah; halaman memakai on."
+   ],
+   [
+    "Please answer the questions at page 10.",
+    "At page 10 dipakai untuk membuka buku (UK: open your books at page 10); untuk letak soal di halaman pakai on."
+   ],
+   [
+    "Please answer the questions page 10.",
+    "The questions page 10 salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Masih ada nasi di piringmu.",
+  "prompt": "There is still some rice ___ (in / on / at / —) your plate.",
+  "hint": "di atas piring",
+  "ans": "There is still some rice on your plate.",
+  "why": "Piring itu datar → on your plate.",
+  "wrong": [
+   [
+    "There is still some rice in your plate.",
+    "In your plate salah; piring memakai on."
+   ],
+   [
+    "There is still some rice at your plate.",
+    "At your plate salah; piring memakai on."
+   ],
+   [
+    "There is still some rice your plate.",
+    "Some rice your plate salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Kamus itu ada di rak paling atas.",
+  "prompt": "The dictionary is ___ (in / on / at / —) the top shelf.",
+  "hint": "di rak",
+  "ans": "The dictionary is on the top shelf.",
+  "why": "Barang di rak memakai on: on the top shelf.",
+  "wrong": [
+   [
+    "The dictionary is in the top shelf.",
+    "In the top shelf salah; barang di rak memakai on."
+   ],
+   [
+    "The dictionary is at the top shelf.",
+    "At the top shelf salah; barang di rak memakai on."
+   ],
+   [
+    "The dictionary is the top shelf.",
+    "The dictionary is the top shelf berarti kamusnya adalah raknya; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Dia (pr) memakai cincin emas di jarinya.",
+  "prompt": "She wears a gold ring ___ (in / on / at / —) her finger.",
+  "hint": "di bagian tubuh",
+  "ans": "She wears a gold ring on her finger.",
+  "why": "Benda yang terpasang di bagian tubuh memakai on: on her finger.",
+  "wrong": [
+   [
+    "She wears a gold ring in her finger.",
+    "In her finger berarti di dalam jari; salah."
+   ],
+   [
+    "She wears a gold ring at her finger.",
+    "At her finger salah; pakai on."
+   ],
+   [
+    "She wears a gold ring her finger.",
+    "A gold ring her finger salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Saya akan menunggumu di halte bus.",
+  "prompt": "I will wait for you ___ (in / on / at / —) the bus stop.",
+  "hint": "titik tempat",
+  "ans": "I will wait for you at the bus stop.",
+  "why": "Halte adalah titik tempat → at the bus stop.",
+  "wrong": [
+   [
+    "I will wait for you in the bus stop.",
+    "In the bus stop salah; halte bukan ruangan tertutup."
+   ],
+   [
+    "I will wait for you on the bus stop.",
+    "On the bus stop berarti di atas halte; salah."
+   ],
+   [
+    "I will wait for you the bus stop.",
+    "Wait for you the bus stop salah; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Ada orang di depan pintu. Bisa kamu bukakan?",
+  "prompt": "There is someone ___ (in / on / at / —) the door. Can you open it?",
+  "hint": "di depan pintu",
+  "ans": "There is someone at the door. Can you open it?",
+  "why": "Di depan pintu (titik) memakai at: at the door.",
+  "wrong": [
+   [
+    "There is someone in the door. Can you open it?",
+    "In the door salah; pintunya masih tertutup, jadi orangnya ada di depan pintu."
+   ],
+   [
+    "There is someone on the door. Can you open it?",
+    "On the door berarti menempel di daun pintu; salah untuk orang."
+   ],
+   [
+    "There is someone the door. Can you open it?",
+    "Someone the door salah; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Dia (pr) tinggal di Jalan Kenanga nomor 15.",
+  "prompt": "She lives ___ (in / on / at / —) 15 Kenanga Street.",
+  "hint": "alamat lengkap",
+  "ans": "She lives at 15 Kenanga Street.",
+  "why": "Alamat lengkap dengan nomor memakai at.",
+  "wrong": [
+   [
+    "She lives in 15 Kenanga Street.",
+    "In tidak dipakai untuk alamat lengkap dengan nomor."
+   ],
+   [
+    "She lives on 15 Kenanga Street.",
+    "On hanya untuk nama jalan tanpa nomor; alamat lengkap memakai at."
+   ],
+   [
+    "She lives 15 Kenanga Street.",
+    "Live harus diikuti preposisi sebelum alamat."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Belok kiri di lampu lalu lintas.",
+  "prompt": "Turn left ___ (in / on / at / —) the traffic lights.",
+  "hint": "titik di jalan",
+  "ans": "Turn left at the traffic lights.",
+  "why": "Titik di jalan memakai at: at the traffic lights.",
+  "wrong": [
+   [
+    "Turn left in the traffic lights.",
+    "In the traffic lights salah; lampu lalu lintas adalah titik."
+   ],
+   [
+    "Turn left on the traffic lights.",
+    "On the traffic lights berarti di atas lampunya; salah."
+   ],
+   [
+    "Turn left the traffic lights.",
+    "Turn left the traffic lights salah; perlu at."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At the traffic lights, turn left."
+  ]
+ },
+ {
+  "set": "prep2",
+  "promptId": "Anak laki-laki saya sedang di dokter gigi sekarang.",
+  "prompt": "My son is ___ (in / on / at / —) the dentist right now.",
+  "hint": "tempat orang praktik",
+  "ans": "My son is at the dentist right now.",
+  "why": "Tempat praktik seseorang memakai at: at the dentist.",
+  "wrong": [
+   [
+    "My son is in the dentist right now.",
+    "In the dentist berarti di dalam tubuh dokter giginya; salah."
+   ],
+   [
+    "My son is on the dentist right now.",
+    "On the dentist berarti di atas dokter giginya; salah."
+   ],
+   [
+    "My son is the dentist right now.",
+    "My son is the dentist berarti anak saya adalah dokter giginya, bukan sedang berada di tempat praktik; perlu at."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now my son is at the dentist."
+  ]
+ },
+ {
+  "set": "prep2",
+  "promptId": "Kami bertemu di pernikahan seorang teman.",
+  "prompt": "We met ___ (in / on / at / —) a friend's wedding.",
+  "hint": "tempat acara",
+  "ans": "We met at a friend's wedding.",
+  "why": "Acara (wedding, party) memakai at.",
+  "wrong": [
+   [
+    "We met in a friend's wedding.",
+    "In a wedding salah untuk tamu; acara memakai at."
+   ],
+   [
+    "We met on a friend's wedding.",
+    "On a wedding salah; acara memakai at."
+   ],
+   [
+    "We met a friend's wedding.",
+    "Met a friend's wedding salah; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Apakah kamu bersenang-senang di pesta itu?",
+  "prompt": "Did you have fun ___ (in / on / at / —) the party?",
+  "hint": "tempat acara",
+  "ans": "Did you have fun at the party?",
+  "why": "Acara memakai at: at the party.",
+  "wrong": [
+   [
+    "Did you have fun in the party?",
+    "In the party salah; acara memakai at."
+   ],
+   [
+    "Did you have fun on the party?",
+    "On the party salah; acara memakai at."
+   ],
+   [
+    "Did you have fun the party?",
+    "Have fun the party salah; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Istri saya sedang di bank sekarang, tapi dia menunggu di luar karena banknya belum buka.",
+  "prompt": "My wife is ___ (in / on / at / —) the bank now, but she is waiting outside because it is not open yet.",
+  "hint": "lokasi, bukan di dalam",
+  "ans": "My wife is at the bank now, but she is waiting outside because it is not open yet.",
+  "why": "Dia ada di lokasi bank tapi di luar gedung → at, bukan in.",
+  "wrong": [
+   [
+    "My wife is in the bank now, but she is waiting outside because it is not open yet.",
+    "In the bank berarti di dalam gedung, padahal dia menunggu di luar."
+   ],
+   [
+    "My wife is on the bank now, but she is waiting outside because it is not open yet.",
+    "On the bank berarti di tepi sungai; salah."
+   ],
+   [
+    "My wife is the bank now, but she is waiting outside because it is not open yet.",
+    "My wife is the bank berarti istrinya adalah bank; perlu at."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "My wife is now at the bank, but she is waiting outside because it is not open yet.",
+   "My wife is at the bank now, but she is waiting outside because it is not yet open."
+  ]
+ },
+ {
+  "set": "prep2",
+  "promptId": "Kita harus turun di stasiun berikutnya.",
+  "prompt": "We have to get off ___ (in / on / at / —) the next station.",
+  "hint": "titik perhentian",
+  "ans": "We have to get off at the next station.",
+  "why": "Titik perhentian memakai at: get off at the next station.",
+  "wrong": [
+   [
+    "We have to get off in the next station.",
+    "In the next station salah; tempat turun adalah titik."
+   ],
+   [
+    "We have to get off on the next station.",
+    "On the next station salah; pakai at."
+   ],
+   [
+    "We have to get off the next station.",
+    "Get off the next station salah; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Kakek dan nenek saya tinggal di sebuah desa kecil di Jawa Tengah.",
+  "prompt": "My grandparents live ___ (in / on / at / —) a small village in Central Java.",
+  "hint": "desa atau kota",
+  "ans": "My grandparents live in a small village in Central Java.",
+  "why": "Tempat tinggal di desa/kota/wilayah memakai in: in a small village.",
+  "wrong": [
+   [
+    "My grandparents live on a small village in Central Java.",
+    "On untuk permukaan, bukan desa atau kota."
+   ],
+   [
+    "My grandparents live at a small village in Central Java.",
+    "At untuk titik atau alamat, bukan desa tempat tinggal."
+   ],
+   [
+    "My grandparents live a small village in Central Java.",
+    "Live harus diikuti preposisi sebelum nama tempat."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep2",
+  "promptId": "Silakan bayar di konter (kasir).",
+  "prompt": "Please pay ___ (in / on / at / —) the counter.",
+  "hint": "titik layanan",
+  "ans": "Please pay at the counter.",
+  "why": "Titik layanan seperti konter atau kasir memakai at: pay at the counter.",
+  "wrong": [
+   [
+    "Please pay in the counter.",
+    "In the counter berarti di dalam meja konter; salah."
+   ],
+   [
+    "Please pay on the counter.",
+    "Pay on the counter salah; tempat membayar adalah titik, pakai at."
+   ],
+   [
+    "Please pay the counter.",
+    "Pay the counter berarti membayar konternya; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Kami pergi ke bandara naik taksi.",
+  "prompt": "We went to the airport ___ (in / on / at / —) a taxi.",
+  "hint": "kendaraan kecil",
+  "ans": "We went to the airport in a taxi.",
+  "why": "Taksi dan mobil memakai in: in a taxi.",
+  "wrong": [
+   [
+    "We went to the airport on a taxi.",
+    "On untuk bus, kereta, pesawat, motor; taksi memakai in."
+   ],
+   [
+    "We went to the airport at a taxi.",
+    "At a taxi salah untuk naik kendaraan."
+   ],
+   [
+    "We went to the airport a taxi.",
+    "Went to the airport a taxi salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Bayi itu tertidur di mobil.",
+  "prompt": "The baby fell asleep ___ (in / on / at / —) the car.",
+  "hint": "kendaraan kecil",
+  "ans": "The baby fell asleep in the car.",
+  "why": "Mobil memakai in: in the car.",
+  "wrong": [
+   [
+    "The baby fell asleep on the car.",
+    "On the car berarti di atas mobil; salah."
+   ],
+   [
+    "The baby fell asleep at the car.",
+    "At the car salah; di dalam mobil memakai in."
+   ],
+   [
+    "The baby fell asleep the car.",
+    "Fell asleep the car salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Pria yang terluka itu dibawa pergi dengan ambulans.",
+  "prompt": "The injured man was taken away ___ (in / on / at / —) an ambulance.",
+  "hint": "kendaraan kecil",
+  "ans": "The injured man was taken away in an ambulance.",
+  "why": "Ambulans seperti mobil → in an ambulance.",
+  "wrong": [
+   [
+    "The injured man was taken away on an ambulance.",
+    "On an ambulance salah; ambulans memakai in."
+   ],
+   [
+    "The injured man was taken away at an ambulance.",
+    "At an ambulance salah; pakai in."
+   ],
+   [
+    "The injured man was taken away an ambulance.",
+    "Taken away an ambulance salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Kakak laki-laki saya mengantar saya ke sekolah naik motornya.",
+  "prompt": "My brother takes me to school ___ (in / on / at / —) his motorcycle.",
+  "hint": "naik motor",
+  "ans": "My brother takes me to school on his motorcycle.",
+  "why": "Motor dan sepeda memakai on: on his motorcycle.",
+  "wrong": [
+   [
+    "My brother takes me to school in his motorcycle.",
+    "In his motorcycle salah; motor tidak dimasuki, tapi dinaiki."
+   ],
+   [
+    "My brother takes me to school at his motorcycle.",
+    "At his motorcycle salah; pakai on."
+   ],
+   [
+    "My brother takes me to school his motorcycle.",
+    "To school his motorcycle salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Tolong jangan main ponsel saat kamu sedang naik sepeda.",
+  "prompt": "Please do not use your phone while you are ___ (in / on / at / —) your bike.",
+  "hint": "naik sepeda",
+  "ans": "Please do not use your phone while you are on your bike.",
+  "why": "Sepeda memakai on: on your bike.",
+  "wrong": [
+   [
+    "Please do not use your phone while you are in your bike.",
+    "In your bike salah; sepeda memakai on."
+   ],
+   [
+    "Please do not use your phone while you are at your bike.",
+    "At your bike berarti di dekat sepeda, bukan sedang menaikinya."
+   ],
+   [
+    "Please do not use your phone while you are your bike.",
+    "You are your bike salah; perlu on."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "While you are on your bike, please do not use your phone."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Saya tidur tiga jam selama penerbangan ke Tokyo.",
+  "prompt": "I slept for three hours ___ (in / on / at / —) the flight to Tokyo.",
+  "hint": "selama penerbangan",
+  "ans": "I slept for three hours on the flight to Tokyo.",
+  "why": "Penerbangan memakai on: on the flight.",
+  "wrong": [
+   [
+    "I slept for three hours in the flight to Tokyo.",
+    "In the flight salah; penerbangan memakai on."
+   ],
+   [
+    "I slept for three hours at the flight to Tokyo.",
+    "At the flight salah; penerbangan memakai on."
+   ],
+   [
+    "I slept for three hours the flight to Tokyo.",
+    "Three hours the flight salah; perlu on."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "On the flight to Tokyo I slept for three hours."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Kami pergi ke air terjun dengan berjalan kaki.",
+  "prompt": "We went to the waterfall ___ (in / on / at / —) foot.",
+  "hint": "jalan kaki",
+  "ans": "We went to the waterfall on foot.",
+  "why": "Ungkapan tetap: on foot (berjalan kaki).",
+  "wrong": [
+   [
+    "We went to the waterfall in foot.",
+    "In foot salah; yang benar on foot."
+   ],
+   [
+    "We went to the waterfall at foot.",
+    "At foot salah; yang benar on foot."
+   ],
+   [
+    "We went to the waterfall foot.",
+    "Went to the waterfall foot salah; perlu on."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We went on foot to the waterfall."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Keretanya berangkat tepat waktu, jam tujuh.",
+  "prompt": "The train left exactly ___ (in / on / at / —) time, at seven o'clock.",
+  "hint": "sesuai jadwal",
+  "ans": "The train left exactly on time, at seven o'clock.",
+  "why": "On time = tepat sesuai jadwal.",
+  "wrong": [
+   [
+    "The train left exactly in time, at seven o'clock.",
+    "In time = tidak terlambat untuk sesuatu, bukan \"tepat sesuai jadwal\"."
+   ],
+   [
+    "The train left exactly at time, at seven o'clock.",
+    "At time salah; yang benar on time."
+   ],
+   [
+    "The train left exactly time, at seven o'clock.",
+    "Left exactly time salah; perlu on."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "The train left at seven o'clock, exactly on time."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Kami sampai di stasiun tepat pada waktunya untuk mengejar kereta terakhir.",
+  "prompt": "We got to the station just ___ (in / on / at / —) time to catch the last train.",
+  "hint": "belum terlambat untuk",
+  "ans": "We got to the station just in time to catch the last train.",
+  "why": "Just in time (to do something) = masih sempat, nyaris terlambat.",
+  "wrong": [
+   [
+    "We got to the station just on time to catch the last train.",
+    "On time = tepat sesuai jadwal; untuk \"masih sempat + to catch\" dipakai (just) in time."
+   ],
+   [
+    "We got to the station just at time to catch the last train.",
+    "At time salah; yang benar in time."
+   ],
+   [
+    "We got to the station just time to catch the last train.",
+    "Just time to catch salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Kami membayar uang sewa setiap akhir bulan.",
+  "prompt": "We pay the rent ___ (in / on / at / —) the end of every month.",
+  "hint": "akhir periode",
+  "ans": "We pay the rent at the end of every month.",
+  "why": "At the end of = pada akhir (sebuah periode).",
+  "wrong": [
+   [
+    "We pay the rent in the end of every month.",
+    "In the end berarti \"akhirnya\"; untuk akhir bulan dipakai at the end of."
+   ],
+   [
+    "We pay the rent on the end of every month.",
+    "On the end of salah; yang benar at the end of."
+   ],
+   [
+    "We pay the rent the end of every month.",
+    "The rent the end of every month salah; perlu at."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At the end of every month we pay the rent."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Mobil lama kami sering bermasalah, jadi akhirnya kami menjualnya.",
+  "prompt": "We had a lot of problems with our old car, so ___ (in / on / at / —) the end we sold it.",
+  "hint": "pada akhirnya",
+  "ans": "We had a lot of problems with our old car, so in the end we sold it.",
+  "why": "In the end = akhirnya (setelah banyak hal terjadi).",
+  "wrong": [
+   [
+    "We had a lot of problems with our old car, so on the end we sold it.",
+    "On the end salah; yang benar in the end."
+   ],
+   [
+    "We had a lot of problems with our old car, so at the end we sold it.",
+    "At the end perlu keterangan akhir dari apa (at the end of the month); untuk \"akhirnya, setelah banyak masalah\" pakai in the end."
+   ],
+   [
+    "We had a lot of problems with our old car, so the end we sold it.",
+    "So the end we sold it salah; perlu in."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We had a lot of problems with our old car, so we sold it in the end."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Pekerjaan itu sulit pada awalnya, tapi lama-lama jadi lebih mudah.",
+  "prompt": "The job was difficult ___ (in / on / at / —) first, but it got easier.",
+  "hint": "pada awalnya",
+  "ans": "The job was difficult at first, but it got easier.",
+  "why": "Ungkapan tetap: at first (pada awalnya).",
+  "wrong": [
+   [
+    "The job was difficult in first, but it got easier.",
+    "In first salah; yang benar at first."
+   ],
+   [
+    "The job was difficult on first, but it got easier.",
+    "On first salah; yang benar at first."
+   ],
+   [
+    "The job was difficult first, but it got easier.",
+    "Difficult first salah; untuk \"pada awalnya\" perlu at first."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At first the job was difficult, but it got easier."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Kamu perlu tidur paling sedikit tujuh jam semalam.",
+  "prompt": "You need to sleep ___ (in / on / at / —) least seven hours a night.",
+  "hint": "paling sedikit",
+  "ans": "You need to sleep at least seven hours a night.",
+  "why": "Ungkapan tetap: at least (paling sedikit).",
+  "wrong": [
+   [
+    "You need to sleep in least seven hours a night.",
+    "In least salah; yang benar at least."
+   ],
+   [
+    "You need to sleep on least seven hours a night.",
+    "On least salah; yang benar at least."
+   ],
+   [
+    "You need to sleep least seven hours a night.",
+    "Least seven hours tanpa at salah."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Manajer saya sedang sibuk saat ini. Bisa telepon lagi nanti?",
+  "prompt": "My manager is busy ___ (in / on / at / —) the moment. Can you call back later?",
+  "hint": "saat ini",
+  "ans": "My manager is busy at the moment. Can you call back later?",
+  "why": "Ungkapan tetap: at the moment (saat ini).",
+  "wrong": [
+   [
+    "My manager is busy in the moment. Can you call back later?",
+    "In the moment = larut/fokus pada saat itu (live in the moment), bukan \"sedang (sibuk) saat ini\"."
+   ],
+   [
+    "My manager is busy on the moment. Can you call back later?",
+    "On the moment salah; yang benar at the moment."
+   ],
+   [
+    "My manager is busy the moment. Can you call back later?",
+    "Busy the moment salah; perlu at."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At the moment my manager is busy. Can you call back later?"
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Saya yakin dia (lk) tidak sengaja memecahkan jendela itu.",
+  "prompt": "I am sure he did not break the window ___ (in / on / at / —) purpose.",
+  "hint": "dengan sengaja",
+  "ans": "I am sure he did not break the window on purpose.",
+  "why": "Ungkapan tetap: on purpose (dengan sengaja).",
+  "wrong": [
+   [
+    "I am sure he did not break the window in purpose.",
+    "In purpose salah; yang benar on purpose."
+   ],
+   [
+    "I am sure he did not break the window at purpose.",
+    "At purpose salah; yang benar on purpose."
+   ],
+   [
+    "I am sure he did not break the window purpose.",
+    "The window purpose salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Sepatu ini sedang diskon, jadi minggu ini lebih murah.",
+  "prompt": "These shoes are ___ (in / on / at / —) sale, so they are cheaper this week.",
+  "hint": "sedang diskon",
+  "ans": "These shoes are on sale, so they are cheaper this week.",
+  "why": "Ungkapan tetap: on sale (sedang diskon).",
+  "wrong": [
+   [
+    "These shoes are in sale, so they are cheaper this week.",
+    "In sale salah; yang benar on sale (UK juga memakai \"in the sale\", dengan the)."
+   ],
+   [
+    "These shoes are at sale, so they are cheaper this week.",
+    "At sale salah; yang benar on sale."
+   ],
+   [
+    "These shoes are sale, so they are cheaper this week.",
+    "These shoes are sale salah; perlu on."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "These shoes are on sale, so this week they are cheaper."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Ada film bagus di TV nanti malam.",
+  "prompt": "There is a good movie ___ (in / on / at / —) TV tonight.",
+  "hint": "acara televisi",
+  "ans": "There is a good movie on TV tonight.",
+  "why": "Ungkapan tetap: on TV.",
+  "wrong": [
+   [
+    "There is a good movie in TV tonight.",
+    "In TV berarti di dalam pesawat TV-nya; salah."
+   ],
+   [
+    "There is a good movie at TV tonight.",
+    "At TV salah; yang benar on TV."
+   ],
+   [
+    "There is a good movie TV tonight.",
+    "A good movie TV tonight salah; perlu on."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Tonight there is a good movie on TV."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Maaf, saya tidak bisa bicara sekarang. Saya sedang buru-buru.",
+  "prompt": "Sorry, I cannot talk now. I am ___ (in / on / at / —) a hurry.",
+  "hint": "sedang buru-buru",
+  "ans": "Sorry, I cannot talk now. I am in a hurry.",
+  "why": "Ungkapan tetap: in a hurry (sedang buru-buru).",
+  "wrong": [
+   [
+    "Sorry, I cannot talk now. I am on a hurry.",
+    "On a hurry salah; yang benar in a hurry."
+   ],
+   [
+    "Sorry, I cannot talk now. I am at a hurry.",
+    "At a hurry salah; yang benar in a hurry."
+   ],
+   [
+    "Sorry, I cannot talk now. I am a hurry.",
+    "I am a hurry salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Dapurnya terbakar, jadi kami meminta bantuan.",
+  "prompt": "The kitchen was ___ (in / on / at / —) fire, so we called for help.",
+  "hint": "sedang terbakar",
+  "ans": "The kitchen was on fire, so we called for help.",
+  "why": "Ungkapan tetap: on fire (sedang terbakar).",
+  "wrong": [
+   [
+    "The kitchen was in fire, so we called for help.",
+    "In fire salah; yang benar on fire."
+   ],
+   [
+    "The kitchen was at fire, so we called for help.",
+    "At fire salah; yang benar on fire."
+   ],
+   [
+    "The kitchen was fire, so we called for help.",
+    "The kitchen was fire salah; untuk \"terbakar\" perlu on fire."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Kakak laki-laki saya jatuh cinta pada teman sekelasnya.",
+  "prompt": "My brother is ___ (in / on / at / —) love with his classmate.",
+  "hint": "jatuh cinta",
+  "ans": "My brother is in love with his classmate.",
+  "why": "Ungkapan tetap: in love (with).",
+  "wrong": [
+   [
+    "My brother is on love with his classmate.",
+    "On love salah; yang benar in love."
+   ],
+   [
+    "My brother is at love with his classmate.",
+    "At love salah; yang benar in love."
+   ],
+   [
+    "My brother is love with his classmate.",
+    "My brother is love salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Banyak hewan di hutan ini dalam bahaya.",
+  "prompt": "Many animals in this forest are ___ (in / on / at / —) danger.",
+  "hint": "dalam bahaya",
+  "ans": "Many animals in this forest are in danger.",
+  "why": "Ungkapan tetap: in danger.",
+  "wrong": [
+   [
+    "Many animals in this forest are on danger.",
+    "On danger salah; yang benar in danger."
+   ],
+   [
+    "Many animals in this forest are at danger.",
+    "At danger salah; yang benar in danger."
+   ],
+   [
+    "Many animals in this forest are danger.",
+    "Are danger salah; perlu in."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In this forest many animals are in danger."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Ibu saya sedang menelepon bibi saya.",
+  "prompt": "My mother is ___ (in / on / at / —) the phone with my aunt.",
+  "hint": "sedang menelepon",
+  "ans": "My mother is on the phone with my aunt.",
+  "why": "Ungkapan tetap: on the phone (sedang menelepon).",
+  "wrong": [
+   [
+    "My mother is in the phone with my aunt.",
+    "In the phone berarti di dalam ponselnya; salah."
+   ],
+   [
+    "My mother is at the phone with my aunt.",
+    "At the phone salah; yang benar on the phone."
+   ],
+   [
+    "My mother is the phone with my aunt.",
+    "My mother is the phone salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Film ini terlalu panjang, menurut saya.",
+  "prompt": "This movie is far too long, ___ (in / on / at / —) my opinion.",
+  "hint": "menurut saya",
+  "ans": "This movie is far too long, in my opinion.",
+  "why": "Ungkapan tetap: in my opinion.",
+  "wrong": [
+   [
+    "This movie is far too long, on my opinion.",
+    "On my opinion salah; yang benar in my opinion."
+   ],
+   [
+    "This movie is far too long, at my opinion.",
+    "At my opinion salah; yang benar in my opinion."
+   ],
+   [
+    "This movie is far too long, my opinion.",
+    "My opinion tanpa in tidak bermakna \"menurut saya\"."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In my opinion, this movie is far too long."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Saya sama sekali tidak mengerti pelajaran ini.",
+  "prompt": "I do not understand this lesson ___ (in / on / at / —) all.",
+  "hint": "sama sekali",
+  "ans": "I do not understand this lesson at all.",
+  "why": "Ungkapan tetap: not ... at all (sama sekali tidak).",
+  "wrong": [
+   [
+    "I do not understand this lesson in all.",
+    "In all berarti \"secara keseluruhan\", bukan \"sama sekali\"."
+   ],
+   [
+    "I do not understand this lesson on all.",
+    "On all salah; yang benar at all."
+   ],
+   [
+    "I do not understand this lesson all.",
+    "This lesson all salah; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Sebaiknya kamu pesan tiketnya jauh-jauh hari.",
+  "prompt": "You should book the tickets ___ (in / on / at / —) advance.",
+  "hint": "jauh-jauh hari",
+  "ans": "You should book the tickets in advance.",
+  "why": "Ungkapan tetap: in advance (sebelumnya).",
+  "wrong": [
+   [
+    "You should book the tickets on advance.",
+    "On advance salah; yang benar in advance."
+   ],
+   [
+    "You should book the tickets at advance.",
+    "At advance salah; yang benar in advance."
+   ],
+   [
+    "You should book the tickets advance.",
+    "The tickets advance salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Jangan khawatir, saya sedang dalam perjalanan ke rumahmu.",
+  "prompt": "Do not worry, I am ___ (in / on / at / —) my way to your house.",
+  "hint": "sedang di jalan",
+  "ans": "Do not worry, I am on my way to your house.",
+  "why": "Ungkapan tetap: on my way (sedang dalam perjalanan).",
+  "wrong": [
+   [
+    "Do not worry, I am in my way to your house.",
+    "In my way berarti \"menghalangi jalan saya\"; salah di sini."
+   ],
+   [
+    "Do not worry, I am at my way to your house.",
+    "At my way salah; yang benar on my way."
+   ],
+   [
+    "Do not worry, I am my way to your house.",
+    "I am my way salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Kami menunggu dua jam, dan akhirnya busnya datang.",
+  "prompt": "We waited for two hours, and ___ (in / on / at / —) last the bus came.",
+  "hint": "akhirnya, setelah lama",
+  "ans": "We waited for two hours, and at last the bus came.",
+  "why": "Ungkapan tetap: at last (akhirnya, setelah lama menunggu).",
+  "wrong": [
+   [
+    "We waited for two hours, and in last the bus came.",
+    "In last salah; yang benar at last (atau in the end, dengan the end)."
+   ],
+   [
+    "We waited for two hours, and on last the bus came.",
+    "On last salah; yang benar at last."
+   ],
+   [
+    "We waited for two hours, and last the bus came.",
+    "Last tanpa at tidak bermakna \"akhirnya\" di sini."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We waited for two hours, and the bus came at last."
+  ]
+ },
+ {
+  "set": "prep3",
+  "promptId": "Silakan masuk ke ruangan satu per satu.",
+  "prompt": "Please come into the room one ___ (in / on / at / —) a time.",
+  "hint": "satu per satu",
+  "ans": "Please come into the room one at a time.",
+  "why": "Ungkapan tetap: one at a time (satu per satu).",
+  "wrong": [
+   [
+    "Please come into the room one in a time.",
+    "One in a time salah; yang benar one at a time."
+   ],
+   [
+    "Please come into the room one on a time.",
+    "One on a time salah; yang benar one at a time."
+   ],
+   [
+    "Please come into the room one a time.",
+    "One a time salah; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Tolong kirimkan laporannya paling lambat hari Jumat.",
+  "prompt": "Please send me the report by Friday ___ (in / on / at / —) the latest.",
+  "hint": "paling lambat",
+  "ans": "Please send me the report by Friday at the latest.",
+  "why": "Ungkapan tetap: at the latest (paling lambat).",
+  "wrong": [
+   [
+    "Please send me the report by Friday in the latest.",
+    "In the latest salah untuk arti \"paling lambat\"; yang benar at the latest."
+   ],
+   [
+    "Please send me the report by Friday on the latest.",
+    "On the latest salah; yang benar at the latest."
+   ],
+   [
+    "Please send me the report by Friday the latest.",
+    "By Friday the latest salah; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep3",
+  "promptId": "Orang yang merokok berisiko terkena penyakit jantung.",
+  "prompt": "People who smoke are ___ (in / on / at / —) risk of heart disease.",
+  "hint": "punya risiko",
+  "ans": "People who smoke are at risk of heart disease.",
+  "why": "Ungkapan tetap: at risk (of) = berisiko. Bandingkan: in danger.",
+  "wrong": [
+   [
+    "People who smoke are in risk of heart disease.",
+    "In risk salah; yang benar at risk (tetapi in danger)."
+   ],
+   [
+    "People who smoke are on risk of heart disease.",
+    "On risk salah; yang benar at risk."
+   ],
+   [
+    "People who smoke are risk of heart disease.",
+    "Are risk of salah; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Saya akan meneleponmu minggu depan.",
+  "prompt": "I will call you ___ (in / on / at / —) next week.",
+  "hint": "next + waktu",
+  "ans": "I will call you next week.",
+  "why": "Next week tidak memakai preposisi.",
+  "wrong": [
+   [
+    "I will call you in next week.",
+    "Sebelum next tidak boleh ada in."
+   ],
+   [
+    "I will call you on next week.",
+    "Sebelum next tidak boleh ada on."
+   ],
+   [
+    "I will call you at next week.",
+    "Sebelum next tidak boleh ada at."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Next week I will call you."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Kakak perempuan saya akan menikah bulan depan.",
+  "prompt": "My sister is getting married ___ (in / on / at / —) next month.",
+  "hint": "next + waktu",
+  "ans": "My sister is getting married next month.",
+  "why": "Next month tidak memakai preposisi.",
+  "wrong": [
+   [
+    "My sister is getting married in next month.",
+    "In next month salah; next sudah cukup tanpa preposisi."
+   ],
+   [
+    "My sister is getting married on next month.",
+    "On next month salah; next tidak memakai preposisi."
+   ],
+   [
+    "My sister is getting married at next month.",
+    "At next month salah; next tidak memakai preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Next month my sister is getting married."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Kami pindah ke Bandung tahun lalu.",
+  "prompt": "We moved to Bandung ___ (in / on / at / —) last year.",
+  "hint": "last + waktu",
+  "ans": "We moved to Bandung last year.",
+  "why": "Last year tidak memakai preposisi.",
+  "wrong": [
+   [
+    "We moved to Bandung in last year.",
+    "In last year salah (kesalahan khas); last tidak memakai preposisi."
+   ],
+   [
+    "We moved to Bandung on last year.",
+    "On last year salah; last tidak memakai preposisi."
+   ],
+   [
+    "We moved to Bandung at last year.",
+    "At last year salah; last tidak memakai preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last year we moved to Bandung."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Saya tidak bisa tidur tadi malam.",
+  "prompt": "I could not sleep ___ (in / on / at / —) last night.",
+  "hint": "last + waktu",
+  "ans": "I could not sleep last night.",
+  "why": "Last night tidak memakai preposisi.",
+  "wrong": [
+   [
+    "I could not sleep in last night.",
+    "In last night salah; last tidak memakai preposisi."
+   ],
+   [
+    "I could not sleep on last night.",
+    "On last night salah; last tidak memakai preposisi."
+   ],
+   [
+    "I could not sleep at last night.",
+    "At night benar, tetapi at last night salah."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night I could not sleep."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Saya melihat ayahmu di mal tadi pagi.",
+  "prompt": "I saw your father at the mall ___ (in / on / at / —) this morning.",
+  "hint": "this + waktu",
+  "ans": "I saw your father at the mall this morning.",
+  "why": "This morning tidak memakai preposisi.",
+  "wrong": [
+   [
+    "I saw your father at the mall in this morning.",
+    "In the morning benar, tetapi in this morning salah."
+   ],
+   [
+    "I saw your father at the mall on this morning.",
+    "On this morning salah; this tidak memakai preposisi."
+   ],
+   [
+    "I saw your father at the mall at this morning.",
+    "At this morning salah; this tidak memakai preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "This morning I saw your father at the mall."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Bisakah kita bertemu siang ini?",
+  "prompt": "Can we meet ___ (in / on / at / —) this afternoon?",
+  "hint": "this + waktu",
+  "ans": "Can we meet this afternoon?",
+  "why": "This afternoon tidak memakai preposisi.",
+  "wrong": [
+   [
+    "Can we meet in this afternoon?",
+    "In the afternoon benar, tetapi in this afternoon salah."
+   ],
+   [
+    "Can we meet on this afternoon?",
+    "On this afternoon salah; this tidak memakai preposisi."
+   ],
+   [
+    "Can we meet at this afternoon?",
+    "At this afternoon salah; this tidak memakai preposisi."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Keluarga saya pergi ke pantai setiap tahun.",
+  "prompt": "My family goes to the beach ___ (in / on / at / —) every year.",
+  "hint": "every + waktu",
+  "ans": "My family goes to the beach every year.",
+  "why": "Every year tidak memakai preposisi.",
+  "wrong": [
+   [
+    "My family goes to the beach in every year.",
+    "In every year salah; every tidak memakai preposisi."
+   ],
+   [
+    "My family goes to the beach on every year.",
+    "On every year salah; every tidak memakai preposisi."
+   ],
+   [
+    "My family goes to the beach at every year.",
+    "At every year salah; every tidak memakai preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Every year my family goes to the beach."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Mal baru itu akan buka besok.",
+  "prompt": "The new mall will open ___ (in / on / at / —) tomorrow.",
+  "hint": "hari esok",
+  "ans": "The new mall will open tomorrow.",
+  "why": "Tomorrow tidak memakai preposisi.",
+  "wrong": [
+   [
+    "The new mall will open in tomorrow.",
+    "In tomorrow salah; tomorrow tidak memakai preposisi."
+   ],
+   [
+    "The new mall will open on tomorrow.",
+    "On tomorrow salah; tomorrow tidak memakai preposisi."
+   ],
+   [
+    "The new mall will open at tomorrow.",
+    "At tomorrow salah; tomorrow tidak memakai preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Tomorrow the new mall will open."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Apakah kamu masuk kerja kemarin?",
+  "prompt": "Did you go to work ___ (in / on / at / —) yesterday?",
+  "hint": "hari kemarin",
+  "ans": "Did you go to work yesterday?",
+  "why": "Yesterday tidak memakai preposisi.",
+  "wrong": [
+   [
+    "Did you go to work in yesterday?",
+    "In yesterday salah; yesterday tidak memakai preposisi."
+   ],
+   [
+    "Did you go to work on yesterday?",
+    "On yesterday salah; yesterday tidak memakai preposisi."
+   ],
+   [
+    "Did you go to work at yesterday?",
+    "At yesterday salah; yesterday tidak memakai preposisi."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Apa rencanamu nanti malam?",
+  "prompt": "What are you doing ___ (in / on / at / —) tonight?",
+  "hint": "nanti malam",
+  "ans": "What are you doing tonight?",
+  "why": "Tonight tidak memakai preposisi.",
+  "wrong": [
+   [
+    "What are you doing in tonight?",
+    "In tonight salah; tonight tidak memakai preposisi."
+   ],
+   [
+    "What are you doing on tonight?",
+    "On tonight salah; tonight tidak memakai preposisi."
+   ],
+   [
+    "What are you doing at tonight?",
+    "At night benar, tetapi at tonight salah."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Saya membeli tas ini dua hari yang lalu.",
+  "prompt": "I bought this bag ___ (in / on / at / —) two days ago.",
+  "hint": "... yang lalu",
+  "ans": "I bought this bag two days ago.",
+  "why": "Keterangan dengan ago tidak memakai preposisi.",
+  "wrong": [
+   [
+    "I bought this bag in two days ago.",
+    "In two days ago salah; ago tidak memakai preposisi."
+   ],
+   [
+    "I bought this bag on two days ago.",
+    "On two days ago salah; ago tidak memakai preposisi."
+   ],
+   [
+    "I bought this bag at two days ago.",
+    "At two days ago salah; ago tidak memakai preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Two days ago I bought this bag."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Jam berapa kamu sampai di rumah tadi malam?",
+  "prompt": "What time did you get ___ (in / on / at / —) home last night?",
+  "hint": "sampai di rumah",
+  "ans": "What time did you get home last night?",
+  "why": "Get home tidak memakai preposisi.",
+  "wrong": [
+   [
+    "What time did you get in home last night?",
+    "Get in home salah; yang benar get home."
+   ],
+   [
+    "What time did you get on home last night?",
+    "Get on home salah; yang benar get home."
+   ],
+   [
+    "What time did you get at home last night?",
+    "Get at home salah; setelah get / go / come, home tidak memakai at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Kamar mandinya ada di lantai bawah.",
+  "prompt": "The bathroom is ___ (in / on / at / —) downstairs.",
+  "hint": "lantai bawah",
+  "ans": "The bathroom is downstairs.",
+  "why": "Downstairs sudah berarti \"di lantai bawah\", jadi tanpa preposisi.",
+  "wrong": [
+   [
+    "The bathroom is in downstairs.",
+    "In downstairs salah; downstairs tidak memakai preposisi."
+   ],
+   [
+    "The bathroom is on downstairs.",
+    "On downstairs salah; downstairs tidak memakai preposisi."
+   ],
+   [
+    "The bathroom is at downstairs.",
+    "At downstairs salah; downstairs tidak memakai preposisi."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Sepupu saya sedang kuliah di luar negeri.",
+  "prompt": "My cousin is studying ___ (in / on / at / —) abroad.",
+  "hint": "luar negeri",
+  "ans": "My cousin is studying abroad.",
+  "why": "Abroad sudah berarti \"di luar negeri\", jadi tanpa preposisi.",
+  "wrong": [
+   [
+    "My cousin is studying in abroad.",
+    "In abroad salah (kesalahan khas); abroad tidak memakai preposisi."
+   ],
+   [
+    "My cousin is studying on abroad.",
+    "On abroad salah; abroad tidak memakai preposisi."
+   ],
+   [
+    "My cousin is studying at abroad.",
+    "At abroad salah; abroad tidak memakai preposisi."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Dia (pr) masuk ke ruangan itu tanpa mengetuk pintu.",
+  "prompt": "She entered ___ (in / on / at / —) the room without knocking.",
+  "hint": "masuk ke",
+  "ans": "She entered the room without knocking.",
+  "why": "Enter langsung diikuti tempatnya, tanpa preposisi.",
+  "wrong": [
+   [
+    "She entered in the room without knocking.",
+    "Entered in the room salah (terjemahan \"masuk ke dalam\"); enter tanpa preposisi."
+   ],
+   [
+    "She entered on the room without knocking.",
+    "Entered on the room salah; enter tanpa preposisi."
+   ],
+   [
+    "She entered at the room without knocking.",
+    "Entered at the room salah; enter tanpa preposisi."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Kami sampai di puncak gunung pada tengah hari.",
+  "prompt": "We reached ___ (in / on / at / —) the top of the mountain at noon.",
+  "hint": "sampai di",
+  "ans": "We reached the top of the mountain at noon.",
+  "why": "Reach langsung diikuti tempatnya, tanpa preposisi.",
+  "wrong": [
+   [
+    "We reached in the top of the mountain at noon.",
+    "Reached in salah; reach tanpa preposisi."
+   ],
+   [
+    "We reached on the top of the mountain at noon.",
+    "Reached on salah; reach tanpa preposisi."
+   ],
+   [
+    "We reached at the top of the mountain at noon.",
+    "Arrived at benar, tetapi reached at salah; reach tanpa preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At noon we reached the top of the mountain."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Saya lahir di Padang.",
+  "prompt": "I was born ___ (in / on / at / —) Padang.",
+  "hint": "nama kota",
+  "ans": "I was born in Padang.",
+  "why": "Kota memakai in: born in Padang.",
+  "wrong": [
+   [
+    "I was born on Padang.",
+    "On tidak dipakai untuk kota."
+   ],
+   [
+    "I was born at Padang.",
+    "At tidak dipakai untuk kota tempat lahir."
+   ],
+   [
+    "I was born Padang.",
+    "Born Padang salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Nenek saya tiba di Indonesia minggu lalu.",
+  "prompt": "My grandmother arrived ___ (in / on / at / —) Indonesia last week.",
+  "hint": "tiba di negara",
+  "ans": "My grandmother arrived in Indonesia last week.",
+  "why": "Arrive + kota/negara memakai in.",
+  "wrong": [
+   [
+    "My grandmother arrived on Indonesia last week.",
+    "Arrived on Indonesia salah; negara memakai in."
+   ],
+   [
+    "My grandmother arrived at Indonesia last week.",
+    "Arrive at untuk titik/gedung; untuk negara pakai arrive in."
+   ],
+   [
+    "My grandmother arrived Indonesia last week.",
+    "Arrived Indonesia salah; arrive perlu preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last week my grandmother arrived in Indonesia."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Kami tiba di hotel larut malam.",
+  "prompt": "We arrived ___ (in / on / at / —) the hotel late at night.",
+  "hint": "tiba di gedung",
+  "ans": "We arrived at the hotel late at night.",
+  "why": "Arrive + gedung/titik memakai at.",
+  "wrong": [
+   [
+    "We arrived in the hotel late at night.",
+    "Arrive in untuk kota/negara; untuk gedung pakai arrive at."
+   ],
+   [
+    "We arrived on the hotel late at night.",
+    "Arrived on the hotel salah; pakai at."
+   ],
+   [
+    "We arrived the hotel late at night.",
+    "Arrived the hotel salah (kesalahan khas); arrive perlu preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Late at night we arrived at the hotel."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Mari bertemu di gerbang utama.",
+  "prompt": "Let's meet ___ (in / on / at / —) the main gate.",
+  "hint": "titik pertemuan",
+  "ans": "Let's meet at the main gate.",
+  "why": "Titik pertemuan memakai at: at the main gate.",
+  "wrong": [
+   [
+    "Let's meet in the main gate.",
+    "In the main gate salah; gerbang adalah titik, bukan ruangan."
+   ],
+   [
+    "Let's meet on the main gate.",
+    "On the main gate berarti di atas gerbang; salah."
+   ],
+   [
+    "Let's meet the main gate.",
+    "Meet the main gate berarti \"menemui gerbangnya\"; perlu at."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Siapa gadis yang memakai gaun merah itu?",
+  "prompt": "Who is the girl ___ (in / on / at / —) the red dress?",
+  "hint": "memakai pakaian",
+  "ans": "Who is the girl in the red dress?",
+  "why": "Orang yang memakai pakaian tertentu: in the red dress.",
+  "wrong": [
+   [
+    "Who is the girl on the red dress?",
+    "On the red dress berarti di atas gaunnya; salah."
+   ],
+   [
+    "Who is the girl at the red dress?",
+    "At the red dress salah; pakai in."
+   ],
+   [
+    "Who is the girl the red dress?",
+    "The girl the red dress salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Ponsel saya ada di saku belakang.",
+  "prompt": "My phone is ___ (in / on / at / —) my back pocket.",
+  "hint": "di dalam wadah",
+  "ans": "My phone is in my back pocket.",
+  "why": "Di dalam saku memakai in.",
+  "wrong": [
+   [
+    "My phone is on my back pocket.",
+    "On my back pocket berarti menempel di luar saku; salah."
+   ],
+   [
+    "My phone is at my back pocket.",
+    "At my back pocket salah; pakai in."
+   ],
+   [
+    "My phone is my back pocket.",
+    "My phone is my back pocket salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Jangan berjalan di bawah hujan tanpa payung.",
+  "prompt": "Do not walk ___ (in / on / at / —) the rain without an umbrella.",
+  "hint": "di tengah cuaca",
+  "ans": "Do not walk in the rain without an umbrella.",
+  "why": "Berada di tengah cuaca memakai in: in the rain.",
+  "wrong": [
+   [
+    "Do not walk on the rain without an umbrella.",
+    "On the rain salah; yang benar in the rain."
+   ],
+   [
+    "Do not walk at the rain without an umbrella.",
+    "At the rain salah; yang benar in the rain."
+   ],
+   [
+    "Do not walk the rain without an umbrella.",
+    "Walk the rain salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Kami terjebak macet selama dua jam.",
+  "prompt": "We were stuck ___ (in / on / at / —) a traffic jam for two hours.",
+  "hint": "terjebak macet",
+  "ans": "We were stuck in a traffic jam for two hours.",
+  "why": "Terjebak di tengah kemacetan: stuck in a traffic jam.",
+  "wrong": [
+   [
+    "We were stuck on a traffic jam for two hours.",
+    "On a traffic jam salah; pakai in."
+   ],
+   [
+    "We were stuck at a traffic jam for two hours.",
+    "At a traffic jam salah; pakai in."
+   ],
+   [
+    "We were stuck a traffic jam for two hours.",
+    "Stuck a traffic jam salah; perlu in."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Ada laba-laba di bahumu!",
+  "prompt": "There is a spider ___ (in / on / at / —) your shoulder!",
+  "hint": "di permukaan tubuh",
+  "ans": "There is a spider on your shoulder!",
+  "why": "Di permukaan memakai on: on your shoulder.",
+  "wrong": [
+   [
+    "There is a spider in your shoulder!",
+    "In your shoulder berarti di dalam bahu; salah."
+   ],
+   [
+    "There is a spider at your shoulder!",
+    "At your shoulder berarti di samping/dekat bahu (berdiri di sebelahmu), bukan menempel di bahu; pakai on."
+   ],
+   [
+    "There is a spider your shoulder!",
+    "A spider your shoulder salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Saya mendengar berita itu di radio.",
+  "prompt": "I heard the news ___ (in / on / at / —) the radio.",
+  "hint": "mendengar dari siaran",
+  "ans": "I heard the news on the radio.",
+  "why": "Siaran radio/TV memakai on: on the radio.",
+  "wrong": [
+   [
+    "I heard the news in the radio.",
+    "In the radio berarti di dalam pesawat radionya; salah."
+   ],
+   [
+    "I heard the news at the radio.",
+    "At the radio salah; yang benar on the radio."
+   ],
+   [
+    "I heard the news the radio.",
+    "The news the radio salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Saya sedang diet, jadi tidak usah kue untuk saya, terima kasih.",
+  "prompt": "I am ___ (in / on / at / —) a diet, so no cake for me, thanks.",
+  "hint": "sedang diet",
+  "ans": "I am on a diet, so no cake for me, thanks.",
+  "why": "Ungkapan tetap: on a diet.",
+  "wrong": [
+   [
+    "I am in a diet, so no cake for me, thanks.",
+    "In a diet salah; yang benar on a diet."
+   ],
+   [
+    "I am at a diet, so no cake for me, thanks.",
+    "At a diet salah; yang benar on a diet."
+   ],
+   [
+    "I am a diet, so no cake for me, thanks.",
+    "I am a diet salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Dokter mana yang bertugas malam ini?",
+  "prompt": "Which doctor is ___ (in / on / at / —) duty tonight?",
+  "hint": "sedang bertugas",
+  "ans": "Which doctor is on duty tonight?",
+  "why": "Ungkapan tetap: on duty (sedang bertugas).",
+  "wrong": [
+   [
+    "Which doctor is in duty tonight?",
+    "In duty salah; yang benar on duty."
+   ],
+   [
+    "Which doctor is at duty tonight?",
+    "At duty salah; yang benar on duty."
+   ],
+   [
+    "Which doctor is duty tonight?",
+    "Which doctor is duty salah; perlu on."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "prep4",
+  "promptId": "Saya di rumah saja seharian karena hujan.",
+  "prompt": "I stayed ___ (in / on / at) home all day because of the rain.",
+  "hint": "berada di rumah",
+  "ans": "I stayed at home all day because of the rain.",
+  "why": "Berada/tinggal di rumah: at home. Bandingkan get home / go home tanpa preposisi.",
+  "wrong": [
+   [
+    "I stayed in home all day because of the rain.",
+    "In home salah; yang benar at home."
+   ],
+   [
+    "I stayed on home all day because of the rain.",
+    "On home salah; yang benar at home."
+   ]
+  ],
+  "alt": [
+   "I stayed home all day because of the rain."
+  ],
+  "orders": [
+   "Because of the rain, I stayed at home all day."
+  ]
+ },
+ {
+  "set": "prep4",
+  "promptId": "Kami sedang duduk di meja makan, menikmati makan malam.",
+  "prompt": "We were sitting ___ (in / on / at / —) the table, having dinner.",
+  "hint": "duduk menghadap meja",
+  "ans": "We were sitting at the table, having dinner.",
+  "why": "Duduk menghadap meja untuk makan atau bekerja: at the table.",
+  "wrong": [
+   [
+    "We were sitting in the table, having dinner.",
+    "In the table salah; meja bukan ruang tertutup."
+   ],
+   [
+    "We were sitting on the table, having dinner.",
+    "Sitting on the table berarti duduk di atas mejanya; tidak cocok dengan makan malam bersama."
+   ],
+   [
+    "We were sitting the table, having dinner.",
+    "Sitting the table salah; perlu at."
+   ]
+  ],
+  "alt": []
+ }
+]

@@ -1,0 +1,13 @@
+node_modules
+.next
+out
+build
+coverage
+public
+pnpm-lock.yaml
+next-env.d.ts
+.husky/_
+*.tsbuildinfo
+lib/content/raw
+lib/content/practice
+lib/content/verb-forms.json

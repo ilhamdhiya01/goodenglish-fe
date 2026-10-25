@@ -1,0 +1,3054 @@
+[
+ {
+  "set": "tense1",
+  "promptId": "Lihat! Anak-anak sedang bermain hujan-hujanan.",
+  "prompt": "Look! The children ___ (play) in the rain.",
+  "hint": "Look! = sedang terjadi",
+  "ans": "Look! The children are playing in the rain.",
+  "why": "'Look!' menunjukkan kegiatan yang sedang terjadi → present continuous: are playing.",
+  "wrong": [
+   [
+    "Look! The children play in the rain.",
+    "'Look!' menunjukkan kegiatan yang sedang berlangsung, jadi tidak memakai present simple."
+   ],
+   [
+    "Look! The children are play in the rain.",
+    "Setelah are untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (playing)."
+   ],
+   [
+    "Look! The children playing in the rain.",
+    "V-ing butuh to be (are) di depannya."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Ayahku minum kopi setiap pagi.",
+  "prompt": "My father ___ (drink) coffee every morning.",
+  "hint": "kebiasaan setiap pagi",
+  "ans": "My father drinks coffee every morning.",
+  "why": "'Every morning' = kebiasaan → present simple; subjek my father (he) → drinks.",
+  "wrong": [
+   [
+    "My father drink coffee every morning.",
+    "Subjek orang ketiga tunggal (my father) → kata kerja + s: drinks."
+   ],
+   [
+    "My father is drink coffee every morning.",
+    "Present simple tidak memakai is + V1; cukup drinks."
+   ],
+   [
+    "My father drinking coffee every morning.",
+    "V-ing tidak bisa berdiri sendiri tanpa to be; untuk kebiasaan pakai drinks."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Every morning, my father drinks coffee."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Tolong jangan berisik. Bayinya sedang tidur sekarang.",
+  "prompt": "Please be quiet. The baby ___ (sleep) right now.",
+  "hint": "right now = sedang",
+  "ans": "Please be quiet. The baby is sleeping right now.",
+  "why": "'Right now' menunjukkan kegiatan yang sedang berlangsung → is sleeping.",
+  "wrong": [
+   [
+    "Please be quiet. The baby sleeps right now.",
+    "'Right now' butuh present continuous, bukan present simple."
+   ],
+   [
+    "Please be quiet. The baby is sleep right now.",
+    "Setelah is untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (sleeping)."
+   ],
+   [
+    "Please be quiet. The baby sleeping right now.",
+    "V-ing butuh to be (is) di depannya."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Please be quiet. Right now the baby is sleeping."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Aku tidak makan daging. Aku vegetarian.",
+  "prompt": "I ___ (not / eat) meat. I am a vegetarian.",
+  "hint": "kebiasaan, kalimat negatif",
+  "ans": "I do not eat meat. I am a vegetarian.",
+  "why": "Kebiasaan atau fakta tentang diri sendiri → present simple negatif: do not + V1.",
+  "wrong": [
+   [
+    "I am not eat meat. I am a vegetarian.",
+    "Present simple negatif memakai do not, bukan am not + V1."
+   ],
+   [
+    "I not eat meat. I am a vegetarian.",
+    "Kalimat negatif present simple butuh do: do not eat."
+   ],
+   [
+    "I does not eat meat. I am a vegetarian.",
+    "Subjek I memakai do, bukan does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Kamu sedang menonton acara ini? Kalau tidak, aku mau ganti saluran.",
+  "prompt": "___ (you / watch) this show right now? If not, I want to change the channel.",
+  "hint": "right now, kalimat tanya",
+  "ans": "Are you watching this show right now? If not, I want to change the channel.",
+  "why": "'Right now' menanyakan kegiatan yang sedang berlangsung → Are you + V-ing.",
+  "wrong": [
+   [
+    "Do you watch this show right now? If not, I want to change the channel.",
+    "'Right now' menanyakan kegiatan yang sedang terjadi, jadi tidak memakai do (present simple)."
+   ],
+   [
+    "Are you watch this show right now? If not, I want to change the channel.",
+    "Setelah are you untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (watching)."
+   ],
+   [
+    "Do you watching this show right now? If not, I want to change the channel.",
+    "Do tidak dipakai dengan V-ing; yang benar Are you watching."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Dia (pr) biasanya naik bus ke kantor.",
+  "prompt": "She usually ___ (take) the bus to the office.",
+  "hint": "usually = kebiasaan",
+  "ans": "She usually takes the bus to the office.",
+  "why": "'Usually' = kebiasaan → present simple; subjek she → takes.",
+  "wrong": [
+   [
+    "She usually take the bus to the office.",
+    "Subjek she → kata kerja + s: takes."
+   ],
+   [
+    "She usually is take the bus to the office.",
+    "Present simple tidak memakai is + V1; cukup takes."
+   ],
+   [
+    "She usually taking the bus to the office.",
+    "V-ing tidak bisa berdiri sendiri tanpa to be; untuk kebiasaan pakai takes."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Usually she takes the bus to the office."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Dengar! Ada yang sedang menangis di kamar sebelah.",
+  "prompt": "Listen! Somebody ___ (cry) in the next room.",
+  "hint": "sedang terjadi (Listen!)",
+  "ans": "Listen! Somebody is crying in the next room.",
+  "why": "Listen! menandakan kejadiannya sedang berlangsung sekarang → is + -ing.",
+  "wrong": [
+   [
+    "Listen! Somebody cries in the next room.",
+    "Listen! menunjuk kejadian yang sedang terjadi, jadi present continuous, bukan present simple."
+   ],
+   [
+    "Listen! Somebody is cry in the next room.",
+    "Setelah is, kata kerjanya harus -ing (crying)."
+   ],
+   [
+    "Listen! Somebody crying in the next room.",
+    "Bentuk -ing butuh be (is) di depannya."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Kami pergi ke gym setiap Senin dan Kamis.",
+  "prompt": "We ___ (go) to the gym on Mondays and Thursdays.",
+  "hint": "on Mondays = rutin",
+  "ans": "We go to the gym on Mondays and Thursdays.",
+  "why": "'On Mondays and Thursdays' = jadwal rutin → present simple; subjek we → go.",
+  "wrong": [
+   [
+    "We goes to the gym on Mondays and Thursdays.",
+    "Subjek we tidak memakai -es; cukup go."
+   ],
+   [
+    "We are go to the gym on Mondays and Thursdays.",
+    "Present simple tidak memakai are + V1; cukup go."
+   ],
+   [
+    "We going to the gym on Mondays and Thursdays.",
+    "V-ing tidak bisa berdiri sendiri tanpa to be; untuk kebiasaan pakai go."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "On Mondays and Thursdays, we go to the gym."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Ibuku sedang memasak di dapur, jadi dia (pr) tidak bisa mengangkat telepon.",
+  "prompt": "My mother ___ (cook) in the kitchen at the moment, so she cannot answer the phone.",
+  "hint": "at the moment = sedang",
+  "ans": "My mother is cooking in the kitchen at the moment, so she cannot answer the phone.",
+  "why": "'At the moment' dan kegiatan yang membuatnya tidak bisa mengangkat telepon → is cooking.",
+  "wrong": [
+   [
+    "My mother cooks in the kitchen at the moment, so she cannot answer the phone.",
+    "Kegiatannya sedang berlangsung saat ini, jadi tidak memakai present simple."
+   ],
+   [
+    "My mother is cook in the kitchen at the moment, so she cannot answer the phone.",
+    "Setelah is untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (cooking)."
+   ],
+   [
+    "My mother cooking in the kitchen at the moment, so she cannot answer the phone.",
+    "V-ing butuh to be (is) di depannya."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At the moment, my mother is cooking in the kitchen, so she cannot answer the phone."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Dia (lk) tidak sedang menonton TV. Dia sedang mengerjakan PR.",
+  "prompt": "He ___ (not / watch) TV right now. He is doing his homework.",
+  "hint": "right now, kalimat negatif",
+  "ans": "He is not watching TV right now. He is doing his homework.",
+  "why": "'Right now' = sedang berlangsung → present continuous negatif: is not watching.",
+  "wrong": [
+   [
+    "He is not watch TV right now. He is doing his homework.",
+    "Setelah is not untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (watching)."
+   ],
+   [
+    "He not watching TV right now. He is doing his homework.",
+    "Kalimat negatif continuous butuh to be: is not watching."
+   ],
+   [
+    "He does not watching TV right now. He is doing his homework.",
+    "Does tidak dipakai dengan V-ing; yang benar is not watching."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now he is not watching TV. He is doing his homework."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Air mendidih pada suhu 100 derajat Celsius.",
+  "prompt": "Water ___ (boil) at 100 degrees Celsius.",
+  "hint": "fakta umum",
+  "ans": "Water boils at 100 degrees Celsius.",
+  "why": "Fakta umum → present simple; subjek water (tunggal) → boils.",
+  "wrong": [
+   [
+    "Water boil at 100 degrees Celsius.",
+    "Subjek water (tunggal) → kata kerja + s: boils."
+   ],
+   [
+    "Water is boil at 100 degrees Celsius.",
+    "Present simple tidak memakai is + V1; cukup boils."
+   ],
+   [
+    "Water boiling at 100 degrees Celsius.",
+    "V-ing tidak bisa berdiri sendiri tanpa to be; untuk fakta umum pakai boils."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Ssst! Ayah sedang bicara dengan bosnya di telepon.",
+  "prompt": "Shh! Dad ___ (talk) to his boss on the phone right now.",
+  "hint": "Shh! + right now",
+  "ans": "Shh! Dad is talking to his boss on the phone right now.",
+  "why": "'Right now' menunjukkan kegiatan yang sedang berlangsung → is talking.",
+  "wrong": [
+   [
+    "Shh! Dad talks to his boss on the phone right now.",
+    "'Right now' butuh present continuous, bukan present simple."
+   ],
+   [
+    "Shh! Dad is talk to his boss on the phone right now.",
+    "Setelah is untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (talking)."
+   ],
+   [
+    "Shh! Dad talking to his boss on the phone right now.",
+    "V-ing butuh to be (is) di depannya."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Shh! Right now Dad is talking to his boss on the phone.",
+   "Shh! Dad is talking on the phone to his boss right now."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Apakah saudara laki-lakimu main sepak bola setiap akhir pekan?",
+  "prompt": "___ (your brother / play) football every weekend?",
+  "hint": "kebiasaan, kalimat tanya",
+  "ans": "Does your brother play football every weekend?",
+  "why": "'Every weekend' = kebiasaan → pertanyaan present simple: Does + subjek tunggal + V1.",
+  "wrong": [
+   [
+    "Does your brother plays football every weekend?",
+    "Setelah does, kata kerja kembali ke bentuk dasar: play."
+   ],
+   [
+    "Is your brother play football every weekend?",
+    "Pertanyaan kebiasaan memakai does, bukan is + V1."
+   ],
+   [
+    "Do your brother play football every weekend?",
+    "Subjek your brother (tunggal) memakai does, bukan do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Aku tahu jawabannya sekarang. Boleh aku beri tahu teman-teman sekelas?",
+  "prompt": "I ___ (know) the answer now. Can I tell the class?",
+  "hint": "kata kerja keadaan",
+  "ans": "I know the answer now. Can I tell the class?",
+  "why": "Know adalah kata kerja keadaan, jadi tetap present simple walaupun ada 'now'.",
+  "wrong": [
+   [
+    "I am knowing the answer now. Can I tell the class?",
+    "Know adalah kata kerja keadaan, tidak dipakai dalam bentuk continuous."
+   ],
+   [
+    "I am know the answer now. Can I tell the class?",
+    "Present simple tidak memakai am + V1; cukup know."
+   ],
+   [
+    "I knowing the answer now. Can I tell the class?",
+    "V-ing tidak bisa berdiri sendiri tanpa to be; cukup I know."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Now I know the answer. Can I tell the class?"
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Lihat! Turis-turis itu sedang memotret rumah kita.",
+  "prompt": "Look! Those tourists ___ (take) photos of our house.",
+  "hint": "Look! = sedang berlangsung",
+  "ans": "Look! Those tourists are taking photos of our house.",
+  "why": "'Look!' menunjukkan kegiatan yang sedang terjadi → are taking.",
+  "wrong": [
+   [
+    "Look! Those tourists take photos of our house.",
+    "'Look!' menunjukkan kegiatan yang sedang berlangsung, jadi tidak memakai present simple."
+   ],
+   [
+    "Look! Those tourists are take photos of our house.",
+    "Setelah are untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (taking)."
+   ],
+   [
+    "Look! Those tourists taking photos of our house.",
+    "V-ing butuh to be (are) di depannya."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Nenekku tidak memakai media sosial.",
+  "prompt": "My grandmother ___ (not / use) social media.",
+  "hint": "kebiasaan, subjek tunggal, negatif",
+  "ans": "My grandmother does not use social media.",
+  "why": "Kebiasaan/fakta dengan subjek tunggal (my grandmother) → does not + V1.",
+  "wrong": [
+   [
+    "My grandmother is not use social media.",
+    "Present simple negatif memakai does not, bukan is not + V1."
+   ],
+   [
+    "My grandmother not use social media.",
+    "Kalimat negatif present simple butuh does: does not use."
+   ],
+   [
+    "My grandmother do not use social media.",
+    "Subjek my grandmother (tunggal) memakai does, bukan do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Bus sekolah datang jam 6.30 setiap pagi.",
+  "prompt": "The school bus ___ (arrive) at 6:30 every morning.",
+  "hint": "jadwal rutin (every morning)",
+  "ans": "The school bus arrives at 6:30 every morning.",
+  "why": "Every morning = jadwal/kebiasaan → present simple; subjek tunggal → arrives.",
+  "wrong": [
+   [
+    "The school bus arrive at 6:30 every morning.",
+    "Subjek tunggal (the school bus) → kata kerja + -s: arrives."
+   ],
+   [
+    "The school bus is arrive at 6:30 every morning.",
+    "Present simple tidak memakai is; cukup arrives."
+   ],
+   [
+    "The school bus arriving at 6:30 every morning.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa be, dan jadwal rutin memakai present simple."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Every morning, the school bus arrives at 6:30.",
+   "The school bus arrives every morning at 6:30."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Kenapa kamu tertawa? Apa yang lucu?",
+  "prompt": "Why ___ (you / laugh)? What is so funny?",
+  "hint": "sedang terjadi, kalimat tanya",
+  "ans": "Why are you laughing? What is so funny?",
+  "why": "Tawanya sedang terjadi saat ditanya → present continuous: are you laughing.",
+  "wrong": [
+   [
+    "Why are you laugh? What is so funny?",
+    "Setelah are you untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (laughing)."
+   ],
+   [
+    "Why you are laughing? What is so funny?",
+    "Dalam kalimat tanya, are harus di depan subjek: Why are you laughing?"
+   ],
+   [
+    "Why do you laughing? What is so funny?",
+    "Do tidak dipakai dengan V-ing; yang benar are you laughing."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Kakak perempuanku mencuci piring setiap malam sehabis makan malam.",
+  "prompt": "My sister ___ (wash) the dishes after dinner every night.",
+  "hint": "every night = kebiasaan",
+  "ans": "My sister washes the dishes after dinner every night.",
+  "why": "'Every night' = kebiasaan → present simple; subjek my sister (she) → washes.",
+  "wrong": [
+   [
+    "My sister wash the dishes after dinner every night.",
+    "Subjek my sister (orang ketiga tunggal) → kata kerja + es: washes."
+   ],
+   [
+    "My sister is wash the dishes after dinner every night.",
+    "Present simple tidak memakai is + V1; cukup washes."
+   ],
+   [
+    "My sister washing the dishes after dinner every night.",
+    "V-ing tidak bisa berdiri sendiri tanpa to be; untuk kebiasaan pakai washes."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "My sister washes the dishes every night after dinner.",
+   "Every night, my sister washes the dishes after dinner."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Sekarang sedang hujan deras, jadi kita tidak bisa keluar.",
+  "prompt": "It ___ (rain) heavily right now, so we cannot go out.",
+  "hint": "right now = sedang",
+  "ans": "It is raining heavily right now, so we cannot go out.",
+  "why": "'Right now' menunjukkan kejadian yang sedang berlangsung → is raining.",
+  "wrong": [
+   [
+    "It rains heavily right now, so we cannot go out.",
+    "'Right now' butuh present continuous, bukan present simple."
+   ],
+   [
+    "It is rain heavily right now, so we cannot go out.",
+    "Setelah is untuk kejadian yang sedang berlangsung, kata kerjanya harus V-ing (raining)."
+   ],
+   [
+    "It raining heavily right now, so we cannot go out.",
+    "V-ing butuh to be (is) di depannya."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now it is raining heavily, so we cannot go out."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Di atas sepi sekali. Apakah anak-anak sedang mengerjakan PR sekarang?",
+  "prompt": "It is very quiet upstairs. ___ (the kids / do) their homework right now?",
+  "hint": "sedang, kalimat tanya",
+  "ans": "It is very quiet upstairs. Are the kids doing their homework right now?",
+  "why": "'Right now' dan suasana yang sepi saat itu menanyakan kegiatan yang sedang berlangsung → Are + subjek + V-ing.",
+  "wrong": [
+   [
+    "It is very quiet upstairs. Do the kids do their homework right now?",
+    "Yang ditanyakan kegiatan yang sedang terjadi saat ini, jadi tidak memakai do (present simple)."
+   ],
+   [
+    "It is very quiet upstairs. Are the kids do their homework right now?",
+    "Setelah are untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (doing)."
+   ],
+   [
+    "It is very quiet upstairs. Do the kids doing their homework right now?",
+    "Do tidak dipakai dengan V-ing; yang benar Are the kids doing."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Kami makan malam besar bersama keluarga setiap hari Minggu.",
+  "prompt": "We ___ (have) a big family dinner every Sunday.",
+  "hint": "every Sunday = rutin",
+  "ans": "We have a big family dinner every Sunday.",
+  "why": "'Every Sunday' = kebiasaan → present simple; subjek we → have.",
+  "wrong": [
+   [
+    "We has a big family dinner every Sunday.",
+    "Subjek we memakai have, bukan has."
+   ],
+   [
+    "We are have a big family dinner every Sunday.",
+    "Present simple tidak memakai are + V1; cukup have."
+   ],
+   [
+    "We having a big family dinner every Sunday.",
+    "V-ing tidak bisa berdiri sendiri tanpa to be; untuk kebiasaan pakai have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Every Sunday, we have a big family dinner."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Cepat! Semua orang sedang menunggumu di mobil.",
+  "prompt": "Hurry up! Everyone ___ (wait) for you in the car.",
+  "hint": "sedang terjadi sekarang",
+  "ans": "Hurry up! Everyone is waiting for you in the car.",
+  "why": "Semua orang sedang menunggu saat ini → present continuous; everyone dianggap tunggal → is waiting.",
+  "wrong": [
+   [
+    "Hurry up! Everyone waits for you in the car.",
+    "Kegiatan menunggu sedang berlangsung saat ini, jadi tidak memakai present simple."
+   ],
+   [
+    "Hurry up! Everyone is wait for you in the car.",
+    "Setelah is untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (waiting)."
+   ],
+   [
+    "Hurry up! Everyone waiting for you in the car.",
+    "V-ing butuh to be (is) di depannya."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Hurry up! Everyone is waiting in the car for you."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Payung ini milik guruku.",
+  "prompt": "This umbrella ___ (belong) to my teacher.",
+  "hint": "kata kerja keadaan",
+  "ans": "This umbrella belongs to my teacher.",
+  "why": "Belong adalah kata kerja keadaan → present simple; subjek this umbrella → belongs.",
+  "wrong": [
+   [
+    "This umbrella is belonging to my teacher.",
+    "Belong adalah kata kerja keadaan, tidak dipakai dalam bentuk continuous."
+   ],
+   [
+    "This umbrella belong to my teacher.",
+    "Subjek this umbrella (tunggal) → kata kerja + s: belongs."
+   ],
+   [
+    "This umbrella is belong to my teacher.",
+    "Present simple tidak memakai is + V1; cukup belongs."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Tolong kecilkan musiknya. Aku sedang mencoba belajar.",
+  "prompt": "Please turn down the music. I ___ (try) to study right now.",
+  "hint": "right now = sedang",
+  "ans": "Please turn down the music. I am trying to study right now.",
+  "why": "'Right now' menunjukkan kegiatan yang sedang berlangsung → am trying.",
+  "wrong": [
+   [
+    "Please turn down the music. I try to study right now.",
+    "'Right now' butuh present continuous, bukan present simple."
+   ],
+   [
+    "Please turn down the music. I am try to study right now.",
+    "Setelah am untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (trying)."
+   ],
+   [
+    "Please turn down the music. I trying to study right now.",
+    "V-ing butuh to be (am) di depannya."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Please turn down the music. Right now I am trying to study."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Dewi punya dua kucing dan seekor anjing.",
+  "prompt": "Dewi ___ (have) two cats and a dog.",
+  "hint": "kepemilikan (keadaan)",
+  "ans": "Dewi has two cats and a dog.",
+  "why": "Have berarti 'punya' adalah keadaan → present simple; subjek Dewi (she) → has.",
+  "wrong": [
+   [
+    "Dewi is having two cats and a dog.",
+    "Have berarti 'punya' tidak dipakai dalam bentuk continuous."
+   ],
+   [
+    "Dewi have two cats and a dog.",
+    "Subjek Dewi (orang ketiga tunggal) memakai has."
+   ],
+   [
+    "Dewi is has two cats and a dog.",
+    "Tidak perlu is sebelum has; cukup has."
+   ]
+  ],
+  "alt": [
+   "Dewi has got two cats and a dog."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Seberapa sering kamu mengunjungi kakek-nenekmu?",
+  "prompt": "How often ___ (you / visit) your grandparents?",
+  "hint": "how often = kebiasaan",
+  "ans": "How often do you visit your grandparents?",
+  "why": "'How often' menanyakan kebiasaan → pertanyaan present simple: do you visit.",
+  "wrong": [
+   [
+    "How often are you visit your grandparents?",
+    "Pertanyaan kebiasaan memakai do, bukan are + V1."
+   ],
+   [
+    "How often you visit your grandparents?",
+    "Pertanyaan present simple butuh do sebelum subjek: How often do you visit."
+   ],
+   [
+    "How often do you visiting your grandparents?",
+    "Setelah do, kata kerja harus bentuk dasar: visit."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Budi di mana? Dia (lk) sedang berenang di kolam.",
+  "prompt": "Where is Budi? He ___ (swim) in the pool right now.",
+  "hint": "right now, kegiatan berlangsung",
+  "ans": "Where is Budi? He is swimming in the pool right now.",
+  "why": "'Right now' menunjukkan kegiatan yang sedang berlangsung → is swimming.",
+  "wrong": [
+   [
+    "Where is Budi? He swims in the pool right now.",
+    "'Right now' butuh present continuous, bukan present simple."
+   ],
+   [
+    "Where is Budi? He is swim in the pool right now.",
+    "Setelah is untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (swimming)."
+   ],
+   [
+    "Where is Budi? He swimming in the pool right now.",
+    "V-ing butuh to be (is) di depannya."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Where is Budi? Right now he is swimming in the pool."
+  ]
+ },
+ {
+  "set": "tense1",
+  "promptId": "Siti tidak suka makanan pedas.",
+  "prompt": "Siti ___ (not / like) spicy food.",
+  "hint": "kata kerja keadaan, negatif",
+  "ans": "Siti does not like spicy food.",
+  "why": "Like adalah kata kerja keadaan → present simple negatif; subjek Siti (she) → does not like.",
+  "wrong": [
+   [
+    "Siti is not like spicy food.",
+    "Present simple negatif memakai does not, bukan is not + V1."
+   ],
+   [
+    "Siti not like spicy food.",
+    "Kalimat negatif present simple butuh does: does not like."
+   ],
+   [
+    "Siti do not like spicy food.",
+    "Subjek Siti (orang ketiga tunggal) memakai does, bukan do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense1",
+  "promptId": "Kamu sedang makan apa? Baunya enak sekali!",
+  "prompt": "What ___ (you / eat)? It smells delicious!",
+  "hint": "sedang makan, kalimat tanya",
+  "ans": "What are you eating? It smells delicious!",
+  "why": "Makanannya sedang dimakan saat itu → present continuous: are you eating.",
+  "wrong": [
+   [
+    "What are you eat? It smells delicious!",
+    "Setelah are you untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (eating)."
+   ],
+   [
+    "What you are eating? It smells delicious!",
+    "Dalam kalimat tanya, are harus di depan subjek: What are you eating?"
+   ],
+   [
+    "What do you eating? It smells delicious!",
+    "Do tidak dipakai dengan V-ing; yang benar are you eating."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense2",
+  "promptId": "Kami mengunjungi Yogyakarta dua tahun lalu.",
+  "prompt": "We ___ (visit) Yogyakarta two years ago.",
+  "hint": "ago = lampau",
+  "ans": "We visited Yogyakarta two years ago.",
+  "why": "'Two years ago' = lampau → past simple: visited.",
+  "wrong": [
+   [
+    "We visit Yogyakarta two years ago.",
+    "'Two years ago' menunjukkan lampau, jadi kata kerjanya harus V2."
+   ],
+   [
+    "We were visit Yogyakarta two years ago.",
+    "Past simple tidak memakai were + V1; cukup visited."
+   ],
+   [
+    "We have visited Yogyakarta two years ago.",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti 'two years ago'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Two years ago, we visited Yogyakarta."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Aku tidak masuk sekolah kemarin karena sakit.",
+  "prompt": "I ___ (not / go) to school yesterday because I was sick.",
+  "hint": "kemarin, kalimat negatif",
+  "ans": "I did not go to school yesterday because I was sick.",
+  "why": "'Yesterday' = lampau → past simple negatif: did not + V1.",
+  "wrong": [
+   [
+    "I did not went to school yesterday because I was sick.",
+    "Setelah did not, kata kerja kembali ke bentuk dasar: go."
+   ],
+   [
+    "I was not go to school yesterday because I was sick.",
+    "Past simple negatif memakai did not, bukan was not + V1."
+   ],
+   [
+    "I do not go to school yesterday because I was sick.",
+    "'Yesterday' menunjukkan lampau, jadi pakai did not, bukan do not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday I did not go to school because I was sick.",
+   "Because I was sick, I did not go to school yesterday."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Kamu nonton berita tadi malam?",
+  "prompt": "___ (you / see) the news last night?",
+  "hint": "last night, kalimat tanya",
+  "ans": "Did you see the news last night?",
+  "why": "'Last night' = lampau → pertanyaan past simple: Did you + V1.",
+  "wrong": [
+   [
+    "Did you saw the news last night?",
+    "Setelah did, kata kerja kembali ke bentuk dasar: see."
+   ],
+   [
+    "Were you see the news last night?",
+    "Pertanyaan past simple memakai did, bukan were + V1."
+   ],
+   [
+    "Do you see the news last night?",
+    "'Last night' menunjukkan lampau, jadi pakai did, bukan do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense2",
+  "promptId": "Kakak laki-lakiku membeli HP baru minggu lalu.",
+  "prompt": "My brother ___ (buy) a new phone last week.",
+  "hint": "last week = lampau",
+  "ans": "My brother bought a new phone last week.",
+  "why": "'Last week' = lampau → past simple: bought (V2 dari buy).",
+  "wrong": [
+   [
+    "My brother buys a new phone last week.",
+    "'Last week' menunjukkan lampau, jadi tidak memakai present simple."
+   ],
+   [
+    "My brother was buy a new phone last week.",
+    "Past simple tidak memakai was + V1; cukup bought."
+   ],
+   [
+    "My brother did bought a new phone last week.",
+    "Kalimat positif past simple cukup V2 (bought); did tidak dipakai bersama V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last week, my brother bought a new phone."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Dia (pr) meneleponku satu jam yang lalu.",
+  "prompt": "She ___ (call) me an hour ago.",
+  "hint": "an hour ago = lampau",
+  "ans": "She called me an hour ago.",
+  "why": "'An hour ago' = lampau → past simple: called.",
+  "wrong": [
+   [
+    "She calls me an hour ago.",
+    "'An hour ago' menunjukkan lampau, jadi tidak memakai present simple."
+   ],
+   [
+    "She was call me an hour ago.",
+    "Past simple tidak memakai was + V1; cukup called."
+   ],
+   [
+    "She is calling me an hour ago.",
+    "'An hour ago' menunjukkan lampau, jadi tidak memakai present continuous."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "An hour ago, she called me."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Sekarang kakak perempuanku berangkat kerja naik kereta.",
+  "prompt": "Nowadays my sister ___ (go) to work by train.",
+  "hint": "nowadays = kebiasaan sekarang",
+  "ans": "Nowadays my sister goes to work by train.",
+  "why": "'Nowadays' = kebiasaan masa sekarang → present simple; subjek my sister → goes.",
+  "wrong": [
+   [
+    "Nowadays my sister went to work by train.",
+    "'Nowadays' menunjukkan kebiasaan sekarang, jadi tidak memakai V2."
+   ],
+   [
+    "Nowadays my sister was go to work by train.",
+    "Was + V1 tidak benar, dan 'nowadays' menunjukkan masa sekarang."
+   ],
+   [
+    "Nowadays my sister is go to work by train.",
+    "Present simple tidak memakai is + V1; cukup goes."
+   ]
+  ],
+  "alt": [
+   "Nowadays my sister is going to work by train."
+  ],
+  "orders": [
+   "My sister goes to work by train nowadays."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Sabtu lalu, kami menonton film di mal.",
+  "prompt": "Last Saturday, we ___ (watch) a movie at the mall.",
+  "hint": "last Saturday = lampau",
+  "ans": "Last Saturday, we watched a movie at the mall.",
+  "why": "'Last Saturday' = lampau → past simple: watched.",
+  "wrong": [
+   [
+    "Last Saturday, we watch a movie at the mall.",
+    "'Last Saturday' menunjukkan lampau, jadi kata kerjanya harus V2."
+   ],
+   [
+    "Last Saturday, we were watch a movie at the mall.",
+    "Past simple tidak memakai were + V1; cukup watched."
+   ],
+   [
+    "Last Saturday, we did watched a movie at the mall.",
+    "Kalimat positif past simple cukup V2 (watched); did tidak dipakai bersama V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We watched a movie at the mall last Saturday."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Kamu pergi ke mana akhir pekan lalu?",
+  "prompt": "Where ___ (you / go) last weekend?",
+  "hint": "last weekend, kalimat tanya",
+  "ans": "Where did you go last weekend?",
+  "why": "'Last weekend' = lampau → pertanyaan past simple: did you + V1.",
+  "wrong": [
+   [
+    "Where did you went last weekend?",
+    "Setelah did, kata kerja kembali ke bentuk dasar: go."
+   ],
+   [
+    "Where were you go last weekend?",
+    "Pertanyaan past simple memakai did, bukan were + V1."
+   ],
+   [
+    "Where do you go last weekend?",
+    "'Last weekend' menunjukkan lampau, jadi pakai did, bukan do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense2",
+  "promptId": "Rudi tidak datang ke kantor Senin lalu.",
+  "prompt": "Rudi ___ (not / come) to the office last Monday.",
+  "hint": "lampau, kalimat negatif",
+  "ans": "Rudi did not come to the office last Monday.",
+  "why": "'Last Monday' = lampau → past simple negatif: did not + V1.",
+  "wrong": [
+   [
+    "Rudi did not came to the office last Monday.",
+    "Setelah did not, kata kerja kembali ke bentuk dasar: come."
+   ],
+   [
+    "Rudi was not come to the office last Monday.",
+    "Past simple negatif memakai did not, bukan was not + V1."
+   ],
+   [
+    "Rudi does not come to the office last Monday.",
+    "'Last Monday' menunjukkan lampau, jadi pakai did not, bukan does not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Monday, Rudi did not come to the office."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Dengar! Para siswa sedang bernyanyi di aula.",
+  "prompt": "Listen! The students ___ (sing) in the hall.",
+  "hint": "Listen! = sedang terjadi",
+  "ans": "Listen! The students are singing in the hall.",
+  "why": "'Listen!' menunjukkan kegiatan yang sedang terjadi sekarang → are singing.",
+  "wrong": [
+   [
+    "Listen! The students sang in the hall.",
+    "'Listen!' menunjukkan kegiatan yang sedang terjadi sekarang, bukan lampau."
+   ],
+   [
+    "Listen! The students were sing in the hall.",
+    "Were + V1 tidak benar, dan kegiatannya sedang terjadi sekarang."
+   ],
+   [
+    "Listen! The students singing in the hall.",
+    "V-ing butuh to be (are) di depannya."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense2",
+  "promptId": "Waktu kecil, aku jalan kaki ke sekolah setiap hari.",
+  "prompt": "When I was a child, I ___ (walk) to school every day.",
+  "hint": "kebiasaan di masa lalu",
+  "ans": "When I was a child, I walked to school every day.",
+  "why": "'When I was a child' = masa lalu → kebiasaan lampau ditulis dengan past simple: walked.",
+  "wrong": [
+   [
+    "When I was a child, I walk to school every day.",
+    "'When I was a child' menunjukkan masa lalu, jadi kebiasaannya ditulis dengan V2."
+   ],
+   [
+    "When I was a child, I was walk to school every day.",
+    "Past simple tidak memakai was + V1; cukup walked."
+   ],
+   [
+    "When I was a child, I am walking to school every day.",
+    "Kebiasaan masa kecil sudah lampau, jadi tidak memakai present continuous."
+   ]
+  ],
+  "alt": [
+   "When I was a child, I used to walk to school every day.",
+   "When I was a child, I would walk to school every day."
+  ],
+  "orders": [
+   "I walked to school every day when I was a child."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Andi selalu sarapan sebelum berangkat ke sekolah.",
+  "prompt": "Andi always ___ (eat) breakfast before he goes to school.",
+  "hint": "kebiasaan sekarang",
+  "ans": "Andi always eats breakfast before he goes to school.",
+  "why": "Kebiasaan masa sekarang (always, he goes) → present simple; subjek Andi → eats.",
+  "wrong": [
+   [
+    "Andi always ate breakfast before he goes to school.",
+    "Kalimat ini tentang kebiasaan sekarang (he goes), jadi tidak memakai V2."
+   ],
+   [
+    "Andi always is eat breakfast before he goes to school.",
+    "Present simple tidak memakai is + V1; cukup eats."
+   ],
+   [
+    "Andi always eat breakfast before he goes to school.",
+    "Subjek Andi (orang ketiga tunggal) → kata kerja + s: eats."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Before he goes to school, Andi always eats breakfast."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Aku bertemu sepupumu di sebuah pesta tadi malam.",
+  "prompt": "I ___ (meet) your cousin at a party last night.",
+  "hint": "last night = lampau",
+  "ans": "I met your cousin at a party last night.",
+  "why": "'Last night' = lampau → past simple: met (V2 dari meet).",
+  "wrong": [
+   [
+    "I meet your cousin at a party last night.",
+    "'Last night' menunjukkan lampau, jadi kata kerjanya harus V2."
+   ],
+   [
+    "I was meet your cousin at a party last night.",
+    "Past simple tidak memakai was + V1; cukup met."
+   ],
+   [
+    "I meeted your cousin at a party last night.",
+    "Meet tidak beraturan; V2-nya met, bukan meeted."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night, I met your cousin at a party.",
+   "I met your cousin last night at a party."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Apakah Tono menyelesaikan laporannya kemarin?",
+  "prompt": "___ (Tono / finish) his report yesterday?",
+  "hint": "kemarin, kalimat tanya",
+  "ans": "Did Tono finish his report yesterday?",
+  "why": "'Yesterday' = lampau → pertanyaan past simple: Did + subjek + V1.",
+  "wrong": [
+   [
+    "Did Tono finished his report yesterday?",
+    "Setelah did, kata kerja kembali ke bentuk dasar: finish."
+   ],
+   [
+    "Was Tono finish his report yesterday?",
+    "Pertanyaan past simple memakai did, bukan was + V1."
+   ],
+   [
+    "Does Tono finish his report yesterday?",
+    "'Yesterday' menunjukkan lampau, jadi pakai did, bukan does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense2",
+  "promptId": "Tolong telepon lagi nanti. Pak Hadi sedang salat di masjid sekarang.",
+  "prompt": "Please call back later. Pak Hadi ___ (pray) at the mosque right now.",
+  "hint": "right now = sedang",
+  "ans": "Please call back later. Pak Hadi is praying at the mosque right now.",
+  "why": "'Right now' menunjukkan kegiatan yang sedang berlangsung → is praying.",
+  "wrong": [
+   [
+    "Please call back later. Pak Hadi prayed at the mosque right now.",
+    "'Right now' menunjukkan kegiatan yang sedang terjadi, bukan lampau."
+   ],
+   [
+    "Please call back later. Pak Hadi was pray at the mosque right now.",
+    "Was + V1 tidak benar, dan kegiatannya terjadi sekarang."
+   ],
+   [
+    "Please call back later. Pak Hadi praying at the mosque right now.",
+    "V-ing butuh to be (is) di depannya."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Please call back later. Right now Pak Hadi is praying at the mosque."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Rapatnya mulai jam sembilan kemarin.",
+  "prompt": "The meeting ___ (start) at nine o'clock yesterday.",
+  "hint": "yesterday = lampau",
+  "ans": "The meeting started at nine o'clock yesterday.",
+  "why": "'Yesterday' = lampau → past simple: started.",
+  "wrong": [
+   [
+    "The meeting starts at nine o'clock yesterday.",
+    "'Yesterday' menunjukkan lampau, jadi tidak memakai present simple."
+   ],
+   [
+    "The meeting was start at nine o'clock yesterday.",
+    "Past simple tidak memakai was + V1; cukup started."
+   ],
+   [
+    "The meeting did started at nine o'clock yesterday.",
+    "Kalimat positif past simple cukup V2 (started); did tidak dipakai bersama V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday, the meeting started at nine o'clock."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Kakek-nenekku tidak punya mobil waktu mereka masih muda.",
+  "prompt": "My grandparents ___ (not / have) a car when they were young.",
+  "hint": "masa lalu, kalimat negatif",
+  "ans": "My grandparents did not have a car when they were young.",
+  "why": "'When they were young' = masa lalu → past simple negatif: did not have.",
+  "wrong": [
+   [
+    "My grandparents did not had a car when they were young.",
+    "Setelah did not, kata kerja kembali ke bentuk dasar: have."
+   ],
+   [
+    "My grandparents were not have a car when they were young.",
+    "Past simple negatif memakai did not, bukan were not + V1."
+   ],
+   [
+    "My grandparents do not have a car when they were young.",
+    "'When they were young' menunjukkan masa lalu, jadi pakai did not, bukan do not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When they were young, my grandparents did not have a car."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Kami menginap di sebuah hotel kecil di Lombok tahun lalu.",
+  "prompt": "We ___ (stay) at a small hotel in Lombok last year.",
+  "hint": "last year = lampau",
+  "ans": "We stayed at a small hotel in Lombok last year.",
+  "why": "'Last year' = lampau → past simple: stayed.",
+  "wrong": [
+   [
+    "We stay at a small hotel in Lombok last year.",
+    "'Last year' menunjukkan lampau, jadi kata kerjanya harus V2."
+   ],
+   [
+    "We were stay at a small hotel in Lombok last year.",
+    "Past simple tidak memakai were + V1; cukup stayed."
+   ],
+   [
+    "We are staying at a small hotel in Lombok last year.",
+    "'Last year' menunjukkan lampau, jadi tidak memakai present continuous."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last year, we stayed at a small hotel in Lombok."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Kakekku sudah pensiun sekarang, jadi sekarang dia (lk) berenang setiap pagi.",
+  "prompt": "My grandfather is retired now, so these days he ___ (swim) every morning.",
+  "hint": "kebiasaan sekarang (these days)",
+  "ans": "My grandfather is retired now, so these days he swims every morning.",
+  "why": "Kebiasaan masa sekarang (is retired now, these days, every morning) → present simple; subjek he → swims.",
+  "wrong": [
+   [
+    "My grandfather is retired now, so these days he swam every morning.",
+    "'These days' dan 'is retired now' menunjukkan kebiasaan sekarang, jadi tidak memakai V2."
+   ],
+   [
+    "My grandfather is retired now, so these days he was swim every morning.",
+    "Was + V1 tidak benar, dan kebiasaannya terjadi sekarang."
+   ],
+   [
+    "My grandfather is retired now, so these days he swim every morning.",
+    "Subjek he → kata kerja + s: swims."
+   ]
+  ],
+  "alt": [
+   "My grandfather is retired now, so these days he is swimming every morning."
+  ],
+  "orders": [
+   "My grandfather is now retired, so these days he swims every morning.",
+   "My grandfather is retired now, so he swims every morning these days."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Tina menulis surat untuk gurunya dua hari yang lalu.",
+  "prompt": "Tina ___ (write) a letter to her teacher two days ago.",
+  "hint": "two days ago = lampau",
+  "ans": "Tina wrote a letter to her teacher two days ago.",
+  "why": "'Two days ago' = lampau → past simple: wrote (V2 dari write).",
+  "wrong": [
+   [
+    "Tina writes a letter to her teacher two days ago.",
+    "'Two days ago' menunjukkan lampau, jadi tidak memakai present simple."
+   ],
+   [
+    "Tina was write a letter to her teacher two days ago.",
+    "Past simple tidak memakai was + V1; cukup wrote."
+   ],
+   [
+    "Tina writed a letter to her teacher two days ago.",
+    "Write tidak beraturan; V2-nya wrote, bukan writed."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Two days ago, Tina wrote a letter to her teacher."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Jam berapa kamu tidur tadi malam?",
+  "prompt": "What time ___ (you / go) to bed last night?",
+  "hint": "lampau (last night)",
+  "ans": "What time did you go to bed last night?",
+  "why": "Last night = lampau → pertanyaan memakai did + kata kerja dasar (go).",
+  "wrong": [
+   [
+    "What time did you went to bed last night?",
+    "Setelah did, kata kerja kembali ke bentuk dasar (go), bukan went."
+   ],
+   [
+    "What time were you go to bed last night?",
+    "Were tidak dipakai bersama kata kerja dasar; pertanyaan lampau dengan kata kerja biasa memakai did."
+   ],
+   [
+    "What time do you go to bed last night?",
+    "Last night = lampau, jadi do harus diganti did."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense2",
+  "promptId": "Adik laki-lakiku sedang menangis karena mainannya hilang.",
+  "prompt": "My little brother ___ (cry) right now because he lost his toy.",
+  "hint": "right now = sedang",
+  "ans": "My little brother is crying right now because he lost his toy.",
+  "why": "'Right now' menunjukkan kegiatan yang sedang berlangsung → is crying.",
+  "wrong": [
+   [
+    "My little brother cried right now because he lost his toy.",
+    "'Right now' menunjukkan kegiatan yang sedang terjadi, bukan lampau."
+   ],
+   [
+    "My little brother was cry right now because he lost his toy.",
+    "Was + V1 tidak benar, dan kegiatannya terjadi sekarang."
+   ],
+   [
+    "My little brother crying right now because he lost his toy.",
+    "V-ing butuh to be (is) di depannya."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now my little brother is crying because he lost his toy.",
+   "Because he lost his toy, my little brother is crying right now."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Aku kehilangan dompet di bus Selasa lalu.",
+  "prompt": "I ___ (lose) my wallet on the bus last Tuesday.",
+  "hint": "last Tuesday = lampau",
+  "ans": "I lost my wallet on the bus last Tuesday.",
+  "why": "'Last Tuesday' = lampau → past simple: lost (V2 dari lose).",
+  "wrong": [
+   [
+    "I lose my wallet on the bus last Tuesday.",
+    "'Last Tuesday' menunjukkan lampau, jadi kata kerjanya harus V2."
+   ],
+   [
+    "I was lose my wallet on the bus last Tuesday.",
+    "Past simple tidak memakai was + V1; cukup lost."
+   ],
+   [
+    "I losed my wallet on the bus last Tuesday.",
+    "Lose tidak beraturan; V2-nya lost, bukan losed."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Tuesday, I lost my wallet on the bus."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Aku tidak punya uang sekarang.",
+  "prompt": "I ___ (not / have) any money right now.",
+  "hint": "keadaan sekarang, negatif",
+  "ans": "I do not have any money right now.",
+  "why": "'Right now' = keadaan sekarang, dan have (punya) kata kerja keadaan → do not have.",
+  "wrong": [
+   [
+    "I did not have any money right now.",
+    "'Right now' menunjukkan keadaan sekarang, jadi tidak memakai did not."
+   ],
+   [
+    "I am not having any money right now.",
+    "Have berarti 'punya' tidak dipakai dalam bentuk continuous."
+   ],
+   [
+    "I not have any money right now.",
+    "Kalimat negatif present simple butuh do: do not have."
+   ]
+  ],
+  "alt": [
+   "I have not got any money right now."
+  ],
+  "orders": [
+   "Right now, I do not have any money."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Kami tiba di Jakarta tengah malam kemarin.",
+  "prompt": "We ___ (arrive) in Jakarta at midnight yesterday.",
+  "hint": "kemarin = lampau",
+  "ans": "We arrived in Jakarta at midnight yesterday.",
+  "why": "'Yesterday' = lampau → past simple: arrived.",
+  "wrong": [
+   [
+    "We arrive in Jakarta at midnight yesterday.",
+    "'Yesterday' menunjukkan lampau, jadi kata kerjanya harus V2."
+   ],
+   [
+    "We were arrive in Jakarta at midnight yesterday.",
+    "Past simple tidak memakai were + V1; cukup arrived."
+   ],
+   [
+    "We have arrived in Jakarta at midnight yesterday.",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti 'yesterday'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday we arrived in Jakarta at midnight.",
+   "We arrived in Jakarta yesterday at midnight."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Lisa sekarang sudah bisa menyetir. Dia (pr) ikut kursus tahun lalu.",
+  "prompt": "Lisa ___ (know) how to drive now. She took lessons last year.",
+  "hint": "keadaan sekarang (now)",
+  "ans": "Lisa knows how to drive now. She took lessons last year.",
+  "why": "'Now' = keadaan sekarang, dan know kata kerja keadaan → present simple: knows.",
+  "wrong": [
+   [
+    "Lisa knew how to drive now. She took lessons last year.",
+    "'Now' menunjukkan keadaan sekarang, jadi tidak memakai V2."
+   ],
+   [
+    "Lisa is knowing how to drive now. She took lessons last year.",
+    "Know adalah kata kerja keadaan, tidak dipakai dalam bentuk continuous."
+   ],
+   [
+    "Lisa know how to drive now. She took lessons last year.",
+    "Subjek Lisa (orang ketiga tunggal) → kata kerja + s: knows."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Now Lisa knows how to drive. She took lessons last year.",
+   "Lisa knows how to drive now. Last year she took lessons."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Kamu sedang memakai kursi ini? Boleh aku ambil?",
+  "prompt": "___ (you / use) this chair right now? Can I take it?",
+  "hint": "right now, kalimat tanya",
+  "ans": "Are you using this chair right now? Can I take it?",
+  "why": "'Right now' menanyakan kegiatan yang sedang berlangsung → Are you using.",
+  "wrong": [
+   [
+    "Did you use this chair right now? Can I take it?",
+    "'Right now' menanyakan keadaan sekarang, jadi tidak memakai did (lampau)."
+   ],
+   [
+    "Are you use this chair right now? Can I take it?",
+    "Setelah are you untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (using)."
+   ],
+   [
+    "Do you using this chair right now? Can I take it?",
+    "Do tidak dipakai dengan V-ing; yang benar Are you using."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense2",
+  "promptId": "Rina tidur larut tadi malam, jadi sekarang dia (pr) capek.",
+  "prompt": "Rina ___ (go) to bed late last night, so she is tired now.",
+  "hint": "last night = lampau",
+  "ans": "Rina went to bed late last night, so she is tired now.",
+  "why": "'Last night' = lampau → past simple: went (V2 dari go).",
+  "wrong": [
+   [
+    "Rina goes to bed late last night, so she is tired now.",
+    "'Last night' menunjukkan lampau, jadi tidak memakai present simple."
+   ],
+   [
+    "Rina was go to bed late last night, so she is tired now.",
+    "Past simple tidak memakai was + V1; cukup went."
+   ],
+   [
+    "Rina did went to bed late last night, so she is tired now.",
+    "Kalimat positif past simple cukup V2 (went); did tidak dipakai bersama V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night Rina went to bed late, so she is tired now.",
+   "Rina went to bed late last night, so now she is tired."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Tunggu sebentar. Aku sedang mencari kacamataku.",
+  "prompt": "Wait a minute. I ___ (look) for my glasses right now.",
+  "hint": "sedang terjadi sekarang",
+  "ans": "Wait a minute. I am looking for my glasses right now.",
+  "why": "'Right now' menunjukkan kegiatan yang sedang berlangsung → am looking.",
+  "wrong": [
+   [
+    "Wait a minute. I looked for my glasses right now.",
+    "'Right now' menunjukkan kegiatan yang sedang terjadi, bukan lampau."
+   ],
+   [
+    "Wait a minute. I was look for my glasses right now.",
+    "Was + V1 tidak benar, dan kegiatannya terjadi sekarang."
+   ],
+   [
+    "Wait a minute. I looking for my glasses right now.",
+    "V-ing butuh to be (am) di depannya."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Wait a minute. Right now I am looking for my glasses."
+  ]
+ },
+ {
+  "set": "tense2",
+  "promptId": "Toko roti itu buka jam enam setiap pagi, jadi besok pagi-pagi kita bisa beli roti di sana.",
+  "prompt": "The bakery ___ (open) at six every morning, so we can buy bread there early tomorrow.",
+  "hint": "jadwal yang masih berlaku",
+  "ans": "The bakery opens at six every morning, so we can buy bread there early tomorrow.",
+  "why": "Jadwal yang masih berlaku sekarang (every morning, we can ... tomorrow) → present simple: opens.",
+  "wrong": [
+   [
+    "The bakery opened at six every morning, so we can buy bread there early tomorrow.",
+    "Jadwal ini masih berlaku sekarang (we can buy ... tomorrow), jadi tidak memakai V2."
+   ],
+   [
+    "The bakery open at six every morning, so we can buy bread there early tomorrow.",
+    "Subjek the bakery (tunggal) → kata kerja + s: opens."
+   ],
+   [
+    "The bakery opening at six every morning, so we can buy bread there early tomorrow.",
+    "V-ing tidak bisa berdiri sendiri tanpa to be; untuk jadwal rutin pakai opens."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "The bakery opens every morning at six, so we can buy bread there early tomorrow.",
+   "Every morning the bakery opens at six, so we can buy bread there early tomorrow."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Ada orang di depan pintu. Biar aku yang buka.",
+  "prompt": "Someone is at the door. I ___ (get) it.",
+  "hint": "keputusan spontan",
+  "ans": "Someone is at the door. I will get it.",
+  "why": "Keputusan diambil saat itu juga → will + V1: will get.",
+  "wrong": [
+   [
+    "Someone is at the door. I will getting it.",
+    "Setelah will, kata kerja harus bentuk dasar: get."
+   ],
+   [
+    "Someone is at the door. I am get it.",
+    "Am tidak bisa langsung diikuti V1; keputusan spontan memakai will get."
+   ],
+   [
+    "Someone is at the door. I will to get it.",
+    "Setelah will tidak ada to; yang benar will get."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense3",
+  "promptId": "Tasmu kelihatan berat. Sini aku bawakan.",
+  "prompt": "Your bag looks heavy. I ___ (carry) it for you.",
+  "hint": "menawarkan bantuan",
+  "ans": "Your bag looks heavy. I will carry it for you.",
+  "why": "Tawaran bantuan yang muncul saat itu → will + V1: will carry.",
+  "wrong": [
+   [
+    "Your bag looks heavy. I will carries it for you.",
+    "Setelah will, kata kerja tidak diberi -s: will carry."
+   ],
+   [
+    "Your bag looks heavy. I going to carry it for you.",
+    "Going to tidak bisa langsung setelah I tanpa am; untuk tawaran spontan pakai will carry."
+   ],
+   [
+    "Your bag looks heavy. I will going to carry it for you.",
+    "Will dan going to tidak dipakai bersamaan."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense3",
+  "promptId": "Kamu kelihatan haus. Aku ambilkan air ya.",
+  "prompt": "You look thirsty. I ___ (bring) you some water.",
+  "hint": "tawaran saat itu",
+  "ans": "You look thirsty. I will bring you some water.",
+  "why": "Tawaran yang diputuskan saat itu → will + V1: will bring.",
+  "wrong": [
+   [
+    "You look thirsty. I will brings you some water.",
+    "Setelah will, kata kerja tidak diberi -s: will bring."
+   ],
+   [
+    "You look thirsty. I am bring you some water.",
+    "Am tidak bisa langsung diikuti V1; tawaran spontan memakai will bring."
+   ],
+   [
+    "You look thirsty. I will bringing you some water.",
+    "Setelah will, kata kerja harus bentuk dasar: bring."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense3",
+  "promptId": "Di sini dingin. Aku tutup jendelanya ya.",
+  "prompt": "It is cold in here. I ___ (close) the window.",
+  "hint": "keputusan saat itu",
+  "ans": "It is cold in here. I will close the window.",
+  "why": "Keputusan diambil saat itu karena merasa dingin → will close.",
+  "wrong": [
+   [
+    "It is cold in here. I will closing the window.",
+    "Setelah will, kata kerja harus bentuk dasar: close."
+   ],
+   [
+    "It is cold in here. I am close the window.",
+    "Am tidak bisa langsung diikuti V1; keputusan spontan memakai will close."
+   ],
+   [
+    "It is cold in here. I will to close the window.",
+    "Setelah will tidak ada to; yang benar will close."
+   ]
+  ],
+  "alt": [
+   "It is cold in here. I am going to close the window."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Jangan khawatir. Aku tidak akan memberi tahu rahasiamu kepada siapa pun.",
+  "prompt": "Don't worry. I ___ (not / tell) anyone your secret.",
+  "hint": "janji, kalimat negatif",
+  "ans": "Don't worry. I will not tell anyone your secret.",
+  "why": "Janji → will not + V1: will not tell.",
+  "wrong": [
+   [
+    "Don't worry. I will not telling anyone your secret.",
+    "Setelah will not, kata kerja harus bentuk dasar: tell."
+   ],
+   [
+    "Don't worry. I am not tell anyone your secret.",
+    "Am not tidak bisa langsung diikuti V1; janji memakai will not tell."
+   ],
+   [
+    "Don't worry. I will not to tell anyone your secret.",
+    "Setelah will not tidak ada to; yang benar will not tell."
+   ]
+  ],
+  "alt": [
+   "Don't worry. I am not going to tell anyone your secret."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Kotak ini terlalu berat buatku. Kamu mau bantu aku?",
+  "prompt": "This box is too heavy for me. ___ (you / help) me, please?",
+  "hint": "meminta tolong",
+  "ans": "This box is too heavy for me. Will you help me, please?",
+  "why": "Meminta tolong saat itu juga → Will you + V1: Will you help.",
+  "wrong": [
+   [
+    "This box is too heavy for me. Will you helping me, please?",
+    "Setelah will, kata kerja harus bentuk dasar: help."
+   ],
+   [
+    "This box is too heavy for me. Are you help me, please?",
+    "Are tidak bisa langsung diikuti V1; permintaan memakai Will you help."
+   ],
+   [
+    "This box is too heavy for me. Will you to help me, please?",
+    "Setelah will tidak ada to; yang benar Will you help."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense3",
+  "promptId": "Kamu lupa bawa dompet? Tidak apa-apa. Aku yang bayar makan siangnya.",
+  "prompt": "You forgot your wallet? No problem. I ___ (pay) for lunch.",
+  "hint": "tawaran spontan",
+  "ans": "You forgot your wallet? No problem. I will pay for lunch.",
+  "why": "Tawaran yang diputuskan saat itu juga → will pay.",
+  "wrong": [
+   [
+    "You forgot your wallet? No problem. I will paying for lunch.",
+    "Setelah will, kata kerja harus bentuk dasar: pay."
+   ],
+   [
+    "You forgot your wallet? No problem. I will pays for lunch.",
+    "Setelah will, kata kerja tidak diberi -s: will pay."
+   ],
+   [
+    "You forgot your wallet? No problem. I going to pay for lunch.",
+    "Going to tidak bisa langsung setelah I tanpa am; untuk tawaran spontan pakai will pay."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense3",
+  "promptId": "Waduh, bus terakhir sudah berangkat! Aku pesan taksi saja.",
+  "prompt": "Oh no, the last bus has left! I ___ (call) a taxi.",
+  "hint": "keputusan mendadak",
+  "ans": "Oh no, the last bus has left! I will call a taxi.",
+  "why": "Keputusan diambil saat itu juga setelah tahu busnya sudah berangkat → will call.",
+  "wrong": [
+   [
+    "Oh no, the last bus has left! I will calling a taxi.",
+    "Setelah will, kata kerja harus bentuk dasar: call."
+   ],
+   [
+    "Oh no, the last bus has left! I am call a taxi.",
+    "Am tidak bisa langsung diikuti V1; keputusan spontan memakai will call."
+   ],
+   [
+    "Oh no, the last bus has left! I will to call a taxi.",
+    "Setelah will tidak ada to; yang benar will call."
+   ]
+  ],
+  "alt": [
+   "Oh no, the last bus has left! I am going to call a taxi."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Duduk dan istirahatlah. Malam ini aku yang cuci piring.",
+  "prompt": "Sit down and rest. I ___ (wash) the dishes tonight.",
+  "hint": "tawaran saat itu juga",
+  "ans": "Sit down and rest. I will wash the dishes tonight.",
+  "why": "Tawaran bantuan yang muncul saat itu → will wash.",
+  "wrong": [
+   [
+    "Sit down and rest. I am wash the dishes tonight.",
+    "Am tidak bisa langsung diikuti V1; tawaran spontan memakai will wash."
+   ],
+   [
+    "Sit down and rest. I will washing the dishes tonight.",
+    "Setelah will, kata kerja harus bentuk dasar: wash."
+   ],
+   [
+    "Sit down and rest. I going to wash the dishes tonight.",
+    "Going to tidak bisa langsung setelah I tanpa am; untuk tawaran spontan pakai will wash."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Sit down and rest. Tonight I will wash the dishes."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Aku janji besok aku akan datang tepat waktu.",
+  "prompt": "I promise I ___ (be) on time tomorrow.",
+  "hint": "janji untuk besok",
+  "ans": "I promise I will be on time tomorrow.",
+  "why": "Janji → will + be: will be.",
+  "wrong": [
+   [
+    "I promise I will to be on time tomorrow.",
+    "Setelah will tidak ada to; yang benar will be."
+   ],
+   [
+    "I promise I am be on time tomorrow.",
+    "Am dan be tidak dipakai bersamaan; janji memakai will be."
+   ],
+   [
+    "I promise I will am on time tomorrow.",
+    "Setelah will, to be selalu berbentuk be: will be."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "I promise tomorrow I will be on time."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Sepatu ini pas sekali. Saya ambil yang ini.",
+  "prompt": "These shoes are perfect. I ___ (take) them.",
+  "hint": "memutuskan saat belanja",
+  "ans": "These shoes are perfect. I will take them.",
+  "why": "Keputusan membeli diambil saat itu juga → will take.",
+  "wrong": [
+   [
+    "These shoes are perfect. I will taking them.",
+    "Setelah will, kata kerja harus bentuk dasar: take."
+   ],
+   [
+    "These shoes are perfect. I am take them.",
+    "Am tidak bisa langsung diikuti V1; keputusan spontan memakai will take."
+   ],
+   [
+    "These shoes are perfect. I will takes them.",
+    "Setelah will, kata kerja tidak diberi -s: will take."
+   ]
+  ],
+  "alt": [
+   "These shoes are perfect. I am going to take them."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Kamu lapar? Aku buatkan roti lapis ya.",
+  "prompt": "Are you hungry? I ___ (make) you a sandwich.",
+  "hint": "menawarkan sesuatu",
+  "ans": "Are you hungry? I will make you a sandwich.",
+  "why": "Tawaran yang muncul saat itu → will make.",
+  "wrong": [
+   [
+    "Are you hungry? I will making you a sandwich.",
+    "Setelah will, kata kerja harus bentuk dasar: make."
+   ],
+   [
+    "Are you hungry? I going to make you a sandwich.",
+    "Going to tidak bisa langsung setelah I tanpa am; untuk tawaran spontan pakai will make."
+   ],
+   [
+    "Are you hungry? I am make you a sandwich.",
+    "Am tidak bisa langsung diikuti V1; tawaran spontan memakai will make."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense3",
+  "promptId": "Ayu sudah memesan tiketnya. Dia (pr) akan terbang ke Medan Jumat depan.",
+  "prompt": "Ayu has already booked the tickets. She ___ (fly) to Medan next Friday.",
+  "hint": "rencana, tiket sudah dipesan",
+  "ans": "Ayu has already booked the tickets. She is going to fly to Medan next Friday.",
+  "why": "Rencana sudah diputuskan dan ada buktinya (tiket sudah dipesan) → is going to fly.",
+  "wrong": [
+   [
+    "Ayu has already booked the tickets. She will going to fly to Medan next Friday.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "Ayu has already booked the tickets. She is going fly to Medan next Friday.",
+    "Setelah going harus ada to: is going to fly."
+   ],
+   [
+    "Ayu has already booked the tickets. She going to fly to Medan next Friday.",
+    "Going to butuh to be di depannya: she is going to fly."
+   ]
+  ],
+  "alt": [
+   "Ayu has already booked the tickets. She is flying to Medan next Friday."
+  ],
+  "orders": [
+   "Ayu has booked the tickets already. She is going to fly to Medan next Friday.",
+   "Ayu has already booked the tickets. Next Friday, she is going to fly to Medan."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Kami sudah beli catnya kemarin. Kami akan mengecat ruang tamu akhir pekan ini.",
+  "prompt": "We bought the paint yesterday. We ___ (paint) the living room this weekend.",
+  "hint": "rencana, cat sudah dibeli",
+  "ans": "We bought the paint yesterday. We are going to paint the living room this weekend.",
+  "why": "Rencana sudah disiapkan (cat sudah dibeli) → are going to paint.",
+  "wrong": [
+   [
+    "We bought the paint yesterday. We are going to painting the living room this weekend.",
+    "Setelah going to, kata kerja harus bentuk dasar: paint."
+   ],
+   [
+    "We bought the paint yesterday. We will to paint the living room this weekend.",
+    "Setelah will tidak ada to, dan rencana yang sudah ada buktinya memakai are going to paint."
+   ],
+   [
+    "We bought the paint yesterday. We are paint the living room this weekend.",
+    "Are tidak bisa langsung diikuti V1; rencana memakai are going to paint."
+   ]
+  ],
+  "alt": [
+   "We bought the paint yesterday. We are painting the living room this weekend."
+  ],
+  "orders": [
+   "Yesterday we bought the paint. We are going to paint the living room this weekend.",
+   "We bought the paint yesterday. This weekend we are going to paint the living room."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Andi sudah menabung selama setahun. Dia (lk) akan membeli laptop baru bulan depan.",
+  "prompt": "Andi has saved money for a year. He ___ (buy) a new laptop next month.",
+  "hint": "rencana yang sudah disiapkan",
+  "ans": "Andi has saved money for a year. He is going to buy a new laptop next month.",
+  "why": "Rencana sudah disiapkan (menabung setahun) → is going to buy.",
+  "wrong": [
+   [
+    "Andi has saved money for a year. He will buys a new laptop next month.",
+    "Setelah will, kata kerja tidak diberi -s, dan rencana yang ada buktinya memakai is going to buy."
+   ],
+   [
+    "Andi has saved money for a year. He is going buy a new laptop next month.",
+    "Setelah going harus ada to: is going to buy."
+   ],
+   [
+    "Andi has saved money for a year. He going to buy a new laptop next month.",
+    "Going to butuh to be di depannya: he is going to buy."
+   ]
+  ],
+  "alt": [
+   "Andi has saved money for a year. He is buying a new laptop next month."
+  ],
+  "orders": [
+   "Andi has saved money for a year. Next month he is going to buy a new laptop."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Kudengar kamu dapat beasiswa. Kamu akan kuliah di luar negeri tahun depan?",
+  "prompt": "I heard you got a scholarship. ___ (you / study) abroad next year?",
+  "hint": "rencana, kalimat tanya",
+  "ans": "I heard you got a scholarship. Are you going to study abroad next year?",
+  "why": "Menanyakan rencana yang sudah ada buktinya (dapat beasiswa) → Are you going to study.",
+  "wrong": [
+   [
+    "I heard you got a scholarship. Will you going to study abroad next year?",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "I heard you got a scholarship. Are you going study abroad next year?",
+    "Setelah going harus ada to: are you going to study."
+   ],
+   [
+    "I heard you got a scholarship. Do you going to study abroad next year?",
+    "Pertanyaan dengan going to memakai are, bukan do."
+   ]
+  ],
+  "alt": [
+   "I heard you got a scholarship. Are you studying abroad next year?"
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Maya sudah memutuskan untuk menabung. Dia (pr) tidak akan makan di luar bulan ini.",
+  "prompt": "Maya has decided to save her money. She ___ (not / eat) out this month.",
+  "hint": "keputusan sudah dibuat, negatif",
+  "ans": "Maya has decided to save her money. She is not going to eat out this month.",
+  "why": "Keputusan sudah dibuat sebelumnya → is not going to + V1: is not going to eat.",
+  "wrong": [
+   [
+    "Maya has decided to save her money. She will not going to eat out this month.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "Maya has decided to save her money. She is not going eat out this month.",
+    "Setelah going harus ada to: is not going to eat."
+   ],
+   [
+    "Maya has decided to save her money. She not going to eat out this month.",
+    "Going to butuh to be di depannya: she is not going to eat."
+   ]
+  ],
+  "alt": [
+   "Maya has decided to save her money. She is not eating out this month."
+  ],
+  "orders": [
+   "Maya has decided to save her money. This month she is not going to eat out."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Mereka sudah mengirim undangannya. Mereka akan menikah bulan Desember.",
+  "prompt": "They have already sent the invitations. They ___ (get) married in December.",
+  "hint": "rencana, undangan sudah dikirim",
+  "ans": "They have already sent the invitations. They are going to get married in December.",
+  "why": "Rencana sudah pasti (undangan sudah dikirim) → are going to get married.",
+  "wrong": [
+   [
+    "They have already sent the invitations. They will going to get married in December.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "They have already sent the invitations. They are going get married in December.",
+    "Setelah going harus ada to: are going to get."
+   ],
+   [
+    "They have already sent the invitations. They are get married in December.",
+    "Are tidak bisa langsung diikuti V1; rencana memakai are going to get."
+   ]
+  ],
+  "alt": [
+   "They have already sent the invitations. They are getting married in December."
+  ],
+  "orders": [
+   "They have sent the invitations already. They are going to get married in December.",
+   "They have already sent the invitations. In December they are going to get married."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Aku sudah mengemas tasku. Aku akan berangkat besok pagi-pagi.",
+  "prompt": "I have already packed my bag. I ___ (leave) early tomorrow morning.",
+  "hint": "rencana, tas sudah dikemas",
+  "ans": "I have already packed my bag. I am going to leave early tomorrow morning.",
+  "why": "Rencana sudah disiapkan (tas sudah dikemas) → am going to leave.",
+  "wrong": [
+   [
+    "I have already packed my bag. I will going to leave early tomorrow morning.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "I have already packed my bag. I going to leave early tomorrow morning.",
+    "Going to butuh am di depannya: I am going to leave."
+   ],
+   [
+    "I have already packed my bag. I am going to leaving early tomorrow morning.",
+    "Setelah going to, kata kerja harus bentuk dasar: leave."
+   ]
+  ],
+  "alt": [
+   "I have already packed my bag. I am leaving early tomorrow morning."
+  ],
+  "orders": [
+   "I have packed my bag already. I am going to leave early tomorrow morning."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Ayah sudah membeli semua bahannya. Dia (lk) akan memasak nasi goreng malam ini.",
+  "prompt": "Dad has bought all the ingredients. He ___ (cook) fried rice tonight.",
+  "hint": "rencana, bahan sudah dibeli",
+  "ans": "Dad has bought all the ingredients. He is going to cook fried rice tonight.",
+  "why": "Rencana sudah disiapkan (bahan sudah dibeli) → is going to cook.",
+  "wrong": [
+   [
+    "Dad has bought all the ingredients. He will cooks fried rice tonight.",
+    "Setelah will, kata kerja tidak diberi -s, dan rencana yang ada buktinya memakai is going to cook."
+   ],
+   [
+    "Dad has bought all the ingredients. He is going cook fried rice tonight.",
+    "Setelah going harus ada to: is going to cook."
+   ],
+   [
+    "Dad has bought all the ingredients. He is cook fried rice tonight.",
+    "Is tidak bisa langsung diikuti V1; rencana memakai is going to cook."
+   ]
+  ],
+  "alt": [
+   "Dad has bought all the ingredients. He is cooking fried rice tonight."
+  ],
+  "orders": [
+   "Dad has bought all the ingredients. Tonight he is going to cook fried rice."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Kami sudah menyewa mobil. Kami akan menyetir ke Bandung hari Minggu.",
+  "prompt": "We have already rented a car. We ___ (drive) to Bandung on Sunday.",
+  "hint": "rencana, mobil sudah disewa",
+  "ans": "We have already rented a car. We are going to drive to Bandung on Sunday.",
+  "why": "Rencana sudah disiapkan (mobil sudah disewa) → are going to drive.",
+  "wrong": [
+   [
+    "We have already rented a car. We will going to drive to Bandung on Sunday.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "We have already rented a car. We are drive to Bandung on Sunday.",
+    "Are tidak bisa langsung diikuti V1; rencana memakai are going to drive."
+   ],
+   [
+    "We have already rented a car. We going to drive to Bandung on Sunday.",
+    "Going to butuh are di depannya: we are going to drive."
+   ]
+  ],
+  "alt": [
+   "We have already rented a car. We are driving to Bandung on Sunday."
+  ],
+  "orders": [
+   "We have rented a car already. We are going to drive to Bandung on Sunday.",
+   "We have already rented a car. On Sunday we are going to drive to Bandung."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Sepupuku baru saja menandatangani kontrak dengan perusahaan di Jakarta. Dia (lk) akan pindah ke sana bulan depan.",
+  "prompt": "My cousin has just signed a contract with a company in Jakarta. He ___ (move) there next month.",
+  "hint": "rencana, kontrak sudah diteken",
+  "ans": "My cousin has just signed a contract with a company in Jakarta. He is going to move there next month.",
+  "why": "Rencana sudah pasti (kontrak sudah ditandatangani) → is going to move.",
+  "wrong": [
+   [
+    "My cousin has just signed a contract with a company in Jakarta. He will going to move there next month.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "My cousin has just signed a contract with a company in Jakarta. He is going move there next month.",
+    "Setelah going harus ada to: is going to move."
+   ],
+   [
+    "My cousin has just signed a contract with a company in Jakarta. He will moves there next month.",
+    "Setelah will, kata kerja tidak diberi -s, dan rencana yang ada buktinya memakai is going to move."
+   ]
+  ],
+  "alt": [
+   "My cousin has just signed a contract with a company in Jakarta. He is moving there next month."
+  ],
+  "orders": [
+   "My cousin has just signed a contract with a company in Jakarta. Next month he is going to move there."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Langit makin gelap. Sebentar lagi akan hujan.",
+  "prompt": "The sky is getting very dark. It ___ (rain) soon.",
+  "hint": "prediksi, ada bukti",
+  "ans": "The sky is getting very dark. It is going to rain soon.",
+  "why": "Prediksi berdasarkan bukti yang terlihat (langit gelap) → is going to rain.",
+  "wrong": [
+   [
+    "The sky is getting very dark. It will going to rain soon.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "The sky is getting very dark. It is going rain soon.",
+    "Setelah going harus ada to: is going to rain."
+   ],
+   [
+    "The sky is getting very dark. It is rain soon.",
+    "Is tidak bisa langsung diikuti V1; prediksi memakai is going to rain."
+   ]
+  ],
+  "alt": [
+   "The sky is getting very dark. It will rain soon."
+  ],
+  "orders": [
+   "The sky is getting very dark. Soon it is going to rain."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Awas! Kamu akan jatuh dari kursi itu!",
+  "prompt": "Watch out! You ___ (fall) off that chair!",
+  "hint": "bukti terlihat sekarang",
+  "ans": "Watch out! You are going to fall off that chair!",
+  "why": "Prediksi berdasarkan apa yang terlihat saat itu → are going to fall.",
+  "wrong": [
+   [
+    "Watch out! You will falling off that chair!",
+    "Setelah will, kata kerja harus bentuk dasar: fall."
+   ],
+   [
+    "Watch out! You are going fall off that chair!",
+    "Setelah going harus ada to: are going to fall."
+   ],
+   [
+    "Watch out! You going to fall off that chair!",
+    "Going to butuh are di depannya: you are going to fall."
+   ]
+  ],
+  "alt": [
+   "Watch out! You will fall off that chair!"
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Dia (pr) menyetir terlalu kencang. Dia bakal kecelakaan.",
+  "prompt": "She is driving too fast. She ___ (have) an accident.",
+  "hint": "prediksi dari yang terlihat",
+  "ans": "She is driving too fast. She is going to have an accident.",
+  "why": "Prediksi berdasarkan bukti (menyetir terlalu kencang) → is going to have.",
+  "wrong": [
+   [
+    "She is driving too fast. She will has an accident.",
+    "Setelah will, kata kerja harus bentuk dasar: have."
+   ],
+   [
+    "She is driving too fast. She is going have an accident.",
+    "Setelah going harus ada to: is going to have."
+   ],
+   [
+    "She is driving too fast. She will having an accident.",
+    "Setelah will, kata kerja harus bentuk dasar: have."
+   ]
+  ],
+  "alt": [
+   "She is driving too fast. She will have an accident."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Aku makan durian terlalu banyak. Aku mau muntah!",
+  "prompt": "I ate too much durian. I ___ (be) sick!",
+  "hint": "prediksi, tandanya sudah terasa",
+  "ans": "I ate too much durian. I am going to be sick!",
+  "why": "Prediksi berdasarkan tanda yang sudah terasa (makan terlalu banyak) → am going to be sick.",
+  "wrong": [
+   [
+    "I ate too much durian. I will going to be sick!",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "I ate too much durian. I am going be sick!",
+    "Setelah going harus ada to: am going to be."
+   ],
+   [
+    "I ate too much durian. I am going to sick!",
+    "Sick adalah kata sifat, jadi setelah going to tetap perlu be: am going to be sick."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense3",
+  "promptId": "Baterai HP-ku hampir habis. Sebentar lagi HP-nya akan mati.",
+  "prompt": "My phone battery is almost empty. It ___ (turn) off soon.",
+  "hint": "prediksi, baterai hampir habis",
+  "ans": "My phone battery is almost empty. It is going to turn off soon.",
+  "why": "Prediksi berdasarkan bukti (baterai hampir habis) → is going to turn off.",
+  "wrong": [
+   [
+    "My phone battery is almost empty. It will going to turn off soon.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "My phone battery is almost empty. It is going turn off soon.",
+    "Setelah going harus ada to: is going to turn."
+   ],
+   [
+    "My phone battery is almost empty. It is turn off soon.",
+    "Is tidak bisa langsung diikuti V1; prediksi memakai is going to turn."
+   ]
+  ],
+  "alt": [
+   "My phone battery is almost empty. It will turn off soon."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Macet sekali. Kita akan terlambat ke rapat.",
+  "prompt": "There is a lot of traffic. We ___ (be) late for the meeting.",
+  "hint": "prediksi dari keadaan sekarang",
+  "ans": "There is a lot of traffic. We are going to be late for the meeting.",
+  "why": "Prediksi berdasarkan keadaan yang terlihat (macet) → are going to be late.",
+  "wrong": [
+   [
+    "There is a lot of traffic. We will going to be late for the meeting.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "There is a lot of traffic. We are going be late for the meeting.",
+    "Setelah going harus ada to: are going to be."
+   ],
+   [
+    "There is a lot of traffic. We will being late for the meeting.",
+    "Setelah will, to be selalu berbentuk be: will be."
+   ]
+  ],
+  "alt": [
+   "There is a lot of traffic. We will be late for the meeting."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Keretanya berangkat lima menit lagi dan kita masih di rumah. Kita tidak akan sempat naik kereta itu.",
+  "prompt": "The train leaves in five minutes, and we are still at home. We ___ (not / catch) it.",
+  "hint": "prediksi, kalimat negatif",
+  "ans": "The train leaves in five minutes, and we are still at home. We are not going to catch it.",
+  "why": "Prediksi berdasarkan bukti (masih di rumah) → are not going to catch.",
+  "wrong": [
+   [
+    "The train leaves in five minutes, and we are still at home. We will not going to catch it.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "The train leaves in five minutes, and we are still at home. We are not going catch it.",
+    "Setelah going harus ada to: are not going to catch."
+   ],
+   [
+    "The train leaves in five minutes, and we are still at home. We not going to catch it.",
+    "Going to butuh are di depannya: we are not going to catch."
+   ]
+  ],
+  "alt": [
+   "The train leaves in five minutes, and we are still at home. We will not catch it."
+  ]
+ },
+ {
+  "set": "tense3",
+  "promptId": "Joko sama sekali tidak belajar. Dia (lk) bakal gagal dalam tes besok.",
+  "prompt": "Joko did not study at all. He ___ (fail) the test tomorrow.",
+  "hint": "prediksi berdasarkan bukti",
+  "ans": "Joko did not study at all. He is going to fail the test tomorrow.",
+  "why": "Prediksi berdasarkan bukti (tidak belajar sama sekali) → is going to fail.",
+  "wrong": [
+   [
+    "Joko did not study at all. He will going to fail the test tomorrow.",
+    "Will dan going to tidak dipakai bersamaan."
+   ],
+   [
+    "Joko did not study at all. He is going fail the test tomorrow.",
+    "Setelah going harus ada to: is going to fail."
+   ],
+   [
+    "Joko did not study at all. He will fails the test tomorrow.",
+    "Setelah will, kata kerja tidak diberi -s: will fail."
+   ]
+  ],
+  "alt": [
+   "Joko did not study at all. He will fail the test tomorrow."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Aku tidak mengerti kata ini. Artinya apa?",
+  "prompt": "I ___ (not / understand) this word. What does it mean?",
+  "hint": "keadaan sekarang, negatif",
+  "ans": "I do not understand this word. What does it mean?",
+  "why": "Understand adalah kata kerja keadaan dan ini tentang sekarang → do not understand.",
+  "wrong": [
+   [
+    "I am not understand this word. What does it mean?",
+    "Am not tidak bisa langsung diikuti V1; present simple negatif memakai do not."
+   ],
+   [
+    "I not understand this word. What does it mean?",
+    "Kalimat negatif present simple butuh do: do not understand."
+   ],
+   [
+    "I does not understand this word. What does it mean?",
+    "Subjek I memakai do, bukan does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense4",
+  "promptId": "Adik laki-lakiku ingin jadi pilot kalau sudah besar.",
+  "prompt": "My brother ___ (want) to be a pilot when he grows up.",
+  "hint": "keinginan sekarang (keadaan)",
+  "ans": "My brother wants to be a pilot when he grows up.",
+  "why": "Want adalah kata kerja keadaan tentang sekarang → present simple; subjek my brother → wants.",
+  "wrong": [
+   [
+    "My brother is want to be a pilot when he grows up.",
+    "Present simple tidak memakai is + V1; cukup wants."
+   ],
+   [
+    "My brother want to be a pilot when he grows up.",
+    "Subjek my brother (orang ketiga tunggal) → kata kerja + s: wants."
+   ],
+   [
+    "My brother wanted to be a pilot when he grows up.",
+    "Kalimat ini tentang keinginan sekarang (when he grows up), jadi tidak memakai V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When he grows up, my brother wants to be a pilot."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Museum itu tutup jam empat setiap hari Senin.",
+  "prompt": "The museum ___ (close) at four o'clock on Mondays.",
+  "hint": "jadwal rutin",
+  "ans": "The museum closes at four o'clock on Mondays.",
+  "why": "Jadwal rutin (on Mondays) → present simple; subjek the museum → closes.",
+  "wrong": [
+   [
+    "The museum close at four o'clock on Mondays.",
+    "Subjek the museum (tunggal) → kata kerja + s: closes."
+   ],
+   [
+    "The museum is close at four o'clock on Mondays.",
+    "Present simple tidak memakai is + V1; cukup closes."
+   ],
+   [
+    "The museum closing at four o'clock on Mondays.",
+    "V-ing tidak bisa berdiri sendiri tanpa to be; untuk jadwal rutin pakai closes."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "On Mondays, the museum closes at four o'clock.",
+   "The museum closes on Mondays at four o'clock."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Kelasmu biasanya selesai jam berapa?",
+  "prompt": "What time ___ (your class / usually / finish)?",
+  "hint": "kebiasaan, kalimat tanya",
+  "ans": "What time does your class usually finish?",
+  "why": "'Usually' = kebiasaan → pertanyaan present simple: does + subjek + V1.",
+  "wrong": [
+   [
+    "What time does your class usually finishes?",
+    "Setelah does, kata kerja kembali ke bentuk dasar: finish."
+   ],
+   [
+    "What time is your class usually finish?",
+    "Pertanyaan kebiasaan memakai does, bukan is + V1."
+   ],
+   [
+    "What time your class usually finishes?",
+    "Kalimat tanya present simple butuh does di depan subjek."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense4",
+  "promptId": "Sarah tidak minum teh, tapi dia (pr) suka sekali kopi.",
+  "prompt": "Sarah ___ (not / drink) tea, but she loves coffee.",
+  "hint": "kebiasaan, kalimat negatif",
+  "ans": "Sarah does not drink tea, but she loves coffee.",
+  "why": "Kebiasaan sekarang (she loves coffee) → present simple negatif: does not drink.",
+  "wrong": [
+   [
+    "Sarah is not drink tea, but she loves coffee.",
+    "Present simple negatif memakai does not, bukan is not + V1."
+   ],
+   [
+    "Sarah not drink tea, but she loves coffee.",
+    "Kalimat negatif present simple butuh does: does not drink."
+   ],
+   [
+    "Sarah does not drinks tea, but she loves coffee.",
+    "Setelah does not, kata kerja kembali ke bentuk dasar: drink."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense4",
+  "promptId": "Bisa tolong bukakan pintu? Tanganku penuh. Aku sedang membawa kotak besar.",
+  "prompt": "Can you open the door for me? My hands are full. I ___ (hold) a big box.",
+  "hint": "sedang terjadi sekarang",
+  "ans": "Can you open the door for me? My hands are full. I am holding a big box.",
+  "why": "Kegiatannya sedang berlangsung saat bicara (my hands are full) → am holding.",
+  "wrong": [
+   [
+    "Can you open the door for me? My hands are full. I hold a big box.",
+    "Kegiatannya sedang berlangsung saat ini, jadi tidak memakai present simple."
+   ],
+   [
+    "Can you open the door for me? My hands are full. I held a big box.",
+    "Tangannya penuh sekarang, jadi tidak memakai V2 (lampau)."
+   ],
+   [
+    "Can you open the door for me? My hands are full. I am hold a big box.",
+    "Setelah am untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (holding)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense4",
+  "promptId": "Ayah sedang memperbaiki motor di garasi sekarang.",
+  "prompt": "Dad ___ (fix) the motorcycle in the garage right now.",
+  "hint": "right now = sedang",
+  "ans": "Dad is fixing the motorcycle in the garage right now.",
+  "why": "'Right now' menunjukkan kegiatan yang sedang berlangsung → is fixing.",
+  "wrong": [
+   [
+    "Dad fixes the motorcycle in the garage right now.",
+    "'Right now' butuh present continuous, bukan present simple."
+   ],
+   [
+    "Dad fixed the motorcycle in the garage right now.",
+    "'Right now' menunjukkan kegiatan yang sedang terjadi, bukan lampau."
+   ],
+   [
+    "Dad is fix the motorcycle in the garage right now.",
+    "Setelah is untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (fixing)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now, Dad is fixing the motorcycle in the garage."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Kamu lagi chat sama siapa? Dari tadi senyum-senyum terus.",
+  "prompt": "Who ___ (you / text) right now? You keep smiling.",
+  "hint": "sedang terjadi, kalimat tanya",
+  "ans": "Who are you texting right now? You keep smiling.",
+  "why": "'Right now' menanyakan kegiatan yang sedang berlangsung → are you texting.",
+  "wrong": [
+   [
+    "Who are you text right now? You keep smiling.",
+    "Setelah are you untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (texting)."
+   ],
+   [
+    "Who you are texting right now? You keep smiling.",
+    "Dalam kalimat tanya, are harus di depan subjek: Who are you texting?"
+   ],
+   [
+    "Who do you text right now? You keep smiling.",
+    "'Right now' menanyakan kegiatan yang sedang terjadi, jadi tidak memakai do (present simple)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense4",
+  "promptId": "Aku sedang tidak memakai laptopku. Kamu boleh pinjam.",
+  "prompt": "I ___ (not / use) my laptop at the moment. You can borrow it.",
+  "hint": "at the moment, negatif",
+  "ans": "I am not using my laptop at the moment. You can borrow it.",
+  "why": "'At the moment' = sedang berlangsung → present continuous negatif: am not using.",
+  "wrong": [
+   [
+    "I did not use my laptop at the moment. You can borrow it.",
+    "'At the moment' menunjukkan sekarang, jadi tidak memakai did not (lampau)."
+   ],
+   [
+    "I am not use my laptop at the moment. You can borrow it.",
+    "Setelah am not untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (using)."
+   ],
+   [
+    "I not using my laptop at the moment. You can borrow it.",
+    "Kalimat negatif continuous butuh to be: am not using."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At the moment, I am not using my laptop. You can borrow it."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Lihat! Kucingnya sedang memanjat pohon.",
+  "prompt": "Look! The cat ___ (climb) the tree.",
+  "hint": "Look! = sedang terjadi",
+  "ans": "Look! The cat is climbing the tree.",
+  "why": "'Look!' menunjukkan kegiatan yang sedang terjadi → is climbing.",
+  "wrong": [
+   [
+    "Look! The cat climbs the tree.",
+    "'Look!' menunjukkan kegiatan yang sedang berlangsung, jadi tidak memakai present simple."
+   ],
+   [
+    "Look! The cat is climb the tree.",
+    "Setelah is untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (climbing)."
+   ],
+   [
+    "Look! The cat climbing the tree.",
+    "V-ing butuh to be (is) di depannya."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense4",
+  "promptId": "Para siswa sedang ujian sekarang, jadi tolong tunggu di luar.",
+  "prompt": "The students ___ (take) an exam right now, so please wait outside.",
+  "hint": "right now = sedang",
+  "ans": "The students are taking an exam right now, so please wait outside.",
+  "why": "'Right now' menunjukkan kegiatan yang sedang berlangsung → are taking.",
+  "wrong": [
+   [
+    "The students take an exam right now, so please wait outside.",
+    "'Right now' butuh present continuous, bukan present simple."
+   ],
+   [
+    "The students took an exam right now, so please wait outside.",
+    "'Right now' menunjukkan kegiatan yang sedang terjadi, bukan lampau."
+   ],
+   [
+    "The students are take an exam right now, so please wait outside.",
+    "Setelah are untuk kegiatan yang sedang berlangsung, kata kerjanya harus V-ing (taking)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now the students are taking an exam, so please wait outside."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Payungku ketinggalan di kantor kemarin.",
+  "prompt": "I ___ (leave) my umbrella at the office yesterday.",
+  "hint": "yesterday = lampau",
+  "ans": "I left my umbrella at the office yesterday.",
+  "why": "'Yesterday' = lampau → past simple: left (V2 dari leave).",
+  "wrong": [
+   [
+    "I leave my umbrella at the office yesterday.",
+    "'Yesterday' menunjukkan lampau, jadi kata kerjanya harus V2."
+   ],
+   [
+    "I was leave my umbrella at the office yesterday.",
+    "Past simple tidak memakai was + V1; cukup left."
+   ],
+   [
+    "I have left my umbrella at the office yesterday.",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti 'yesterday'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday I left my umbrella at the office."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Kamu menikmati perjalanan ke Malang bulan lalu?",
+  "prompt": "___ (you / enjoy) the trip to Malang last month?",
+  "hint": "last month, kalimat tanya",
+  "ans": "Did you enjoy the trip to Malang last month?",
+  "why": "'Last month' = lampau → pertanyaan past simple: Did you + V1.",
+  "wrong": [
+   [
+    "Do you enjoy the trip to Malang last month?",
+    "'Last month' menunjukkan lampau, jadi pakai did, bukan do."
+   ],
+   [
+    "Did you enjoyed the trip to Malang last month?",
+    "Setelah did, kata kerja kembali ke bentuk dasar: enjoy."
+   ],
+   [
+    "Have you enjoyed the trip to Malang last month?",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti 'last month'."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense4",
+  "promptId": "Pamanku pindah ke Singapura pada tahun 2019.",
+  "prompt": "My uncle ___ (move) to Singapore in 2019.",
+  "hint": "tahun yang sudah lewat",
+  "ans": "My uncle moved to Singapore in 2019.",
+  "why": "'In 2019' = waktu lampau yang jelas → past simple: moved.",
+  "wrong": [
+   [
+    "My uncle moves to Singapore in 2019.",
+    "'In 2019' menunjukkan lampau, jadi tidak memakai present simple."
+   ],
+   [
+    "My uncle has moved to Singapore in 2019.",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti 'in 2019'."
+   ],
+   [
+    "My uncle is moving to Singapore in 2019.",
+    "'In 2019' menunjukkan lampau, jadi tidak memakai present continuous."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In 2019, my uncle moved to Singapore."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Kami tidak melihat satu monyet pun di kebun binatang akhir pekan lalu.",
+  "prompt": "We ___ (not / see) any monkeys at the zoo last weekend.",
+  "hint": "lampau, kalimat negatif",
+  "ans": "We did not see any monkeys at the zoo last weekend.",
+  "why": "'Last weekend' = lampau → past simple negatif: did not see.",
+  "wrong": [
+   [
+    "We did not saw any monkeys at the zoo last weekend.",
+    "Setelah did not, kata kerja kembali ke bentuk dasar: see."
+   ],
+   [
+    "We have not seen any monkeys at the zoo last weekend.",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti 'last weekend'."
+   ],
+   [
+    "We do not see any monkeys at the zoo last weekend.",
+    "'Last weekend' menunjukkan lampau, jadi pakai did not, bukan do not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last weekend, we did not see any monkeys at the zoo."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Anak-anak bermain layang-layang di pantai Minggu lalu.",
+  "prompt": "The kids ___ (fly) kites on the beach last Sunday.",
+  "hint": "last Sunday = lampau",
+  "ans": "The kids flew kites on the beach last Sunday.",
+  "why": "'Last Sunday' = lampau → past simple: flew (V2 dari fly).",
+  "wrong": [
+   [
+    "The kids flied kites on the beach last Sunday.",
+    "Fly tidak beraturan; V2-nya flew, bukan flied."
+   ],
+   [
+    "The kids fly kites on the beach last Sunday.",
+    "'Last Sunday' menunjukkan lampau, jadi kata kerjanya harus V2."
+   ],
+   [
+    "The kids are flying kites on the beach last Sunday.",
+    "'Last Sunday' menunjukkan lampau, jadi tidak memakai present continuous."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Sunday, the kids flew kites on the beach."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "HP-ku rusak waktu aku menjatuhkannya ke lantai.",
+  "prompt": "My phone ___ (break) when I dropped it on the floor.",
+  "hint": "kejadian lampau (dropped)",
+  "ans": "My phone broke when I dropped it on the floor.",
+  "why": "Kejadiannya lampau (when I dropped it) → past simple: broke (V2 dari break).",
+  "wrong": [
+   [
+    "My phone breaks when I dropped it on the floor.",
+    "Kejadiannya lampau (dropped), jadi tidak memakai present simple."
+   ],
+   [
+    "My phone breaked when I dropped it on the floor.",
+    "Break tidak beraturan; V2-nya broke, bukan breaked."
+   ],
+   [
+    "My phone has broken when I dropped it on the floor.",
+    "Present perfect tidak dipakai untuk kejadian lampau yang waktunya jelas (when I dropped it)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When I dropped it on the floor, my phone broke."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Dua hari yang lalu, Budi memberiku hadiah ulang tahun.",
+  "prompt": "Two days ago, Budi ___ (give) me a birthday present.",
+  "hint": "two days ago = lampau",
+  "ans": "Two days ago, Budi gave me a birthday present.",
+  "why": "'Two days ago' = lampau → past simple: gave (V2 dari give).",
+  "wrong": [
+   [
+    "Two days ago, Budi gives me a birthday present.",
+    "'Two days ago' menunjukkan lampau, jadi tidak memakai present simple."
+   ],
+   [
+    "Two days ago, Budi has given me a birthday present.",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti 'two days ago'."
+   ],
+   [
+    "Two days ago, Budi was give me a birthday present.",
+    "Past simple tidak memakai was + V1; cukup gave."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Budi gave me a birthday present two days ago."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Kamu tidak punya pulpen? Ini, aku pinjamkan punyaku.",
+  "prompt": "You don't have a pen? Here, I ___ (lend) you mine.",
+  "hint": "tawaran spontan",
+  "ans": "You don't have a pen? Here, I will lend you mine.",
+  "why": "Tawaran yang diputuskan saat itu → will lend.",
+  "wrong": [
+   [
+    "You don't have a pen? Here, I lend you mine.",
+    "Tawaran yang diputuskan saat itu memakai will, bukan present simple."
+   ],
+   [
+    "You don't have a pen? Here, I will lending you mine.",
+    "Setelah will, kata kerja harus bentuk dasar: lend."
+   ],
+   [
+    "You don't have a pen? Here, I am lend you mine.",
+    "Am tidak bisa langsung diikuti V1; tawaran spontan memakai will lend."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "tense4",
+  "promptId": "Aku yakin kamu akan lulus ujian besok. Kamu sudah belajar keras sekali.",
+  "prompt": "I am sure you ___ (pass) the exam tomorrow. You studied very hard.",
+  "hint": "yakin tentang besok",
+  "ans": "I am sure you will pass the exam tomorrow. You studied very hard.",
+  "why": "Pendapat/keyakinan tentang masa depan (I am sure, tomorrow) → will pass.",
+  "wrong": [
+   [
+    "I am sure you passed the exam tomorrow. You studied very hard.",
+    "'Tomorrow' menunjukkan masa depan, jadi tidak memakai V2."
+   ],
+   [
+    "I am sure you pass the exam tomorrow. You studied very hard.",
+    "'Tomorrow' menunjukkan masa depan; pakai will pass, bukan present simple."
+   ],
+   [
+    "I am sure you are pass the exam tomorrow. You studied very hard.",
+    "Are tidak bisa langsung diikuti V1; masa depan memakai will pass."
+   ]
+  ],
+  "alt": [
+   "I am sure you are going to pass the exam tomorrow. You studied very hard."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Kamu datang ke pestaku besok malam?",
+  "prompt": "___ (you / come) to my party tomorrow night?",
+  "hint": "besok, kalimat tanya",
+  "ans": "Will you come to my party tomorrow night?",
+  "why": "'Tomorrow night' = masa depan → pertanyaan Will you + V1.",
+  "wrong": [
+   [
+    "Do you come to my party tomorrow night?",
+    "'Tomorrow night' menunjukkan masa depan, jadi tidak memakai do (present simple)."
+   ],
+   [
+    "Did you come to my party tomorrow night?",
+    "'Tomorrow night' menunjukkan masa depan, jadi tidak memakai did (lampau)."
+   ],
+   [
+    "Will you coming to my party tomorrow night?",
+    "Setelah will, kata kerja harus bentuk dasar: come."
+   ]
+  ],
+  "alt": [
+   "Are you coming to my party tomorrow night?",
+   "Are you going to come to my party tomorrow night?"
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Susunya bau. Aku buang saja.",
+  "prompt": "The milk smells bad. I ___ (throw) it away.",
+  "hint": "keputusan saat itu",
+  "ans": "The milk smells bad. I will throw it away.",
+  "why": "Keputusan diambil saat itu juga (setelah mencium susunya) → will throw.",
+  "wrong": [
+   [
+    "The milk smells bad. I throw it away.",
+    "Keputusan yang diambil saat itu memakai will, bukan present simple."
+   ],
+   [
+    "The milk smells bad. I will throwing it away.",
+    "Setelah will, kata kerja harus bentuk dasar: throw."
+   ],
+   [
+    "The milk smells bad. I am throw it away.",
+    "Am tidak bisa langsung diikuti V1; keputusan spontan memakai will throw."
+   ]
+  ],
+  "alt": [
+   "The milk smells bad. I am going to throw it away."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Nina sudah membeli banyak tepung dan telur. Dia (pr) akan membuat kue untuk ulang tahun ibunya besok.",
+  "prompt": "Nina has bought a lot of flour and eggs. She ___ (bake) a cake for her mother's birthday tomorrow.",
+  "hint": "rencana, ada buktinya",
+  "ans": "Nina has bought a lot of flour and eggs. She is going to bake a cake for her mother's birthday tomorrow.",
+  "why": "Rencana sudah disiapkan (tepung dan telur sudah dibeli) → is going to bake.",
+  "wrong": [
+   [
+    "Nina has bought a lot of flour and eggs. She bakes a cake for her mother's birthday tomorrow.",
+    "'Tomorrow' menunjukkan rencana masa depan; present simple tidak dipakai di sini."
+   ],
+   [
+    "Nina has bought a lot of flour and eggs. She baked a cake for her mother's birthday tomorrow.",
+    "'Tomorrow' menunjukkan masa depan, jadi tidak memakai V2."
+   ],
+   [
+    "Nina has bought a lot of flour and eggs. She will baking a cake for her mother's birthday tomorrow.",
+    "Setelah will, kata kerja harus bentuk dasar, dan rencana yang ada buktinya memakai is going to bake."
+   ]
+  ],
+  "alt": [
+   "Nina has bought a lot of flour and eggs. She is baking a cake for her mother's birthday tomorrow."
+  ],
+  "orders": [
+   "Nina has bought a lot of flour and eggs. Tomorrow she is going to bake a cake for her mother's birthday."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Mila sudah memilih gaunnya. Dia (pr) akan memakainya ke pesta pernikahan Sabtu depan.",
+  "prompt": "Mila has already chosen her dress. She ___ (wear) it to the wedding next Saturday.",
+  "hint": "rencana sudah diputuskan",
+  "ans": "Mila has already chosen her dress. She is going to wear it to the wedding next Saturday.",
+  "why": "Rencana sudah diputuskan (gaun sudah dipilih) → is going to wear.",
+  "wrong": [
+   [
+    "Mila has already chosen her dress. She wore it to the wedding next Saturday.",
+    "'Next Saturday' menunjukkan masa depan, jadi tidak memakai V2."
+   ],
+   [
+    "Mila has already chosen her dress. She wears it to the wedding next Saturday.",
+    "'Next Saturday' menunjukkan rencana masa depan; present simple tidak dipakai di sini."
+   ],
+   [
+    "Mila has already chosen her dress. She will wearing it to the wedding next Saturday.",
+    "Setelah will, kata kerja harus bentuk dasar, dan rencana yang ada buktinya memakai is going to wear."
+   ]
+  ],
+  "alt": [
+   "Mila has already chosen her dress. She is wearing it to the wedding next Saturday."
+  ],
+  "orders": [
+   "Mila has already chosen her dress. Next Saturday she is going to wear it to the wedding."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Hati-hati dengan cangkir itu! Kopinya bisa tumpah.",
+  "prompt": "Be careful with that cup! You ___ (spill) the coffee.",
+  "hint": "prediksi dari yang terlihat",
+  "ans": "Be careful with that cup! You are going to spill the coffee.",
+  "why": "Prediksi berdasarkan apa yang terlihat saat itu → are going to spill.",
+  "wrong": [
+   [
+    "Be careful with that cup! You spill the coffee.",
+    "Ini prediksi tentang sesuatu yang akan terjadi, jadi tidak memakai present simple."
+   ],
+   [
+    "Be careful with that cup! You are spill the coffee.",
+    "Are tidak bisa langsung diikuti V1; prediksi memakai are going to spill."
+   ],
+   [
+    "Be careful with that cup! You will spilling the coffee.",
+    "Setelah will, kata kerja harus bentuk dasar: spill."
+   ]
+  ],
+  "alt": [
+   "Be careful with that cup! You will spill the coffee."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Dimas sedang pilek berat. Dia (lk) tidak akan datang ke pesta besok malam.",
+  "prompt": "Dimas has a bad cold. He ___ (not / come) to the party tomorrow night.",
+  "hint": "masa depan, kalimat negatif",
+  "ans": "Dimas has a bad cold. He is not going to come to the party tomorrow night.",
+  "why": "Ada bukti sekarang (pilek berat) untuk keadaan besok → is not going to come.",
+  "wrong": [
+   [
+    "Dimas has a bad cold. He did not come to the party tomorrow night.",
+    "'Tomorrow night' menunjukkan masa depan, jadi tidak memakai did not."
+   ],
+   [
+    "Dimas has a bad cold. He does not come to the party tomorrow night.",
+    "'Tomorrow night' menunjukkan masa depan; present simple tidak dipakai di sini."
+   ],
+   [
+    "Dimas has a bad cold. He is not come to the party tomorrow night.",
+    "Is not tidak bisa langsung diikuti V1; yang benar is not going to come."
+   ]
+  ],
+  "alt": [
+   "Dimas has a bad cold. He is not coming to the party tomorrow night.",
+   "Dimas has a bad cold. He will not come to the party tomorrow night."
+  ],
+  "orders": [
+   "Dimas has a bad cold. Tomorrow night he is not going to come to the party."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Kamu pernah melihat salju?",
+  "prompt": "___ (you / ever / see) snow?",
+  "hint": "ever = pernah",
+  "ans": "Have you ever seen snow?",
+  "why": "'Ever' menanyakan pengalaman sampai sekarang → present perfect: Have you ever seen.",
+  "wrong": [
+   [
+    "Have you ever saw snow?",
+    "Setelah have, kata kerja harus V3 (seen), bukan V2 (saw)."
+   ],
+   [
+    "Have you ever see snow?",
+    "Setelah have, kata kerja harus V3: seen."
+   ],
+   [
+    "Has you ever seen snow?",
+    "Subjek you memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "Did you ever see snow?"
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Aku belum pernah naik kuda.",
+  "prompt": "I ___ (never / ride) a horse.",
+  "hint": "never = belum pernah",
+  "ans": "I have never ridden a horse.",
+  "why": "Pengalaman sampai sekarang (never) → present perfect: have never ridden.",
+  "wrong": [
+   [
+    "I have never rode a horse.",
+    "Setelah have, kata kerja harus V3 (ridden), bukan V2 (rode)."
+   ],
+   [
+    "I have never ride a horse.",
+    "Setelah have, kata kerja harus V3: ridden."
+   ],
+   [
+    "I has never ridden a horse.",
+    "Subjek I memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "I never rode a horse."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Kami sudah menyelesaikan proyek kami, jadi sekarang kami bisa santai.",
+  "prompt": "We ___ (already / finish) our project, so we can relax now.",
+  "hint": "already = sudah",
+  "ans": "We have already finished our project, so we can relax now.",
+  "why": "'Already' dengan hasil yang terasa sekarang → present perfect: have already finished.",
+  "wrong": [
+   [
+    "We have already finish our project, so we can relax now.",
+    "Setelah have, kata kerja harus V3: finished."
+   ],
+   [
+    "We are already finish our project, so we can relax now.",
+    "Present perfect memakai have + V3, bukan are + V1."
+   ],
+   [
+    "We has already finished our project, so we can relax now.",
+    "Subjek we memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "We already finished our project, so we can relax now."
+  ],
+  "orders": [
+   "We have finished our project already, so we can relax now.",
+   "We have already finished our project, so now we can relax."
+  ]
+ },
+ {
+  "set": "tense4",
+  "promptId": "Ini nasi goreng terenak yang pernah aku makan.",
+  "prompt": "This is the best fried rice I ___ (ever / eat).",
+  "hint": "pengalaman, pakai ever",
+  "ans": "This is the best fried rice I have ever eaten.",
+  "why": "Pengalaman sampai sekarang (the best ... ever) → present perfect: have ever eaten.",
+  "wrong": [
+   [
+    "This is the best fried rice I have ever ate.",
+    "Setelah have, kata kerja harus V3 (eaten), bukan V2 (ate)."
+   ],
+   [
+    "This is the best fried rice I ever eat.",
+    "Pengalaman sampai sekarang memakai have + V3: have ever eaten."
+   ],
+   [
+    "This is the best fried rice I has ever eaten.",
+    "Subjek I memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "This is the best fried rice I ever ate."
+  ]
+ }
+]

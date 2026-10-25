@@ -1,0 +1,5312 @@
+[
+ {
+  "set": "whb1",
+  "promptId": "Aku ada di rumah kemarin.",
+  "prompt": "I ___ (be) at home yesterday.",
+  "hint": "kemarin (lampau)",
+  "ans": "I was at home yesterday.",
+  "why": "Ada 'yesterday' (lampau) dan subjeknya I → was.",
+  "wrong": [
+   [
+    "I were at home yesterday.",
+    "Subjek I memakai was, bukan were."
+   ],
+   [
+    "I am at home yesterday.",
+    "am untuk sekarang, padahal ada 'yesterday' (lampau)."
+   ],
+   [
+    "I have been at home yesterday.",
+    "have been tidak bisa dipakai dengan waktu lampau yang jelas seperti 'yesterday'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday I was at home."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Orang tuaku ada di Bandung minggu lalu.",
+  "prompt": "My parents ___ (be) in Bandung last week.",
+  "hint": "minggu lalu",
+  "ans": "My parents were in Bandung last week.",
+  "why": "'Last week' menunjukkan lampau dan subjeknya jamak (my parents) → were.",
+  "wrong": [
+   [
+    "My parents was in Bandung last week.",
+    "Subjek jamak (my parents) memakai were, bukan was."
+   ],
+   [
+    "My parents are in Bandung last week.",
+    "are untuk sekarang, padahal ada 'last week' (lampau)."
+   ],
+   [
+    "My parents have been in Bandung last week.",
+    "have been tidak bisa dipakai dengan waktu lampau yang jelas seperti 'last week'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last week my parents were in Bandung."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Rudi sekarang seorang manajer. Dia (lk) naik jabatan bulan lalu.",
+  "prompt": "Rudi ___ (be) a manager now. He got a promotion last month.",
+  "hint": "keadaan sekarang",
+  "ans": "Rudi is a manager now. He got a promotion last month.",
+  "why": "'Now' menunjukkan keadaan sekarang dan subjeknya tunggal (Rudi) → is.",
+  "wrong": [
+   [
+    "Rudi was a manager now. He got a promotion last month.",
+    "was untuk lampau, padahal ada 'now' (sekarang)."
+   ],
+   [
+    "Rudi are a manager now. He got a promotion last month.",
+    "are untuk subjek jamak atau you, bukan Rudi."
+   ],
+   [
+    "Rudi were a manager now. He got a promotion last month.",
+    "were untuk lampau dan subjek jamak, tidak cocok dengan 'now' dan Rudi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Rudi is now a manager. He got a promotion last month.",
+   "Rudi is a manager now. Last month he got a promotion.",
+   "Rudi is now a manager. Last month he got a promotion."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Sekarang di Jakarta panas sekali.",
+  "prompt": "It ___ (be) very hot in Jakarta right now.",
+  "hint": "saat ini",
+  "ans": "It is very hot in Jakarta right now.",
+  "why": "'Right now' menunjukkan sekarang dan subjeknya it → is.",
+  "wrong": [
+   [
+    "It was very hot in Jakarta right now.",
+    "was untuk lampau, padahal ada 'right now'."
+   ],
+   [
+    "It are very hot in Jakarta right now.",
+    "Subjek it memakai is, bukan are."
+   ],
+   [
+    "It were very hot in Jakarta right now.",
+    "were untuk lampau dan subjek jamak, tidak cocok dengan it dan 'right now'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Right now it is very hot in Jakarta.",
+   "It is very hot right now in Jakarta.",
+   "In Jakarta, it is very hot right now."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Kami terlambat ke rapat Senin lalu.",
+  "prompt": "We ___ (be) late for the meeting last Monday.",
+  "hint": "Senin lalu",
+  "ans": "We were late for the meeting last Monday.",
+  "why": "'Last Monday' menunjukkan lampau dan subjeknya we → were.",
+  "wrong": [
+   [
+    "We was late for the meeting last Monday.",
+    "Subjek we memakai were, bukan was."
+   ],
+   [
+    "We are late for the meeting last Monday.",
+    "are untuk sekarang, padahal ada 'last Monday' (lampau)."
+   ],
+   [
+    "We have been late for the meeting last Monday.",
+    "have been tidak bisa dipakai dengan waktu lampau yang jelas seperti 'last Monday'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Monday we were late for the meeting."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Andi tidak masuk sekolah kemarin karena dia (lk) demam.",
+  "prompt": "Andi ___ (not / be) at school yesterday because he had a fever.",
+  "hint": "kemarin (lampau)",
+  "ans": "Andi was not at school yesterday because he had a fever.",
+  "why": "'Yesterday' menunjukkan lampau dan subjeknya tunggal (Andi) → was not.",
+  "wrong": [
+   [
+    "Andi were not at school yesterday because he had a fever.",
+    "Subjek tunggal (Andi) memakai was not, bukan were not."
+   ],
+   [
+    "Andi is not at school yesterday because he had a fever.",
+    "is not untuk sekarang, padahal ada 'yesterday'."
+   ],
+   [
+    "Andi did not be at school yesterday because he had a fever.",
+    "be tidak memakai did untuk negatif; cukup was not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday Andi was not at school because he had a fever.",
+   "Because he had a fever, Andi was not at school yesterday."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Toko-toko tidak buka hari Minggu lalu.",
+  "prompt": "The shops ___ (not / be) open last Sunday.",
+  "hint": "hari Minggu lalu",
+  "ans": "The shops were not open last Sunday.",
+  "why": "'Last Sunday' menunjukkan lampau dan subjeknya jamak (the shops) → were not.",
+  "wrong": [
+   [
+    "The shops was not open last Sunday.",
+    "Subjek jamak (the shops) memakai were not, bukan was not."
+   ],
+   [
+    "The shops are not open last Sunday.",
+    "are not untuk sekarang, padahal ada 'last Sunday'."
+   ],
+   [
+    "The shops did not be open last Sunday.",
+    "be tidak memakai did untuk negatif; cukup were not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Sunday the shops were not open."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Apakah kamu ada di kantor kemarin sore?",
+  "prompt": "___ (you / be) at the office yesterday afternoon?",
+  "hint": "kemarin sore",
+  "ans": "Were you at the office yesterday afternoon?",
+  "why": "'Yesterday afternoon' menunjukkan lampau; pertanyaan dengan you → Were you …?",
+  "wrong": [
+   [
+    "Was you at the office yesterday afternoon?",
+    "you selalu memakai were, bukan was."
+   ],
+   [
+    "Are you at the office yesterday afternoon?",
+    "are untuk sekarang, padahal ada 'yesterday afternoon'."
+   ],
+   [
+    "Did you be at the office yesterday afternoon?",
+    "Pertanyaan dengan be tidak memakai did; cukup balik jadi Were you."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb1",
+  "promptId": "Di mana dia (lk) semalam? Aku meneleponnya tiga kali.",
+  "prompt": "Where ___ (he / be) last night? I called him three times.",
+  "hint": "tadi malam (lampau)",
+  "ans": "Where was he last night? I called him three times.",
+  "why": "'Last night' menunjukkan lampau dan subjeknya he → Where was he?",
+  "wrong": [
+   [
+    "Where were he last night? I called him three times.",
+    "Subjek he memakai was, bukan were."
+   ],
+   [
+    "Where is he last night? I called him three times.",
+    "is untuk sekarang, padahal ada 'last night'."
+   ],
+   [
+    "Where did he be last night? I called him three times.",
+    "Pertanyaan dengan be tidak memakai did; cukup Where was he."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb1",
+  "promptId": "Maaf, aku tidak ada di sini waktu kamu menelepon.",
+  "prompt": "I'm sorry, I ___ (not / be) here when you called.",
+  "hint": "waktu kamu menelepon",
+  "ans": "I'm sorry, I was not here when you called.",
+  "why": "'When you called' adalah kejadian lampau dan subjeknya I → was not.",
+  "wrong": [
+   [
+    "I'm sorry, I am not here when you called.",
+    "am not untuk sekarang, padahal 'when you called' sudah lampau."
+   ],
+   [
+    "I'm sorry, I were not here when you called.",
+    "Subjek I memakai was not, bukan were not."
+   ],
+   [
+    "I'm sorry, I did not be here when you called.",
+    "be tidak memakai did untuk negatif; cukup was not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "I'm sorry, when you called I was not here."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Kakak laki-lakiku sekarang berumur 25 tahun.",
+  "prompt": "My brother ___ (be) 25 years old now.",
+  "hint": "keadaan sekarang",
+  "ans": "My brother is 25 years old now.",
+  "why": "'Now' menunjukkan sekarang dan subjeknya tunggal (my brother) → is.",
+  "wrong": [
+   [
+    "My brother was 25 years old now.",
+    "was untuk lampau, padahal ada 'now'."
+   ],
+   [
+    "My brother are 25 years old now.",
+    "Subjek tunggal (my brother) memakai is, bukan are."
+   ],
+   [
+    "My brother be 25 years old now.",
+    "be harus diubah sesuai subjek dan waktu; di sini is."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "My brother is now 25 years old.",
+   "Now my brother is 25 years old."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Cuacanya buruk sekali selama liburan kami tahun lalu.",
+  "prompt": "The weather ___ (be) terrible during our holiday last year.",
+  "hint": "tahun lalu",
+  "ans": "The weather was terrible during our holiday last year.",
+  "why": "'Last year' menunjukkan lampau dan subjeknya tunggal (the weather) → was.",
+  "wrong": [
+   [
+    "The weather were terrible during our holiday last year.",
+    "Subjek tunggal (the weather) memakai was, bukan were."
+   ],
+   [
+    "The weather is terrible during our holiday last year.",
+    "is untuk sekarang, padahal ada 'last year'."
+   ],
+   [
+    "The weather has been terrible during our holiday last year.",
+    "has been tidak bisa dipakai dengan waktu lampau yang jelas seperti 'last year'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "During our holiday last year, the weather was terrible."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Ada masalah dengan laptopku kemarin.",
+  "prompt": "There ___ (be) a problem with my laptop yesterday.",
+  "hint": "kemarin (lampau)",
+  "ans": "There was a problem with my laptop yesterday.",
+  "why": "'Yesterday' menunjukkan lampau dan 'a problem' tunggal → There was.",
+  "wrong": [
+   [
+    "There were a problem with my laptop yesterday.",
+    "'A problem' tunggal, jadi There was, bukan There were."
+   ],
+   [
+    "There is a problem with my laptop yesterday.",
+    "is untuk sekarang, padahal ada 'yesterday'."
+   ],
+   [
+    "There has been a problem with my laptop yesterday.",
+    "has been tidak bisa dipakai dengan 'yesterday'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday there was a problem with my laptop."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Ponselku ada di atas meja lima menit yang lalu, tapi sekarang hilang.",
+  "prompt": "My phone ___ (be) on the table five minutes ago, but now it's gone.",
+  "hint": "lima menit yang lalu",
+  "ans": "My phone was on the table five minutes ago, but now it's gone.",
+  "why": "'Five minutes ago' menunjukkan lampau dan subjeknya tunggal (my phone) → was.",
+  "wrong": [
+   [
+    "My phone is on the table five minutes ago, but now it's gone.",
+    "is untuk sekarang, padahal ada 'five minutes ago'."
+   ],
+   [
+    "My phone were on the table five minutes ago, but now it's gone.",
+    "Subjek tunggal (my phone) memakai was, bukan were."
+   ],
+   [
+    "My phone has been on the table five minutes ago, but now it's gone.",
+    "has been tidak bisa dipakai dengan 'ago'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Five minutes ago my phone was on the table, but now it's gone.",
+   "My phone was on the table five minutes ago, but it's gone now.",
+   "Five minutes ago my phone was on the table, but it's gone now."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Lisa dan Dewi teman sekelas sepuluh tahun yang lalu.",
+  "prompt": "Lisa and Dewi ___ (be) classmates ten years ago.",
+  "hint": "sepuluh tahun lalu",
+  "ans": "Lisa and Dewi were classmates ten years ago.",
+  "why": "'Ten years ago' menunjukkan lampau dan subjeknya jamak (Lisa and Dewi) → were.",
+  "wrong": [
+   [
+    "Lisa and Dewi was classmates ten years ago.",
+    "Subjek jamak (Lisa and Dewi) memakai were, bukan was."
+   ],
+   [
+    "Lisa and Dewi are classmates ten years ago.",
+    "are untuk sekarang, padahal ada 'ten years ago'."
+   ],
+   [
+    "Lisa and Dewi have been classmates ten years ago.",
+    "have been tidak bisa dipakai dengan 'ago'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Ten years ago Lisa and Dewi were classmates."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Aku lapar sekali sekarang. Ayo makan.",
+  "prompt": "I ___ (be) really hungry now. Let's eat.",
+  "hint": "keadaan sekarang",
+  "ans": "I am really hungry now. Let's eat.",
+  "why": "'Now' menunjukkan sekarang dan subjeknya I → am.",
+  "wrong": [
+   [
+    "I was really hungry now. Let's eat.",
+    "was untuk lampau, padahal ada 'now'."
+   ],
+   [
+    "I is really hungry now. Let's eat.",
+    "Subjek I memakai am, bukan is."
+   ],
+   [
+    "I were really hungry now. Let's eat.",
+    "were untuk lampau dan bukan untuk I; di sini sekarang → am."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb1",
+  "promptId": "Apakah dia (pr) ada di pesta Sabtu lalu?",
+  "prompt": "___ (she / be) at the party last Saturday?",
+  "hint": "Sabtu lalu",
+  "ans": "Was she at the party last Saturday?",
+  "why": "'Last Saturday' menunjukkan lampau dan subjeknya she → Was she …?",
+  "wrong": [
+   [
+    "Were she at the party last Saturday?",
+    "Subjek she memakai was, bukan were."
+   ],
+   [
+    "Is she at the party last Saturday?",
+    "is untuk sekarang, padahal ada 'last Saturday'."
+   ],
+   [
+    "Did she be at the party last Saturday?",
+    "Pertanyaan dengan be tidak memakai did; cukup Was she."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb1",
+  "promptId": "Apakah mereka ada di rumah sekarang?",
+  "prompt": "___ (they / be) at home right now?",
+  "hint": "keadaan sekarang",
+  "ans": "Are they at home right now?",
+  "why": "'Right now' menunjukkan sekarang dan subjeknya they → Are they …?",
+  "wrong": [
+   [
+    "Were they at home right now?",
+    "were untuk lampau, padahal ada 'right now'."
+   ],
+   [
+    "Is they at home right now?",
+    "Subjek they memakai are, bukan is."
+   ],
+   [
+    "Do they at home right now?",
+    "Untuk 'ada di' dipakai be (are), bukan do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb1",
+  "promptId": "Ujian kemarin tidak sulit.",
+  "prompt": "The exam yesterday ___ (not / be) difficult.",
+  "hint": "kemarin (lampau)",
+  "ans": "The exam yesterday was not difficult.",
+  "why": "Ujiannya kemarin (lampau) dan subjeknya tunggal (the exam) → was not.",
+  "wrong": [
+   [
+    "The exam yesterday were not difficult.",
+    "Subjek tunggal (the exam) memakai was not, bukan were not."
+   ],
+   [
+    "The exam yesterday is not difficult.",
+    "is not untuk sekarang, padahal ujiannya 'yesterday'."
+   ],
+   [
+    "The exam yesterday did not be difficult.",
+    "be tidak memakai did untuk negatif; cukup was not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb1",
+  "promptId": "Kami belum siap. Tolong tunggu sebentar.",
+  "prompt": "We ___ (not / be) ready yet. Please wait a minute.",
+  "hint": "belum, sekarang",
+  "ans": "We are not ready yet. Please wait a minute.",
+  "why": "Keadaan sekarang (minta ditunggu sekarang) dan subjeknya we → are not.",
+  "wrong": [
+   [
+    "We was not ready yet. Please wait a minute.",
+    "Subjek we tidak memakai was; lagi pula keadaannya sekarang → are not."
+   ],
+   [
+    "We is not ready yet. Please wait a minute.",
+    "Subjek we memakai are, bukan is."
+   ],
+   [
+    "We do not ready yet. Please wait a minute.",
+    "Kata sifat (ready) butuh be, bukan do: are not ready."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We are not yet ready. Please wait a minute."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Pak Budi adalah guruku pada tahun 2015. Sekarang dia (lk) kepala sekolah.",
+  "prompt": "Mr. Budi ___ (be) my teacher in 2015. Now he is a principal.",
+  "hint": "pada tahun 2015",
+  "ans": "Mr. Budi was my teacher in 2015. Now he is a principal.",
+  "why": "'In 2015' adalah waktu lampau yang jelas dan subjeknya tunggal → was.",
+  "wrong": [
+   [
+    "Mr. Budi is my teacher in 2015. Now he is a principal.",
+    "is untuk sekarang, padahal ada 'in 2015'."
+   ],
+   [
+    "Mr. Budi were my teacher in 2015. Now he is a principal.",
+    "Subjek tunggal (Mr. Budi) memakai was, bukan were."
+   ],
+   [
+    "Mr. Budi has been my teacher in 2015. Now he is a principal.",
+    "has been tidak bisa dipakai dengan tahun lampau seperti 'in 2015'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In 2015, Mr. Budi was my teacher. Now he is a principal.",
+   "Mr. Budi was my teacher in 2015. He is now a principal.",
+   "Mr. Budi was my teacher in 2015. He is a principal now.",
+   "In 2015, Mr. Budi was my teacher. He is now a principal.",
+   "In 2015, Mr. Budi was my teacher. He is a principal now."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Anak-anak sudah tidur waktu aku sampai di rumah semalam.",
+  "prompt": "The kids ___ (be) asleep when I got home last night.",
+  "hint": "tadi malam (lampau)",
+  "ans": "The kids were asleep when I got home last night.",
+  "why": "'When I got home last night' menunjukkan lampau dan subjeknya jamak (the kids) → were.",
+  "wrong": [
+   [
+    "The kids was asleep when I got home last night.",
+    "Subjek jamak (the kids) memakai were, bukan was."
+   ],
+   [
+    "The kids are asleep when I got home last night.",
+    "are untuk sekarang, padahal ada 'last night'."
+   ],
+   [
+    "The kids have been asleep when I got home last night.",
+    "have been tidak bisa dipakai dengan 'last night'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When I got home last night, the kids were asleep.",
+   "Last night the kids were asleep when I got home."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Bagaimana perjalananmu ke Bali bulan lalu?",
+  "prompt": "How ___ (your trip / be) to Bali last month?",
+  "hint": "bulan lalu",
+  "ans": "How was your trip to Bali last month?",
+  "why": "'Last month' menunjukkan lampau dan subjeknya tunggal (your trip) → How was your trip?",
+  "wrong": [
+   [
+    "How were your trip to Bali last month?",
+    "Subjek tunggal (your trip) memakai was, bukan were."
+   ],
+   [
+    "How is your trip to Bali last month?",
+    "is untuk sekarang, padahal ada 'last month'."
+   ],
+   [
+    "How did your trip be to Bali last month?",
+    "Pertanyaan dengan be tidak memakai did; cukup How was."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb1",
+  "promptId": "Tiketnya murah sekali tahun lalu, tapi sekarang mahal.",
+  "prompt": "The tickets ___ (be) very cheap last year, but now they are expensive.",
+  "hint": "tahun lalu",
+  "ans": "The tickets were very cheap last year, but now they are expensive.",
+  "why": "'Last year' menunjukkan lampau dan subjeknya jamak (the tickets) → were.",
+  "wrong": [
+   [
+    "The tickets was very cheap last year, but now they are expensive.",
+    "Subjek jamak (the tickets) memakai were, bukan was."
+   ],
+   [
+    "The tickets are very cheap last year, but now they are expensive.",
+    "are untuk sekarang, padahal ada 'last year'."
+   ],
+   [
+    "The tickets have been very cheap last year, but now they are expensive.",
+    "have been tidak bisa dipakai dengan 'last year'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last year the tickets were very cheap, but now they are expensive.",
+   "The tickets were very cheap last year, but they are expensive now.",
+   "Last year the tickets were very cheap, but they are expensive now."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Kakak perempuanku sedang di Singapura saat ini.",
+  "prompt": "My sister ___ (be) in Singapore at the moment.",
+  "hint": "saat ini",
+  "ans": "My sister is in Singapore at the moment.",
+  "why": "'At the moment' berarti sekarang dan subjeknya tunggal (my sister) → is.",
+  "wrong": [
+   [
+    "My sister was in Singapore at the moment.",
+    "was untuk lampau, padahal 'at the moment' berarti sekarang."
+   ],
+   [
+    "My sister are in Singapore at the moment.",
+    "Subjek tunggal (my sister) memakai is, bukan are."
+   ],
+   [
+    "My sister were in Singapore at the moment.",
+    "were untuk lampau dan subjek jamak, tidak cocok di sini."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At the moment my sister is in Singapore."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Kamu lucu sekali di pesta semalam.",
+  "prompt": "You ___ (be) so funny at the party last night.",
+  "hint": "tadi malam (lampau)",
+  "ans": "You were so funny at the party last night.",
+  "why": "'Last night' menunjukkan lampau dan subjeknya you → were.",
+  "wrong": [
+   [
+    "You was so funny at the party last night.",
+    "you selalu memakai were, bukan was."
+   ],
+   [
+    "You are so funny at the party last night.",
+    "are untuk sekarang, padahal ada 'last night'."
+   ],
+   [
+    "You have been so funny at the party last night.",
+    "have been tidak bisa dipakai dengan 'last night'."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night you were so funny at the party.",
+   "At the party last night, you were so funny.",
+   "Last night at the party, you were so funny."
+  ]
+ },
+ {
+  "set": "whb1",
+  "promptId": "Aku bukan orang yang suka bangun pagi, jadi aku selalu bangun kesiangan.",
+  "prompt": "I ___ (not / be) a morning person, so I always wake up late.",
+  "hint": "sifat, sekarang",
+  "ans": "I am not a morning person, so I always wake up late.",
+  "why": "Ini sifat yang berlaku sekarang (always wake up) dan subjeknya I → am not.",
+  "wrong": [
+   [
+    "I not a morning person, so I always wake up late.",
+    "Bahasa Inggris tetap butuh be sebelum kata benda: I am not a …"
+   ],
+   [
+    "I do not a morning person, so I always wake up late.",
+    "Sebelum kata benda (a morning person) dipakai be, bukan do."
+   ],
+   [
+    "I am not be a morning person, so I always wake up late.",
+    "Tidak perlu be lagi setelah am not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb1",
+  "promptId": "Apakah di Tokyo dingin waktu kamu ke sana musim dingin lalu?",
+  "prompt": "___ (it / be) cold in Tokyo when you went there last winter?",
+  "hint": "musim dingin lalu",
+  "ans": "Was it cold in Tokyo when you went there last winter?",
+  "why": "'When you went there last winter' menunjukkan lampau dan subjeknya it → Was it …?",
+  "wrong": [
+   [
+    "Were it cold in Tokyo when you went there last winter?",
+    "Subjek it memakai was, bukan were."
+   ],
+   [
+    "Is it cold in Tokyo when you went there last winter?",
+    "is untuk sekarang, padahal ada 'last winter'."
+   ],
+   [
+    "Did it be cold in Tokyo when you went there last winter?",
+    "Pertanyaan dengan be tidak memakai did; cukup Was it."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb1",
+  "promptId": "Kenapa kamu marah padaku kemarin?",
+  "prompt": "Why ___ (you / be) angry with me yesterday?",
+  "hint": "kemarin (lampau)",
+  "ans": "Why were you angry with me yesterday?",
+  "why": "'Yesterday' menunjukkan lampau dan subjeknya you → Why were you …?",
+  "wrong": [
+   [
+    "Why was you angry with me yesterday?",
+    "you selalu memakai were, bukan was."
+   ],
+   [
+    "Why are you angry with me yesterday?",
+    "are untuk sekarang, padahal ada 'yesterday'."
+   ],
+   [
+    "Why did you be angry with me yesterday?",
+    "Pertanyaan dengan be tidak memakai did; cukup Why were you."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb1",
+  "promptId": "Kantor kami sekarang ada di lantai tiga.",
+  "prompt": "Our office ___ (be) on the third floor now.",
+  "hint": "keadaan sekarang",
+  "ans": "Our office is on the third floor now.",
+  "why": "'Now' menunjukkan sekarang dan subjeknya tunggal (our office) → is.",
+  "wrong": [
+   [
+    "Our office was on the third floor now.",
+    "was untuk lampau, padahal ada 'now'."
+   ],
+   [
+    "Our office are on the third floor now.",
+    "Subjek tunggal (our office) memakai is, bukan are."
+   ],
+   [
+    "Our office were on the third floor now.",
+    "were untuk lampau dan subjek jamak, tidak cocok di sini."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Our office is now on the third floor.",
+   "Now our office is on the third floor."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Aku punya dua saudara laki-laki dan satu saudara perempuan.",
+  "prompt": "I ___ (have) two brothers and one sister.",
+  "hint": "punya, subjek I",
+  "ans": "I have two brothers and one sister.",
+  "why": "Arti 'punya' untuk subjek I → have.",
+  "wrong": [
+   [
+    "I has two brothers and one sister.",
+    "has hanya untuk he/she/it; subjek I memakai have."
+   ],
+   [
+    "I am have two brothers and one sister.",
+    "Tidak perlu am sebelum have; cukup I have."
+   ],
+   [
+    "I having two brothers and one sister.",
+    "Setelah subjek butuh kata kerja lengkap (have), bukan having saja."
+   ]
+  ],
+  "alt": [
+   "I have got two brothers and one sister."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Kakak perempuanku punya laptop baru.",
+  "prompt": "My sister ___ (have) a new laptop.",
+  "hint": "punya, subjek tunggal",
+  "ans": "My sister has a new laptop.",
+  "why": "Arti 'punya' untuk subjek tunggal (my sister) → has.",
+  "wrong": [
+   [
+    "My sister have a new laptop.",
+    "Subjek tunggal orang ketiga (my sister) memakai has."
+   ],
+   [
+    "My sister is having a new laptop.",
+    "have berarti 'punya' tidak dipakai dalam bentuk -ing."
+   ],
+   [
+    "My sister is have a new laptop.",
+    "Tidak perlu is sebelum have; cukup has."
+   ]
+  ],
+  "alt": [
+   "My sister has got a new laptop."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Rina tidak punya mobil, jadi dia (pr) naik bus ke kantor.",
+  "prompt": "Rina ___ (not / have) a car, so she takes the bus to work.",
+  "hint": "tidak punya, sekarang",
+  "ans": "Rina does not have a car, so she takes the bus to work.",
+  "why": "Negatif 'punya' untuk subjek tunggal (Rina) → does not have.",
+  "wrong": [
+   [
+    "Rina does not has a car, so she takes the bus to work.",
+    "Setelah does not, kata kerja kembali ke bentuk dasar (have)."
+   ],
+   [
+    "Rina is not have a car, so she takes the bus to work.",
+    "Negatif have memakai does not, bukan is not."
+   ],
+   [
+    "Rina do not have a car, so she takes the bus to work.",
+    "Subjek tunggal orang ketiga (Rina) memakai does not, bukan do not."
+   ]
+  ],
+  "alt": [
+   "Rina has not got a car, so she takes the bus to work."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Kita tidak punya susu. Bisa tolong belikan?",
+  "prompt": "We ___ (not / have) any milk. Can you buy some?",
+  "hint": "tidak punya, sekarang",
+  "ans": "We do not have any milk. Can you buy some?",
+  "why": "Negatif 'punya' untuk subjek we di masa sekarang → do not have.",
+  "wrong": [
+   [
+    "We does not have any milk. Can you buy some?",
+    "Subjek we memakai do not, bukan does not."
+   ],
+   [
+    "We are not have any milk. Can you buy some?",
+    "Negatif have memakai do not, bukan are not."
+   ],
+   [
+    "We not have any milk. Can you buy some?",
+    "Negatif have butuh do: do not have."
+   ]
+  ],
+  "alt": [
+   "We have not got any milk. Can you buy some?"
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Kamu punya pulpen? Aku perlu menulis sesuatu.",
+  "prompt": "___ (you / have) a pen? I need to write something.",
+  "hint": "tanya punya, you",
+  "ans": "Do you have a pen? I need to write something.",
+  "why": "Pertanyaan 'punya' untuk you → Do you have …?",
+  "wrong": [
+   [
+    "Are you have a pen? I need to write something.",
+    "Pertanyaan dengan have memakai do, bukan are."
+   ],
+   [
+    "Does you have a pen? I need to write something.",
+    "Subjek you memakai do, bukan does."
+   ],
+   [
+    "Do you has a pen? I need to write something.",
+    "Setelah do/does, kata kerja kembali ke bentuk dasar (have)."
+   ]
+  ],
+  "alt": [
+   "Have you got a pen? I need to write something."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Apakah kakak laki-lakimu punya pacar?",
+  "prompt": "___ (your brother / have) a girlfriend?",
+  "hint": "tanya punya, tunggal",
+  "ans": "Does your brother have a girlfriend?",
+  "why": "Pertanyaan 'punya' untuk subjek tunggal (your brother) → Does … have?",
+  "wrong": [
+   [
+    "Does your brother has a girlfriend?",
+    "Setelah does, kata kerja kembali ke bentuk dasar (have)."
+   ],
+   [
+    "Do your brother have a girlfriend?",
+    "Subjek tunggal (your brother) memakai does, bukan do."
+   ],
+   [
+    "Is your brother have a girlfriend?",
+    "Pertanyaan dengan have memakai does, bukan is."
+   ]
+  ],
+  "alt": [
+   "Has your brother got a girlfriend?"
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Kakek dan nenekku punya rumah besar di desa.",
+  "prompt": "My grandparents ___ (have) a big house in the village.",
+  "hint": "punya, subjek jamak",
+  "ans": "My grandparents have a big house in the village.",
+  "why": "Arti 'punya' untuk subjek jamak (my grandparents) → have.",
+  "wrong": [
+   [
+    "My grandparents has a big house in the village.",
+    "Subjek jamak (my grandparents) memakai have, bukan has."
+   ],
+   [
+    "My grandparents are have a big house in the village.",
+    "Tidak perlu are sebelum have; cukup have."
+   ],
+   [
+    "My grandparents are having a big house in the village.",
+    "have berarti 'punya' tidak dipakai dalam bentuk -ing."
+   ]
+  ],
+  "alt": [
+   "My grandparents have got a big house in the village."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Waktu aku kecil, aku punya kucing bernama Mimi.",
+  "prompt": "When I was a child, I ___ (have) a cat named Mimi.",
+  "hint": "waktu kecil (lampau)",
+  "ans": "When I was a child, I had a cat named Mimi.",
+  "why": "'When I was a child' menunjukkan lampau → had.",
+  "wrong": [
+   [
+    "When I was a child, I have a cat named Mimi.",
+    "have untuk sekarang, padahal 'when I was a child' sudah lampau."
+   ],
+   [
+    "When I was a child, I has a cat named Mimi.",
+    "has untuk sekarang dan bukan untuk subjek I."
+   ],
+   [
+    "When I was a child, I was have a cat named Mimi.",
+    "Lampau dari have adalah had, bukan was have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "I had a cat named Mimi when I was a child."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Tahun lalu, kami tidak punya cukup uang untuk liburan.",
+  "prompt": "Last year, we ___ (not / have) enough money for a holiday.",
+  "hint": "tahun lalu",
+  "ans": "Last year, we did not have enough money for a holiday.",
+  "why": "'Last year' menunjukkan lampau → did not have.",
+  "wrong": [
+   [
+    "Last year, we did not had enough money for a holiday.",
+    "Setelah did not, kata kerja kembali ke bentuk dasar (have)."
+   ],
+   [
+    "Last year, we do not have enough money for a holiday.",
+    "do not untuk sekarang, padahal ada 'last year'."
+   ],
+   [
+    "Last year, we were not have enough money for a holiday.",
+    "Negatif have di masa lampau memakai did not, bukan were not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We did not have enough money for a holiday last year."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Apakah kamu bersenang-senang di pesta semalam?",
+  "prompt": "___ (you / have) a good time at the party last night?",
+  "hint": "tadi malam (lampau)",
+  "ans": "Did you have a good time at the party last night?",
+  "why": "'Last night' menunjukkan lampau → Did you have …?",
+  "wrong": [
+   [
+    "Did you had a good time at the party last night?",
+    "Setelah did, kata kerja kembali ke bentuk dasar (have)."
+   ],
+   [
+    "Do you have a good time at the party last night?",
+    "do untuk sekarang, padahal ada 'last night'."
+   ],
+   [
+    "Were you have a good time at the party last night?",
+    "Pertanyaan dengan have memakai did, bukan were."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb2",
+  "promptId": "Aku sakit kepala, jadi aku tidak bisa masuk kerja hari ini.",
+  "prompt": "I ___ (have) a headache, so I can't go to work today.",
+  "hint": "sakit sekarang",
+  "ans": "I have a headache, so I can't go to work today.",
+  "why": "Sakit kepala yang dirasakan sekarang dengan subjek I → have a headache.",
+  "wrong": [
+   [
+    "I am have a headache, so I can't go to work today.",
+    "Tidak perlu am sebelum have; cukup I have."
+   ],
+   [
+    "I has a headache, so I can't go to work today.",
+    "has hanya untuk he/she/it; subjek I memakai have."
+   ],
+   [
+    "I having a headache, so I can't go to work today.",
+    "Setelah subjek butuh kata kerja lengkap (have), bukan having saja."
+   ]
+  ],
+  "alt": [
+   "I have got a headache, so I can't go to work today."
+  ],
+  "orders": [
+   "I have a headache, so today I can't go to work."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Dia (pr) sarapan jam 7 setiap pagi.",
+  "prompt": "She ___ (have) breakfast at 7 every morning.",
+  "hint": "kebiasaan, setiap pagi",
+  "ans": "She has breakfast at 7 every morning.",
+  "why": "Kebiasaan ('every morning') dengan subjek she → has breakfast.",
+  "wrong": [
+   [
+    "She have breakfast at 7 every morning.",
+    "Subjek she memakai has, bukan have."
+   ],
+   [
+    "She is have breakfast at 7 every morning.",
+    "Tidak perlu is sebelum have; cukup has."
+   ],
+   [
+    "She having breakfast at 7 every morning.",
+    "Setelah subjek butuh kata kerja lengkap (has), bukan having saja."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Every morning she has breakfast at 7."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Dia (lk) tidak sarapan tadi pagi karena dia terlambat.",
+  "prompt": "He ___ (not / have) breakfast this morning because he was late.",
+  "hint": "tadi pagi (lampau)",
+  "ans": "He did not have breakfast this morning because he was late.",
+  "why": "Pagi tadi sudah lewat ('because he was late') → did not have.",
+  "wrong": [
+   [
+    "He did not had breakfast this morning because he was late.",
+    "Setelah did not, kata kerja kembali ke bentuk dasar (have)."
+   ],
+   [
+    "He does not have breakfast this morning because he was late.",
+    "does not untuk sekarang/kebiasaan, padahal kejadiannya lampau (he was late)."
+   ],
+   [
+    "He was not have breakfast this morning because he was late.",
+    "Negatif have di masa lampau memakai did not, bukan was not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "This morning he did not have breakfast because he was late.",
+   "Because he was late, he did not have breakfast this morning."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Mereka makan malam bersama setiap hari Minggu.",
+  "prompt": "They ___ (have) dinner together every Sunday.",
+  "hint": "kebiasaan, setiap Minggu",
+  "ans": "They have dinner together every Sunday.",
+  "why": "Kebiasaan ('every Sunday') dengan subjek they → have dinner.",
+  "wrong": [
+   [
+    "They has dinner together every Sunday.",
+    "Subjek they memakai have, bukan has."
+   ],
+   [
+    "They are have dinner together every Sunday.",
+    "Tidak perlu are sebelum have; cukup have."
+   ],
+   [
+    "They having dinner together every Sunday.",
+    "Setelah subjek butuh kata kerja lengkap (have), bukan having saja."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Every Sunday they have dinner together."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Kami mengadakan pesta besar untuk ulang tahun ayahku bulan lalu.",
+  "prompt": "We ___ (have) a big party for my father's birthday last month.",
+  "hint": "bulan lalu",
+  "ans": "We had a big party for my father's birthday last month.",
+  "why": "'Last month' menunjukkan lampau → had.",
+  "wrong": [
+   [
+    "We have a big party for my father's birthday last month.",
+    "have untuk sekarang, padahal ada 'last month'."
+   ],
+   [
+    "We has a big party for my father's birthday last month.",
+    "has untuk sekarang dan bukan untuk subjek we."
+   ],
+   [
+    "We were have a big party for my father's birthday last month.",
+    "Lampau dari have adalah had, bukan were have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last month we had a big party for my father's birthday."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Hotel ini punya kolam renang dan pusat kebugaran.",
+  "prompt": "This hotel ___ (have) a swimming pool and a gym.",
+  "hint": "punya, subjek tunggal",
+  "ans": "This hotel has a swimming pool and a gym.",
+  "why": "Arti 'punya' untuk subjek tunggal (this hotel) → has.",
+  "wrong": [
+   [
+    "This hotel have a swimming pool and a gym.",
+    "Subjek tunggal (this hotel) memakai has, bukan have."
+   ],
+   [
+    "This hotel is have a swimming pool and a gym.",
+    "Tidak perlu is sebelum have; cukup has."
+   ],
+   [
+    "This hotel is having a swimming pool and a gym.",
+    "have berarti 'punya' tidak dipakai dalam bentuk -ing."
+   ]
+  ],
+  "alt": [
+   "This hotel has got a swimming pool and a gym."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Apakah Budi punya mobil waktu dia (lk) tinggal di Surabaya?",
+  "prompt": "___ (Budi / have) a car when he lived in Surabaya?",
+  "hint": "waktu tinggal dulu",
+  "ans": "Did Budi have a car when he lived in Surabaya?",
+  "why": "'When he lived in Surabaya' menunjukkan lampau → Did Budi have …?",
+  "wrong": [
+   [
+    "Did Budi had a car when he lived in Surabaya?",
+    "Setelah did, kata kerja kembali ke bentuk dasar (have)."
+   ],
+   [
+    "Does Budi have a car when he lived in Surabaya?",
+    "does untuk sekarang, padahal 'when he lived' sudah lampau."
+   ],
+   [
+    "Was Budi have a car when he lived in Surabaya?",
+    "Pertanyaan dengan have memakai did, bukan was."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When he lived in Surabaya, did Budi have a car?"
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Maaf, aku tidak punya waktu untuk bicara sekarang.",
+  "prompt": "Sorry, I ___ (not / have) time to talk right now.",
+  "hint": "keadaan sekarang",
+  "ans": "Sorry, I do not have time to talk right now.",
+  "why": "'Right now' menunjukkan sekarang dan subjeknya I → do not have.",
+  "wrong": [
+   [
+    "Sorry, I am not have time to talk right now.",
+    "Negatif have memakai do not, bukan am not."
+   ],
+   [
+    "Sorry, I does not have time to talk right now.",
+    "Subjek I memakai do not, bukan does not."
+   ],
+   [
+    "Sorry, I not have time to talk right now.",
+    "Negatif have butuh do: do not have."
+   ]
+  ],
+  "alt": [
+   "Sorry, I have not got time to talk right now."
+  ],
+  "orders": [
+   "Sorry, right now I do not have time to talk."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Sepupuku berambut panjang waktu dia (pr) SMA.",
+  "prompt": "My cousin ___ (have) long hair when she was in high school.",
+  "hint": "waktu SMA (lampau)",
+  "ans": "My cousin had long hair when she was in high school.",
+  "why": "'When she was in high school' menunjukkan lampau → had.",
+  "wrong": [
+   [
+    "My cousin has long hair when she was in high school.",
+    "has untuk sekarang, padahal 'when she was in high school' sudah lampau."
+   ],
+   [
+    "My cousin have long hair when she was in high school.",
+    "have untuk sekarang dan bukan untuk subjek tunggal."
+   ],
+   [
+    "My cousin was have long hair when she was in high school.",
+    "Lampau dari have adalah had, bukan was have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When she was in high school, my cousin had long hair."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Anak-anak tidak sekolah besok karena hari libur.",
+  "prompt": "The kids ___ (not / have) school tomorrow because it's a holiday.",
+  "hint": "tidak ada, jadwal",
+  "ans": "The kids do not have school tomorrow because it's a holiday.",
+  "why": "Jadwal (besok libur) dengan subjek jamak (the kids) → do not have.",
+  "wrong": [
+   [
+    "The kids does not have school tomorrow because it's a holiday.",
+    "Subjek jamak (the kids) memakai do not, bukan does not."
+   ],
+   [
+    "The kids are not have school tomorrow because it's a holiday.",
+    "Negatif have memakai do not, bukan are not."
+   ],
+   [
+    "The kids not have school tomorrow because it's a holiday.",
+    "Negatif have butuh do: do not have."
+   ]
+  ],
+  "alt": [
+   "The kids have not got school tomorrow because it's a holiday."
+  ],
+  "orders": [
+   "Tomorrow the kids do not have school because it's a holiday.",
+   "Because it's a holiday, the kids do not have school tomorrow."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Apakah orang tuamu punya kebun di rumah mereka?",
+  "prompt": "___ (your parents / have) a garden at their house?",
+  "hint": "tanya punya, jamak",
+  "ans": "Do your parents have a garden at their house?",
+  "why": "Pertanyaan 'punya' untuk subjek jamak (your parents) → Do … have?",
+  "wrong": [
+   [
+    "Does your parents have a garden at their house?",
+    "Subjek jamak (your parents) memakai do, bukan does."
+   ],
+   [
+    "Are your parents have a garden at their house?",
+    "Pertanyaan dengan have memakai do, bukan are."
+   ],
+   [
+    "Do your parents has a garden at their house?",
+    "Setelah do, kata kerja kembali ke bentuk dasar (have)."
+   ]
+  ],
+  "alt": [
+   "Have your parents got a garden at their house?"
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Ani melahirkan bayi laki-laki bulan lalu.",
+  "prompt": "Ani ___ (have) a baby boy last month.",
+  "hint": "bulan lalu",
+  "ans": "Ani had a baby boy last month.",
+  "why": "'Last month' menunjukkan lampau → had (have a baby = melahirkan).",
+  "wrong": [
+   [
+    "Ani has a baby boy last month.",
+    "has untuk sekarang, padahal ada 'last month'."
+   ],
+   [
+    "Ani have a baby boy last month.",
+    "have untuk sekarang dan bukan untuk subjek tunggal."
+   ],
+   [
+    "Ani was have a baby boy last month.",
+    "Lampau dari have adalah had, bukan was have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last month Ani had a baby boy."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Permisi, apakah toko ini punya charger ponsel?",
+  "prompt": "Excuse me, ___ (this shop / have) phone chargers?",
+  "hint": "tanya punya, tunggal",
+  "ans": "Excuse me, does this shop have phone chargers?",
+  "why": "Pertanyaan 'punya/ada' untuk subjek tunggal (this shop) → does … have?",
+  "wrong": [
+   [
+    "Excuse me, do this shop have phone chargers?",
+    "Subjek tunggal (this shop) memakai does, bukan do."
+   ],
+   [
+    "Excuse me, does this shop has phone chargers?",
+    "Setelah does, kata kerja kembali ke bentuk dasar (have)."
+   ],
+   [
+    "Excuse me, is this shop have phone chargers?",
+    "Pertanyaan dengan have memakai does, bukan is."
+   ]
+  ],
+  "alt": [
+   "Excuse me, has this shop got phone chargers?"
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Aku pilek minggu lalu, tapi sekarang aku sudah merasa lebih baik.",
+  "prompt": "I ___ (have) a cold last week, but I feel better now.",
+  "hint": "minggu lalu",
+  "ans": "I had a cold last week, but I feel better now.",
+  "why": "'Last week' menunjukkan lampau → had a cold.",
+  "wrong": [
+   [
+    "I have a cold last week, but I feel better now.",
+    "have untuk sekarang, padahal pileknya 'last week'."
+   ],
+   [
+    "I haved a cold last week, but I feel better now.",
+    "Lampau dari have tidak beraturan: had, bukan haved."
+   ],
+   [
+    "I was have a cold last week, but I feel better now.",
+    "Lampau dari have adalah had, bukan was have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last week I had a cold, but I feel better now.",
+   "I had a cold last week, but now I feel better.",
+   "Last week I had a cold, but now I feel better."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Ibuku tidak punya ponsel pintar sepuluh tahun yang lalu.",
+  "prompt": "My mother ___ (not / have) a smartphone ten years ago.",
+  "hint": "sepuluh tahun lalu",
+  "ans": "My mother did not have a smartphone ten years ago.",
+  "why": "'Ten years ago' menunjukkan lampau → did not have.",
+  "wrong": [
+   [
+    "My mother did not had a smartphone ten years ago.",
+    "Setelah did not, kata kerja kembali ke bentuk dasar (have)."
+   ],
+   [
+    "My mother does not have a smartphone ten years ago.",
+    "does not untuk sekarang, padahal ada 'ten years ago'."
+   ],
+   [
+    "My mother was not have a smartphone ten years ago.",
+    "Negatif have di masa lampau memakai did not, bukan was not."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Ten years ago my mother did not have a smartphone."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Kakak perempuanmu punya berapa anak?",
+  "prompt": "How many children ___ (your sister / have)?",
+  "hint": "tanya punya, tunggal",
+  "ans": "How many children does your sister have?",
+  "why": "Pertanyaan 'punya' untuk subjek tunggal (your sister) → does … have?",
+  "wrong": [
+   [
+    "How many children do your sister have?",
+    "Subjek tunggal (your sister) memakai does, bukan do."
+   ],
+   [
+    "How many children does your sister has?",
+    "Setelah does, kata kerja kembali ke bentuk dasar (have)."
+   ],
+   [
+    "How many children your sister has?",
+    "Pertanyaan How many butuh does sebelum subjek: does your sister have."
+   ]
+  ],
+  "alt": [
+   "How many children has your sister got?"
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Sudah jam 1 siang. Ayo makan siang.",
+  "prompt": "It's 1 p.m. Let's ___ (have) lunch.",
+  "hint": "setelah Let's",
+  "ans": "It's 1 p.m. Let's have lunch.",
+  "why": "Setelah Let's selalu bentuk dasar → have lunch.",
+  "wrong": [
+   [
+    "It's 1 p.m. Let's has lunch.",
+    "Setelah Let's tidak pakai has; harus bentuk dasar (have)."
+   ],
+   [
+    "It's 1 p.m. Let's having lunch.",
+    "Setelah Let's harus bentuk dasar (have), bukan -ing."
+   ],
+   [
+    "It's 1 p.m. Let's to have lunch.",
+    "Setelah Let's langsung bentuk dasar tanpa to."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb2",
+  "promptId": "Adik laki-lakiku sering sakit perut setelah makan makanan pedas.",
+  "prompt": "My little brother often ___ (have) stomachaches after eating spicy food.",
+  "hint": "sering, subjek tunggal",
+  "ans": "My little brother often has stomachaches after eating spicy food.",
+  "why": "Kebiasaan ('often') dengan subjek tunggal (my little brother) → has.",
+  "wrong": [
+   [
+    "My little brother often have stomachaches after eating spicy food.",
+    "Subjek tunggal (my little brother) memakai has, bukan have."
+   ],
+   [
+    "My little brother often is have stomachaches after eating spicy food.",
+    "Tidak perlu is sebelum have; cukup has."
+   ],
+   [
+    "My little brother often having stomachaches after eating spicy food.",
+    "Setelah subjek butuh kata kerja lengkap (has), bukan having saja."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "After eating spicy food, my little brother often has stomachaches."
+  ]
+ },
+ {
+  "set": "whb2",
+  "promptId": "Jam berapa kamu makan malam semalam?",
+  "prompt": "What time ___ (you / have) dinner last night?",
+  "hint": "tadi malam (lampau)",
+  "ans": "What time did you have dinner last night?",
+  "why": "'Last night' menunjukkan lampau → What time did you have …?",
+  "wrong": [
+   [
+    "What time did you had dinner last night?",
+    "Setelah did, kata kerja kembali ke bentuk dasar (have)."
+   ],
+   [
+    "What time do you have dinner last night?",
+    "do untuk sekarang/kebiasaan, padahal ada 'last night'."
+   ],
+   [
+    "What time you had dinner last night?",
+    "Pertanyaan dengan What time butuh did sebelum subjek: did you have."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb2",
+  "promptId": "Aku dan kakak laki-lakiku punya tanggal ulang tahun yang sama.",
+  "prompt": "My brother and I ___ (have) the same birthday.",
+  "hint": "punya, subjek jamak",
+  "ans": "My brother and I have the same birthday.",
+  "why": "Subjek 'My brother and I' jamak → have.",
+  "wrong": [
+   [
+    "My brother and I has the same birthday.",
+    "Subjek 'my brother and I' jamak, jadi have, bukan has."
+   ],
+   [
+    "My brother and I are have the same birthday.",
+    "Tidak perlu are sebelum have; cukup have."
+   ],
+   [
+    "My brother and I having the same birthday.",
+    "Setelah subjek butuh kata kerja lengkap (have), bukan having saja."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb3",
+  "promptId": "Aku kehilangan kunciku, jadi aku tidak bisa membuka pintu.",
+  "prompt": "I ___ (lose) my keys, so I can't open the door.",
+  "hint": "hasilnya terasa sekarang",
+  "ans": "I have lost my keys, so I can't open the door.",
+  "why": "Akibatnya terasa sekarang (tidak bisa membuka pintu) dan waktunya tidak disebut → have + V3 (lost).",
+  "wrong": [
+   [
+    "I have lose my keys, so I can't open the door.",
+    "Setelah have harus V3 (lost), bukan bentuk dasar lose."
+   ],
+   [
+    "I am lost my keys, so I can't open the door.",
+    "am tidak dipakai bersama V3 untuk arti \"sudah melakukan\"; yang benar have lost."
+   ],
+   [
+    "I has lost my keys, so I can't open the door.",
+    "Subjek I memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "I lost my keys, so I can't open the door."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Dia (pr) mengunjungi neneknya kemarin.",
+  "prompt": "She ___ (visit) her grandmother yesterday.",
+  "hint": "kemarin = waktu lampau jelas",
+  "ans": "She visited her grandmother yesterday.",
+  "why": "Ada penanda waktu lampau yang jelas (yesterday) → past simple (visited).",
+  "wrong": [
+   [
+    "She has visited her grandmother yesterday.",
+    "Present perfect tidak boleh dipakai dengan waktu lampau yang jelas seperti yesterday."
+   ],
+   [
+    "She was visit her grandmother yesterday.",
+    "was tidak dipakai bersama kata kerja bentuk dasar; cukup visited."
+   ],
+   [
+    "She visits her grandmother yesterday.",
+    "visits adalah present simple, padahal kejadiannya kemarin."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday she visited her grandmother."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Apakah kamu pernah makan durian?",
+  "prompt": "___ (you / ever / eat) durian?",
+  "hint": "pengalaman, pakai ever",
+  "ans": "Have you ever eaten durian?",
+  "why": "Menanyakan pengalaman tanpa waktu tertentu → Have you ever + V3 (eaten).",
+  "wrong": [
+   [
+    "Have you ever eat durian?",
+    "Setelah have harus V3 (eaten), bukan bentuk dasar eat."
+   ],
+   [
+    "Have you ever ate durian?",
+    "ate adalah V2; setelah have harus V3 (eaten)."
+   ],
+   [
+    "Did you ever eaten durian?",
+    "Setelah did harus bentuk dasar, bukan V3 eaten."
+   ]
+  ],
+  "alt": [
+   "Did you ever eat durian?"
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Kami pindah ke Bandung pada tahun 2019.",
+  "prompt": "We ___ (move) to Bandung in 2019.",
+  "hint": "tahun lampau disebut",
+  "ans": "We moved to Bandung in 2019.",
+  "why": "Tahun lampau disebut dengan jelas (in 2019) → past simple (moved).",
+  "wrong": [
+   [
+    "We have moved to Bandung in 2019.",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti in 2019."
+   ],
+   [
+    "We have move to Bandung in 2019.",
+    "Present perfect tidak cocok dengan in 2019, dan setelah have pun harus V3, bukan bentuk dasar."
+   ],
+   [
+    "We are moved to Bandung in 2019.",
+    "are + V3 bukan bentuk lampau aktif; kejadian tahun 2019 cukup memakai moved."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In 2019 we moved to Bandung."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Saudara laki-lakiku belum pernah melihat salju.",
+  "prompt": "My brother ___ (never / see) snow.",
+  "hint": "pengalaman, belum pernah",
+  "ans": "My brother has never seen snow.",
+  "why": "Pengalaman sepanjang hidup sampai sekarang tanpa waktu tertentu → has never + V3 (seen).",
+  "wrong": [
+   [
+    "My brother has never saw snow.",
+    "saw adalah V2; setelah has harus V3 (seen)."
+   ],
+   [
+    "My brother have never seen snow.",
+    "Subjek my brother (dia) memakai has, bukan have."
+   ],
+   [
+    "My brother is never seen snow.",
+    "is tidak dipakai bersama V3 untuk arti \"belum pernah melakukan\"; pakai has never seen."
+   ]
+  ],
+  "alt": [
+   "My brother never saw snow."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Mereka belum meneleponku sejak minggu lalu.",
+  "prompt": "They ___ (not / call) me since last week.",
+  "hint": "sejak minggu lalu sampai sekarang",
+  "ans": "They have not called me since last week.",
+  "why": "since last week menunjukkan rentang dari minggu lalu sampai sekarang → have not + V3 (called).",
+  "wrong": [
+   [
+    "They did not call me since last week.",
+    "since (sejak … sampai sekarang) tidak dipakai dengan past simple; harus have not called."
+   ],
+   [
+    "They have not call me since last week.",
+    "Setelah have not harus V3 (called), bukan bentuk dasar."
+   ],
+   [
+    "They are not called me since last week.",
+    "are tidak dipakai bersama V3 untuk arti \"belum melakukan\"; pakai have not called."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since last week, they have not called me."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Dia (lk) membeli ponsel baru dua hari yang lalu.",
+  "prompt": "He ___ (buy) a new phone two days ago.",
+  "hint": "dua hari yang lalu",
+  "ans": "He bought a new phone two days ago.",
+  "why": "ago menunjukkan waktu lampau yang jelas → past simple (bought).",
+  "wrong": [
+   [
+    "He has bought a new phone two days ago.",
+    "Present perfect tidak boleh dipakai dengan ago."
+   ],
+   [
+    "He buyed a new phone two days ago.",
+    "buy adalah kata kerja tidak beraturan; bentuk lampaunya bought, bukan buyed."
+   ],
+   [
+    "He was buy a new phone two days ago.",
+    "was tidak dipakai bersama kata kerja bentuk dasar; cukup bought."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Two days ago he bought a new phone."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Rapatnya baru saja dimulai, jadi tolong tenang.",
+  "prompt": "The meeting ___ (just / start), so please be quiet.",
+  "hint": "baru saja, hasilnya sekarang",
+  "ans": "The meeting has just started, so please be quiet.",
+  "why": "just dengan akibat yang terasa sekarang (harus tenang) → has just + V3 (started).",
+  "wrong": [
+   [
+    "The meeting has just start, so please be quiet.",
+    "Setelah has harus V3 (started), bukan bentuk dasar."
+   ],
+   [
+    "The meeting have just started, so please be quiet.",
+    "Subjek the meeting (it) memakai has, bukan have."
+   ],
+   [
+    "The meeting was just start, so please be quiet.",
+    "was tidak dipakai bersama kata kerja bentuk dasar; yang benar has just started."
+   ]
+  ],
+  "alt": [
+   "The meeting just started, so please be quiet."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Aku menonton film itu akhir pekan lalu.",
+  "prompt": "I ___ (see) that movie last weekend.",
+  "hint": "akhir pekan lalu",
+  "ans": "I saw that movie last weekend.",
+  "why": "last weekend adalah waktu lampau yang jelas → past simple (saw).",
+  "wrong": [
+   [
+    "I have seen that movie last weekend.",
+    "Present perfect tidak boleh dipakai dengan waktu lampau yang jelas seperti last weekend."
+   ],
+   [
+    "I have saw that movie last weekend.",
+    "Present perfect tidak cocok dengan last weekend, dan saw adalah V2, bukan V3."
+   ],
+   [
+    "I seen that movie last weekend.",
+    "seen adalah V3 dan tidak bisa berdiri sendiri tanpa have; bentuk lampaunya saw."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last weekend I saw that movie."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Apakah dia (pr) sudah menyelesaikan PR-nya?",
+  "prompt": "___ (she / finish) her homework yet?",
+  "hint": "yet dalam kalimat tanya",
+  "ans": "Has she finished her homework yet?",
+  "why": "yet di kalimat tanya menanyakan apakah sudah selesai sampai sekarang → Has she + V3 (finished).",
+  "wrong": [
+   [
+    "Has she finish her homework yet?",
+    "Setelah has harus V3 (finished), bukan bentuk dasar."
+   ],
+   [
+    "Have she finished her homework yet?",
+    "Subjek she memakai has, bukan have."
+   ],
+   [
+    "Did she finished her homework yet?",
+    "Setelah did harus bentuk dasar (finish), bukan finished."
+   ]
+  ],
+  "alt": [
+   "Did she finish her homework yet?"
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Sejauh ini kami sudah menjual 50 tiket.",
+  "prompt": "We ___ (sell) 50 tickets so far.",
+  "hint": "so far = sejauh ini",
+  "ans": "We have sold 50 tickets so far.",
+  "why": "so far menghitung hasil sampai sekarang → have + V3 (sold).",
+  "wrong": [
+   [
+    "We have sell 50 tickets so far.",
+    "Setelah have harus V3 (sold), bukan bentuk dasar."
+   ],
+   [
+    "We have selled 50 tickets so far.",
+    "sell adalah kata kerja tidak beraturan; V3-nya sold, bukan selled."
+   ],
+   [
+    "We has sold 50 tickets so far.",
+    "Subjek we memakai have, bukan has."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "So far we have sold 50 tickets."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Waktu aku masih kecil, aku tinggal di Surabaya.",
+  "prompt": "When I was a child, I ___ (live) in Surabaya.",
+  "hint": "masa kecil sudah lewat",
+  "ans": "When I was a child, I lived in Surabaya.",
+  "why": "When I was a child menunjuk masa lampau yang sudah selesai → past simple (lived).",
+  "wrong": [
+   [
+    "When I was a child, I have lived in Surabaya.",
+    "Present perfect tidak dipakai untuk masa yang sudah selesai seperti when I was a child."
+   ],
+   [
+    "When I was a child, I was live in Surabaya.",
+    "was tidak dipakai bersama kata kerja bentuk dasar; cukup lived."
+   ],
+   [
+    "When I was a child, I am living in Surabaya.",
+    "am living adalah bentuk sekarang, padahal masa kecil sudah lewat."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "I lived in Surabaya when I was a child."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Dia (pr) sudah membayar tagihannya, jadi kita bisa pergi.",
+  "prompt": "She ___ (already / pay) the bill, so we can leave.",
+  "hint": "sudah, hasilnya terasa sekarang",
+  "ans": "She has already paid the bill, so we can leave.",
+  "why": "already dengan akibat yang terasa sekarang (kita bisa pergi) → has already + V3 (paid).",
+  "wrong": [
+   [
+    "She has already pay the bill, so we can leave.",
+    "Setelah has harus V3 (paid), bukan bentuk dasar."
+   ],
+   [
+    "She has already payed the bill, so we can leave.",
+    "pay adalah kata kerja tidak beraturan; V3-nya paid, bukan payed."
+   ],
+   [
+    "She is already paid the bill, so we can leave.",
+    "is tidak dipakai bersama V3 untuk arti \"sudah membayar\"; pakai has already paid."
+   ]
+  ],
+  "alt": [
+   "She already paid the bill, so we can leave."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Andi tidak datang ke kantor kemarin.",
+  "prompt": "Andi ___ (not / come) to the office yesterday.",
+  "hint": "kemarin, kalimat negatif",
+  "ans": "Andi did not come to the office yesterday.",
+  "why": "yesterday adalah waktu lampau yang jelas → negatif past simple: did not + bentuk dasar (come).",
+  "wrong": [
+   [
+    "Andi has not come to the office yesterday.",
+    "Present perfect tidak boleh dipakai dengan yesterday."
+   ],
+   [
+    "Andi was not come to the office yesterday.",
+    "was not tidak dipakai bersama kata kerja bentuk dasar; negatif lampau memakai did not come."
+   ],
+   [
+    "Andi did not came to the office yesterday.",
+    "Setelah did not harus bentuk dasar (come), bukan V2 came."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday Andi did not come to the office."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Aku sudah kenal Rina sejak tahun 2015.",
+  "prompt": "I ___ (know) Rina since 2015.",
+  "hint": "sejak 2015 sampai sekarang",
+  "ans": "I have known Rina since 2015.",
+  "why": "since 2015 menunjukkan keadaan dari 2015 sampai sekarang → have + V3 (known).",
+  "wrong": [
+   [
+    "I know Rina since 2015.",
+    "Present simple tidak dipakai dengan since; keadaan sejak dulu sampai sekarang memakai have known."
+   ],
+   [
+    "I have know Rina since 2015.",
+    "Setelah have harus V3 (known), bukan bentuk dasar know."
+   ],
+   [
+    "I have knew Rina since 2015.",
+    "knew adalah V2; setelah have harus V3 (known)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb3",
+  "promptId": "Sejauh ini kamu sudah mengunjungi berapa negara?",
+  "prompt": "How many countries ___ (you / visit) so far?",
+  "hint": "so far = sejauh ini",
+  "ans": "How many countries have you visited so far?",
+  "why": "so far menghitung pengalaman sampai sekarang → have you + V3 (visited).",
+  "wrong": [
+   [
+    "How many countries have you visit so far?",
+    "Setelah have harus V3 (visited), bukan bentuk dasar."
+   ],
+   [
+    "How many countries has you visited so far?",
+    "Subjek you memakai have, bukan has."
+   ],
+   [
+    "How many countries are you visited so far?",
+    "are tidak dipakai bersama V3 untuk arti \"sudah mengunjungi\"; pakai have you visited."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb3",
+  "promptId": "Orang tuaku menikah tiga puluh tahun yang lalu.",
+  "prompt": "My parents ___ (get) married thirty years ago.",
+  "hint": "tiga puluh tahun lalu",
+  "ans": "My parents got married thirty years ago.",
+  "why": "ago menunjukkan waktu lampau yang jelas → past simple (got married).",
+  "wrong": [
+   [
+    "My parents have gotten married thirty years ago.",
+    "Present perfect tidak boleh dipakai dengan ago."
+   ],
+   [
+    "My parents get married thirty years ago.",
+    "get adalah bentuk sekarang, padahal kejadiannya tiga puluh tahun lalu."
+   ],
+   [
+    "My parents were get married thirty years ago.",
+    "were tidak dipakai bersama kata kerja bentuk dasar; cukup got married."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Thirty years ago my parents got married."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Tom belum pernah menyetir mobil sebelumnya.",
+  "prompt": "Tom ___ (never / drive) a car before.",
+  "hint": "pengalaman, belum pernah",
+  "ans": "Tom has never driven a car before.",
+  "why": "Pengalaman sampai sekarang tanpa waktu tertentu → has never + V3 (driven).",
+  "wrong": [
+   [
+    "Tom has never drove a car before.",
+    "drove adalah V2; setelah has harus V3 (driven)."
+   ],
+   [
+    "Tom has never drive a car before.",
+    "Setelah has harus V3 (driven), bukan bentuk dasar."
+   ],
+   [
+    "Tom have never driven a car before.",
+    "Subjek Tom (dia) memakai has, bukan have."
+   ]
+  ],
+  "alt": [
+   "Tom never drove a car before."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Aku bertemu saudara perempuanmu di pesta tadi malam.",
+  "prompt": "I ___ (meet) your sister at the party last night.",
+  "hint": "tadi malam = sudah lewat",
+  "ans": "I met your sister at the party last night.",
+  "why": "last night adalah waktu lampau yang jelas → past simple (met).",
+  "wrong": [
+   [
+    "I have met your sister at the party last night.",
+    "Present perfect tidak boleh dipakai dengan waktu lampau yang jelas seperti last night."
+   ],
+   [
+    "I have meet your sister at the party last night.",
+    "Present perfect tidak cocok dengan last night, dan setelah have pun harus V3, bukan bentuk dasar."
+   ],
+   [
+    "I was meet your sister at the party last night.",
+    "was tidak dipakai bersama kata kerja bentuk dasar; cukup met."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night I met your sister at the party.",
+   "I met your sister last night at the party."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Anak-anak sudah menghabiskan semua kuenya, dan sekarang toplesnya kosong.",
+  "prompt": "The kids ___ (eat) all the cookies, and now the jar is empty.",
+  "hint": "hasilnya terlihat sekarang",
+  "ans": "The kids have eaten all the cookies, and now the jar is empty.",
+  "why": "Hasilnya terlihat sekarang (toplesnya kosong) dan waktunya tidak disebut → have + V3 (eaten).",
+  "wrong": [
+   [
+    "The kids have ate all the cookies, and now the jar is empty.",
+    "ate adalah V2; setelah have harus V3 (eaten)."
+   ],
+   [
+    "The kids have eat all the cookies, and now the jar is empty.",
+    "Setelah have harus V3 (eaten), bukan bentuk dasar."
+   ],
+   [
+    "The kids has eaten all the cookies, and now the jar is empty.",
+    "Subjek the kids (mereka) memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "The kids ate all the cookies, and now the jar is empty."
+  ],
+  "orders": [
+   "The kids have eaten all the cookies, and the jar is now empty.",
+   "The kids have eaten all the cookies, and the jar is empty now."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Pada tahun 2020, dia (pr) memulai usahanya sendiri.",
+  "prompt": "In 2020, she ___ (start) her own business.",
+  "hint": "tahun lampau disebut",
+  "ans": "In 2020, she started her own business.",
+  "why": "In 2020 adalah waktu lampau yang jelas → past simple (started).",
+  "wrong": [
+   [
+    "In 2020, she has started her own business.",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti in 2020."
+   ],
+   [
+    "In 2020, she was start her own business.",
+    "was tidak dipakai bersama kata kerja bentuk dasar; cukup started."
+   ],
+   [
+    "In 2020, she did started her own business.",
+    "Setelah did harus bentuk dasar, bukan started; kalimat positif biasa cukup started."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "She started her own business in 2020."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Aku belum menyelesaikan laporannya, jadi aku belum bisa mengirimnya.",
+  "prompt": "I ___ (not / finish) the report yet, so I can't send it.",
+  "hint": "yet dalam kalimat negatif",
+  "ans": "I have not finished the report yet, so I can't send it.",
+  "why": "yet di kalimat negatif berarti belum selesai sampai sekarang → have not + V3 (finished).",
+  "wrong": [
+   [
+    "I have not finish the report yet, so I can't send it.",
+    "Setelah have not harus V3 (finished), bukan bentuk dasar."
+   ],
+   [
+    "I has not finished the report yet, so I can't send it.",
+    "Subjek I memakai have, bukan has."
+   ],
+   [
+    "I have not finishing the report yet, so I can't send it.",
+    "Setelah have not harus V3 (finished), bukan bentuk -ing."
+   ]
+  ],
+  "alt": [
+   "I did not finish the report yet, so I can't send it."
+  ],
+  "orders": [
+   "I have not yet finished the report, so I can't send it."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Kami makan malam di restoran Padang tadi malam.",
+  "prompt": "We ___ (have) dinner at a Padang restaurant last night.",
+  "hint": "tadi malam = sudah lewat",
+  "ans": "We had dinner at a Padang restaurant last night.",
+  "why": "last night adalah waktu lampau yang jelas → past simple (had dinner).",
+  "wrong": [
+   [
+    "We have had dinner at a Padang restaurant last night.",
+    "Present perfect tidak boleh dipakai dengan waktu lampau yang jelas seperti last night."
+   ],
+   [
+    "We have dinner at a Padang restaurant last night.",
+    "have adalah bentuk sekarang, padahal makan malamnya tadi malam."
+   ],
+   [
+    "We did had dinner at a Padang restaurant last night.",
+    "Setelah did harus bentuk dasar, bukan had; kalimat positif biasa cukup had."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night we had dinner at a Padang restaurant."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Ponselku sudah tiga kali mendadak mati minggu ini.",
+  "prompt": "My phone ___ (stop) working three times this week.",
+  "hint": "minggu ini belum selesai",
+  "ans": "My phone has stopped working three times this week.",
+  "why": "this week belum selesai dan dihitung sampai sekarang (three times) → has + V3 (stopped).",
+  "wrong": [
+   [
+    "My phone has stop working three times this week.",
+    "Setelah has harus V3 (stopped), bukan bentuk dasar."
+   ],
+   [
+    "My phone have stopped working three times this week.",
+    "Subjek my phone (it) memakai has, bukan have."
+   ],
+   [
+    "My phone is stopped working three times this week.",
+    "is tidak dipakai bersama V3 untuk arti \"sudah berhenti (berkali-kali)\"; pakai has stopped."
+   ]
+  ],
+  "alt": [
+   "My phone stopped working three times this week."
+  ],
+  "orders": [
+   "This week my phone has stopped working three times."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Dina sudah menulis tiga email sejak tadi pagi.",
+  "prompt": "Dina ___ (write) three emails since this morning.",
+  "hint": "sejak tadi pagi",
+  "ans": "Dina has written three emails since this morning.",
+  "why": "since this morning menghitung hasil dari tadi pagi sampai sekarang → has + V3 (written).",
+  "wrong": [
+   [
+    "Dina wrote three emails since this morning.",
+    "since (sejak … sampai sekarang) tidak dipakai dengan past simple; harus has written."
+   ],
+   [
+    "Dina has wrote three emails since this morning.",
+    "wrote adalah V2; setelah has harus V3 (written)."
+   ],
+   [
+    "Dina has write three emails since this morning.",
+    "Setelah has harus V3 (written), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since this morning, Dina has written three emails."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Apakah kamu melihat Budi di rapat kemarin?",
+  "prompt": "___ (you / see) Budi at the meeting yesterday?",
+  "hint": "kemarin, kalimat tanya",
+  "ans": "Did you see Budi at the meeting yesterday?",
+  "why": "yesterday adalah waktu lampau yang jelas → pertanyaan past simple: Did you + bentuk dasar (see).",
+  "wrong": [
+   [
+    "Have you seen Budi at the meeting yesterday?",
+    "Present perfect tidak boleh dipakai dengan yesterday."
+   ],
+   [
+    "Did you saw Budi at the meeting yesterday?",
+    "Setelah did harus bentuk dasar (see), bukan V2 saw."
+   ],
+   [
+    "Were you see Budi at the meeting yesterday?",
+    "were tidak dipakai bersama kata kerja bentuk dasar; pertanyaan lampau memakai Did you see."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb3",
+  "promptId": "Tim itu sudah memenangkan setiap pertandingan musim ini, dan finalnya minggu depan.",
+  "prompt": "The team ___ (win) every match this season, and the final is next week.",
+  "hint": "musim ini belum selesai",
+  "ans": "The team has won every match this season, and the final is next week.",
+  "why": "Musim ini belum selesai (final minggu depan), jadi hasil sampai sekarang → has + V3 (won).",
+  "wrong": [
+   [
+    "The team has win every match this season, and the final is next week.",
+    "Setelah has harus V3 (won), bukan bentuk dasar."
+   ],
+   [
+    "The team has winned every match this season, and the final is next week.",
+    "win adalah kata kerja tidak beraturan; V3-nya won, bukan winned."
+   ],
+   [
+    "The team was win every match this season, and the final is next week.",
+    "was tidak dipakai bersama kata kerja bentuk dasar; yang benar has won."
+   ]
+  ],
+  "alt": [
+   "The team won every match this season, and the final is next week.",
+   "The team have won every match this season, and the final is next week."
+  ],
+  "orders": [
+   "This season the team has won every match, and the final is next week."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Sepuluh menit yang lalu, aku mengirimimu pesan.",
+  "prompt": "Ten minutes ago, I ___ (send) you a message.",
+  "hint": "sepuluh menit yang lalu",
+  "ans": "Ten minutes ago, I sent you a message.",
+  "why": "ago menunjukkan waktu lampau yang jelas → past simple (sent).",
+  "wrong": [
+   [
+    "Ten minutes ago, I have sent you a message.",
+    "Present perfect tidak boleh dipakai dengan ago."
+   ],
+   [
+    "Ten minutes ago, I have send you a message.",
+    "Present perfect tidak cocok dengan ago, dan setelah have pun harus V3, bukan bentuk dasar."
+   ],
+   [
+    "Ten minutes ago, I was send you a message.",
+    "was tidak dipakai bersama kata kerja bentuk dasar; cukup sent."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "I sent you a message ten minutes ago."
+  ]
+ },
+ {
+  "set": "whb3",
+  "promptId": "Kamu tiba di Jakarta berapa lama yang lalu?",
+  "prompt": "How long ago ___ (you / arrive) in Jakarta?",
+  "hint": "how long ago = waktu lampau",
+  "ans": "How long ago did you arrive in Jakarta?",
+  "why": "How long ago menanyakan titik waktu di masa lampau → past simple: did you + bentuk dasar (arrive).",
+  "wrong": [
+   [
+    "How long ago have you arrived in Jakarta?",
+    "Present perfect tidak boleh dipakai dengan ago."
+   ],
+   [
+    "How long ago did you arrived in Jakarta?",
+    "Setelah did harus bentuk dasar (arrive), bukan arrived."
+   ],
+   [
+    "How long ago were you arrive in Jakarta?",
+    "were tidak dipakai bersama kata kerja bentuk dasar; pakai did you arrive."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Aku sudah sakit sejak hari Senin, jadi aku tidak bisa masuk kerja hari ini.",
+  "prompt": "I ___ (be) sick since Monday, so I can't go to work today.",
+  "hint": "sejak Senin sampai sekarang",
+  "ans": "I have been sick since Monday, so I can't go to work today.",
+  "why": "since Monday menunjukkan keadaan dari Senin sampai sekarang (hari ini masih sakit) → have been.",
+  "wrong": [
+   [
+    "I am sick since Monday, so I can't go to work today.",
+    "am hanya untuk keadaan sekarang; keadaan sejak Senin sampai sekarang harus have been."
+   ],
+   [
+    "I was been sick since Monday, so I can't go to work today.",
+    "was dan been tidak dipakai berdampingan; keadaan sejak Senin sampai sekarang memakai have been."
+   ],
+   [
+    "I have be sick since Monday, so I can't go to work today.",
+    "Setelah have harus been (V3 dari be), bukan be."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "I have been sick since Monday, so today I can't go to work."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Dia (pr) ada di kantor kemarin.",
+  "prompt": "She ___ (be) at the office yesterday.",
+  "hint": "kemarin = sudah lewat",
+  "ans": "She was at the office yesterday.",
+  "why": "yesterday adalah waktu lampau yang jelas → was.",
+  "wrong": [
+   [
+    "She has been at the office yesterday.",
+    "has been tidak dipakai dengan waktu lampau yang jelas seperti yesterday."
+   ],
+   [
+    "She is at the office yesterday.",
+    "is adalah bentuk sekarang, padahal kejadiannya kemarin."
+   ],
+   [
+    "She was been at the office yesterday.",
+    "was dan been tidak dipakai berdampingan; cukup was."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday she was at the office."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Lisa belum pernah naik pesawat.",
+  "prompt": "Lisa ___ (never / be) on a plane.",
+  "hint": "pengalaman, belum pernah",
+  "ans": "Lisa has never been on a plane.",
+  "why": "Pengalaman sepanjang hidup sampai sekarang → has never been.",
+  "wrong": [
+   [
+    "Lisa is never been on a plane.",
+    "is tidak dipakai bersama been; pengalaman memakai has never been."
+   ],
+   [
+    "Lisa was never been on a plane.",
+    "was dan been tidak dipakai berdampingan; pakai has never been."
+   ],
+   [
+    "Lisa has never be on a plane.",
+    "Setelah has harus been (V3 dari be), bukan be."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Kami pergi ke Singapura bulan lalu.",
+  "prompt": "We ___ (go) to Singapore last month.",
+  "hint": "bulan lalu = waktu lampau",
+  "ans": "We went to Singapore last month.",
+  "why": "last month adalah waktu lampau yang jelas → went to.",
+  "wrong": [
+   [
+    "We have been to Singapore last month.",
+    "have been to (pengalaman) tidak dipakai dengan waktu lampau yang jelas seperti last month."
+   ],
+   [
+    "We have gone to Singapore last month.",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti last month."
+   ],
+   [
+    "We go to Singapore last month.",
+    "go adalah bentuk sekarang, padahal kejadiannya bulan lalu; bentuk lampaunya went."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last month we went to Singapore."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Ayahku sudah pensiun sejak tahun 2018.",
+  "prompt": "My father ___ (be) retired since 2018.",
+  "hint": "sejak 2018 sampai sekarang",
+  "ans": "My father has been retired since 2018.",
+  "why": "since 2018 menunjukkan keadaan dari 2018 sampai sekarang → has been.",
+  "wrong": [
+   [
+    "My father is retired since 2018.",
+    "is hanya untuk keadaan sekarang; dengan since harus has been."
+   ],
+   [
+    "My father was been retired since 2018.",
+    "was dan been tidak dipakai berdampingan; pakai has been."
+   ],
+   [
+    "My father has be retired since 2018.",
+    "Setelah has harus been (V3 dari be), bukan be."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Sudah berapa lama kamu bekerja di perusahaan ini? Sejak 2020?",
+  "prompt": "How long ___ (you / be) at this company? Since 2020?",
+  "hint": "durasi sampai sekarang",
+  "ans": "How long have you been at this company? Since 2020?",
+  "why": "How long dengan Since 2020 menanyakan durasi dari dulu sampai sekarang → have you been.",
+  "wrong": [
+   [
+    "How long are you at this company? Since 2020?",
+    "are hanya untuk keadaan sekarang; durasi sampai sekarang harus have you been."
+   ],
+   [
+    "How long you have been at this company? Since 2020?",
+    "Dalam kalimat tanya, have diletakkan sebelum subjek: have you been."
+   ],
+   [
+    "How long have you be at this company? Since 2020?",
+    "Setelah have harus been (V3 dari be), bukan be."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Dia (pr) sudah tiga kali ke Yogyakarta.",
+  "prompt": "She ___ (be) to Yogyakarta three times.",
+  "hint": "pengalaman, berapa kali",
+  "ans": "She has been to Yogyakarta three times.",
+  "why": "Pengalaman pernah ke suatu tempat (three times) tanpa waktu tertentu → has been to.",
+  "wrong": [
+   [
+    "She has be to Yogyakarta three times.",
+    "Setelah has harus been (V3 dari be), bukan be."
+   ],
+   [
+    "She is been to Yogyakarta three times.",
+    "is tidak dipakai bersama been; pakai has been."
+   ],
+   [
+    "She was been to Yogyakarta three times.",
+    "was dan been tidak dipakai berdampingan; pakai has been."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Cuacanya sudah sangat panas sejak tadi pagi.",
+  "prompt": "It ___ (be) very hot since this morning.",
+  "hint": "sejak tadi pagi",
+  "ans": "It has been very hot since this morning.",
+  "why": "since this morning menunjukkan keadaan dari tadi pagi sampai sekarang → has been.",
+  "wrong": [
+   [
+    "It is very hot since this morning.",
+    "is hanya untuk keadaan sekarang; dengan since harus has been."
+   ],
+   [
+    "It has be very hot since this morning.",
+    "Setelah has harus been (V3 dari be), bukan be."
+   ],
+   [
+    "It have been very hot since this morning.",
+    "Subjek it memakai has, bukan have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since this morning it has been very hot."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Mereka ada di Bandung akhir pekan lalu.",
+  "prompt": "They ___ (be) in Bandung last weekend.",
+  "hint": "akhir pekan lalu",
+  "ans": "They were in Bandung last weekend.",
+  "why": "last weekend adalah waktu lampau yang jelas, subjek they → were.",
+  "wrong": [
+   [
+    "They have been in Bandung last weekend.",
+    "have been tidak dipakai dengan waktu lampau yang jelas seperti last weekend."
+   ],
+   [
+    "They are in Bandung last weekend.",
+    "are adalah bentuk sekarang, padahal kejadiannya akhir pekan lalu."
+   ],
+   [
+    "They was in Bandung last weekend.",
+    "Subjek they memakai were, bukan was."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last weekend they were in Bandung."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Sudah berapa kali kamu ke Bali?",
+  "prompt": "How many times ___ (you / be) to Bali?",
+  "hint": "pengalaman, berapa kali",
+  "ans": "How many times have you been to Bali?",
+  "why": "Menanyakan jumlah pengalaman sampai sekarang → have you been to.",
+  "wrong": [
+   [
+    "How many times you have been to Bali?",
+    "Dalam kalimat tanya, have diletakkan sebelum subjek: have you been."
+   ],
+   [
+    "How many times are you been to Bali?",
+    "are tidak dipakai bersama been; pakai have you been."
+   ],
+   [
+    "How many times have you be to Bali?",
+    "Setelah have harus been (V3 dari be), bukan be."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Apakah Rudi terlambat masuk kerja kemarin?",
+  "prompt": "___ (Rudi / be) late for work yesterday?",
+  "hint": "kemarin, kalimat tanya",
+  "ans": "Was Rudi late for work yesterday?",
+  "why": "yesterday adalah waktu lampau yang jelas → pertanyaan dengan Was.",
+  "wrong": [
+   [
+    "Has Rudi been late for work yesterday?",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti yesterday."
+   ],
+   [
+    "Is Rudi late for work yesterday?",
+    "is adalah bentuk sekarang, padahal kejadiannya kemarin."
+   ],
+   [
+    "Did Rudi be late for work yesterday?",
+    "be tidak memakai did dalam kalimat tanya; cukup Was Rudi."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Laptopku sudah rusak selama seminggu, jadi aku tidak bisa bekerja.",
+  "prompt": "My laptop ___ (be) broken for a week now, so I can't do my work.",
+  "hint": "selama seminggu sampai sekarang",
+  "ans": "My laptop has been broken for a week now, so I can't do my work.",
+  "why": "for a week now menunjukkan keadaan selama seminggu sampai sekarang → has been.",
+  "wrong": [
+   [
+    "My laptop is broken for a week now, so I can't do my work.",
+    "is hanya untuk keadaan sekarang; durasi sampai sekarang (for a week now) harus has been."
+   ],
+   [
+    "My laptop was been broken for a week now, so I can't do my work.",
+    "was dan been tidak dipakai berdampingan; pakai has been."
+   ],
+   [
+    "My laptop has be broken for a week now, so I can't do my work.",
+    "Setelah has harus been (V3 dari be), bukan be."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Saudara perempuanku sudah dirawat di rumah sakit sejak hari Jumat.",
+  "prompt": "My sister ___ (be) in the hospital since Friday.",
+  "hint": "sejak Jumat sampai sekarang",
+  "ans": "My sister has been in the hospital since Friday.",
+  "why": "since Friday menunjukkan keadaan dari Jumat sampai sekarang → has been.",
+  "wrong": [
+   [
+    "My sister is in the hospital since Friday.",
+    "is hanya untuk keadaan sekarang; dengan since harus has been."
+   ],
+   [
+    "My sister was been in the hospital since Friday.",
+    "was dan been tidak dipakai berdampingan; pakai has been."
+   ],
+   [
+    "My sister have been in the hospital since Friday.",
+    "Subjek my sister (dia) memakai has, bukan have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since Friday, my sister has been in the hospital."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Kamu di mana tadi malam? Aku meneleponmu tiga kali.",
+  "prompt": "Where ___ (you / be) last night? I called you three times.",
+  "hint": "tadi malam = sudah lewat",
+  "ans": "Where were you last night? I called you three times.",
+  "why": "last night adalah waktu lampau yang jelas, subjek you → were.",
+  "wrong": [
+   [
+    "Where have you been last night? I called you three times.",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti last night."
+   ],
+   [
+    "Where are you last night? I called you three times.",
+    "are adalah bentuk sekarang, padahal yang ditanyakan tadi malam."
+   ],
+   [
+    "Where was you last night? I called you three times.",
+    "Subjek you memakai were, bukan was."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Toko itu sudah tutup sejak bulan lalu.",
+  "prompt": "The shop ___ (be) closed since last month.",
+  "hint": "sejak bulan lalu",
+  "ans": "The shop has been closed since last month.",
+  "why": "since last month menunjukkan keadaan dari bulan lalu sampai sekarang → has been.",
+  "wrong": [
+   [
+    "The shop is closed since last month.",
+    "is hanya untuk keadaan sekarang; dengan since harus has been."
+   ],
+   [
+    "The shop has be closed since last month.",
+    "Setelah has harus been (V3 dari be), bukan be."
+   ],
+   [
+    "The shop have been closed since last month.",
+    "Subjek the shop (it) memakai has, bukan have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since last month, the shop has been closed."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Kapan kamu pergi ke Lombok? Foto-fotomu bagus sekali.",
+  "prompt": "When ___ (you / go) to Lombok? Your photos are beautiful.",
+  "hint": "when = waktu tertentu",
+  "ans": "When did you go to Lombok? Your photos are beautiful.",
+  "why": "When menanyakan waktu tertentu di masa lampau (fotonya sudah ada) → did you go.",
+  "wrong": [
+   [
+    "When have you been to Lombok? Your photos are beautiful.",
+    "When menanyakan waktu tertentu, jadi tidak dipakai dengan present perfect have you been."
+   ],
+   [
+    "When did you went to Lombok? Your photos are beautiful.",
+    "Setelah did harus bentuk dasar (go), bukan V2 went."
+   ],
+   [
+    "When were you go to Lombok? Your photos are beautiful.",
+    "were tidak dipakai bersama kata kerja bentuk dasar; pakai did you go."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Nadia sudah takut anjing sejak dia kecil.",
+  "prompt": "Nadia ___ (be) afraid of dogs since she was a child.",
+  "hint": "sejak kecil sampai sekarang",
+  "ans": "Nadia has been afraid of dogs since she was a child.",
+  "why": "since she was a child menunjukkan keadaan dari kecil sampai sekarang → has been.",
+  "wrong": [
+   [
+    "Nadia is afraid of dogs since she was a child.",
+    "is hanya untuk keadaan sekarang; dengan since harus has been."
+   ],
+   [
+    "Nadia was been afraid of dogs since she was a child.",
+    "was dan been tidak dipakai berdampingan; pakai has been."
+   ],
+   [
+    "Nadia has be afraid of dogs since she was a child.",
+    "Setelah has harus been (V3 dari be), bukan be."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since she was a child, Nadia has been afraid of dogs."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Dia (pr) sudah menjadi dokter selama sepuluh tahun, dan dia masih mencintai pekerjaannya.",
+  "prompt": "She ___ (be) a doctor for ten years, and she still loves her job.",
+  "hint": "selama sepuluh tahun, masih",
+  "ans": "She has been a doctor for ten years, and she still loves her job.",
+  "why": "for ten years dengan still (masih sampai sekarang) → has been.",
+  "wrong": [
+   [
+    "She is a doctor for ten years, and she still loves her job.",
+    "is hanya untuk keadaan sekarang; durasi sampai sekarang (for ten years) harus has been."
+   ],
+   [
+    "She has be a doctor for ten years, and she still loves her job.",
+    "Setelah has harus been (V3 dari be), bukan be."
+   ],
+   [
+    "She was been a doctor for ten years, and she still loves her job.",
+    "was dan been tidak dipakai berdampingan; pakai has been."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Pak Hasan menjadi manajer kami dari tahun 2015 sampai 2020.",
+  "prompt": "Mr. Hasan ___ (be) our manager from 2015 to 2020.",
+  "hint": "periode lampau sudah selesai",
+  "ans": "Mr. Hasan was our manager from 2015 to 2020.",
+  "why": "from 2015 to 2020 adalah periode lampau yang sudah selesai → was.",
+  "wrong": [
+   [
+    "Mr. Hasan has been our manager from 2015 to 2020.",
+    "has been tidak dipakai untuk periode yang sudah selesai seperti from 2015 to 2020."
+   ],
+   [
+    "Mr. Hasan is our manager from 2015 to 2020.",
+    "is adalah bentuk sekarang, padahal periodenya sudah berakhir pada 2020."
+   ],
+   [
+    "Mr. Hasan were our manager from 2015 to 2020.",
+    "Subjek Mr. Hasan (dia) memakai was, bukan were."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "From 2015 to 2020, Mr. Hasan was our manager."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Apakah orang tuamu pernah ke Eropa?",
+  "prompt": "___ (your parents / ever / be) to Europe?",
+  "hint": "pengalaman, pakai ever",
+  "ans": "Have your parents ever been to Europe?",
+  "why": "Menanyakan pengalaman pernah ke suatu tempat → Have … ever been to.",
+  "wrong": [
+   [
+    "Has your parents ever been to Europe?",
+    "Subjek your parents (mereka) memakai have, bukan has."
+   ],
+   [
+    "Were your parents ever been to Europe?",
+    "were dan been tidak dipakai berdampingan; pakai Have … ever been."
+   ],
+   [
+    "Are your parents ever been to Europe?",
+    "are tidak dipakai bersama been; pakai Have … ever been."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Aku capek kemarin, jadi aku tidur lebih awal.",
+  "prompt": "I ___ (be) tired yesterday, so I went to bed early.",
+  "hint": "kemarin = sudah lewat",
+  "ans": "I was tired yesterday, so I went to bed early.",
+  "why": "yesterday adalah waktu lampau yang jelas, subjek I → was.",
+  "wrong": [
+   [
+    "I have been tired yesterday, so I went to bed early.",
+    "have been tidak dipakai dengan waktu lampau yang jelas seperti yesterday."
+   ],
+   [
+    "I am tired yesterday, so I went to bed early.",
+    "am adalah bentuk sekarang, padahal kejadiannya kemarin."
+   ],
+   [
+    "I were tired yesterday, so I went to bed early.",
+    "Subjek I memakai was, bukan were."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday I was tired, so I went to bed early."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Andi tidak masuk kantor sejak hari Selasa.",
+  "prompt": "Andi ___ (not / be) in the office since Tuesday.",
+  "hint": "sejak Selasa sampai sekarang",
+  "ans": "Andi has not been in the office since Tuesday.",
+  "why": "since Tuesday menunjukkan keadaan dari Selasa sampai sekarang → has not been.",
+  "wrong": [
+   [
+    "Andi is not in the office since Tuesday.",
+    "is not hanya untuk keadaan sekarang; dengan since harus has not been."
+   ],
+   [
+    "Andi has not be in the office since Tuesday.",
+    "Setelah has not harus been (V3 dari be), bukan be."
+   ],
+   [
+    "Andi have not been in the office since Tuesday.",
+    "Subjek Andi (dia) memakai has, bukan have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since Tuesday, Andi has not been in the office."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Hari Minggu lalu adalah hari ulang tahunku.",
+  "prompt": "It ___ (be) my birthday last Sunday.",
+  "hint": "Minggu lalu = sudah lewat",
+  "ans": "It was my birthday last Sunday.",
+  "why": "last Sunday adalah waktu lampau yang jelas → was.",
+  "wrong": [
+   [
+    "It has been my birthday last Sunday.",
+    "has been tidak dipakai dengan waktu lampau yang jelas seperti last Sunday."
+   ],
+   [
+    "It is my birthday last Sunday.",
+    "is adalah bentuk sekarang, padahal ulang tahunnya Minggu lalu."
+   ],
+   [
+    "It was been my birthday last Sunday.",
+    "was dan been tidak dipakai berdampingan; cukup was."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last Sunday it was my birthday."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Kakek dan nenekku sudah menikah selama lima puluh tahun, dan mereka masih bahagia bersama.",
+  "prompt": "My grandparents ___ (be) married for fifty years, and they are still happy together.",
+  "hint": "selama 50 tahun, masih",
+  "ans": "My grandparents have been married for fifty years, and they are still happy together.",
+  "why": "for fifty years dengan still (masih sampai sekarang) → have been married.",
+  "wrong": [
+   [
+    "My grandparents are married for fifty years, and they are still happy together.",
+    "are hanya untuk keadaan sekarang; durasi sampai sekarang (for fifty years) harus have been."
+   ],
+   [
+    "My grandparents has been married for fifty years, and they are still happy together.",
+    "Subjek my grandparents (mereka) memakai have, bukan has."
+   ],
+   [
+    "My grandparents have be married for fifty years, and they are still happy together.",
+    "Setelah have harus been (V3 dari be), bukan be."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Aku sudah berbulan-bulan tidak ke bioskop.",
+  "prompt": "I ___ (not / be) to the cinema for months.",
+  "hint": "berbulan-bulan sampai sekarang",
+  "ans": "I have not been to the cinema for months.",
+  "why": "for months menunjukkan rentang sampai sekarang → have not been to.",
+  "wrong": [
+   [
+    "I am not been to the cinema for months.",
+    "am tidak dipakai bersama been; pakai have not been."
+   ],
+   [
+    "I was not been to the cinema for months.",
+    "was dan been tidak dipakai berdampingan; pakai have not been."
+   ],
+   [
+    "I have not be to the cinema for months.",
+    "Setelah have not harus been (V3 dari be), bukan be."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Apakah dia (pr) ada di pesta tadi malam?",
+  "prompt": "___ (she / be) at the party last night?",
+  "hint": "tadi malam, kalimat tanya",
+  "ans": "Was she at the party last night?",
+  "why": "last night adalah waktu lampau yang jelas, subjek she → Was she.",
+  "wrong": [
+   [
+    "Has she been at the party last night?",
+    "Present perfect tidak dipakai dengan waktu lampau yang jelas seperti last night."
+   ],
+   [
+    "Is she at the party last night?",
+    "is adalah bentuk sekarang, padahal yang ditanyakan tadi malam."
+   ],
+   [
+    "Were she at the party last night?",
+    "Subjek she memakai was, bukan were."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Sudah berapa lama saudara laki-lakimu di Australia? Sejak Januari?",
+  "prompt": "How long ___ (your brother / be) in Australia? Since January?",
+  "hint": "durasi sampai sekarang",
+  "ans": "How long has your brother been in Australia? Since January?",
+  "why": "How long dengan Since January menanyakan durasi dari dulu sampai sekarang → has … been.",
+  "wrong": [
+   [
+    "How long is your brother in Australia? Since January?",
+    "is hanya untuk keadaan sekarang; durasi sampai sekarang harus has your brother been."
+   ],
+   [
+    "How long has your brother be in Australia? Since January?",
+    "Setelah has harus been (V3 dari be), bukan be."
+   ],
+   [
+    "How long have your brother been in Australia? Since January?",
+    "Subjek your brother (dia) memakai has, bukan have."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb4",
+  "promptId": "Rina dan aku sudah menjadi rekan kerja sejak tahun 2021.",
+  "prompt": "Rina and I ___ (be) colleagues since 2021.",
+  "hint": "sejak 2021 sampai sekarang",
+  "ans": "Rina and I have been colleagues since 2021.",
+  "why": "since 2021 menunjukkan keadaan dari 2021 sampai sekarang → have been.",
+  "wrong": [
+   [
+    "Rina and I are colleagues since 2021.",
+    "are hanya untuk keadaan sekarang; dengan since harus have been."
+   ],
+   [
+    "Rina and I has been colleagues since 2021.",
+    "Subjek Rina and I (kami) memakai have, bukan has."
+   ],
+   [
+    "Rina and I was been colleagues since 2021.",
+    "was dan been tidak dipakai berdampingan; pakai have been."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since 2021, Rina and I have been colleagues."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Dewi tidak pergi ke gym kemarin karena hujan.",
+  "prompt": "Dewi ___ (not / go) to the gym yesterday because it was raining.",
+  "hint": "kemarin, kalimat negatif",
+  "ans": "Dewi did not go to the gym yesterday because it was raining.",
+  "why": "yesterday adalah waktu lampau yang jelas → did not go.",
+  "wrong": [
+   [
+    "Dewi has not been to the gym yesterday because it was raining.",
+    "has not been to tidak dipakai dengan waktu lampau yang jelas seperti yesterday."
+   ],
+   [
+    "Dewi was not go to the gym yesterday because it was raining.",
+    "was not tidak dipakai bersama kata kerja bentuk dasar; negatif lampau memakai did not go."
+   ],
+   [
+    "Dewi did not went to the gym yesterday because it was raining.",
+    "Setelah did not harus bentuk dasar (go), bukan V2 went."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Yesterday Dewi did not go to the gym because it was raining.",
+   "Because it was raining, Dewi did not go to the gym yesterday."
+  ]
+ },
+ {
+  "set": "whb4",
+  "promptId": "Anak-anak sangat berisik tadi malam.",
+  "prompt": "The children ___ (be) very noisy last night.",
+  "hint": "tadi malam = sudah lewat",
+  "ans": "The children were very noisy last night.",
+  "why": "last night adalah waktu lampau yang jelas, subjek the children (jamak) → were.",
+  "wrong": [
+   [
+    "The children have been very noisy last night.",
+    "have been tidak dipakai dengan waktu lampau yang jelas seperti last night."
+   ],
+   [
+    "The children are very noisy last night.",
+    "are adalah bentuk sekarang, padahal kejadiannya tadi malam."
+   ],
+   [
+    "The children was very noisy last night.",
+    "The children adalah jamak, jadi memakai were, bukan was."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night the children were very noisy."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Kamu basah kuyup. Apakah kamu habis berenang?",
+  "prompt": "You're all wet. ___ (you / swim)?",
+  "hint": "bekas terlihat: basah",
+  "ans": "You're all wet. Have you been swimming?",
+  "why": "Basah adalah bekas kegiatan yang baru saja berlangsung → Have you been + -ing.",
+  "wrong": [
+   [
+    "You're all wet. Are you been swimming?",
+    "Are tidak dipakai bersama been; pertanyaannya memakai Have you been."
+   ],
+   [
+    "You're all wet. Have you swimming?",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "You're all wet. Have you been swim?",
+    "Setelah been harus bentuk -ing (swimming), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "You're all wet. Were you swimming?"
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Kakiku sakit karena aku sudah berjalan seharian.",
+  "prompt": "My legs hurt because I ___ (walk) all day.",
+  "hint": "sakit karena kegiatan seharian",
+  "ans": "My legs hurt because I have been walking all day.",
+  "why": "Kaki sakit sekarang akibat kegiatan panjang yang berlangsung seharian → have been + -ing.",
+  "wrong": [
+   [
+    "My legs hurt because I have walking all day.",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "My legs hurt because I have been walk all day.",
+    "Setelah been harus bentuk -ing (walking), bukan bentuk dasar."
+   ],
+   [
+    "My legs hurt because I has been walking all day.",
+    "Subjek I memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "My legs hurt because I walked all day.",
+   "My legs hurt because I was walking all day.",
+   "My legs hurt because I have walked all day."
+  ],
+  "orders": [
+   "Because I have been walking all day, my legs hurt."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Matanya merah. Dia (pr) habis menangis.",
+  "prompt": "Her eyes are red. She ___ (cry).",
+  "hint": "bekas terlihat: mata merah",
+  "ans": "Her eyes are red. She has been crying.",
+  "why": "Mata merah adalah bekas kegiatan yang baru berlangsung → has been + -ing.",
+  "wrong": [
+   [
+    "Her eyes are red. She is been crying.",
+    "is tidak dipakai bersama been; yang benar has been."
+   ],
+   [
+    "Her eyes are red. She has crying.",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "Her eyes are red. She have been crying.",
+    "Subjek she memakai has, bukan have."
+   ]
+  ],
+  "alt": [
+   "Her eyes are red. She was crying."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Hujan sudah turun sejak tadi pagi, jadi jalanannya basah.",
+  "prompt": "It ___ (rain) since this morning, so the roads are wet.",
+  "hint": "sejak tadi pagi sampai sekarang",
+  "ans": "It has been raining since this morning, so the roads are wet.",
+  "why": "Since this morning menunjukkan kegiatan dari pagi sampai sekarang → has been + -ing.",
+  "wrong": [
+   [
+    "It is raining since this morning, so the roads are wet.",
+    "Present continuous (is raining) tidak dipakai dengan since untuk kegiatan dari dulu sampai sekarang."
+   ],
+   [
+    "It has been rain since this morning, so the roads are wet.",
+    "Setelah been harus bentuk -ing (raining), bukan bentuk dasar."
+   ],
+   [
+    "It has raining since this morning, so the roads are wet.",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ]
+  ],
+  "alt": [
+   "It has rained since this morning, so the roads are wet."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Kami sudah menunggumu selama satu jam! Kamu tadi di mana?",
+  "prompt": "We ___ (wait) for you for an hour! Where were you?",
+  "hint": "selama satu jam sampai sekarang",
+  "ans": "We have been waiting for you for an hour! Where were you?",
+  "why": "For an hour menunjukkan lamanya menunggu sampai sekarang → have been + -ing.",
+  "wrong": [
+   [
+    "We are waiting for you for an hour! Where were you?",
+    "Present continuous (are waiting) tidak dipakai dengan for untuk lamanya kegiatan sampai sekarang."
+   ],
+   [
+    "We have been wait for you for an hour! Where were you?",
+    "Setelah been harus bentuk -ing (waiting), bukan bentuk dasar."
+   ],
+   [
+    "We has been waiting for you for an hour! Where were you?",
+    "Subjek we memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "We have waited for you for an hour! Where were you?"
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Sudah berapa lama kamu belajar bahasa Inggris?",
+  "prompt": "How long ___ (you / learn) English?",
+  "hint": "berapa lama sampai sekarang",
+  "ans": "How long have you been learning English?",
+  "why": "How long menanyakan lamanya kegiatan yang masih berlangsung sampai sekarang → have you been + -ing.",
+  "wrong": [
+   [
+    "How long have you learning English?",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "How long have you been learn English?",
+    "Setelah been harus bentuk -ing (learning), bukan bentuk dasar."
+   ],
+   [
+    "How long are you been learning English?",
+    "are tidak dipakai bersama been; yang benar have you been."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb5",
+  "promptId": "Adik laki-lakiku sudah main video game sejak makan siang, dan dia masih belum berhenti.",
+  "prompt": "My brother ___ (play) video games since lunch, and he still hasn't stopped.",
+  "hint": "sejak makan siang, masih berlangsung",
+  "ans": "My brother has been playing video games since lunch, and he still hasn't stopped.",
+  "why": "Since lunch dan \"masih belum berhenti\" menunjukkan kegiatan yang berlangsung sampai sekarang → has been + -ing.",
+  "wrong": [
+   [
+    "My brother is playing video games since lunch, and he still hasn't stopped.",
+    "Present continuous (am/is/are + -ing) tidak dipakai dengan since/for untuk kegiatan yang berlangsung dari dulu sampai sekarang."
+   ],
+   [
+    "My brother has been play video games since lunch, and he still hasn't stopped.",
+    "Setelah been harus bentuk -ing (playing), bukan bentuk dasar."
+   ],
+   [
+    "My brother have been playing video games since lunch, and he still hasn't stopped.",
+    "Subjek my brother (dia) memakai has, bukan have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since lunch, my brother has been playing video games, and he still hasn't stopped."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Dapurnya bau cat. Apakah mereka habis mengecat dindingnya?",
+  "prompt": "The kitchen smells of paint. ___ (they / paint) the walls?",
+  "hint": "bekas terlihat: bau cat",
+  "ans": "The kitchen smells of paint. Have they been painting the walls?",
+  "why": "Bau cat adalah bekas kegiatan yang baru berlangsung → Have they been + -ing.",
+  "wrong": [
+   [
+    "The kitchen smells of paint. Are they been painting the walls?",
+    "Are tidak dipakai bersama been; pertanyaannya memakai Have they been."
+   ],
+   [
+    "The kitchen smells of paint. Have they painting the walls?",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "The kitchen smells of paint. Has they been painting the walls?",
+    "Subjek they memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "The kitchen smells of paint. Have they painted the walls?",
+   "The kitchen smells of paint. Did they paint the walls?"
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Maaf aku terlambat. Apakah kamu sudah lama menunggu?",
+  "prompt": "Sorry I'm late. ___ (you / wait) long?",
+  "hint": "menunggu sampai sekarang",
+  "ans": "Sorry I'm late. Have you been waiting long?",
+  "why": "Kegiatan menunggu berlangsung sampai saat ini (orangnya baru datang) → Have you been + -ing.",
+  "wrong": [
+   [
+    "Sorry I'm late. Have you waiting long?",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "Sorry I'm late. Have you been wait long?",
+    "Setelah been harus bentuk -ing (waiting), bukan bentuk dasar."
+   ],
+   [
+    "Sorry I'm late. Are you been waiting long?",
+    "Are tidak dipakai bersama been; pertanyaannya memakai Have you been."
+   ]
+  ],
+  "alt": [
+   "Sorry I'm late. Have you waited long?",
+   "Sorry I'm late. Did you wait long?"
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Anna sudah menulis laporan ini sejak hari Senin, dan dia masih belum menyelesaikannya.",
+  "prompt": "Anna ___ (write) this report since Monday, and she still hasn't finished it.",
+  "hint": "sejak Senin, belum selesai",
+  "ans": "Anna has been writing this report since Monday, and she still hasn't finished it.",
+  "why": "Since Monday dan \"belum selesai\" menunjukkan kegiatan yang masih berlangsung → has been + -ing.",
+  "wrong": [
+   [
+    "Anna is writing this report since Monday, and she still hasn't finished it.",
+    "Present continuous (am/is/are + -ing) tidak dipakai dengan since/for untuk kegiatan yang berlangsung dari dulu sampai sekarang."
+   ],
+   [
+    "Anna has been write this report since Monday, and she still hasn't finished it.",
+    "Setelah been harus bentuk -ing (writing), bukan bentuk dasar."
+   ],
+   [
+    "Anna have been writing this report since Monday, and she still hasn't finished it.",
+    "Subjek Anna (dia) memakai has, bukan have."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since Monday, Anna has been writing this report, and she still hasn't finished it."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Aku sudah mencari kunciku selama dua puluh menit. Kamu melihatnya?",
+  "prompt": "I ___ (look) for my keys for twenty minutes. Have you seen them?",
+  "hint": "selama dua puluh menit sampai sekarang",
+  "ans": "I have been looking for my keys for twenty minutes. Have you seen them?",
+  "why": "For twenty minutes menunjukkan lamanya kegiatan yang masih berlangsung → have been + -ing.",
+  "wrong": [
+   [
+    "I am looking for my keys for twenty minutes. Have you seen them?",
+    "Present continuous (am looking) tidak dipakai dengan for untuk lamanya kegiatan sampai sekarang."
+   ],
+   [
+    "I have been look for my keys for twenty minutes. Have you seen them?",
+    "Setelah been harus bentuk -ing (looking), bukan bentuk dasar."
+   ],
+   [
+    "I have looking for my keys for twenty minutes. Have you seen them?",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ]
+  ],
+  "alt": [
+   "I have looked for my keys for twenty minutes. Have you seen them?"
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Tanganmu kotor. Apakah kamu habis bekerja di kebun?",
+  "prompt": "Your hands are dirty. ___ (you / work) in the garden?",
+  "hint": "bekas terlihat: tangan kotor",
+  "ans": "Your hands are dirty. Have you been working in the garden?",
+  "why": "Tangan kotor adalah bekas kegiatan yang baru berlangsung → Have you been + -ing.",
+  "wrong": [
+   [
+    "Your hands are dirty. Are you been working in the garden?",
+    "Are tidak dipakai bersama been; pertanyaannya memakai Have you been."
+   ],
+   [
+    "Your hands are dirty. Have you working in the garden?",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "Your hands are dirty. Have you been work in the garden?",
+    "Setelah been harus bentuk -ing (working), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "Your hands are dirty. Were you working in the garden?"
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Dia (lk) kelihatan mengantuk karena dia belajar semalaman.",
+  "prompt": "He looks sleepy because he ___ (study) all night.",
+  "hint": "mengantuk akibat kegiatan panjang",
+  "ans": "He looks sleepy because he has been studying all night.",
+  "why": "Mengantuk sekarang akibat kegiatan panjang semalaman → has been + -ing.",
+  "wrong": [
+   [
+    "He looks sleepy because he has studying all night.",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "He looks sleepy because he is been studying all night.",
+    "is tidak dipakai bersama been; yang benar has been."
+   ],
+   [
+    "He looks sleepy because he have been studying all night.",
+    "Subjek he memakai has, bukan have."
+   ]
+  ],
+  "alt": [
+   "He looks sleepy because he studied all night.",
+   "He looks sleepy because he was studying all night."
+  ],
+  "orders": [
+   "Because he has been studying all night, he looks sleepy."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Mereka sudah bertelepon selama dua jam, dan mereka masih mengobrol.",
+  "prompt": "They ___ (talk) on the phone for two hours, and they're still talking.",
+  "hint": "selama dua jam, masih berlangsung",
+  "ans": "They have been talking on the phone for two hours, and they're still talking.",
+  "why": "For two hours dan \"masih mengobrol\" menunjukkan kegiatan yang berlangsung sampai sekarang → have been + -ing.",
+  "wrong": [
+   [
+    "They are talking on the phone for two hours, and they're still talking.",
+    "Present continuous (are talking) tidak dipakai dengan for untuk lamanya kegiatan sampai sekarang."
+   ],
+   [
+    "They have been talk on the phone for two hours, and they're still talking.",
+    "Setelah been harus bentuk -ing (talking), bukan bentuk dasar."
+   ],
+   [
+    "They has been talking on the phone for two hours, and they're still talking.",
+    "Subjek they memakai have, bukan has."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb5",
+  "promptId": "Sudah berapa lama bayinya tidur? Di sini sepi sekali.",
+  "prompt": "How long ___ (the baby / sleep)? It's very quiet in here.",
+  "hint": "berapa lama sampai sekarang",
+  "ans": "How long has the baby been sleeping? It's very quiet in here.",
+  "why": "How long menanyakan lamanya kegiatan yang masih berlangsung sampai sekarang → has ... been + -ing.",
+  "wrong": [
+   [
+    "How long has the baby sleeping? It's very quiet in here.",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "How long has the baby been sleep? It's very quiet in here.",
+    "Setelah been harus bentuk -ing (sleeping), bukan bentuk dasar."
+   ],
+   [
+    "How long have the baby been sleeping? It's very quiet in here.",
+    "Subjek the baby (tunggal) memakai has, bukan have."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb5",
+  "promptId": "Ayah sudah memasak sejak jam empat, jadi makan malamnya pasti luar biasa.",
+  "prompt": "Dad ___ (cook) since four o'clock, so dinner will be amazing.",
+  "hint": "sejak jam empat sampai sekarang",
+  "ans": "Dad has been cooking since four o'clock, so dinner will be amazing.",
+  "why": "Since four o'clock menunjukkan kegiatan yang berlangsung dari jam empat sampai sekarang → has been + -ing.",
+  "wrong": [
+   [
+    "Dad is cooking since four o'clock, so dinner will be amazing.",
+    "Present continuous (am/is/are + -ing) tidak dipakai dengan since/for untuk kegiatan yang berlangsung dari dulu sampai sekarang."
+   ],
+   [
+    "Dad has cooking since four o'clock, so dinner will be amazing.",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "Dad has been cook since four o'clock, so dinner will be amazing.",
+    "Setelah been harus bentuk -ing (cooking), bukan bentuk dasar."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb5",
+  "promptId": "Akhir-akhir ini aku tidak bisa tidur nyenyak karena suara bising.",
+  "prompt": "I ___ (not / sleep) well lately because of the noise.",
+  "hint": "akhir-akhir ini (lately)",
+  "ans": "I have not been sleeping well lately because of the noise.",
+  "why": "Lately menunjukkan kegiatan berulang dari beberapa waktu lalu sampai sekarang → have not been + -ing.",
+  "wrong": [
+   [
+    "I have not sleeping well lately because of the noise.",
+    "Setelah have not harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "I have not been sleep well lately because of the noise.",
+    "Setelah been harus bentuk -ing (sleeping), bukan bentuk dasar."
+   ],
+   [
+    "I do not been sleeping well lately because of the noise.",
+    "Bentuk negatifnya have not been, bukan do not been."
+   ]
+  ],
+  "alt": [
+   "I have not slept well lately because of the noise."
+  ],
+  "orders": [
+   "Lately I have not been sleeping well because of the noise.",
+   "Because of the noise, I have not been sleeping well lately."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Wajah kakakmu merah. Apakah dia (pr) habis duduk di bawah terik matahari?",
+  "prompt": "Your sister's face is red. ___ (she / sit) in the sun?",
+  "hint": "bekas terlihat: wajah merah",
+  "ans": "Your sister's face is red. Has she been sitting in the sun?",
+  "why": "Wajah merah adalah bekas kegiatan yang baru berlangsung → Has she been + -ing.",
+  "wrong": [
+   [
+    "Your sister's face is red. Is she been sitting in the sun?",
+    "Is tidak dipakai bersama been; pertanyaannya memakai Has she been."
+   ],
+   [
+    "Your sister's face is red. Has she sitting in the sun?",
+    "Setelah has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "Your sister's face is red. Have she been sitting in the sun?",
+    "Subjek she memakai has, bukan have."
+   ]
+  ],
+  "alt": [
+   "Your sister's face is red. Was she sitting in the sun?"
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Anak-anak sudah menonton TV selama tiga jam. Matikan sekarang!",
+  "prompt": "The children ___ (watch) TV for three hours. Turn it off now!",
+  "hint": "selama tiga jam sampai sekarang",
+  "ans": "The children have been watching TV for three hours. Turn it off now!",
+  "why": "For three hours menunjukkan lamanya kegiatan yang masih berlangsung → have been + -ing.",
+  "wrong": [
+   [
+    "The children are watching TV for three hours. Turn it off now!",
+    "Present continuous (are watching) tidak dipakai dengan for untuk lamanya kegiatan sampai sekarang."
+   ],
+   [
+    "The children has been watching TV for three hours. Turn it off now!",
+    "Subjek the children (jamak) memakai have, bukan has."
+   ],
+   [
+    "The children have been watch TV for three hours. Turn it off now!",
+    "Setelah been harus bentuk -ing (watching), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "The children have watched TV for three hours. Turn it off now!"
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Rina sudah menabung sejak Januari karena dia ingin membeli laptop.",
+  "prompt": "Rina ___ (save) money since January because she wants to buy a laptop.",
+  "hint": "sejak Januari sampai sekarang",
+  "ans": "Rina has been saving money since January because she wants to buy a laptop.",
+  "why": "Since January menunjukkan kegiatan yang berlangsung dari Januari sampai sekarang → has been + -ing.",
+  "wrong": [
+   [
+    "Rina is saving money since January because she wants to buy a laptop.",
+    "Present continuous (am/is/are + -ing) tidak dipakai dengan since/for untuk kegiatan yang berlangsung dari dulu sampai sekarang."
+   ],
+   [
+    "Rina has been save money since January because she wants to buy a laptop.",
+    "Setelah been harus bentuk -ing (saving), bukan bentuk dasar."
+   ],
+   [
+    "Rina have been saving money since January because she wants to buy a laptop.",
+    "Subjek Rina (dia) memakai has, bukan have."
+   ]
+  ],
+  "alt": [
+   "Rina has saved money since January because she wants to buy a laptop."
+  ],
+  "orders": [
+   "Since January, Rina has been saving money because she wants to buy a laptop.",
+   "Because she wants to buy a laptop, Rina has been saving money since January."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Teleponnya sudah berdering selama dua menit. Ada yang bisa mengangkatnya?",
+  "prompt": "The phone ___ (ring) for two minutes. Can someone answer it?",
+  "hint": "selama dua menit, masih berdering",
+  "ans": "The phone has been ringing for two minutes. Can someone answer it?",
+  "why": "For two minutes menunjukkan lamanya kegiatan yang masih berlangsung → has been + -ing.",
+  "wrong": [
+   [
+    "The phone is ringing for two minutes. Can someone answer it?",
+    "Present continuous (is ringing) tidak dipakai dengan for untuk lamanya kegiatan sampai sekarang."
+   ],
+   [
+    "The phone has ringing for two minutes. Can someone answer it?",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "The phone has been ring for two minutes. Can someone answer it?",
+    "Setelah been harus bentuk -ing (ringing), bukan bentuk dasar."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb5",
+  "promptId": "Kakak perempuanku belum berolahraga lagi sejak lututnya cedera.",
+  "prompt": "My sister ___ (not / exercise) since she hurt her knee.",
+  "hint": "sejak cedera sampai sekarang",
+  "ans": "My sister has not been exercising since she hurt her knee.",
+  "why": "Since she hurt her knee menunjukkan keadaan dari saat itu sampai sekarang → has not been + -ing.",
+  "wrong": [
+   [
+    "My sister is not exercising since she hurt her knee.",
+    "Present continuous (is not exercising) tidak dipakai dengan since untuk keadaan dari dulu sampai sekarang."
+   ],
+   [
+    "My sister has not exercising since she hurt her knee.",
+    "Setelah has not harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "My sister has not been exercise since she hurt her knee.",
+    "Setelah been harus bentuk -ing (exercising), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "My sister has not exercised since she hurt her knee."
+  ],
+  "orders": [
+   "Since she hurt her knee, my sister has not been exercising."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Kita sudah menyetir selama lima jam. Ayo berhenti untuk istirahat.",
+  "prompt": "We ___ (drive) for five hours. Let's stop for a break.",
+  "hint": "selama lima jam sampai sekarang",
+  "ans": "We have been driving for five hours. Let's stop for a break.",
+  "why": "For five hours menunjukkan lamanya kegiatan yang berlangsung sampai sekarang → have been + -ing.",
+  "wrong": [
+   [
+    "We have driving for five hours. Let's stop for a break.",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "We have been drive for five hours. Let's stop for a break.",
+    "Setelah been harus bentuk -ing (driving), bukan bentuk dasar."
+   ],
+   [
+    "We has been driving for five hours. Let's stop for a break.",
+    "Subjek we memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "We have driven for five hours. Let's stop for a break."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Kamu habis ngapain? Badanmu penuh lumpur!",
+  "prompt": "What ___ (you / do)? You're covered in mud!",
+  "hint": "bekas terlihat: penuh lumpur",
+  "ans": "What have you been doing? You're covered in mud!",
+  "why": "Lumpur adalah bekas kegiatan yang baru berlangsung → What have you been + -ing.",
+  "wrong": [
+   [
+    "What are you been doing? You're covered in mud!",
+    "are tidak dipakai bersama been; pertanyaannya memakai have you been."
+   ],
+   [
+    "What have you doing? You're covered in mud!",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "What have you been do? You're covered in mud!",
+    "Setelah been harus bentuk -ing (doing), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "What were you doing? You're covered in mud!"
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Anak-anak tetangga sebelah sudah berteriak-teriak sepanjang malam, dan aku tidak bisa tidur.",
+  "prompt": "The kids next door ___ (shout) all evening, and I can't sleep.",
+  "hint": "sepanjang malam, masih berlangsung",
+  "ans": "The kids next door have been shouting all evening, and I can't sleep.",
+  "why": "Kegiatan berlangsung sepanjang malam sampai sekarang (aku masih tidak bisa tidur) → have been + -ing.",
+  "wrong": [
+   [
+    "The kids next door have shouting all evening, and I can't sleep.",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "The kids next door have been shout all evening, and I can't sleep.",
+    "Setelah been harus bentuk -ing (shouting), bukan bentuk dasar."
+   ],
+   [
+    "The kids next door has been shouting all evening, and I can't sleep.",
+    "Subjek the kids (jamak) memakai have, bukan has."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb5",
+  "promptId": "Ada yang baunya enak sekali. Apakah Ibu habis membuat kue?",
+  "prompt": "Something smells delicious. ___ (Mom / bake)?",
+  "hint": "bekas terlihat: bau kue",
+  "ans": "Something smells delicious. Has Mom been baking?",
+  "why": "Bau enak adalah bekas kegiatan yang baru berlangsung → Has Mom been + -ing.",
+  "wrong": [
+   [
+    "Something smells delicious. Is Mom been baking?",
+    "Is tidak dipakai bersama been; pertanyaannya memakai Has Mom been."
+   ],
+   [
+    "Something smells delicious. Has Mom baking?",
+    "Setelah has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "Something smells delicious. Have Mom been baking?",
+    "Subjek Mom (tunggal) memakai has, bukan have."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb5",
+  "promptId": "Dia (lk) sudah duduk di mejanya sejak makan siang. Dia pasti capek.",
+  "prompt": "He ___ (sit) at his desk since lunch. He must be tired.",
+  "hint": "sejak makan siang sampai sekarang",
+  "ans": "He has been sitting at his desk since lunch. He must be tired.",
+  "why": "Since lunch menunjukkan kegiatan yang berlangsung dari siang sampai sekarang → has been + -ing.",
+  "wrong": [
+   [
+    "He is sitting at his desk since lunch. He must be tired.",
+    "Present continuous (am/is/are + -ing) tidak dipakai dengan since/for untuk kegiatan yang berlangsung dari dulu sampai sekarang."
+   ],
+   [
+    "He has been sit at his desk since lunch. He must be tired.",
+    "Setelah been harus bentuk -ing (sitting), bukan bentuk dasar."
+   ],
+   [
+    "He has sitting at his desk since lunch. He must be tired.",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb5",
+  "promptId": "Aku sudah mencoba meneleponmu seharian! Kenapa kamu tidak mengangkatnya?",
+  "prompt": "I ___ (try) to call you all day! Why didn't you answer?",
+  "hint": "seharian, berulang sampai sekarang",
+  "ans": "I have been trying to call you all day! Why didn't you answer?",
+  "why": "All day menunjukkan usaha berulang yang berlangsung seharian sampai sekarang → have been + -ing.",
+  "wrong": [
+   [
+    "I have trying to call you all day! Why didn't you answer?",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "I have been try to call you all day! Why didn't you answer?",
+    "Setelah been harus bentuk -ing (trying), bukan bentuk dasar."
+   ],
+   [
+    "I has been trying to call you all day! Why didn't you answer?",
+    "Subjek I memakai have, bukan has."
+   ]
+  ],
+  "alt": [
+   "I tried to call you all day! Why didn't you answer?",
+   "I was trying to call you all day! Why didn't you answer?",
+   "I have tried to call you all day! Why didn't you answer?"
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Tim itu sudah mempersiapkan diri untuk pertandingan selama berminggu-minggu, jadi mereka merasa siap.",
+  "prompt": "The team ___ (prepare) for the match for weeks, so they feel ready.",
+  "hint": "selama berminggu-minggu sampai sekarang",
+  "ans": "The team has been preparing for the match for weeks, so they feel ready.",
+  "why": "For weeks menunjukkan lamanya kegiatan dari dulu sampai sekarang → has been + -ing.",
+  "wrong": [
+   [
+    "The team is preparing for the match for weeks, so they feel ready.",
+    "Present continuous (is preparing) tidak dipakai dengan for untuk lamanya kegiatan sampai sekarang."
+   ],
+   [
+    "The team has been prepare for the match for weeks, so they feel ready.",
+    "Setelah been harus bentuk -ing (preparing), bukan bentuk dasar."
+   ],
+   [
+    "The team has preparing for the match for weeks, so they feel ready.",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ]
+  ],
+  "alt": [
+   "The team has prepared for the match for weeks, so they feel ready.",
+   "The team have been preparing for the match for weeks, so they feel ready."
+  ]
+ },
+ {
+  "set": "whb5",
+  "promptId": "Matamu kelihatan lelah. Apakah kamu main HP dalam gelap lagi?",
+  "prompt": "Your eyes look tired. ___ (you / use) your phone in the dark again?",
+  "hint": "bekas terlihat: mata lelah",
+  "ans": "Your eyes look tired. Have you been using your phone in the dark again?",
+  "why": "Mata lelah adalah bekas kegiatan yang baru berlangsung → Have you been + -ing.",
+  "wrong": [
+   [
+    "Your eyes look tired. Are you been using your phone in the dark again?",
+    "Are tidak dipakai bersama been; pertanyaannya memakai Have you been."
+   ],
+   [
+    "Your eyes look tired. Have you using your phone in the dark again?",
+    "Setelah have/has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "Your eyes look tired. Have you been use your phone in the dark again?",
+    "Setelah been harus bentuk -ing (using), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "Your eyes look tired. Were you using your phone in the dark again?"
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Saat kami tiba di stasiun, keretanya sudah berangkat.",
+  "prompt": "By the time we got to the station, the train ___ (already / leave).",
+  "hint": "by the time + lampau",
+  "ans": "By the time we got to the station, the train had already left.",
+  "why": "By the time + kejadian lampau menunjukkan kereta berangkat lebih dulu → had + V3.",
+  "wrong": [
+   [
+    "By the time we got to the station, the train has already left.",
+    "has + V3 mengacu ke sekarang, padahal titik acuannya lampau (we got to the station)."
+   ],
+   [
+    "By the time we got to the station, the train had already leave.",
+    "Setelah had harus V3 (left), bukan bentuk dasar."
+   ],
+   [
+    "By the time we got to the station, the train had already leaved.",
+    "V3 dari leave adalah left, bukan leaved."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "The train had already left by the time we got to the station."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Sebelum perjalananku ke Bali tahun lalu, aku belum pernah naik pesawat.",
+  "prompt": "Before my trip to Bali last year, I ___ (never / fly) on a plane.",
+  "hint": "belum pernah sebelum titik lampau",
+  "ans": "Before my trip to Bali last year, I had never flown on a plane.",
+  "why": "Pengalaman diukur sampai titik lampau (perjalanan tahun lalu) → had never + V3.",
+  "wrong": [
+   [
+    "Before my trip to Bali last year, I have never flown on a plane.",
+    "have + V3 mengacu ke sekarang, padahal titik acuannya lampau (last year)."
+   ],
+   [
+    "Before my trip to Bali last year, I had never flew on a plane.",
+    "Setelah had harus V3 (flown), bukan V2 (flew)."
+   ],
+   [
+    "Before my trip to Bali last year, I had never fly on a plane.",
+    "Setelah had harus V3 (flown), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "Before my trip to Bali last year, I never flew on a plane."
+  ],
+  "orders": [
+   "I had never flown on a plane before my trip to Bali last year."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Dia (pr) capek karena dia sudah terjaga sejak jam lima pagi.",
+  "prompt": "She was tired because she ___ (be) awake since five in the morning.",
+  "hint": "sejak … sampai titik lampau",
+  "ans": "She was tired because she had been awake since five in the morning.",
+  "why": "Keadaan terjaga berlangsung sejak jam 5 sampai titik lampau (she was tired) → had been.",
+  "wrong": [
+   [
+    "She was tired because she has been awake since five in the morning.",
+    "has been mengacu ke sekarang, padahal titik acuannya lampau (was tired)."
+   ],
+   [
+    "She was tired because she was been awake since five in the morning.",
+    "was tidak dipakai bersama been; yang benar had been."
+   ],
+   [
+    "She was tired because she had be awake since five in the morning.",
+    "Setelah had harus V3 (been), bukan bentuk dasar be."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Because she had been awake since five in the morning, she was tired."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Matanya merah karena dia (lk) habis menangis.",
+  "prompt": "His eyes were red because he ___ (cry).",
+  "hint": "bekas di masa lampau",
+  "ans": "His eyes were red because he had been crying.",
+  "why": "Mata merah (lampau) adalah bekas kegiatan sebelumnya → had been + -ing.",
+  "wrong": [
+   [
+    "His eyes were red because he has been crying.",
+    "has been + -ing mengacu ke sekarang, padahal titik acuannya lampau (were red)."
+   ],
+   [
+    "His eyes were red because he was been crying.",
+    "was tidak dipakai bersama been; yang benar had been."
+   ],
+   [
+    "His eyes were red because he had been cry.",
+    "Setelah been harus bentuk -ing (crying), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "His eyes were red because he had cried.",
+   "His eyes were red because he cried.",
+   "His eyes were red because he was crying."
+  ],
+  "orders": [
+   "Because he had been crying, his eyes were red."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Saat aku selesai mengerjakan PR, acara TV-nya sudah berakhir.",
+  "prompt": "By the time I finished my homework, the TV show ___ (already / end).",
+  "hint": "by the time + lampau",
+  "ans": "By the time I finished my homework, the TV show had already ended.",
+  "why": "By the time + kejadian lampau menunjukkan acara berakhir lebih dulu → had + V3.",
+  "wrong": [
+   [
+    "By the time I finished my homework, the TV show has already ended.",
+    "has + V3 mengacu ke sekarang, padahal titik acuannya lampau (I finished)."
+   ],
+   [
+    "By the time I finished my homework, the TV show had already end.",
+    "Setelah had harus V3 (ended), bukan bentuk dasar."
+   ],
+   [
+    "By the time I finished my homework, the TV show have already ended.",
+    "have tidak dipakai untuk subjek tunggal (the TV show), dan titik acuannya lampau (I finished) sehingga harus had."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "The TV show had already ended by the time I finished my homework."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Kami sudah menunggu selama satu jam ketika busnya akhirnya datang.",
+  "prompt": "We ___ (wait) for an hour when the bus finally came.",
+  "hint": "selama … sampai titik lampau",
+  "ans": "We had been waiting for an hour when the bus finally came.",
+  "why": "Menunggu berlangsung selama satu jam sampai titik lampau (bus datang) → had been + -ing.",
+  "wrong": [
+   [
+    "We have been waiting for an hour when the bus finally came.",
+    "have been + -ing mengacu ke sekarang, padahal titik acuannya lampau (the bus came)."
+   ],
+   [
+    "We had been wait for an hour when the bus finally came.",
+    "Setelah been harus bentuk -ing (waiting), bukan bentuk dasar."
+   ],
+   [
+    "We had waiting for an hour when the bus finally came.",
+    "Setelah had harus ada been sebelum bentuk -ing."
+   ]
+  ],
+  "alt": [
+   "We had waited for an hour when the bus finally came."
+  ],
+  "orders": [
+   "When the bus finally came, we had been waiting for an hour."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Tanahnya basah karena hujan turun semalaman.",
+  "prompt": "The ground was wet because it ___ (rain) all night.",
+  "hint": "bekas di masa lampau",
+  "ans": "The ground was wet because it had been raining all night.",
+  "why": "Tanah basah (lampau) adalah bekas hujan yang berlangsung sebelumnya → had been + -ing.",
+  "wrong": [
+   [
+    "The ground was wet because it has been raining all night.",
+    "has been + -ing mengacu ke sekarang, padahal titik acuannya lampau (was wet)."
+   ],
+   [
+    "The ground was wet because it was been raining all night.",
+    "was tidak dipakai bersama been; yang benar had been."
+   ],
+   [
+    "The ground was wet because it had been rain all night.",
+    "Setelah been harus bentuk -ing (raining), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "The ground was wet because it had rained all night.",
+   "The ground was wet because it rained all night.",
+   "The ground was wet because it was raining all night."
+  ],
+  "orders": [
+   "Because it had been raining all night, the ground was wet."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Saat sampai di kantor, aku ingat bahwa aku meninggalkan laptopku di rumah.",
+  "prompt": "When I got to the office, I remembered that I ___ (leave) my laptop at home.",
+  "hint": "terjadi sebelum aku ingat",
+  "ans": "When I got to the office, I remembered that I had left my laptop at home.",
+  "why": "Meninggalkan laptop terjadi sebelum aku ingat (lampau) → had + V3.",
+  "wrong": [
+   [
+    "When I got to the office, I remembered that I had leave my laptop at home.",
+    "Setelah had harus V3 (left), bukan bentuk dasar."
+   ],
+   [
+    "When I got to the office, I remembered that I had leaved my laptop at home.",
+    "V3 dari leave adalah left, bukan leaved."
+   ],
+   [
+    "When I got to the office, I remembered that I has left my laptop at home.",
+    "Subjek I tidak memakai has, dan titik acuannya lampau (remembered) sehingga harus had."
+   ]
+  ],
+  "alt": [
+   "When I got to the office, I remembered that I left my laptop at home."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Saat Budi bergabung dengan perusahaan kami, dia (lk) sudah pernah bekerja di tiga bank yang berbeda.",
+  "prompt": "By the time Budi joined our company, he ___ (work) in three different banks.",
+  "hint": "by the time + lampau",
+  "ans": "By the time Budi joined our company, he had worked in three different banks.",
+  "why": "By the time + kejadian lampau: pengalaman kerja dihitung sampai titik itu → had + V3.",
+  "wrong": [
+   [
+    "By the time Budi joined our company, he has worked in three different banks.",
+    "has + V3 mengacu ke sekarang, padahal titik acuannya lampau (Budi joined)."
+   ],
+   [
+    "By the time Budi joined our company, he had work in three different banks.",
+    "Setelah had harus V3 (worked), bukan bentuk dasar."
+   ],
+   [
+    "By the time Budi joined our company, he was worked in three different banks.",
+    "was + V3 adalah bentuk pasif; untuk \"sudah bekerja\" yang benar had worked."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Budi had worked in three different banks by the time he joined our company."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Dapurnya berantakan karena anak-anak habis membuat kue kering.",
+  "prompt": "The kitchen was a mess because the kids ___ (bake) cookies.",
+  "hint": "bekas di masa lampau",
+  "ans": "The kitchen was a mess because the kids had been baking cookies.",
+  "why": "Dapur berantakan (lampau) adalah bekas kegiatan sebelumnya → had been + -ing.",
+  "wrong": [
+   [
+    "The kitchen was a mess because the kids have been baking cookies.",
+    "have been + -ing mengacu ke sekarang, padahal titik acuannya lampau (was a mess)."
+   ],
+   [
+    "The kitchen was a mess because the kids had been bake cookies.",
+    "Setelah been harus bentuk -ing (baking), bukan bentuk dasar."
+   ],
+   [
+    "The kitchen was a mess because the kids were been baking cookies.",
+    "were tidak dipakai bersama been; yang benar had been."
+   ]
+  ],
+  "alt": [
+   "The kitchen was a mess because the kids had baked cookies.",
+   "The kitchen was a mess because the kids baked cookies.",
+   "The kitchen was a mess because the kids were baking cookies."
+  ],
+  "orders": [
+   "Because the kids had been baking cookies, the kitchen was a mess."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Aku tidak ikut menonton film itu bersama mereka karena aku sudah menontonnya.",
+  "prompt": "I didn't watch the movie with them because I ___ (already / see) it.",
+  "hint": "sudah terjadi sebelumnya (lampau)",
+  "ans": "I didn't watch the movie with them because I had already seen it.",
+  "why": "Menonton film terjadi sebelum kejadian lampau (didn't watch) → had already + V3.",
+  "wrong": [
+   [
+    "I didn't watch the movie with them because I had already saw it.",
+    "Setelah had harus V3 (seen), bukan V2 (saw)."
+   ],
+   [
+    "I didn't watch the movie with them because I had already see it.",
+    "Setelah had harus V3 (seen), bukan bentuk dasar."
+   ],
+   [
+    "I didn't watch the movie with them because I has already seen it.",
+    "Subjek I tidak memakai has, dan titik acuannya lampau sehingga harus had."
+   ]
+  ],
+  "alt": [
+   "I didn't watch the movie with them because I already saw it."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Saat kami menemukan hotel, kami sudah berjalan keliling kota selama tiga jam.",
+  "prompt": "By the time we found a hotel, we ___ (walk) around the city for three hours.",
+  "hint": "selama … sampai titik lampau",
+  "ans": "By the time we found a hotel, we had been walking around the city for three hours.",
+  "why": "Berjalan berlangsung selama tiga jam sampai titik lampau (found a hotel) → had been + -ing.",
+  "wrong": [
+   [
+    "By the time we found a hotel, we have been walking around the city for three hours.",
+    "have been + -ing mengacu ke sekarang, padahal titik acuannya lampau (we found)."
+   ],
+   [
+    "By the time we found a hotel, we had been walk around the city for three hours.",
+    "Setelah been harus bentuk -ing (walking), bukan bentuk dasar."
+   ],
+   [
+    "By the time we found a hotel, we had walking around the city for three hours.",
+    "Setelah had harus ada been sebelum bentuk -ing."
+   ]
+  ],
+  "alt": [
+   "By the time we found a hotel, we had walked around the city for three hours."
+  ],
+  "orders": [
+   "We had been walking around the city for three hours by the time we found a hotel."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Dia (pr) sangat lapar karena dia belum makan apa pun sejak sarapan.",
+  "prompt": "She was very hungry because she ___ (not / eat) anything since breakfast.",
+  "hint": "sejak … sampai titik lampau",
+  "ans": "She was very hungry because she had not eaten anything since breakfast.",
+  "why": "Since breakfast sampai titik lampau (was hungry) → had not + V3.",
+  "wrong": [
+   [
+    "She was very hungry because she has not eaten anything since breakfast.",
+    "has + V3 mengacu ke sekarang, padahal titik acuannya lampau (was hungry)."
+   ],
+   [
+    "She was very hungry because she had not ate anything since breakfast.",
+    "Setelah had harus V3 (eaten), bukan V2 (ate)."
+   ],
+   [
+    "She was very hungry because she did not eat anything since breakfast.",
+    "Klausa utama yang menyatakan keadaan sejak breakfast sampai titik lampau memakai bentuk perfect (had not eaten), bukan past simple."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Because she had not eaten anything since breakfast, she was very hungry."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Ketika Maya menelepon, aku baru saja tertidur.",
+  "prompt": "When Maya called, I ___ (just / fall) asleep.",
+  "hint": "baru saja sebelum titik lampau",
+  "ans": "When Maya called, I had just fallen asleep.",
+  "why": "Tertidur terjadi sesaat sebelum titik lampau (Maya called) → had just + V3.",
+  "wrong": [
+   [
+    "When Maya called, I have just fallen asleep.",
+    "have + V3 mengacu ke sekarang, padahal titik acuannya lampau (Maya called)."
+   ],
+   [
+    "When Maya called, I had just fell asleep.",
+    "Setelah had harus V3 (fallen), bukan V2 (fell)."
+   ],
+   [
+    "When Maya called, I had just fall asleep.",
+    "Setelah had harus V3 (fallen), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "I had just fallen asleep when Maya called."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Saat rapat berakhir, kami belum membuat keputusan akhir.",
+  "prompt": "By the time the meeting ended, we ___ (not / make) a final decision.",
+  "hint": "by the time + lampau",
+  "ans": "By the time the meeting ended, we had not made a final decision.",
+  "why": "By the time + kejadian lampau: keadaan diukur sampai titik itu → had not + V3.",
+  "wrong": [
+   [
+    "By the time the meeting ended, we have not made a final decision.",
+    "have + V3 mengacu ke sekarang, padahal titik acuannya lampau (the meeting ended)."
+   ],
+   [
+    "By the time the meeting ended, we had not make a final decision.",
+    "Setelah had harus V3 (made), bukan bentuk dasar."
+   ],
+   [
+    "By the time the meeting ended, we did not made a final decision.",
+    "Setelah did not harus bentuk dasar, dan konteks by the time menuntut had not made."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We had not made a final decision by the time the meeting ended."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Waktu aku pertama kali bertemu orang tua Rina, mereka sudah menikah selama tiga puluh tahun.",
+  "prompt": "When I first met Rina's parents, they ___ (be) married for thirty years.",
+  "hint": "selama … sampai titik lampau",
+  "ans": "When I first met Rina's parents, they had been married for thirty years.",
+  "why": "Keadaan menikah berlangsung selama tiga puluh tahun sampai titik lampau (I first met) → had been.",
+  "wrong": [
+   [
+    "When I first met Rina's parents, they have been married for thirty years.",
+    "have been mengacu ke sekarang, padahal titik acuannya lampau (I first met)."
+   ],
+   [
+    "When I first met Rina's parents, they were been married for thirty years.",
+    "were tidak dipakai bersama been; yang benar had been."
+   ],
+   [
+    "When I first met Rina's parents, they had be married for thirty years.",
+    "Setelah had harus V3 (been), bukan bentuk dasar be."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb6",
+  "promptId": "Sudah berapa lama kamu menunggu ketika dokter akhirnya memanggil namamu?",
+  "prompt": "How long ___ (you / wait) when the doctor finally called your name?",
+  "hint": "berapa lama sampai titik lampau",
+  "ans": "How long had you been waiting when the doctor finally called your name?",
+  "why": "How long + titik lampau (the doctor called) → had you been + -ing.",
+  "wrong": [
+   [
+    "How long have you been waiting when the doctor finally called your name?",
+    "have been + -ing mengacu ke sekarang, padahal titik acuannya lampau (called)."
+   ],
+   [
+    "How long had you been wait when the doctor finally called your name?",
+    "Setelah been harus bentuk -ing (waiting), bukan bentuk dasar."
+   ],
+   [
+    "How long were you been waiting when the doctor finally called your name?",
+    "were tidak dipakai bersama been; yang benar had you been."
+   ]
+  ],
+  "alt": [
+   "How long had you waited when the doctor finally called your name?"
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Apakah kamu pernah bertemu Sarah sebelum pesta tadi malam?",
+  "prompt": "___ (you / ever / meet) Sarah before the party last night?",
+  "hint": "pernah sebelum titik lampau",
+  "ans": "Had you ever met Sarah before the party last night?",
+  "why": "Pengalaman diukur sampai titik lampau (the party last night) → Had you ever + V3.",
+  "wrong": [
+   [
+    "Have you ever met Sarah before the party last night?",
+    "have + V3 mengacu ke sekarang, padahal titik acuannya lampau (last night)."
+   ],
+   [
+    "Had you ever meet Sarah before the party last night?",
+    "Setelah had harus V3 (met), bukan bentuk dasar."
+   ],
+   [
+    "Did you ever met Sarah before the party last night?",
+    "Setelah did harus bentuk dasar, bukan V2/V3 (met)."
+   ]
+  ],
+  "alt": [
+   "Did you ever meet Sarah before the party last night?"
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Aku langsung tahu siapa dia (pr) karena aku sudah sering melihat fotonya.",
+  "prompt": "I knew who she was immediately because I ___ (see) her photo many times.",
+  "hint": "sudah terjadi sebelum titik lampau",
+  "ans": "I knew who she was immediately because I had seen her photo many times.",
+  "why": "Melihat foto terjadi berkali-kali sebelum titik lampau (I knew) → had + V3.",
+  "wrong": [
+   [
+    "I knew who she was immediately because I had saw her photo many times.",
+    "Setelah had harus V3 (seen), bukan V2 (saw)."
+   ],
+   [
+    "I knew who she was immediately because I had see her photo many times.",
+    "Setelah had harus V3 (seen), bukan bentuk dasar."
+   ],
+   [
+    "I knew who she was immediately because I was seen her photo many times.",
+    "was + V3 adalah bentuk pasif (dilihat); untuk \"sudah melihat\" yang benar had seen."
+   ]
+  ],
+  "alt": [
+   "I knew who she was immediately because I saw her photo many times."
+  ],
+  "orders": [
+   "I immediately knew who she was because I had seen her photo many times.",
+   "Because I had seen her photo many times, I knew who she was immediately.",
+   "Because I had seen her photo many times, I immediately knew who she was."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Ketika aku masuk ke dapur, teman sekamarku baru saja memakan potongan kue terakhir.",
+  "prompt": "When I came into the kitchen, my roommate ___ (just / eat) the last piece of cake.",
+  "hint": "baru saja sebelum titik lampau",
+  "ans": "When I came into the kitchen, my roommate had just eaten the last piece of cake.",
+  "why": "Memakan kue terjadi sesaat sebelum titik lampau (I came in) → had just + V3.",
+  "wrong": [
+   [
+    "When I came into the kitchen, my roommate has just eaten the last piece of cake.",
+    "has + V3 mengacu ke sekarang, padahal titik acuannya lampau (I came into the kitchen)."
+   ],
+   [
+    "When I came into the kitchen, my roommate had just ate the last piece of cake.",
+    "Setelah had harus V3 (eaten), bukan V2 (ate)."
+   ],
+   [
+    "When I came into the kitchen, my roommate had just eat the last piece of cake.",
+    "Setelah had harus V3 (eaten), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "My roommate had just eaten the last piece of cake when I came into the kitchen."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Lisa gugup di pesawat karena dia belum pernah ke luar negeri sebelumnya.",
+  "prompt": "Lisa was nervous on the plane because she ___ (never / be) abroad before.",
+  "hint": "belum pernah sampai titik lampau",
+  "ans": "Lisa was nervous on the plane because she had never been abroad before.",
+  "why": "Pengalaman diukur sampai titik lampau (was nervous) → had never been.",
+  "wrong": [
+   [
+    "Lisa was nervous on the plane because she has never been abroad before.",
+    "has been mengacu ke sekarang, padahal titik acuannya lampau (was nervous)."
+   ],
+   [
+    "Lisa was nervous on the plane because she was never been abroad before.",
+    "was tidak dipakai bersama been; yang benar had never been."
+   ],
+   [
+    "Lisa was nervous on the plane because she had never be abroad before.",
+    "Setelah had harus V3 (been), bukan bentuk dasar be."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Because she had never been abroad before, Lisa was nervous on the plane."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Tanganku kotor karena aku habis memperbaiki sepedaku.",
+  "prompt": "My hands were dirty because I ___ (fix) my bike.",
+  "hint": "bekas di masa lampau",
+  "ans": "My hands were dirty because I had been fixing my bike.",
+  "why": "Tangan kotor (lampau) adalah bekas kegiatan sebelumnya → had been + -ing.",
+  "wrong": [
+   [
+    "My hands were dirty because I have been fixing my bike.",
+    "have been + -ing mengacu ke sekarang, padahal titik acuannya lampau (were dirty)."
+   ],
+   [
+    "My hands were dirty because I had been fix my bike.",
+    "Setelah been harus bentuk -ing (fixing), bukan bentuk dasar."
+   ],
+   [
+    "My hands were dirty because I was been fixing my bike.",
+    "was tidak dipakai bersama been; yang benar had been."
+   ]
+  ],
+  "alt": [
+   "My hands were dirty because I had fixed my bike.",
+   "My hands were dirty because I fixed my bike.",
+   "My hands were dirty because I was fixing my bike."
+  ],
+  "orders": [
+   "Because I had been fixing my bike, my hands were dirty."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Saat aku kembali ke mobilku, aku melihat seseorang telah memecahkan kacanya.",
+  "prompt": "When I got back to my car, I saw that someone ___ (break) the window.",
+  "hint": "terjadi sebelum aku melihat",
+  "ans": "When I got back to my car, I saw that someone had broken the window.",
+  "why": "Kaca dipecahkan sebelum titik lampau (I saw) → had + V3.",
+  "wrong": [
+   [
+    "When I got back to my car, I saw that someone has broken the window.",
+    "has + V3 mengacu ke sekarang, padahal titik acuannya lampau (I saw)."
+   ],
+   [
+    "When I got back to my car, I saw that someone had broke the window.",
+    "Setelah had harus V3 (broken), bukan V2 (broke)."
+   ],
+   [
+    "When I got back to my car, I saw that someone had break the window.",
+    "Setelah had harus V3 (broken), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "When I got back to my car, I saw that someone broke the window."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Apakah dia (pr) sudah menyelesaikan laporannya saat rapat dimulai?",
+  "prompt": "___ (she / already / finish) her report by the time the meeting started?",
+  "hint": "by the time + lampau",
+  "ans": "Had she already finished her report by the time the meeting started?",
+  "why": "By the time + kejadian lampau (the meeting started) → Had she already + V3.",
+  "wrong": [
+   [
+    "Has she already finished her report by the time the meeting started?",
+    "has + V3 mengacu ke sekarang, padahal titik acuannya lampau (the meeting started)."
+   ],
+   [
+    "Had she already finish her report by the time the meeting started?",
+    "Setelah had harus V3 (finished), bukan bentuk dasar."
+   ],
+   [
+    "Did she already finished her report by the time the meeting started?",
+    "Setelah did harus bentuk dasar, bukan V2/V3 (finished)."
+   ]
+  ],
+  "alt": [
+   "Did she already finish her report by the time the meeting started?"
+  ],
+  "orders": [
+   "By the time the meeting started, had she already finished her report?"
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Tom terengah-engah saat tiba karena dia habis berlari.",
+  "prompt": "Tom was out of breath when he arrived because he ___ (run).",
+  "hint": "bekas di masa lampau",
+  "ans": "Tom was out of breath when he arrived because he had been running.",
+  "why": "Terengah-engah (lampau) adalah bekas kegiatan sebelumnya → had been + -ing.",
+  "wrong": [
+   [
+    "Tom was out of breath when he arrived because he has been running.",
+    "has been + -ing mengacu ke sekarang, padahal titik acuannya lampau (was out of breath)."
+   ],
+   [
+    "Tom was out of breath when he arrived because he was been running.",
+    "was tidak dipakai bersama been; yang benar had been."
+   ],
+   [
+    "Tom was out of breath when he arrived because he had running.",
+    "Setelah had harus ada been sebelum bentuk -ing."
+   ]
+  ],
+  "alt": [
+   "Tom was out of breath when he arrived because he had run.",
+   "Tom was out of breath when he arrived because he ran.",
+   "Tom was out of breath when he arrived because he was running."
+  ],
+  "orders": [
+   "When he arrived, Tom was out of breath because he had been running.",
+   "Because he had been running, Tom was out of breath when he arrived."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Kami tidak perlu membeli tiket karena kakakku sudah memesannya.",
+  "prompt": "We didn't need to buy tickets because my brother ___ (already / book) them.",
+  "hint": "sudah terjadi sebelumnya (lampau)",
+  "ans": "We didn't need to buy tickets because my brother had already booked them.",
+  "why": "Memesan tiket terjadi sebelum kejadian lampau (didn't need to buy) → had already + V3.",
+  "wrong": [
+   [
+    "We didn't need to buy tickets because my brother had already book them.",
+    "Setelah had harus V3 (booked), bukan bentuk dasar."
+   ],
+   [
+    "We didn't need to buy tickets because my brother had already booking them.",
+    "Setelah had harus V3 (booked), bukan bentuk -ing."
+   ],
+   [
+    "We didn't need to buy tickets because my brother was already booked them.",
+    "was + V3 adalah bentuk pasif dan tidak bisa diikuti objek (them); yang benar had already booked."
+   ]
+  ],
+  "alt": [
+   "We didn't need to buy tickets because my brother already booked them."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Rudi tidak datang ke pesta karena tidak ada yang memberitahunya.",
+  "prompt": "Rudi didn't come to the party because nobody ___ (tell) him about it.",
+  "hint": "terjadi sebelum titik lampau",
+  "ans": "Rudi didn't come to the party because nobody had told him about it.",
+  "why": "Tidak ada pemberitahuan sebelum pesta (lampau) → had + V3.",
+  "wrong": [
+   [
+    "Rudi didn't come to the party because nobody has told him about it.",
+    "has + V3 mengacu ke sekarang, padahal titik acuannya lampau (didn't come)."
+   ],
+   [
+    "Rudi didn't come to the party because nobody had tell him about it.",
+    "Setelah had harus V3 (told), bukan bentuk dasar."
+   ],
+   [
+    "Rudi didn't come to the party because nobody had telled him about it.",
+    "V3 dari tell adalah told, bukan telled."
+   ]
+  ],
+  "alt": [
+   "Rudi didn't come to the party because nobody told him about it."
+  ]
+ },
+ {
+  "set": "whb6",
+  "promptId": "Sepupuku kelihatan sangat berbeda karena aku belum bertemu dengannya sejak kami kecil.",
+  "prompt": "My cousin looked very different because I ___ (not / see) him since we were kids.",
+  "hint": "sejak … sampai titik lampau",
+  "ans": "My cousin looked very different because I had not seen him since we were kids.",
+  "why": "Since we were kids sampai titik lampau (looked different) → had not + V3.",
+  "wrong": [
+   [
+    "My cousin looked very different because I did not see him since we were kids.",
+    "Klausa utama yang menyatakan keadaan sejak kecil sampai titik lampau memakai bentuk perfect (had not seen), bukan past simple."
+   ],
+   [
+    "My cousin looked very different because I had not saw him since we were kids.",
+    "Setelah had harus V3 (seen), bukan V2 (saw)."
+   ],
+   [
+    "My cousin looked very different because I was not seen him since we were kids.",
+    "was + V3 adalah bentuk pasif (dilihat); untuk \"belum melihat\" yang benar had not seen."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb6",
+  "promptId": "Sebelum ujian, Sinta tenang karena dia sudah belajar selama berminggu-minggu.",
+  "prompt": "Before the exam, Sinta was calm because she ___ (study) for weeks.",
+  "hint": "selama … sampai titik lampau",
+  "ans": "Before the exam, Sinta was calm because she had been studying for weeks.",
+  "why": "Belajar berlangsung berminggu-minggu sampai titik lampau (before the exam) → had been + -ing.",
+  "wrong": [
+   [
+    "Before the exam, Sinta was calm because she has been studying for weeks.",
+    "has been + -ing mengacu ke sekarang, padahal titik acuannya lampau (was calm)."
+   ],
+   [
+    "Before the exam, Sinta was calm because she had been study for weeks.",
+    "Setelah been harus bentuk -ing (studying), bukan bentuk dasar."
+   ],
+   [
+    "Before the exam, Sinta was calm because she had studying for weeks.",
+    "Setelah had harus ada been sebelum bentuk -ing."
+   ]
+  ],
+  "alt": [
+   "Before the exam, Sinta was calm because she had studied for weeks."
+  ],
+  "orders": [
+   "Sinta was calm before the exam because she had been studying for weeks.",
+   "Because she had been studying for weeks, Sinta was calm before the exam."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Berapa banyak orang yang datang ke pernikahanmu tahun lalu?",
+  "prompt": "How many people ___ (be) at your wedding last year?",
+  "hint": "tahun lalu, subjek jamak",
+  "ans": "How many people were at your wedding last year?",
+  "why": "Last year adalah waktu lampau yang jelas dan how many people jamak → were.",
+  "wrong": [
+   [
+    "How many people was at your wedding last year?",
+    "Subjek how many people jamak, jadi memakai were, bukan was."
+   ],
+   [
+    "How many people have been at your wedding last year?",
+    "have been tidak dipakai dengan waktu lampau yang jelas (last year)."
+   ],
+   [
+    "How many people are at your wedding last year?",
+    "are untuk sekarang, padahal ada penanda lampau (last year)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb7",
+  "promptId": "Tiketnya tidak murah, tapi konsernya bagus sekali.",
+  "prompt": "The tickets ___ (not / be) cheap, but the concert was great.",
+  "hint": "lampau, subjek jamak",
+  "ans": "The tickets were not cheap, but the concert was great.",
+  "why": "Konser sudah berlalu (was great) dan the tickets jamak → were not.",
+  "wrong": [
+   [
+    "The tickets was not cheap, but the concert was great.",
+    "Subjek the tickets jamak, jadi memakai were, bukan was."
+   ],
+   [
+    "The tickets did not be cheap, but the concert was great.",
+    "Be tidak memakai did untuk negatif; cukup were not."
+   ],
+   [
+    "The tickets have not be cheap, but the concert was great.",
+    "Setelah have harus V3 (been), dan konteksnya lampau (was great), jadi were not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb7",
+  "promptId": "Apakah rapatnya lama kemarin?",
+  "prompt": "___ (the meeting / be) long yesterday?",
+  "hint": "kemarin (lampau)",
+  "ans": "Was the meeting long yesterday?",
+  "why": "Yesterday adalah waktu lampau yang jelas dan the meeting tunggal → Was.",
+  "wrong": [
+   [
+    "Has the meeting been long yesterday?",
+    "have/has been tidak dipakai dengan waktu lampau yang jelas (yesterday)."
+   ],
+   [
+    "Were the meeting long yesterday?",
+    "Subjek the meeting tunggal, jadi memakai was, bukan were."
+   ],
+   [
+    "Is the meeting long yesterday?",
+    "is untuk sekarang, padahal ada penanda lampau (yesterday)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Was the meeting yesterday long?"
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Kakak laki-lakiku sangat sibuk minggu lalu, jadi dia (lk) tidak membalas pesanku.",
+  "prompt": "My brother ___ (be) really busy last week, so he didn't reply to my messages.",
+  "hint": "minggu lalu (lampau)",
+  "ans": "My brother was really busy last week, so he didn't reply to my messages.",
+  "why": "Last week adalah waktu lampau yang jelas dan my brother tunggal → was.",
+  "wrong": [
+   [
+    "My brother has been really busy last week, so he didn't reply to my messages.",
+    "has been tidak dipakai dengan waktu lampau yang jelas (last week)."
+   ],
+   [
+    "My brother were really busy last week, so he didn't reply to my messages.",
+    "Subjek my brother tunggal, jadi memakai was, bukan were."
+   ],
+   [
+    "My brother is really busy last week, so he didn't reply to my messages.",
+    "is untuk sekarang, padahal ada penanda lampau (last week)."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last week my brother was really busy, so he didn't reply to my messages."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Kakakku suka binatang. Sekarang dia (pr) punya dua ekor kucing.",
+  "prompt": "My sister loves animals. She ___ (have) two cats now.",
+  "hint": "punya, sekarang",
+  "ans": "My sister loves animals. She has two cats now.",
+  "why": "Have berarti punya (sekarang) dan subjeknya she → has.",
+  "wrong": [
+   [
+    "My sister loves animals. She have two cats now.",
+    "Subjek she memakai has, bukan have."
+   ],
+   [
+    "My sister loves animals. She is having two cats now.",
+    "Have dengan arti punya adalah kata kerja keadaan, tidak dipakai dalam bentuk -ing."
+   ],
+   [
+    "My sister loves animals. She had two cats now.",
+    "had untuk lampau, padahal ada penanda sekarang (now)."
+   ]
+  ],
+  "alt": [
+   "My sister loves animals. She has got two cats now."
+  ],
+  "orders": [
+   "My sister loves animals. She now has two cats.",
+   "My sister loves animals. Now she has two cats."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Kami tidak punya TV di rumah, jadi kami menonton berita di HP.",
+  "prompt": "We ___ (not / have) a TV at home, so we watch the news on our phones.",
+  "hint": "tidak punya, sekarang",
+  "ans": "We do not have a TV at home, so we watch the news on our phones.",
+  "why": "Negatif have (punya) untuk subjek we memakai do not have.",
+  "wrong": [
+   [
+    "We does not have a TV at home, so we watch the news on our phones.",
+    "Subjek we memakai do not, bukan does not."
+   ],
+   [
+    "We are not have a TV at home, so we watch the news on our phones.",
+    "Negatif have (punya) memakai do not, bukan are not."
+   ],
+   [
+    "We not have a TV at home, so we watch the news on our phones.",
+    "Kalimat negatif butuh kata bantu do: do not have."
+   ]
+  ],
+  "alt": [
+   "We have not got a TV at home, so we watch the news on our phones."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Apakah apartemen barumu punya balkon?",
+  "prompt": "___ (your new apartment / have) a balcony?",
+  "hint": "pertanyaan punya, subjek tunggal",
+  "ans": "Does your new apartment have a balcony?",
+  "why": "Pertanyaan have (punya) untuk subjek tunggal memakai Does … have.",
+  "wrong": [
+   [
+    "Do your new apartment have a balcony?",
+    "Subjek your new apartment tunggal, jadi memakai Does, bukan Do."
+   ],
+   [
+    "Is your new apartment have a balcony?",
+    "Pertanyaan have (punya) memakai Does, bukan Is."
+   ],
+   [
+    "Does your new apartment has a balcony?",
+    "Setelah does, kata kerja kembali ke bentuk dasar (have), bukan has."
+   ]
+  ],
+  "alt": [
+   "Has your new apartment got a balcony?"
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Mereka punya rumah besar waktu mereka tinggal di Bandung.",
+  "prompt": "They ___ (have) a big house when they lived in Bandung.",
+  "hint": "punya, waktu lampau",
+  "ans": "They had a big house when they lived in Bandung.",
+  "why": "Waktu lampau (when they lived) → had untuk arti punya.",
+  "wrong": [
+   [
+    "They have a big house when they lived in Bandung.",
+    "have untuk sekarang, padahal konteksnya lampau (when they lived)."
+   ],
+   [
+    "They has a big house when they lived in Bandung.",
+    "Subjek they tidak memakai has, dan konteksnya lampau."
+   ],
+   [
+    "They were having a big house when they lived in Bandung.",
+    "Have dengan arti punya adalah kata kerja keadaan, tidak dipakai dalam bentuk -ing."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When they lived in Bandung, they had a big house."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Aku sakit kepala sejak tadi pagi.",
+  "prompt": "I ___ (have) a headache since this morning.",
+  "hint": "sejak tadi pagi sampai sekarang",
+  "ans": "I have had a headache since this morning.",
+  "why": "Since this morning menunjukkan keadaan dari pagi sampai sekarang → have + V3 (had).",
+  "wrong": [
+   [
+    "I am having a headache since this morning.",
+    "Present continuous tidak dipakai dengan since untuk keadaan dari dulu sampai sekarang."
+   ],
+   [
+    "I have a headache since this morning.",
+    "Untuk keadaan dari tadi pagi sampai sekarang (since …), yang benar have had, bukan present simple."
+   ],
+   [
+    "I has had a headache since this morning.",
+    "Subjek I memakai have, bukan has."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since this morning, I have had a headache."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Aku sudah menonton film itu dua kali, jadi ayo kita tonton yang lain.",
+  "prompt": "I ___ (already / see) that movie twice, so let's watch something else.",
+  "hint": "sudah, hasilnya terasa sekarang",
+  "ans": "I have already seen that movie twice, so let's watch something else.",
+  "why": "Already dan \"dua kali\" menunjukkan pengalaman yang hasilnya terasa sekarang → have + V3.",
+  "wrong": [
+   [
+    "I am already seen that movie twice, so let's watch something else.",
+    "am tidak dipakai bersama V3 untuk arti \"sudah melakukan\"; yang benar have seen."
+   ],
+   [
+    "I have already saw that movie twice, so let's watch something else.",
+    "Setelah have harus V3 (seen), bukan V2 (saw)."
+   ],
+   [
+    "I have already see that movie twice, so let's watch something else.",
+    "Setelah have harus V3 (seen), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "I already saw that movie twice, so let's watch something else."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Kami sudah saling kenal sejak SD.",
+  "prompt": "We ___ (know) each other since primary school.",
+  "hint": "sejak SD sampai sekarang",
+  "ans": "We have known each other since primary school.",
+  "why": "Since menunjukkan keadaan dari dulu sampai sekarang, dan know adalah kata kerja keadaan → have + V3.",
+  "wrong": [
+   [
+    "We are knowing each other since primary school.",
+    "Know adalah kata kerja keadaan, tidak dipakai dalam bentuk -ing."
+   ],
+   [
+    "We have been knowing each other since primary school.",
+    "Know adalah kata kerja keadaan, jadi tidak memakai have been + -ing."
+   ],
+   [
+    "We know each other since primary school.",
+    "Untuk keadaan dari SD sampai sekarang (since …), yang benar have known, bukan present simple."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb7",
+  "promptId": "Dia (pr) baru saja menyelesaikan ujiannya, jadi sekarang dia sangat santai.",
+  "prompt": "She ___ (just / finish) her exam, so she's very relaxed now.",
+  "hint": "baru saja, hasil sekarang",
+  "ans": "She has just finished her exam, so she's very relaxed now.",
+  "why": "Just dan hasilnya terasa sekarang (relaxed now) → has just + V3.",
+  "wrong": [
+   [
+    "She has just finish her exam, so she's very relaxed now.",
+    "Setelah has harus V3 (finished), bukan bentuk dasar."
+   ],
+   [
+    "She is just finished her exam, so she's very relaxed now.",
+    "is tidak dipakai bersama V3 yang diikuti objek; untuk \"sudah menyelesaikan\" yang benar has finished."
+   ],
+   [
+    "She had just finished her exam, so she's very relaxed now.",
+    "had + V3 dipakai untuk kejadian sebelum titik lampau lain; di sini titik acuannya sekarang (now)."
+   ]
+  ],
+  "alt": [
+   "She just finished her exam, so she's very relaxed now."
+  ],
+  "orders": [
+   "She has just finished her exam, so now she's very relaxed."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Apakah anak laki-lakimu pernah naik kuda?",
+  "prompt": "___ (your son / ever / ride) a horse?",
+  "hint": "pengalaman (ever)",
+  "ans": "Has your son ever ridden a horse?",
+  "why": "Ever menanyakan pengalaman sampai sekarang dan your son tunggal → Has … ever + V3.",
+  "wrong": [
+   [
+    "Has your son ever rode a horse?",
+    "Setelah has harus V3 (ridden), bukan V2 (rode)."
+   ],
+   [
+    "Have your son ever ridden a horse?",
+    "Subjek your son tunggal, jadi memakai has, bukan have."
+   ],
+   [
+    "Is your son ever ridden a horse?",
+    "is + V3 adalah bentuk pasif; untuk pengalaman yang benar Has your son ever ridden."
+   ]
+  ],
+  "alt": [
+   "Did your son ever ride a horse?"
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Tom belum meneleponku sejak dia pindah ke Medan.",
+  "prompt": "Tom ___ (not / call) me since he moved to Medan.",
+  "hint": "sejak pindah sampai sekarang",
+  "ans": "Tom has not called me since he moved to Medan.",
+  "why": "Since he moved menunjukkan keadaan dari saat itu sampai sekarang → has not + V3.",
+  "wrong": [
+   [
+    "Tom did not call me since he moved to Medan.",
+    "Untuk keadaan dari titik lampau sampai sekarang (since …), kalimat utamanya memakai has not called, bukan past simple."
+   ],
+   [
+    "Tom is not calling me since he moved to Medan.",
+    "Present continuous tidak dipakai dengan since untuk keadaan dari dulu sampai sekarang."
+   ],
+   [
+    "Tom has not call me since he moved to Medan.",
+    "Setelah has harus V3 (called), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Since he moved to Medan, Tom has not called me."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Kantornya tutup sejak Senin karena banjir, jadi kami bekerja dari rumah.",
+  "prompt": "The office ___ (be) closed since Monday because of the flood, so we're working from home.",
+  "hint": "sejak Senin sampai sekarang",
+  "ans": "The office has been closed since Monday because of the flood, so we're working from home.",
+  "why": "Since Monday dan \"sekarang bekerja dari rumah\" menunjukkan keadaan dari Senin sampai sekarang → has been.",
+  "wrong": [
+   [
+    "The office is closed since Monday because of the flood, so we're working from home.",
+    "Untuk keadaan dari Senin sampai sekarang (since Monday), yang benar has been, bukan is."
+   ],
+   [
+    "The office was closed since Monday because of the flood, so we're working from home.",
+    "was berarti keadaannya sudah selesai, padahal kantor masih tutup sekarang (we're working from home)."
+   ],
+   [
+    "The office has be closed since Monday because of the flood, so we're working from home.",
+    "Setelah has harus V3 (been), bukan bentuk dasar be."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Because of the flood, the office has been closed since Monday, so we're working from home."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Sudah berapa lama kamu menjadi perawat?",
+  "prompt": "How long ___ (you / be) a nurse?",
+  "hint": "berapa lama sampai sekarang",
+  "ans": "How long have you been a nurse?",
+  "why": "How long menanyakan lamanya keadaan sampai sekarang → have you been.",
+  "wrong": [
+   [
+    "How long are you a nurse?",
+    "How long untuk lamanya keadaan sampai sekarang memakai have been, bukan are."
+   ],
+   [
+    "How long have you be a nurse?",
+    "Setelah have harus V3 (been), bukan bentuk dasar be."
+   ],
+   [
+    "How long has you been a nurse?",
+    "Subjek you memakai have, bukan has."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb7",
+  "promptId": "Apakah kamu pernah ke Lombok?",
+  "prompt": "___ (you / ever / be) to Lombok?",
+  "hint": "pengalaman (ever)",
+  "ans": "Have you ever been to Lombok?",
+  "why": "Ever menanyakan pengalaman berkunjung sampai sekarang → Have you ever been to.",
+  "wrong": [
+   [
+    "Were you ever been to Lombok?",
+    "were tidak dipakai bersama been; yang benar Have you ever been."
+   ],
+   [
+    "Have you ever be to Lombok?",
+    "Setelah have harus V3 (been), bukan bentuk dasar be."
+   ],
+   [
+    "Has you ever been to Lombok?",
+    "Subjek you memakai have, bukan has."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb7",
+  "promptId": "Bosku sudah rapat selama dua jam, dan dia (pr) masih belum keluar.",
+  "prompt": "My boss ___ (be) in a meeting for two hours, and she still hasn't come out.",
+  "hint": "selama … sampai sekarang",
+  "ans": "My boss has been in a meeting for two hours, and she still hasn't come out.",
+  "why": "For two hours dan \"masih belum keluar\" menunjukkan keadaan dari tadi sampai sekarang → has been.",
+  "wrong": [
+   [
+    "My boss is in a meeting for two hours, and she still hasn't come out.",
+    "is tidak dipakai dengan for untuk lamanya keadaan sampai sekarang; harus has been."
+   ],
+   [
+    "My boss was in a meeting for two hours, and she still hasn't come out.",
+    "was berarti rapatnya sudah selesai, padahal dia masih belum keluar (still hasn't come out)."
+   ],
+   [
+    "My boss have been in a meeting for two hours, and she still hasn't come out.",
+    "Subjek my boss tunggal, jadi memakai has, bukan have."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb7",
+  "promptId": "Kamu berkeringat. Apakah kamu habis main sepak bola?",
+  "prompt": "You're sweating. ___ (you / play) football?",
+  "hint": "bekas terlihat: berkeringat",
+  "ans": "You're sweating. Have you been playing football?",
+  "why": "Berkeringat adalah bekas kegiatan yang baru berlangsung → Have you been + -ing.",
+  "wrong": [
+   [
+    "You're sweating. Are you been playing football?",
+    "Are tidak dipakai bersama been; pertanyaannya memakai Have you been."
+   ],
+   [
+    "You're sweating. Have you playing football?",
+    "Setelah have harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "You're sweating. Did you been playing football?",
+    "Did tidak dipakai bersama been; pertanyaannya memakai Have you been."
+   ]
+  ],
+  "alt": [
+   "You're sweating. Were you playing football?",
+   "You're sweating. Did you play football?"
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Aku sudah membaca buku ini selama dua minggu, dan aku baru sampai halaman lima puluh.",
+  "prompt": "I ___ (read) this book for two weeks, and I'm only on page fifty.",
+  "hint": "selama dua minggu, belum selesai",
+  "ans": "I have been reading this book for two weeks, and I'm only on page fifty.",
+  "why": "For two weeks dan belum selesai membaca menunjukkan kegiatan yang masih berlangsung → have been + -ing.",
+  "wrong": [
+   [
+    "I am reading this book for two weeks, and I'm only on page fifty.",
+    "Present continuous (am reading) tidak dipakai dengan for untuk lamanya kegiatan sampai sekarang."
+   ],
+   [
+    "I have reading this book for two weeks, and I'm only on page fifty.",
+    "Setelah have harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "I has been reading this book for two weeks, and I'm only on page fifty.",
+    "Subjek I memakai have, bukan has."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb7",
+  "promptId": "Sudah berapa lama Dina belajar menyetir?",
+  "prompt": "How long ___ (Dina / learn) to drive?",
+  "hint": "berapa lama sampai sekarang",
+  "ans": "How long has Dina been learning to drive?",
+  "why": "How long menanyakan lamanya kegiatan yang masih berlangsung → has … been + -ing.",
+  "wrong": [
+   [
+    "How long has Dina learning to drive?",
+    "Setelah has harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "How long has Dina been learn to drive?",
+    "Setelah been harus bentuk -ing (learning), bukan bentuk dasar."
+   ],
+   [
+    "How long have Dina been learning to drive?",
+    "Subjek Dina (tunggal) memakai has, bukan have."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb7",
+  "promptId": "Baterai HP-ku hampir habis karena aku menonton video sejak jam delapan.",
+  "prompt": "My phone battery is low because I ___ (watch) videos since eight o'clock.",
+  "hint": "sejak jam delapan sampai sekarang",
+  "ans": "My phone battery is low because I have been watching videos since eight o'clock.",
+  "why": "Since eight o'clock dan baterai lemah sekarang menunjukkan kegiatan panjang sampai sekarang → have been + -ing.",
+  "wrong": [
+   [
+    "My phone battery is low because I have watching videos since eight o'clock.",
+    "Setelah have harus ada been sebelum bentuk -ing."
+   ],
+   [
+    "My phone battery is low because I have been watch videos since eight o'clock.",
+    "Setelah been harus bentuk -ing (watching), bukan bentuk dasar."
+   ],
+   [
+    "My phone battery is low because I am watching videos since eight o'clock.",
+    "Present continuous (am watching) tidak dipakai dengan since untuk kegiatan dari dulu sampai sekarang."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Because I have been watching videos since eight o'clock, my phone battery is low."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Mereka sudah membangun mal itu sejak tahun lalu, dan sampai sekarang belum selesai.",
+  "prompt": "They ___ (build) that mall since last year, and it still isn't finished.",
+  "hint": "sejak tahun lalu, belum selesai",
+  "ans": "They have been building that mall since last year, and it still isn't finished.",
+  "why": "Since last year dan \"belum selesai\" menunjukkan kegiatan yang masih berlangsung → have been + -ing.",
+  "wrong": [
+   [
+    "They are building that mall since last year, and it still isn't finished.",
+    "Present continuous tidak dipakai dengan since untuk kegiatan dari dulu sampai sekarang."
+   ],
+   [
+    "They have been build that mall since last year, and it still isn't finished.",
+    "Setelah been harus bentuk -ing (building), bukan bentuk dasar."
+   ],
+   [
+    "They were building that mall since last year, and it still isn't finished.",
+    "Past continuous tidak dipakai dengan since untuk kegiatan yang masih berlangsung sekarang."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "whb7",
+  "promptId": "Orang tuaku sudah makan malam saat aku sampai di rumah.",
+  "prompt": "My parents ___ (already / eat) dinner by the time I got home.",
+  "hint": "by the time + lampau",
+  "ans": "My parents had already eaten dinner by the time I got home.",
+  "why": "By the time + kejadian lampau menunjukkan makan malam terjadi lebih dulu → had already + V3.",
+  "wrong": [
+   [
+    "My parents have already eaten dinner by the time I got home.",
+    "have + V3 mengacu ke sekarang, padahal titik acuannya lampau (I got home)."
+   ],
+   [
+    "My parents had already ate dinner by the time I got home.",
+    "Setelah had harus V3 (eaten), bukan V2 (ate)."
+   ],
+   [
+    "My parents had already eat dinner by the time I got home.",
+    "Setelah had harus V3 (eaten), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [
+   "My parents already ate dinner by the time I got home."
+  ],
+  "orders": [
+   "By the time I got home, my parents had already eaten dinner."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Saat aku berumur dua puluh tahun, aku sudah mengunjungi sepuluh negara.",
+  "prompt": "By the time I was twenty, I ___ (visit) ten countries.",
+  "hint": "by the time + lampau",
+  "ans": "By the time I was twenty, I had visited ten countries.",
+  "why": "By the time + titik lampau (I was twenty) → had + V3.",
+  "wrong": [
+   [
+    "By the time I was twenty, I have visited ten countries.",
+    "have + V3 mengacu ke sekarang, padahal titik acuannya lampau (I was twenty)."
+   ],
+   [
+    "By the time I was twenty, I had visit ten countries.",
+    "Setelah had harus V3 (visited), bukan bentuk dasar."
+   ],
+   [
+    "By the time I was twenty, I was visited ten countries.",
+    "was + V3 adalah bentuk pasif (dikunjungi); untuk \"sudah mengunjungi\" yang benar had visited."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "I had visited ten countries by the time I was twenty."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Saat kami tiba di bandara, kami baru tahu bahwa kami lupa membawa paspor.",
+  "prompt": "When we got to the airport, we discovered that we ___ (forget) our passports.",
+  "hint": "terjadi sebelum kami tahu",
+  "ans": "When we got to the airport, we discovered that we had forgotten our passports.",
+  "why": "Lupa membawa paspor terjadi sebelum kami tahu (lampau) → had + V3.",
+  "wrong": [
+   [
+    "When we got to the airport, we discovered that we had forget our passports.",
+    "Setelah had harus V3 (forgotten), bukan bentuk dasar."
+   ],
+   [
+    "When we got to the airport, we discovered that we were forgotten our passports.",
+    "were + V3 adalah bentuk pasif dan tidak bisa diikuti objek (our passports); yang benar had forgotten."
+   ],
+   [
+    "When we got to the airport, we discovered that we has forgotten our passports.",
+    "Subjek we tidak memakai has, dan titik acuannya lampau (discovered) sehingga harus had."
+   ]
+  ],
+  "alt": [
+   "When we got to the airport, we discovered that we forgot our passports."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Andi gugup karena dia belum pernah berbicara di depan umum sebelumnya.",
+  "prompt": "Andi was nervous because he ___ (never / speak) in public before.",
+  "hint": "belum pernah sampai titik lampau",
+  "ans": "Andi was nervous because he had never spoken in public before.",
+  "why": "Pengalaman diukur sampai titik lampau (was nervous) → had never + V3.",
+  "wrong": [
+   [
+    "Andi was nervous because he has never spoken in public before.",
+    "has + V3 mengacu ke sekarang, padahal titik acuannya lampau (was nervous)."
+   ],
+   [
+    "Andi was nervous because he had never spoke in public before.",
+    "Setelah had harus V3 (spoken), bukan V2 (spoke)."
+   ],
+   [
+    "Andi was nervous because he was never spoken in public before.",
+    "was + V3 adalah bentuk pasif (dibicarakan); untuk \"belum pernah berbicara\" yang benar had never spoken."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Because he had never spoken in public before, Andi was nervous."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Waktu aku bertemu kakek istriku tahun 2015, dia (lk) sudah pensiun selama sepuluh tahun.",
+  "prompt": "When I met my wife's grandfather in 2015, he ___ (be) retired for ten years.",
+  "hint": "selama … sampai titik lampau",
+  "ans": "When I met my wife's grandfather in 2015, he had been retired for ten years.",
+  "why": "Keadaan pensiun berlangsung selama sepuluh tahun sampai titik lampau (2015) → had been.",
+  "wrong": [
+   [
+    "When I met my wife's grandfather in 2015, he has been retired for ten years.",
+    "has been mengacu ke sekarang, padahal titik acuannya lampau (in 2015)."
+   ],
+   [
+    "When I met my wife's grandfather in 2015, he was been retired for ten years.",
+    "was tidak dipakai bersama been; yang benar had been."
+   ],
+   [
+    "When I met my wife's grandfather in 2015, he had be retired for ten years.",
+    "Setelah had harus V3 (been), bukan bentuk dasar be."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In 2015, when I met my wife's grandfather, he had been retired for ten years."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Saat keretanya akhirnya berangkat, kami sudah berada di stasiun selama tiga jam.",
+  "prompt": "By the time the train finally left, we ___ (be) at the station for three hours.",
+  "hint": "by the time + lampau",
+  "ans": "By the time the train finally left, we had been at the station for three hours.",
+  "why": "By the time + kejadian lampau dan for three hours → had been.",
+  "wrong": [
+   [
+    "By the time the train finally left, we have been at the station for three hours.",
+    "have been mengacu ke sekarang, padahal titik acuannya lampau (the train left)."
+   ],
+   [
+    "By the time the train finally left, we were been at the station for three hours.",
+    "were tidak dipakai bersama been; yang benar had been."
+   ],
+   [
+    "By the time the train finally left, we had be at the station for three hours.",
+    "Setelah had harus V3 (been), bukan bentuk dasar be."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We had been at the station for three hours by the time the train finally left."
+  ]
+ },
+ {
+  "set": "whb7",
+  "promptId": "Ayahku sangat lelah waktu tiba di Surabaya karena dia (lk) sudah menyetir sejak jam enam.",
+  "prompt": "My dad was exhausted when he arrived in Surabaya because he ___ (drive) since six o'clock.",
+  "hint": "sejak … sampai titik lampau",
+  "ans": "My dad was exhausted when he arrived in Surabaya because he had been driving since six o'clock.",
+  "why": "Kegiatan menyetir berlangsung sejak jam enam sampai titik lampau (arrived) → had been + -ing.",
+  "wrong": [
+   [
+    "My dad was exhausted when he arrived in Surabaya because he has been driving since six o'clock.",
+    "has been + -ing mengacu ke sekarang, padahal titik acuannya lampau (arrived)."
+   ],
+   [
+    "My dad was exhausted when he arrived in Surabaya because he was driving since six o'clock.",
+    "Past continuous tidak dipakai dengan since untuk kegiatan sampai titik lampau; harus had been driving."
+   ],
+   [
+    "My dad was exhausted when he arrived in Surabaya because he had been drive since six o'clock.",
+    "Setelah been harus bentuk -ing (driving), bukan bentuk dasar."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When he arrived in Surabaya, my dad was exhausted because he had been driving since six o'clock."
+  ]
+ }
+]

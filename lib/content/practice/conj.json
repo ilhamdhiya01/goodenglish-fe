@@ -1,0 +1,3296 @@
+[
+ {
+  "set": "conj1",
+  "promptId": "Kami tinggal di rumah karena hujan turun deras.",
+  "prompt": "We stayed at home ___ (because / because of) it was raining heavily.",
+  "hint": "sebab + kalimat lengkap",
+  "ans": "We stayed at home because it was raining heavily.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (it was raining), jadi pakai because.",
+  "wrong": [
+   [
+    "We stayed at home because of it was raining heavily.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "We stayed at home due to it was raining heavily.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "We stayed at home so it was raining heavily.",
+    "Artinya jadi 'kami tinggal di rumah, jadi hujan turun deras' — tidak masuk akal; hujan adalah sebabnya, jadi pakai because."
+   ]
+  ],
+  "alt": [
+   "We stayed at home since it was raining heavily.",
+   "We stayed at home as it was raining heavily."
+  ],
+  "orders": [
+   "Because it was raining heavily, we stayed at home."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Penerbangan kami ditunda karena cuaca buruk.",
+  "prompt": "Our flight was delayed ___ (because / because of) the bad weather.",
+  "hint": "sebab + kata benda",
+  "ans": "Our flight was delayed because of the bad weather.",
+  "why": "The bad weather adalah kata benda, jadi pakai because of.",
+  "wrong": [
+   [
+    "Our flight was delayed because the bad weather.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Our flight was delayed so the bad weather.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "Our flight was delayed due the bad weather.",
+    "\"Due\" saja tidak bisa; harus due to (atau because of)."
+   ]
+  ],
+  "alt": [
+   "Our flight was delayed due to the bad weather."
+  ],
+  "orders": [
+   "Because of the bad weather, our flight was delayed."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Saya tidak bisa tidur semalam karena suara bising dari jalan.",
+  "prompt": "I could not sleep last night ___ (because / because of) the noise from the street.",
+  "hint": "sebab + kata benda",
+  "ans": "I could not sleep last night because of the noise from the street.",
+  "why": "The noise from the street adalah kata benda, jadi pakai because of.",
+  "wrong": [
+   [
+    "I could not sleep last night because the noise from the street.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "I could not sleep last night so the noise from the street.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "I could not sleep last night due of the noise from the street.",
+    "\"Due of\" tidak ada; yang benar due to atau because of."
+   ]
+  ],
+  "alt": [
+   "I could not sleep last night due to the noise from the street."
+  ],
+  "orders": [
+   "Because of the noise from the street, I could not sleep last night.",
+   "Last night I could not sleep because of the noise from the street."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Tokonya tutup, jadi kami pulang.",
+  "prompt": "The shop was closed, ___ (so / because) we went home.",
+  "hint": "akibat dari kalimat pertama",
+  "ans": "The shop was closed, so we went home.",
+  "why": "Kami pulang adalah akibat dari toko yang tutup, jadi pakai so.",
+  "wrong": [
+   [
+    "The shop was closed, because we went home.",
+    "Artinya jadi 'toko tutup karena kami pulang' — tidak masuk akal; tutupnya toko adalah sebab, jadi pakai so."
+   ],
+   [
+    "The shop was closed, because of we went home.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "The shop was closed, due to we went home.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj1",
+  "promptId": "Saya sangat lapar, jadi saya memesan dua piring nasi goreng.",
+  "prompt": "I was very hungry, ___ (so / because of) I ordered two plates of fried rice.",
+  "hint": "akibat dari kalimat pertama",
+  "ans": "I was very hungry, so I ordered two plates of fried rice.",
+  "why": "Memesan dua piring adalah akibat dari rasa lapar, jadi pakai so.",
+  "wrong": [
+   [
+    "I was very hungry, because of I ordered two plates of fried rice.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I was very hungry, due to I ordered two plates of fried rice.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I was very hungry, as a result of I ordered two plates of fried rice.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat. Untuk \"jadi\" + kalimat, pakai so."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj1",
+  "promptId": "Kunci saya hilang, jadi saya tidak bisa membuka pintu.",
+  "prompt": "I lost my key, ___ (so / because of) I could not open the door.",
+  "hint": "akibat dari kalimat pertama",
+  "ans": "I lost my key, so I could not open the door.",
+  "why": "Tidak bisa membuka pintu adalah akibat dari kunci yang hilang, jadi pakai so.",
+  "wrong": [
+   [
+    "I lost my key, because of I could not open the door.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I lost my key, due to I could not open the door.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I lost my key, as a result of I could not open the door.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat. Untuk \"jadi\" + kalimat, pakai so."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj1",
+  "promptId": "Saya senang karena lulus ujian.",
+  "prompt": "I am happy ___ (because / because of) I passed the exam.",
+  "hint": "sebab + kalimat lengkap",
+  "ans": "I am happy because I passed the exam.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (I passed the exam), jadi pakai because.",
+  "wrong": [
+   [
+    "I am happy because of I passed the exam.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I am happy due to I passed the exam.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I am happy thanks to I passed the exam.",
+    "Thanks to (berkat) adalah preposisi; harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ]
+  ],
+  "alt": [
+   "I am happy since I passed the exam.",
+   "I am happy as I passed the exam."
+  ],
+  "orders": [
+   "Because I passed the exam, I am happy."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Toko itu tutup lebih awal hari ini karena hari libur.",
+  "prompt": "The shop is closing early today ___ (because / because of) the holiday.",
+  "hint": "sebab + kata benda",
+  "ans": "The shop is closing early today because of the holiday.",
+  "why": "The holiday adalah kata benda, jadi pakai because of.",
+  "wrong": [
+   [
+    "The shop is closing early today because the holiday.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "The shop is closing early today so the holiday.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "The shop is closing early today due the holiday.",
+    "\"Due\" saja tidak bisa; harus due to (atau because of)."
+   ]
+  ],
+  "alt": [
+   "The shop is closing early today due to the holiday."
+  ],
+  "orders": [
+   "Because of the holiday, the shop is closing early today.",
+   "Today the shop is closing early because of the holiday."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Apakah jalannya ditutup karena ada kecelakaan?",
+  "prompt": "Is the road closed ___ (because / because of) an accident?",
+  "hint": "sebab + kata benda",
+  "ans": "Is the road closed because of an accident?",
+  "why": "An accident adalah kata benda, jadi pakai because of.",
+  "wrong": [
+   [
+    "Is the road closed because an accident?",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Is the road closed so an accident?",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "Is the road closed due of an accident?",
+    "\"Due of\" tidak ada; yang benar due to atau because of."
+   ]
+  ],
+  "alt": [
+   "Is the road closed due to an accident?"
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Keterlambatan itu disebabkan oleh masalah teknis.",
+  "prompt": "The delay was ___ (due to / because) a technical problem.",
+  "hint": "setelah was + kata benda",
+  "ans": "The delay was due to a technical problem.",
+  "why": "Setelah was dan sebelum kata benda (a technical problem), pakai due to.",
+  "wrong": [
+   [
+    "The delay was because a technical problem.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "The delay was due of a technical problem.",
+    "\"Due of\" tidak ada; yang benar due to atau because of."
+   ],
+   [
+    "The delay was so a technical problem.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ]
+  ],
+  "alt": [
+   "The delay was because of a technical problem.",
+   "The delay was caused by a technical problem."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Kesuksesannya (lk) berkat kerja keras.",
+  "prompt": "His success is ___ (due to / because) hard work.",
+  "hint": "setelah is + kata benda",
+  "ans": "His success is due to hard work.",
+  "why": "Setelah is dan sebelum kata benda (hard work), pakai due to.",
+  "wrong": [
+   [
+    "His success is because hard work.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "His success is due of hard work.",
+    "\"Due of\" tidak ada; yang benar due to atau because of."
+   ],
+   [
+    "His success is so hard work.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ]
+  ],
+  "alt": [
+   "His success is because of hard work."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Saya memakai jaket karena cuacanya dingin.",
+  "prompt": "I am wearing a jacket ___ (because / because of) it is cold.",
+  "hint": "sebab + kalimat lengkap",
+  "ans": "I am wearing a jacket because it is cold.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (it is cold), jadi pakai because.",
+  "wrong": [
+   [
+    "I am wearing a jacket because of it is cold.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I am wearing a jacket due to it is cold.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I am wearing a jacket as a result of it is cold.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ]
+  ],
+  "alt": [
+   "I am wearing a jacket since it is cold.",
+   "I am wearing a jacket as it is cold."
+  ],
+  "orders": [
+   "Because it is cold, I am wearing a jacket."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Apakah kamu pulang dari pesta lebih awal karena capek?",
+  "prompt": "Did you leave the party early ___ (because / because of) you were tired?",
+  "hint": "sebab + kalimat lengkap",
+  "ans": "Did you leave the party early because you were tired?",
+  "why": "Setelah bagian kosong ada kalimat lengkap (you were tired), jadi pakai because.",
+  "wrong": [
+   [
+    "Did you leave the party early because of you were tired?",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Did you leave the party early due to you were tired?",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Did you leave the party early as a result of you were tired?",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ]
+  ],
+  "alt": [
+   "Did you leave the party early since you were tired?"
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Kami tidak membeli rumah itu karena harganya tinggi.",
+  "prompt": "We did not buy the house ___ (because / because of) the high price.",
+  "hint": "sebab + kata benda",
+  "ans": "We did not buy the house because of the high price.",
+  "why": "The high price adalah kata benda, jadi pakai because of.",
+  "wrong": [
+   [
+    "We did not buy the house because the high price.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "We did not buy the house so the high price.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "We did not buy the house due the high price.",
+    "\"Due\" saja tidak bisa; harus due to (atau because of)."
+   ]
+  ],
+  "alt": [
+   "We did not buy the house due to the high price."
+  ],
+  "orders": [
+   "Because of the high price, we did not buy the house."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Cuacanya sangat panas, jadi kami pergi berenang.",
+  "prompt": "It was very hot, ___ (so / because of) we went swimming.",
+  "hint": "akibat dari kalimat pertama",
+  "ans": "It was very hot, so we went swimming.",
+  "why": "Pergi berenang adalah akibat dari cuaca yang panas, jadi pakai so.",
+  "wrong": [
+   [
+    "It was very hot, because of we went swimming.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "It was very hot, due to we went swimming.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "It was very hot, as a result of we went swimming.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat. Untuk \"jadi\" + kalimat, pakai so."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj1",
+  "promptId": "Baterai ponsel saya habis, jadi saya tidak bisa meneleponmu.",
+  "prompt": "My phone battery was dead, ___ (so / because of) I could not call you.",
+  "hint": "akibat dari kalimat pertama",
+  "ans": "My phone battery was dead, so I could not call you.",
+  "why": "Tidak bisa menelepon adalah akibat dari baterai yang habis, jadi pakai so.",
+  "wrong": [
+   [
+    "My phone battery was dead, because of I could not call you.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "My phone battery was dead, due to I could not call you.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "My phone battery was dead, as a result of I could not call you.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat. Untuk \"jadi\" + kalimat, pakai so."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj1",
+  "promptId": "Dia (lk) kehilangan pekerjaannya karena terlambat setiap hari.",
+  "prompt": "He lost his job ___ (because / because of) being late every day.",
+  "hint": "sebab + bentuk -ing",
+  "ans": "He lost his job because of being late every day.",
+  "why": "Being late adalah bentuk -ing (kata benda), jadi pakai because of.",
+  "wrong": [
+   [
+    "He lost his job because being late every day.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan bentuk -ing."
+   ],
+   [
+    "He lost his job so being late every day.",
+    "So harus diikuti kalimat akibat, bukan bentuk -ing."
+   ],
+   [
+    "He lost his job due of being late every day.",
+    "\"Due of\" tidak ada; yang benar due to atau because of."
+   ]
+  ],
+  "alt": [
+   "He lost his job due to being late every day."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Saya naik taksi karena sedang terburu-buru.",
+  "prompt": "I took a taxi ___ (because / because of) I was in a hurry.",
+  "hint": "sebab + kalimat lengkap",
+  "ans": "I took a taxi because I was in a hurry.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (I was in a hurry), jadi pakai because.",
+  "wrong": [
+   [
+    "I took a taxi because of I was in a hurry.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I took a taxi due to I was in a hurry.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I took a taxi as a result of I was in a hurry.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ]
+  ],
+  "alt": [
+   "I took a taxi since I was in a hurry.",
+   "I took a taxi as I was in a hurry."
+  ],
+  "orders": [
+   "Because I was in a hurry, I took a taxi."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Kami bosan karena tidak ada yang bisa dilakukan.",
+  "prompt": "We were bored ___ (because / because of) there was nothing to do.",
+  "hint": "sebab + kalimat lengkap",
+  "ans": "We were bored because there was nothing to do.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (there was nothing to do), jadi pakai because.",
+  "wrong": [
+   [
+    "We were bored because of there was nothing to do.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "We were bored due to there was nothing to do.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "We were bored as a result of there was nothing to do.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ]
+  ],
+  "alt": [
+   "We were bored since there was nothing to do.",
+   "We were bored as there was nothing to do."
+  ],
+  "orders": [
+   "Because there was nothing to do, we were bored."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Sekolah ditutup karena banjir.",
+  "prompt": "The school was closed ___ (because / because of) the flood.",
+  "hint": "sebab + kata benda",
+  "ans": "The school was closed because of the flood.",
+  "why": "The flood adalah kata benda, jadi pakai because of.",
+  "wrong": [
+   [
+    "The school was closed because the flood.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "The school was closed so the flood.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "The school was closed due of the flood.",
+    "\"Due of\" tidak ada; yang benar due to atau because of."
+   ]
+  ],
+  "alt": [
+   "The school was closed due to the flood."
+  ],
+  "orders": [
+   "Because of the flood, the school was closed."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Saya tidak bisa melihat papan tulis karena ada pria tinggi di depan saya.",
+  "prompt": "I could not see the board ___ (because / because of) the tall man in front of me.",
+  "hint": "sebab + kata benda",
+  "ans": "I could not see the board because of the tall man in front of me.",
+  "why": "The tall man in front of me adalah kata benda, jadi pakai because of.",
+  "wrong": [
+   [
+    "I could not see the board because the tall man in front of me.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "I could not see the board so the tall man in front of me.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "I could not see the board due the tall man in front of me.",
+    "\"Due\" saja tidak bisa; harus due to (atau because of)."
+   ]
+  ],
+  "alt": [
+   "I could not see the board due to the tall man in front of me."
+  ],
+  "orders": [
+   "Because of the tall man in front of me, I could not see the board."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Tidak ada makanan di rumah, jadi kami memesan pizza.",
+  "prompt": "We had no food at home, ___ (so / because of) we ordered pizza.",
+  "hint": "akibat dari kalimat pertama",
+  "ans": "We had no food at home, so we ordered pizza.",
+  "why": "Memesan pizza adalah akibat dari tidak adanya makanan, jadi pakai so.",
+  "wrong": [
+   [
+    "We had no food at home, because of we ordered pizza.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "We had no food at home, due to we ordered pizza.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "We had no food at home, as a result of we ordered pizza.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat. Untuk \"jadi\" + kalimat, pakai so."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj1",
+  "promptId": "Saya lupa membawa payung, jadi saya basah kehujanan.",
+  "prompt": "I forgot my umbrella, ___ (so / because of) I got wet.",
+  "hint": "akibat dari kalimat pertama",
+  "ans": "I forgot my umbrella, so I got wet.",
+  "why": "Basah kehujanan adalah akibat dari lupa membawa payung, jadi pakai so.",
+  "wrong": [
+   [
+    "I forgot my umbrella, because of I got wet.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I forgot my umbrella, due to I got wet.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I forgot my umbrella, as a result of I got wet.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat. Untuk \"jadi\" + kalimat, pakai so."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj1",
+  "promptId": "Harga beras naik karena musim kemarau yang panjang.",
+  "prompt": "The price of rice went up ___ (because / because of) the long dry season.",
+  "hint": "sebab + kata benda",
+  "ans": "The price of rice went up because of the long dry season.",
+  "why": "The long dry season adalah kata benda, jadi pakai because of.",
+  "wrong": [
+   [
+    "The price of rice went up because the long dry season.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "The price of rice went up so the long dry season.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "The price of rice went up due of the long dry season.",
+    "\"Due of\" tidak ada; yang benar due to atau because of."
+   ]
+  ],
+  "alt": [
+   "The price of rice went up due to the long dry season."
+  ],
+  "orders": [
+   "Because of the long dry season, the price of rice went up."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Saya tidak masuk sekolah kemarin karena demam.",
+  "prompt": "I did not go to school yesterday ___ (because / because of) I had a fever.",
+  "hint": "sebab + kalimat lengkap",
+  "ans": "I did not go to school yesterday because I had a fever.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (I had a fever), jadi pakai because.",
+  "wrong": [
+   [
+    "I did not go to school yesterday because of I had a fever.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I did not go to school yesterday due to I had a fever.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I did not go to school yesterday so I had a fever.",
+    "Artinya jadi 'saya tidak masuk sekolah, jadi saya demam' — terbalik; demam adalah sebabnya, jadi pakai because."
+   ]
+  ],
+  "alt": [
+   "I did not go to school yesterday since I had a fever.",
+   "I did not go to school yesterday as I had a fever."
+  ],
+  "orders": [
+   "Yesterday I did not go to school because I had a fever.",
+   "Because I had a fever, I did not go to school yesterday."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Saya bangun kesiangan, jadi saya tidak sempat sarapan.",
+  "prompt": "I woke up late, ___ (so / because of) I did not have time for breakfast.",
+  "hint": "akibat dari kalimat pertama",
+  "ans": "I woke up late, so I did not have time for breakfast.",
+  "why": "Tidak sempat sarapan adalah akibat dari bangun kesiangan, jadi pakai so.",
+  "wrong": [
+   [
+    "I woke up late, because of I did not have time for breakfast.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I woke up late, due to I did not have time for breakfast.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I woke up late, as a result of I did not have time for breakfast.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat. Untuk \"jadi\" + kalimat, pakai so."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj1",
+  "promptId": "Kami harus jalan kaki karena tidak ada taksi di stasiun.",
+  "prompt": "We had to walk ___ (because / because of) there were no taxis at the station.",
+  "hint": "sebab + kalimat lengkap",
+  "ans": "We had to walk because there were no taxis at the station.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (there were no taxis), jadi pakai because.",
+  "wrong": [
+   [
+    "We had to walk because of there were no taxis at the station.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "We had to walk due to there were no taxis at the station.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "We had to walk as a result of there were no taxis at the station.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ]
+  ],
+  "alt": [
+   "We had to walk since there were no taxis at the station.",
+   "We had to walk as there were no taxis at the station."
+  ],
+  "orders": [
+   "Because there were no taxis at the station, we had to walk."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Karena macet, kami ketinggalan awal filmnya.",
+  "prompt": "___ (because / because of) the traffic jam, we missed the beginning of the film.",
+  "hint": "sebab + kata benda",
+  "ans": "Because of the traffic jam, we missed the beginning of the film.",
+  "why": "The traffic jam adalah kata benda, jadi pakai because of.",
+  "wrong": [
+   [
+    "Because the traffic jam, we missed the beginning of the film.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "So the traffic jam, we missed the beginning of the film.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "Due the traffic jam, we missed the beginning of the film.",
+    "\"Due\" saja tidak bisa; harus due to (atau because of)."
+   ]
+  ],
+  "alt": [
+   "Due to the traffic jam, we missed the beginning of the film."
+  ],
+  "orders": [
+   "We missed the beginning of the film because of the traffic jam."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Karena sakit kepala, saya tidur lebih awal.",
+  "prompt": "___ (because / because of) I had a headache, I went to bed early.",
+  "hint": "sebab + kalimat lengkap",
+  "ans": "Because I had a headache, I went to bed early.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (I had a headache), jadi pakai because.",
+  "wrong": [
+   [
+    "Because of I had a headache, I went to bed early.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Due to I had a headache, I went to bed early.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "As a result of I had a headache, I went to bed early.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ]
+  ],
+  "alt": [
+   "Since I had a headache, I went to bed early.",
+   "As I had a headache, I went to bed early."
+  ],
+  "orders": [
+   "I went to bed early because I had a headache."
+  ]
+ },
+ {
+  "set": "conj1",
+  "promptId": "Tiketnya sudah habis terjual, jadi kami menonton final di TV.",
+  "prompt": "The tickets were sold out, ___ (so / because of) we watched the final on TV.",
+  "hint": "akibat dari kalimat pertama",
+  "ans": "The tickets were sold out, so we watched the final on TV.",
+  "why": "Menonton di TV adalah akibat dari tiket yang habis, jadi pakai so.",
+  "wrong": [
+   [
+    "The tickets were sold out, because of we watched the final on TV.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "The tickets were sold out, due to we watched the final on TV.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "The tickets were sold out, as a result of we watched the final on TV.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat. Untuk \"jadi\" + kalimat, pakai so."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj2",
+  "promptId": "Meskipun hujan, kami tetap pergi ke pantai.",
+  "prompt": "___ (Although / Despite) it was raining, we went to the beach.",
+  "hint": "kontras + kalimat lengkap",
+  "ans": "Although it was raining, we went to the beach.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (it was raining), jadi pakai although.",
+  "wrong": [
+   [
+    "Despite it was raining, we went to the beach.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "In spite of it was raining, we went to the beach.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Despite of it was raining, we went to the beach.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "Even though it was raining, we went to the beach.",
+   "Though it was raining, we went to the beach.",
+   "Despite the fact that it was raining, we went to the beach.",
+   "In spite of the fact that it was raining, we went to the beach."
+  ],
+  "orders": [
+   "We went to the beach although it was raining."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Anak-anak bermain di luar meskipun cuacanya dingin.",
+  "prompt": "The children played outside ___ (despite / although) the cold weather.",
+  "hint": "kontras + kata benda",
+  "ans": "The children played outside despite the cold weather.",
+  "why": "The cold weather adalah kata benda, jadi pakai despite.",
+  "wrong": [
+   [
+    "The children played outside although the cold weather.",
+    "Although harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "The children played outside even though the cold weather.",
+    "Even though harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "The children played outside despite of the cold weather.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "The children played outside in spite of the cold weather."
+  ],
+  "orders": [
+   "Despite the cold weather, the children played outside."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Dia (pr) tetap berangkat kerja meskipun sedang sakit.",
+  "prompt": "She went to work ___ (although / despite) she felt ill.",
+  "hint": "kontras + kalimat lengkap",
+  "ans": "She went to work although she felt ill.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (she felt ill), jadi pakai although.",
+  "wrong": [
+   [
+    "She went to work despite she felt ill.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "She went to work in spite of she felt ill.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "She went to work despite of she felt ill.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "She went to work even though she felt ill.",
+   "She went to work though she felt ill.",
+   "She went to work despite the fact that she felt ill.",
+   "She went to work in spite of the fact that she felt ill."
+  ],
+  "orders": [
+   "Although she felt ill, she went to work."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Dia (lk) tidak lulus ujian walaupun sudah belajar dengan giat.",
+  "prompt": "He failed the test ___ (even though / in spite of) he studied hard.",
+  "hint": "kontras + kalimat lengkap",
+  "ans": "He failed the test even though he studied hard.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (he studied hard), jadi pakai even though.",
+  "wrong": [
+   [
+    "He failed the test in spite of he studied hard.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "He failed the test despite he studied hard.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "He failed the test despite of he studied hard.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "He failed the test although he studied hard.",
+   "He failed the test though he studied hard.",
+   "He failed the test despite the fact that he studied hard.",
+   "He failed the test in spite of the fact that he studied hard."
+  ],
+  "orders": [
+   "Even though he studied hard, he failed the test."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Meskipun macet, kami tiba tepat waktu.",
+  "prompt": "___ (Despite / Although) the traffic, we arrived on time.",
+  "hint": "kontras + kata benda",
+  "ans": "Despite the traffic, we arrived on time.",
+  "why": "The traffic adalah kata benda, jadi pakai despite.",
+  "wrong": [
+   [
+    "Although the traffic, we arrived on time.",
+    "Although harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Even though the traffic, we arrived on time.",
+    "Even though harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Despite of the traffic, we arrived on time.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "In spite of the traffic, we arrived on time."
+  ],
+  "orders": [
+   "We arrived on time despite the traffic."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Saya menikmati filmnya meskipun akhir ceritanya jelek.",
+  "prompt": "I enjoyed the film ___ (in spite of / even though) the bad ending.",
+  "hint": "kontras + kata benda",
+  "ans": "I enjoyed the film in spite of the bad ending.",
+  "why": "The bad ending adalah kata benda, jadi pakai in spite of.",
+  "wrong": [
+   [
+    "I enjoyed the film even though the bad ending.",
+    "Even though harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "I enjoyed the film although the bad ending.",
+    "Although harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "I enjoyed the film in spite the bad ending.",
+    "\"In spite\" harus lengkap: in spite of."
+   ]
+  ],
+  "alt": [
+   "I enjoyed the film despite the bad ending."
+  ],
+  "orders": [
+   "In spite of the bad ending, I enjoyed the film."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Meskipun capek, dia (pr) menyelesaikan PR-nya.",
+  "prompt": "___ (Despite / be) tired, she finished her homework.",
+  "hint": "despite + bentuk -ing",
+  "ans": "Despite being tired, she finished her homework.",
+  "why": "Setelah despite, kata kerja memakai bentuk -ing: despite being tired.",
+  "wrong": [
+   [
+    "Despite she was tired, she finished her homework.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Despite tired, she finished her homework.",
+    "Despite tidak bisa langsung diikuti kata sifat; perlu being: despite being tired."
+   ],
+   [
+    "Despite of being tired, she finished her homework.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "In spite of being tired, she finished her homework.",
+   "Although she was tired, she finished her homework.",
+   "Even though she was tired, she finished her homework.",
+   "Though she was tired, she finished her homework.",
+   "Although tired, she finished her homework."
+  ],
+  "orders": [
+   "She finished her homework despite being tired."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Walaupun hotelnya mahal, kami senang menginap di sana.",
+  "prompt": "Although the hotel was expensive, ___ (but / however / so / —) we enjoyed our stay.",
+  "hint": "sudah ada although",
+  "ans": "Although the hotel was expensive, we enjoyed our stay.",
+  "why": "Kalimat sudah memakai although, jadi bagian kedua tidak perlu kata sambung lagi.",
+  "wrong": [
+   [
+    "Although the hotel was expensive, but we enjoyed our stay.",
+    "Although/even though tidak boleh dipasangkan dengan but; cukup satu kata sambung."
+   ],
+   [
+    "Although the hotel was expensive, however we enjoyed our stay.",
+    "Although/even though tidak boleh dipasangkan dengan however; cukup satu kata sambung."
+   ],
+   [
+    "Although the hotel was expensive, so we enjoyed our stay.",
+    "Although/even though tidak bisa dipasangkan dengan so, dan artinya pun tidak cocok."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We enjoyed our stay although the hotel was expensive."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Walaupun dia (lk) kaya, dia tinggal di rumah kecil.",
+  "prompt": "Even though he is rich, ___ (but / however / so / —) he lives in a small house.",
+  "hint": "sudah ada even though",
+  "ans": "Even though he is rich, he lives in a small house.",
+  "why": "Kalimat sudah memakai even though, jadi bagian kedua tidak perlu kata sambung lagi.",
+  "wrong": [
+   [
+    "Even though he is rich, but he lives in a small house.",
+    "Although/even though tidak boleh dipasangkan dengan but; cukup satu kata sambung."
+   ],
+   [
+    "Even though he is rich, however he lives in a small house.",
+    "Although/even though tidak boleh dipasangkan dengan however; cukup satu kata sambung."
+   ],
+   [
+    "Even though he is rich, so he lives in a small house.",
+    "Although/even though tidak bisa dipasangkan dengan so, dan artinya pun tidak cocok."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "He lives in a small house even though he is rich."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Saudara perempuan saya sangat pintar, tetapi dia malas.",
+  "prompt": "My sister is very smart, ___ (but / despite) she is lazy.",
+  "hint": "tetapi + kalimat",
+  "ans": "My sister is very smart, but she is lazy.",
+  "why": "Dua kalimat yang berlawanan disambung dengan but.",
+  "wrong": [
+   [
+    "My sister is very smart, despite she is lazy.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "My sister is very smart, in spite of she is lazy.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "My sister is very smart, despite of she is lazy.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "My sister is very smart, yet she is lazy.",
+   "My sister is very smart, although she is lazy.",
+   "My sister is very smart, though she is lazy."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Saya meneleponnya (lk) tiga kali, tetapi dia tidak mengangkat.",
+  "prompt": "I called him three times, ___ (but / in spite of) he did not answer.",
+  "hint": "tetapi + kalimat",
+  "ans": "I called him three times, but he did not answer.",
+  "why": "Dua kalimat yang berlawanan disambung dengan but.",
+  "wrong": [
+   [
+    "I called him three times, in spite of he did not answer.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I called him three times, despite he did not answer.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I called him three times, despite of he did not answer.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "I called him three times, yet he did not answer.",
+   "I called him three times, although he did not answer.",
+   "I called him three times, though he did not answer."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Makanan di restoran itu enak. Namun, harganya cukup mahal.",
+  "prompt": "The food at that restaurant is delicious. ___ (However / Despite), it is quite expensive.",
+  "hint": "namun, di awal kalimat",
+  "ans": "The food at that restaurant is delicious. However, it is quite expensive.",
+  "why": "Di awal kalimat baru dan diikuti koma, \"namun\" = however.",
+  "wrong": [
+   [
+    "The food at that restaurant is delicious. Despite, it is quite expensive.",
+    "Despite harus diikuti kata benda / -ing; tidak bisa berdiri sendiri seperti however."
+   ],
+   [
+    "The food at that restaurant is delicious. In spite of, it is quite expensive.",
+    "In spite of harus diikuti kata benda / -ing; tidak bisa berdiri sendiri seperti however."
+   ],
+   [
+    "The food at that restaurant is delicious. Even though, it is quite expensive.",
+    "Even though harus diikuti kalimat; tidak bisa berdiri sendiri seperti however."
+   ]
+  ],
+  "alt": [
+   "The food at that restaurant is delicious. Nevertheless, it is quite expensive.",
+   "The food at that restaurant is delicious. Even so, it is quite expensive."
+  ],
+  "orders": [
+   "The food at that restaurant is delicious. It is quite expensive, however."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Saya ingin membeli sepatu itu. Namun, uang saya tidak cukup.",
+  "prompt": "I wanted to buy the shoes. ___ (However / Despite), I did not have enough money.",
+  "hint": "namun, di awal kalimat",
+  "ans": "I wanted to buy the shoes. However, I did not have enough money.",
+  "why": "Di awal kalimat baru dan diikuti koma, \"namun\" = however.",
+  "wrong": [
+   [
+    "I wanted to buy the shoes. Despite, I did not have enough money.",
+    "Despite harus diikuti kata benda / -ing; tidak bisa berdiri sendiri seperti however."
+   ],
+   [
+    "I wanted to buy the shoes. In spite of, I did not have enough money.",
+    "In spite of harus diikuti kata benda / -ing; tidak bisa berdiri sendiri seperti however."
+   ],
+   [
+    "I wanted to buy the shoes. Even though, I did not have enough money.",
+    "Even though harus diikuti kalimat; tidak bisa berdiri sendiri seperti however."
+   ]
+  ],
+  "alt": [
+   "I wanted to buy the shoes. Nevertheless, I did not have enough money.",
+   "I wanted to buy the shoes. Even so, I did not have enough money."
+  ],
+  "orders": [
+   "I wanted to buy the shoes. I did not have enough money, however."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Meskipun gugup, dia (pr) memberikan pidato yang bagus.",
+  "prompt": "___ (Although / In spite of) she was nervous, she gave a great speech.",
+  "hint": "kontras + kalimat lengkap",
+  "ans": "Although she was nervous, she gave a great speech.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (she was nervous), jadi pakai although.",
+  "wrong": [
+   [
+    "In spite of she was nervous, she gave a great speech.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Despite she was nervous, she gave a great speech.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Despite of she was nervous, she gave a great speech.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "Even though she was nervous, she gave a great speech.",
+   "Though she was nervous, she gave a great speech.",
+   "Despite the fact that she was nervous, she gave a great speech.",
+   "In spite of the fact that she was nervous, she gave a great speech."
+  ],
+  "orders": [
+   "She gave a great speech although she was nervous."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Mereka tidak menang meskipun sudah berusaha keras.",
+  "prompt": "They did not win ___ (despite / even though) their hard work.",
+  "hint": "kontras + kata benda",
+  "ans": "They did not win despite their hard work.",
+  "why": "Their hard work adalah kata benda, jadi pakai despite.",
+  "wrong": [
+   [
+    "They did not win even though their hard work.",
+    "Even though harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "They did not win although their hard work.",
+    "Although harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "They did not win despite of their hard work.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "They did not win in spite of their hard work."
+  ],
+  "orders": [
+   "Despite their hard work, they did not win."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Apakah kamu masih mau keluar meskipun ada badai?",
+  "prompt": "Do you still want to go out ___ (in spite of / although) the storm?",
+  "hint": "kontras + kata benda",
+  "ans": "Do you still want to go out in spite of the storm?",
+  "why": "The storm adalah kata benda, jadi pakai in spite of.",
+  "wrong": [
+   [
+    "Do you still want to go out although the storm?",
+    "Although harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Do you still want to go out even though the storm?",
+    "Even though harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Do you still want to go out in spite the storm?",
+    "\"In spite\" harus lengkap: in spite of."
+   ]
+  ],
+  "alt": [
+   "Do you still want to go out despite the storm?"
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Walaupun tinggal dekat kantor, saya sering terlambat.",
+  "prompt": "___ (Even though / Despite) I live near the office, I am often late.",
+  "hint": "kontras + kalimat lengkap",
+  "ans": "Even though I live near the office, I am often late.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (I live near the office), jadi pakai even though.",
+  "wrong": [
+   [
+    "Despite I live near the office, I am often late.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "In spite of I live near the office, I am often late.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Despite of I live near the office, I am often late.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "Although I live near the office, I am often late.",
+   "Though I live near the office, I am often late.",
+   "Despite the fact that I live near the office, I am often late.",
+   "In spite of the fact that I live near the office, I am often late."
+  ],
+  "orders": [
+   "I am often late even though I live near the office."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Dia (lk) terus bekerja meskipun sakit kepala.",
+  "prompt": "He kept working ___ (despite / although) his headache.",
+  "hint": "kontras + kata benda",
+  "ans": "He kept working despite his headache.",
+  "why": "His headache adalah kata benda, jadi pakai despite.",
+  "wrong": [
+   [
+    "He kept working although his headache.",
+    "Although harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "He kept working even though his headache.",
+    "Even though harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "He kept working despite of his headache.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "He kept working in spite of his headache."
+  ],
+  "orders": [
+   "Despite his headache, he kept working."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Ujiannya sulit; namun, sebagian besar siswa lulus.",
+  "prompt": "The test was difficult; ___ (however / despite), most students passed.",
+  "hint": "namun, setelah titik koma",
+  "ans": "The test was difficult; however, most students passed.",
+  "why": "Setelah titik koma dan diikuti koma, \"namun\" = however.",
+  "wrong": [
+   [
+    "The test was difficult; despite, most students passed.",
+    "Despite harus diikuti kata benda / -ing; tidak bisa berdiri sendiri seperti however."
+   ],
+   [
+    "The test was difficult; in spite of, most students passed.",
+    "In spite of harus diikuti kata benda / -ing; tidak bisa berdiri sendiri seperti however."
+   ],
+   [
+    "The test was difficult; even though, most students passed.",
+    "Even though harus diikuti kalimat; tidak bisa berdiri sendiri seperti however."
+   ]
+  ],
+  "alt": [
+   "The test was difficult; nevertheless, most students passed.",
+   "The test was difficult; even so, most students passed."
+  ],
+  "orders": [
+   "The test was difficult; most students passed, however."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Meskipun adik laki-laki saya lebih muda, dia lebih tinggi daripada saya.",
+  "prompt": "___ (Although / Despite) my brother is younger than me, he is taller.",
+  "hint": "kontras + kalimat lengkap",
+  "ans": "Although my brother is younger than me, he is taller.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (my brother is younger than me), jadi pakai although.",
+  "wrong": [
+   [
+    "Despite my brother is younger than me, he is taller.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "In spite of my brother is younger than me, he is taller.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Despite of my brother is younger than me, he is taller.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "Even though my brother is younger than me, he is taller.",
+   "Though my brother is younger than me, he is taller.",
+   "Despite the fact that my brother is younger than me, he is taller.",
+   "In spite of the fact that my brother is younger than me, he is taller."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Kami tetap bersenang-senang meskipun ada penundaan lama di bandara.",
+  "prompt": "We had a great time ___ (in spite of / even though) the long delay at the airport.",
+  "hint": "kontras + kata benda",
+  "ans": "We had a great time in spite of the long delay at the airport.",
+  "why": "The long delay adalah kata benda, jadi pakai in spite of.",
+  "wrong": [
+   [
+    "We had a great time even though the long delay at the airport.",
+    "Even though harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "We had a great time although the long delay at the airport.",
+    "Although harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "We had a great time in spite the long delay at the airport.",
+    "\"In spite\" harus lengkap: in spite of."
+   ]
+  ],
+  "alt": [
+   "We had a great time despite the long delay at the airport."
+  ],
+  "orders": [
+   "In spite of the long delay at the airport, we had a great time."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Kamarnya kecil, tetapi sangat bersih.",
+  "prompt": "The room was small, ___ (but / despite) it was very clean.",
+  "hint": "tetapi + kalimat",
+  "ans": "The room was small, but it was very clean.",
+  "why": "Dua kalimat yang berlawanan disambung dengan but.",
+  "wrong": [
+   [
+    "The room was small, despite it was very clean.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "The room was small, in spite of it was very clean.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "The room was small, despite of it was very clean.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "The room was small, yet it was very clean.",
+   "The room was small, although it was very clean.",
+   "The room was small, though it was very clean."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Walaupun kami berangkat lebih awal, kami ketinggalan kereta.",
+  "prompt": "Although we left early, ___ (but / however / so / —) we missed the train.",
+  "hint": "sudah ada although",
+  "ans": "Although we left early, we missed the train.",
+  "why": "Kalimat sudah memakai although, jadi bagian kedua tidak perlu kata sambung lagi.",
+  "wrong": [
+   [
+    "Although we left early, but we missed the train.",
+    "Although/even though tidak boleh dipasangkan dengan but; cukup satu kata sambung."
+   ],
+   [
+    "Although we left early, however we missed the train.",
+    "Although/even though tidak boleh dipasangkan dengan however; cukup satu kata sambung."
+   ],
+   [
+    "Although we left early, so we missed the train.",
+    "Although/even though tidak bisa dipasangkan dengan so, dan artinya pun tidak cocok."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We missed the train although we left early."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Meskipun harganya mahal, ponsel baru itu sangat laris.",
+  "prompt": "___ (Despite / Even though) the high price, the new phone sold very well.",
+  "hint": "kontras + kata benda",
+  "ans": "Despite the high price, the new phone sold very well.",
+  "why": "The high price adalah kata benda, jadi pakai despite.",
+  "wrong": [
+   [
+    "Even though the high price, the new phone sold very well.",
+    "Even though harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Although the high price, the new phone sold very well.",
+    "Although harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Despite of the high price, the new phone sold very well.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "In spite of the high price, the new phone sold very well."
+  ],
+  "orders": [
+   "The new phone sold very well despite the high price."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Dia (lk) tidak mendapatkan pekerjaan itu walaupun punya banyak pengalaman.",
+  "prompt": "He did not get the job ___ (although / despite) he had a lot of experience.",
+  "hint": "kontras + kalimat lengkap",
+  "ans": "He did not get the job although he had a lot of experience.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (he had a lot of experience), jadi pakai although.",
+  "wrong": [
+   [
+    "He did not get the job despite he had a lot of experience.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "He did not get the job in spite of he had a lot of experience.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "He did not get the job despite of he had a lot of experience.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "He did not get the job even though he had a lot of experience.",
+   "He did not get the job though he had a lot of experience.",
+   "He did not get the job despite the fact that he had a lot of experience.",
+   "He did not get the job in spite of the fact that he had a lot of experience."
+  ],
+  "orders": [
+   "Although he had a lot of experience, he did not get the job."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Saya suka pekerjaan saya. Namun, gajinya tidak terlalu bagus.",
+  "prompt": "I like my job. ___ (However / In spite of), the salary is not very good.",
+  "hint": "namun, di awal kalimat",
+  "ans": "I like my job. However, the salary is not very good.",
+  "why": "Di awal kalimat baru dan diikuti koma, \"namun\" = however.",
+  "wrong": [
+   [
+    "I like my job. In spite of, the salary is not very good.",
+    "In spite of harus diikuti kata benda / -ing; tidak bisa berdiri sendiri seperti however."
+   ],
+   [
+    "I like my job. Despite, the salary is not very good.",
+    "Despite harus diikuti kata benda / -ing; tidak bisa berdiri sendiri seperti however."
+   ],
+   [
+    "I like my job. Even though, the salary is not very good.",
+    "Even though harus diikuti kalimat; tidak bisa berdiri sendiri seperti however."
+   ]
+  ],
+  "alt": [
+   "I like my job. Nevertheless, the salary is not very good.",
+   "I like my job. Even so, the salary is not very good."
+  ],
+  "orders": [
+   "I like my job. The salary is not very good, however."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Meskipun bising, bayinya tidur nyenyak.",
+  "prompt": "___ (In spite of / Although) the noise, the baby slept well.",
+  "hint": "kontras + kata benda",
+  "ans": "In spite of the noise, the baby slept well.",
+  "why": "The noise adalah kata benda, jadi pakai in spite of.",
+  "wrong": [
+   [
+    "Although the noise, the baby slept well.",
+    "Although harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Even though the noise, the baby slept well.",
+    "Even though harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "In spite the noise, the baby slept well.",
+    "\"In spite\" harus lengkap: in spite of."
+   ]
+  ],
+  "alt": [
+   "Despite the noise, the baby slept well."
+  ],
+  "orders": [
+   "The baby slept well in spite of the noise."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Dia (pr) lulus ujian meskipun sering tidak masuk kelas.",
+  "prompt": "She passed the exam ___ (despite / miss) many classes.",
+  "hint": "despite + bentuk -ing",
+  "ans": "She passed the exam despite missing many classes.",
+  "why": "Setelah despite, kata kerja memakai bentuk -ing: despite missing.",
+  "wrong": [
+   [
+    "She passed the exam despite she missed many classes.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "She passed the exam despite miss many classes.",
+    "Setelah despite, kata kerja harus bentuk -ing (missing), bukan bentuk dasar."
+   ],
+   [
+    "She passed the exam despite of missing many classes.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "She passed the exam in spite of missing many classes.",
+   "She passed the exam despite having missed many classes.",
+   "She passed the exam although she missed many classes.",
+   "She passed the exam even though she missed many classes.",
+   "She passed the exam though she missed many classes."
+  ],
+  "orders": [
+   "Despite missing many classes, she passed the exam."
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Apakah dia (pr) mau pergi ke pesta padahal besok ada ujian?",
+  "prompt": "Is she going to the party ___ (even though / despite) she has an exam tomorrow?",
+  "hint": "kontras + kalimat lengkap",
+  "ans": "Is she going to the party even though she has an exam tomorrow?",
+  "why": "Setelah bagian kosong ada kalimat lengkap (she has an exam tomorrow), jadi pakai even though.",
+  "wrong": [
+   [
+    "Is she going to the party despite she has an exam tomorrow?",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Is she going to the party in spite of she has an exam tomorrow?",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Is she going to the party despite of she has an exam tomorrow?",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "Is she going to the party although she has an exam tomorrow?",
+   "Is she going to the party though she has an exam tomorrow?",
+   "Is she going to the party despite the fact that she has an exam tomorrow?",
+   "Is she going to the party in spite of the fact that she has an exam tomorrow?"
+  ]
+ },
+ {
+  "set": "conj2",
+  "promptId": "Tim kami bermain bagus, tetapi kami kalah.",
+  "prompt": "Our team played well, ___ (but / in spite of) we lost the match.",
+  "hint": "tetapi + kalimat",
+  "ans": "Our team played well, but we lost the match.",
+  "why": "Dua kalimat yang berlawanan disambung dengan but.",
+  "wrong": [
+   [
+    "Our team played well, in spite of we lost the match.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Our team played well, despite we lost the match.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Our team played well, despite of we lost the match.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "Our team played well, yet we lost the match.",
+   "Our team played well, although we lost the match.",
+   "Our team played well, though we lost the match."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Ponsel saya berbunyi saat saya sedang makan malam.",
+  "prompt": "My phone rang ___ (while / during) I was having dinner.",
+  "hint": "selama + kalimat lengkap",
+  "ans": "My phone rang while I was having dinner.",
+  "why": "Setelah bagian kosong ada kalimat (I was having dinner), jadi pakai while.",
+  "wrong": [
+   [
+    "My phone rang during I was having dinner.",
+    "During harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "My phone rang at the time of I was having dinner.",
+    "At the time of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "My phone rang in the middle of I was having dinner.",
+    "In the middle of harus diikuti kata benda / -ing, bukan kalimat."
+   ]
+  ],
+  "alt": [
+   "My phone rang when I was having dinner.",
+   "My phone rang as I was having dinner."
+  ],
+  "orders": [
+   "While I was having dinner, my phone rang."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Tolong matikan ponselmu selama film diputar.",
+  "prompt": "Please turn off your phone ___ (during / while) the film.",
+  "hint": "selama + kata benda",
+  "ans": "Please turn off your phone during the film.",
+  "why": "The film adalah kata benda, jadi pakai during.",
+  "wrong": [
+   [
+    "Please turn off your phone while the film.",
+    "While harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Please turn off your phone when the film.",
+    "When harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Please turn off your phone meanwhile the film.",
+    "Meanwhile adalah keterangan (\"sementara itu\"), tidak bisa diikuti kata benda seperti preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "During the film, please turn off your phone.",
+   "Please turn your phone off during the film."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Seseorang mencuri tas saya ketika saya sedang tidur di kereta.",
+  "prompt": "Someone stole my bag ___ (while / during) I was sleeping on the train.",
+  "hint": "selama + kalimat lengkap",
+  "ans": "Someone stole my bag while I was sleeping on the train.",
+  "why": "Setelah bagian kosong ada kalimat (I was sleeping), jadi pakai while.",
+  "wrong": [
+   [
+    "Someone stole my bag during I was sleeping on the train.",
+    "During harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Someone stole my bag at the time of I was sleeping on the train.",
+    "At the time of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Someone stole my bag in the middle of I was sleeping on the train.",
+    "In the middle of harus diikuti kata benda / -ing, bukan kalimat."
+   ]
+  ],
+  "alt": [
+   "Someone stole my bag when I was sleeping on the train.",
+   "Someone stole my bag as I was sleeping on the train."
+  ],
+  "orders": [
+   "While I was sleeping on the train, someone stole my bag."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Hujan turun deras pada malam hari.",
+  "prompt": "It rained heavily ___ (during / while) the night.",
+  "hint": "selama + kata benda",
+  "ans": "It rained heavily during the night.",
+  "why": "The night adalah kata benda, jadi pakai during.",
+  "wrong": [
+   [
+    "It rained heavily while the night.",
+    "While harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "It rained heavily when the night.",
+    "When harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "It rained heavily meanwhile the night.",
+    "Meanwhile adalah keterangan (\"sementara itu\"), tidak bisa diikuti kata benda seperti preposisi."
+   ]
+  ],
+  "alt": [
+   "It rained heavily in the night."
+  ],
+  "orders": [
+   "During the night, it rained heavily."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Apakah ada yang menelepon selama saya keluar?",
+  "prompt": "Did anyone call ___ (while / during) I was out?",
+  "hint": "selama + kalimat lengkap",
+  "ans": "Did anyone call while I was out?",
+  "why": "Setelah bagian kosong ada kalimat (I was out), jadi pakai while.",
+  "wrong": [
+   [
+    "Did anyone call during I was out?",
+    "During harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Did anyone call at the time of I was out?",
+    "At the time of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Did anyone call in the middle of I was out?",
+    "In the middle of harus diikuti kata benda / -ing, bukan kalimat."
+   ]
+  ],
+  "alt": [
+   "Did anyone call when I was out?"
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Kami mengunjungi banyak museum selama liburan kami di Eropa.",
+  "prompt": "We visited many museums ___ (during / while) our holiday in Europe.",
+  "hint": "selama + kata benda",
+  "ans": "We visited many museums during our holiday in Europe.",
+  "why": "Our holiday adalah kata benda, jadi pakai during.",
+  "wrong": [
+   [
+    "We visited many museums while our holiday in Europe.",
+    "While harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "We visited many museums when our holiday in Europe.",
+    "When harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "We visited many museums meanwhile our holiday in Europe.",
+    "Meanwhile adalah keterangan (\"sementara itu\"), tidak bisa diikuti kata benda seperti preposisi."
+   ]
+  ],
+  "alt": [
+   "We visited many museums on our holiday in Europe."
+  ],
+  "orders": [
+   "During our holiday in Europe, we visited many museums."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Dia (pr) tertidur saat rapat.",
+  "prompt": "She fell asleep ___ (during / while) the meeting.",
+  "hint": "selama + kata benda",
+  "ans": "She fell asleep during the meeting.",
+  "why": "The meeting adalah kata benda, jadi pakai during.",
+  "wrong": [
+   [
+    "She fell asleep while the meeting.",
+    "While harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "She fell asleep when the meeting.",
+    "When harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "She fell asleep meanwhile the meeting.",
+    "Meanwhile adalah keterangan (\"sementara itu\"), tidak bisa diikuti kata benda seperti preposisi."
+   ]
+  ],
+  "alt": [
+   "She fell asleep in the meeting.",
+   "She fell asleep at the meeting."
+  ],
+  "orders": [
+   "During the meeting, she fell asleep."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Saya bertemu sahabat saya ketika sedang kuliah di Bandung.",
+  "prompt": "I met my best friend ___ (while / during) I was studying in Bandung.",
+  "hint": "selama + kalimat lengkap",
+  "ans": "I met my best friend while I was studying in Bandung.",
+  "why": "Setelah bagian kosong ada kalimat (I was studying in Bandung), jadi pakai while.",
+  "wrong": [
+   [
+    "I met my best friend during I was studying in Bandung.",
+    "During harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I met my best friend at the time of I was studying in Bandung.",
+    "At the time of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I met my best friend in the middle of I was studying in Bandung.",
+    "In the middle of harus diikuti kata benda / -ing, bukan kalimat."
+   ]
+  ],
+  "alt": [
+   "I met my best friend when I was studying in Bandung.",
+   "I met my best friend as I was studying in Bandung."
+  ],
+  "orders": [
+   "While I was studying in Bandung, I met my best friend."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Tidak ada yang boleh meninggalkan ruangan selama ujian.",
+  "prompt": "No one is allowed to leave the room ___ (during / while) the exam.",
+  "hint": "selama + kata benda",
+  "ans": "No one is allowed to leave the room during the exam.",
+  "why": "The exam adalah kata benda, jadi pakai during.",
+  "wrong": [
+   [
+    "No one is allowed to leave the room while the exam.",
+    "While harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "No one is allowed to leave the room when the exam.",
+    "When harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "No one is allowed to leave the room meanwhile the exam.",
+    "Meanwhile adalah keterangan (\"sementara itu\"), tidak bisa diikuti kata benda seperti preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "During the exam, no one is allowed to leave the room."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Jarinya (lk) teriris ketika dia sedang memasak.",
+  "prompt": "He cut his finger ___ (while / during) he was cooking.",
+  "hint": "selama + kalimat lengkap",
+  "ans": "He cut his finger while he was cooking.",
+  "why": "Setelah bagian kosong ada kalimat (he was cooking), jadi pakai while.",
+  "wrong": [
+   [
+    "He cut his finger during he was cooking.",
+    "During harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "He cut his finger at the time of he was cooking.",
+    "At the time of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "He cut his finger in the middle of he was cooking.",
+    "In the middle of harus diikuti kata benda / -ing, bukan kalimat."
+   ]
+  ],
+  "alt": [
+   "He cut his finger when he was cooking.",
+   "He cut his finger as he was cooking."
+  ],
+  "orders": [
+   "While he was cooking, he cut his finger."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Lampunya padam saat badai.",
+  "prompt": "The lights went out ___ (during / while) the storm.",
+  "hint": "selama + kata benda",
+  "ans": "The lights went out during the storm.",
+  "why": "The storm adalah kata benda, jadi pakai during.",
+  "wrong": [
+   [
+    "The lights went out while the storm.",
+    "While harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "The lights went out when the storm.",
+    "When harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "The lights went out meanwhile the storm.",
+    "Meanwhile adalah keterangan (\"sementara itu\"), tidak bisa diikuti kata benda seperti preposisi."
+   ]
+  ],
+  "alt": [
+   "The lights went out in the storm."
+  ],
+  "orders": [
+   "During the storm, the lights went out."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Bisa tolong jaga tas saya selama saya membeli kopi?",
+  "prompt": "Can you watch my bag ___ (while / during) I buy some coffee?",
+  "hint": "selama + kalimat lengkap",
+  "ans": "Can you watch my bag while I buy some coffee?",
+  "why": "Setelah bagian kosong ada kalimat (I buy some coffee), jadi pakai while.",
+  "wrong": [
+   [
+    "Can you watch my bag during I buy some coffee?",
+    "During harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Can you watch my bag at the time of I buy some coffee?",
+    "At the time of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "Can you watch my bag in the middle of I buy some coffee?",
+    "In the middle of harus diikuti kata benda / -ing, bukan kalimat."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj3",
+  "promptId": "Kakek saya bekerja di pabrik selama masa perang.",
+  "prompt": "My grandfather worked in a factory ___ (during / while) the war.",
+  "hint": "selama + kata benda",
+  "ans": "My grandfather worked in a factory during the war.",
+  "why": "The war adalah kata benda, jadi pakai during.",
+  "wrong": [
+   [
+    "My grandfather worked in a factory while the war.",
+    "While harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "My grandfather worked in a factory when the war.",
+    "When harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "My grandfather worked in a factory meanwhile the war.",
+    "Meanwhile adalah keterangan (\"sementara itu\"), tidak bisa diikuti kata benda seperti preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "During the war, my grandfather worked in a factory."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Saat kami sedang menunggu bus, hujan mulai turun.",
+  "prompt": "___ (while / during) we were waiting for the bus, it started to rain.",
+  "hint": "selama + kalimat lengkap",
+  "ans": "While we were waiting for the bus, it started to rain.",
+  "why": "Setelah bagian kosong ada kalimat (we were waiting for the bus), jadi pakai while.",
+  "wrong": [
+   [
+    "During we were waiting for the bus, it started to rain.",
+    "During harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "At the time of we were waiting for the bus, it started to rain.",
+    "At the time of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "In the middle of we were waiting for the bus, it started to rain.",
+    "In the middle of harus diikuti kata benda / -ing, bukan kalimat."
+   ]
+  ],
+  "alt": [
+   "When we were waiting for the bus, it started to rain.",
+   "As we were waiting for the bus, it started to rain."
+  ],
+  "orders": [
+   "It started to rain while we were waiting for the bus."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Saya biasanya mendengarkan musik sambil mengerjakan PR.",
+  "prompt": "I usually listen to music ___ (while / during) I do my homework.",
+  "hint": "selama + kalimat lengkap",
+  "ans": "I usually listen to music while I do my homework.",
+  "why": "Setelah bagian kosong ada kalimat (I do my homework), jadi pakai while.",
+  "wrong": [
+   [
+    "I usually listen to music during I do my homework.",
+    "During harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I usually listen to music at the time of I do my homework.",
+    "At the time of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I usually listen to music in the middle of I do my homework.",
+    "In the middle of harus diikuti kata benda / -ing, bukan kalimat."
+   ]
+  ],
+  "alt": [
+   "I usually listen to music when I do my homework."
+  ],
+  "orders": [
+   "While I do my homework, I usually listen to music.",
+   "Usually I listen to music while I do my homework."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Saya pergi ke bank untuk mengambil uang.",
+  "prompt": "I went to the bank ___ (to get / for getting) some money.",
+  "hint": "tujuan + kata kerja",
+  "ans": "I went to the bank to get some money.",
+  "why": "Untuk menyatakan tujuan pergi, pakai to + kata kerja dasar.",
+  "wrong": [
+   [
+    "I went to the bank for getting some money.",
+    "Untuk tujuan seseorang melakukan sesuatu, pakai to + kata kerja dasar, bukan for + -ing."
+   ],
+   [
+    "I went to the bank for get some money.",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "I went to the bank to getting some money.",
+    "To untuk tujuan diikuti kata kerja dasar, bukan -ing."
+   ]
+  ],
+  "alt": [
+   "I went to the bank in order to get some money.",
+   "I went to the bank so as to get some money."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Dia (pr) menabung supaya bisa membeli laptop.",
+  "prompt": "She saves money ___ (so that / to) she can buy a laptop.",
+  "hint": "tujuan + kalimat (can)",
+  "ans": "She saves money so that she can buy a laptop.",
+  "why": "Setelah bagian kosong ada kalimat dengan subjek (she can buy), jadi pakai so that.",
+  "wrong": [
+   [
+    "She saves money to she can buy a laptop.",
+    "To (tujuan) harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "She saves money in order to she can buy a laptop.",
+    "In order to harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "She saves money in order she can buy a laptop.",
+    "\"In order\" harus lengkap: in order to + kata kerja (atau so that + kalimat)."
+   ]
+  ],
+  "alt": [
+   "She saves money in order that she can buy a laptop.",
+   "She saves money so she can buy a laptop."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Kami berangkat lebih awal untuk menghindari macet.",
+  "prompt": "We left early ___ (in order to / so that) avoid the traffic.",
+  "hint": "tujuan + kata kerja",
+  "ans": "We left early in order to avoid the traffic.",
+  "why": "Setelah bagian kosong ada kata kerja dasar (avoid), jadi pakai in order to.",
+  "wrong": [
+   [
+    "We left early so that avoid the traffic.",
+    "So that harus diikuti kalimat lengkap (subjek + can/could/would + kata kerja), bukan kata kerja saja."
+   ],
+   [
+    "We left early for avoid the traffic.",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "We left early in order avoid the traffic.",
+    "\"In order\" harus lengkap: in order to + kata kerja (atau so that + kalimat)."
+   ]
+  ],
+  "alt": [
+   "We left early to avoid the traffic.",
+   "We left early so as to avoid the traffic."
+  ],
+  "orders": [
+   "In order to avoid the traffic, we left early."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Dia (pr) begadang untuk menyelesaikan laporannya.",
+  "prompt": "She stayed up late ___ (to finish / for finishing) her report.",
+  "hint": "tujuan + kata kerja",
+  "ans": "She stayed up late to finish her report.",
+  "why": "Untuk menyatakan tujuan, pakai to + kata kerja dasar.",
+  "wrong": [
+   [
+    "She stayed up late for finishing her report.",
+    "Untuk tujuan seseorang melakukan sesuatu, pakai to + kata kerja dasar, bukan for + -ing."
+   ],
+   [
+    "She stayed up late for finish her report.",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "She stayed up late to finishing her report.",
+    "To untuk tujuan diikuti kata kerja dasar, bukan -ing."
+   ]
+  ],
+  "alt": [
+   "She stayed up late in order to finish her report.",
+   "She stayed up late so as to finish her report."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Dia (lk) pergi ke gym setiap pagi supaya tetap sehat.",
+  "prompt": "He goes to the gym every morning ___ (to stay / for staying) healthy.",
+  "hint": "tujuan + kata kerja",
+  "ans": "He goes to the gym every morning to stay healthy.",
+  "why": "Untuk menyatakan tujuan, pakai to + kata kerja dasar.",
+  "wrong": [
+   [
+    "He goes to the gym every morning for staying healthy.",
+    "Untuk tujuan seseorang melakukan sesuatu, pakai to + kata kerja dasar, bukan for + -ing."
+   ],
+   [
+    "He goes to the gym every morning for stay healthy.",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "He goes to the gym every morning to staying healthy.",
+    "To untuk tujuan diikuti kata kerja dasar, bukan -ing."
+   ]
+  ],
+  "alt": [
+   "He goes to the gym every morning in order to stay healthy.",
+   "He goes to the gym every morning so as to stay healthy."
+  ],
+  "orders": [
+   "Every morning he goes to the gym to stay healthy."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Saya menelepon hotel untuk menanyakan harganya.",
+  "prompt": "I called the hotel ___ (to ask / for asking) about the price.",
+  "hint": "tujuan + kata kerja",
+  "ans": "I called the hotel to ask about the price.",
+  "why": "Untuk menyatakan tujuan menelepon, pakai to + kata kerja dasar.",
+  "wrong": [
+   [
+    "I called the hotel for asking about the price.",
+    "Untuk tujuan seseorang melakukan sesuatu, pakai to + kata kerja dasar, bukan for + -ing."
+   ],
+   [
+    "I called the hotel for ask about the price.",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "I called the hotel to asking about the price.",
+    "To untuk tujuan diikuti kata kerja dasar, bukan -ing."
+   ]
+  ],
+  "alt": [
+   "I called the hotel in order to ask about the price.",
+   "I called the hotel so as to ask about the price."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Bicaralah lebih keras supaya semua orang bisa mendengarmu.",
+  "prompt": "Speak louder ___ (so that / to) everyone can hear you.",
+  "hint": "tujuan + kalimat (can)",
+  "ans": "Speak louder so that everyone can hear you.",
+  "why": "Setelah bagian kosong ada kalimat dengan subjek (everyone can hear), jadi pakai so that.",
+  "wrong": [
+   [
+    "Speak louder to everyone can hear you.",
+    "To (tujuan) harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "Speak louder in order to everyone can hear you.",
+    "In order to harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "Speak louder in order everyone can hear you.",
+    "\"In order\" harus lengkap: in order to + kata kerja (atau so that + kalimat)."
+   ]
+  ],
+  "alt": [
+   "Speak louder in order that everyone can hear you.",
+   "Speak louder so everyone can hear you."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Dia (pr) mencatat alamatnya supaya tidak lupa.",
+  "prompt": "She wrote the address down ___ (so that / to) she would not forget it.",
+  "hint": "tujuan + kalimat (would)",
+  "ans": "She wrote the address down so that she would not forget it.",
+  "why": "Setelah bagian kosong ada kalimat dengan subjek (she would not forget), jadi pakai so that.",
+  "wrong": [
+   [
+    "She wrote the address down to she would not forget it.",
+    "To (tujuan) harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "She wrote the address down in order to she would not forget it.",
+    "In order to harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "She wrote the address down in order she would not forget it.",
+    "\"In order\" harus lengkap: in order to + kata kerja (atau so that + kalimat)."
+   ]
+  ],
+  "alt": [
+   "She wrote the address down in order that she would not forget it.",
+   "She wrote the address down so she would not forget it."
+  ],
+  "orders": [
+   "She wrote down the address so that she would not forget it."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Mereka pindah lebih dekat ke kota agar dekat dengan kantor mereka.",
+  "prompt": "They moved closer to the city ___ (in order to / so that) be near their office.",
+  "hint": "tujuan + kata kerja",
+  "ans": "They moved closer to the city in order to be near their office.",
+  "why": "Setelah bagian kosong ada kata kerja dasar (be), jadi pakai in order to.",
+  "wrong": [
+   [
+    "They moved closer to the city so that be near their office.",
+    "So that harus diikuti kalimat lengkap (subjek + can/could/would + kata kerja), bukan kata kerja saja."
+   ],
+   [
+    "They moved closer to the city for be near their office.",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "They moved closer to the city in order be near their office.",
+    "\"In order\" harus lengkap: in order to + kata kerja (atau so that + kalimat)."
+   ]
+  ],
+  "alt": [
+   "They moved closer to the city to be near their office.",
+   "They moved closer to the city so as to be near their office."
+  ],
+  "orders": [
+   "In order to be near their office, they moved closer to the city."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Apakah kamu datang ke Jakarta untuk mencari kerja?",
+  "prompt": "Did you come to Jakarta ___ (to find / for finding) a job?",
+  "hint": "tujuan + kata kerja",
+  "ans": "Did you come to Jakarta to find a job?",
+  "why": "Untuk menyatakan tujuan datang, pakai to + kata kerja dasar.",
+  "wrong": [
+   [
+    "Did you come to Jakarta for finding a job?",
+    "Untuk tujuan seseorang melakukan sesuatu, pakai to + kata kerja dasar, bukan for + -ing."
+   ],
+   [
+    "Did you come to Jakarta for find a job?",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "Did you come to Jakarta to finding a job?",
+    "To untuk tujuan diikuti kata kerja dasar, bukan -ing."
+   ]
+  ],
+  "alt": [
+   "Did you come to Jakarta in order to find a job?",
+   "Did you come to Jakarta so as to find a job?"
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Saya menyalakan lampu supaya bisa membaca.",
+  "prompt": "I turned on the light ___ (so that / to) I could read.",
+  "hint": "tujuan + kalimat (could)",
+  "ans": "I turned on the light so that I could read.",
+  "why": "Setelah bagian kosong ada kalimat dengan subjek (I could read), jadi pakai so that.",
+  "wrong": [
+   [
+    "I turned on the light to I could read.",
+    "To (tujuan) harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "I turned on the light in order to I could read.",
+    "In order to harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "I turned on the light in order I could read.",
+    "\"In order\" harus lengkap: in order to + kata kerja (atau so that + kalimat)."
+   ]
+  ],
+  "alt": [
+   "I turned on the light in order that I could read.",
+   "I turned on the light so I could read."
+  ],
+  "orders": [
+   "I turned the light on so that I could read."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Kami naik taksi supaya tidak terlambat.",
+  "prompt": "We took a taxi ___ (so that / in order to) we would not be late.",
+  "hint": "tujuan + kalimat (would)",
+  "ans": "We took a taxi so that we would not be late.",
+  "why": "Setelah bagian kosong ada kalimat dengan subjek (we would not be late), jadi pakai so that.",
+  "wrong": [
+   [
+    "We took a taxi in order to we would not be late.",
+    "In order to harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "We took a taxi to we would not be late.",
+    "To (tujuan) harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "We took a taxi in order we would not be late.",
+    "\"In order\" harus lengkap: in order to + kata kerja (atau so that + kalimat)."
+   ]
+  ],
+  "alt": [
+   "We took a taxi in order that we would not be late.",
+   "We took a taxi so we would not be late."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Dia (lk) belajar setiap malam supaya lulus ujian akhir.",
+  "prompt": "He studies every night ___ (to pass / for passing) the final exam.",
+  "hint": "tujuan + kata kerja",
+  "ans": "He studies every night to pass the final exam.",
+  "why": "Untuk menyatakan tujuan, pakai to + kata kerja dasar.",
+  "wrong": [
+   [
+    "He studies every night for passing the final exam.",
+    "Untuk tujuan seseorang melakukan sesuatu, pakai to + kata kerja dasar, bukan for + -ing."
+   ],
+   [
+    "He studies every night for pass the final exam.",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "He studies every night to passing the final exam.",
+    "To untuk tujuan diikuti kata kerja dasar, bukan -ing."
+   ]
+  ],
+  "alt": [
+   "He studies every night in order to pass the final exam.",
+   "He studies every night so as to pass the final exam."
+  ],
+  "orders": [
+   "Every night he studies to pass the final exam."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Saya menulis surat ini untuk memberitahumu tentang pekerjaan baru saya.",
+  "prompt": "I am writing ___ (to tell / for telling) you about my new job.",
+  "hint": "tujuan + kata kerja",
+  "ans": "I am writing to tell you about my new job.",
+  "why": "Untuk menyatakan tujuan menulis, pakai to + kata kerja dasar.",
+  "wrong": [
+   [
+    "I am writing for telling you about my new job.",
+    "Untuk tujuan seseorang melakukan sesuatu, pakai to + kata kerja dasar, bukan for + -ing."
+   ],
+   [
+    "I am writing for tell you about my new job.",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "I am writing to telling you about my new job.",
+    "To untuk tujuan diikuti kata kerja dasar, bukan -ing."
+   ]
+  ],
+  "alt": [
+   "I am writing in order to tell you about my new job."
+  ]
+ },
+ {
+  "set": "conj3",
+  "promptId": "Dia (pr) berbisik supaya bayinya tidak terbangun.",
+  "prompt": "She whispered ___ (so that / to) the baby would not wake up.",
+  "hint": "tujuan + kalimat (would)",
+  "ans": "She whispered so that the baby would not wake up.",
+  "why": "Setelah bagian kosong ada kalimat dengan subjek (the baby would not wake up), jadi pakai so that.",
+  "wrong": [
+   [
+    "She whispered to the baby would not wake up.",
+    "To (tujuan) harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "She whispered in order to the baby would not wake up.",
+    "In order to harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "She whispered in order the baby would not wake up.",
+    "\"In order\" harus lengkap: in order to + kata kerja (atau so that + kalimat)."
+   ]
+  ],
+  "alt": [
+   "She whispered in order that the baby would not wake up.",
+   "She whispered so the baby would not wake up."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Saya akan meneleponmu begitu saya tiba di hotel.",
+  "prompt": "I will call you ___ (as soon as / I / arrive) at the hotel.",
+  "hint": "masa depan, pakai present",
+  "ans": "I will call you as soon as I arrive at the hotel.",
+  "why": "Setelah as soon as untuk masa depan, pakai present: I arrive.",
+  "wrong": [
+   [
+    "I will call you as soon as I will arrive at the hotel.",
+    "Setelah kata sambung waktu (when / as soon as / before / after) untuk masa depan, pakai present, bukan will."
+   ],
+   [
+    "I will call you as soon as I arrived at the hotel.",
+    "Ini tentang masa depan (I will call), jadi tidak pakai V2."
+   ],
+   [
+    "I will call you as soon as I am arrive at the hotel.",
+    "Am tidak dipakai bersama kata kerja dasar; cukup I arrive."
+   ]
+  ],
+  "alt": [
+   "I will call you as soon as I have arrived at the hotel."
+  ],
+  "orders": [
+   "As soon as I arrive at the hotel, I will call you."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Ayah saya akan menjemputmu begitu dia selesai kerja.",
+  "prompt": "My father will pick you up ___ (as soon as / he / finish) work.",
+  "hint": "masa depan, pakai present",
+  "ans": "My father will pick you up as soon as he finishes work.",
+  "why": "Setelah as soon as untuk masa depan, pakai present; he → finishes.",
+  "wrong": [
+   [
+    "My father will pick you up as soon as he will finish work.",
+    "Setelah kata sambung waktu (when / as soon as / before / after) untuk masa depan, pakai present, bukan will."
+   ],
+   [
+    "My father will pick you up as soon as he finish work.",
+    "Subjek he dalam present perlu -es: finishes."
+   ],
+   [
+    "My father will pick you up as soon as he finished work.",
+    "Ini tentang masa depan (will pick you up), jadi tidak pakai V2."
+   ]
+  ],
+  "alt": [
+   "My father will pick you up as soon as he has finished work."
+  ],
+  "orders": [
+   "As soon as he finishes work, my father will pick you up."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Nanti ketika dia (pr) sampai di rumah, dia akan memasak makan malam.",
+  "prompt": "___ (when / she / get) home, she will cook dinner.",
+  "hint": "masa depan, pakai present",
+  "ans": "When she gets home, she will cook dinner.",
+  "why": "Setelah when untuk masa depan, pakai present; she → gets.",
+  "wrong": [
+   [
+    "When she will get home, she will cook dinner.",
+    "Setelah kata sambung waktu (when / as soon as / before / after) untuk masa depan, pakai present, bukan will."
+   ],
+   [
+    "When she get home, she will cook dinner.",
+    "Subjek she dalam present perlu -s: gets."
+   ],
+   [
+    "When she getting home, she will cook dinner.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa is."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "She will cook dinner when she gets home."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Kami akan makan siang setelah rapat selesai.",
+  "prompt": "We will have lunch ___ (after / the meeting / end).",
+  "hint": "masa depan, pakai present",
+  "ans": "We will have lunch after the meeting ends.",
+  "why": "Setelah after untuk masa depan, pakai present; the meeting → ends.",
+  "wrong": [
+   [
+    "We will have lunch after the meeting will end.",
+    "Setelah kata sambung waktu (when / as soon as / before / after) untuk masa depan, pakai present, bukan will."
+   ],
+   [
+    "We will have lunch after the meeting end.",
+    "Subjek the meeting (tunggal) dalam present perlu -s: ends."
+   ],
+   [
+    "We will have lunch after the meeting ended.",
+    "Ini tentang masa depan (will have lunch), jadi tidak pakai V2."
+   ]
+  ],
+  "alt": [
+   "We will have lunch after the meeting has ended."
+  ],
+  "orders": [
+   "After the meeting ends, we will have lunch."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Kalau besok hujan, kami akan tinggal di rumah.",
+  "prompt": "___ (if / it / rain) tomorrow, we will stay at home.",
+  "hint": "syarat, masa depan",
+  "ans": "If it rains tomorrow, we will stay at home.",
+  "why": "Pola kondisional masa depan: if + present (it rains), lalu will.",
+  "wrong": [
+   [
+    "If it rained tomorrow, we will stay at home.",
+    "Dengan will di kalimat utama, bagian if memakai present, bukan V2."
+   ],
+   [
+    "If it raining tomorrow, we will stay at home.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa is."
+   ],
+   [
+    "If it is rain tomorrow, we will stay at home.",
+    "Is tidak dipakai bersama kata kerja dasar; cukup it rains."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We will stay at home if it rains tomorrow."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Kamu akan ketinggalan bus kalau tidak bergegas.",
+  "prompt": "You will miss the bus ___ (unless / you / hurry).",
+  "hint": "kecuali / kalau tidak",
+  "ans": "You will miss the bus unless you hurry.",
+  "why": "Unless = if … not, jadi langsung diikuti kalimat positif: unless you hurry.",
+  "wrong": [
+   [
+    "You will miss the bus unless you do not hurry.",
+    "Unless sudah berarti 'kalau tidak'; dengan not, artinya jadi 'kamu akan ketinggalan bus kalau kamu bergegas' — terbalik."
+   ],
+   [
+    "You will miss the bus unless you hurried.",
+    "Dengan will di kalimat utama, bagian unless memakai present, bukan V2."
+   ],
+   [
+    "You will miss the bus unless you are hurry.",
+    "Hurry di sini kata kerja, jadi tidak dipakai bersama are; cukup you hurry."
+   ]
+  ],
+  "alt": [
+   "You will miss the bus if you do not hurry."
+  ],
+  "orders": [
+   "Unless you hurry, you will miss the bus."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Saya tidak akan pergi ke pesta kecuali kamu ikut dengan saya.",
+  "prompt": "I will not go to the party ___ (unless / you / come) with me.",
+  "hint": "kecuali / kalau tidak",
+  "ans": "I will not go to the party unless you come with me.",
+  "why": "Unless = if … not, jadi langsung diikuti kalimat positif: unless you come.",
+  "wrong": [
+   [
+    "I will not go to the party unless you coming with me.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa are; cukup you come."
+   ],
+   [
+    "I will not go to the party unless you came with me.",
+    "Dengan will di kalimat utama, bagian unless memakai present, bukan V2."
+   ],
+   [
+    "I will not go to the party unless you comes with me.",
+    "Subjek you tidak memakai -s: you come."
+   ]
+  ],
+  "alt": [
+   "I will not go to the party if you do not come with me.",
+   "I will not go to the party unless you are coming with me."
+  ],
+  "orders": [
+   "Unless you come with me, I will not go to the party."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Telepon saya kalau kamu butuh bantuan.",
+  "prompt": "Call me ___ (if / you / need) any help.",
+  "hint": "syarat dalam kalimat perintah",
+  "ans": "Call me if you need any help.",
+  "why": "Setelah if, pakai present biasa: you need.",
+  "wrong": [
+   [
+    "Call me if you needs any help.",
+    "Subjek you tidak memakai -s: you need."
+   ],
+   [
+    "Call me if you are need any help.",
+    "Are tidak dipakai bersama kata kerja dasar; cukup you need."
+   ],
+   [
+    "Call me if you needing any help.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa are."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "If you need any help, call me."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Begitu hujan berhenti, kita akan keluar.",
+  "prompt": "___ (as soon as / the rain / stop), we will go out.",
+  "hint": "masa depan, pakai present",
+  "ans": "As soon as the rain stops, we will go out.",
+  "why": "Setelah as soon as untuk masa depan, pakai present; the rain → stops.",
+  "wrong": [
+   [
+    "As soon as the rain will stop, we will go out.",
+    "Setelah kata sambung waktu (when / as soon as / before / after) untuk masa depan, pakai present, bukan will."
+   ],
+   [
+    "As soon as the rain stop, we will go out.",
+    "Subjek the rain (tunggal) dalam present perlu -s: stops."
+   ],
+   [
+    "As soon as the rain stopped, we will go out.",
+    "Ini tentang masa depan (we will go out), jadi tidak pakai V2."
+   ]
+  ],
+  "alt": [
+   "As soon as the rain has stopped, we will go out."
+  ],
+  "orders": [
+   "We will go out as soon as the rain stops."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Tolong cuci tanganmu sebelum makan.",
+  "prompt": "Please wash your hands ___ (before / you / eat).",
+  "hint": "sebelum, pakai present",
+  "ans": "Please wash your hands before you eat.",
+  "why": "Setelah before untuk kejadian yang belum terjadi, pakai present: you eat.",
+  "wrong": [
+   [
+    "Please wash your hands before you will eat.",
+    "Setelah kata sambung waktu (when / as soon as / before / after) untuk masa depan, pakai present, bukan will."
+   ],
+   [
+    "Please wash your hands before you ate.",
+    "Ini perintah untuk sekarang/nanti, jadi tidak pakai V2."
+   ],
+   [
+    "Please wash your hands before you eating.",
+    "Bentuk -ing tidak bisa berdiri sendiri setelah subjek tanpa are."
+   ]
+  ],
+  "alt": [
+   "Please wash your hands before eating."
+  ],
+  "orders": [
+   "Before you eat, please wash your hands."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Saya akan memberitahunya (lk) kabar itu ketika bertemu dengannya besok.",
+  "prompt": "I will tell him the news ___ (when / I / see) him tomorrow.",
+  "hint": "masa depan, pakai present",
+  "ans": "I will tell him the news when I see him tomorrow.",
+  "why": "Setelah when untuk masa depan, pakai present: I see.",
+  "wrong": [
+   [
+    "I will tell him the news when I will see him tomorrow.",
+    "Setelah kata sambung waktu (when / as soon as / before / after) untuk masa depan, pakai present, bukan will."
+   ],
+   [
+    "I will tell him the news when I saw him tomorrow.",
+    "Tomorrow = masa depan, jadi tidak pakai V2."
+   ],
+   [
+    "I will tell him the news when I am see him tomorrow.",
+    "Am tidak dipakai bersama kata kerja dasar; cukup I see."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "When I see him tomorrow, I will tell him the news."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Ayo beli camilan sebelum keretanya berangkat.",
+  "prompt": "Let's buy some snacks ___ (before / the train / leave).",
+  "hint": "sebelum, pakai present",
+  "ans": "Let's buy some snacks before the train leaves.",
+  "why": "Setelah before untuk kejadian yang belum terjadi, pakai present; the train → leaves.",
+  "wrong": [
+   [
+    "Let's buy some snacks before the train will leave.",
+    "Setelah kata sambung waktu (when / as soon as / before / after) untuk masa depan, pakai present, bukan will."
+   ],
+   [
+    "Let's buy some snacks before the train leave.",
+    "Subjek the train (tunggal) dalam present perlu -s: leaves."
+   ],
+   [
+    "Let's buy some snacks before the train left.",
+    "Keretanya belum berangkat, jadi tidak pakai V2."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Before the train leaves, let's buy some snacks."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Saya akan membantumu setelah makan siang.",
+  "prompt": "I will help you ___ (after / I / have) lunch.",
+  "hint": "masa depan, pakai present",
+  "ans": "I will help you after I have lunch.",
+  "why": "Setelah after untuk masa depan, pakai present: I have lunch.",
+  "wrong": [
+   [
+    "I will help you after I will have lunch.",
+    "Setelah kata sambung waktu (when / as soon as / before / after) untuk masa depan, pakai present, bukan will."
+   ],
+   [
+    "I will help you after I had lunch.",
+    "Ini tentang masa depan (I will help), jadi tidak pakai V2."
+   ],
+   [
+    "I will help you after I having lunch.",
+    "Bentuk -ing tidak bisa berdiri sendiri setelah subjek tanpa am."
+   ]
+  ],
+  "alt": [
+   "I will help you after I have had lunch.",
+   "I will help you after having lunch."
+  ],
+  "orders": [
+   "After I have lunch, I will help you."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Kalau dia (pr) tidak meneleponku malam ini, aku yang akan meneleponnya.",
+  "prompt": "___ (if / she / not / call) me tonight, I will call her.",
+  "hint": "syarat, bentuk negatif",
+  "ans": "If she does not call me tonight, I will call her.",
+  "why": "Negatif present untuk she: does not + kata kerja dasar (call).",
+  "wrong": [
+   [
+    "If she not call me tonight, I will call her.",
+    "Negatif present perlu does not: she does not call."
+   ],
+   [
+    "If she is not call me tonight, I will call her.",
+    "Is tidak dipakai bersama kata kerja dasar; negatifnya does not call."
+   ],
+   [
+    "If she does not calls me tonight, I will call her.",
+    "Setelah does not, kata kerjanya bentuk dasar (call), bukan calls."
+   ]
+  ],
+  "alt": [
+   "Unless she calls me tonight, I will call her."
+  ],
+  "orders": [
+   "I will call her if she does not call me tonight."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Kamu tidak bisa masuk gedung itu kecuali punya kartu identitas.",
+  "prompt": "You cannot enter the building ___ (unless / if) you have an ID card.",
+  "hint": "kecuali / kalau tidak",
+  "ans": "You cannot enter the building unless you have an ID card.",
+  "why": "Artinya \"kecuali / kalau tidak punya\", jadi pakai unless.",
+  "wrong": [
+   [
+    "You cannot enter the building if you have an ID card.",
+    "Artinya jadi 'tidak bisa masuk kalau punya kartu' — tidak masuk akal."
+   ],
+   [
+    "You cannot enter the building if not you have an ID card.",
+    "\"If not\" tidak bisa langsung diikuti kalimat seperti ini; pakai unless."
+   ],
+   [
+    "You cannot enter the building unless if you have an ID card.",
+    "Unless sudah berarti 'kecuali jika'; tidak perlu ditambah if."
+   ]
+  ],
+  "alt": [
+   "You cannot enter the building except if you have an ID card."
+  ],
+  "orders": [
+   "Unless you have an ID card, you cannot enter the building."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Tanamanmu akan mati kalau tidak kamu siram.",
+  "prompt": "Your plants will die ___ (unless / you / water) them.",
+  "hint": "kecuali / kalau tidak",
+  "ans": "Your plants will die unless you water them.",
+  "why": "Unless = if … not, jadi langsung diikuti kalimat positif: unless you water.",
+  "wrong": [
+   [
+    "Your plants will die unless you do not water them.",
+    "Unless sudah berarti 'kalau tidak'; dengan not, artinya jadi 'tanamanmu akan mati kalau kamu siram' — terbalik."
+   ],
+   [
+    "Your plants will die unless you watered them.",
+    "Dengan will di kalimat utama, bagian unless memakai present, bukan V2."
+   ],
+   [
+    "Your plants will die unless you watering them.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa are; cukup you water."
+   ]
+  ],
+  "alt": [
+   "Your plants will die if you do not water them."
+  ],
+  "orders": [
+   "Unless you water them, your plants will die."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Banyak orang di Jakarta memakai masker karena polusi udara.",
+  "prompt": "Many people in Jakarta wear masks ___ (because of / because) the air pollution.",
+  "hint": "sebab + kata benda",
+  "ans": "Many people in Jakarta wear masks because of the air pollution.",
+  "why": "The air pollution adalah kata benda, jadi pakai because of.",
+  "wrong": [
+   [
+    "Many people in Jakarta wear masks because the air pollution.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Many people in Jakarta wear masks so the air pollution.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "Many people in Jakarta wear masks due of the air pollution.",
+    "\"Due of\" tidak ada; yang benar due to atau because of."
+   ]
+  ],
+  "alt": [
+   "Many people in Jakarta wear masks due to the air pollution."
+  ],
+  "orders": [
+   "Because of the air pollution, many people in Jakarta wear masks.",
+   "In Jakarta, many people wear masks because of the air pollution."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Dia (pr) membeli gaun baru walaupun sebenarnya tidak membutuhkannya.",
+  "prompt": "She bought a new dress ___ (although / despite) she did not really need one.",
+  "hint": "kontras + kalimat lengkap",
+  "ans": "She bought a new dress although she did not really need one.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (she did not really need one), jadi pakai although.",
+  "wrong": [
+   [
+    "She bought a new dress despite she did not really need one.",
+    "Despite harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "She bought a new dress in spite of she did not really need one.",
+    "In spite of harus diikuti kata benda / -ing, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "She bought a new dress despite of she did not really need one.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "She bought a new dress even though she did not really need one.",
+   "She bought a new dress though she did not really need one.",
+   "She bought a new dress despite the fact that she did not really need one.",
+   "She bought a new dress in spite of the fact that she did not really need one."
+  ],
+  "orders": [
+   "Although she did not really need one, she bought a new dress."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Tidak ada yang berbicara selama upacara berlangsung.",
+  "prompt": "Nobody spoke ___ (during / while) the ceremony.",
+  "hint": "selama + kata benda",
+  "ans": "Nobody spoke during the ceremony.",
+  "why": "The ceremony adalah kata benda, jadi pakai during.",
+  "wrong": [
+   [
+    "Nobody spoke while the ceremony.",
+    "While harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Nobody spoke when the ceremony.",
+    "When harus diikuti kalimat (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Nobody spoke meanwhile the ceremony.",
+    "Meanwhile adalah keterangan (\"sementara itu\"), tidak bisa diikuti kata benda seperti preposisi."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "During the ceremony, nobody spoke."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Saya memasang alarm supaya bangun tepat waktu.",
+  "prompt": "I set an alarm ___ (so that / to) I would wake up on time.",
+  "hint": "tujuan + kalimat (would)",
+  "ans": "I set an alarm so that I would wake up on time.",
+  "why": "Setelah bagian kosong ada kalimat dengan subjek (I would wake up), jadi pakai so that.",
+  "wrong": [
+   [
+    "I set an alarm to I would wake up on time.",
+    "To (tujuan) harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "I set an alarm in order to I would wake up on time.",
+    "In order to harus diikuti kata kerja dasar, bukan kalimat dengan subjek."
+   ],
+   [
+    "I set an alarm in order I would wake up on time.",
+    "\"In order\" harus lengkap: in order to + kata kerja (atau so that + kalimat)."
+   ]
+  ],
+  "alt": [
+   "I set an alarm in order that I would wake up on time.",
+   "I set an alarm so I would wake up on time."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Uang saya sudah habis, jadi saya tidak pergi keluar bersama teman-teman.",
+  "prompt": "I had no money left, ___ (so / because of) I did not go out with my friends.",
+  "hint": "akibat dari kalimat pertama",
+  "ans": "I had no money left, so I did not go out with my friends.",
+  "why": "Tidak pergi keluar adalah akibat dari uang yang habis, jadi pakai so.",
+  "wrong": [
+   [
+    "I had no money left, because of I did not go out with my friends.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I had no money left, due to I did not go out with my friends.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I had no money left, as a result of I did not go out with my friends.",
+    "As a result of (akibat dari) adalah preposisi; harus diikuti kata benda, bukan kalimat. Untuk \"jadi\" + kalimat, pakai so."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "conj4",
+  "promptId": "Meskipun cedera, dia (lk) menyelesaikan lomba lari itu.",
+  "prompt": "___ (Despite / Although) his injury, he finished the race.",
+  "hint": "kontras + kata benda",
+  "ans": "Despite his injury, he finished the race.",
+  "why": "His injury adalah kata benda, jadi pakai despite.",
+  "wrong": [
+   [
+    "Although his injury, he finished the race.",
+    "Although harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Even though his injury, he finished the race.",
+    "Even though harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "Despite of his injury, he finished the race.",
+    "\"Despite of\" selalu salah; despite tidak pernah diikuti of."
+   ]
+  ],
+  "alt": [
+   "In spite of his injury, he finished the race."
+  ],
+  "orders": [
+   "He finished the race despite his injury."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Kantor barunya lebih besar. Namun, letaknya jauh dari rumah saya.",
+  "prompt": "The new office is bigger. ___ (However / Despite), it is far from my house.",
+  "hint": "namun, di awal kalimat",
+  "ans": "The new office is bigger. However, it is far from my house.",
+  "why": "Di awal kalimat baru dan diikuti koma, \"namun\" = however.",
+  "wrong": [
+   [
+    "The new office is bigger. Despite, it is far from my house.",
+    "Despite harus diikuti kata benda / -ing; tidak bisa berdiri sendiri seperti however."
+   ],
+   [
+    "The new office is bigger. In spite of, it is far from my house.",
+    "In spite of harus diikuti kata benda / -ing; tidak bisa berdiri sendiri seperti however."
+   ],
+   [
+    "The new office is bigger. Even though, it is far from my house.",
+    "Even though harus diikuti kalimat; tidak bisa berdiri sendiri seperti however."
+   ]
+  ],
+  "alt": [
+   "The new office is bigger. Nevertheless, it is far from my house.",
+   "The new office is bigger. Even so, it is far from my house."
+  ],
+  "orders": [
+   "The new office is bigger. It is far from my house, however."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Saudara perempuan saya membersihkan rumah sementara saya memasak makan siang.",
+  "prompt": "My sister cleaned the house ___ (while / during) I cooked lunch.",
+  "hint": "selama + kalimat lengkap",
+  "ans": "My sister cleaned the house while I cooked lunch.",
+  "why": "Setelah bagian kosong ada kalimat (I cooked lunch), jadi pakai while.",
+  "wrong": [
+   [
+    "My sister cleaned the house during I cooked lunch.",
+    "During harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "My sister cleaned the house at the time of I cooked lunch.",
+    "At the time of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "My sister cleaned the house in the middle of I cooked lunch.",
+    "In the middle of harus diikuti kata benda / -ing, bukan kalimat."
+   ]
+  ],
+  "alt": [
+   "My sister cleaned the house as I cooked lunch.",
+   "My sister cleaned the house when I cooked lunch."
+  ],
+  "orders": [
+   "While I cooked lunch, my sister cleaned the house."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Saya menerima pekerjaan itu karena gajinya bagus.",
+  "prompt": "I took the job ___ (because / because of) the salary was good.",
+  "hint": "sebab + kalimat lengkap",
+  "ans": "I took the job because the salary was good.",
+  "why": "Setelah bagian kosong ada kalimat lengkap (the salary was good), jadi pakai because.",
+  "wrong": [
+   [
+    "I took the job because of the salary was good.",
+    "Because of harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I took the job due to the salary was good.",
+    "Due to harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ],
+   [
+    "I took the job thanks to the salary was good.",
+    "Thanks to (berkat) adalah preposisi; harus diikuti kata benda, bukan kalimat (subjek + kata kerja)."
+   ]
+  ],
+  "alt": [
+   "I took the job since the salary was good.",
+   "I took the job as the salary was good."
+  ],
+  "orders": [
+   "Because the salary was good, I took the job."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Saya bangun pagi-pagi untuk mengejar kereta pertama.",
+  "prompt": "I got up early ___ (to catch / for catching) the first train.",
+  "hint": "tujuan + kata kerja",
+  "ans": "I got up early to catch the first train.",
+  "why": "Untuk menyatakan tujuan, pakai to + kata kerja dasar.",
+  "wrong": [
+   [
+    "I got up early for catching the first train.",
+    "Untuk tujuan seseorang melakukan sesuatu, pakai to + kata kerja dasar, bukan for + -ing."
+   ],
+   [
+    "I got up early for catch the first train.",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "I got up early to catching the first train.",
+    "To untuk tujuan diikuti kata kerja dasar, bukan -ing."
+   ]
+  ],
+  "alt": [
+   "I got up early in order to catch the first train.",
+   "I got up early so as to catch the first train."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Walaupun busnya penuh, kami mendapat dua tempat duduk.",
+  "prompt": "Although the bus was crowded, ___ (but / however / so / —) we found two seats.",
+  "hint": "sudah ada although",
+  "ans": "Although the bus was crowded, we found two seats.",
+  "why": "Kalimat sudah memakai although, jadi bagian kedua tidak perlu kata sambung lagi.",
+  "wrong": [
+   [
+    "Although the bus was crowded, but we found two seats.",
+    "Although/even though tidak boleh dipasangkan dengan but; cukup satu kata sambung."
+   ],
+   [
+    "Although the bus was crowded, however we found two seats.",
+    "Although/even though tidak boleh dipasangkan dengan however; cukup satu kata sambung."
+   ],
+   [
+    "Although the bus was crowded, so we found two seats.",
+    "Although/even though tidak bisa dipasangkan dengan so, dan artinya pun tidak cocok."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "We found two seats although the bus was crowded."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Saya akan meminjamkan mobil saya kalau kamu menyetir dengan hati-hati.",
+  "prompt": "I will lend you my car ___ (if / you / drive) carefully.",
+  "hint": "syarat, masa depan",
+  "ans": "I will lend you my car if you drive carefully.",
+  "why": "Pola kondisional masa depan: if + present (you drive), lalu will.",
+  "wrong": [
+   [
+    "I will lend you my car if you drives carefully.",
+    "Subjek you tidak memakai -s: you drive."
+   ],
+   [
+    "I will lend you my car if you driving carefully.",
+    "Bentuk -ing tidak bisa berdiri sendiri tanpa are."
+   ],
+   [
+    "I will lend you my car if you are drive carefully.",
+    "Are tidak dipakai bersama kata kerja dasar; cukup you drive."
+   ]
+  ],
+  "alt": [
+   "I will lend you my car as long as you drive carefully."
+  ],
+  "orders": [
+   "If you drive carefully, I will lend you my car."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Konsernya ditunda karena penyanyinya sakit.",
+  "prompt": "The concert was postponed ___ (due to / because) the singer's illness.",
+  "hint": "sebab + kata benda",
+  "ans": "The concert was postponed due to the singer's illness.",
+  "why": "The singer's illness adalah kata benda, jadi pakai due to.",
+  "wrong": [
+   [
+    "The concert was postponed because the singer's illness.",
+    "Because harus diikuti kalimat lengkap (subjek + kata kerja), bukan kata benda saja."
+   ],
+   [
+    "The concert was postponed so the singer's illness.",
+    "So harus diikuti kalimat akibat, bukan kata benda saja."
+   ],
+   [
+    "The concert was postponed due of the singer's illness.",
+    "\"Due of\" tidak ada; yang benar due to atau because of."
+   ]
+  ],
+  "alt": [
+   "The concert was postponed because of the singer's illness."
+  ],
+  "orders": [
+   "Due to the singer's illness, the concert was postponed."
+  ]
+ },
+ {
+  "set": "conj4",
+  "promptId": "Dia (pr) mau ke perpustakaan untuk meminjam buku.",
+  "prompt": "She is going to the library ___ (in order to / so that) borrow some books.",
+  "hint": "tujuan + kata kerja",
+  "ans": "She is going to the library in order to borrow some books.",
+  "why": "Setelah bagian kosong ada kata kerja dasar (borrow), jadi pakai in order to.",
+  "wrong": [
+   [
+    "She is going to the library so that borrow some books.",
+    "So that harus diikuti kalimat lengkap (subjek + can/could/would + kata kerja), bukan kata kerja saja."
+   ],
+   [
+    "She is going to the library for borrow some books.",
+    "For tidak dipakai dengan kata kerja dasar untuk menyatakan tujuan; pakai to + kata kerja."
+   ],
+   [
+    "She is going to the library in order borrow some books.",
+    "\"In order\" harus lengkap: in order to + kata kerja (atau so that + kalimat)."
+   ]
+  ],
+  "alt": [
+   "She is going to the library to borrow some books.",
+   "She is going to the library so as to borrow some books."
+  ]
+ }
+]

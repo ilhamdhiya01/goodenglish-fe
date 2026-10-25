@@ -1,0 +1,118 @@
+// Istilah & singkatan grammar. [kode, nama Inggris, nama Indonesia, penjelasan, contoh (<b> = bagian yang dimaksud)]
+export const TERMS: [string, string, string, string, string][] = [
+  [
+    "S",
+    "Subject",
+    "Subjek",
+    "Pelaku atau hal yang dibicarakan. Biasanya di awal kalimat, sebelum kata kerja. Bisa kata ganti (I, you, we, they, he, she, it), nama, atau kata benda.",
+    "<b>My brother</b> works in a bank.",
+  ],
+  [
+    "V",
+    "Verb",
+    "Kata kerja",
+    "Kata yang menunjukkan aksi atau kegiatan. Bentuknya berubah sesuai waktu, jadi dibagi menjadi V1, V2, V3, dan V-ing.",
+    "She <b>cooks</b> every day.",
+  ],
+  [
+    "V1",
+    "Base form",
+    "Bentuk dasar",
+    "Bentuk kata kerja seperti di kamus: work, go, eat. Dipakai untuk sekarang/kebiasaan, setelah do/does/did, setelah modal, dan setelah to.",
+    "I <b>go</b> to work by bus.",
+  ],
+  [
+    "V1(s/es)",
+    "Third person -s",
+    "V1 + s/es",
+    "Di present simple, kalau subjeknya he / she / it / satu orang, V1 ditambah -s atau -es (works, goes, watches).",
+    "He <b>watches</b> TV at night.",
+  ],
+  [
+    "V2",
+    "Past simple",
+    "Bentuk lampau",
+    "Untuk kejadian yang sudah selesai di masa lalu. Beraturan: + -ed (worked). Tak beraturan: dihafal (went, ate).",
+    "We <b>went</b> home early.",
+  ],
+  [
+    "V3",
+    "Past participle",
+    "Bentuk ke-3",
+    "Tidak pernah berdiri sendiri. Selalu setelah have / has / had (sudah) atau setelah be (pasif). Beraturan sama dengan V2 (worked); tak beraturan dihafal (gone, eaten).",
+    "I've <b>eaten</b> already.",
+  ],
+  [
+    "V-ing",
+    "Present participle",
+    "Kata kerja + -ing",
+    "Untuk sesuatu yang sedang berlangsung (setelah be), atau sebagai kata benda (Swimming is fun).",
+    "They are <b>playing</b> football.",
+  ],
+  [
+    "to be",
+    "Be",
+    "Kata be",
+    "am / is / are (sekarang), was / were (lampau), be, been. Menghubungkan subjek dengan kata sifat, kata benda, atau tempat.",
+    "She <b>is</b> a nurse.",
+  ],
+  [
+    "Aux",
+    "Auxiliary verb",
+    "Kata bantu",
+    'Kata kerja "pembantu" yang membentuk tense, negatif, dan tanya: be, do / does / did, have / has / had, dan modal.',
+    "I <b>don't</b> like coffee.",
+  ],
+  [
+    "Modal",
+    "Modal verb",
+    "Kata bantu modal",
+    "can, could, will, would, should, must, may, might. Menambah makna (bisa, harus, mungkin) dan selalu diikuti V1.",
+    "You <b>should</b> rest.",
+  ],
+  [
+    "O",
+    "Object",
+    "Objek",
+    "Yang menerima aksi. Letaknya setelah kata kerja. Tidak semua kalimat punya objek (I sleep).",
+    "I bought <b>a new phone</b>.",
+  ],
+  [
+    "C",
+    "Complement",
+    "Pelengkap",
+    "Bagian setelah be yang menjelaskan subjek: kata sifat, kata benda, atau tempat.",
+    "The room is <b>very clean</b>.",
+  ],
+  [
+    "N",
+    "Noun",
+    "Kata benda",
+    "Orang, benda, tempat, atau ide: teacher, car, Jakarta, idea.",
+    "The <b>meeting</b> starts at nine.",
+  ],
+  [
+    "Adj",
+    "Adjective",
+    "Kata sifat",
+    "Menjelaskan kata benda: big, tired, expensive. Letaknya sebelum kata benda atau setelah be.",
+    "It's an <b>expensive</b> bag.",
+  ],
+  [
+    "Adv",
+    "Adverb",
+    "Kata keterangan",
+    "Menjelaskan cara, frekuensi, waktu, atau tempat: quickly, usually, yesterday, here.",
+    "He speaks <b>slowly</b>.",
+  ],
+];
+
+// Satu kalimat dipotong per bagian. [kata, tag, warna]
+export const ANATOMY: [string, string, string][] = [
+  ["My sister", "S", "#1F4E86"],
+  ["is", "Aux (be)", "#7A5A00"],
+  ["cooking", "V-ing", "#B42318"],
+  ["fried rice", "O", "#1F6B57"],
+  ["in the kitchen", "Adv tempat", "#6B665C"],
+  ["now", "Adv waktu", "#6B665C"],
+];

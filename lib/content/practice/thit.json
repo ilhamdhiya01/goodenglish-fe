@@ -1,0 +1,2867 @@
+[
+ {
+  "set": "thit1",
+  "promptId": "Ini tas baru saya.",
+  "prompt": "___ (This is / These are) my new bag.",
+  "hint": "satu benda, dekat",
+  "ans": "This is my new bag.",
+  "why": "Tas hanya satu dan dekat → this is.",
+  "wrong": [
+   [
+    "These are my new bag.",
+    "These are untuk benda jamak, padahal tasnya satu."
+   ],
+   [
+    "This are my new bag.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ],
+   [
+    "This my new bag.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini sepatu saya.",
+  "prompt": "___ (These are / This is) my shoes.",
+  "hint": "benda jamak, dekat",
+  "ans": "These are my shoes.",
+  "why": "Shoes jamak dan dekat → these are.",
+  "wrong": [
+   [
+    "This is my shoes.",
+    "This is untuk satu benda, padahal shoes jamak."
+   ],
+   [
+    "These is my shoes.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "These my shoes.",
+    "Are tidak boleh hilang; these perlu are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Itu rumah nenek saya di atas bukit itu.",
+  "prompt": "___ (That is / This is) my grandmother's house on that hill.",
+  "hint": "satu benda, jauh",
+  "ans": "That is my grandmother's house on that hill.",
+  "why": "Rumahnya jauh (on that hill) → that is.",
+  "wrong": [
+   [
+    "This is my grandmother's house on that hill.",
+    "This untuk yang dekat, padahal rumahnya jauh di atas bukit."
+   ],
+   [
+    "That are my grandmother's house on that hill.",
+    "That untuk satu benda; kata kerjanya is, bukan are."
+   ],
+   [
+    "That my grandmother's house on that hill.",
+    "Is tidak boleh hilang; \"itu\" tetap perlu is: that is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Itu tas-tas kami di sana, dekat pintu.",
+  "prompt": "___ (Those are / These are) our bags over there, by the door.",
+  "hint": "jamak, jauh",
+  "ans": "Those are our bags over there, by the door.",
+  "why": "Tasnya banyak dan jauh (over there) → those are.",
+  "wrong": [
+   [
+    "These are our bags over there, by the door.",
+    "These untuk yang dekat, padahal tasnya over there."
+   ],
+   [
+    "That is our bags over there, by the door.",
+    "That is untuk satu benda, padahal bags jamak."
+   ],
+   [
+    "Those is our bags over there, by the door.",
+    "Those untuk jamak; kata kerjanya are, bukan is."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Those are our bags by the door over there."
+  ]
+ },
+ {
+  "set": "thit1",
+  "promptId": "Halo, ini Budi. Boleh saya bicara dengan Tono?",
+  "prompt": "Hello, ___ (this is / that is) Budi. Can I speak to Tono?",
+  "hint": "menyebut diri di telepon",
+  "ans": "Hello, this is Budi. Can I speak to Tono?",
+  "why": "Di telepon, untuk menyebut diri sendiri dipakai this is (UK juga lazim it's Budi).",
+  "wrong": [
+   [
+    "Hello, that is Budi. Can I speak to Tono?",
+    "That tidak dipakai untuk menyebut diri sendiri di telepon; that untuk lawan bicara (Is that Tono?)."
+   ],
+   [
+    "Hello, this Budi. Can I speak to Tono?",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "Hello, this are Budi. Can I speak to Tono?",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [
+   "Hello, it is Budi. Can I speak to Tono?"
+  ]
+ },
+ {
+  "set": "thit1",
+  "promptId": "Permisi, ini koper-koper saya, bukan punya Anda.",
+  "prompt": "Excuse me, ___ (these are / this is) my suitcases, not yours.",
+  "hint": "barang jamak, dekat",
+  "ans": "Excuse me, these are my suitcases, not yours.",
+  "why": "Suitcases jamak dan dekat → these are.",
+  "wrong": [
+   [
+    "Excuse me, this is my suitcases, not yours.",
+    "This is untuk satu benda, padahal suitcases jamak."
+   ],
+   [
+    "Excuse me, these is my suitcases, not yours.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "Excuse me, these my suitcases, not yours.",
+    "Are tidak boleh hilang; these perlu are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ayah, ini teman saya Rina. Dia sekelas dengan saya.",
+  "prompt": "Dad, ___ (this is / these are) my friend Rina. She is in my class.",
+  "hint": "memperkenalkan satu orang",
+  "ans": "Dad, this is my friend Rina. She is in my class.",
+  "why": "Untuk memperkenalkan satu orang dipakai this is.",
+  "wrong": [
+   [
+    "Dad, these are my friend Rina. She is in my class.",
+    "These are untuk beberapa orang, padahal Rina satu orang."
+   ],
+   [
+    "Dad, this my friend Rina. She is in my class.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "Dad, this are my friend Rina. She is in my class.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini orang tua saya.",
+  "prompt": "___ (These are / This is) my parents.",
+  "hint": "memperkenalkan dua orang",
+  "ans": "These are my parents.",
+  "why": "Parents = dua orang → these are.",
+  "wrong": [
+   [
+    "This is my parents.",
+    "This is untuk satu orang, padahal parents dua orang."
+   ],
+   [
+    "These is my parents.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "This are my parents.",
+    "This untuk satu orang; untuk jamak pakai these are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Semuanya, ini Pak Joko, manajer baru kita.",
+  "prompt": "Everyone, ___ (this is / these are) Pak Joko, our new manager.",
+  "hint": "memperkenalkan di kantor",
+  "ans": "Everyone, this is Pak Joko, our new manager.",
+  "why": "Memperkenalkan satu orang → this is.",
+  "wrong": [
+   [
+    "Everyone, these are Pak Joko, our new manager.",
+    "These are untuk beberapa orang, padahal Pak Joko satu orang."
+   ],
+   [
+    "Everyone, this Pak Joko, our new manager.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "Everyone, this are Pak Joko, our new manager.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Everyone, this is our new manager, Pak Joko."
+  ]
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini anak-anak saya, Dani dan Lia.",
+  "prompt": "___ (These are / This is) my children, Dani and Lia.",
+  "hint": "memperkenalkan beberapa orang",
+  "ans": "These are my children, Dani and Lia.",
+  "why": "Children = jamak → these are.",
+  "wrong": [
+   [
+    "This is my children, Dani and Lia.",
+    "This is untuk satu orang, padahal children jamak."
+   ],
+   [
+    "These is my children, Dani and Lia.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "These my children, Dani and Lia.",
+    "Are tidak boleh hilang; these perlu are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini tiket saya, di tangan saya.",
+  "prompt": "___ (This is / That is) my ticket, here in my hand.",
+  "hint": "dekat, di tangan",
+  "ans": "This is my ticket, here in my hand.",
+  "why": "Tiketnya di tangan (dekat) → this is.",
+  "wrong": [
+   [
+    "That is my ticket, here in my hand.",
+    "That untuk yang jauh, padahal tiketnya di tangan."
+   ],
+   [
+    "These are my ticket, here in my hand.",
+    "These are untuk jamak, padahal tiketnya satu."
+   ],
+   [
+    "This my ticket, here in my hand.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini buku-buku saya di meja saya.",
+  "prompt": "___ (These are / Those are) my books here on my desk.",
+  "hint": "jamak, dekat",
+  "ans": "These are my books here on my desk.",
+  "why": "Bukunya banyak dan dekat (here) → these are.",
+  "wrong": [
+   [
+    "Those are my books here on my desk.",
+    "Those untuk yang jauh, padahal bukunya here."
+   ],
+   [
+    "This is my books here on my desk.",
+    "This is untuk satu benda, padahal books jamak."
+   ],
+   [
+    "These is my books here on my desk.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Kamu bisa melihat burung-burung di pohon itu? Itu burung beo.",
+  "prompt": "Can you see the birds on that tree? ___ (Those are / These are) parrots.",
+  "hint": "jamak, jauh",
+  "ans": "Can you see the birds on that tree? Those are parrots.",
+  "why": "Burungnya banyak dan jauh (on that tree) → those are.",
+  "wrong": [
+   [
+    "Can you see the birds on that tree? These are parrots.",
+    "These untuk yang dekat, padahal burungnya di pohon itu."
+   ],
+   [
+    "Can you see the birds on that tree? That is parrots.",
+    "That is untuk satu benda, padahal parrots jamak."
+   ],
+   [
+    "Can you see the birds on that tree? Those is parrots.",
+    "Those untuk jamak; kata kerjanya are, bukan is."
+   ]
+  ],
+  "alt": [
+   "Can you see the birds on that tree? They are parrots."
+  ]
+ },
+ {
+  "set": "thit1",
+  "promptId": "Itu mobil saya di seberang jalan.",
+  "prompt": "___ (That is / Those are) my car across the street.",
+  "hint": "satu benda, jauh",
+  "ans": "That is my car across the street.",
+  "why": "Mobilnya satu dan jauh (across the street) → that is.",
+  "wrong": [
+   [
+    "Those are my car across the street.",
+    "Those are untuk jamak, padahal mobilnya satu."
+   ],
+   [
+    "This is my car across the street.",
+    "This untuk yang dekat, padahal mobilnya di seberang jalan."
+   ],
+   [
+    "That my car across the street.",
+    "Is tidak boleh hilang; \"itu\" tetap perlu is: that is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini foto keluarga saya.",
+  "prompt": "___ (This is / These are) a photo of my family.",
+  "hint": "menunjukkan satu foto",
+  "ans": "This is a photo of my family.",
+  "why": "A photo = satu → this is.",
+  "wrong": [
+   [
+    "These are a photo of my family.",
+    "These are untuk jamak, padahal a photo hanya satu."
+   ],
+   [
+    "This a photo of my family.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "This are a photo of my family.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini tiket untuk konser malam ini.",
+  "prompt": "___ (These are / This is) the tickets for tonight's concert.",
+  "hint": "benda jamak, dekat",
+  "ans": "These are the tickets for tonight's concert.",
+  "why": "Tickets jamak → these are.",
+  "wrong": [
+   [
+    "This is the tickets for tonight's concert.",
+    "This is untuk satu benda, padahal tickets jamak."
+   ],
+   [
+    "These is the tickets for tonight's concert.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "These the tickets for tonight's concert.",
+    "Are tidak boleh hilang; these perlu are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Lihat foto ini. Ini kakek saya waktu masih muda.",
+  "prompt": "Look at this picture. ___ (This is / These are) my grandfather when he was young.",
+  "hint": "menunjuk orang di foto",
+  "ans": "Look at this picture. This is my grandfather when he was young.",
+  "why": "Menunjuk satu orang di foto → this is.",
+  "wrong": [
+   [
+    "Look at this picture. These are my grandfather when he was young.",
+    "These are untuk beberapa orang, padahal kakeknya satu."
+   ],
+   [
+    "Look at this picture. This my grandfather when he was young.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "Look at this picture. This are my grandfather when he was young.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [
+   "Look at this picture. It is my grandfather when he was young."
+  ]
+ },
+ {
+  "set": "thit1",
+  "promptId": "Selamat datang di rumah kami. Ini ruang tamunya.",
+  "prompt": "Welcome to our home. ___ (This is / These are) the living room.",
+  "hint": "menunjukkan satu ruangan",
+  "ans": "Welcome to our home. This is the living room.",
+  "why": "Living room satu → this is.",
+  "wrong": [
+   [
+    "Welcome to our home. These are the living room.",
+    "These are untuk jamak, padahal ruang tamunya satu."
+   ],
+   [
+    "Welcome to our home. This the living room.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "Welcome to our home. This are the living room.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini mangga segar dari kebun saya.",
+  "prompt": "___ (These are / This is) fresh mangoes from my garden.",
+  "hint": "buah jamak, dekat",
+  "ans": "These are fresh mangoes from my garden.",
+  "why": "Mangoes jamak → these are.",
+  "wrong": [
+   [
+    "This is fresh mangoes from my garden.",
+    "This is untuk satu benda, padahal mangoes jamak."
+   ],
+   [
+    "These is fresh mangoes from my garden.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "This are fresh mangoes from my garden.",
+    "This untuk satu benda; untuk jamak pakai these are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Lihat, itu bus kita, di ujung jalan.",
+  "prompt": "Look, ___ (that is / this is) our bus, at the end of the road.",
+  "hint": "satu benda, jauh",
+  "ans": "Look, that is our bus, at the end of the road.",
+  "why": "Busnya jauh (at the end of the road) → that is.",
+  "wrong": [
+   [
+    "Look, this is our bus, at the end of the road.",
+    "This untuk yang dekat, padahal busnya di ujung jalan."
+   ],
+   [
+    "Look, those are our bus, at the end of the road.",
+    "Those are untuk jamak, padahal busnya satu."
+   ],
+   [
+    "Look, that our bus, at the end of the road.",
+    "Is tidak boleh hilang; \"itu\" tetap perlu is: that is."
+   ]
+  ],
+  "alt": [
+   "Look, there is our bus, at the end of the road."
+  ]
+ },
+ {
+  "set": "thit1",
+  "promptId": "Itu mainan-mainan lama saya di atas sana, di rak paling atas.",
+  "prompt": "___ (Those are / These are) my old toys up there on the top shelf.",
+  "hint": "jamak, jauh di atas",
+  "ans": "Those are my old toys up there on the top shelf.",
+  "why": "Mainannya banyak dan jauh (up there) → those are.",
+  "wrong": [
+   [
+    "These are my old toys up there on the top shelf.",
+    "These untuk yang dekat, padahal mainannya di atas sana."
+   ],
+   [
+    "That is my old toys up there on the top shelf.",
+    "That is untuk satu benda, padahal toys jamak."
+   ],
+   [
+    "Those is my old toys up there on the top shelf.",
+    "Those untuk jamak; kata kerjanya are, bukan is."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Those are my old toys on the top shelf up there."
+  ]
+ },
+ {
+  "set": "thit1",
+  "promptId": "Maaf, ini kursi saya.",
+  "prompt": "Sorry, ___ (this is / these are) my seat.",
+  "hint": "satu benda, dekat",
+  "ans": "Sorry, this is my seat.",
+  "why": "Seat satu dan dekat → this is.",
+  "wrong": [
+   [
+    "Sorry, these are my seat.",
+    "These are untuk jamak, padahal kursinya satu."
+   ],
+   [
+    "Sorry, this my seat.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "Sorry, this are my seat.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Halo, Pak Hasan. Ini istri saya, Ani.",
+  "prompt": "Hello, Pak Hasan. ___ (This is / These are) my wife, Ani.",
+  "hint": "memperkenalkan satu orang",
+  "ans": "Hello, Pak Hasan. This is my wife, Ani.",
+  "why": "Memperkenalkan satu orang → this is.",
+  "wrong": [
+   [
+    "Hello, Pak Hasan. These are my wife, Ani.",
+    "These are untuk beberapa orang, padahal istrinya satu orang."
+   ],
+   [
+    "Hello, Pak Hasan. This my wife, Ani.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "Hello, Pak Hasan. This are my wife, Ani.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini kamar kakak laki-laki saya.",
+  "prompt": "___ (This is / These are) my brother's room.",
+  "hint": "menunjukkan satu ruangan",
+  "ans": "This is my brother's room.",
+  "why": "Room satu → this is.",
+  "wrong": [
+   [
+    "These are my brother's room.",
+    "These are untuk jamak, padahal kamarnya satu."
+   ],
+   [
+    "This my brother's room.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "These is my brother's room.",
+    "These untuk jamak, dan room tunggal; yang benar this is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Itu teman-teman saya di sisi lain lapangan.",
+  "prompt": "___ (Those are / These are) my friends on the other side of the field.",
+  "hint": "jamak, jauh",
+  "ans": "Those are my friends on the other side of the field.",
+  "why": "Teman-temannya banyak dan jauh → those are.",
+  "wrong": [
+   [
+    "These are my friends on the other side of the field.",
+    "These untuk yang dekat, padahal mereka di sisi lain lapangan."
+   ],
+   [
+    "That is my friends on the other side of the field.",
+    "That is untuk satu orang, padahal friends jamak."
+   ],
+   [
+    "Those is my friends on the other side of the field.",
+    "Those untuk jamak; kata kerjanya are, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini jawaban untuk PR hari ini.",
+  "prompt": "___ (These are / This is) the answers to today's homework.",
+  "hint": "jamak, dekat",
+  "ans": "These are the answers to today's homework.",
+  "why": "Answers jamak → these are.",
+  "wrong": [
+   [
+    "This is the answers to today's homework.",
+    "This is untuk satu benda, padahal answers jamak."
+   ],
+   [
+    "These is the answers to today's homework.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "These the answers to today's homework.",
+    "Are tidak boleh hilang; these perlu are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini kunci kamar Anda, Pak.",
+  "prompt": "___ (This is / These are) your room key, sir.",
+  "hint": "satu benda, dekat",
+  "ans": "This is your room key, sir.",
+  "why": "Room key satu → this is.",
+  "wrong": [
+   [
+    "These are your room key, sir.",
+    "These are untuk jamak, padahal kuncinya satu."
+   ],
+   [
+    "This your room key, sir.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "This are your room key, sir.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Ini murid-murid baru di kelas kita.",
+  "prompt": "___ (These are / This is) the new students in our class.",
+  "hint": "memperkenalkan beberapa orang",
+  "ans": "These are the new students in our class.",
+  "why": "Students jamak → these are.",
+  "wrong": [
+   [
+    "This is the new students in our class.",
+    "This is untuk satu orang, padahal students jamak."
+   ],
+   [
+    "These is the new students in our class.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "These the new students in our class.",
+    "Are tidak boleh hilang; these perlu are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Itu kucing saya di atap rumah itu.",
+  "prompt": "___ (That is / Those are) my cat on the roof of that house.",
+  "hint": "satu hewan, jauh",
+  "ans": "That is my cat on the roof of that house.",
+  "why": "Kucingnya satu dan jauh (on the roof of that house) → that is.",
+  "wrong": [
+   [
+    "Those are my cat on the roof of that house.",
+    "Those are untuk jamak, padahal kucingnya satu."
+   ],
+   [
+    "This is my cat on the roof of that house.",
+    "This untuk yang dekat, padahal kucingnya di atap rumah itu."
+   ],
+   [
+    "That are my cat on the roof of that house.",
+    "That untuk satu benda; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit1",
+  "promptId": "Hai, Sinta. Ini rekan-rekan kerja saya, Bayu dan Lina.",
+  "prompt": "Hi, Sinta. ___ (These are / This is) my colleagues, Bayu and Lina.",
+  "hint": "memperkenalkan dua orang",
+  "ans": "Hi, Sinta. These are my colleagues, Bayu and Lina.",
+  "why": "Dua orang → these are.",
+  "wrong": [
+   [
+    "Hi, Sinta. This is my colleagues, Bayu and Lina.",
+    "This is untuk satu orang, padahal ada dua orang."
+   ],
+   [
+    "Hi, Sinta. These is my colleagues, Bayu and Lina.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "Hi, Sinta. This are my colleagues, Bayu and Lina.",
+    "This untuk satu orang; untuk dua orang pakai these are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Hari ini di luar sangat panas.",
+  "prompt": "___ (It is / This is) very hot outside today.",
+  "hint": "membicarakan cuaca",
+  "ans": "It is very hot outside today.",
+  "why": "Cuaca memakai it kosong: it is hot.",
+  "wrong": [
+   [
+    "This is very hot outside today.",
+    "Untuk cuaca dipakai it, bukan this."
+   ],
+   [
+    "Is very hot outside today.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It very hot outside today.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Today it is very hot outside."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Sekarang di Bogor sedang hujan.",
+  "prompt": "___ (It is / This is) raining in Bogor now.",
+  "hint": "cuaca saat ini",
+  "ans": "It is raining in Bogor now.",
+  "why": "Cuaca memakai it: it is raining.",
+  "wrong": [
+   [
+    "This is raining in Bogor now.",
+    "Untuk cuaca dipakai it, bukan this."
+   ],
+   [
+    "Is raining in Bogor now.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It raining in Bogor now.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "It is raining now in Bogor.",
+   "It is now raining in Bogor.",
+   "Now it is raining in Bogor."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Sudah jam tujuh. Bangun!",
+  "prompt": "___ (It is / This is) seven o'clock. Wake up!",
+  "hint": "menyebut jam",
+  "ans": "It is seven o'clock. Wake up!",
+  "why": "Jam memakai it kosong: it is seven o'clock.",
+  "wrong": [
+   [
+    "This is seven o'clock. Wake up!",
+    "Untuk waktu/jam dipakai it, bukan this."
+   ],
+   [
+    "Is seven o'clock. Wake up!",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It seven o'clock. Wake up!",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Hari ini hari Jumat, jadi kantor tutup lebih awal.",
+  "prompt": "___ (It is / Is) Friday, so the office closes early.",
+  "hint": "menyebut hari",
+  "ans": "It is Friday, so the office closes early.",
+  "why": "Hari memakai it kosong: it is Friday.",
+  "wrong": [
+   [
+    "Is Friday, so the office closes early.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It Friday, so the office closes early.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "Today Friday, so the office closes early.",
+    "Is tidak boleh hilang; yang benar it is Friday atau today is Friday."
+   ]
+  ],
+  "alt": [
+   "Today is Friday, so the office closes early."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Pasarnya? Tidak jauh dari sini.",
+  "prompt": "The market? ___ (It is / Is) not far from here.",
+  "hint": "merujuk benda tadi",
+  "ans": "The market? It is not far from here.",
+  "why": "It merujuk ke the market yang sudah disebut.",
+  "wrong": [
+   [
+    "The market? Is not far from here.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "The market? It not far from here.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "The market? It does not far from here.",
+    "Kalimat ini memakai be (is), jadi menyangkalnya it is not, bukan it does not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Dari Jakarta ke Bandung sekitar dua jam naik mobil.",
+  "prompt": "___ (It is / Is) about two hours by car from Jakarta to Bandung.",
+  "hint": "jarak/lama perjalanan",
+  "ans": "It is about two hours by car from Jakarta to Bandung.",
+  "why": "Jarak dan lama perjalanan memakai it kosong.",
+  "wrong": [
+   [
+    "Is about two hours by car from Jakarta to Bandung.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It about two hours by car from Jakarta to Bandung.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "It are about two hours by car from Jakarta to Bandung.",
+    "It tunggal; walaupun two hours jamak, kata kerjanya tetap is."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "It is about two hours from Jakarta to Bandung by car.",
+   "From Jakarta to Bandung, it is about two hours by car."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Saya membeli laptop baru. Laptopnya sangat ringan.",
+  "prompt": "I bought a new laptop. ___ (It is / Is) very light.",
+  "hint": "merujuk benda tadi",
+  "ans": "I bought a new laptop. It is very light.",
+  "why": "It merujuk ke laptop yang sudah disebut.",
+  "wrong": [
+   [
+    "I bought a new laptop. Is very light.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "I bought a new laptop. It very light.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "I bought a new laptop. It are very light.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Ini ponsel baru saya. Ponselnya sangat cepat.",
+  "prompt": "This is my new phone. ___ (It is / Is) very fast.",
+  "hint": "merujuk benda tadi",
+  "ans": "This is my new phone. It is very fast.",
+  "why": "It merujuk ke ponsel yang sudah disebut.",
+  "wrong": [
+   [
+    "This is my new phone. Is very fast.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "This is my new phone. It very fast.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "This is my new phone. It are very fast.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [
+   "This is my new phone. This is very fast."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Saya sering makan di restoran ini. Murah dan makanannya enak.",
+  "prompt": "I often eat at this restaurant. ___ (It is / Is) cheap and the food is good.",
+  "hint": "merujuk tempat tadi",
+  "ans": "I often eat at this restaurant. It is cheap and the food is good.",
+  "why": "It merujuk ke restoran yang sudah disebut.",
+  "wrong": [
+   [
+    "I often eat at this restaurant. Is cheap and the food is good.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "I often eat at this restaurant. It cheap and the food is good.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "I often eat at this restaurant. It are cheap and the food is good.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Di Bandung dingin pada malam hari.",
+  "prompt": "___ (It is / This is) cold in Bandung at night.",
+  "hint": "suhu udara malam",
+  "ans": "It is cold in Bandung at night.",
+  "why": "Suhu/cuaca memakai it kosong: it is cold.",
+  "wrong": [
+   [
+    "This is cold in Bandung at night.",
+    "Untuk cuaca dipakai it, bukan this."
+   ],
+   [
+    "Is cold in Bandung at night.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It cold in Bandung at night.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "At night it is cold in Bandung.",
+   "It is cold at night in Bandung.",
+   "In Bandung it is cold at night."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Sudah jam setengah sepuluh. Kita terlambat!",
+  "prompt": "___ (It is / Is) half past nine. We are late!",
+  "hint": "menyebut jam",
+  "ans": "It is half past nine. We are late!",
+  "why": "Jam memakai it kosong: it is half past nine.",
+  "wrong": [
+   [
+    "Is half past nine. We are late!",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It half past nine. We are late!",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "It are half past nine. We are late!",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Tanggal berapa hari ini? Tanggal satu Juni.",
+  "prompt": "What is the date today? ___ (It is / Is) the first of June.",
+  "hint": "menyebut tanggal",
+  "ans": "What is the date today? It is the first of June.",
+  "why": "Tanggal memakai it kosong: it is the first of June.",
+  "wrong": [
+   [
+    "What is the date today? Is the first of June.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "What is the date today? It the first of June.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "What is the date today? It are the first of June.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [
+   "What is the date today? Today is the first of June."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Pagi ini berkabut, jadi menyetirlah pelan-pelan.",
+  "prompt": "___ (It is / This is) foggy this morning, so drive slowly.",
+  "hint": "membicarakan cuaca",
+  "ans": "It is foggy this morning, so drive slowly.",
+  "why": "Cuaca memakai it kosong: it is foggy.",
+  "wrong": [
+   [
+    "This is foggy this morning, so drive slowly.",
+    "Untuk cuaca dipakai it, bukan this."
+   ],
+   [
+    "Is foggy this morning, so drive slowly.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It foggy this morning, so drive slowly.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "This morning it is foggy, so drive slowly."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Sore ini di pantai berangin.",
+  "prompt": "___ (It is / This is) windy on the beach this afternoon.",
+  "hint": "membicarakan cuaca",
+  "ans": "It is windy on the beach this afternoon.",
+  "why": "Cuaca memakai it kosong: it is windy.",
+  "wrong": [
+   [
+    "This is windy on the beach this afternoon.",
+    "Untuk cuaca dipakai it, bukan this."
+   ],
+   [
+    "Is windy on the beach this afternoon.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It windy on the beach this afternoon.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "This afternoon it is windy on the beach.",
+   "It is windy this afternoon on the beach."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Jangan khawatir. Tidak apa-apa.",
+  "prompt": "Don't worry. ___ (It is / Is) okay.",
+  "hint": "keadaan umum",
+  "ans": "Don't worry. It is okay.",
+  "why": "Keadaan umum memakai it kosong: it is okay.",
+  "wrong": [
+   [
+    "Don't worry. Is okay.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "Don't worry. It okay.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "Don't worry. It are okay.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [
+   "Don't worry. That is okay."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Berbahaya berenang di sini.",
+  "prompt": "___ (It is / Is) dangerous to swim here.",
+  "hint": "keadaan umum",
+  "ans": "It is dangerous to swim here.",
+  "why": "It kosong dipakai sebelum adjective + to + kata kerja.",
+  "wrong": [
+   [
+    "Is dangerous to swim here.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It dangerous to swim here.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "There is dangerous to swim here.",
+    "There is berarti \"ada (sesuatu)\"; di sini subjeknya harus it."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Senang bertemu dengan Anda.",
+  "prompt": "___ (It is / Is) nice to meet you.",
+  "hint": "ungkapan perkenalan",
+  "ans": "It is nice to meet you.",
+  "why": "It kosong dipakai sebelum nice to meet you.",
+  "wrong": [
+   [
+    "Is nice to meet you.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It nice to meet you.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "I am nice to meet you.",
+    "I am nice berarti \"saya orang yang baik\"; untuk \"senang bertemu\" pakai it is nice (atau I am glad)."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Tasmu? Ada di bawah meja.",
+  "prompt": "Your bag? ___ (It is / Is) under the table.",
+  "hint": "merujuk benda tadi",
+  "ans": "Your bag? It is under the table.",
+  "why": "It merujuk ke tas yang sudah disebut.",
+  "wrong": [
+   [
+    "Your bag? Is under the table.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "Your bag? It under the table.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "Your bag? There is under the table.",
+    "\"Ada di\" untuk benda yang sudah disebut memakai it is, bukan there is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Saya suka kemejamu. Bagus sekali.",
+  "prompt": "I like your shirt. ___ (It is / Is) very nice.",
+  "hint": "merujuk benda tadi",
+  "ans": "I like your shirt. It is very nice.",
+  "why": "It merujuk ke kemeja yang sudah disebut.",
+  "wrong": [
+   [
+    "I like your shirt. Is very nice.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "I like your shirt. It very nice.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "I like your shirt. It are very nice.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Minggu ini di Bali cerah.",
+  "prompt": "___ (It is / This is) sunny in Bali this week.",
+  "hint": "membicarakan cuaca",
+  "ans": "It is sunny in Bali this week.",
+  "why": "Cuaca memakai it kosong: it is sunny.",
+  "wrong": [
+   [
+    "This is sunny in Bali this week.",
+    "Untuk cuaca dipakai it, bukan this."
+   ],
+   [
+    "Is sunny in Bali this week.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It sunny in Bali this week.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "This week it is sunny in Bali.",
+   "It is sunny this week in Bali."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Di luar sudah gelap. Ayo pulang.",
+  "prompt": "___ (It is / This is) already dark outside. Let's go home.",
+  "hint": "keadaan di luar",
+  "ans": "It is already dark outside. Let's go home.",
+  "why": "Gelap/terang di luar memakai it kosong.",
+  "wrong": [
+   [
+    "This is already dark outside. Let's go home.",
+    "Untuk keadaan gelap di luar dipakai it, bukan this."
+   ],
+   [
+    "Is already dark outside. Let's go home.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It already dark outside. Let's go home.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "It is dark outside already. Let's go home."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Jam tangan saya menunjukkan pukul empat lewat sepuluh.",
+  "prompt": "My watch says ___ (it is / is) ten past four.",
+  "hint": "menyebut jam",
+  "ans": "My watch says it is ten past four.",
+  "why": "Jam memakai it kosong: it is ten past four.",
+  "wrong": [
+   [
+    "My watch says is ten past four.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "My watch says it ten past four.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "My watch says this is ten past four.",
+    "Untuk waktu/jam dipakai it, bukan this."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Besok ulang tahun saya.",
+  "prompt": "___ (It is / Is) my birthday tomorrow.",
+  "hint": "menyebut hari khusus",
+  "ans": "It is my birthday tomorrow.",
+  "why": "Hari/tanggal memakai it kosong: it is my birthday.",
+  "wrong": [
+   [
+    "Is my birthday tomorrow.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It my birthday tomorrow.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "This is my birthday tomorrow.",
+    "Tomorrow menunjukkan hari; untuk hari dipakai it, bukan this."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Tomorrow it is my birthday."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Dari rumah saya ke sekolah sepuluh menit jalan kaki.",
+  "prompt": "___ (It is / Is) a ten-minute walk from my house to the school.",
+  "hint": "menyebut jarak",
+  "ans": "It is a ten-minute walk from my house to the school.",
+  "why": "Jarak memakai it kosong.",
+  "wrong": [
+   [
+    "Is a ten-minute walk from my house to the school.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It a ten-minute walk from my house to the school.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "It are a ten-minute walk from my house to the school.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "From my house to the school, it is a ten-minute walk."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Kami menginap di hotel kecil di Yogyakarta. Hotelnya dekat Jalan Malioboro.",
+  "prompt": "We stayed at a small hotel in Yogyakarta. ___ (It is / Is) near Malioboro Street.",
+  "hint": "merujuk tempat tadi",
+  "ans": "We stayed at a small hotel in Yogyakarta. It is near Malioboro Street.",
+  "why": "It merujuk ke hotel yang sudah disebut.",
+  "wrong": [
+   [
+    "We stayed at a small hotel in Yogyakarta. Is near Malioboro Street.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "We stayed at a small hotel in Yogyakarta. It near Malioboro Street.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "We stayed at a small hotel in Yogyakarta. There is near Malioboro Street.",
+    "\"Ada di dekat\" untuk tempat yang sudah disebut memakai it is, bukan there is."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "In Yogyakarta, we stayed at a small hotel. It is near Malioboro Street."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Hari sudah makin malam. Saya harus pulang.",
+  "prompt": "___ (It is / Is) getting late. I should go home.",
+  "hint": "waktu, makin malam",
+  "ans": "It is getting late. I should go home.",
+  "why": "Waktu memakai it kosong: it is getting late.",
+  "wrong": [
+   [
+    "Is getting late. I should go home.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It getting late. I should go home.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "It are getting late. I should go home.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Saya suka lagu ini. Indah sekali.",
+  "prompt": "I love this song. ___ (It is / Is) so beautiful.",
+  "hint": "merujuk benda tadi",
+  "ans": "I love this song. It is so beautiful.",
+  "why": "It merujuk ke lagu yang sudah disebut.",
+  "wrong": [
+   [
+    "I love this song. Is so beautiful.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "I love this song. It so beautiful.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "I love this song. It are so beautiful.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [
+   "I love this song. This is so beautiful."
+  ]
+ },
+ {
+  "set": "thit2",
+  "promptId": "Ruangan ini terlalu bising. Ayo keluar.",
+  "prompt": "___ (It is / Is) too noisy in this room. Let's go outside.",
+  "hint": "keadaan umum",
+  "ans": "It is too noisy in this room. Let's go outside.",
+  "why": "Keadaan suatu tempat memakai it kosong.",
+  "wrong": [
+   [
+    "Is too noisy in this room. Let's go outside.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It too noisy in this room. Let's go outside.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "There is too noisy in this room. Let's go outside.",
+    "There is berarti \"ada (sesuatu)\"; di sini subjeknya harus it."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Kakak perempuan saya memberi saya syal. Syalnya dari Jepang.",
+  "prompt": "My sister gave me a scarf. ___ (It is / Is) from Japan.",
+  "hint": "merujuk benda tadi",
+  "ans": "My sister gave me a scarf. It is from Japan.",
+  "why": "It merujuk ke syal yang sudah disebut.",
+  "wrong": [
+   [
+    "My sister gave me a scarf. Is from Japan.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "My sister gave me a scarf. It from Japan.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "My sister gave me a scarf. It are from Japan.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit2",
+  "promptId": "Mendung, tetapi tidak hujan.",
+  "prompt": "___ (It is / This is) cloudy, but it is not raining.",
+  "hint": "membicarakan cuaca",
+  "ans": "It is cloudy, but it is not raining.",
+  "why": "Cuaca memakai it kosong: it is cloudy.",
+  "wrong": [
+   [
+    "This is cloudy, but it is not raining.",
+    "Untuk cuaca dipakai it, bukan this."
+   ],
+   [
+    "Is cloudy, but it is not raining.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It cloudy, but it is not raining.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah jauh dari sini ke stasiun?",
+  "prompt": "___ (Is it / Is) far from here to the station?",
+  "hint": "tanya jarak",
+  "ans": "Is it far from here to the station?",
+  "why": "Tanya jarak: is dipindah ke depan, subjeknya it.",
+  "wrong": [
+   [
+    "Is far from here to the station?",
+    "Subjek it tidak boleh hilang dalam kalimat tanya."
+   ],
+   [
+    "Does it far from here to the station?",
+    "Far adalah kata sifat, jadi tanya dengan is it, bukan does it."
+   ],
+   [
+    "Are it far from here to the station?",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Is it far to the station from here?"
+  ]
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah ini payungmu?",
+  "prompt": "___ (Is this / Does this) your umbrella?",
+  "hint": "tanya benda dekat",
+  "ans": "Is this your umbrella?",
+  "why": "Tanya benda dekat: is this …?",
+  "wrong": [
+   [
+    "Does this your umbrella?",
+    "Tidak ada kata kerja lain, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Are this your umbrella?",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ],
+   [
+    "Is these your umbrella?",
+    "These untuk jamak; payungnya satu, jadi is this."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah ini anak-anakmu?",
+  "prompt": "___ (Are these / Is these) your children?",
+  "hint": "tanya orang jamak",
+  "ans": "Are these your children?",
+  "why": "Children jamak → are these …?",
+  "wrong": [
+   [
+    "Is these your children?",
+    "These jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "Are this your children?",
+    "This tunggal; untuk children pakai these."
+   ],
+   [
+    "Is this your children?",
+    "Is this untuk satu orang, padahal children jamak."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah di luar sedang hujan?",
+  "prompt": "___ (Is it / Is) raining outside?",
+  "hint": "tanya cuaca",
+  "ans": "Is it raining outside?",
+  "why": "Tanya cuaca: is it raining?",
+  "wrong": [
+   [
+    "Is raining outside?",
+    "Subjek it tidak boleh hilang dalam kalimat tanya."
+   ],
+   [
+    "Does it raining outside?",
+    "Raining (bentuk -ing) dipakai dengan is, bukan does."
+   ],
+   [
+    "Are it raining outside?",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah itu mobilmu di sana?",
+  "prompt": "___ (Is that / Does that) your car over there?",
+  "hint": "tanya benda jauh",
+  "ans": "Is that your car over there?",
+  "why": "Tanya benda jauh: is that …?",
+  "wrong": [
+   [
+    "Does that your car over there?",
+    "Tidak ada kata kerja lain, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Are that your car over there?",
+    "That untuk satu benda; kata kerjanya is, bukan are."
+   ],
+   [
+    "Is those your car over there?",
+    "Those jamak; mobilnya satu, jadi is that."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah mahal tinggal di Jakarta?",
+  "prompt": "___ (Is it / Does it) expensive to live in Jakarta?",
+  "hint": "tanya keadaan umum",
+  "ans": "Is it expensive to live in Jakarta?",
+  "why": "Expensive kata sifat → is it expensive …?",
+  "wrong": [
+   [
+    "Does it expensive to live in Jakarta?",
+    "Expensive adalah kata sifat, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Is expensive to live in Jakarta?",
+    "Subjek it tidak boleh hilang dalam kalimat tanya."
+   ],
+   [
+    "Are it expensive to live in Jakarta?",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Boleh saya duduk di sini?",
+  "prompt": "___ (Is it / Is) okay if I sit here?",
+  "hint": "minta izin",
+  "ans": "Is it okay if I sit here?",
+  "why": "Pola minta izin: is it okay if …?",
+  "wrong": [
+   [
+    "Is okay if I sit here?",
+    "Subjek it tidak boleh hilang dalam kalimat tanya."
+   ],
+   [
+    "Does it okay if I sit here?",
+    "Okay kata sifat, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Are it okay if I sit here?",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah itu orang tuamu di gerbang?",
+  "prompt": "___ (Are those / Is those) your parents at the gate?",
+  "hint": "tanya orang jamak, jauh",
+  "ans": "Are those your parents at the gate?",
+  "why": "Parents jamak dan jauh → are those …?",
+  "wrong": [
+   [
+    "Is those your parents at the gate?",
+    "Those jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "Is that your parents at the gate?",
+    "That untuk satu orang, padahal parents jamak."
+   ],
+   [
+    "Are that your parents at the gate?",
+    "That tunggal; untuk parents pakai those."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Benarkah Rina akan pindah ke Surabaya?",
+  "prompt": "___ (Is it / Is) true that Rina is moving to Surabaya?",
+  "hint": "tanya kebenaran berita",
+  "ans": "Is it true that Rina is moving to Surabaya?",
+  "why": "Pola tanya: is it true that …?",
+  "wrong": [
+   [
+    "Is true that Rina is moving to Surabaya?",
+    "Subjek it tidak boleh hilang dalam kalimat tanya."
+   ],
+   [
+    "Does it true that Rina is moving to Surabaya?",
+    "True kata sifat, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Are it true that Rina is moving to Surabaya?",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Permisi, apakah ini jalan ke stasiun kereta?",
+  "prompt": "Excuse me, ___ (is this / does this) the way to the train station?",
+  "hint": "tanya arah",
+  "ans": "Excuse me, is this the way to the train station?",
+  "why": "Tanya tentang tempat di dekat kita: is this …?",
+  "wrong": [
+   [
+    "Excuse me, does this the way to the train station?",
+    "Tidak ada kata kerja lain, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Excuse me, are this the way to the train station?",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ],
+   [
+    "Excuse me, is these the way to the train station?",
+    "These jamak; the way tunggal, jadi is this."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah sudah waktunya pulang?",
+  "prompt": "___ (Is it / Is) time to go home?",
+  "hint": "tanya waktu",
+  "ans": "Is it time to go home?",
+  "why": "Waktu memakai it: is it time to …?",
+  "wrong": [
+   [
+    "Is time to go home?",
+    "Subjek it tidak boleh hilang dalam kalimat tanya."
+   ],
+   [
+    "Does it time to go home?",
+    "Time di sini kata benda setelah be, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Are it time to go home?",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Ini buku Rina atau bukumu?",
+  "prompt": "___ (Is this / Are this) Rina's book or yours?",
+  "hint": "tanya benda dekat",
+  "ans": "Is this Rina's book or yours?",
+  "why": "Satu buku dekat → is this …?",
+  "wrong": [
+   [
+    "Are this Rina's book or yours?",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ],
+   [
+    "Does this Rina's book or yours?",
+    "Tidak ada kata kerja lain, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Is these Rina's book or yours?",
+    "These jamak; bukunya satu, jadi is this."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah di dekat rumahmu bising?",
+  "prompt": "___ (Is it / Does it) noisy near your house?",
+  "hint": "tanya keadaan tempat",
+  "ans": "Is it noisy near your house?",
+  "why": "Noisy kata sifat → is it noisy …?",
+  "wrong": [
+   [
+    "Does it noisy near your house?",
+    "Noisy kata sifat, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Is noisy near your house?",
+    "Subjek it tidak boleh hilang dalam kalimat tanya."
+   ],
+   [
+    "Are it noisy near your house?",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah ini kantor Pak Rudi?",
+  "prompt": "___ (Is this / Does this) Pak Rudi's office?",
+  "hint": "tanya tempat",
+  "ans": "Is this Pak Rudi's office?",
+  "why": "Tanya tempat tempat kita berada: is this …?",
+  "wrong": [
+   [
+    "Does this Pak Rudi's office?",
+    "Tidak ada kata kerja lain, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Are this Pak Rudi's office?",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ],
+   [
+    "Is these Pak Rudi's office?",
+    "These jamak; kantornya satu, jadi is this."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah ini tasmu? Ya, betul.",
+  "prompt": "Is this your bag? Yes, ___ (it is / this is).",
+  "hint": "jawaban pendek positif",
+  "ans": "Is this your bag? Yes, it is.",
+  "why": "Jawaban pendek untuk \"Is this …?\" memakai it: Yes, it is.",
+  "wrong": [
+   [
+    "Is this your bag? Yes, this is.",
+    "Jawaban pendek selalu memakai it, bukan this."
+   ],
+   [
+    "Is this your bag? Yes, it's.",
+    "Kontraksi it's tidak boleh di akhir jawaban pendek; tulis it is."
+   ],
+   [
+    "Is this your bag? Yes, is.",
+    "Jawaban pendek perlu subjek: it is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah ini kuncimu? Bukan.",
+  "prompt": "Are these your keys? No, ___ (they are not / these are not).",
+  "hint": "jawaban pendek jamak",
+  "ans": "Are these your keys? No, they are not.",
+  "why": "Jawaban pendek untuk \"Are these …?\" memakai they: No, they are not.",
+  "wrong": [
+   [
+    "Are these your keys? No, these are not.",
+    "Jawaban pendek untuk benda jamak memakai they, bukan these."
+   ],
+   [
+    "Are these your keys? No, they not.",
+    "Are tidak boleh hilang: they are not."
+   ],
+   [
+    "Are these your keys? No, it is not.",
+    "Keys jamak, jadi jawabannya they are not, bukan it is not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah di Jakarta dingin? Tidak. Sangat panas.",
+  "prompt": "Is it cold in Jakarta? No, ___ (it is not / this is not). It is very hot.",
+  "hint": "jawaban pendek negatif",
+  "ans": "Is it cold in Jakarta? No, it is not. It is very hot.",
+  "why": "Pertanyaan \"Is it …?\" dijawab No, it is not.",
+  "wrong": [
+   [
+    "Is it cold in Jakarta? No, this is not. It is very hot.",
+    "Jawaban pendek selalu memakai it, bukan this."
+   ],
+   [
+    "Is it cold in Jakarta? No, it not. It is very hot.",
+    "Is tidak boleh hilang: it is not."
+   ],
+   [
+    "Is it cold in Jakarta? No, is not. It is very hot.",
+    "Jawaban pendek perlu subjek: it is not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah hari ini hari Selasa? Ya.",
+  "prompt": "Is it Tuesday today? Yes, ___ (it is / this is).",
+  "hint": "jawaban pendek tentang hari",
+  "ans": "Is it Tuesday today? Yes, it is.",
+  "why": "Pertanyaan \"Is it …?\" dijawab Yes, it is.",
+  "wrong": [
+   [
+    "Is it Tuesday today? Yes, this is.",
+    "Jawaban pendek selalu memakai it, bukan this."
+   ],
+   [
+    "Is it Tuesday today? Yes, it's.",
+    "Kontraksi it's tidak boleh di akhir jawaban pendek; tulis it is."
+   ],
+   [
+    "Is it Tuesday today? Yes, it does.",
+    "Pertanyaannya memakai is, jadi jawabannya it is, bukan it does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah kursi ini kosong? Tidak, teman saya duduk di sini.",
+  "prompt": "Is this seat free? No, ___ (it is not / this is not). My friend is sitting here.",
+  "hint": "jawaban pendek negatif",
+  "ans": "Is this seat free? No, it is not. My friend is sitting here.",
+  "why": "Jawaban pendek untuk \"Is this …?\" memakai it: No, it is not.",
+  "wrong": [
+   [
+    "Is this seat free? No, this is not. My friend is sitting here.",
+    "Jawaban pendek selalu memakai it, bukan this."
+   ],
+   [
+    "Is this seat free? No, it does not. My friend is sitting here.",
+    "Pertanyaannya memakai is, jadi jawabannya it is not, bukan it does not."
+   ],
+   [
+    "Is this seat free? No, it no. My friend is sitting here.",
+    "Untuk menyangkal be dipakai not, bukan no."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah itu teman-temanmu di sana? Ya.",
+  "prompt": "Are those your friends over there? Yes, ___ (they are / those are).",
+  "hint": "jawaban pendek jamak",
+  "ans": "Are those your friends over there? Yes, they are.",
+  "why": "Jawaban pendek untuk \"Are those …?\" memakai they: Yes, they are.",
+  "wrong": [
+   [
+    "Are those your friends over there? Yes, those are.",
+    "Jawaban pendek untuk orang jamak memakai they, bukan those."
+   ],
+   [
+    "Are those your friends over there? Yes, they're.",
+    "Kontraksi they're tidak boleh di akhir jawaban pendek; tulis they are."
+   ],
+   [
+    "Are those your friends over there? Yes, it is.",
+    "Friends jamak, jadi jawabannya they are, bukan it is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah di Medan sekarang panas? Ya.",
+  "prompt": "Is it hot in Medan now? Yes, ___ (it is / is).",
+  "hint": "jawaban pendek tentang cuaca",
+  "ans": "Is it hot in Medan now? Yes, it is.",
+  "why": "Pertanyaan \"Is it …?\" dijawab Yes, it is.",
+  "wrong": [
+   [
+    "Is it hot in Medan now? Yes, is.",
+    "Jawaban pendek perlu subjek: it is."
+   ],
+   [
+    "Is it hot in Medan now? Yes, it's.",
+    "Kontraksi it's tidak boleh di akhir jawaban pendek; tulis it is."
+   ],
+   [
+    "Is it hot in Medan now? Yes, this is.",
+    "Jawaban pendek selalu memakai it, bukan this."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Is it hot now in Medan? Yes, it is."
+  ]
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah ini bus yang benar ke Bogor? Bukan.",
+  "prompt": "Is this the right bus to Bogor? No, ___ (it is not / this is not).",
+  "hint": "jawaban pendek negatif",
+  "ans": "Is this the right bus to Bogor? No, it is not.",
+  "why": "Jawaban pendek untuk \"Is this …?\" memakai it: No, it is not.",
+  "wrong": [
+   [
+    "Is this the right bus to Bogor? No, this is not.",
+    "Jawaban pendek selalu memakai it, bukan this."
+   ],
+   [
+    "Is this the right bus to Bogor? No, it does not.",
+    "Pertanyaannya memakai is, jadi jawabannya it is not, bukan it does not."
+   ],
+   [
+    "Is this the right bus to Bogor? No, is not.",
+    "Jawaban pendek perlu subjek: it is not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah sepatu ini baru? Ya.",
+  "prompt": "Are these shoes new? Yes, ___ (they are / it is).",
+  "hint": "jawaban pendek jamak",
+  "ans": "Are these shoes new? Yes, they are.",
+  "why": "Shoes jamak, jadi jawabannya Yes, they are.",
+  "wrong": [
+   [
+    "Are these shoes new? Yes, it is.",
+    "Shoes jamak, jadi jawabannya they are, bukan it is."
+   ],
+   [
+    "Are these shoes new? Yes, they're.",
+    "Kontraksi they're tidak boleh di akhir jawaban pendek; tulis they are."
+   ],
+   [
+    "Are these shoes new? Yes, they do.",
+    "Pertanyaannya memakai are, jadi jawabannya they are, bukan they do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah ini ponselmu? Bukan. Punya saya hitam.",
+  "prompt": "Is this your phone? No, ___ (it is not / is not). Mine is black.",
+  "hint": "jawaban pendek negatif",
+  "ans": "Is this your phone? No, it is not. Mine is black.",
+  "why": "Jawaban pendek untuk \"Is this …?\" memakai it: No, it is not.",
+  "wrong": [
+   [
+    "Is this your phone? No, is not. Mine is black.",
+    "Jawaban pendek perlu subjek: it is not."
+   ],
+   [
+    "Is this your phone? No, this is not. Mine is black.",
+    "Jawaban pendek selalu memakai it, bukan this."
+   ],
+   [
+    "Is this your phone? No, it not. Mine is black.",
+    "Is tidak boleh hilang: it is not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah bank buka hari ini? Tidak.",
+  "prompt": "Is the bank open today? No, ___ (it is not / is not).",
+  "hint": "jawaban pendek negatif",
+  "ans": "Is the bank open today? No, it is not.",
+  "why": "The bank diganti it dalam jawaban pendek: No, it is not.",
+  "wrong": [
+   [
+    "Is the bank open today? No, is not.",
+    "Jawaban pendek perlu subjek: it is not."
+   ],
+   [
+    "Is the bank open today? No, it not.",
+    "Is tidak boleh hilang: it is not."
+   ],
+   [
+    "Is the bank open today? No, this is not.",
+    "The bank diganti it dalam jawaban pendek, bukan this."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah pesta pernikahannya hari Minggu? Ya.",
+  "prompt": "Is the wedding on Sunday? Yes, ___ (it is / this is).",
+  "hint": "jawaban pendek positif",
+  "ans": "Is the wedding on Sunday? Yes, it is.",
+  "why": "The wedding diganti it dalam jawaban pendek: Yes, it is.",
+  "wrong": [
+   [
+    "Is the wedding on Sunday? Yes, this is.",
+    "The wedding diganti it dalam jawaban pendek, bukan this."
+   ],
+   [
+    "Is the wedding on Sunday? Yes, it's.",
+    "Kontraksi it's tidak boleh di akhir jawaban pendek; tulis it is."
+   ],
+   [
+    "Is the wedding on Sunday? Yes, it does.",
+    "Pertanyaannya memakai is, jadi jawabannya it is, bukan it does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah ini kopimu? Ya. Terima kasih.",
+  "prompt": "Is this your coffee? Yes, ___ (it is / this is). Thank you.",
+  "hint": "jawaban pendek positif",
+  "ans": "Is this your coffee? Yes, it is. Thank you.",
+  "why": "Jawaban pendek untuk \"Is this …?\" memakai it: Yes, it is.",
+  "wrong": [
+   [
+    "Is this your coffee? Yes, this is. Thank you.",
+    "Jawaban pendek selalu memakai it, bukan this."
+   ],
+   [
+    "Is this your coffee? Yes, it's. Thank you.",
+    "Kontraksi it's tidak boleh di akhir jawaban pendek; tulis it is."
+   ],
+   [
+    "Is this your coffee? Yes, I am. Thank you.",
+    "Pertanyaannya tentang kopi (this), jadi jawabannya it is, bukan I am."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah pisang-pisang ini dari kebunmu? Ya.",
+  "prompt": "Are these bananas from your garden? Yes, ___ (they are / these are).",
+  "hint": "jawaban pendek jamak",
+  "ans": "Are these bananas from your garden? Yes, they are.",
+  "why": "Jawaban pendek untuk \"Are these …?\" memakai they: Yes, they are.",
+  "wrong": [
+   [
+    "Are these bananas from your garden? Yes, these are.",
+    "Jawaban pendek untuk benda jamak memakai they, bukan these."
+   ],
+   [
+    "Are these bananas from your garden? Yes, it is.",
+    "Bananas jamak, jadi jawabannya they are, bukan it is."
+   ],
+   [
+    "Are these bananas from your garden? Yes, they do.",
+    "Pertanyaannya memakai are, jadi jawabannya they are, bukan they do."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah itu rumahmu? Ya.",
+  "prompt": "Is that your house? Yes, ___ (it is / this is).",
+  "hint": "jawaban pendek positif",
+  "ans": "Is that your house? Yes, it is.",
+  "why": "Jawaban pendek untuk \"Is that …?\" memakai it: Yes, it is.",
+  "wrong": [
+   [
+    "Is that your house? Yes, this is.",
+    "Jawaban pendek selalu memakai it, bukan this."
+   ],
+   [
+    "Is that your house? Yes, it's.",
+    "Kontraksi it's tidak boleh di akhir jawaban pendek; tulis it is."
+   ],
+   [
+    "Is that your house? Yes, is.",
+    "Jawaban pendek perlu subjek: it is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit3",
+  "promptId": "Apakah sekarang giliran saya? Bukan. Sekarang giliran Andi.",
+  "prompt": "Is it my turn? No, ___ (it is not / this is not). It is Andi's turn.",
+  "hint": "jawaban pendek negatif",
+  "ans": "Is it my turn? No, it is not. It is Andi's turn.",
+  "why": "Pertanyaan \"Is it …?\" dijawab No, it is not.",
+  "wrong": [
+   [
+    "Is it my turn? No, this is not. It is Andi's turn.",
+    "Jawaban pendek selalu memakai it, bukan this."
+   ],
+   [
+    "Is it my turn? No, is not. It is Andi's turn.",
+    "Jawaban pendek perlu subjek: it is not."
+   ],
+   [
+    "Is it my turn? No, it no. It is Andi's turn.",
+    "Untuk menyangkal be dipakai not, bukan no."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Kakek, ini teman-teman saya dari sekolah.",
+  "prompt": "Grandpa, ___ (these are / this is) my friends from school.",
+  "hint": "memperkenalkan beberapa orang",
+  "ans": "Grandpa, these are my friends from school.",
+  "why": "Friends jamak → these are.",
+  "wrong": [
+   [
+    "Grandpa, this is my friends from school.",
+    "This is untuk satu orang, padahal friends jamak."
+   ],
+   [
+    "Grandpa, these is my friends from school.",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "Grandpa, these my friends from school.",
+    "Are tidak boleh hilang; these perlu are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Saya menonton film tadi malam. Filmnya lucu sekali.",
+  "prompt": "I watched a movie last night. ___ (It was / Was) very funny.",
+  "hint": "merujuk benda tadi, lampau",
+  "ans": "I watched a movie last night. It was very funny.",
+  "why": "It merujuk ke film yang sudah disebut; lampau → it was.",
+  "wrong": [
+   [
+    "I watched a movie last night. Was very funny.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum was."
+   ],
+   [
+    "I watched a movie last night. It very funny.",
+    "Kata kerja was tidak boleh hilang setelah it."
+   ],
+   [
+    "I watched a movie last night. It were very funny.",
+    "It tunggal; bentuk lampaunya was, bukan were."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Last night I watched a movie. It was very funny."
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Hari ini di Surabaya 30 derajat.",
+  "prompt": "___ (It is / This is) 30 degrees in Surabaya today.",
+  "hint": "suhu udara",
+  "ans": "It is 30 degrees in Surabaya today.",
+  "why": "Suhu/cuaca memakai it kosong.",
+  "wrong": [
+   [
+    "This is 30 degrees in Surabaya today.",
+    "Untuk cuaca dipakai it, bukan this."
+   ],
+   [
+    "Is 30 degrees in Surabaya today.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It 30 degrees in Surabaya today.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Today it is 30 degrees in Surabaya.",
+   "It is 30 degrees today in Surabaya.",
+   "In Surabaya it is 30 degrees today."
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Tok, tok! Ini saya, Andi. Tolong buka pintunya.",
+  "prompt": "Knock, knock! ___ (It is / Is) me, Andi. Please open the door.",
+  "hint": "di depan pintu",
+  "ans": "Knock, knock! It is me, Andi. Please open the door.",
+  "why": "Di depan pintu untuk menyebut diri dipakai it is me.",
+  "wrong": [
+   [
+    "Knock, knock! Is me, Andi. Please open the door.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "Knock, knock! It me, Andi. Please open the door.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "Knock, knock! This me, Andi. Please open the door.",
+    "Kata kerja is tidak boleh hilang, dan di depan pintu yang lazim it is me."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Sekolahmu? Apakah dekat masjid?",
+  "prompt": "Your school? ___ (Is it / Is) near the mosque?",
+  "hint": "tanya lokasi",
+  "ans": "Your school? Is it near the mosque?",
+  "why": "It merujuk ke sekolah; tanya dengan is it …?",
+  "wrong": [
+   [
+    "Your school? Is near the mosque?",
+    "Subjek it tidak boleh hilang dalam kalimat tanya."
+   ],
+   [
+    "Your school? Does it near the mosque?",
+    "Tidak ada kata kerja lain, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Your school? Are it near the mosque?",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Apakah sudah jam sembilan? Ya. Cepatlah!",
+  "prompt": "Is it nine o'clock already? Yes, ___ (it is / this is). Hurry up!",
+  "hint": "jawaban pendek tentang jam",
+  "ans": "Is it nine o'clock already? Yes, it is. Hurry up!",
+  "why": "Pertanyaan \"Is it …?\" dijawab Yes, it is.",
+  "wrong": [
+   [
+    "Is it nine o'clock already? Yes, this is. Hurry up!",
+    "Jawaban pendek untuk jam memakai it, bukan this."
+   ],
+   [
+    "Is it nine o'clock already? Yes, it's. Hurry up!",
+    "Kontraksi it's tidak boleh di akhir jawaban pendek; tulis it is."
+   ],
+   [
+    "Is it nine o'clock already? Yes, is. Hurry up!",
+    "Jawaban pendek perlu subjek: it is."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Is it already nine o'clock? Yes, it is. Hurry up!"
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Ini jam tangan baru saya. Istri saya memberikannya kepada saya.",
+  "prompt": "___ (This is / These are) my new watch. My wife gave it to me.",
+  "hint": "menunjukkan satu benda",
+  "ans": "This is my new watch. My wife gave it to me.",
+  "why": "Menunjukkan satu benda untuk pertama kali → this is.",
+  "wrong": [
+   [
+    "These are my new watch. My wife gave it to me.",
+    "These are untuk jamak, padahal jam tangannya satu."
+   ],
+   [
+    "This my new watch. My wife gave it to me.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "This are my new watch. My wife gave it to me.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [
+   "It is my new watch. My wife gave it to me."
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Itu Monas di sana. Kamu bisa melihatnya?",
+  "prompt": "___ (That is / This is) Monas over there. Can you see it?",
+  "hint": "satu benda, jauh",
+  "ans": "That is Monas over there. Can you see it?",
+  "why": "Monas jauh (over there) → that is.",
+  "wrong": [
+   [
+    "This is Monas over there. Can you see it?",
+    "This untuk yang dekat, padahal Monas over there."
+   ],
+   [
+    "Those are Monas over there. Can you see it?",
+    "Those are untuk jamak, padahal Monas satu."
+   ],
+   [
+    "That Monas over there. Can you see it?",
+    "Is tidak boleh hilang; \"itu\" tetap perlu is: that is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Selamat siang, ini Dewi dari agen perjalanan. Saya menelepon soal tiket Anda.",
+  "prompt": "Good afternoon, ___ (this is / that is) Dewi from the travel agency. I am calling about your tickets.",
+  "hint": "menyebut diri di telepon",
+  "ans": "Good afternoon, this is Dewi from the travel agency. I am calling about your tickets.",
+  "why": "Di telepon, untuk menyebut diri sendiri dipakai this is (UK juga lazim it's Dewi).",
+  "wrong": [
+   [
+    "Good afternoon, that is Dewi from the travel agency. I am calling about your tickets.",
+    "That tidak dipakai untuk menyebut diri sendiri di telepon; that untuk lawan bicara."
+   ],
+   [
+    "Good afternoon, this Dewi from the travel agency. I am calling about your tickets.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "Good afternoon, these are Dewi from the travel agency. I am calling about your tickets.",
+    "These are untuk jamak, padahal Dewi satu orang."
+   ]
+  ],
+  "alt": [
+   "Good afternoon, it is Dewi from the travel agency. I am calling about your tickets."
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Pemandangannya indah sekali! Di sini sangat tenang.",
+  "prompt": "What a beautiful view! ___ (It is / Is) so peaceful here.",
+  "hint": "keadaan tempat",
+  "ans": "What a beautiful view! It is so peaceful here.",
+  "why": "Keadaan suatu tempat memakai it kosong.",
+  "wrong": [
+   [
+    "What a beautiful view! Is so peaceful here.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "What a beautiful view! It so peaceful here.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "What a beautiful view! It are so peaceful here.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Lihat! Ini anting baru saya. Kamu suka?",
+  "prompt": "Look! ___ (These are / This is) my new earrings. Do you like them?",
+  "hint": "benda jamak, dekat",
+  "ans": "Look! These are my new earrings. Do you like them?",
+  "why": "Earrings jamak → these are.",
+  "wrong": [
+   [
+    "Look! This is my new earrings. Do you like them?",
+    "This is untuk satu benda, padahal earrings jamak."
+   ],
+   [
+    "Look! These is my new earrings. Do you like them?",
+    "These untuk jamak; kata kerjanya are, bukan is."
+   ],
+   [
+    "Look! These my new earrings. Do you like them?",
+    "Are tidak boleh hilang; these perlu are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Apakah kue-kue ini untuk kami? Ya. Silakan dinikmati!",
+  "prompt": "Are these cookies for us? Yes, ___ (they are / these are). Enjoy!",
+  "hint": "jawaban pendek jamak",
+  "ans": "Are these cookies for us? Yes, they are. Enjoy!",
+  "why": "Jawaban pendek untuk \"Are these …?\" memakai they: Yes, they are.",
+  "wrong": [
+   [
+    "Are these cookies for us? Yes, these are. Enjoy!",
+    "Jawaban pendek untuk benda jamak memakai they, bukan these."
+   ],
+   [
+    "Are these cookies for us? Yes, they're. Enjoy!",
+    "Kontraksi they're tidak boleh di akhir jawaban pendek; tulis they are."
+   ],
+   [
+    "Are these cookies for us? Yes, it is. Enjoy!",
+    "Cookies jamak, jadi jawabannya they are, bukan it is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Sudah hampir tengah malam. Tidurlah.",
+  "prompt": "___ (It is / This is) almost midnight. Go to sleep.",
+  "hint": "menyebut jam",
+  "ans": "It is almost midnight. Go to sleep.",
+  "why": "Waktu memakai it kosong.",
+  "wrong": [
+   [
+    "This is almost midnight. Go to sleep.",
+    "Untuk waktu/jam dipakai it, bukan this."
+   ],
+   [
+    "Is almost midnight. Go to sleep.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It almost midnight. Go to sleep.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Saya punya pekerjaan baru. Tempatnya di sebuah hotel besar.",
+  "prompt": "I have a new job. ___ (It is / Is) in a big hotel.",
+  "hint": "merujuk hal tadi",
+  "ans": "I have a new job. It is in a big hotel.",
+  "why": "It merujuk ke pekerjaan yang sudah disebut.",
+  "wrong": [
+   [
+    "I have a new job. Is in a big hotel.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "I have a new job. It in a big hotel.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "I have a new job. There is in a big hotel.",
+    "\"Ada di\" untuk hal yang sudah disebut memakai it is, bukan there is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Apakah ini kereta ke Malang?",
+  "prompt": "___ (Is this / Does this) the train to Malang?",
+  "hint": "tanya benda dekat",
+  "ans": "Is this the train to Malang?",
+  "why": "Tanya tentang kereta di depan kita: is this …?",
+  "wrong": [
+   [
+    "Does this the train to Malang?",
+    "Tidak ada kata kerja lain, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "Are this the train to Malang?",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ],
+   [
+    "Is these the train to Malang?",
+    "These jamak; keretanya satu, jadi is this."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Wah, ombak di luar sana besar-besar!",
+  "prompt": "Wow, ___ (those are / these are) big waves out there!",
+  "hint": "jamak, jauh",
+  "ans": "Wow, those are big waves out there!",
+  "why": "Ombaknya banyak dan jauh (out there) → those are.",
+  "wrong": [
+   [
+    "Wow, these are big waves out there!",
+    "These untuk yang dekat, padahal ombaknya di luar sana."
+   ],
+   [
+    "Wow, that is big waves out there!",
+    "That is untuk satu benda, padahal waves jamak."
+   ],
+   [
+    "Wow, those is big waves out there!",
+    "Those untuk jamak; kata kerjanya are, bukan is."
+   ]
+  ],
+  "alt": [
+   "Wow, there are big waves out there!"
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Apakah kantormu jauh dari sini? Tidak.",
+  "prompt": "Is your office far from here? No, ___ (it is not / this is not).",
+  "hint": "jawaban pendek negatif",
+  "ans": "Is your office far from here? No, it is not.",
+  "why": "Your office diganti it dalam jawaban pendek: No, it is not.",
+  "wrong": [
+   [
+    "Is your office far from here? No, this is not.",
+    "Your office diganti it dalam jawaban pendek, bukan this."
+   ],
+   [
+    "Is your office far from here? No, is not.",
+    "Jawaban pendek perlu subjek: it is not."
+   ],
+   [
+    "Is your office far from here? No, it does not.",
+    "Pertanyaannya memakai is, jadi jawabannya it is not, bukan it does not."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Minggu depan Lebaran, jadi kami akan pulang kampung.",
+  "prompt": "___ (It is / This is) Lebaran next week, so we are going back to our hometown.",
+  "hint": "hari raya",
+  "ans": "It is Lebaran next week, so we are going back to our hometown.",
+  "why": "Hari/tanggal memakai it kosong.",
+  "wrong": [
+   [
+    "This is Lebaran next week, so we are going back to our hometown.",
+    "Untuk hari raya/tanggal dipakai it kosong, bukan this."
+   ],
+   [
+    "Is Lebaran next week, so we are going back to our hometown.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It Lebaran next week, so we are going back to our hometown.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Next week it is Lebaran, so we are going back to our hometown."
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Saya punya dua kucing. Mereka sangat malas.",
+  "prompt": "I have two cats. ___ (They are / It is) very lazy.",
+  "hint": "merujuk benda jamak",
+  "ans": "I have two cats. They are very lazy.",
+  "why": "Two cats jamak → merujuk balik dengan they are.",
+  "wrong": [
+   [
+    "I have two cats. It is very lazy.",
+    "Kucingnya dua, jadi pakai they are, bukan it is."
+   ],
+   [
+    "I have two cats. Are very lazy.",
+    "Subjek tidak boleh hilang; perlu they."
+   ],
+   [
+    "I have two cats. They very lazy.",
+    "Kata kerja are tidak boleh hilang setelah they."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Saya mau jalan-jalan. Apakah di luar dingin?",
+  "prompt": "I want to go for a walk. ___ (Is it / Does it) cold outside?",
+  "hint": "tanya cuaca",
+  "ans": "I want to go for a walk. Is it cold outside?",
+  "why": "Cold kata sifat → is it cold …?",
+  "wrong": [
+   [
+    "I want to go for a walk. Does it cold outside?",
+    "Cold kata sifat, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "I want to go for a walk. Is cold outside?",
+    "Subjek it tidak boleh hilang dalam kalimat tanya."
+   ],
+   [
+    "I want to go for a walk. Is this cold outside?",
+    "Untuk cuaca dipakai it, bukan this."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Apakah lagu ini baru? Ya. Lagunya keluar minggu lalu.",
+  "prompt": "Is this song new? Yes, ___ (it is / this is). It came out last week.",
+  "hint": "jawaban pendek positif",
+  "ans": "Is this song new? Yes, it is. It came out last week.",
+  "why": "This song diganti it dalam jawaban pendek: Yes, it is.",
+  "wrong": [
+   [
+    "Is this song new? Yes, this is. It came out last week.",
+    "Jawaban pendek memakai it, bukan this."
+   ],
+   [
+    "Is this song new? Yes, it's. It came out last week.",
+    "Kontraksi it's tidak boleh di akhir jawaban pendek; tulis it is."
+   ],
+   [
+    "Is this song new? Yes, it does. It came out last week.",
+    "Pertanyaannya memakai is, jadi jawabannya it is, bukan it does."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Rudi, ini kakak perempuan saya, Maya. Maya, ini Rudi.",
+  "prompt": "Rudi, ___ (this is / these are) my sister, Maya. Maya, this is Rudi.",
+  "hint": "memperkenalkan satu orang",
+  "ans": "Rudi, this is my sister, Maya. Maya, this is Rudi.",
+  "why": "Memperkenalkan satu orang → this is.",
+  "wrong": [
+   [
+    "Rudi, these are my sister, Maya. Maya, this is Rudi.",
+    "These are untuk beberapa orang, padahal Maya satu orang."
+   ],
+   [
+    "Rudi, this my sister, Maya. Maya, this is Rudi.",
+    "Is tidak boleh hilang; \"ini\" tetap perlu is: this is."
+   ],
+   [
+    "Rudi, this are my sister, Maya. Maya, this is Rudi.",
+    "This untuk satu benda/orang; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Dari Jakarta ke Papua sangat jauh.",
+  "prompt": "___ (It is / This is) very far from Jakarta to Papua.",
+  "hint": "menyebut jarak",
+  "ans": "It is very far from Jakarta to Papua.",
+  "why": "Jarak memakai it kosong.",
+  "wrong": [
+   [
+    "This is very far from Jakarta to Papua.",
+    "Untuk jarak dipakai it, bukan this."
+   ],
+   [
+    "Is very far from Jakarta to Papua.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "It very far from Jakarta to Papua.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "From Jakarta to Papua, it is very far."
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Kopi ini enak sekali. Apakah dari Aceh?",
+  "prompt": "This coffee is delicious. ___ (Is it / Is) from Aceh?",
+  "hint": "tanya, merujuk benda tadi",
+  "ans": "This coffee is delicious. Is it from Aceh?",
+  "why": "It merujuk ke kopi yang sudah disebut; tanya → is it …?",
+  "wrong": [
+   [
+    "This coffee is delicious. Is from Aceh?",
+    "Subjek it tidak boleh hilang dalam kalimat tanya."
+   ],
+   [
+    "This coffee is delicious. Does it from Aceh?",
+    "Tidak ada kata kerja lain, jadi tanya dengan is, bukan does."
+   ],
+   [
+    "This coffee is delicious. Are it from Aceh?",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [
+   "This coffee is delicious. Is this from Aceh?"
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Saya suka kue ini. Tidak terlalu manis.",
+  "prompt": "I like this cake. ___ (It is / Is) not too sweet.",
+  "hint": "merujuk benda tadi",
+  "ans": "I like this cake. It is not too sweet.",
+  "why": "It merujuk ke kue yang sudah disebut.",
+  "wrong": [
+   [
+    "I like this cake. Is not too sweet.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "I like this cake. It not too sweet.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "I like this cake. It does not too sweet.",
+    "Kalimat ini memakai be (is), jadi menyangkalnya it is not, bukan it does not."
+   ]
+  ],
+  "alt": [
+   "I like this cake. This is not too sweet."
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Lihat awan-awan itu! Sebentar lagi akan hujan.",
+  "prompt": "Look at those clouds! ___ (It is / This is) going to rain soon.",
+  "hint": "membicarakan cuaca",
+  "ans": "Look at those clouds! It is going to rain soon.",
+  "why": "Cuaca memakai it kosong: it is going to rain.",
+  "wrong": [
+   [
+    "Look at those clouds! This is going to rain soon.",
+    "Untuk cuaca dipakai it, bukan this."
+   ],
+   [
+    "Look at those clouds! Is going to rain soon.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "Look at those clouds! It going to rain soon.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ]
+  ],
+  "alt": [],
+  "orders": [
+   "Look at those clouds! Soon it is going to rain."
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Tas-tas ini bagus. Apakah mahal?",
+  "prompt": "These bags are nice. ___ (Are they / Is it) expensive?",
+  "hint": "tanya benda jamak",
+  "ans": "These bags are nice. Are they expensive?",
+  "why": "Bags jamak → merujuk balik dengan are they …?",
+  "wrong": [
+   [
+    "These bags are nice. Is it expensive?",
+    "Bags jamak, jadi pakai are they, bukan is it."
+   ],
+   [
+    "These bags are nice. Are it expensive?",
+    "It tunggal; untuk bags pakai they."
+   ],
+   [
+    "These bags are nice. Is they expensive?",
+    "They jamak; kata kerjanya are, bukan is."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Ada yang mengetuk pintu. Mungkin itu kurir.",
+  "prompt": "Someone is knocking. ___ (It is / Is) probably the delivery man.",
+  "hint": "menebak siapa di pintu",
+  "ans": "Someone is knocking. It is probably the delivery man.",
+  "why": "Untuk orang yang belum terlihat (di pintu/telepon) dipakai it: it is probably …",
+  "wrong": [
+   [
+    "Someone is knocking. Is probably the delivery man.",
+    "Subjek tidak boleh hilang; bahasa Inggris perlu it sebelum is."
+   ],
+   [
+    "Someone is knocking. It probably the delivery man.",
+    "Kata kerja is tidak boleh hilang setelah it."
+   ],
+   [
+    "Someone is knocking. It are probably the delivery man.",
+    "It tunggal; kata kerjanya is, bukan are."
+   ]
+  ],
+  "alt": [
+   "Someone is knocking. That is probably the delivery man."
+  ]
+ },
+ {
+  "set": "thit4",
+  "promptId": "Kamu lihat rumah biru di dekat masjid itu? Di situlah saya tinggal.",
+  "prompt": "Can you see the blue house near the mosque? ___ (That is / This is) where I live.",
+  "hint": "menunjuk tempat jauh",
+  "ans": "Can you see the blue house near the mosque? That is where I live.",
+  "why": "Tempatnya jauh dan baru disebut → that is where …",
+  "wrong": [
+   [
+    "Can you see the blue house near the mosque? This is where I live.",
+    "This untuk tempat kita berada sekarang, padahal rumahnya jauh."
+   ],
+   [
+    "Can you see the blue house near the mosque? That where I live.",
+    "Is tidak boleh hilang; \"itu\" tetap perlu is: that is."
+   ],
+   [
+    "Can you see the blue house near the mosque? Those are where I live.",
+    "Those are untuk jamak, padahal yang ditunjuk satu tempat."
+   ]
+  ],
+  "alt": []
+ },
+ {
+  "set": "thit4",
+  "promptId": "Apakah rumah barumu besar? Ya.",
+  "prompt": "Is your new house big? Yes, ___ (it is / this is).",
+  "hint": "jawaban pendek positif",
+  "ans": "Is your new house big? Yes, it is.",
+  "why": "Your new house diganti it dalam jawaban pendek: Yes, it is.",
+  "wrong": [
+   [
+    "Is your new house big? Yes, this is.",
+    "Your new house diganti it dalam jawaban pendek, bukan this."
+   ],
+   [
+    "Is your new house big? Yes, it's.",
+    "Kontraksi it's tidak boleh di akhir jawaban pendek; tulis it is."
+   ],
+   [
+    "Is your new house big? Yes, is.",
+    "Jawaban pendek perlu subjek: it is."
+   ]
+  ],
+  "alt": []
+ }
+]
