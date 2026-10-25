@@ -18,7 +18,6 @@ import {
   CORE_L,
 } from "@/const/conjunctions.constant";
 import { CONJ_JOIN } from "@/lib/content";
-import { speak } from "@/lib/helpers/speech.helper";
 import { useShellData } from "@/lib/hooks/useShellData";
 import type { Item } from "@/lib/types/vocab.types";
 

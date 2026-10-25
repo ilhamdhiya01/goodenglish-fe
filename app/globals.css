@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  /* Typography — loaded by next/font in app/layout.tsx, which sets the
-     --font-bricolage / --font-plex-mono / --font-newsreader variables. */
-  --font-sans: var(--font-bricolage), system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), monospace;
-  --font-serif: var(--font-newsreader), Georgia, serif;
+  /* Typography — loaded from Google Fonts in app/layout.tsx (same URL as the
+     Vite app's index.html). */
+  --font-sans: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  --font-serif: "Newsreader", Georgia, serif;
 
   /* Kertas & tinta */
   --color-paper: #f4f1ea;

@@ -55,7 +55,6 @@ export const buildQuiz = (all: Flat[]): QuizState | null => {
   });
   // ganti hingga 5 soal dengan soal bentuk lampau (V2) untuk verb tidak beraturan yang ada di level ini
   if (irr.length >= 4) {
-    const inQ = new Set(qs.map((q) => norm(q.word)));
     const pv = shuffle(irr)
       .filter(
         (x, i, a) => a.findIndex((y) => norm(y.it[1]) === norm(x.it[1])) === i,

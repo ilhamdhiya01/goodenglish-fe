@@ -2,7 +2,7 @@
 
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
@@ -14,7 +14,6 @@ import { GAPS } from "@/const/srs.constant";
 import { typeDef } from "@/const/vocab-types.constant";
 import { hasNote, idOf, noteOf } from "@/lib/content";
 import { resolveItemKey } from "@/lib/helpers/derived.helper";
-import { speak } from "@/lib/helpers/speech.helper";
 import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useNotes } from "@/lib/hooks/useNotes";
 import { useShellData } from "@/lib/hooks/useShellData";

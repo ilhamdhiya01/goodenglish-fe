@@ -6,13 +6,11 @@ import TenseIntro from "@/components/features/vocab/TenseIntro/TenseIntro";
 import VocabToolbar from "@/components/features/vocab/VocabToolbar/VocabToolbar";
 import WeekSidebar from "@/components/features/vocab/WeekSidebar/WeekSidebar";
 import WordCard from "@/components/features/vocab/WordCard/WordCard";
-import { TYPES } from "@/const/vocab-types.constant";
 import type { Flat } from "@/lib/helpers/level-data.helper";
 import { itemKey } from "@/lib/helpers/storage.helper";
 import { formsOf, formsSearchText } from "@/lib/helpers/verb-forms.helper";
 import { useShellData } from "@/lib/hooks/useShellData";
 import type { PlanRow } from "@/lib/types/vocab.types";
-import { useLevelStore } from "@/stores/useLevelStore";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
 
 // Halaman Kosakata: sidebar rencana minggu + intro tense + toolbar filter + daftar kartu.

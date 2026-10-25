@@ -167,7 +167,11 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
     );
   }
 
-  if (!ready) {
+  // Never render a menu this token may not open, not even for the one frame
+  // before the redirect effect above runs.
+  const menuAllowed = !!session?.menus.includes(menuOfPath(pathname));
+
+  if (!ready || !menuAllowed) {
     return (
       <div className="flex min-h-screen items-center justify-center font-mono text-xs tracking-[0.08em] text-muted">
         MEMUAT…

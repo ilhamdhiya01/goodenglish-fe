@@ -41,7 +41,7 @@ interface VocabUiState {
 
 let focusTimer: ReturnType<typeof setTimeout> | undefined;
 
-export const useVocabUiStore = create<VocabUiState>((set, get) => ({
+export const useVocabUiStore = create<VocabUiState>((set) => ({
   q: "",
   type: "all",
   hideKnown: false,
