@@ -2,7 +2,7 @@
 
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
@@ -14,9 +14,12 @@ import { GAPS } from "@/const/srs.constant";
 import { typeDef } from "@/const/vocab-types.constant";
 import { hasNote, idOf, noteOf } from "@/lib/content";
 import { resolveItemKey } from "@/lib/helpers/derived.helper";
+import { flatten } from "@/lib/helpers/level-data.helper";
 import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useNotes } from "@/lib/hooks/useNotes";
 import { useShellData } from "@/lib/hooks/useShellData";
+import type { LevelId } from "@/lib/types/session.types";
+import { useAccessStore } from "@/stores/useAccessStore";
 import { useProgressStore } from "@/stores/useProgressStore";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
 
@@ -48,6 +51,16 @@ const Stat = ({
 const ReviewPage = React.memo(() => {
   const { dueKeys, scheduled, doneToday, allLevels, srs, own } = useShellData();
   const bumpSrs = useProgressStore((s) => s.bumpSrs);
+  const allowed = useAccessStore((s) => s.session?.levels);
+  // Every word in the levels this token may open (bundled + admin + Kataku).
+  const totalWords = useMemo(
+    () =>
+      LEVELS.filter(([id]) => allowed?.includes(id as LevelId)).reduce(
+        (n, [id]) => n + flatten(allLevels[id].V).length,
+        0,
+      ),
+    [allLevels, allowed],
+  );
   const flip = useVocabUiStore((s) => s.flip);
   const { jumpToWord } = useJumpToWord();
   const router = useRouter();
@@ -77,9 +90,10 @@ const ReviewPage = React.memo(() => {
       <div className="flex flex-col gap-1.5">
         <PageHeading>Ulang hari ini</PageHeading>
         <Lead>
-          Kata yang kamu tandai hafal dijadwalkan ulang: 1 → 3 → 7 → 14 → 30 →
-          60 hari. Jawab jujur. Kalau lupa, jadwalnya mundur ke awal. Ini yang
-          membuat 2.000 kata benar-benar menempel.
+          Kata yang kamu tandai hafal dijadwalkan ulang: {GAPS.join(" → ")}{" "}
+          hari. Jawab jujur. Kalau lupa, jadwalnya mundur ke awal. Ini yang
+          membuat {totalWords.toLocaleString("id-ID")} kata benar-benar
+          menempel.
         </Lead>
       </div>
       <div className="flex flex-wrap gap-3.5">
