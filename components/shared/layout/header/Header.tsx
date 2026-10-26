@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -62,7 +63,8 @@ const Header = React.memo(() => {
   return (
     <header className="flex flex-col gap-6 border-b-2 border-ink pb-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <span className="font-mono text-sm font-bold tracking-[0.12em] text-ink">
+        <span className="flex items-center gap-2.5 font-mono text-sm font-bold tracking-[0.12em] text-ink">
+          <Image src="/icon.svg" alt="" width={28} height={28} unoptimized />
           GOODENGLISH
         </span>
         <div ref={pop} className="relative flex items-center gap-2">
