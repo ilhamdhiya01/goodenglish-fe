@@ -43,7 +43,7 @@ const AccessForm = React.memo(() => {
   return (
     <div className="mx-auto flex min-h-screen max-w-[560px] flex-col justify-center gap-6 px-[clamp(14px,3vw,28px)] py-12">
       <span className="font-mono text-xs font-medium tracking-[0.12em] text-ink">
-        BEKAL SPEAKING
+        GOODENGLISH
       </span>
       <div className="flex flex-col gap-2.5">
         <SectionLabel tone="green">AKSES</SectionLabel>

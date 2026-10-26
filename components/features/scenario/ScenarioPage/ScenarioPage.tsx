@@ -165,7 +165,12 @@ const ScenarioPage = React.memo(() => {
                           onClick={() => speak(prev[1])}
                           className="inline-flex cursor-pointer items-center gap-1.5 border-none bg-transparent p-0 font-sans text-[13px] text-ink"
                         >
-                          <SpeakButton size={22} icon={11} text={prev[1]} />
+                          <SpeakButton
+                            nested
+                            size={22}
+                            icon={11}
+                            text={prev[1]}
+                          />
                           dengar lawan bicara
                         </button>
                       )}

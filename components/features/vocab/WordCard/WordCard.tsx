@@ -14,6 +14,7 @@ import { useNotes } from "@/lib/hooks/useNotes";
 import type { Item } from "@/lib/types/vocab.types";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useProgressStore } from "@/stores/useProgressStore";
+import { isSharedKey } from "@/stores/useSharedWordsStore";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
 
 interface Props {
@@ -63,7 +64,9 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
   const note = notesReady ? noteOf(en) : null;
   const hidden = quiz && !revealed;
   // Bentuk V1 → V2 → V3 (lihat lib/verb-forms: data per kartu, Kataku jatuh ke tabel tak beraturan).
-  const isMine = !!it[6];
+  // it[6] terisi untuk kata tambahan: Kataku milik sendiri, atau kosakata
+  // bersama dari admin (dikelola di dashboard, tampil seperti kata biasa).
+  const isMine = !!it[6] && !isSharedKey(it[6]);
   const vf = formsOf(it);
   const v: [string, string, boolean] | null = vf
     ? [vf.v2, vf.v3, vf.irregular]

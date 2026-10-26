@@ -10,6 +10,7 @@ import { useAccessStore } from "@/stores/useAccessStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useProgressStore } from "@/stores/useProgressStore";
 import { useQuizStore } from "@/stores/useQuizStore";
+import { useExtraWords } from "@/stores/useSharedWordsStore";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
 
 // Pemilih level — 4 kartu dengan progres hafal per level.
@@ -17,7 +18,7 @@ const LevelPicker = React.memo(() => {
   const level = useLevelStore((s) => s.level);
   const setLevel = useLevelStore((s) => s.setLevel);
   const known = useProgressStore((s) => s.known);
-  const custom = useProgressStore((s) => s.custom);
+  const custom = useExtraWords();
   // Only the levels this access token may open.
   const allowed = useAccessStore((s) => s.session?.levels);
 

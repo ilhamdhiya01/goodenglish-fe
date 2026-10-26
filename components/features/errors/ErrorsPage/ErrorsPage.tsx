@@ -161,7 +161,7 @@ const ErrorsPage = React.memo(() => {
                   >
                     {o}
                   </span>
-                  {show && isRight && <SpeakButton text={o} />}
+                  {show && isRight && <SpeakButton nested text={o} />}
                 </button>
               );
             })}

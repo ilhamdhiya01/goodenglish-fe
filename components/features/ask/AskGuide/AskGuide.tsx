@@ -113,25 +113,31 @@ const AskGuide = React.memo(() => {
         </div>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-2">
           {D.cheat.map(([n, name, f, ex]: string[]) => (
-            <button
-              type="button"
+            // Speaker sits beside the row button, not inside it: nested
+            // <button>s are invalid HTML and break hydration.
+            <div
               key={n}
-              onClick={() => pick("r" + n)}
-              className="grid cursor-pointer grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5 rounded-lg border border-line px-3 py-2.5 text-left font-sans transition-colors hover:bg-sand"
+              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2.5 rounded-lg border border-line pr-3 transition-colors hover:bg-sand"
             >
-              <span className="w-[22px] font-mono text-xl font-bold text-green">
-                {n}
-              </span>
-              <div className="flex min-w-0 flex-col gap-[3px]">
-                <span className="text-[13px] font-bold">{name}</span>
-                <span className="font-mono text-xs wrap-anywhere">{f}</span>
-                <span className="font-serif text-[14.5px] text-ink-2 italic">
-                  {ex}
+              <button
+                type="button"
+                onClick={() => pick("r" + n)}
+                className="grid cursor-pointer grid-cols-[auto_minmax(0,1fr)] items-center gap-2.5 py-2.5 pl-3 text-left font-sans"
+              >
+                <span className="w-[22px] font-mono text-xl font-bold text-green">
+                  {n}
                 </span>
-                <span className="text-xs text-faint">{idOf(ex)}</span>
-              </div>
+                <div className="flex min-w-0 flex-col gap-[3px]">
+                  <span className="text-[13px] font-bold">{name}</span>
+                  <span className="font-mono text-xs wrap-anywhere">{f}</span>
+                  <span className="font-serif text-[14.5px] text-ink-2 italic">
+                    {ex}
+                  </span>
+                  <span className="text-xs text-faint">{idOf(ex)}</span>
+                </div>
+              </button>
               <SpeakButton size={24} icon={12} text={ex} />
-            </button>
+            </div>
           ))}
         </div>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-1.5 border-t border-dashed border-line pt-3">

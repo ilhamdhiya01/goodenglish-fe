@@ -2,7 +2,7 @@
 
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
@@ -10,7 +10,6 @@ import SectionLabel from "@/components/ui/section-label";
 import TextButton from "@/components/ui/text-button";
 import { ASK_RULES } from "@/const/plan.constant";
 import { PRON_SECS } from "@/const/pronunciation.constant";
-import { VOCAB_SCEN } from "@/lib/content";
 import { today } from "@/lib/helpers/storage.helper";
 import { useShellData } from "@/lib/hooks/useShellData";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
@@ -50,14 +49,14 @@ const Check = ({
   </button>
 );
 
-// Halaman Rencana: rutinitas harian 4 blok + checkpoint mingguan.
+// Halaman Rencana: rutinitas harian 3 blok (dicentang otomatis oleh
+// PlanAutoCheck) + checkpoint mingguan.
 const PlanPage = React.memo(() => {
   const { level, week, srs, known } = useShellData();
   const P = usePlanStore((s) => s.plan);
   const setPlan = usePlanStore((s) => s.setPlan);
   const askPrac = useAskPracticeStore((s) => s.stats);
   const router = useRouter();
-  const [copied, setCopied] = useState(false);
 
   const T = today();
   const key = String(T);
@@ -131,30 +130,12 @@ const PlanPage = React.memo(() => {
               min: "15 mnt",
               to: "/pronunciation",
               go: "Pelafalan · " + pronName,
-              desc: `Shadowing bagian "${pronName}" 10 menit, lalu Panduan grammar › Kata bantu "Satu kalimat, enam tense" 5 menit.`,
+              desc: `Shadowing bagian "${pronName}" 10 menit, lalu Panduan grammar › Kata bantu "Satu kalimat, enam tense" 5 menit. Selesai? Klik "sudah, lanjut bagian berikutnya" di bawah.`,
               why: 'Menyerang pelafalan dan "tidak paham ucapan cepat".',
             },
-      {
-        id: "b4",
-        no: "4",
-        name: "Keluar",
-        min: "20 mnt",
-        to: "/scenario",
-        go: "Skenario",
-        desc: `Baca skenario minggu ini keras sekali, lalu ChatGPT voice memainkan lawan bicaranya. Wajib pakai ≥ 5 kata hafal hari ini dan ≥ 3 pertanyaan ${ruleNo}.`,
-        why: 'Kalau mentok pakai frasa "Saat mentok"; jangan diam, jangan pindah ke Indonesia.',
-      },
     ] as (Block | null)[]
   ).filter((b): b is Block => !!b);
 
-  const toggleDay = (id: string) =>
-    setPlan((p) => ({
-      ...p,
-      days: {
-        ...(p.days || {}),
-        [key]: { ...(p.days?.[key] || {}), [id]: !p.days?.[key]?.[id] },
-      },
-    }));
   const doneN = blocks.filter((b) => !!day[b.id]).length;
   const allDone = doneN === blocks.length;
   let streak = 0;
@@ -162,7 +143,7 @@ const PlanPage = React.memo(() => {
     const dd = P.days?.[String(d)];
     const n = dd ? Object.values(dd).filter(Boolean).length : 0;
     const wd = new Date(d * 86400000).getDay();
-    if (n >= (wd === 0 || wd === 6 ? 2 : 3)) streak++;
+    if (n >= (wd === 0 || wd === 6 ? 1 : 3)) streak++;
     else break;
   }
   const weekQuiz = (P.quiz || []).filter(
@@ -224,19 +205,6 @@ const PlanPage = React.memo(() => {
         : level === "inter"
           ? "Fase D · Intermediate"
           : "Fase E · Upper";
-  const scenList = (VOCAB_SCEN as { level: string }[]).filter(
-    (s) => s.level === level || (level === "pre" && s.level === "beginner"),
-  );
-  const scen = scenList.length
-    ? (scenList[(week - 1) % scenList.length] as {
-        level: string;
-        title: string;
-        where: string;
-      })
-    : null;
-  const gpt = scen
-    ? `Let's practice English speaking. Scenario: "${scen.title}" (${scen.where}). You play the other person; I play myself. Keep your replies short (1–2 sentences) and wait for me. Don't correct me while we talk. After 10 minutes, or when I say "feedback", list my 3 biggest mistakes with corrected sentences, then 5 useful phrases I could have used.`
-    : "";
 
   return (
     <section className="flex flex-col gap-[22px]">
@@ -259,12 +227,13 @@ const PlanPage = React.memo(() => {
                   ][dow]}
           </SectionLabel>
           <h2 className="m-0 text-3xl leading-[1.15] font-bold tracking-[-0.02em]">
-            Satu jam, empat blok, urutan tetap.
+            40 menit, tiga blok, urutan tetap.
           </h2>
           <p className="m-0 text-[15px] leading-[1.55] text-pretty text-ink-2">
             Rutinitasnya sama setiap hari supaya tidak ada energi terbuang untuk
             memutuskan &quot;belajar apa sekarang&quot;. Yang berubah hanya
-            isinya: minggu dan rumus. Akhir pekan cukup blok 1 dan 4.
+            isinya: minggu dan rumus. Akhir pekan cukup blok 1. Blok tercentang
+            sendiri begitu aktivitasnya selesai.
           </p>
         </div>
         <div className="flex items-baseline gap-4.5 font-mono text-[12.5px] text-muted">
@@ -316,7 +285,7 @@ const PlanPage = React.memo(() => {
                   <span className="text-[19px] font-bold">{b.name}</span>
                   <span className="font-mono text-xs text-muted">{b.min}</span>
                 </div>
-                <Check on={done} onClick={() => toggleDay(b.id)} />
+                <Check on={done} />
               </div>
               <span className="text-sm leading-[1.5] text-pretty text-ink-2">
                 {b.desc}
@@ -370,38 +339,6 @@ const PlanPage = React.memo(() => {
               sudah, lanjut bagian berikutnya
             </TextButton>
           </div>
-        </Card>
-        <Card tone="line" className="gap-2.5 rounded-xl px-[18px] py-4">
-          <SectionLabel>
-            PROMPT CHATGPT VOICE · {scen ? scen.title : "—"}
-          </SectionLabel>
-          {!!gpt && (
-            <>
-              <span className="rounded-lg bg-sand px-3 py-2.5 font-mono text-xs leading-[1.55] whitespace-pre-wrap text-ink-2">
-                {gpt}
-              </span>
-              <div className="flex items-center gap-2.5">
-                <Button
-                  variant="dark"
-                  size="sm"
-                  onClick={() => {
-                    navigator.clipboard?.writeText(gpt);
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 1500);
-                  }}
-                >
-                  Salin prompt
-                </Button>
-                {copied && (
-                  <span className="text-[12.5px] text-green">tersalin</span>
-                )}
-              </div>
-            </>
-          )}
-          <span className="text-[12.5px] leading-[1.45] text-muted">
-            Tiga menit terakhir: minta 3 kesalahan terbesar, masukkan
-            kata/frasanya ke Kataku.
-          </span>
         </Card>
       </div>
 

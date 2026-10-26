@@ -8,8 +8,8 @@ import { itemKey } from "@/lib/helpers/storage.helper";
 import type { Item } from "@/lib/types/vocab.types";
 import { useAccessStore } from "@/stores/useAccessStore";
 import { useLevelStore } from "@/stores/useLevelStore";
-import { useProgressStore } from "@/stores/useProgressStore";
 import { useQuizStore } from "@/stores/useQuizStore";
+import { extraWords } from "@/stores/useSharedWordsStore";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
 
 // Lompat ke satu kata: pindah level & minggu bila perlu, buka halaman Kosakata,
@@ -36,8 +36,7 @@ export const useJumpToWord = () => {
     (en: string) => {
       const low = en.toLowerCase();
       const lvl = useLevelStore.getState().level;
-      const { custom } = useProgressStore.getState();
-      const allLevels = allLevelData(custom);
+      const allLevels = allLevelData(extraWords());
       const hit = flatten(allLevels[lvl].V).find(
         (x) => x.it[1].toLowerCase() === low,
       );

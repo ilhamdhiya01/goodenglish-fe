@@ -5,6 +5,7 @@ import { allLevelData, migrateProgress } from "@/lib/helpers/derived.helper";
 import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
 import type { SrsEntry } from "@/lib/types/progress.types";
 import type { CustomWord } from "@/lib/types/vocab.types";
+import { usePlanStore } from "@/stores/usePlanStore";
 
 // Semua progres pengguna: kata hafal, jadwal SRS, "Kalimatku", kata tambahan (Kataku),
 // dan hitungan ulangan hari ini. Persist manual ke localStorage (kunci & bentuk lama).
@@ -120,9 +121,11 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
         delete c[key];
         return c;
       });
+      usePlanStore.getState().bumpTally("known", -1);
     } else {
       setKnown((k) => ({ ...k, [key]: 1 }));
       setSrs((s) => ({ ...s, [key]: { st: 0, due: today() + 1 } }));
+      usePlanStore.getState().bumpTally("known");
     }
   },
 

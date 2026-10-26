@@ -6,13 +6,14 @@ import { flatten, levelData } from "@/lib/helpers/level-data.helper";
 import { itemKey } from "@/lib/helpers/storage.helper";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useProgressStore } from "@/stores/useProgressStore";
+import { useExtraWords } from "@/stores/useSharedWordsStore";
 
 // Data turunan yang dipakai banyak komponen shell & halaman: level aktif,
 // data level, semua item, progres, dan kunci jatuh tempo.
 export const useShellData = () => {
   const level = useLevelStore((s) => s.level);
   const week = useLevelStore((s) => s.week);
-  const custom = useProgressStore((s) => s.custom);
+  const custom = useExtraWords();
   const known = useProgressStore((s) => s.known);
   const srs = useProgressStore((s) => s.srs);
   const own = useProgressStore((s) => s.own);

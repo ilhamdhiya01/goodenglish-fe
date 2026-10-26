@@ -1,12 +1,19 @@
 "use client";
 
+import classNames from "classnames";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 import { useLogout } from "@/lib/hooks/auth/useLogout";
 import { useSession } from "@/lib/hooks/auth/useSession";
 import { ROUTES } from "@/routes";
+
+// [path, tab label, page heading]
+const SECTIONS = [
+  [ROUTES.ADMIN_TOKENS, "Token akses", "Kelola token akses"],
+  [ROUTES.ADMIN_WORDS, "Kosakata", "Kosakata bersama"],
+] as const;
 
 interface AdminShellProps {
   children: React.ReactNode;
@@ -16,7 +23,10 @@ interface AdminShellProps {
 // same on every /admin endpoint).
 const AdminShell = React.memo(({ children }: AdminShellProps) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { session, isError } = useSession();
+  const current =
+    SECTIONS.find(([path]) => pathname.startsWith(path)) ?? SECTIONS[0];
   const { handleLogout, isLoggingOut } = useLogout();
   const isAdmin = session?.role === "admin";
 
@@ -38,11 +48,27 @@ const AdminShell = React.memo(({ children }: AdminShellProps) => {
       <header className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-ink pb-6">
         <div className="flex flex-col gap-2">
           <span className="font-mono text-xs font-medium tracking-[0.12em] text-ink">
-            BEKAL SPEAKING · ADMIN
+            GOODENGLISH · ADMIN
           </span>
           <h1 className="m-0 text-[clamp(28px,4vw,40px)] leading-none font-bold tracking-[-0.025em]">
-            Kelola token akses
+            {current[2]}
           </h1>
+          <nav className="mt-2 flex gap-2">
+            {SECTIONS.map(([path, label]) => (
+              <Link
+                key={path}
+                href={path}
+                className={classNames(
+                  "rounded-full border-[1.5px] border-ink px-3.5 py-1 text-[13px] font-semibold",
+                  path === current[0]
+                    ? "bg-ink text-paper"
+                    : "bg-card text-ink",
+                )}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
         </div>
         <div className="flex items-center gap-4">
           <Link href={ROUTES.ROOT} className="text-sm font-semibold">

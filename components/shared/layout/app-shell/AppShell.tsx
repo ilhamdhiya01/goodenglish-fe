@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
+import PlanAutoCheck from "@/components/providers/PlanAutoCheck";
 import VoiceBootstrap from "@/components/providers/VoiceBootstrap";
 import { loadNotes } from "@/lib/content";
 import { applyProgress } from "@/lib/helpers/progress-hydrate.helper";
@@ -17,11 +18,13 @@ import {
 } from "@/lib/helpers/storage.helper";
 import { useSession } from "@/lib/hooks/auth/useSession";
 import { useProgress } from "@/lib/hooks/progress/useProgress";
+import { useWords } from "@/lib/hooks/words/useWords";
 import type { ProgressKey, ProgressMap } from "@/lib/types/progress-sync.types";
 import type { MenuId } from "@/lib/types/session.types";
 import { ROUTES } from "@/routes";
 import { useAccessStore } from "@/stores/useAccessStore";
 import { useLevelStore } from "@/stores/useLevelStore";
+import { useSharedWordsStore } from "@/stores/useSharedWordsStore";
 
 import GlobalSearch from "../global-search";
 import Header from "../header";
@@ -49,7 +52,17 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   const pathname = usePathname();
   const { session, isError: sessionError } = useSession();
   const { progress, isError: progressError } = useProgress(!!session);
+  const { words, isError: wordsError } = useWords(!!session);
   const setSession = useAccessStore((s) => s.setSession);
+  const setWords = useSharedWordsStore((s) => s.setWords);
+
+  // Also re-runs after an admin edit refetches the list.
+  useEffect(() => {
+    if (words) setWords(words);
+  }, [words, setWords]);
+  // A failed word list must not lock the learner out: the app still works
+  // with just the bundled vocabulary.
+  const wordsSettled = !!words || wordsError;
 
   const [ready, setReady] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
@@ -85,9 +98,9 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   }, [sessionError, router]);
 
   useEffect(() => {
-    if (!session || !progress || ready || legacy) return;
+    if (!session || !progress || !wordsSettled || ready || legacy) return;
     start(progress);
-  }, [session, progress, ready, legacy, start]);
+  }, [session, progress, wordsSettled, ready, legacy, start]);
 
   // Routes this token may not open bounce to its first allowed menu; the
   // admin dashboard lives outside this shell.
@@ -182,6 +195,7 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   return (
     <div className="mx-auto flex max-w-[1280px] flex-col gap-7 px-[clamp(14px,3vw,28px)] pt-[clamp(18px,4vw,36px)] pb-20">
       <VoiceBootstrap />
+      <PlanAutoCheck />
       <Header />
       <GlobalSearch />
       <LevelPicker />

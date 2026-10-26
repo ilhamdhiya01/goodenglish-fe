@@ -12,6 +12,8 @@ export const ACCESS_ERRORS: Record<string, string> = {
   last_admin: "Harus tetap ada minimal satu token admin yang aktif.",
   menus_required: "Pilih minimal satu menu.",
   levels_required: "Pilih minimal satu level.",
+  word_exists: "Kata ini sudah ada di level tersebut.",
+  word_not_found: "Kata tidak ditemukan. Mungkin sudah dihapus.",
 };
 
 export const accessErrorText = (code?: string) =>

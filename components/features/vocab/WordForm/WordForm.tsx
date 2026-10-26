@@ -17,7 +17,8 @@ import { useLevelStore } from "@/stores/useLevelStore";
 import { useProgressStore } from "@/stores/useProgressStore";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
 
-// Form "Kataku": tambah kata sendiri ke minggu, atau ubah kata yang sudah ada.
+// Form "Kataku": ubah kata sendiri yang sudah ada. Kata baru untuk semua
+// pelajar ditambah admin lewat dashboard (Admin › Kosakata).
 // Validasi: kata & arti wajib; kata tidak boleh duplikat di level ini.
 const WordForm = React.memo(
   ({ plan, data }: { plan: PlanRow[]; data: LevelData }) => {
@@ -198,7 +199,7 @@ const WordForm = React.memo(
           </button>
           {formErr && <span className="text-[13px] text-red">{formErr}</span>}
           <span className="text-xs text-faint">
-            Tersimpan di browser ini; ikut Ekspor progres.
+            Tersimpan di akunmu; ikut Ekspor progres.
           </span>
         </div>
       </div>

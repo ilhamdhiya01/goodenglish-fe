@@ -9,6 +9,7 @@ import type { ApiResponse } from "@/lib/types/api.types";
 import {
   API_ADMIN_TOKEN,
   API_ADMIN_TOKEN_ACTIVATE,
+  API_ADMIN_TOKEN_REGENERATE,
   API_ADMIN_TOKEN_REVOKE,
   API_ADMIN_TOKEN_SESSIONS,
   API_ADMIN_TOKEN_SUMMARY,
@@ -67,6 +68,19 @@ export const activateToken = async (
 ): Promise<ApiResponse<AccessTokenItem>> => {
   try {
     const res = await axiosInstance.post(API_ADMIN_TOKEN_ACTIVATE(id));
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// New plaintext on the same row (progress kept); old token and all its
+// devices stop working immediately.
+export const regenerateToken = async (
+  id: string,
+): Promise<ApiResponse<CreatedToken>> => {
+  try {
+    const res = await axiosInstance.post(API_ADMIN_TOKEN_REGENERATE(id));
     return res.data;
   } catch (error) {
     throw error;

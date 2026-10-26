@@ -61,6 +61,15 @@ export const PRE_PLAN: PlanRow[] = [
   ],
 ];
 
+// Ambang centang otomatis blok harian (lihat PlanAutoCheck).
+// Blok 1 tidak punya ambang: selesai saat jatuh tempo habis.
+export const AUTO_CHECK = {
+  /** Blok 2: kata yang ditandai hafal hari ini. */
+  known: 10,
+  /** Blok 3 hari ganjil: soal latihan Bertanya yang dijawab hari ini. */
+  ask: 20,
+} as const;
+
 // Rumus "Bertanya" yang dirotasi di blok 3 hari ganjil (id cocok dengan data ask.js).
 export const ASK_RULES: [string, string][] = [
   ["r1", "Rumus 1"],

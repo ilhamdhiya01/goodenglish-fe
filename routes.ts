@@ -10,6 +10,7 @@ export const ROUTES = {
   GRAMMAR: "/grammar",
   PRONUNCIATION: "/pronunciation",
   ADMIN_TOKENS: "/admin/tokens",
+  ADMIN_WORDS: "/admin/words",
   grammarSub: (sub: string) => `/grammar/${sub}`,
 } as const;
 
@@ -26,6 +27,11 @@ export const API_AUTH_ME = `${API_AUTH}/me`;
 export const API_PROGRESS = `${API_BASE_URL}/me/progress`;
 export const API_PROGRESS_KEY = (key: string) => `${API_PROGRESS}/${key}`;
 
+// Shared vocabulary added by admins (read by everyone, written by admins)
+export const API_WORDS = `${API_BASE_URL}/words`;
+export const API_ADMIN_WORDS = `${API_BASE_URL}/admin/words`;
+export const API_ADMIN_WORD = (id: string) => `${API_ADMIN_WORDS}/${id}`;
+
 // Admin: access tokens
 export const API_ADMIN_TOKENS = `${API_BASE_URL}/admin/tokens`;
 export const API_ADMIN_TOKEN = (id: string) => `${API_ADMIN_TOKENS}/${id}`;
@@ -33,6 +39,8 @@ export const API_ADMIN_TOKEN_REVOKE = (id: string) =>
   `${API_ADMIN_TOKEN(id)}/revoke`;
 export const API_ADMIN_TOKEN_ACTIVATE = (id: string) =>
   `${API_ADMIN_TOKEN(id)}/activate`;
+export const API_ADMIN_TOKEN_REGENERATE = (id: string) =>
+  `${API_ADMIN_TOKEN(id)}/regenerate`;
 export const API_ADMIN_TOKEN_SESSIONS = (id: string) =>
   `${API_ADMIN_TOKEN(id)}/sessions`;
 export const API_ADMIN_TOKEN_SUMMARY = (id: string) =>

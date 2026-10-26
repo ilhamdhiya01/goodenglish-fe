@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
 import IconButton from "@/components/ui/icon-button";
+import { SelectChevron } from "@/components/ui/select/Select";
 import {
   exportProgress,
   importProgressFile,
@@ -22,8 +23,19 @@ const ICON = {
   strokeLinejoin: "round",
 } as const;
 
+// Satu kalimat penyemangat per minggu.
+const CHEERS = [
+  "Salah ucap itu bagian dari belajar. Terus bicara.",
+  "Sedikit tiap hari lebih kuat daripada banyak sekali-sekali.",
+  "Kamu sudah lebih jago dari minggu lalu.",
+  "Tidak perlu sempurna, yang penting dimengerti.",
+  "Satu kalimat hari ini, satu percakapan besok.",
+  "Berani mencoba sudah setengah jalan.",
+];
+
 const Header = React.memo(() => {
-  const { data, LV, knownCount, all } = useShellData();
+  const { week, data, knownCount, all } = useShellData();
+  const plan = data.plan.find((p) => p[0] === week);
   const voices = useVoiceStore((s) => s.list);
   const current = useVoiceStore((s) => s.current);
   const selectVoice = useVoiceStore((s) => s.select);
@@ -50,8 +62,8 @@ const Header = React.memo(() => {
   return (
     <header className="flex flex-col gap-6 border-b-2 border-ink pb-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <span className="font-mono text-xs font-medium tracking-[0.12em] text-ink">
-          BEKAL SPEAKING
+        <span className="font-mono text-sm font-bold tracking-[0.12em] text-ink">
+          GOODENGLISH
         </span>
         <div ref={pop} className="relative flex items-center gap-2">
           <IconButton title="Ekspor progres ke file" onClick={exportProgress}>
@@ -123,17 +135,20 @@ const Header = React.memo(() => {
               <span className="font-mono text-[11px] tracking-[0.08em] text-muted">
                 SUARA PENGUCAP
               </span>
-              <select
-                value={current}
-                onChange={(e) => selectVoice(e.target.value)}
-                className="h-9 rounded-md border-[1.5px] border-line-2 bg-sand px-2 font-sans text-[13px] text-ink"
-              >
-                {voices.map((v) => (
-                  <option key={v.name} value={v.name}>
-                    {label(v) + " · " + v.lang}
-                  </option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  value={current}
+                  onChange={(e) => selectVoice(e.target.value)}
+                  className="h-9 w-full cursor-pointer appearance-none rounded-md border-[1.5px] border-line-2 bg-sand pr-8 pl-2 font-sans text-[13px] text-ink"
+                >
+                  {voices.map((v) => (
+                    <option key={v.name} value={v.name}>
+                      {label(v) + " · " + v.lang}
+                    </option>
+                  ))}
+                </select>
+                <SelectChevron />
+              </div>
               <span className="text-xs leading-[1.45] text-muted">
                 Memilih suara akan memutar contoh. Suara &quot;Natural&quot;
                 terdengar paling alami.
@@ -144,18 +159,17 @@ const Header = React.memo(() => {
       </div>
 
       <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
-        <div className="flex max-w-[680px] flex-1 basis-[420px] flex-col gap-2.5">
+        <div className="flex min-w-0 flex-1 basis-[320px] flex-col gap-2">
           <span className="font-mono text-xs tracking-[0.08em] text-green">
-            {LV[1].toUpperCase()} · {data.plan.length || "—"} MINGGU
+            MINGGU {week}
+            {plan && ` · ${plan[2].toUpperCase()}`}
           </span>
-          <h1 className="m-0 text-[clamp(32px,4.6vw,52px)] leading-none font-bold tracking-[-0.025em] text-balance">
-            Kosakata untuk mulai bicara
+          <h1 className="m-0 text-[clamp(24px,3vw,32px)] leading-tight font-bold tracking-[-0.02em] text-balance">
+            {data.V[String(week)]?.title || plan?.[1] || `Minggu ${week}`}
           </h1>
-          <p className="m-0 max-w-[560px] text-[15px] leading-[1.55] text-pretty text-ink-3">
-            Setiap minggu: satu topik, satu tense, satu set kata sambung. Baca
-            contoh kalimatnya keras-keras, lalu buat satu kalimat sendiri
-            sebelum menandai hafal.
-          </p>
+          <span className="text-sm text-ink-3">
+            {CHEERS[(week - 1) % CHEERS.length]}
+          </span>
         </div>
         <div className="flex min-w-[200px] flex-[0_1_240px] flex-col items-end gap-2 max-sm:flex-[1_1_100%] max-sm:items-start">
           <span className="font-mono text-[11px] tracking-[0.1em] text-muted">

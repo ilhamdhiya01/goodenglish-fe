@@ -5,10 +5,10 @@ import React, { useCallback, useState } from "react";
 
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
-import TextButton from "@/components/ui/text-button";
 import { LEVEL_OPTIONS, MENU_OPTIONS } from "@/const/access.constant";
 import { formatDate, formatDateTime } from "@/lib/helpers/date.helper";
 import { useCreateToken } from "@/lib/hooks/admin/useCreateToken";
+import { useRegenerateToken } from "@/lib/hooks/admin/useRegenerateToken";
 import {
   type TokenAction,
   useTokenAction,
@@ -19,6 +19,7 @@ import type { AccessTokenItem, TokenFormValues } from "@/lib/types/admin.types";
 
 import CreatedTokenNotice from "../CreatedTokenNotice";
 import TokenForm from "../TokenForm";
+import TokenRowMenu from "../TokenRowMenu";
 import TokenSummaryPanel from "../TokenSummaryPanel";
 
 const STATUS: Record<AccessTokenItem["status"], [string, string]> = {
@@ -54,11 +55,14 @@ const TokenManager = React.memo(() => {
   const { handleCreate, isCreating } = useCreateToken();
   const { handleUpdate, isUpdating } = useUpdateToken();
   const { handleAction, isActing, actingOn } = useTokenAction();
+  const { handleRegenerate, isRegenerating, regeneratingId } =
+    useRegenerateToken();
 
   const [mode, setMode] = useState<"none" | "create" | string>("none");
   const [created, setCreated] = useState<{
     label: string;
     token: string;
+    variant: "created" | "regenerated";
   } | null>(null);
   const [summaryOf, setSummaryOf] = useState<AccessTokenItem | null>(null);
   const editing = tokens.find((t) => t.id === mode) ?? null;
@@ -66,7 +70,11 @@ const TokenManager = React.memo(() => {
   const onCreate = useCallback(
     async (values: TokenFormValues) => {
       const res = await handleCreate(values);
-      setCreated({ label: res.data.item.label, token: res.data.token });
+      setCreated({
+        label: res.data.item.label,
+        token: res.data.token,
+        variant: "created",
+      });
       setMode("none");
     },
     [handleCreate],
@@ -91,12 +99,35 @@ const TokenManager = React.memo(() => {
     [handleAction, summaryOf],
   );
 
+  const regenerate = useCallback(
+    async (t: AccessTokenItem) => {
+      if (
+        !window.confirm(
+          `Buat token baru untuk ${t.label}? Token lama langsung tidak berlaku dan semua perangkatnya keluar. Progres tetap aman.`,
+        )
+      )
+        return;
+      try {
+        const res = await handleRegenerate(t.id);
+        setCreated({
+          label: res.data.item.label,
+          token: res.data.token,
+          variant: "regenerated",
+        });
+      } catch {
+        // Error toast is shown by useRegenerateToken.
+      }
+    },
+    [handleRegenerate],
+  );
+
   return (
     <section className="flex flex-col gap-5">
       {created && (
         <CreatedTokenNotice
           label={created.label}
           token={created.token}
+          variant={created.variant}
           onClose={() => setCreated(null)}
         />
       )}
@@ -175,7 +206,9 @@ const TokenManager = React.memo(() => {
             </thead>
             <tbody>
               {tokens.map((t) => {
-                const busy = isActing && actingOn?.id === t.id;
+                const busy =
+                  (isActing && actingOn?.id === t.id) ||
+                  (isRegenerating && regeneratingId === t.id);
                 return (
                   <tr
                     key={t.id}
@@ -222,46 +255,47 @@ const TokenManager = React.memo(() => {
                       </span>
                     </td>
                     <td className="border-b border-hairline px-2.5 py-2.5">
-                      <div className="flex flex-wrap justify-end gap-x-3 gap-y-1">
-                        <TextButton
-                          tone="green"
-                          onClick={() => setSummaryOf(t)}
-                        >
-                          progres
-                        </TextButton>
-                        <TextButton onClick={() => setMode(t.id)}>
-                          ubah
-                        </TextButton>
-                        <TextButton
-                          disabled={busy || t.activeDevices === 0}
-                          onClick={() => run(t.id, "reset")}
-                        >
-                          reset perangkat
-                        </TextButton>
-                        {t.status === "revoked" ? (
-                          <TextButton
-                            tone="green"
-                            disabled={busy}
-                            onClick={() => run(t.id, "activate")}
-                          >
-                            aktifkan
-                          </TextButton>
-                        ) : (
-                          <TextButton
-                            tone="red"
-                            disabled={busy}
-                            onClick={() => run(t.id, "revoke")}
-                          >
-                            nonaktifkan
-                          </TextButton>
-                        )}
-                        <TextButton
-                          tone="red"
+                      <div className="flex justify-end">
+                        <TokenRowMenu
                           disabled={busy}
-                          onClick={() => run(t.id, "delete")}
-                        >
-                          hapus
-                        </TextButton>
+                          groups={[
+                            [
+                              {
+                                label: "Lihat progres",
+                                onSelect: () => setSummaryOf(t),
+                              },
+                              { label: "Ubah", onSelect: () => setMode(t.id) },
+                            ],
+                            [
+                              {
+                                label: "Reset perangkat",
+                                disabled: t.activeDevices === 0,
+                                onSelect: () => run(t.id, "reset"),
+                              },
+                              {
+                                label: "Buat ulang token",
+                                onSelect: () => void regenerate(t),
+                              },
+                              t.status === "revoked"
+                                ? {
+                                    label: "Aktifkan",
+                                    onSelect: () => run(t.id, "activate"),
+                                  }
+                                : {
+                                    label: "Nonaktifkan",
+                                    tone: "red",
+                                    onSelect: () => run(t.id, "revoke"),
+                                  },
+                            ],
+                            [
+                              {
+                                label: "Hapus",
+                                tone: "red",
+                                onSelect: () => run(t.id, "delete"),
+                              },
+                            ],
+                          ]}
+                        />
                       </div>
                     </td>
                   </tr>

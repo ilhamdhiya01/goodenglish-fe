@@ -60,7 +60,7 @@ const DrillGrid = React.memo(({ rows, showIds = false, label }: Props) => {
                     <span className="font-serif text-[17px] text-green italic">
                       {a}
                     </span>
-                    <SpeakButton size={22} icon={11} text={a} />
+                    <SpeakButton nested size={22} icon={11} text={a} />
                   </span>
                   {showIds && !!idOf(a) && (
                     <span className="-mt-[3px] text-[12.5px] text-faint">

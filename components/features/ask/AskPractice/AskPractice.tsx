@@ -17,6 +17,7 @@ import type {
   PracticeStage,
 } from "@/lib/types/ask-practice.types";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
+import { usePlanStore } from "@/stores/usePlanStore";
 import { usePracticeSessionStore } from "@/stores/usePracticeSessionStore";
 
 const ASK_STAGES: [PracticeStage, string, string][] = [
@@ -65,6 +66,7 @@ const AskPractice = React.memo(
     const stats = useAskPracticeStore((s) => s.stats);
     const updateRule = useAskPracticeStore((s) => s.updateRule);
     const resetRule = useAskPracticeStore((s) => s.resetRule);
+    const bumpTally = usePlanStore((s) => s.bumpTally);
 
     // Sesi berjalan disimpan per rumus/set di store (localStorage), jadi tidak hilang saat pindah tab,
     // pindah set, atau refresh. Hanya start(), Tutup, dan reset yang mengganti / menghapusnya.
@@ -120,6 +122,7 @@ const AskPractice = React.memo(
         }
         return n;
       });
+      bumpTally("ask");
       setP({
         ...P,
         built: built || P.built,

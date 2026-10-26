@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import QueryProvider from "@/components/providers/QueryProvider";
 
 export const metadata: Metadata = {
-  title: "Vocab Bekal Speaking",
+  title: "GoodEnglish",
   other: { google: "notranslate" },
 };
 

@@ -12,8 +12,21 @@ export interface PlanQuizEntry {
   week: number;
 }
 
+/** Hitungan aktivitas satu hari — dasar centang otomatis blok 2 & 3. */
+export interface PlanTally {
+  /** Hari epoch, sama dengan today(). Beda hari → hitungan mulai dari nol. */
+  day: number;
+  /** Kata yang ditandai hafal hari ini. */
+  known?: number;
+  /** Soal latihan Bertanya yang dijawab hari ini. */
+  ask?: number;
+  /** Bagian Pelafalan yang ditandai selesai hari ini ("sudah, lanjut"). */
+  pron?: number;
+}
+
 export interface PlanData {
   days?: Record<string, Record<string, boolean>>;
+  tally?: PlanTally;
   week?: Record<string, Partial<Record<"rec" | "gpt", boolean>>>;
   quiz?: PlanQuizEntry[];
   rule?: string;

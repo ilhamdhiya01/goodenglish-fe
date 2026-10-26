@@ -4,11 +4,9 @@ import classNames from "classnames";
 import React from "react";
 
 import WordForm from "@/components/features/vocab/WordForm/WordForm";
-import Button from "@/components/ui/button";
 import { TYPES } from "@/const/vocab-types.constant";
 import type { LevelData } from "@/lib/helpers/level-data.helper";
 import type { PlanRow } from "@/lib/types/vocab.types";
-import { useLevelStore } from "@/stores/useLevelStore";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
 
 interface Props {
@@ -20,12 +18,12 @@ interface Props {
 }
 
 // Baris kontrol Kosakata: cari, mode tes, arah kartu, mode ketik, sembunyikan hafal,
-// tambah kata (Kataku), lalu filter jenis kata. Menempel di atas saat scroll (semua ukuran layar;
+// lalu filter jenis kata. Menempel di atas saat scroll (semua ukuran layar;
 // di layar kecil tombol & filter jadi satu baris yang bisa digeser supaya tidak memakan layar);
-// form Kataku sengaja di luar bagian yang menempel supaya tidak menutupi layar.
+// form ubah Kataku sengaja di luar bagian yang menempel supaya tidak menutupi layar.
+// Kata baru ditambah admin lewat dashboard (Admin › Kosakata), bukan di sini.
 const VocabToolbar = React.memo(
   ({ searching, counts, resultCount, plan, data }: Props) => {
-    const week = useLevelStore((s) => s.week);
     const q = useVocabUiStore((s) => s.q);
     const type = useVocabUiStore((s) => s.type);
     const hideKnown = useVocabUiStore((s) => s.hideKnown);
@@ -129,23 +127,6 @@ const VocabToolbar = React.memo(
               >
                 Sembunyikan yang hafal
               </button>
-              <Button
-                variant="accent"
-                className="h-10 shrink-0 rounded-lg text-[13.5px] whitespace-nowrap"
-                title="Tambah kata sendiri ke minggu ini"
-                onClick={() =>
-                  ui().openForm({
-                    en: "",
-                    id: "",
-                    pron: "",
-                    ex: "",
-                    type: "",
-                    week,
-                  })
-                }
-              >
-                <span className="text-lg leading-none">+</span>Tambah kata
-              </Button>
             </div>
           </div>
 
