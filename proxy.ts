@@ -22,5 +22,8 @@ export const proxy = async (request: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  // Icons must load on the token screen too, before there is a session.
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|icon.svg|apple-icon.png).*)",
+  ],
 };
