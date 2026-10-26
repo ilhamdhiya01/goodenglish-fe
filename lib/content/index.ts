@@ -5,6 +5,7 @@ import beginner from "./raw/beginner.js";
 import exId from "./raw/ex-id.js";
 import extras from "./raw/extras.js";
 import extras2 from "./raw/extras2.js";
+import extras3 from "./raw/extras3.js";
 import forms from "./raw/forms.js";
 import idmap from "./raw/id.js";
 import inter from "./raw/inter.js";
@@ -69,6 +70,8 @@ const W: Record<string, any> = {};
   extras2,
   ttt,
   exId,
+  // Last: appends to VOCAB_L / VOCAB_X / VERB_FORMS / VOCAB_ID set up above.
+  extras3,
 ].forEach((f) => f(W));
 
 export const VOCAB: Record<string, any> = W.VOCAB || {};
@@ -142,6 +145,7 @@ export const loadNotes = (): Promise<void> => {
     import("./raw/notes-v2-pre.js"),
     import("./raw/notes-v2-inter.js"),
     import("./raw/notes-v2-upper.js"),
+    import("./raw/notes-v2-extra.js"),
   ])
     .then((mods) => {
       mods.forEach((m) => m.default(W));
