@@ -80,13 +80,26 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name == 'main' && 'production' || 'development' }}
     steps:
+      # TEMPORARY: prints only the key fingerprint and secret lengths so a
+      # wrong/overridden secret is visible without leaking it. Remove once
+      # deploy works.
+      - name: Debug SSH secrets
+        env:
+          KEY: ${{ secrets.VPS_SSH_KEY }}
+          U: ${{ secrets.VPS_USER }}
+          H: ${{ secrets.VPS_HOST }}
+        run: |
+          printf '%s\n' "$KEY" > /tmp/k && chmod 600 /tmp/k
+          ssh-keygen -y -f /tmp/k | ssh-keygen -lf -
+          echo "user length: ${#U}, host length: ${#H}"
+          rm /tmp/k
+
       - name: Pull and restart on VPS
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          script_stop: true
           script: |
             set -e
             cd ~/goodenglish/goodenglish-fe
