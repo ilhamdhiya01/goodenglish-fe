@@ -9,6 +9,7 @@ export const ROUTES = {
   ERRORS: "/errors",
   GRAMMAR: "/grammar",
   PRONUNCIATION: "/pronunciation",
+  CHEATSHEET: "/cheatsheet",
   ADMIN_TOKENS: "/admin/tokens",
   ADMIN_WORDS: "/admin/words",
   grammarSub: (sub: string) => `/grammar/${sub}`,

@@ -5,7 +5,8 @@ export type MenuId =
   | "scenario"
   | "errors"
   | "grammar"
-  | "pronunciation";
+  | "pronunciation"
+  | "cheatsheet";
 
 export type LevelId = "beginner" | "pre" | "inter" | "upper";
 

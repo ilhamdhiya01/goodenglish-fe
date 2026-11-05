@@ -27,6 +27,7 @@ export const MENU_OPTIONS: { id: MenuId; label: string }[] = [
   { id: "errors", label: "Kesalahan umum" },
   { id: "grammar", label: "Panduan grammar" },
   { id: "pronunciation", label: "Pelafalan" },
+  { id: "cheatsheet", label: "Cheat sheet" },
 ];
 
 export const LEVEL_OPTIONS: { id: LevelId; label: string }[] = [

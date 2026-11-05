@@ -17,6 +17,7 @@ const NAV: { path: string; label: string }[] = [
   { path: "/errors", label: "Kesalahan umum" },
   { path: "/grammar", label: "Panduan grammar" },
   { path: "/pronunciation", label: "Pelafalan" },
+  { path: "/cheatsheet", label: "Cheat sheet" },
 ];
 
 const TabsNav = React.memo(() => {
