@@ -404,6 +404,99 @@ export const CHEAT_SECTIONS: CheatSection[] = [
     ],
   },
   {
+    id: "preposisi-lain",
+    title: "Preposisi bahasa, kemampuan & keadaan",
+    blocks: [
+      {
+        kind: "p",
+        text: "Preposisi bukan cuma untuk tempat. Logikanya tetap sama: **in** = di dalam, **on** = sedang aktif, **at** = satu titik.",
+      },
+      {
+        kind: "rule",
+        title: "Bahasa → in.",
+        why: "Bahasa itu seperti wadah: kalimatnya ada *di dalam* bahasa itu. Tapi kalau bahasanya jadi objek (*speak, learn, study*), tidak perlu preposisi.",
+        ok: [
+          "Say it in English.",
+          "What's this in English?",
+          "I speak English.|tanpa in",
+        ],
+        bad: ["Say it with English.", "What's this by English?"],
+      },
+      {
+        kind: "rule",
+        title: "Jago melakukan sesuatu → good at (+ V-ing).",
+        why: 'Jago itu soal satu kegiatan, jadi pakai *at* (titik). Jangan terjemahkan "pintar **dalam**" jadi *in*. Kalau setelah *at* ada kata kerja, pakai V-ing.',
+        ok: [
+          "I'm good at English.",
+          "She's bad at cooking.",
+          "I'm getting better at speaking.",
+        ],
+        bad: ["I'm good in English.", "I'm good at speak."],
+      },
+      {
+        kind: "list",
+        title: "Masih soal kemampuan",
+        items: [
+          "**interested in** = tertarik: *I'm interested in music.*",
+          "**experience in** / **skilled in** = berpengalaman atau ahli di satu bidang (sering dipakai di CV): *I have experience in marketing.*",
+        ],
+      },
+      {
+        kind: "rule",
+        title: "Sedang berada dalam suatu keadaan → in.",
+        why: "Bayangkan keadaan itu seperti ruangan: kamu sedang *di dalam* masalah, *di dalam* buru-buru, *di dalam* mood yang baik.",
+        ok: [
+          "The car is in good condition.",
+          "I'm in a hurry.",
+          "He's in trouble.",
+          "She's in a good mood.",
+        ],
+        bad: ["The car is on good condition.", "I'm on a hurry."],
+      },
+      {
+        kind: "table",
+        head: ["Preposisi", "Rasanya", "Contoh"],
+        en: [2],
+        rows: [
+          [
+            "**in**",
+            "sedang di dalam keadaan itu",
+            "in good condition · in trouble · in pain · in love",
+          ],
+          [
+            "**on**",
+            "status yang sedang aktif",
+            "on sale · on time · on leave · on a diet · on vacation",
+          ],
+          ["**at**", "satu titik / posisi", "at risk · at work · at peace"],
+          [
+            "**under**",
+            "sedang ditekan atau diproses",
+            "under pressure · under control · under construction",
+          ],
+        ],
+      },
+      {
+        kind: "rule",
+        title: "Kata sifat + preposisi → hafalkan sepaket.",
+        why: 'Pasangan ini tidak selalu bisa ditebak dengan logika, dan sering salah karena terjemahan "dengan". Hafalkan pasangannya, jangan per kata.',
+        ok: [
+          "I'm afraid of dogs.",
+          "I'm proud of you.",
+          "I'm tired of waiting.",
+          "I'm worried about you.",
+          "She's married to my cousin.",
+        ],
+        bad: ["I'm afraid with dogs.", "She's married with my cousin."],
+      },
+      {
+        kind: "tip",
+        label: "Cara cepat memilih",
+        text: "Tanya diri sendiri: ini *di dalam* sesuatu (**in**), *sedang berjalan* (**on**), atau *satu titik* (**at**)? Kalau berpasangan dengan kata sifat, jangan ditebak. Pakai pasangan yang sudah dihafal.",
+      },
+    ],
+  },
+  {
     id: "waktu",
     title: "Waktu & frekuensi",
     blocks: [
