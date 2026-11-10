@@ -3,7 +3,15 @@
 // "kalimat|catatan" menampilkan catatan tanpa ikut dibacakan.
 
 export type CheatBlock =
-  | { kind: "rule"; title: string; why: string; ok: string[]; bad: string[] }
+  | {
+      kind: "rule";
+      title: string;
+      why: string;
+      ok: string[];
+      bad: string[];
+      /** Satu pertanyaan untuk diri sendiri sebelum bicara. */
+      check?: string;
+    }
   | { kind: "p"; text: string }
   | { kind: "list"; title?: string; ordered?: boolean; items: string[] }
   | {
@@ -53,15 +61,23 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
-        title: "Setelah do/does/did, can/will/should, dan to → selalu V1.",
-        why: "Penanda waktu (-s atau lampau) sudah dibawa oleh kata bantunya, jadi kata kerjanya tidak perlu berubah lagi.",
+        title: "Setelah do/does/did, can/will/should/must, dan to → selalu V1.",
+        why: "Penanda waktu (-s atau lampau) sudah dibawa oleh kata bantunya, jadi kata kerjanya tidak berubah lagi. *must, should, can, will* langsung V1 tanpa to. Yang pakai to hanya *have to* dan *need to*.",
         ok: [
           "Did you go?",
           "Does he play?",
           "I will come.",
+          "What should I do?",
+          "I must go.",
           "I want to speak.",
         ],
-        bad: ["Did you went?", "Does he plays?", "I want to speaking."],
+        bad: [
+          "Did you went?",
+          "Does he plays?",
+          "I must to go.",
+          "I want to speaking.",
+        ],
+        check: "Sudah ada kata bantu di depan? Kata kerjanya kembali ke V1.",
       },
       {
         kind: "rule",
@@ -79,7 +95,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
   },
   {
     id: "am-is-are",
-    title: "Memilih am / is / are",
+    title: "Memilih am / is / are & it / they",
     blocks: [
       {
         kind: "p",
@@ -116,6 +132,19 @@ export const CHEAT_SECTIONS: CheatSection[] = [
         kind: "tip",
         label: "Trik",
         text: "Ganti subjeknya dengan he/she/it atau they. *your class → it → is.* *the things → they → are.*",
+      },
+      {
+        kind: "rule",
+        title: "Benda jamak → they / them, bukan cuma untuk orang.",
+        why: 'Kata ganti dipilih dari **jumlah**, bukan dari orang atau benda. Satu → *it*. Banyak → *they* (pelaku) atau *them* (yang dikenai). Bahasa Indonesia cukup bilang "itu", bahasa Inggris harus pilih.',
+        ok: [
+          "My hands are dirty.",
+          "They need washing.|tangannya",
+          "I'll wash them.|tangannya",
+        ],
+        bad: [],
+        check:
+          "Yang dibicarakan satu atau banyak? Satu → it, banyak → they/them.",
       },
     ],
   },
@@ -191,6 +220,89 @@ export const CHEAT_SECTIONS: CheatSection[] = [
           "**Kata kerja keadaan tidak pakai -ing:** know, like, want, need, understand, belong. ✅ *I don't understand.* ❌ *I'm not understanding.*",
         ],
       },
+      {
+        kind: "rule",
+        title: "be + being + kata sifat → sikap sementara, bukan sifat tetap.",
+        why: '*being* = "lagi bersikap" saat ini saja. Tanpa *being*, artinya memang sifat orangnya. Mirip beda "lagi malas" dan "pemalas".',
+        ok: [
+          "Am I being too lazy?|lagi malas",
+          "Am I lazy?|memang pemalas",
+          "You're being rude.|barusan kasar",
+        ],
+        bad: [],
+        check:
+          "Cuma sekarang, atau memang sifatnya? Cuma sekarang → pakai being.",
+      },
+      {
+        kind: "rule",
+        title: "I wish + were / V2 / could → andai (tidak nyata).",
+        why: 'V2 di sini bukan lampau, tapi tanda "tidak nyata". *were* dipakai untuk semua subjek, termasuk I.',
+        ok: [
+          "I wish I were a good singer.",
+          "I wish I had more time.",
+          "I wish I could sing.",
+        ],
+        bad: [],
+        check:
+          "Ini keinginan yang belum nyata? Mundurkan satu langkah: am → were, have → had, can → could.",
+      },
+    ],
+  },
+  {
+    id: "sudah-belum",
+    title: "Sudah, belum, pernah",
+    blocks: [
+      {
+        kind: "rule",
+        title: "Tanya sudah / belum / pernah → Have/Has + subjek + V3?",
+        why: 'Yang ditanya hasilnya **sekarang** ("sudah makan belum?"), bukan kapan kejadiannya. Jawabnya pendek, pakai *have* lagi.',
+        ok: [
+          "Have you eaten?",
+          "Have you washed your hands?",
+          "Has she arrived?",
+          "Yes, I have.",
+          "Not yet.",
+        ],
+        bad: [],
+        check: "Yang ditanya hasilnya sekarang? Mulai dengan Have/Has.",
+      },
+      {
+        kind: "list",
+        title: "Kapan tidak pakai have",
+        items: [
+          "Ada waktu lampau yang jelas (*yesterday, last night*) → pakai **did**: *Did you eat yesterday?*",
+          "Yang ditanya keadaan, bukan kegiatan → pakai **be**: *Are you ready yet?*",
+          "**been** = V3 dari *be*. Dipakai kalau tidak ada kata kerja lain: *Have you ever been to Bali?* Sama dengan *Have you ever visited Bali?* (*visit* tanpa to).",
+          "*ever* hanya di pertanyaan. Di kalimat positif tanpa ever: *I have been to Bali.*",
+        ],
+      },
+      {
+        kind: "rule",
+        title:
+          "yet → belum. Di pertanyaan dan kalimat negatif, di akhir kalimat.",
+        why: '*yet* menunggu sesuatu yang belum terjadi, jadi hanya muncul saat bertanya atau bilang "belum".',
+        ok: ["Have you eaten yet?", "I haven't eaten yet.", "Not yet."],
+        bad: ["I haven't eaten already."],
+        check: 'Maksudnya "belum"? Pakai yet, taruh di akhir.',
+      },
+      {
+        kind: "rule",
+        title: "already → sudah. Di kalimat positif.",
+        why: "*already, yet, just* tidak mengubah bentuk kata kerja. Yang menentukan tetap kata bantunya: ada *have* → V3, tanpa *have* → V2.",
+        ok: ["I've already eaten.|have → V3", "I already ate.|tanpa have → V2"],
+        bad: ["I already eaten."],
+        check: "Ada have di depan? Ada → V3. Tidak ada → V2.",
+      },
+      {
+        kind: "table",
+        head: ["Pola", "Arti", "Contoh"],
+        en: [2],
+        rows: [
+          ["just + **V2**", "baru saja", "I just told him."],
+          ["have just + **V3**", "baru saja", "I've just finished."],
+          ["just + **V1**", "cuma", "I just want to sleep."],
+        ],
+      },
     ],
   },
   {
@@ -238,6 +350,55 @@ export const CHEAT_SECTIONS: CheatSection[] = [
           "Transportasi: *How did you get here?*",
         ],
       },
+      {
+        kind: "rule",
+        title: "Preposisi di pertanyaan → pindah ke akhir.",
+        why: "Asalnya kalimat biasa: *You are from Indonesia.* Saat jadi pertanyaan, *Indonesia* diganti *where*, tapi *from* tetap ikut dan pindah ke akhir.",
+        ok: [
+          "Where are you from?",
+          "What are you talking about?",
+          "Where did you get my username from?",
+        ],
+        bad: [],
+        check:
+          "Kalimat aslinya pakai from/about/to? Jangan dibuang, taruh di akhir.",
+      },
+      {
+        kind: "rule",
+        title: "Tanya hari / jam / tanggal → What day / time / date is it?",
+        why: "*day, time, date* menempel ke *what*, dan subjeknya *it*. Jawabannya juga mulai dengan *It's*.",
+        ok: [
+          "What day is it today?",
+          "It's Monday.",
+          "What time is it?",
+          "What's the date today?",
+        ],
+        bad: ["What's day today?"],
+        check:
+          "Ada it di pertanyaanmu? Tanpa it, kalimatnya tidak punya subjek.",
+      },
+      {
+        kind: "table",
+        head: ['"Ada apa?"', "Dipakai untuk", "Catatan"],
+        en: [0],
+        rows: [
+          [
+            "What's the matter? · What's wrong?",
+            "menanyakan masalah orangnya",
+            "mis. temanmu kelihatan sedih",
+          ],
+          [
+            "What happened?",
+            "menanyakan kejadiannya",
+            "*what* jadi subjek, langsung V2. ❌ *What is happend?* ❌ *What did happen?*",
+          ],
+          [
+            "What's going on?",
+            "situasinya membingungkan",
+            "mis. tiba-tiba ramai",
+          ],
+        ],
+      },
     ],
   },
   {
@@ -275,6 +436,14 @@ export const CHEAT_SECTIONS: CheatSection[] = [
           "*any* di negatif dan pertanyaan: *Is there any water?* · *There isn't any water.*",
           "*no* langsung + benda, tanpa any: *There is no water.* ❌ *There is no any water.*",
         ],
+      },
+      {
+        kind: "rule",
+        title: "Satu kalimat → satu negatif saja.",
+        why: '*nothing* sudah berarti "tidak ada apa-apa". Kalau ditambah *didn\'t*, negatifnya dobel. Pilih salah satu.',
+        ok: ["I didn't do anything.", "I did nothing."],
+        bad: ["I didn't do nothing."],
+        check: "Sudah ada not / didn't? Pakai anything, bukan nothing.",
       },
       {
         kind: "list",
@@ -350,8 +519,6 @@ export const CHEAT_SECTIONS: CheatSection[] = [
         items: [
           "*so (that)* + kalimat = supaya: *I speak English every day so that I get used to it.*",
           "Minta: *Can I have the menu?* (langsung minta barang) · *I asked for water.* (cerita) · *I asked him to help.* (minta orang melakukan)",
-          "Baru saja: *I just told him.* (just + V2) atau *I've just finished.* (have just + V3)",
-          "*ever* hanya di pertanyaan: *Have you ever been to Bali?* Di kalimat positif tanpa ever: *I have been to Bali.*",
         ],
       },
     ],
@@ -497,6 +664,91 @@ export const CHEAT_SECTIONS: CheatSection[] = [
     ],
   },
   {
+    id: "kata-tertukar",
+    title: "Kata yang sering tertukar",
+    blocks: [
+      {
+        kind: "rule",
+        title: "like → suka. looks like / sounds like → seperti.",
+        why: "*like* yang berarti suka adalah kata kerja, jadi dapat -s untuk he/she. *looks like* = kelihatan mirip, *sounds like* = kedengarannya seperti.",
+        ok: ["She likes coffee.|suka", "She looks like her mom.|mirip"],
+        bad: [],
+        check: 'Maksudnya "suka" atau "mirip"? Mirip → looks like.',
+      },
+      {
+        kind: "table",
+        head: ["look + …", "Arti", "Contoh"],
+        en: [2],
+        rows: [
+          ["**look at**", "melihat ke arah", "She looks at me."],
+          ["**look like**", "mirip", "He looks like his dad."],
+          ["**look for**", "mencari", "I'm looking for my keys."],
+          ["**look after**", "merawat", "I look after my pet."],
+          ["**look** + kata sifat", "kelihatan", "You look tired."],
+        ],
+      },
+      {
+        kind: "rule",
+        title: "Ada bendanya → look at. Tidak ada benda → look saja.",
+        why: '*look* sendirian cuma "lihat!". Begitu ada yang dilihat, wajib pakai *at*, bukan *to*.',
+        ok: ["She looks at me.", "Look!"],
+        bad: ["She looks to me."],
+        check: "Ada benda/orang yang dilihat? Tambah at.",
+      },
+      {
+        kind: "table",
+        head: ["Kata", "Arti", "Contoh"],
+        en: [2],
+        rows: [
+          [
+            "**see**",
+            "tertangkap mata (tidak sengaja), langsung + objek",
+            "I saw your message.",
+          ],
+          ["**look at**", "sengaja melihat", "Look at this photo."],
+          ["**watch**", "menonton, lama", "I watched a movie."],
+        ],
+      },
+      {
+        kind: "rule",
+        title: "Melihat kejadian → see / hear + objek + V-ing (tanpa is/was).",
+        why: '-ing di sini = "sedang" **saat kamu melihatnya**, bukan sekarang. Jadi tidak perlu *is/was*, dan tidak pakai V2.',
+        ok: ["I saw two cats fighting.", "I saw my mom cooking."],
+        bad: [
+          "I looked two cats fight.",
+          "I saw my mom is cooking.",
+          "I saw two cats fought.",
+        ],
+        check:
+          "Melihat orang yang sedang melakukan sesuatu? saw + orangnya + V-ing.",
+      },
+      {
+        kind: "rule",
+        title: "matter → penting (kata kerja) atau masalah (kata benda).",
+        why: 'Sebagai kata kerja, *matter* = "penting", jadi negatifnya pakai *doesn\'t*, bukan *is not*. Sebagai kata benda = "masalah".',
+        ok: [
+          "It doesn't matter.|tidak penting",
+          "Your opinion matters.|penting",
+          "What's the matter?|ada masalah apa",
+        ],
+        bad: ["It's not matter."],
+        check: "\"Tidak penting\"? It doesn't matter, bukan It's not.",
+      },
+      {
+        kind: "p",
+        text: "**no matter** + kata tanya (*what, how, where*) = apa pun / bagaimanapun: *No matter what happens, keep speaking.*",
+      },
+      {
+        kind: "rule",
+        title: "must be → pasti (menebak dengan yakin), bukan harus.",
+        why: '*must* + kata kerja = harus. Tapi *must be* untuk menebak keadaan orang = "pasti". Mirip "kamu pasti capek ya".',
+        ok: ["You must be tired.", "You must be a patient person."],
+        bad: [],
+        check: "Sedang menebak keadaan orang? Pakai must be.",
+      },
+    ],
+  },
+  {
     id: "waktu",
     title: "Waktu & frekuensi",
     blocks: [
@@ -510,6 +762,18 @@ export const CHEAT_SECTIONS: CheatSection[] = [
           "*once, twice, three times a week* (bukan *fiveth*) · *every Saturday* (tanpa on) · *this year, last night* (tanpa in) · *two years ago.*",
           '*until now* biasanya salah, terdengar "lalu berhenti". Pakai **still** (masih) atau **for/since**.',
         ],
+      },
+      {
+        kind: "rule",
+        title: "anymore → sudah tidak lagi. Di akhir kalimat dan butuh not.",
+        why: '*anymore* sendiri tidak berarti "tidak", cuma "lagi". Jadi tetap butuh *don\'t / doesn\'t*. Kebalikan dari *still* (masih).',
+        ok: [
+          "You don't call me baby anymore.",
+          "Why don't you call me baby anymore?",
+          "He no longer calls me.|formal, tanpa not",
+        ],
+        bad: ["He calls me anymore."],
+        check: 'Maksudnya "sudah tidak lagi"? Ada not-nya belum?',
       },
     ],
   },
@@ -529,8 +793,32 @@ export const CHEAT_SECTIONS: CheatSection[] = [
           "**Cuaca selalu subjek it:** *It's going to rain.* · *It's foggy.* ❌ *The weather is going to rain.*",
           "**getting + kata sifat** = mulai/semakin: *It's getting dark.* ❌ *It's getting rain.*",
           '**Kata ekstrem tanpa very:** *really terrible, so great* (terrible/great sudah berarti "sangat").',
-          "**-s hanya untuk V1 + he/she/it:** *I think he likes you.* · *The umbrella belongs to my teacher.*",
         ],
+      },
+      {
+        kind: "rule",
+        title:
+          "-s menempel ke kata kerja utama, bukan ke never / always / usually.",
+        why: '*never, always, usually* cuma numpang di tengah dan tidak pernah berubah. Cari kata kerjanya dengan tanya "dia melakukan apa?", lalu -s ditempel di situ. Setelah *doesn\'t / can*, kembali V1.',
+        ok: [
+          "He never answers my calls.",
+          "I think he likes you.",
+          "He doesn't answer.",
+        ],
+        bad: ["He nevers answer."],
+        check: "Dia melakukan apa? Itu kata kerjanya, -s ditempel di sana.",
+      },
+      {
+        kind: "rule",
+        title:
+          "something / anything / nothing + kata sifat → kata sifat di belakang.",
+        why: 'Ini pengecualian dari "penjelas di depan benda". *something* bisa langsung jadi subjek, tidak perlu *there is*.',
+        ok: [
+          "Something interesting happened today.",
+          "I didn't do anything special.",
+        ],
+        bad: ["There is interesting happened."],
+        check: "Ada something/nothing? Kata sifatnya taruh di belakang.",
       },
     ],
   },
@@ -598,6 +886,51 @@ export const CHEAT_SECTIONS: CheatSection[] = [
           ],
           ["What's is… / Am I can…", "What's… / Can I…", "satu kata bantu"],
           ["every store usually have", "most stores have", "every = tunggal"],
+          ["He nevers answer.", "He never answers.", "-s di kata kerja utama"],
+          [
+            "She looks to me.",
+            "She looks at me.",
+            "ada yang dilihat → look at",
+          ],
+          [
+            "I looked two cats fight.",
+            "I saw two cats fighting.",
+            "melihat kejadian → see + V-ing",
+          ],
+          [
+            "I saw my mom is cooking. / I saw two cats fought.",
+            "I saw my mom cooking. / I saw two cats fighting.",
+            "see + objek + V-ing, tanpa is/V2",
+          ],
+          [
+            "He calls me anymore.",
+            "He doesn't call me anymore.",
+            "anymore butuh not",
+          ],
+          ["It's not matter.", "It doesn't matter.", "matter = kata kerja"],
+          [
+            "What is happend? / What did happen?",
+            "What happened?",
+            "what = subjek → langsung V2",
+          ],
+          [
+            "There is interesting happened.",
+            "Something interesting happened.",
+            "something + kata sifat",
+          ],
+          ["I haven't eaten already.", "I haven't eaten yet.", "belum → yet"],
+          [
+            "I already eaten.",
+            "I've already eaten. / I already ate.",
+            "have → V3, tanpa have → V2",
+          ],
+          ["I must to go.", "I must go.", "must + V1 tanpa to"],
+          [
+            "I didn't do nothing.",
+            "I didn't do anything.",
+            "satu negatif saja",
+          ],
+          ["What's day today?", "What day is it today?", "what day + it"],
         ],
       },
     ],

@@ -56,7 +56,7 @@ const Block = ({ b, ruleNo }: { b: CheatBlock; ruleNo: number }) => {
               );
             })}
           </div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-1.5 empty:hidden">
             {b.bad.map((ex) => (
               <span
                 key={ex}
@@ -69,6 +69,14 @@ const Block = ({ b, ruleNo }: { b: CheatBlock; ruleNo: number }) => {
               </span>
             ))}
           </div>
+          {b.check && (
+            <span className="text-xs leading-[1.5] text-pretty text-muted">
+              <span className="font-mono tracking-[0.06em] text-green">
+                CEK CEPAT ·{" "}
+              </span>
+              <Rich text={b.check} />
+            </span>
+          )}
         </div>
       );
     case "p":
