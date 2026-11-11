@@ -9,12 +9,7 @@ import { useNotes } from "@/lib/hooks/useNotes";
 import type { AiContext, AiMessage, AiRole } from "@/lib/types/ai.types";
 import type { ErrorResponse } from "@/lib/types/api.types";
 import type { LevelId } from "@/lib/types/session.types";
-import {
-  AiError,
-  checkSentence,
-  getAiUsage,
-  streamChat,
-} from "@/services/ai.service";
+import { AiError, getAiUsage, streamChat } from "@/services/ai.service";
 import { useAiChatStore } from "@/stores/useAiChatStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 
@@ -42,19 +37,14 @@ const noteText = (n: WordNote): string =>
     .join("\n")
     .slice(0, 3000);
 
-// Stored messages → what Gemini sees. Checks become plain text, failed
-// replies are dropped, and same-role neighbours are merged so the turns
-// alternate and start with the learner.
+// Stored messages → what Gemini sees. Failed replies are dropped, and
+// same-role neighbours are merged so the turns alternate and start with the
+// learner.
 export const toHistory = (messages: AiMessage[]) => {
   const turns: { role: AiRole; text: string }[] = [];
   for (const m of messages) {
     if (m.error || !m.text.trim()) continue;
-    const text =
-      m.role === "user" && m.isCheck
-        ? `Tolong cek kalimat ini: ${m.text}`
-        : m.check
-          ? `Hasil cek: ${m.check.verdict}. Kalimat yang benar: ${m.check.corrected}. ${m.check.explanation}`
-          : m.text;
+    const text = m.text;
     const last = turns[turns.length - 1];
     if (last?.role === m.role) last.text += "\n\n" + text;
     else turns.push({ role: m.role, text });
@@ -88,8 +78,9 @@ export const useAiUsage = (enabled: boolean) => {
   return data;
 };
 
-// Sends questions and sentence checks, writing both sides of the exchange
-// into useAiChatStore (the answer grows as it streams in).
+// Sends a message (a question, or a sentence to check: the model tells them
+// apart), writing both sides of the exchange into useAiChatStore (the answer
+// grows as it streams in).
 export const useAiChat = () => {
   const queryClient = useQueryClient();
   const pathname = usePathname();
@@ -114,8 +105,8 @@ export const useAiChat = () => {
     };
   }, [pathname, level, week, word, notesReady]);
 
-  const run = useCallback(
-    async (text: string, isCheck: boolean) => {
+  const ask = useCallback(
+    async (text: string) => {
       const store = useAiChatStore.getState();
       const question = text.trim().slice(0, MAX_QUESTION);
       if (!question || store.busy) return;
@@ -124,7 +115,6 @@ export const useAiChat = () => {
         id: newId(),
         role: "user",
         text: question,
-        isCheck,
         word: store.word ?? undefined,
       });
       const replyId = newId();
@@ -133,27 +123,16 @@ export const useAiChat = () => {
       store.setBusy(true);
 
       try {
-        if (isCheck) {
-          const res = await checkSentence({
-            sentence: question,
-            context: context(),
-          });
+        let answer = "";
+        await streamChat({ messages: history, context: context() }, (t) => {
+          answer += t;
+          useAiChatStore.getState().update(replyId, { text: answer });
+        });
+        if (!answer)
           store.update(replyId, {
-            text: res.data.explanation,
-            check: res.data,
+            text: accessErrorText("ai_failed"),
+            error: true,
           });
-        } else {
-          let answer = "";
-          await streamChat({ messages: history, context: context() }, (t) => {
-            answer += t;
-            useAiChatStore.getState().update(replyId, { text: answer });
-          });
-          if (!answer)
-            store.update(replyId, {
-              text: accessErrorText("ai_failed"),
-              error: true,
-            });
-        }
       } catch (err) {
         store.update(replyId, { text: errorText(err), error: true });
       } finally {
@@ -164,7 +143,5 @@ export const useAiChat = () => {
     [context, queryClient],
   );
 
-  const ask = useCallback((text: string) => run(text, false), [run]);
-  const check = useCallback((text: string) => run(text, true), [run]);
-  return { ask, check };
+  return { ask };
 };

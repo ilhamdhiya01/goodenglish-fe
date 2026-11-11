@@ -1,12 +1,7 @@
 import axiosInstance from "@/lib/axios";
-import type {
-  AiContext,
-  AiRole,
-  AiUsage,
-  CheckResult,
-} from "@/lib/types/ai.types";
+import type { AiContext, AiRole, AiUsage } from "@/lib/types/ai.types";
 import type { ApiResponse } from "@/lib/types/api.types";
-import { API_AI_CHAT, API_AI_CHECK, API_AI_USAGE } from "@/routes";
+import { API_AI_CHAT, API_AI_USAGE } from "@/routes";
 
 /** A backend error code (see ACCESS_ERRORS), e.g. "ai_quota_exceeded". */
 export class AiError extends Error {
@@ -65,18 +60,6 @@ export const streamChat = async (
       if (event === "error") throw new AiError(parsed.message ?? "ai_failed");
       if (parsed.text) onText(parsed.text);
     }
-  }
-};
-
-export const checkSentence = async (body: {
-  sentence: string;
-  context?: AiContext;
-}): Promise<ApiResponse<CheckResult>> => {
-  try {
-    const res = await axiosInstance.post(API_AI_CHECK, body);
-    return res.data;
-  } catch (error) {
-    throw error;
   }
 };
 

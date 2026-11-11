@@ -21,22 +21,14 @@ describe("toHistory", () => {
     expect(history).toEqual([{ role: "user", text: "first?\n\nsecond?" }]);
   });
 
-  it("turns a sentence check into plain text the model can follow", () => {
+  it("sends a sentence to check as an ordinary turn, with its follow-up", () => {
     const history = toHistory([
-      msg("user", "I has a car.", { isCheck: true }),
-      msg("model", "Subjek I memakai have.", {
-        check: {
-          verdict: "incorrect",
-          corrected: "I have a car.",
-          explanation: "Subjek I memakai have.",
-          alternatives: [],
-        },
-      }),
-      msg("user", "Kenapa bukan has?"),
+      msg("user", 'Cek kalimatku dengan kata "commute": I commute to office.'),
+      msg("model", "Hampir benar: **I commute to the office.**"),
+      msg("user", "kasih contoh kalimat dengan kata ini"),
     ]);
-    expect(history[0].text).toBe("Tolong cek kalimat ini: I has a car.");
-    expect(history[1].text).toContain("Kalimat yang benar: I have a car.");
-    expect(history[2]).toEqual({ role: "user", text: "Kenapa bukan has?" });
+    expect(history.map((t) => t.role)).toEqual(["user", "model", "user"]);
+    expect(history[2].text).toBe("kasih contoh kalimat dengan kata ini");
   });
 
   it("keeps at most 10 turns and always starts with the learner", () => {

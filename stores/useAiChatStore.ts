@@ -7,15 +7,12 @@ import type { AiMessage, AiWord } from "@/lib/types/ai.types";
 const STORAGE_KEY = "ge-ai-chat-v1";
 const MAX_MESSAGES = 30;
 
-/** Something to run as soon as the panel opens (from a word card). */
-export type AiPending = { kind: "check"; text: string } | { kind: "ask" };
-
-/** What the input box does: ask a question, or check a sentence. */
-export type AiMode = "ask" | "check";
+/** From a word card: a message to send as soon as the panel opens ("cek
+ * AI"), or none, to just focus the input ("tanya AI"). */
+export type AiPending = { text?: string };
 
 interface AiChatState {
   open: boolean;
-  mode: AiMode;
   messages: AiMessage[];
   /** The word card the conversation is currently about, if any. */
   word: AiWord | null;
@@ -25,7 +22,6 @@ interface AiChatState {
   /** Reads the saved conversation; call once on the client. */
   hydrate: () => void;
   setOpen: (open: boolean) => void;
-  setMode: (mode: AiMode) => void;
   openWith: (word: AiWord, pending?: AiPending) => void;
   clearWord: () => void;
   takePending: () => AiPending | null;
@@ -56,7 +52,6 @@ export const clearAiChat = () => {
 
 export const useAiChatStore = create<AiChatState>((set, get) => ({
   open: false,
-  mode: "ask",
   messages: [],
   word: null,
   pending: null,
@@ -72,14 +67,8 @@ export const useAiChatStore = create<AiChatState>((set, get) => ({
     }
   },
   setOpen: (open) => set({ open }),
-  setMode: (mode) => set({ mode }),
   openWith: (word, pending) =>
-    set({
-      open: true,
-      word,
-      pending: pending ?? null,
-      mode: pending?.kind === "check" ? "check" : "ask",
-    }),
+    set({ open: true, word, pending: pending ?? null }),
   clearWord: () => set({ word: null }),
   takePending: () => {
     const p = get().pending;
@@ -103,6 +92,6 @@ export const useAiChatStore = create<AiChatState>((set, get) => ({
     }),
   reset: () => {
     save([]);
-    set({ messages: [], word: null, pending: null, mode: "ask" });
+    set({ messages: [], word: null, pending: null });
   },
 }));
