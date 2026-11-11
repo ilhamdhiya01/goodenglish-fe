@@ -22,8 +22,39 @@ const inline = (text: string): React.ReactNode[] =>
 const BULLET = /^\s*[-*•]\s+/;
 const NUMBER = /^\s*\d+[.)]\s+/;
 const SPELLING = /^\s*Ejaan:\s*/i;
+const TYPO = /\*([^*]+)\*\s*→\s*\*\*([^*]+)\*\*/g;
 
-const AiText = React.memo(({ text }: { text: string }) => {
+const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+// The typo notice keeps only real typos from the question it answers: the
+// model also flagged words from earlier messages and "typos" whose fix was
+// the same word (flash-lite, Nov 2026). Returns null when nothing is left.
+// Without the question, or in a format we can't read, the line is kept.
+export const keepTypos = (line: string, question?: string): string | null => {
+  const notice = line.replace(SPELLING, "");
+  if (question === undefined) return notice;
+  const pairs = [...notice.matchAll(TYPO)];
+  if (!pairs.length) return notice;
+  const kept = pairs.filter(([, wrong, right]) => {
+    const w = wrong.trim().toLowerCase();
+    const fixes = right.split(/[/,]/).map((r) => r.trim().toLowerCase());
+    return (
+      !fixes.includes(w) &&
+      new RegExp(`(^|[^\\p{L}])${escape(w)}($|[^\\p{L}])`, "iu").test(question)
+    );
+  });
+  return kept.length
+    ? kept.map(([, wrong, right]) => `*${wrong}* → **${right}**`).join(", ")
+    : null;
+};
+
+interface AiTextProps {
+  text: string;
+  /** The learner's message this answers; filters the typo notice. */
+  question?: string;
+}
+
+const AiText = React.memo(({ text, question }: AiTextProps) => {
   const blocks: React.ReactNode[] = [];
   let list: { ordered: boolean; items: string[] } | null = null;
   const flush = () => {
@@ -51,19 +82,21 @@ const AiText = React.memo(({ text }: { text: string }) => {
     } else {
       flush();
       // The typo notice the AI puts first ("Ejaan: *somtimes* → **sometimes**").
-      if (SPELLING.test(line))
-        blocks.push(
-          <p
-            key={blocks.length}
-            className="m-0 self-start rounded-lg border border-line-2 bg-sand px-2.5 py-1 text-[13px]"
-          >
-            <span className="mr-1.5 font-mono text-[10.5px] tracking-[0.08em] text-muted">
-              SALAH KETIK
-            </span>
-            {inline(line.replace(SPELLING, ""))}
-          </p>,
-        );
-      else if (line.trim())
+      if (SPELLING.test(line)) {
+        const typos = keepTypos(line, question);
+        if (typos)
+          blocks.push(
+            <p
+              key={blocks.length}
+              className="m-0 self-start rounded-lg border border-line-2 bg-sand px-2.5 py-1 text-[13px]"
+            >
+              <span className="mr-1.5 font-mono text-[10.5px] tracking-[0.08em] text-muted">
+                SALAH KETIK
+              </span>
+              {inline(typos)}
+            </p>,
+          );
+      } else if (line.trim())
         blocks.push(
           <p key={blocks.length} className="m-0">
             {inline(line.replace(/^#+\s*/, ""))}

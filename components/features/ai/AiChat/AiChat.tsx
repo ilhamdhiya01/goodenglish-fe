@@ -26,7 +26,14 @@ const ChatIcon = ({ size = 24 }: { size?: number }) => (
   </svg>
 );
 
-const Bubble = React.memo(({ m, busy }: { m: AiMessage; busy: boolean }) => {
+interface BubbleProps {
+  m: AiMessage;
+  busy: boolean;
+  /** For a reply: the learner's message it answers. */
+  question?: string;
+}
+
+const Bubble = React.memo(({ m, busy, question }: BubbleProps) => {
   if (m.role === "user")
     return (
       <div className="flex justify-end">
@@ -45,7 +52,7 @@ const Bubble = React.memo(({ m, busy }: { m: AiMessage; busy: boolean }) => {
       )}
     >
       {m.text ? (
-        <AiText text={m.text} />
+        <AiText text={m.text} question={question} />
       ) : (
         <span className="font-mono text-xs text-muted">
           {busy ? "Sedang berpikir…" : "—"}
@@ -207,8 +214,17 @@ const AiChat = React.memo(() => {
                   </div>
                 </div>
               )}
-              {messages.map((m) => (
-                <Bubble key={m.id} m={m} busy={busy} />
+              {messages.map((m, i) => (
+                <Bubble
+                  key={m.id}
+                  m={m}
+                  busy={busy}
+                  question={
+                    m.role === "model" && messages[i - 1]?.role === "user"
+                      ? messages[i - 1].text
+                      : undefined
+                  }
+                />
               ))}
             </div>
 

@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import AiText from "../AiText";
+import AiText, { keepTypos } from "../AiText";
 
 // A real gemini-3.6-flash answer (Nov 2026): "* " bullets, nested items and
 // *italic* examples next to **bold**.
@@ -35,6 +35,34 @@ describe("AiText", () => {
     expect(notice?.textContent).toBe("SALAH KETIKsomtimes → sometimes");
     expect(notice?.querySelector("i")?.textContent).toBe("somtimes");
     expect(notice?.querySelector("b")?.textContent).toBe("sometimes");
+  });
+
+  it("drops typos that are not in the question it answers", () => {
+    // Seen with flash-lite: "make"/"cuman" came from an earlier message, and
+    // "somewhere → somewhere" is no typo at all.
+    const q =
+      'Cek kalimatku dengan kata "separate": I have to seprate this line';
+    expect(
+      keepTypos(
+        "Ejaan: *make* → **make/take**, *seprate* → **separate**, *somewhere* → **somewhere**",
+        q,
+      ),
+    ).toBe("*seprate* → **separate**");
+    expect(keepTypos("Ejaan: *somewhere* → **somewhere**", q)).toBeNull();
+    expect(
+      keepTypos("Ejaan: *make* → **make/take**", "kalo cuman make start gmn"),
+    ).toBeNull();
+  });
+
+  it("hides the typo notice when nothing real is left", () => {
+    const { container } = render(
+      <AiText
+        text={"Ejaan: *cuman* → **cuma**\n\nKalimatmu sudah benar!"}
+        question="I have to separate this line"
+      />,
+    );
+    expect(container.textContent).not.toContain("SALAH KETIK");
+    expect(container.textContent).toContain("Kalimatmu sudah benar!");
   });
 
   it("never turns model output into markup", () => {
