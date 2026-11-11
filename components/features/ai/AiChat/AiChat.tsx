@@ -4,7 +4,6 @@ import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 
 import AiText from "@/components/features/ai/AiText";
-import CheckResultCard from "@/components/features/ai/CheckResultCard";
 import SpeakButton from "@/components/ui/speak-button";
 import { MAX_QUESTION, useAiChat, useAiUsage } from "@/lib/hooks/ai/useAiChat";
 import { useAiSuggestions } from "@/lib/hooks/ai/useAiSuggestions";
@@ -30,12 +29,7 @@ const ChatIcon = ({ size = 24 }: { size?: number }) => (
 const Bubble = React.memo(({ m, busy }: { m: AiMessage; busy: boolean }) => {
   if (m.role === "user")
     return (
-      <div className="flex flex-col items-end gap-1">
-        {m.isCheck && (
-          <span className="font-mono text-[10.5px] tracking-[0.08em] text-muted">
-            CEK KALIMAT
-          </span>
-        )}
+      <div className="flex justify-end">
         <div className="max-w-[85%] rounded-2xl rounded-br-md bg-ink px-3.5 py-2.5 text-[14px] leading-[1.5] whitespace-pre-wrap text-paper">
           {m.text}
         </div>
@@ -50,9 +44,7 @@ const Bubble = React.memo(({ m, busy }: { m: AiMessage; busy: boolean }) => {
           : "border-line bg-card text-ink",
       )}
     >
-      {m.check ? (
-        <CheckResultCard result={m.check} word={m.word} />
-      ) : m.text ? (
+      {m.text ? (
         <AiText text={m.text} />
       ) : (
         <span className="font-mono text-xs text-muted">
@@ -72,10 +64,9 @@ const AiChat = React.memo(() => {
   const word = useAiChatStore((s) => s.word);
   const busy = useAiChatStore((s) => s.busy);
   const pending = useAiChatStore((s) => s.pending);
-  const mode = useAiChatStore((s) => s.mode);
-  const { setOpen, setMode, clearWord, reset, hydrate, takePending } =
+  const { setOpen, clearWord, reset, hydrate, takePending } =
     useAiChatStore.getState();
-  const { ask, check } = useAiChat();
+  const { ask } = useAiChat();
   const usage = useAiUsage(open);
   // From the page in view and the words this learner keeps forgetting.
   const pageIdeas = useAiSuggestions();
@@ -87,14 +78,14 @@ const AiChat = React.memo(() => {
 
   useEffect(() => hydrate(), [hydrate]);
 
-  // Opened from a word card: check its sentence right away, or get ready
-  // for a question about it (openWith already set the mode).
+  // Opened from a word card: send its sentence for checking right away
+  // ("cek AI"), or get ready for a question about it ("tanya AI").
   useEffect(() => {
     if (!open || !pending) return;
     const p = takePending();
-    if (p?.kind === "check") void check(p.text);
+    if (p?.text) void ask(p.text);
     else inputRef.current?.focus();
-  }, [open, pending, takePending, check]);
+  }, [open, pending, takePending, ask]);
 
   // Escape or any press outside the panel closes it. A document listener
   // rather than a backdrop, so that same press still reaches the page — e.g.
@@ -122,7 +113,7 @@ const AiChat = React.memo(() => {
 
   const send = (text = draft) => {
     if (!text.trim() || busy) return;
-    void (mode === "check" ? check(text) : ask(text));
+    void ask(text);
     setDraft("");
   };
 
@@ -199,18 +190,15 @@ const AiChat = React.memo(() => {
                 <div className="flex flex-col gap-3">
                   <p className="m-0 text-[14px] leading-[1.55] text-ink-2">
                     Tanya apa saja soal bahasa Inggris dan materi GoodEnglish,
-                    atau pilih <b>Cek kalimat</b> untuk tahu apakah kalimatmu
-                    sudah benar.
+                    atau tulis kalimat bahasa Inggrismu untuk dicek apakah sudah
+                    benar.
                   </p>
                   <div className="flex flex-col gap-1.5">
                     {ideas.map((q) => (
                       <button
                         type="button"
                         key={q}
-                        onClick={() => {
-                          setMode("ask");
-                          void ask(q);
-                        }}
+                        onClick={() => void ask(q)}
                         className="cursor-pointer rounded-lg border border-line-2 bg-card px-3 py-2 text-left font-sans text-[13.5px] text-ink hover:border-green"
                       >
                         {q}
@@ -225,24 +213,9 @@ const AiChat = React.memo(() => {
             </div>
 
             <footer className="flex flex-col gap-2 border-t border-line px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))]">
-              <div className="flex items-center gap-2">
-                {(["ask", "check"] as const).map((m) => (
-                  <button
-                    type="button"
-                    key={m}
-                    onClick={() => setMode(m)}
-                    className={classNames(
-                      "cursor-pointer rounded-full border-[1.5px] px-3 py-1 text-[12.5px] font-semibold",
-                      mode === m
-                        ? "border-ink bg-ink text-paper"
-                        : "border-line-2 bg-card text-ink",
-                    )}
-                  >
-                    {m === "ask" ? "Tanya" : "Cek kalimat"}
-                  </button>
-                ))}
-                {word && (
-                  <span className="ml-auto inline-flex min-w-0 items-center gap-1 rounded-full bg-green-bg px-2.5 py-1 text-[12px] text-green-deep">
+              {word && (
+                <div className="flex">
+                  <span className="inline-flex min-w-0 items-center gap-1 rounded-full bg-green-bg px-2.5 py-1 text-[12px] text-green-deep">
                     <span className="truncate">Kata: {word.word}</span>
                     <SpeakButton nested size={18} icon={9} text={word.word} />
                     <button
@@ -254,8 +227,8 @@ const AiChat = React.memo(() => {
                       ✕
                     </button>
                   </span>
-                )}
-              </div>
+                </div>
+              )}
               <div className="flex items-end gap-2">
                 <textarea
                   ref={inputRef}
@@ -269,11 +242,7 @@ const AiChat = React.memo(() => {
                       send();
                     }
                   }}
-                  placeholder={
-                    mode === "check"
-                      ? "Tulis kalimat bahasa Inggrismu…"
-                      : "Tulis pertanyaan…"
-                  }
+                  placeholder="Tanya apa saja, atau tulis kalimatmu untuk dicek…"
                   className="max-h-40 min-h-[44px] flex-1 resize-none rounded-lg border-[1.5px] border-line-2 bg-card px-3 py-2.5 font-sans text-[14px] text-ink outline-none focus:border-green"
                 />
                 <button
@@ -282,7 +251,7 @@ const AiChat = React.memo(() => {
                   disabled={busy || !draft.trim()}
                   className="h-11 cursor-pointer rounded-lg border-[1.5px] border-green bg-green px-4 text-[13.5px] font-semibold text-card disabled:cursor-default disabled:opacity-50"
                 >
-                  {mode === "check" ? "Cek" : "Kirim"}
+                  Kirim
                 </button>
               </div>
             </footer>

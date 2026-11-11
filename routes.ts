@@ -36,7 +36,6 @@ export const API_ADMIN_WORD = (id: string) => `${API_ADMIN_WORDS}/${id}`;
 
 // "Tanya AI" (Gemini, proxied by the backend)
 export const API_AI_CHAT = `${API_BASE_URL}/ai/chat`;
-export const API_AI_CHECK = `${API_BASE_URL}/ai/check`;
 export const API_AI_USAGE = `${API_BASE_URL}/ai/usage`;
 
 // Admin: Gemini key + model behind Tanya AI

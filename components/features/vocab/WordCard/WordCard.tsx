@@ -47,7 +47,7 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
   const custom = useProgressStore((s) => s.custom);
   const removeCustomWord = useProgressStore((s) => s.removeCustomWord);
   const hasAi = useAccessStore((s) => !!s.session?.menus.includes("ai"));
-  const aiWord = { word: en, meaning: id, cardKey: k };
+  const aiWord = { word: en, meaning: id };
 
   const quiz = useVocabUiStore((s) => s.quiz);
   const flip = useVocabUiStore((s) => s.flip);
@@ -469,9 +469,9 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
                     <button
                       type="button"
                       onClick={() =>
-                        useAiChatStore
-                          .getState()
-                          .openWith(aiWord, { kind: "check", text: own })
+                        useAiChatStore.getState().openWith(aiWord, {
+                          text: `Cek kalimatku dengan kata "${en}": ${own}`,
+                        })
                       }
                       title="Cek kalimatku dengan AI"
                       className="cursor-pointer border-0 border-b border-dotted border-green bg-transparent p-0 text-xs whitespace-nowrap text-green"
@@ -533,9 +533,7 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
         {hasAi && (
           <button
             type="button"
-            onClick={() =>
-              useAiChatStore.getState().openWith(aiWord, { kind: "ask" })
-            }
+            onClick={() => useAiChatStore.getState().openWith(aiWord, {})}
             title="Tanya AI soal kata ini"
             className="cursor-pointer border-0 border-b border-dotted border-green bg-transparent p-0 font-sans text-[11.5px] text-green"
           >

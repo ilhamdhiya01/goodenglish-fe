@@ -13,24 +13,10 @@ export interface AiContext {
   note?: string;
 }
 
-/** The word card a question came from. `cardKey` lets a checked sentence be
- * saved back as that card's "Kalimatku". */
+/** The word card a question came from. */
 export interface AiWord {
   word: string;
   meaning?: string;
-  cardKey?: string;
-}
-
-export type CheckVerdict = "correct" | "almost" | "incorrect";
-
-// POST /ai/check
-export interface CheckResult {
-  verdict: CheckVerdict;
-  corrected: string;
-  explanation: string;
-  alternatives: string[];
-  /** Misspelled words. Optional: checks saved before typos existed lack it. */
-  typos?: { wrong: string; correct: string }[];
 }
 
 // GET /ai/usage
@@ -44,12 +30,8 @@ export interface AiMessage {
   id: string;
   role: AiRole;
   text: string;
-  /** Set on the model's reply to a sentence check. */
-  check?: CheckResult;
   /** The word this message was about, shown as a chip. */
   word?: AiWord;
-  /** A learner's sentence sent to "Cek kalimat" rather than a question. */
-  isCheck?: boolean;
   /** The reply failed; `text` holds the error to show. */
   error?: boolean;
 }

@@ -2,9 +2,10 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // The panel's own behaviour only: the data hooks are stubbed.
+const { ask } = vi.hoisted(() => ({ ask: vi.fn() }));
 vi.mock("@/lib/hooks/ai/useAiChat", () => ({
   MAX_QUESTION: 1000,
-  useAiChat: () => ({ ask: vi.fn(), check: vi.fn() }),
+  useAiChat: () => ({ ask }),
   useAiUsage: () => undefined,
 }));
 vi.mock("@/lib/hooks/ai/useAiSuggestions", () => ({
@@ -25,7 +26,10 @@ const openPanel = () => {
 };
 
 describe("AiChat panel", () => {
-  beforeEach(() => useAiChatStore.setState({ open: false, messages: [] }));
+  beforeEach(() => {
+    ask.mockClear();
+    useAiChatStore.setState({ open: false, messages: [], pending: null });
+  });
 
   it("closes when pressing anywhere outside it", () => {
     openPanel();
@@ -39,7 +43,7 @@ describe("AiChat panel", () => {
   it("stays open for presses inside it", () => {
     openPanel();
     fireEvent.pointerDown(screen.getByText("Saran satu"));
-    fireEvent.pointerDown(screen.getByPlaceholderText("Tulis pertanyaan…"));
+    fireEvent.pointerDown(screen.getByPlaceholderText(/Tanya apa saja/));
     expect(useAiChatStore.getState().open).toBe(true);
   });
 
@@ -47,5 +51,24 @@ describe("AiChat panel", () => {
     openPanel();
     fireEvent.keyDown(window, { key: "Escape" });
     expect(useAiChatStore.getState().open).toBe(false);
+  });
+
+  it('sends the sentence right away from a card\'s "cek AI"', () => {
+    render(<AiChat />);
+    const text = 'Cek kalimatku dengan kata "commute": I commute by bus.';
+    act(() =>
+      useAiChatStore.getState().openWith({ word: "commute" }, { text }),
+    );
+    expect(ask).toHaveBeenCalledWith(text);
+  });
+
+  it('only focuses the input from a card\'s "tanya AI"', () => {
+    render(<AiChat />);
+    act(() => useAiChatStore.getState().openWith({ word: "commute" }, {}));
+    expect(ask).not.toHaveBeenCalled();
+    expect(document.activeElement).toBe(
+      screen.getByPlaceholderText(/Tanya apa saja/),
+    );
+    expect(screen.getByText("Kata: commute")).toBeTruthy();
   });
 });
