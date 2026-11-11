@@ -1,13 +1,26 @@
 import "./globals.css";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Toaster } from "react-hot-toast";
 
 import QueryProvider from "@/components/providers/QueryProvider";
+import ServiceWorkerRegister from "@/components/providers/ServiceWorkerRegister";
 
 export const metadata: Metadata = {
   title: "GoodEnglish",
   other: { google: "notranslate" },
+  // iPhone "Add to Home Screen" (Safari ignores most of the web manifest);
+  // the icon is app/apple-icon.png.
+  appleWebApp: {
+    capable: true,
+    title: "GoodEnglish",
+    statusBarStyle: "default",
+  },
+};
+
+// Colors the installed app's title bar / Android status bar.
+export const viewport: Viewport = {
+  themeColor: "#1f6b57",
 };
 
 // Fonts load from the exact Google Fonts URL the Vite app used, on purpose:
@@ -36,6 +49,7 @@ const RootLayout = ({
     <body>
       <QueryProvider>{children}</QueryProvider>
       <Toaster position="top-right" />
+      <ServiceWorkerRegister />
     </body>
   </html>
 );

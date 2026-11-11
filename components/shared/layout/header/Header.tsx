@@ -11,6 +11,7 @@ import {
   importProgressFile,
 } from "@/lib/helpers/progress-export.helper";
 import { useLogout } from "@/lib/hooks/auth/useLogout";
+import { useInstallPrompt } from "@/lib/hooks/useInstallPrompt";
 import { useShellData } from "@/lib/hooks/useShellData";
 import { ROUTES } from "@/routes";
 import { useAccessStore } from "@/stores/useAccessStore";
@@ -42,6 +43,7 @@ const Header = React.memo(() => {
   const selectVoice = useVoiceStore((s) => s.select);
   const isAdmin = useAccessStore((s) => s.session?.role === "admin");
   const { handleLogout, isLoggingOut } = useLogout();
+  const { canInstall, install } = useInstallPrompt();
 
   const [open, setOpen] = useState(false);
   const pop = useRef<HTMLDivElement>(null);
@@ -68,6 +70,20 @@ const Header = React.memo(() => {
           GOODENGLISH
         </span>
         <div ref={pop} className="relative flex items-center gap-2">
+          {canInstall && (
+            <IconButton
+              active
+              title="Install GoodEnglish sebagai aplikasi"
+              aria-label="Install aplikasi"
+              onClick={() => void install()}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" {...ICON}>
+                <rect x="6" y="2.5" width="12" height="19" rx="2.5" />
+                <path d="M12 7v7" />
+                <path d="M9 11l3 3 3-3" />
+              </svg>
+            </IconButton>
+          )}
           <IconButton title="Ekspor progres ke file" onClick={exportProgress}>
             <svg width="16" height="16" viewBox="0 0 24 24" {...ICON}>
               <path d="M12 3v12" />
