@@ -12,6 +12,8 @@ import { formsLine, formsOf, strip } from "@/lib/helpers/verb-forms.helper";
 import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useNotes } from "@/lib/hooks/useNotes";
 import type { Item } from "@/lib/types/vocab.types";
+import { useAccessStore } from "@/stores/useAccessStore";
+import { useAiChatStore } from "@/stores/useAiChatStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useProgressStore } from "@/stores/useProgressStore";
 import { isSharedKey } from "@/stores/useSharedWordsStore";
@@ -44,6 +46,8 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
   const setOwnSentence = useProgressStore((s) => s.setOwnSentence);
   const custom = useProgressStore((s) => s.custom);
   const removeCustomWord = useProgressStore((s) => s.removeCustomWord);
+  const hasAi = useAccessStore((s) => !!s.session?.menus.includes("ai"));
+  const aiWord = { word: en, meaning: id, cardKey: k };
 
   const quiz = useVocabUiStore((s) => s.quiz);
   const flip = useVocabUiStore((s) => s.flip);
@@ -461,6 +465,20 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
                     text={own}
                     title="Dengarkan kalimatku"
                   />
+                  {hasAi && !dirty && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        useAiChatStore
+                          .getState()
+                          .openWith(aiWord, { kind: "check", text: own })
+                      }
+                      title="Cek kalimatku dengan AI"
+                      className="cursor-pointer border-0 border-b border-dotted border-green bg-transparent p-0 text-xs whitespace-nowrap text-green"
+                    >
+                      cek AI
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={() => {
@@ -512,6 +530,18 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
               ? "tutup"
               : "+ kalimatku"}
         </button>
+        {hasAi && (
+          <button
+            type="button"
+            onClick={() =>
+              useAiChatStore.getState().openWith(aiWord, { kind: "ask" })
+            }
+            title="Tanya AI soal kata ini"
+            className="cursor-pointer border-0 border-b border-dotted border-green bg-transparent p-0 font-sans text-[11.5px] text-green"
+          >
+            tanya AI
+          </button>
+        )}
         {isMine && (
           <div className="flex gap-2.5">
             <button

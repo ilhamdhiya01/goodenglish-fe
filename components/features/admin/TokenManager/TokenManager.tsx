@@ -5,6 +5,7 @@ import React, { useCallback, useState } from "react";
 
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
+import Modal from "@/components/ui/modal";
 import { LEVEL_OPTIONS, MENU_OPTIONS } from "@/const/access.constant";
 import { formatDate, formatDateTime } from "@/lib/helpers/date.helper";
 import { useCreateToken } from "@/lib/hooks/admin/useCreateToken";
@@ -42,6 +43,13 @@ const levelLabels = (t: AccessTokenItem) =>
         .map((l) => l.label)
         .join(", ");
 
+const aiLabel = (t: AccessTokenItem) =>
+  t.role !== "admin" && !t.menus.includes("ai")
+    ? null
+    : t.aiDailyLimit === null
+      ? "Tanya AI: tanpa batas"
+      : `Tanya AI: ${t.aiDailyLimit}/hari`;
+
 const CONFIRM: Partial<Record<TokenAction, string>> = {
   revoke: "Nonaktifkan token ini? Semua perangkatnya langsung keluar.",
   reset:
@@ -66,6 +74,9 @@ const TokenManager = React.memo(() => {
   } | null>(null);
   const [summaryOf, setSummaryOf] = useState<AccessTokenItem | null>(null);
   const editing = tokens.find((t) => t.id === mode) ?? null;
+  // Stable so Modal's Escape listener isn't re-attached on every render.
+  const closeForm = useCallback(() => setMode("none"), []);
+  const closeSummary = useCallback(() => setSummaryOf(null), []);
 
   const onCreate = useCallback(
     async (values: TokenFormValues) => {
@@ -132,47 +143,60 @@ const TokenManager = React.memo(() => {
         />
       )}
 
-      {mode === "create" ? (
-        <TokenForm
-          title="TOKEN BARU"
-          submitLabel="Buat token"
-          isSubmitting={isCreating}
-          onSubmit={(v) => void onCreate(v)}
-          onCancel={() => setMode("none")}
-        />
-      ) : editing ? (
-        <TokenForm
-          key={editing.id}
-          title={`UBAH · ${editing.label.toUpperCase()}`}
-          submitLabel="Simpan"
-          isSubmitting={isUpdating}
-          initialValues={{
-            label: editing.label,
-            role: editing.role,
-            menus: editing.menus,
-            levels: editing.levels,
-            maxDevices: editing.maxDevices,
-            expiresAt: editing.expiresAt,
-          }}
-          onSubmit={(v) => void onEdit(v)}
-          onCancel={() => setMode("none")}
-        />
-      ) : (
-        <Button
-          variant="green"
-          className="self-start"
-          onClick={() => setMode("create")}
+      <Button
+        variant="green"
+        className="self-start"
+        onClick={() => setMode("create")}
+      >
+        + Buat token
+      </Button>
+
+      {mode === "create" && (
+        <Modal label="Token baru" size="lg" onClose={closeForm}>
+          <TokenForm
+            title="TOKEN BARU"
+            submitLabel="Buat token"
+            isSubmitting={isCreating}
+            onSubmit={(v) => void onCreate(v)}
+            onCancel={closeForm}
+          />
+        </Modal>
+      )}
+
+      {editing && (
+        <Modal
+          label={`Ubah token ${editing.label}`}
+          size="lg"
+          onClose={closeForm}
         >
-          + Buat token
-        </Button>
+          <TokenForm
+            key={editing.id}
+            title={`UBAH · ${editing.label.toUpperCase()}`}
+            submitLabel="Simpan"
+            isSubmitting={isUpdating}
+            initialValues={{
+              label: editing.label,
+              role: editing.role,
+              menus: editing.menus,
+              levels: editing.levels,
+              maxDevices: editing.maxDevices,
+              expiresAt: editing.expiresAt,
+              aiDailyLimit: editing.aiDailyLimit,
+            }}
+            onSubmit={(v) => void onEdit(v)}
+            onCancel={closeForm}
+          />
+        </Modal>
       )}
 
       {summaryOf && (
-        <TokenSummaryPanel
-          id={summaryOf.id}
-          label={summaryOf.label}
-          onClose={() => setSummaryOf(null)}
-        />
+        <Modal label={`Progres ${summaryOf.label}`} onClose={closeSummary}>
+          <TokenSummaryPanel
+            id={summaryOf.id}
+            label={summaryOf.label}
+            onClose={closeSummary}
+          />
+        </Modal>
       )}
 
       <Card tone="line" pad="sm" className="overflow-x-auto">
@@ -234,6 +258,11 @@ const TokenManager = React.memo(() => {
                       <div className="text-[12.5px] text-muted">
                         {levelLabels(t)}
                       </div>
+                      {aiLabel(t) && (
+                        <div className="font-mono text-[11.5px] text-green">
+                          {aiLabel(t)}
+                        </div>
+                      )}
                     </td>
                     <td className="border-b border-hairline px-2.5 py-2.5 font-mono tabular-nums">
                       {t.activeDevices} / {t.maxDevices}

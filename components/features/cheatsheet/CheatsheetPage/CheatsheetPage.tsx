@@ -9,17 +9,22 @@ import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
 import { CHEAT_SECTIONS, type CheatBlock } from "@/const/cheatsheet.constant";
 
-// **tebal** dan *miring* → elemen. Isi tebal boleh berisi *miring*.
+// **tebal** dan *miring* → elemen. Isi tebal boleh berisi *miring*, dan isi
+// miring boleh berisi **tebal** (kalimat contoh dengan kata kerja ditebalkan:
+// *The shirts **are made** in Bandung.*). Bintang penutup miring tidak boleh
+// diikuti bintang lain, supaya `**` di dalamnya tidak dianggap penutup.
+const RICH_PARTS = /(\*\*.+?\*\*|\*(?:[^*]|\*\*[^*]+?\*\*)+?\*(?!\*))/g;
+
 const Rich = ({ text }: { text: string }) => (
   <>
-    {text.split(/(\*\*.+?\*\*|\*[^*]+?\*)/g).map((p, k) =>
+    {text.split(RICH_PARTS).map((p, k) =>
       p.startsWith("**") ? (
         <b key={k} className="font-semibold text-ink">
           <Rich text={p.slice(2, -2)} />
         </b>
       ) : p.startsWith("*") && p.length > 1 ? (
         <i key={k} className="font-serif">
-          {p.slice(1, -1)}
+          <Rich text={p.slice(1, -1)} />
         </i>
       ) : (
         <React.Fragment key={k}>{p}</React.Fragment>

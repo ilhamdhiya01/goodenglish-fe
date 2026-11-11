@@ -4,6 +4,8 @@
 export interface SrsEntry {
   st: number;
   due: number;
+  /** Berapa kali dijawab "Lupa" di Ulang hari ini. Opsional: data lama tidak punya. */
+  lapses?: number;
 }
 
 /** Bentuk file JSON ekspor/impor progres (format v3, kompatibel v1/v2). */

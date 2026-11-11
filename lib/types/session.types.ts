@@ -6,7 +6,9 @@ export type MenuId =
   | "errors"
   | "grammar"
   | "pronunciation"
-  | "cheatsheet";
+  | "cheatsheet"
+  // Not a tab: the floating "Tanya AI" chat.
+  | "ai";
 
 export type LevelId = "beginner" | "pre" | "inter" | "upper";
 

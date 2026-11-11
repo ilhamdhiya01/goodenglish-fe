@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { flushProgress } from "@/lib/helpers/progress-sync.helper";
 import { logout } from "@/services/auth.service";
+import { clearAiChat } from "@/stores/useAiChatStore";
 
 // Saves any queued progress first, then ends this device's session (frees
 // its device slot). A full page load to /access drops every cached query and
@@ -13,6 +14,8 @@ export const useLogout = () => {
       return logout();
     },
     onSettled: () => {
+      // The AI conversation is kept in localStorage, which a reload keeps.
+      clearAiChat();
       // A full load (not router.push) on purpose: it drops every store and
       // cached query that belonged to this session.
       // eslint-disable-next-line @next/next/no-location-assign-relative-destination

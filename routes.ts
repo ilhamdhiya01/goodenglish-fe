@@ -12,6 +12,7 @@ export const ROUTES = {
   CHEATSHEET: "/cheatsheet",
   ADMIN_TOKENS: "/admin/tokens",
   ADMIN_WORDS: "/admin/words",
+  ADMIN_AI: "/admin/ai",
   grammarSub: (sub: string) => `/grammar/${sub}`,
 } as const;
 
@@ -32,6 +33,17 @@ export const API_PROGRESS_KEY = (key: string) => `${API_PROGRESS}/${key}`;
 export const API_WORDS = `${API_BASE_URL}/words`;
 export const API_ADMIN_WORDS = `${API_BASE_URL}/admin/words`;
 export const API_ADMIN_WORD = (id: string) => `${API_ADMIN_WORDS}/${id}`;
+
+// "Tanya AI" (Gemini, proxied by the backend)
+export const API_AI_CHAT = `${API_BASE_URL}/ai/chat`;
+export const API_AI_CHECK = `${API_BASE_URL}/ai/check`;
+export const API_AI_USAGE = `${API_BASE_URL}/ai/usage`;
+
+// Admin: Gemini key + model behind Tanya AI
+export const API_ADMIN_AI_SETTINGS = `${API_BASE_URL}/admin/ai-settings`;
+export const API_ADMIN_AI_KEY = `${API_ADMIN_AI_SETTINGS}/key`;
+export const API_ADMIN_AI_MODELS = `${API_ADMIN_AI_SETTINGS}/models`;
+export const API_ADMIN_AI_MODELS_PREVIEW = `${API_ADMIN_AI_MODELS}/preview`;
 
 // Admin: access tokens
 export const API_ADMIN_TOKENS = `${API_BASE_URL}/admin/tokens`;
