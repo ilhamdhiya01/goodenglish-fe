@@ -17,11 +17,15 @@ import type { LevelId, MenuId } from "@/lib/types/session.types";
 const DEFAULT_VALUES: TokenFormValues = {
   label: "",
   role: "learner",
-  menus: MENU_OPTIONS.map((m) => m.id),
+  // Tanya AI costs per question, so it's opt-in per learner.
+  menus: MENU_OPTIONS.map((m) => m.id).filter((id) => id !== "ai"),
   levels: ["beginner"],
   maxDevices: 2,
   expiresAt: null,
+  aiDailyLimit: 30,
 };
+
+const AI_LIMIT_MAX = 10000;
 
 interface TokenFormProps {
   title: string;
@@ -47,10 +51,16 @@ const TokenForm = React.memo(
     const [values, setValues] = useState<TokenFormValues>(
       initialValues ?? DEFAULT_VALUES,
     );
+    // Remembered so unticking "Tanpa batas" brings the old number back.
+    const [lastLimit, setLastLimit] = useState(values.aiDailyLimit ?? 30);
     const isAdmin = values.role === "admin";
+    const hasAi = isAdmin || values.menus.includes("ai");
+    const unlimited = values.aiDailyLimit === null;
+    // "Tanya AI" is the floating chat, not a page: a learner needs a tab too.
     const canSubmit =
       values.label.trim().length > 0 &&
-      (isAdmin || (values.menus.length > 0 && values.levels.length > 0));
+      (isAdmin ||
+        (values.menus.some((m) => m !== "ai") && values.levels.length > 0));
 
     const handleSubmit = useCallback(
       (e: React.FormEvent) => {
@@ -173,6 +183,55 @@ const TokenForm = React.memo(
                 </div>
               </div>
             </>
+          )}
+
+          {hasAi && (
+            <div className="flex flex-col gap-1.5">
+              <span className="text-xs text-muted">
+                Batas Tanya AI per hari
+              </span>
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="w-28">
+                  <Input
+                    type="number"
+                    min={0}
+                    max={AI_LIMIT_MAX}
+                    disabled={unlimited}
+                    value={unlimited ? "" : (values.aiDailyLimit ?? "")}
+                    placeholder="∞"
+                    onChange={(e) => {
+                      const n = Math.max(
+                        0,
+                        Math.min(
+                          AI_LIMIT_MAX,
+                          Math.floor(+e.target.value) || 0,
+                        ),
+                      );
+                      setLastLimit(n);
+                      setValues({ ...values, aiDailyLimit: n });
+                    }}
+                  />
+                </div>
+                <label className="flex cursor-pointer items-center gap-2 text-[13.5px] text-ink">
+                  <input
+                    type="checkbox"
+                    checked={unlimited}
+                    onChange={(e) =>
+                      setValues({
+                        ...values,
+                        aiDailyLimit: e.target.checked ? null : lastLimit,
+                      })
+                    }
+                    className="h-4 w-4 accent-green"
+                  />
+                  Tanpa batas
+                </label>
+              </div>
+              <span className="text-xs text-faint">
+                Jumlah pertanyaan + cek kalimat per hari. 0 = tidak bisa
+                bertanya. Dihitung ulang tiap tengah malam WIB.
+              </span>
+            </div>
           )}
 
           <div className="flex items-center gap-4">

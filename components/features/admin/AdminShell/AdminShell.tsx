@@ -13,6 +13,7 @@ import { ROUTES } from "@/routes";
 const SECTIONS = [
   [ROUTES.ADMIN_TOKENS, "Token akses", "Kelola token akses"],
   [ROUTES.ADMIN_WORDS, "Kosakata", "Kosakata bersama"],
+  [ROUTES.ADMIN_AI, "Tanya AI", "Pengaturan Tanya AI"],
 ] as const;
 
 interface AdminShellProps {

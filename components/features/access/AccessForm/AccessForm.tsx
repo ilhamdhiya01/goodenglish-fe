@@ -14,6 +14,7 @@ import SectionLabel from "@/components/ui/section-label";
 import { accessErrorText } from "@/const/access.constant";
 import { useRedeemToken } from "@/lib/hooks/auth/useRedeemToken";
 import { ROUTES } from "@/routes";
+import { clearAiChat } from "@/stores/useAiChatStore";
 
 // Only same-site paths, never `//evil.com` or absolute URLs.
 const safeCallback = (raw: string | null) =>
@@ -33,6 +34,8 @@ const AccessForm = React.memo(() => {
       setError("");
       try {
         await handleRedeem({ token: value });
+        // A previous token's AI conversation must not carry over.
+        clearAiChat();
         // Full load: every store starts fresh for this token's progress.
         window.location.href = safeCallback(searchParams.get("callbackUrl"));
       } catch (err) {

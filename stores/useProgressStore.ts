@@ -151,7 +151,12 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
           : how === "hard"
             ? Math.max(1, Math.round(GAPS[st] / 2))
             : GAPS[st];
-      return { ...s, [key]: { st, due: T + gap } };
+      // Dihitung supaya Tanya AI bisa menyarankan kata yang paling sering lupa.
+      const lapses = (cur.lapses ?? 0) + (how === "forgot" ? 1 : 0);
+      return {
+        ...s,
+        [key]: { st, due: T + gap, ...(lapses ? { lapses } : {}) },
+      };
     });
     get().setDoneToday((n) => n + 1);
   },

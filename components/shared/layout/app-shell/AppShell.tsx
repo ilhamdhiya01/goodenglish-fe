@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
+import AiChat from "@/components/features/ai/AiChat";
 import PlanAutoCheck from "@/components/providers/PlanAutoCheck";
 import VoiceBootstrap from "@/components/providers/VoiceBootstrap";
 import { loadNotes } from "@/lib/content";
@@ -107,7 +108,9 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   useEffect(() => {
     if (!ready || !session) return;
     const menu = menuOfPath(pathname);
-    if (!session.menus.includes(menu)) router.replace("/" + session.menus[0]);
+    // "ai" is the floating chat, never a page to land on.
+    const home = session.menus.find((m) => m !== "ai");
+    if (!session.menus.includes(menu) && home) router.replace("/" + home);
   }, [ready, session, pathname, router]);
 
   // Old hash links (goodenglish.my.id/#/vocab) from the SPA keep working.
@@ -183,6 +186,7 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   // Never render a menu this token may not open, not even for the one frame
   // before the redirect effect above runs.
   const menuAllowed = !!session?.menus.includes(menuOfPath(pathname));
+  const hasAi = !!session?.menus.includes("ai");
 
   if (!ready || !menuAllowed) {
     return (
@@ -202,7 +206,8 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
       <TodayBar />
       <TabsNav />
       {children}
-      <ScrollTopButton />
+      <ScrollTopButton raised={hasAi} />
+      {hasAi && <AiChat />}
     </div>
   );
 });

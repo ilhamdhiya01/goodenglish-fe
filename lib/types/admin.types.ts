@@ -10,6 +10,8 @@ export interface AccessTokenItem {
   menus: MenuId[];
   levels: LevelId[];
   maxDevices: number;
+  // Tanya AI questions per day; null = unlimited.
+  aiDailyLimit: number | null;
   activeDevices: number;
   status: TokenStatus;
   expiresAt: string | null;
@@ -30,6 +32,8 @@ export interface TokenFormValues {
   levels: LevelId[];
   maxDevices: number;
   expiresAt: string | null;
+  // null = unlimited.
+  aiDailyLimit: number | null;
 }
 
 export interface TokenSessionItem {

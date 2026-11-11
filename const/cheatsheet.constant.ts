@@ -189,7 +189,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
           ],
           [
             "Di- (pasif)",
-            "be + V3",
+            "be + V3 (rinci di bagian Kalimat pasif)",
             "My phone was stolen. · The bug has been fixed.",
           ],
           [
@@ -302,6 +302,91 @@ export const CHEAT_SECTIONS: CheatSection[] = [
           ["have just + **V3**", "baru saja", "I've just finished."],
           ["just + **V1**", "cuma", "I just want to sleep."],
         ],
+      },
+    ],
+  },
+  {
+    id: "pasif",
+    title: "Kalimat pasif (di-)",
+    blocks: [
+      {
+        kind: "p",
+        text: "Pakai pasif kalau yang penting **barangnya atau kejadiannya**, bukan siapa yang melakukan. Polanya selalu **be + V3**: *be* mengikuti waktu, V3 tidak pernah berubah.",
+      },
+      {
+        kind: "table",
+        head: ["Waktu", "Pola", "Contoh"],
+        rows: [
+          [
+            "Sekarang",
+            "am/is/are + V3",
+            "*The shirts **are made** in Bandung.* → Kaosnya dibuat di Bandung.",
+          ],
+          [
+            "Sedang",
+            "am/is/are being + V3",
+            "*Your order **is being packed**.* → Pesananmu sedang dikemas.",
+          ],
+          [
+            "Lampau",
+            "was/were + V3",
+            "*The shirt **was printed** yesterday.* → Kaosnya dicetak kemarin.",
+          ],
+          [
+            "Akan",
+            "will be + V3",
+            "*It **will be sent** tomorrow.* → Akan dikirim besok.",
+          ],
+          [
+            "Sudah",
+            "has/have been + V3",
+            "*The order **has been sent**.* → Pesanannya sudah dikirim.",
+          ],
+        ],
+      },
+      {
+        kind: "rule",
+        title: "be ikut waktu, V3 tetap.",
+        why: "Yang berubah hanya *be* (is → was → will be → has been). Kata kerjanya selalu bentuk ke-3, tidak pernah V1 atau V2. Tanpa *be*, artinya jadi aktif: *The order has sent* = pesanannya yang mengirim sesuatu.",
+        ok: [
+          "The shirt is made in Bandung.",
+          "It was sent yesterday.",
+          "The order has been sent.",
+        ],
+        bad: [
+          "The shirt is make in Bandung.",
+          "It was send yesterday.",
+          "The order has sent.",
+        ],
+        check:
+          "Artinya *di-*? Pakai be + V3. Lalu cek: be-nya sudah sesuai waktu?",
+      },
+      {
+        kind: "rule",
+        title:
+          "Pelaku jelas → kalimat aktif. Pelaku tidak penting atau tidak diketahui → pasif.",
+        why: "Bahasa Indonesia sering memakai *di-* walau pelakunya disebut. Di bahasa Inggris, kalau pelakunya jelas, kalimat aktif lebih wajar. *by …* dipakai hanya kalau pelakunya justru informasi penting.",
+        ok: [
+          "We print the shirts in Bandung.|aktif, pelaku jelas",
+          "My phone was stolen.|pelaku tidak tahu",
+          "This design was made by my sister.|pelaku penting",
+        ],
+        bad: [],
+        check:
+          "Siapa pelakunya penting untuk diceritakan? Kalau ya, pakai aktif atau by …",
+      },
+      {
+        kind: "list",
+        title: "Negatif & pertanyaan",
+        items: [
+          "Negatif → *not* setelah kata bantu pertama: *It **wasn't printed**.* · *The order **hasn't been sent** yet.*",
+          "Tanya → kata bantu pertama pindah ke depan subjek: *Was it printed?* · *Has the order been sent?* · *When will it be sent?*",
+        ],
+      },
+      {
+        kind: "tip",
+        label: "Cara cepat",
+        text: "Coba ucapkan dalam bahasa Indonesia. Kalau cocok pakai *di-* (dibuat, dikirim, dicetak) → **be + V3**, lalu sesuaikan *be* dengan waktunya.",
       },
     ],
   },
