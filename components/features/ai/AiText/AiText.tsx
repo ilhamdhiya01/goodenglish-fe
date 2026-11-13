@@ -26,9 +26,37 @@ const TYPO = /\*([^*]+)\*\s*→\s*\*\*([^*]+)\*\*/g;
 
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+// Edit distance where swapping two neighbours counts as one edit, so
+// "recieve" → "receive" is 1 like a missing letter is.
+const distance = (a: string, b: string) => {
+  const d = Array.from({ length: a.length + 1 }, (_, i) =>
+    Array.from({ length: b.length + 1 }, (_, j) => (i ? (j ? 0 : i) : j)),
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      d[i][j] = Math.min(
+        d[i - 1][j] + 1,
+        d[i][j - 1] + 1,
+        d[i - 1][j - 1] + cost,
+      );
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1])
+        d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+    }
+  return d[a.length][b.length];
+};
+
+// A typo is a slip of the fingers: one or two letters off, and never more
+// than a third of the word. Bigger changes swap in a different word.
+const isSlip = (wrong: string, right: string) => {
+  const n = distance(wrong, right);
+  return n <= 2 && n * 3 <= Math.max(wrong.length, right.length);
+};
+
 // The typo notice keeps only real typos from the question it answers: the
-// model also flagged words from earlier messages and "typos" whose fix was
-// the same word (flash-lite, Nov 2026). Returns null when nothing is left.
+// model also flagged words from earlier messages, "typos" whose fix was the
+// same word (flash-lite, Nov 2026) and correct words "fixed" into a synonym
+// (someone → somebody). Returns null when nothing is left.
 // Without the question, or in a format we can't read, the line is kept.
 export const keepTypos = (line: string, question?: string): string | null => {
   const notice = line.replace(SPELLING, "");
@@ -40,6 +68,7 @@ export const keepTypos = (line: string, question?: string): string | null => {
     const fixes = right.split(/[/,]/).map((r) => r.trim().toLowerCase());
     return (
       !fixes.includes(w) &&
+      fixes.some((f) => isSlip(w, f)) &&
       new RegExp(`(^|[^\\p{L}])${escape(w)}($|[^\\p{L}])`, "iu").test(question)
     );
   });

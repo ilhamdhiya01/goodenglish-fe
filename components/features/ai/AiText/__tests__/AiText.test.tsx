@@ -54,6 +54,21 @@ describe("AiText", () => {
     ).toBeNull();
   });
 
+  it("drops correct words the model 'fixed' into another word", () => {
+    // gemini, Nov 2026: "someone" is spelled right, it just isn't "somebody".
+    const q = "kata ini sama someone sama aja gak ?";
+    expect(keepTypos("Ejaan: *someone* → **somebody**", q)).toBeNull();
+    // Real slips still show: a missing letter, a swapped pair, two letters.
+    expect(
+      keepTypos(
+        "Ejaan: *somone* → **someone**, *recieve* → **receive**, *definately* → **definitely**",
+        "somone recieve definately",
+      ),
+    ).toBe(
+      "*somone* → **someone**, *recieve* → **receive**, *definately* → **definitely**",
+    );
+  });
+
   it("hides the typo notice when nothing real is left", () => {
     const { container } = render(
       <AiText
