@@ -26,6 +26,22 @@ export interface AiUsage {
   limit: number | null;
 }
 
+// GET /ai/conversations: a saved thread, newest first.
+export interface AiConversationSummary {
+  id: string;
+  title: string;
+  updatedAt: string;
+  messageCount: number;
+}
+
+// GET /ai/conversations/:id
+export interface AiConversation {
+  id: string;
+  title: string;
+  updatedAt: string;
+  messages: (AiMessage & { createdAt: string })[];
+}
+
 export interface AiMessage {
   id: string;
   role: AiRole;

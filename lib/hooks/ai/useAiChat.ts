@@ -9,15 +9,25 @@ import { useNotes } from "@/lib/hooks/useNotes";
 import type { AiContext, AiMessage, AiRole } from "@/lib/types/ai.types";
 import type { ErrorResponse } from "@/lib/types/api.types";
 import type { LevelId } from "@/lib/types/session.types";
-import { AiError, getAiUsage, streamChat } from "@/services/ai.service";
+import {
+  AiError,
+  deleteAiConversation,
+  getAiConversation,
+  getAiUsage,
+  listAiConversations,
+  streamChat,
+} from "@/services/ai.service";
 import { useAiChatStore } from "@/stores/useAiChatStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 
-export const aiKeys = { usage: ["ai-usage"] as const };
+export const aiKeys = {
+  usage: ["ai-usage"] as const,
+  conversations: ["ai-conversations"] as const,
+};
 
-// The backend's limits (ChatDto): 10 turns, a question ≤ 1000 characters,
+// The backend's limits (ChatDto): 30 turns, a question ≤ 1000 characters,
 // earlier answers ≤ 6000.
-const HISTORY_TURNS = 10;
+const HISTORY_TURNS = 30;
 export const MAX_QUESTION = 1000;
 const MAX_ANSWER = 6000;
 
@@ -56,6 +66,10 @@ export const toHistory = (messages: AiMessage[]) => {
     text: t.text.slice(0, t.role === "user" ? MAX_QUESTION : MAX_ANSWER),
   }));
 };
+
+const errorCode = (err: unknown): string =>
+  (err as AxiosError<ErrorResponse>).response?.data?.errors?.[0]?.message ??
+  "ai_failed";
 
 const errorText = (err: unknown): string => {
   if (err instanceof AiError)
@@ -124,10 +138,20 @@ export const useAiChat = () => {
 
       try {
         let answer = "";
-        await streamChat({ messages: history, context: context() }, (t) => {
-          answer += t;
-          useAiChatStore.getState().update(replyId, { text: answer });
-        });
+        await streamChat(
+          {
+            messages: history,
+            context: context(),
+            conversationId: store.conversationId ?? undefined,
+          },
+          {
+            onMeta: (id) => useAiChatStore.getState().setConversationId(id),
+            onText: (t) => {
+              answer += t;
+              useAiChatStore.getState().update(replyId, { text: answer });
+            },
+          },
+        );
         if (!answer)
           store.update(replyId, {
             text: accessErrorText("ai_failed"),
@@ -138,10 +162,74 @@ export const useAiChat = () => {
       } finally {
         store.setBusy(false);
         void queryClient.invalidateQueries({ queryKey: aiKeys.usage });
+        void queryClient.invalidateQueries({
+          queryKey: aiKeys.conversations,
+        });
       }
     },
     [context, queryClient],
   );
 
   return { ask };
+};
+
+/** The saved threads of this token, newest first (the "Riwayat" list). */
+export const useAiConversations = (enabled: boolean) =>
+  useQuery({
+    queryKey: aiKeys.conversations,
+    queryFn: listAiConversations,
+    select: (r) => r.data,
+    enabled,
+  });
+
+// Opening and deleting saved threads. Both throw the backend's error code
+// (e.g. "ai_conversation_not_found") for the caller to show.
+export const useAiConversationActions = () => {
+  const queryClient = useQueryClient();
+
+  const open = useCallback(
+    async (id: string) => {
+      try {
+        const { data } = await getAiConversation(id);
+        useAiChatStore.getState().load(
+          data.id,
+          data.messages.map(({ id: mid, role, text, word }) => ({
+            id: mid,
+            role,
+            text,
+            word,
+          })),
+        );
+      } catch (err) {
+        // Deleted on another device: forget it here too.
+        if ((err as AxiosError).response?.status === 404) {
+          if (useAiChatStore.getState().conversationId === id)
+            useAiChatStore.getState().reset();
+          void queryClient.invalidateQueries({
+            queryKey: aiKeys.conversations,
+          });
+        }
+        throw new Error(errorCode(err));
+      }
+    },
+    [queryClient],
+  );
+
+  const remove = useCallback(
+    async (id: string) => {
+      try {
+        await deleteAiConversation(id);
+      } catch (err) {
+        if ((err as AxiosError).response?.status !== 404)
+          throw new Error(errorCode(err));
+      } finally {
+        void queryClient.invalidateQueries({ queryKey: aiKeys.conversations });
+      }
+      if (useAiChatStore.getState().conversationId === id)
+        useAiChatStore.getState().reset();
+    },
+    [queryClient],
+  );
+
+  return { open, remove };
 };

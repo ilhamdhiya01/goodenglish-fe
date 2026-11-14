@@ -19,6 +19,7 @@ export const ACCESS_ERRORS: Record<string, string> = {
   ai_quota_exceeded:
     "Jatah pertanyaan AI hari ini sudah habis. Coba lagi besok, ya.",
   ai_failed: "AI sedang tidak bisa menjawab. Coba kirim lagi sebentar lagi.",
+  ai_conversation_not_found: "Percakapan ini sudah dihapus.",
   ai_bad_question:
     "Pertanyaannya terlalu panjang. Singkatkan, lalu kirim lagi.",
   ai_key_invalid: "API key ditolak Google. Periksa lagi key-nya.",

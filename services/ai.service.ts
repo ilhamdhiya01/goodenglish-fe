@@ -1,7 +1,18 @@
 import axiosInstance from "@/lib/axios";
-import type { AiContext, AiRole, AiUsage } from "@/lib/types/ai.types";
+import type {
+  AiContext,
+  AiConversation,
+  AiConversationSummary,
+  AiRole,
+  AiUsage,
+} from "@/lib/types/ai.types";
 import type { ApiResponse } from "@/lib/types/api.types";
-import { API_AI_CHAT, API_AI_USAGE } from "@/routes";
+import {
+  API_AI_CHAT,
+  API_AI_CONVERSATION,
+  API_AI_CONVERSATIONS,
+  API_AI_USAGE,
+} from "@/routes";
 
 /** A backend error code (see ACCESS_ERRORS), e.g. "ai_quota_exceeded". */
 export class AiError extends Error {
@@ -16,6 +27,14 @@ export class AiError extends Error {
 interface ChatBody {
   messages: { role: AiRole; text: string }[];
   context?: AiContext;
+  /** The saved thread to add to; none starts a new one. */
+  conversationId?: string;
+}
+
+interface ChatHandlers {
+  onText: (text: string) => void;
+  /** The thread the server saved this exchange in (sent first). */
+  onMeta?: (conversationId: string) => void;
 }
 
 // POST /ai/chat answers as server-sent events, which axios can't read
@@ -23,7 +42,7 @@ interface ChatBody {
 // onText for each piece of the answer as it arrives.
 export const streamChat = async (
   body: ChatBody,
-  onText: (text: string) => void,
+  { onText, onMeta }: ChatHandlers,
   signal?: AbortSignal,
 ): Promise<void> => {
   const res = await fetch(API_AI_CHAT, {
@@ -55,8 +74,16 @@ export const streamChat = async (
       const data = /^data: (.*)$/m.exec(frame)?.[1];
       if (event === "done") return;
       const parsed = data
-        ? (JSON.parse(data) as { text?: string; message?: string })
+        ? (JSON.parse(data) as {
+            text?: string;
+            message?: string;
+            conversationId?: string;
+          })
         : {};
+      if (event === "meta") {
+        if (parsed.conversationId) onMeta?.(parsed.conversationId);
+        continue;
+      }
       if (event === "error") throw new AiError(parsed.message ?? "ai_failed");
       if (parsed.text) onText(parsed.text);
     }
@@ -66,6 +93,39 @@ export const streamChat = async (
 export const getAiUsage = async (): Promise<ApiResponse<AiUsage>> => {
   try {
     const res = await axiosInstance.get(API_AI_USAGE);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const listAiConversations = async (): Promise<
+  ApiResponse<AiConversationSummary[]>
+> => {
+  try {
+    const res = await axiosInstance.get(API_AI_CONVERSATIONS);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAiConversation = async (
+  id: string,
+): Promise<ApiResponse<AiConversation>> => {
+  try {
+    const res = await axiosInstance.get(API_AI_CONVERSATION(id));
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteAiConversation = async (
+  id: string,
+): Promise<ApiResponse<null>> => {
+  try {
+    const res = await axiosInstance.delete(API_AI_CONVERSATION(id));
     return res.data;
   } catch (error) {
     throw error;

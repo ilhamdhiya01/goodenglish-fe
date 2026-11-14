@@ -5,7 +5,15 @@ import React, { useEffect, useRef, useState } from "react";
 
 import AiText from "@/components/features/ai/AiText";
 import SpeakButton from "@/components/ui/speak-button";
-import { MAX_QUESTION, useAiChat, useAiUsage } from "@/lib/hooks/ai/useAiChat";
+import { accessErrorText } from "@/const/access.constant";
+import { formatDateTime } from "@/lib/helpers/date.helper";
+import {
+  MAX_QUESTION,
+  useAiChat,
+  useAiConversationActions,
+  useAiConversations,
+  useAiUsage,
+} from "@/lib/hooks/ai/useAiChat";
 import { useAiSuggestions } from "@/lib/hooks/ai/useAiSuggestions";
 import type { AiMessage } from "@/lib/types/ai.types";
 import { useAiChatStore } from "@/stores/useAiChatStore";
@@ -63,6 +71,65 @@ const Bubble = React.memo(({ m, busy, question }: BubbleProps) => {
 });
 Bubble.displayName = "Bubble";
 
+interface HistoryProps {
+  currentId: string | null;
+  onOpen: (id: string) => void;
+  onDelete: (id: string) => void;
+}
+
+// "Riwayat": percakapan tersimpan milik token ini, yang terbaru di atas.
+const History = ({ currentId, onOpen, onDelete }: HistoryProps) => {
+  const { data, isLoading, isError } = useAiConversations(true);
+  if (isLoading)
+    return <p className="m-0 font-mono text-xs text-muted">Memuat riwayat…</p>;
+  if (isError)
+    return (
+      <p className="m-0 text-[13.5px] text-red-deep">
+        {accessErrorText("ai_failed")}
+      </p>
+    );
+  if (!data?.length)
+    return (
+      <p className="m-0 text-[14px] leading-[1.55] text-ink-2">
+        Belum ada percakapan tersimpan.
+      </p>
+    );
+  return (
+    <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
+      {data.map((c) => (
+        <li
+          key={c.id}
+          className={classNames(
+            "flex items-center gap-2 rounded-lg border bg-card pr-2",
+            c.id === currentId ? "border-green" : "border-line-2",
+          )}
+        >
+          <button
+            type="button"
+            onClick={() => onOpen(c.id)}
+            className="flex min-w-0 flex-1 cursor-pointer flex-col gap-0.5 border-0 bg-transparent px-3 py-2 text-left font-sans"
+          >
+            <span className="truncate text-[13.5px] text-ink">{c.title}</span>
+            <span className="font-mono text-[11px] text-muted">
+              {formatDateTime(c.updatedAt)} · {c.messageCount} pesan
+            </span>
+          </button>
+          <button
+            type="button"
+            aria-label={`Hapus percakapan: ${c.title}`}
+            onClick={() => {
+              if (window.confirm("Hapus percakapan ini?")) onDelete(c.id);
+            }}
+            className="inline-flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent text-muted hover:text-red-deep"
+          >
+            ✕
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 // "Tanya AI": tombol melayang di kanan bawah + panel percakapan. Hanya
 // dirender AppShell untuk token yang punya menu "ai".
 const AiChat = React.memo(() => {
@@ -71,9 +138,13 @@ const AiChat = React.memo(() => {
   const word = useAiChatStore((s) => s.word);
   const busy = useAiChatStore((s) => s.busy);
   const pending = useAiChatStore((s) => s.pending);
-  const { setOpen, clearWord, reset, hydrate, takePending } =
+  const view = useAiChatStore((s) => s.view);
+  const conversationId = useAiChatStore((s) => s.conversationId);
+  const { setOpen, setView, clearWord, reset, hydrate, takePending } =
     useAiChatStore.getState();
   const { ask } = useAiChat();
+  const { open: openSaved, remove: removeSaved } = useAiConversationActions();
+  const [historyError, setHistoryError] = useState("");
   const usage = useAiUsage(open);
   // From the page in view and the words this learner keeps forgetting.
   const pageIdeas = useAiSuggestions();
@@ -83,7 +154,25 @@ const AiChat = React.memo(() => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const panelRef = useRef<HTMLElement>(null);
 
-  useEffect(() => hydrate(), [hydrate]);
+  // Reopen the thread this device had open (its messages live on the
+  // server). One deleted elsewhere is simply forgotten.
+  useEffect(() => {
+    const id = hydrate();
+    if (id) openSaved(id).catch(() => undefined);
+  }, [hydrate, openSaved]);
+
+  const openConversation = (id: string) => {
+    setHistoryError("");
+    openSaved(id).catch((e: Error) =>
+      setHistoryError(accessErrorText(e.message)),
+    );
+  };
+  const deleteConversation = (id: string) => {
+    setHistoryError("");
+    removeSaved(id).catch((e: Error) =>
+      setHistoryError(accessErrorText(e.message)),
+    );
+  };
 
   // Opened from a word card: send its sentence for checking right away
   // ("cek AI"), or get ready for a question about it ("tanya AI").
@@ -169,7 +258,7 @@ const AiChat = React.memo(() => {
                   {quotaText}
                 </span>
               </div>
-              {messages.length > 0 && (
+              {view === "chat" && messages.length > 0 && (
                 <button
                   type="button"
                   onClick={reset}
@@ -179,6 +268,17 @@ const AiChat = React.memo(() => {
                   Percakapan baru
                 </button>
               )}
+              <button
+                type="button"
+                onClick={() => {
+                  setHistoryError("");
+                  setView(view === "history" ? "chat" : "history");
+                }}
+                disabled={busy}
+                className="cursor-pointer border-0 border-b border-dotted border-faint bg-transparent p-0 text-[12px] text-muted"
+              >
+                {view === "history" ? "Kembali" : "Riwayat"}
+              </button>
               <button
                 type="button"
                 aria-label="Tutup"
@@ -193,7 +293,19 @@ const AiChat = React.memo(() => {
               ref={listRef}
               className="flex flex-1 flex-col gap-3 overflow-y-auto px-4 py-4"
             >
-              {messages.length === 0 && (
+              {historyError && (
+                <p className="m-0 rounded-lg border border-red-line bg-red-bg px-3 py-2 text-[13px] text-red-deep">
+                  {historyError}
+                </p>
+              )}
+              {view === "history" && (
+                <History
+                  currentId={conversationId}
+                  onOpen={openConversation}
+                  onDelete={deleteConversation}
+                />
+              )}
+              {view === "chat" && messages.length === 0 && (
                 <div className="flex flex-col gap-3">
                   <p className="m-0 text-[14px] leading-[1.55] text-ink-2">
                     Tanya apa saja soal bahasa Inggris dan materi GoodEnglish,
@@ -214,63 +326,66 @@ const AiChat = React.memo(() => {
                   </div>
                 </div>
               )}
-              {messages.map((m, i) => (
-                <Bubble
-                  key={m.id}
-                  m={m}
-                  busy={busy}
-                  question={
-                    m.role === "model" && messages[i - 1]?.role === "user"
-                      ? messages[i - 1].text
-                      : undefined
-                  }
-                />
-              ))}
+              {view === "chat" &&
+                messages.map((m, i) => (
+                  <Bubble
+                    key={m.id}
+                    m={m}
+                    busy={busy}
+                    question={
+                      m.role === "model" && messages[i - 1]?.role === "user"
+                        ? messages[i - 1].text
+                        : undefined
+                    }
+                  />
+                ))}
             </div>
 
-            <footer className="flex flex-col gap-2 border-t border-line px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))]">
-              {word && (
-                <div className="flex">
-                  <span className="inline-flex min-w-0 items-center gap-1 rounded-full bg-green-bg px-2.5 py-1 text-[12px] text-green-deep">
-                    <span className="truncate">Kata: {word.word}</span>
-                    <SpeakButton nested size={18} icon={9} text={word.word} />
-                    <button
-                      type="button"
-                      aria-label="Lepas kata"
-                      onClick={clearWord}
-                      className="cursor-pointer border-0 bg-transparent p-0 text-green-deep"
-                    >
-                      ✕
-                    </button>
-                  </span>
+            {view === "chat" && (
+              <footer className="flex flex-col gap-2 border-t border-line px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))]">
+                {word && (
+                  <div className="flex">
+                    <span className="inline-flex min-w-0 items-center gap-1 rounded-full bg-green-bg px-2.5 py-1 text-[12px] text-green-deep">
+                      <span className="truncate">Kata: {word.word}</span>
+                      <SpeakButton nested size={18} icon={9} text={word.word} />
+                      <button
+                        type="button"
+                        aria-label="Lepas kata"
+                        onClick={clearWord}
+                        className="cursor-pointer border-0 bg-transparent p-0 text-green-deep"
+                      >
+                        ✕
+                      </button>
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-end gap-2">
+                  <textarea
+                    ref={inputRef}
+                    value={draft}
+                    rows={2}
+                    maxLength={MAX_QUESTION}
+                    onChange={(e) => setDraft(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        send();
+                      }
+                    }}
+                    placeholder="Tanya apa saja, atau tulis kalimatmu untuk dicek…"
+                    className="max-h-40 min-h-[44px] flex-1 resize-none rounded-lg border-[1.5px] border-line-2 bg-card px-3 py-2.5 font-sans text-[14px] text-ink outline-none focus:border-green"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => send()}
+                    disabled={busy || !draft.trim()}
+                    className="h-11 cursor-pointer rounded-lg border-[1.5px] border-green bg-green px-4 text-[13.5px] font-semibold text-card disabled:cursor-default disabled:opacity-50"
+                  >
+                    Kirim
+                  </button>
                 </div>
-              )}
-              <div className="flex items-end gap-2">
-                <textarea
-                  ref={inputRef}
-                  value={draft}
-                  rows={2}
-                  maxLength={MAX_QUESTION}
-                  onChange={(e) => setDraft(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" && !e.shiftKey) {
-                      e.preventDefault();
-                      send();
-                    }
-                  }}
-                  placeholder="Tanya apa saja, atau tulis kalimatmu untuk dicek…"
-                  className="max-h-40 min-h-[44px] flex-1 resize-none rounded-lg border-[1.5px] border-line-2 bg-card px-3 py-2.5 font-sans text-[14px] text-ink outline-none focus:border-green"
-                />
-                <button
-                  type="button"
-                  onClick={() => send()}
-                  disabled={busy || !draft.trim()}
-                  className="h-11 cursor-pointer rounded-lg border-[1.5px] border-green bg-green px-4 text-[13.5px] font-semibold text-card disabled:cursor-default disabled:opacity-50"
-                >
-                  Kirim
-                </button>
-              </div>
-            </footer>
+              </footer>
+            )}
           </aside>
         </>
       )}

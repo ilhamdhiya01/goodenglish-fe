@@ -31,14 +31,14 @@ describe("toHistory", () => {
     expect(history[2].text).toBe("kasih contoh kalimat dengan kata ini");
   });
 
-  it("keeps at most 10 turns and always starts with the learner", () => {
+  it("keeps at most 30 turns and always starts with the learner", () => {
     const many: AiMessage[] = [];
-    for (let i = 0; i < 12; i++)
+    for (let i = 0; i < 34; i++)
       many.push(msg(i % 2 ? "model" : "user", `t${i}`));
     many.push(msg("user", "last"));
 
     const history = toHistory(many);
-    expect(history.length).toBeLessThanOrEqual(10);
+    expect(history.length).toBeLessThanOrEqual(30);
     expect(history[0].role).toBe("user");
     expect(history[history.length - 1]).toEqual({ role: "user", text: "last" });
   });
