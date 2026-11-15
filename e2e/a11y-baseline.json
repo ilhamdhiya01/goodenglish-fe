@@ -46,7 +46,6 @@
     "region": 2
   },
   "desktop/scenario": {
-    "color-contrast": 3,
     "region": 2
   },
   "desktop/tanya-ai": {
@@ -91,9 +90,7 @@
   "mobile/review": {},
   "mobile/review-jawaban": {},
   "mobile/review-kosong": {},
-  "mobile/scenario": {
-    "color-contrast": 3
-  },
+  "mobile/scenario": {},
   "mobile/tanya-ai": {
     "aria-allowed-role": 1,
     "landmark-no-duplicate-banner": 1,

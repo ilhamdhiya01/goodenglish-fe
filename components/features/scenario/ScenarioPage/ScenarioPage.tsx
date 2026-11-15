@@ -3,11 +3,18 @@
 import classNames from "classnames";
 import React, { useState } from "react";
 
+import ListItem from "@/components/shared/patterns/list-item";
+import WordTile from "@/components/shared/patterns/word-tile";
+import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
+import FieldLabel from "@/components/ui/field-label";
 import Lead from "@/components/ui/lead";
 import PageHeading from "@/components/ui/page-heading";
 import Pill from "@/components/ui/pill";
+import SectionLabel from "@/components/ui/section-label";
+import Select from "@/components/ui/select";
 import SpeakButton from "@/components/ui/speak-button";
+import TextButton from "@/components/ui/text-button";
 import { LEVELS } from "@/const/levels.constant";
 import { VOCAB_SCEN, VOCAB_SCEN_KEY } from "@/lib/content";
 import { speak, speakAll } from "@/lib/helpers/speech.helper";
@@ -17,7 +24,8 @@ import { useLevelStore } from "@/stores/useLevelStore";
 const SC = VOCAB_SCEN as Scenario[];
 const isYou = (r: string) => r === "You" || r === "A";
 
-// Halaman Skenario: dialog 8–12 baris + frasa kunci + variasi jawaban.
+// Halaman Skenario: daftar skenario per level, dialog 8–12 baris sebagai
+// gelembung (lawan bicara kiri, "You" kanan), frasa kunci, variasi jawaban.
 const ScenarioPage = React.memo(() => {
   const level = useLevelStore((s) => s.level);
 
@@ -40,8 +48,13 @@ const ScenarioPage = React.memo(() => {
     }))
     .filter((g) => g.items.length);
 
+  const pick = (sid: string) => {
+    setId(sid);
+    setRevealed({});
+  };
+
   return (
-    <section className="flex flex-col gap-5.5">
+    <section className="flex flex-col gap-5">
       <div className="flex max-w-[760px] flex-col gap-1.5">
         <PageHeading>Skenario percakapan</PageHeading>
         <Lead>
@@ -51,212 +64,257 @@ const ScenarioPage = React.memo(() => {
         </Lead>
       </div>
 
-      <div className="flex flex-col gap-2">
-        {byLevel.map((g, gi) => (
-          <div
-            key={g.lv}
-            className={classNames(
-              "flex flex-wrap items-center gap-2",
-              gi !== 0 && "opacity-80",
-            )}
-          >
-            <span
-              className={classNames(
-                "min-w-[130px] font-mono text-[11px] tracking-[0.08em]",
-                gi === 0 ? "text-green" : "text-faint",
-              )}
-            >
-              {String(g.name).toUpperCase()}
-              {gi === 0 ? " · LEVELMU" : ""}
-            </span>
-            {g.items.map((x) => (
-              <Pill
-                key={x.id}
+      <div className="grid items-start gap-5 md:grid-cols-[230px_minmax(0,1fr)]">
+        {/* Phone: one select; wider screens: the list grouped by level,
+            the learner's own level first. */}
+        <FieldLabel label="Skenario" className="md:hidden">
+          <Select value={cur.id} onChange={(e) => pick(e.target.value)}>
+            {byLevel.map((g, gi) => (
+              <optgroup
+                key={g.lv}
+                label={g.name + (gi === 0 ? " · levelmu" : "")}
+              >
+                {g.items.map((x) => (
+                  <option key={x.id} value={x.id}>
+                    {x.title}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </Select>
+        </FieldLabel>
+        <nav
+          aria-label="Daftar skenario"
+          className="hidden flex-col gap-3 rounded-xl border-2 border-line bg-surface p-2 md:sticky md:top-6 md:flex"
+        >
+          {byLevel.map((g, gi) => (
+            <div key={g.lv} className="flex flex-col gap-1">
+              <SectionLabel
+                tone={gi === 0 ? "green" : "muted"}
+                className="px-3 pt-1.5"
+              >
+                {String(g.name).toUpperCase()}
+                {gi === 0 ? " · LEVELMU" : ""}
+              </SectionLabel>
+              {g.items.map((x) => (
+                <ListItem
+                  key={x.id}
+                  active={x.id === cur.id}
+                  onClick={() => pick(x.id)}
+                >
+                  {x.title}
+                </ListItem>
+              ))}
+            </div>
+          ))}
+        </nav>
+
+        <div className="flex min-w-0 flex-col gap-4">
+          <Card pad="lg" className="gap-3">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="flex flex-col gap-0.5">
+                <span className="text-xl leading-[26px] font-black text-ink">
+                  {cur.title}
+                </span>
+                <span className="text-[13.5px] text-ink-2">{cur.where}</span>
+              </div>
+              <Button
+                variant="green"
                 size="sm"
-                on={x.id === cur.id}
+                onClick={() => speakAll(cur.lines.map((l) => l[1]))}
+              >
+                Putar semua
+              </Button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Pill
+                size="sm"
+                check
+                on={showId}
+                onClick={() => setShowId(!showId)}
+              >
+                Terjemahan
+              </Pill>
+              <Pill
+                size="sm"
+                check
+                on={!showEn && !solo}
                 onClick={() => {
-                  setId(x.id);
+                  setShowEn(!showEn);
+                  setRevealed({});
+                  setSolo(false);
+                }}
+              >
+                Sembunyikan baris &quot;You&quot;
+              </Pill>
+              <Pill
+                size="sm"
+                check
+                on={solo}
+                title="Baris lawan bicara diputar, kamu jawab sendiri, lalu buka"
+                onClick={() => {
+                  setSolo(!solo);
+                  setShowEn(solo);
                   setRevealed({});
                 }}
               >
-                {x.title}
+                Jawab sendiri
               </Pill>
-            ))}
-          </div>
-        ))}
-      </div>
+            </div>
+          </Card>
 
-      <Card tone="ink" pad="lg" className="max-w-[860px] gap-4 rounded-xl">
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <div className="flex flex-col gap-0.5">
-            <span className="text-[22px] font-bold">{cur.title}</span>
-            <span className="text-[13px] text-muted">{cur.where}</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Pill size="sm" on={showId} onClick={() => setShowId(!showId)}>
-              Terjemahan
-            </Pill>
-            <Pill
-              size="sm"
-              on={!showEn && !solo}
-              onClick={() => {
-                setShowEn(!showEn);
-                setRevealed({});
-                setSolo(false);
-              }}
-            >
-              Sembunyikan baris &quot;You&quot;
-            </Pill>
-            <Pill
-              size="sm"
-              tone="green"
-              on={solo}
-              title="Baris lawan bicara diputar, kamu jawab sendiri, lalu buka"
-              onClick={() => {
-                setSolo(!solo);
-                setShowEn(solo);
-                setRevealed({});
-              }}
-            >
-              Jawab sendiri
-            </Pill>
-            <button
-              type="button"
-              onClick={() => speakAll(cur.lines.map((l) => l[1]))}
-              className="cursor-pointer rounded-full border-[1.5px] border-green bg-transparent px-3 py-1.5 font-sans text-[12.5px] font-semibold text-green transition-colors hover:bg-green-bg"
-            >
-              Putar semua
-            </button>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-2.5">
-          {cur.lines.map((l, i) => {
-            const you = isYou(l[0]);
-            const hidden = (!showEn || solo) && you && !revealed[i];
-            const prev = i > 0 ? cur.lines[i - 1] : null;
-            return (
-              <div
-                key={i}
-                className={classNames(
-                  "grid grid-cols-[64px_minmax(0,1fr)_auto] items-start gap-3 rounded-lg px-3 py-2.5",
-                  you && "bg-green-bg",
-                )}
-              >
-                <span
+          <ol
+            aria-label="Dialog"
+            className="m-0 flex list-none flex-col gap-3 p-0"
+          >
+            {cur.lines.map((l, i) => {
+              const you = isYou(l[0]);
+              const hidden = (!showEn || solo) && you && !revealed[i];
+              const prev = i > 0 ? cur.lines[i - 1] : null;
+              return (
+                <li
+                  key={i}
                   className={classNames(
-                    "pt-[3px] font-mono text-[11.5px] font-semibold",
-                    you ? "text-green" : "text-muted",
+                    "flex flex-col gap-1",
+                    you ? "items-end" : "items-start",
                   )}
                 >
-                  {l[0]}
-                </span>
-                <div className="flex min-w-0 flex-col gap-[3px]">
-                  {!hidden && (
-                    <span className="text-base leading-[1.45] text-ink">
-                      {l[1]}
-                    </span>
-                  )}
-                  {hidden && (
-                    <div className="flex flex-wrap items-center gap-3">
-                      {solo && prev && !isYou(prev[0]) && (
-                        <button
-                          type="button"
-                          onClick={() => speak(prev[1])}
-                          className="inline-flex cursor-pointer items-center gap-1.5 border-none bg-transparent p-0 font-sans text-[13px] text-ink"
-                        >
-                          <SpeakButton
-                            nested
-                            size={22}
-                            icon={11}
-                            text={prev[1]}
-                          />
-                          dengar lawan bicara
-                        </button>
+                  <SectionLabel tone={you ? "green" : "muted"}>
+                    {l[0]}
+                    {you ? " · giliranmu" : ""}
+                  </SectionLabel>
+                  <div
+                    className={classNames(
+                      "flex max-w-[88%] min-w-0 items-start gap-3 rounded-xl border-2 px-4 py-3 md:max-w-[80%]",
+                      hidden
+                        ? "border-dashed border-control bg-transparent"
+                        : you
+                          ? "border-accent-line bg-accent-tint"
+                          : "border-line bg-surface",
+                    )}
+                  >
+                    <div className="flex min-w-0 flex-col gap-1">
+                      {!hidden && (
+                        <span className="text-base leading-[22px] font-bold text-ink">
+                          {l[1]}
+                        </span>
                       )}
-                      <button
-                        type="button"
-                        onClick={() => setRevealed((r) => ({ ...r, [i]: 1 }))}
-                        className="cursor-pointer border-0 border-b-[1.5px] border-dotted border-green bg-transparent p-0 font-sans text-sm text-green"
-                      >
-                        {solo
-                          ? "Jawab dengan suaramu, lalu buka"
-                          : "Coba ucapkan dulu, lalu klik"}
-                      </button>
+                      {hidden && (
+                        <div className="flex flex-wrap items-center gap-3">
+                          {solo && prev && !isYou(prev[0]) && (
+                            <button
+                              type="button"
+                              onClick={() => speak(prev[1])}
+                              className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-md bg-transparent px-1 text-[13.5px] font-bold text-ink focus-ring"
+                            >
+                              <SpeakButton
+                                nested
+                                size={28}
+                                icon={13}
+                                text={prev[1]}
+                              />
+                              dengar lawan bicara
+                            </button>
+                          )}
+                          <TextButton
+                            onClick={() =>
+                              setRevealed((r) => ({ ...r, [i]: 1 }))
+                            }
+                          >
+                            {solo
+                              ? "Jawab dengan suaramu, lalu buka"
+                              : "Coba ucapkan dulu, lalu klik"}
+                          </TextButton>
+                        </div>
+                      )}
+                      {showId && (!hidden || !solo) && (
+                        <span className="text-[13.5px] leading-[19px] text-ink-2">
+                          {l[2]}
+                        </span>
+                      )}
                     </div>
-                  )}
-                  {showId && (!hidden || !solo) && (
-                    <span className="text-[13px] text-muted">{l[2]}</span>
-                  )}
-                </div>
-                <SpeakButton text={l[1]} />
-              </div>
-            );
-          })}
-        </div>
-      </Card>
+                    <SpeakButton text={l[1]} />
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
 
-      {key && (
-        <div className="grid max-w-[860px] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-3.5">
-          <Card tone="ink">
-            <div className="flex flex-col gap-0.5">
-              <span className="font-mono text-xs tracking-[0.06em] text-green">
-                FRASA KUNCI · PAKAI ULANG DI SITUASI LAIN
-              </span>
-              <span className="text-[13px] text-muted">
-                Hafalkan ini, bukan naskahnya. Polanya yang dibawa ke percakapan
-                nyata.
-              </span>
+          {key && (
+            <div className="grid gap-4 lg:grid-cols-2">
+              <Card className="gap-3">
+                <div className="flex flex-col gap-1">
+                  <SectionLabel tone="green">
+                    FRASA KUNCI · PAKAI ULANG DI SITUASI LAIN
+                  </SectionLabel>
+                  <span className="text-[13.5px] leading-[19px] text-ink-2">
+                    Hafalkan ini, bukan naskahnya. Polanya yang dibawa ke
+                    percakapan nyata.
+                  </span>
+                </div>
+                {key.phrases.map(([en, id2, note], i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col gap-1 border-t-2 border-dashed border-line pt-3"
+                  >
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <WordTile
+                        title={`Dengarkan "${en}"`}
+                        onClick={() => speak(en)}
+                      >
+                        {en}
+                      </WordTile>
+                      <span className="text-[13.5px] text-ink-2">{id2}</span>
+                    </div>
+                    <span className="text-[13px] leading-[18px] text-ink-2">
+                      {note}
+                    </span>
+                  </div>
+                ))}
+              </Card>
+              <Card className="gap-3">
+                <div className="flex flex-col gap-1">
+                  <SectionLabel>KALAU DIA BILANG … KAMU JAWAB …</SectionLabel>
+                  <span className="text-[13.5px] leading-[19px] text-ink-2">
+                    Percakapan nyata tidak selalu sesuai naskah. Latih
+                    variasinya.
+                  </span>
+                </div>
+                <table className="w-full border-collapse text-left">
+                  <thead>
+                    <tr className="border-b-2 border-line text-[12.5px] font-extrabold tracking-[0.07em] text-ink-3 uppercase">
+                      <th scope="col" className="w-1/2 py-2 pr-3">
+                        DIA
+                      </th>
+                      <th scope="col" className="w-1/2 py-2">
+                        KAMU
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {key.variants.map(([they, you], i) => (
+                      <tr key={i} className="border-b-2 border-line align-top">
+                        <td className="py-2.5 pr-3">
+                          <span className="flex items-start gap-2 text-[14.5px] leading-5 text-ink-2">
+                            <span className="min-w-0 flex-1">{they}</span>
+                            <SpeakButton size={28} icon={13} text={they} />
+                          </span>
+                        </td>
+                        <td className="py-2.5">
+                          <span className="flex items-start gap-2 text-[15px] leading-5 font-bold text-ink">
+                            <span className="min-w-0 flex-1">{you}</span>
+                            <SpeakButton size={28} icon={13} text={you} />
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </Card>
             </div>
-            {key.phrases.map(([en, id2, note], i) => (
-              <div
-                key={i}
-                className="flex flex-col gap-[3px] border-t border-dashed border-line pt-2.5"
-              >
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-serif text-[17px] italic">{en}</span>
-                  <SpeakButton size={22} icon={11} text={en} />
-                  <span className="text-[13px] text-ink-3">{id2}</span>
-                </div>
-                <span className="text-[12.5px] text-muted">{note}</span>
-              </div>
-            ))}
-          </Card>
-          <Card>
-            <div className="flex flex-col gap-0.5">
-              <span className="font-mono text-xs tracking-[0.06em] text-muted">
-                KALAU DIA BILANG … KAMU JAWAB …
-              </span>
-              <span className="text-[13px] text-muted">
-                Percakapan nyata tidak selalu sesuai naskah. Latih variasinya.
-              </span>
-            </div>
-            {key.variants.map(([they, you], i) => (
-              <div
-                key={i}
-                className="flex flex-col gap-1 border-t border-dashed border-line pt-2.5"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="min-w-9 font-mono text-[11px] text-muted">
-                    DIA
-                  </span>
-                  <span className="text-[14.5px] text-ink-2">{they}</span>
-                  <SpeakButton size={22} icon={11} text={they} />
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="min-w-9 font-mono text-[11px] text-green">
-                    KAMU
-                  </span>
-                  <span className="font-serif text-base text-ink italic">
-                    {you}
-                  </span>
-                  <SpeakButton size={22} icon={11} text={you} />
-                </div>
-              </div>
-            ))}
-          </Card>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
 });
