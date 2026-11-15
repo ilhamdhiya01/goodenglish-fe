@@ -1,10 +1,11 @@
 import classNames from "classnames";
 import React, { forwardRef } from "react";
 
-// Small uppercase section label ("RENCANA BELAJAR · PRE", ...).
+// Small uppercase section label ("RENCANA BELAJAR · PRE", ...). green = the
+// accent (blue); ok / red = right / wrong (e.g. "✓ RINGKASAN", "✕ JEBAKAN").
 interface SectionLabelProps {
   children: React.ReactNode;
-  tone?: "muted" | "green" | "red" | "faint";
+  tone?: "muted" | "green" | "red" | "faint" | "ok";
   className?: string;
 }
 
@@ -15,7 +16,9 @@ const SectionLabel = forwardRef<HTMLSpanElement, SectionLabelProps>(
         ? "text-accent-edge"
         : tone === "red"
           ? "text-bad"
-          : "text-ink-3";
+          : tone === "ok"
+            ? "text-ok"
+            : "text-ink-3";
     return (
       <span
         ref={ref}

@@ -25,7 +25,6 @@
     "region": 2
   },
   "desktop/grammar-tense": {
-    "color-contrast": 4,
     "region": 2
   },
   "desktop/pencarian": {
@@ -85,9 +84,7 @@
   "mobile/errors": {},
   "mobile/grammar-been": {},
   "mobile/grammar-latihan": {},
-  "mobile/grammar-tense": {
-    "color-contrast": 4
-  },
+  "mobile/grammar-tense": {},
   "mobile/pencarian": {},
   "mobile/plan": {},
   "mobile/pronunciation": {},

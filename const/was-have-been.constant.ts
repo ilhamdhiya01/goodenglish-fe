@@ -197,91 +197,75 @@ export const WHB_DETAIL: Detail = {
 
 // Garis waktu. Posisi dalam persen sepanjang sumbu: 0 = dulu sekali, PAST = titik lampau, 100 = sekarang.
 export const WHB_PAST = 55;
-// [bentuk, contoh, dari %, sampai %, panah sampai sekarang?, keterangan, warna]
-export const WHB_TIMELINE: [
-  string,
-  string,
-  number,
-  number,
-  boolean,
-  string,
-  string,
-][] = [
+// [bentuk, contoh, dari %, sampai %, panah sampai sekarang?, keterangan]
+export const WHB_TIMELINE: [string, string, number, number, boolean, string][] =
   [
-    "was / were",
-    "I was sick yesterday.",
-    58,
-    72,
-    false,
-    "selesai di masa lampau",
-    "#B42318",
-  ],
-  [
-    "have been",
-    "I've been sick since Monday.",
-    72,
-    100,
-    true,
-    "mulai dulu, masih sampai sekarang",
-    "#1F6B57",
-  ],
-  [
-    "have been + -ing",
-    "I've been waiting for 20 minutes.",
-    82,
-    100,
-    true,
-    "kegiatan, masih berjalan",
-    "#1F6B57",
-  ],
-  [
-    "had + V3",
-    "The meeting had started.",
-    30,
-    34,
-    false,
-    "terjadi lebih dulu dari titik lampau",
-    "#1F4E86",
-  ],
-  [
-    "had been",
-    "He had been sick for a week.",
-    18,
-    55,
-    false,
-    "keadaan sampai titik lampau",
-    "#1F4E86",
-  ],
-  [
-    "had been + -ing",
-    "I had been waiting for an hour.",
-    30,
-    55,
-    false,
-    "kegiatan sampai titik lampau",
-    "#1F4E86",
-  ],
-];
+    [
+      "was / were",
+      "I was sick yesterday.",
+      58,
+      72,
+      false,
+      "selesai di masa lampau",
+    ],
+    [
+      "have been",
+      "I've been sick since Monday.",
+      72,
+      100,
+      true,
+      "mulai dulu, masih sampai sekarang",
+    ],
+    [
+      "have been + -ing",
+      "I've been waiting for 20 minutes.",
+      82,
+      100,
+      true,
+      "kegiatan, masih berjalan",
+    ],
+    [
+      "had + V3",
+      "The meeting had started.",
+      30,
+      34,
+      false,
+      "terjadi lebih dulu dari titik lampau",
+    ],
+    [
+      "had been",
+      "He had been sick for a week.",
+      18,
+      55,
+      false,
+      "keadaan sampai titik lampau",
+    ],
+    [
+      "had been + -ing",
+      "I had been waiting for an hour.",
+      30,
+      55,
+      false,
+      "kegiatan sampai titik lampau",
+    ],
+  ];
 
-// Satu kalimat lintas bentuk; <b> menandai bagian yang berubah. [kalimat, bentuk, warna]
-export const WHB_ROWS: [string, string, string][] = [
-  ["She <b>is</b> sick today.", "Present simple (be)", "#7A5A00"],
-  ["She <b>was</b> sick yesterday.", "Past simple (be)", "#B42318"],
-  ["She <b>has been</b> sick since Monday.", "Present perfect (be)", "#1F6B57"],
+// Satu kalimat lintas bentuk; <b> menandai bagian yang berubah. [kalimat, bentuk]
+export const WHB_ROWS: [string, string][] = [
+  ["She <b>is</b> sick today.", "Present simple (be)"],
+  ["She <b>was</b> sick yesterday.", "Past simple (be)"],
+  ["She <b>has been</b> sick since Monday.", "Present perfect (be)"],
   [
     "She <b>had been</b> sick for a week before she saw a doctor.",
     "Past perfect (be)",
-    "#1F4E86",
   ],
   [
     "She <b>has been working</b> here since 2020.",
     "Present perfect continuous",
-    "#1F6B57",
   ],
   [
     "She <b>had been working</b> there for five years when the company closed.",
     "Past perfect continuous",
-    "#1F4E86",
   ],
 ];
 

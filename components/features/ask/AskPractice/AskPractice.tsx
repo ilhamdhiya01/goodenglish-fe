@@ -3,14 +3,20 @@
 import classNames from "classnames";
 import React, { useState } from "react";
 
+import AnswerOption, {
+  type AnswerState,
+} from "@/components/shared/patterns/answer-option/AnswerOption";
+import Correction from "@/components/shared/patterns/correction";
+import WordTile from "@/components/shared/patterns/word-tile";
 import Button from "@/components/ui/button";
+import Card from "@/components/ui/card";
+import Input from "@/components/ui/input";
 import Pill from "@/components/ui/pill";
+import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
-import SpeakerIcon from "@/components/ui/speaker-icon";
 import TextButton from "@/components/ui/text-button";
 import { ASK_GEN } from "@/lib/content";
 import { noCue, type PracticeGen } from "@/lib/helpers/bank-practice.helper";
-import { speak } from "@/lib/helpers/speech.helper";
 import type {
   AskQ,
   PracticeSession,
@@ -162,18 +168,28 @@ const AskPractice = React.memo(
       setSel(null);
     };
     const hint = STAGES.find((s) => s[0] === stage)![2];
+    const optState = (o: string): AnswerState =>
+      !answered
+        ? "idle"
+        : o === q?.ans
+          ? "correct"
+          : o === P?.picked
+            ? "wrong"
+            : "dimmed";
 
     return (
-      <div className="flex flex-col gap-3.5 border-t-[1.5px] border-ink pt-[18px]">
+      <div className="flex flex-col gap-4 border-t-2 border-line pt-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
-          <div className="flex flex-col gap-[3px]">
-            <span className="font-mono text-xs tracking-[0.06em] text-green">
+          <div className="flex flex-col gap-1">
+            <SectionLabel tone="green">
               LATIHAN TANPA BATAS · {ruleNo}
+            </SectionLabel>
+            <span className="text-base leading-[22px] font-extrabold text-ink">
+              {title}
             </span>
-            <span className="text-[17px] font-bold">{title}</span>
           </div>
           {R.seen > 0 && (
-            <div className="flex items-baseline gap-3.5 font-mono text-xs text-muted">
+            <div className="flex flex-wrap items-baseline gap-x-3.5 gap-y-1 text-[13px] font-bold text-ink-2">
               <span>
                 dijawab <b className="text-ink">{R.seen}</b>
               </span>
@@ -182,7 +198,7 @@ const AskPractice = React.memo(
               </span>
               <span>
                 dikuasai{" "}
-                <b className="text-green">{Object.keys(R.done).length}</b>
+                <b className="text-ink">{Object.keys(R.done).length}</b>
               </span>
               <TextButton
                 onClick={() => {
@@ -205,18 +221,17 @@ const AskPractice = React.memo(
               on={stage === id}
               title={desc}
               onClick={() => start(id)}
-              className="h-9 px-3.5 text-[13.5px]"
             >
               {label}
             </Pill>
           ))}
         </div>
-        <span className="text-[13.5px] leading-[1.5] text-ink-3">{hint}</span>
+        <span className="text-[13.5px] leading-[19px] text-ink-2">{hint}</span>
 
         {!P && (
           <Button
             variant="green"
-            className="self-start px-5 py-[11px]"
+            className="self-start"
             onClick={() => start(stage)}
           >
             Mulai 20 soal
@@ -224,78 +239,49 @@ const AskPractice = React.memo(
         )}
 
         {P && !P.finished && q && (
-          <div className="flex flex-col gap-3.5 rounded-xl border-[1.5px] border-ink bg-sand px-[22px] py-5">
-            <div className="flex flex-wrap justify-between gap-2.5 font-mono text-xs text-muted">
+          <div className="flex flex-col gap-4 rounded-xl border-2 border-line bg-sunken px-5 py-4.5">
+            <div className="flex flex-wrap justify-between gap-2.5 text-[13px] font-extrabold text-ink-2">
               <span>
-                SOAL {P.i + 1} / {P.qs.length}
+                Soal {P.i + 1} / {P.qs.length}
               </span>
               <span>benar {P.score}</span>
             </div>
             <div className="flex flex-col gap-1.5">
-              <span className="text-[13px] text-muted">{q.hint}</span>
-              <span className="font-serif text-[26px] leading-[1.3]">
+              <span className="text-[13.5px] font-bold text-ink-2">
+                {q.hint}
+              </span>
+              <span className="text-[22px] leading-[30px] font-extrabold text-ink">
                 {shown?.main}
               </span>
               {!!shown?.sub && (
-                <span className="text-[13.5px] text-muted">{shown.sub}</span>
+                <span className="text-[13.5px] text-ink-2">{shown.sub}</span>
               )}
             </div>
 
             {P.stage === "mc" && (
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-2">
-                {q.opts.map((o) => {
-                  const right = o === q.ans;
-                  const chosen = o === P.picked;
-                  return (
-                    <button
-                      type="button"
-                      key={o}
-                      data-testid="practice-option"
-                      onClick={() => answer(o)}
-                      className={classNames(
-                        "flex cursor-pointer flex-col gap-1.5 rounded-lg border-[1.5px] px-3.5 py-3 text-left font-sans text-[15px] transition-colors hover:border-ink",
-                        answered && right
-                          ? "border-green bg-green-bg2"
-                          : answered && chosen
-                            ? "border-red bg-red-bg"
-                            : "border-line-2 bg-card",
-                      )}
-                    >
-                      <span className="flex items-baseline justify-between gap-2">
-                        <span>{o}</span>
-                        {answered && (
-                          <span
-                            className={classNames(
-                              "font-mono text-[11px] whitespace-nowrap",
-                              right ? "text-green" : "text-red",
-                            )}
-                          >
-                            {right ? "✓ benar" : chosen ? "✗ pilihanmu" : "✗"}
-                          </span>
-                        )}
-                      </span>
-                      {answered && (
-                        <span
-                          className={classNames(
-                            "border-t border-dashed border-black/15 pt-1.5 text-[12.5px] leading-[1.45]",
-                            right ? "text-green-deep" : "text-red-deep",
-                          )}
-                        >
-                          {q.explain?.[o]}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
+              <div className="grid gap-2 md:grid-cols-2">
+                {q.opts.map((o, k) => (
+                  <AnswerOption
+                    key={o}
+                    letter={"ABCDEFGH"[k]}
+                    data-testid="practice-option"
+                    disabled={answered}
+                    state={optState(o)}
+                    note={q.explain?.[o]}
+                    onClick={() => answer(o)}
+                  >
+                    {o}
+                  </AnswerOption>
+                ))}
               </div>
             )}
 
             {P.stage === "order" && (
               <>
-                {/* Kata di kotak jawaban diklik → ditandai; kartu di bawah lalu menggantikannya di posisi yang sama.
-                  Klik kata lain (di kotak atau kartu abu-abu) saat ada yang ditandai → keduanya bertukar posisi. */}
-                <div className="flex min-h-[46px] items-center justify-between gap-2.5 rounded-lg border-[1.5px] border-dashed border-faint bg-card px-3 py-2.5">
-                  <span className="flex min-h-[22px] flex-wrap items-baseline gap-x-1 font-serif text-[19px]">
+                {/* Kata di garis jawaban diklik → ditandai; kartu di bawah lalu menggantikannya di posisi yang sama.
+                  Klik kata lain (di garis atau kartu yang sudah dipakai) saat ada yang ditandai → keduanya bertukar posisi. */}
+                <div className="flex min-h-[52px] flex-wrap items-end justify-between gap-2.5 border-b-[3px] border-ink pb-2">
+                  <span className="flex min-h-7 flex-wrap items-baseline gap-x-1.5 gap-y-1 text-[19px] font-extrabold text-ink">
                     {P.built.map((b) =>
                       answered ? (
                         <span key={b.i}>{b.t}</span>
@@ -306,10 +292,10 @@ const AskPractice = React.memo(
                           title="Klik untuk mengganti kata ini"
                           onClick={() => pickSlot(b.i)}
                           className={classNames(
-                            "cursor-pointer rounded border-none px-1 font-serif text-[19px]",
+                            "cursor-pointer rounded-md px-1 focus-ring",
                             sel === b.i
-                              ? "bg-green text-card"
-                              : "bg-transparent text-ink hover:bg-green-bg2",
+                              ? "bg-accent text-on-accent"
+                              : "hover:bg-accent-tint",
                           )}
                         >
                           {b.t}
@@ -318,24 +304,25 @@ const AskPractice = React.memo(
                     )}
                   </span>
                   {P.built.length > 0 && !answered && (
-                    <span className="shrink-0 text-xs text-faint">
+                    <span className="shrink-0 text-xs font-bold text-ink-2">
                       {selOn
                         ? "pilih kata pengganti di bawah · klik lagi untuk batal"
                         : "klik kata untuk menggantinya"}
                     </span>
                   )}
                 </div>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {q.shuffled.map((tk) => {
                     const u = used.has(tk.i);
                     return (
-                      <button
-                        type="button"
+                      <WordTile
                         key={tk.i}
                         data-testid="practice-token"
+                        used={u && sel !== tk.i}
+                        selected={u && sel === tk.i}
                         onClick={() => {
                           if (answered) return;
-                          // Kartu abu-abu = kata yang sudah ada di kotak: perlakukan sama seperti mengklik kata itu.
+                          // Kartu yang sudah dipakai = kata yang sudah ada di garis: perlakukan sama seperti mengklik kata itu.
                           if (u) return pickSlot(tk.i);
                           if (selOn) {
                             setP({
@@ -352,20 +339,9 @@ const AskPractice = React.memo(
                               120,
                             );
                         }}
-                        className={classNames(
-                          "rounded-lg border-[1.5px] px-3 py-2 font-sans text-[15px]",
-                          u
-                            ? sel === tk.i
-                              ? "cursor-pointer border-green bg-green-bg2 text-green-deep"
-                              : "cursor-pointer border-track bg-transparent text-[#c4beb0] hover:border-line-2"
-                            : classNames(
-                                "cursor-pointer border-ink bg-card text-ink hover:bg-sand",
-                                selOn && "border-green",
-                              ),
-                        )}
                       >
                         {tk.t}
-                      </button>
+                      </WordTile>
                     );
                   })}
                 </div>
@@ -374,20 +350,20 @@ const AskPractice = React.memo(
 
             {P.stage === "type" && (
               <div className="flex flex-wrap items-center gap-2">
-                <input
+                <Input
                   value={P.typed}
                   onChange={(e) => setP({ ...P, typed: e.target.value })}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !answered && P.typed.trim())
                       answer(P.typed);
                   }}
+                  aria-label="Jawabanmu"
                   placeholder={placeholder}
-                  className="min-w-[240px] flex-1 rounded-lg border-[1.5px] border-ink bg-card px-[13px] py-[11px] font-sans text-base text-ink outline-none"
+                  className="min-w-[240px] flex-1 bg-surface"
                 />
                 {!answered && (
                   <Button
-                    variant="dark"
-                    className="px-[18px] py-[11px]"
+                    variant="green"
                     onClick={() => P.typed.trim() && answer(P.typed)}
                   >
                     Periksa
@@ -397,11 +373,12 @@ const AskPractice = React.memo(
             )}
 
             {answered && (
-              <div className="flex flex-col gap-2 border-t border-dashed border-line-2 pt-3">
+              <div className="flex flex-col gap-2.5 border-t-2 border-dashed border-line pt-3">
                 <span
+                  role="status"
                   className={classNames(
-                    "text-[15px] font-bold",
-                    P.ok ? "text-green" : "text-red",
+                    "text-[15px] font-extrabold",
+                    P.ok ? "text-ok" : "text-bad",
                   )}
                 >
                   {P.ok
@@ -409,22 +386,24 @@ const AskPractice = React.memo(
                     : "Kurang tepat. Soal ini akan muncul lagi di set berikutnya."}
                 </span>
                 {!P.ok && P.stage !== "mc" && (
-                  <span className="rounded-md bg-red-bg px-2.5 py-2 text-[13.5px] leading-[1.5] text-red-deep">
-                    <b>Jawabanmu:</b> {P.picked} —{" "}
+                  <span className="rounded-lg bg-bad-bg px-3 py-2.5 text-[13.5px] leading-[19px] text-ink">
+                    <b className="font-extrabold">Jawabanmu:</b> {P.picked} —{" "}
                     {G.explain(q, P.picked || "", P.stage)}
                   </span>
                 )}
                 <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="font-serif text-xl italic">{q.ans}</span>
+                  <span className="text-xl leading-[26px] font-extrabold text-ink">
+                    {q.ans}
+                  </span>
                   {!!q.ansId && (
-                    <span className="text-[13.5px] text-muted">{q.ansId}</span>
+                    <span className="text-[13.5px] text-ink-2">{q.ansId}</span>
                   )}
                   <SpeakButton text={q.ans} />
                 </div>
-                <span className="font-mono text-[12.5px] text-muted">
+                <span className="text-[13.5px] leading-[19px] text-ink-2">
                   {q.why}
                 </span>
-                <Button variant="dark" className="self-end" onClick={next}>
+                <Button variant="green" className="self-end" onClick={next}>
                   {P.i >= P.qs.length - 1 ? "Lihat hasil" : "Soal berikutnya"}
                 </Button>
               </div>
@@ -433,14 +412,14 @@ const AskPractice = React.memo(
         )}
 
         {P && P.finished && (
-          <div className="flex flex-col gap-2.5 rounded-xl border-[1.5px] border-ink bg-sand px-[22px] py-5">
-            <span className="text-4xl font-bold tracking-[-0.02em]">
+          <Card tone="done" pad="lg" className="gap-3">
+            <span className="text-[44px] leading-12 font-black tracking-[-0.02em] text-ink">
               {P.score} / {P.qs.length}{" "}
-              <span className="text-base font-normal text-muted">
+              <span className="text-base font-bold text-ink-2">
                 · {Math.round((P.score / P.qs.length) * 100)}%
               </span>
             </span>
-            <span className="text-[15px] leading-[1.5] text-ink-2">
+            <span className="text-[15px] leading-[22px] text-ink-2">
               {P.score >= 16
                 ? "Bagus. Kamu siap ke tahap berikutnya atau rumus berikutnya."
                 : P.score >= 12
@@ -453,36 +432,28 @@ const AskPractice = React.memo(
               </Button>
               <Button onClick={() => setP(null)}>Tutup</Button>
             </div>
-          </div>
+          </Card>
         )}
 
         {!!R.retry?.length && (
           <div className="flex flex-col gap-2">
-            <span className="font-mono text-xs tracking-[0.06em] text-red">
+            <SectionLabel tone="red">
               TERAKHIR SALAH · AKAN MUNCUL LAGI
-            </span>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-1.5">
+            </SectionLabel>
+            <div className="grid gap-2 md:grid-cols-2">
               {R.retry
                 .slice(-6)
                 .reverse()
                 .map((x, i) => (
-                  <button
-                    type="button"
+                  <div
                     key={i}
-                    onClick={() => speak(x.ans)}
-                    className="flex cursor-pointer flex-col gap-0.5 rounded-lg border border-red-line bg-red-bg px-[11px] py-[9px] text-left font-sans"
+                    className="flex flex-col gap-1.5 rounded-lg border-2 border-bad-line bg-bad-bg px-3.5 py-3"
                   >
-                    <span className="text-[13px] text-muted">
-                      {noCue(x.prompt)}{" "}
-                      <span className="text-ink-2">· {x.hint}</span>
+                    <span className="text-[13px] text-ink-2">
+                      {noCue(x.prompt)} · {x.hint}
                     </span>
-                    <span className="inline-flex items-center gap-2 font-serif text-[15.5px] italic">
-                      {x.ans}
-                      <span className="inline-flex text-green">
-                        <SpeakerIcon size={12} />
-                      </span>
-                    </span>
-                  </button>
+                    <Correction right={x.ans} speak={x.ans} />
+                  </div>
                 ))}
             </div>
           </div>

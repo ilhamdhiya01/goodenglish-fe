@@ -107,12 +107,12 @@ export const TERMS: [string, string, string, string, string][] = [
   ],
 ];
 
-// Satu kalimat dipotong per bagian. [kata, tag, warna]
-export const ANATOMY: [string, string, string][] = [
-  ["My sister", "S", "#1F4E86"],
-  ["is", "Aux (be)", "#7A5A00"],
-  ["cooking", "V-ing", "#B42318"],
-  ["fried rice", "O", "#1F6B57"],
-  ["in the kitchen", "Adv tempat", "#6B665C"],
-  ["now", "Adv waktu", "#6B665C"],
+// Satu kalimat dipotong per bagian. [kata, tag]
+export const ANATOMY: [string, string][] = [
+  ["My sister", "S"],
+  ["is", "Aux (be)"],
+  ["cooking", "V-ing"],
+  ["fried rice", "O"],
+  ["in the kitchen", "Adv tempat"],
+  ["now", "Adv waktu"],
 ];

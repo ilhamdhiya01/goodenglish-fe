@@ -101,13 +101,13 @@ export const IRR: [string, string, string][] = [
   ["spend", "spent", "menghabiskan"],
 ];
 
-// Kalimat "I … busy" dalam lima tense. [bentuk be, penanda waktu, nama tense, warna aksen]
-export const BE_ROWS: [string, string, string, string][] = [
-  ["am", "now", "Present simple", "#1F4E86"],
-  ["was", "last night", "Past simple", "#B42318"],
-  ["have been", "all week", "Present perfect", "#1F6B57"],
-  ["will be", "tomorrow", "Future (will)", "#7A5A00"],
-  ["had been", "all day before she came", "Past perfect", "#1F4E86"],
+// Kalimat "I … busy" dalam lima tense. [bentuk be, penanda waktu, nama tense]
+export const BE_ROWS: [string, string, string][] = [
+  ["am", "now", "Present simple"],
+  ["was", "last night", "Past simple"],
+  ["have been", "all week", "Present perfect"],
+  ["will be", "tomorrow", "Future (will)"],
+  ["had been", "all day before she came", "Past perfect"],
 ];
 export const BE_DRILL: [string, string][] = [
   ["Aku sibuk sekarang.", "I am busy now."],
@@ -123,17 +123,16 @@ export const BE_DRILL: [string, string][] = [
   ["Kami lapar tadi siang.", "We were hungry this afternoon."],
 ];
 
-// Kalimat "I … eat" dalam enam bentuk; <b> menandai bagian yang berubah. [kalimat, tense, warna]
-export const DO_ROWS: [string, string, string][] = [
-  ["I <b>eat</b> rice every day.", "Present simple (+)", "#1F4E86"],
-  ["I <b>don't eat</b> rice every day.", "Present simple (−)", "#1F4E86"],
-  ["I <b>ate</b> rice yesterday.", "Past simple (+)", "#B42318"],
-  ["I <b>didn't eat</b> rice yesterday.", "Past simple (−)", "#B42318"],
-  ["I<b>'m eating</b> rice now.", "Present continuous", "#1F6B57"],
+// Kalimat "I … eat" dalam enam bentuk; <b> menandai bagian yang berubah. [kalimat, tense]
+export const DO_ROWS: [string, string][] = [
+  ["I <b>eat</b> rice every day.", "Present simple (+)"],
+  ["I <b>don't eat</b> rice every day.", "Present simple (−)"],
+  ["I <b>ate</b> rice yesterday.", "Past simple (+)"],
+  ["I <b>didn't eat</b> rice yesterday.", "Past simple (−)"],
+  ["I<b>'m eating</b> rice now.", "Present continuous"],
   [
     "I<b>'ll eat</b> rice tomorrow. · I<b>'m going to eat</b> rice tomorrow.",
     "Future",
-    "#7A5A00",
   ],
 ];
 export const DO_DRILL: [string, string][] = [

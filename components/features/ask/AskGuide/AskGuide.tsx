@@ -5,6 +5,8 @@ import React from "react";
 
 import AskPractice from "@/components/features/ask/AskPractice/AskPractice";
 import DrillGrid from "@/components/features/grammar/DrillGrid/DrillGrid";
+import Correction from "@/components/shared/patterns/correction";
+import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import Lead from "@/components/ui/lead";
 import PageHeading from "@/components/ui/page-heading";
@@ -30,17 +32,19 @@ const Pair = ({ a, b, size = 14 }: { a: string; b: string; size?: number }) => {
       className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1.2fr)_auto] items-center gap-x-2 gap-y-0.5"
       style={{ fontSize: size }}
     >
-      <span className="text-muted">{a}</span>
-      <span className="text-faint">→</span>
+      <span className="font-semibold text-ink-2">{a}</span>
+      <span aria-hidden className="font-extrabold text-ink-3">
+        →
+      </span>
       <span
-        className="font-serif text-ink italic"
-        style={{ fontSize: size + 2.5 }}
+        className="leading-[22px] font-bold text-ink"
+        style={{ fontSize: size + 1 }}
       >
         {b}
       </span>
-      <SpeakButton size={24} icon={12} onClick={() => speak(speakable(b))} />
+      <SpeakButton size={28} icon={13} onClick={() => speak(speakable(b))} />
       {!!tr && (
-        <span className="col-span-full -mt-0.5 text-[12.5px] text-faint">
+        <span className="col-span-full -mt-0.5 text-[13px] text-ink-2">
           {tr}
         </span>
       )}
@@ -48,24 +52,22 @@ const Pair = ({ a, b, size = 14 }: { a: string; b: string; size?: number }) => {
   );
 };
 
+// ✕ wrong → ✓ right (speakable) → translation + reason, as a Correction.
 const Wrong = ({ e, dash = "border-line" }: { e: string[]; dash?: string }) => (
-  <div
-    className={classNames(
-      "flex flex-col gap-0.5 border-t border-dashed pt-2",
-      dash,
-    )}
-  >
-    <span className="text-sm text-red line-through decoration-red/50 decoration-2">
-      {e[0]}
-    </span>
-    <div className="flex items-center gap-2">
-      <span className="text-[15px] font-semibold text-green">{e[1]}</span>
-      <SpeakButton size={22} icon={11} onClick={() => speak(e[1])} />
-    </div>
-    {!!idOf(e[1]) && (
-      <span className="text-[12.5px] text-faint">{idOf(e[1])}</span>
-    )}
-    <span className="text-[12.5px] text-muted">{e[2]}</span>
+  <div className={classNames("border-t-2 border-dashed pt-2.5", dash)}>
+    <Correction
+      wrong={e[0]}
+      right={e[1]}
+      speak={e[1]}
+      why={
+        <>
+          {!!idOf(e[1]) && (
+            <span className="block font-normal">{idOf(e[1])}</span>
+          )}
+          {e[2]}
+        </>
+      }
+    />
   </div>
 );
 
@@ -102,12 +104,12 @@ const AskGuide = React.memo(() => {
         <Lead>{D.intro}</Lead>
       </div>
 
-      <Card tone="ink" className="gap-3.5">
+      <Card className="gap-3.5">
         <div className="flex flex-wrap items-baseline justify-between gap-2.5">
           <SectionLabel tone="green">
             CHEAT SHEET · SIMPAN DI KEPALA
           </SectionLabel>
-          <span className="text-[12.5px] text-muted">
+          <span className="text-[13px] font-semibold text-ink-2">
             S = subjek · V = kata kerja · klik baris untuk dibedah
           </span>
         </div>
@@ -117,51 +119,55 @@ const AskGuide = React.memo(() => {
             // <button>s are invalid HTML and break hydration.
             <div
               key={n}
-              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2.5 rounded-lg border border-line pr-3 transition-colors hover:bg-sand"
+              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2.5 rounded-lg border-2 border-line pr-3 transition-colors hover:bg-sunken"
             >
               <button
                 type="button"
                 onClick={() => pick("r" + n)}
-                className="grid cursor-pointer grid-cols-[auto_minmax(0,1fr)] items-center gap-2.5 py-2.5 pl-3 text-left font-sans"
+                className="grid cursor-pointer grid-cols-[auto_minmax(0,1fr)] items-center gap-3 rounded-lg py-3 pl-3.5 text-left focus-ring"
               >
-                <span className="w-[22px] font-mono text-xl font-bold text-green">
+                <span className="w-[22px] text-xl font-black text-accent-edge tabular-nums">
                   {n}
                 </span>
-                <div className="flex min-w-0 flex-col gap-[3px]">
-                  <span className="text-[13px] font-bold">{name}</span>
-                  <span className="font-mono text-xs wrap-anywhere">{f}</span>
-                  <span className="font-serif text-[14.5px] text-ink-2 italic">
+                <div className="flex min-w-0 flex-col gap-1">
+                  <span className="text-[13px] font-extrabold text-ink-2">
+                    {name}
+                  </span>
+                  <span className="text-[13px] font-bold wrap-anywhere text-ink">
+                    {f}
+                  </span>
+                  <span className="text-[15px] leading-[22px] font-bold text-ink">
                     {ex}
                   </span>
-                  <span className="text-xs text-faint">{idOf(ex)}</span>
+                  <span className="text-[13px] text-ink-2">{idOf(ex)}</span>
                 </div>
               </button>
-              <SpeakButton size={24} icon={12} text={ex} />
+              <SpeakButton size={28} icon={13} text={ex} />
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-1.5 border-t border-dashed border-line pt-3">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-2 border-t-2 border-dashed border-line pt-3.5">
           {D.auxCheat.map(([fam, list, act]: string[]) => (
             <div
               key={fam}
-              className="flex items-baseline gap-2 rounded-md bg-sand px-2.5 py-1.5 text-[12.5px]"
+              className="flex items-baseline gap-2.5 rounded-lg bg-sunken px-3 py-2 text-[13px]"
             >
-              <span className="w-11 flex-none font-mono font-bold text-green">
+              <span className="w-12 flex-none font-black text-accent-edge">
                 {fam}
               </span>
-              <span className="flex min-w-0 flex-col gap-px">
-                <span className="font-mono text-xs wrap-anywhere">{list}</span>
-                <span className="text-muted">{act}</span>
+              <span className="flex min-w-0 flex-col gap-0.5">
+                <span className="font-bold wrap-anywhere text-ink">{list}</span>
+                <span className="text-ink-2">{act}</span>
               </span>
             </div>
           ))}
         </div>
-        <span className="text-[13px] leading-[1.5] text-ink-2">
-          <b>Satu kalimat:</b> sudah ada kata bantu (BE / HAVE / modal)?
-          pindahkan ke depan. Belum ada? tambahkan do/does/did dan kembalikan
-          kata kerja ke bentuk dasar. Ada kata tanya? taruh di paling depan.
-          Yang ditanya subjeknya? tanpa kata bantu. Ada pembuka sopan? urutan
-          kembali normal.
+        <span className="text-[13.5px] leading-5 font-semibold text-ink-2">
+          <b className="font-extrabold text-ink">Satu kalimat:</b> sudah ada
+          kata bantu (BE / HAVE / modal)? pindahkan ke depan. Belum ada?
+          tambahkan do/does/did dan kembalikan kata kerja ke bentuk dasar. Ada
+          kata tanya? taruh di paling depan. Yang ditanya subjeknya? tanpa kata
+          bantu. Ada pembuka sopan? urutan kembali normal.
         </span>
       </Card>
 
@@ -176,45 +182,35 @@ const AskGuide = React.memo(() => {
                 key={r.id}
                 onClick={() => pick(on ? null : r.id)}
                 className={classNames(
-                  "flex cursor-pointer flex-col gap-2 rounded-[10px] border-[1.5px] border-ink px-[18px] py-4 text-left font-sans transition-colors",
-                  on ? "bg-ink text-paper" : "bg-card text-ink hover:bg-sand",
+                  "flex press cursor-pointer flex-col gap-2 rounded-xl border-2 px-[18px] py-4 text-left text-ink edge-card focus-ring",
+                  on
+                    ? "border-accent bg-accent-tint [--edge:var(--color-accent)]"
+                    : "border-control bg-surface [--edge:var(--color-control)] hover:bg-sunken",
                 )}
               >
                 <div className="flex items-baseline justify-between gap-2">
+                  <SectionLabel tone="green">{r.no}</SectionLabel>
                   <span
                     className={classNames(
-                      "font-mono text-xs tracking-[0.06em]",
-                      on ? "text-mint" : "text-green",
-                    )}
-                  >
-                    {r.no}
-                  </span>
-                  <span
-                    className={classNames(
-                      "text-xs",
-                      on ? "text-ondark" : "text-muted",
+                      "text-xs font-bold",
+                      on ? "text-accent-edge" : "text-ink-2",
                     )}
                   >
                     {on ? "terbuka ↓" : "klik untuk buka"}
                   </span>
                 </div>
-                <span className="text-[17px] leading-[1.25] font-bold">
+                <span className="text-[17px] leading-[22px] font-extrabold">
                   {r.title}
                 </span>
                 <span
                   className={classNames(
-                    "rounded-md px-2 py-1.5 font-mono text-xs wrap-anywhere",
-                    on ? "bg-ink-4" : "bg-sand",
+                    "rounded-md px-2.5 py-1.5 text-[13px] font-bold wrap-anywhere",
+                    on ? "bg-surface" : "bg-sunken",
                   )}
                 >
                   {r.formula}
                 </span>
-                <span
-                  className={classNames(
-                    "text-[13px] leading-[1.45]",
-                    on ? "text-ondark" : "text-muted",
-                  )}
-                >
+                <span className="text-[13px] leading-[19px] font-semibold text-ink-2">
                   {r.short}
                 </span>
               </button>
@@ -224,20 +220,20 @@ const AskGuide = React.memo(() => {
       </div>
 
       {R && (
-        <Card tone="ink" pad="lg" className="gap-5 border-[1.5px]">
+        <Card pad="lg" className="gap-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="flex min-w-0 flex-col gap-1">
               <SectionLabel tone="green">{R.no} · DIBEDAH</SectionLabel>
-              <span className="text-[26px] font-bold tracking-[-0.01em]">
+              <span className="text-[26px] leading-8 font-black tracking-[-0.01em] text-ink">
                 {R.title}
               </span>
-              <span className="self-start rounded-md bg-sand px-2.5 py-2 font-mono text-[13.5px] wrap-anywhere">
+              <span className="mt-1 self-start rounded-lg border-2 border-line bg-sunken px-3 py-2 text-[15px] font-bold wrap-anywhere text-ink">
                 {R.formula}
               </span>
             </div>
             <TextButton onClick={() => pick(null)}>Tutup</TextButton>
           </div>
-          <p className="m-0 max-w-[760px] text-[15px] leading-[1.55] text-pretty text-ink-2">
+          <p className="m-0 max-w-[760px] text-[15px] leading-[22px] font-semibold text-pretty text-ink-2">
             {R.idea}
           </p>
 
@@ -245,19 +241,19 @@ const AskGuide = React.memo(() => {
             {R.steps.map((s, i) => (
               <div
                 key={i}
-                className="grid grid-cols-[auto_minmax(0,1fr)] gap-3.5 rounded-[10px] border border-line px-4 py-3.5"
+                className="grid grid-cols-[auto_minmax(0,1fr)] gap-3.5 rounded-xl border-2 border-line px-4 py-3.5"
               >
-                <span className="inline-flex h-7 w-7 flex-none items-center justify-center rounded-full bg-green font-mono text-[13px] font-bold text-card">
+                <span className="inline-flex h-7 w-7 flex-none items-center justify-center rounded-full bg-accent-tint text-[13px] font-black text-accent-edge">
                   {i + 1}
                 </span>
                 <div className="flex min-w-0 flex-col gap-2">
-                  <span className="text-base leading-[1.3] font-bold">
+                  <span className="text-base leading-[22px] font-extrabold text-ink">
                     {s.t}
                   </span>
-                  <span className="text-sm leading-[1.55] text-pretty text-ink-2">
+                  <span className="text-sm leading-[22px] font-semibold text-pretty text-ink-2">
                     {s.b}
                   </span>
-                  <div className="flex flex-col gap-[5px] border-t border-dashed border-line pt-2">
+                  <div className="flex flex-col gap-2 border-t-2 border-dashed border-line pt-2.5">
                     {s.ex.map(([a, b], j) => (
                       <Pair key={j} a={a} b={b} />
                     ))}
@@ -268,21 +264,21 @@ const AskGuide = React.memo(() => {
           </div>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-3.5">
-            <div className="flex flex-col gap-2.5 rounded-[10px] border border-red-line bg-red-bg px-4 py-3.5">
+            <div className="flex flex-col gap-2.5 rounded-xl border-2 border-bad-line bg-bad-bg px-4 py-3.5">
               <SectionLabel tone="red">JEBAKAN DI RUMUS INI</SectionLabel>
               {R.traps.map((e, i) => (
-                <Wrong key={i} e={e} dash="border-red-line" />
+                <Wrong key={i} e={e} dash="border-bad-line" />
               ))}
             </div>
-            <div className="flex flex-col gap-2 rounded-[10px] border border-green-line bg-green-bg px-4 py-3.5">
+            <div className="flex flex-col gap-2 self-start rounded-xl border-2 border-accent-line bg-accent-tint px-4 py-3.5">
               <SectionLabel tone="green">RINGKASAN SATU KALIMAT</SectionLabel>
-              <span className="text-base leading-[1.5] font-semibold text-pretty text-green-deep">
+              <span className="text-base leading-[22px] font-bold text-pretty text-ink">
                 {R.summary}
               </span>
             </div>
           </div>
 
-          <div className="border-t border-dashed border-line pt-4">
+          <div className="border-t-2 border-dashed border-line pt-4">
             <DrillGrid
               key={R.id}
               label={`LATIHAN ${R.no} · UBAH, UCAPKAN, LALU BUKA`}
@@ -293,35 +289,29 @@ const AskGuide = React.memo(() => {
 
           <AskPractice rule={R.id} ruleNo={R.no} />
 
-          <div className="flex flex-wrap justify-between gap-2.5 border-t border-dashed border-line pt-3.5">
+          <div className="flex flex-wrap justify-between gap-2.5 border-t-2 border-dashed border-line pt-3.5">
             {idx > 0 ? (
-              <TextButton
-                className="rounded-full border-[1.5px] border-ink px-4 py-[9px] text-[13.5px] font-semibold text-ink"
-                onClick={() => pick(rules[idx - 1].id)}
-              >
+              <Button size="sm" onClick={() => pick(rules[idx - 1].id)}>
                 ← Rumus sebelumnya
-              </TextButton>
+              </Button>
             ) : (
               <span />
             )}
             {idx < rules.length - 1 && (
-              <TextButton
-                className="rounded-full bg-ink px-4 py-[9px] text-[13.5px] font-semibold text-paper"
-                onClick={() => pick(rules[idx + 1].id)}
-              >
+              <Button size="sm" onClick={() => pick(rules[idx + 1].id)}>
                 Rumus berikutnya →
-              </TextButton>
+              </Button>
             )}
           </div>
         </Card>
       )}
 
-      <Card tone="ink">
-        <div className="flex flex-col gap-[3px]">
-          <span className="text-[17px] font-bold">
+      <Card>
+        <div className="flex flex-col gap-1">
+          <span className="text-[17px] leading-[22px] font-extrabold text-ink">
             Bertanya balik ke examiner / lawan bicara
           </span>
-          <span className="text-[13px] text-muted">
+          <span className="text-[13px] font-semibold text-ink-2">
             Di speaking kamu lebih banyak menjawab, tapi ini boleh dan berguna.
             Memakai Rumus 4 dengan benar juga menunjukkan grammatical range.
           </span>
@@ -329,13 +319,15 @@ const AskGuide = React.memo(() => {
         {D.examiner.map(([en, id]: string[], i: number) => (
           <div
             key={i}
-            className="flex flex-col gap-0.5 border-t border-dashed border-line pt-2.5"
+            className="flex flex-col gap-0.5 border-t-2 border-dashed border-line pt-2.5"
           >
             <div className="flex items-center gap-2">
-              <span className="font-serif text-[17px] italic">{en}</span>
-              <SpeakButton size={22} icon={11} text={en} />
+              <span className="text-base leading-[22px] font-bold text-ink">
+                {en}
+              </span>
+              <SpeakButton size={28} icon={13} text={en} />
             </div>
-            <span className="text-[13px] text-muted">{id}</span>
+            <span className="text-[13px] text-ink-2">{id}</span>
           </div>
         ))}
       </Card>
