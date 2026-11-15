@@ -9,7 +9,7 @@ const Lead = forwardRef<
   <p
     ref={ref}
     className={classNames(
-      "m-0 max-w-[760px] text-[15px] leading-[1.55] text-pretty text-ink-3",
+      "m-0 max-w-[680px] text-[15px] leading-[22px] font-semibold text-pretty text-ink-2",
       className,
     )}
     {...rest}

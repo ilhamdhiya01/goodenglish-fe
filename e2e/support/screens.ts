@@ -18,6 +18,7 @@ export interface Screen {
 }
 
 export const SCREENS: Screen[] = [
+  { name: "dev-ui", path: "/dev/ui", bare: true },
   { name: "access", path: "/access", mock: { session: null }, bare: true },
   { name: "plan", path: "/plan" },
   { name: "vocab", path: "/vocab" },

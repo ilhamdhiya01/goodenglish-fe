@@ -16,7 +16,7 @@ export const SelectChevron = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
     aria-hidden
-    className="pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 text-muted"
+    className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-ink-2"
   >
     <path d="M6 9l6 6 6-6" />
   </svg>
@@ -31,7 +31,7 @@ const Select = forwardRef<
       ref={ref}
       className={classNames(
         FIELD_CLASS,
-        "h-[38px] cursor-pointer appearance-none pr-8",
+        "cursor-pointer appearance-none pr-9",
         className,
       )}
       {...rest}

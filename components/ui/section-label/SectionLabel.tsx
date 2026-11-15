@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { forwardRef } from "react";
 
-// Small uppercase mono label ("RENCANA BELAJAR · PRE", ...).
+// Small uppercase section label ("RENCANA BELAJAR · PRE", ...).
 interface SectionLabelProps {
   children: React.ReactNode;
   tone?: "muted" | "green" | "red" | "faint";
@@ -12,17 +12,15 @@ const SectionLabel = forwardRef<HTMLSpanElement, SectionLabelProps>(
   ({ children, tone = "muted", className }, ref) => {
     const c =
       tone === "green"
-        ? "text-green"
+        ? "text-accent-edge"
         : tone === "red"
-          ? "text-red"
-          : tone === "faint"
-            ? "text-faint"
-            : "text-muted";
+          ? "text-bad"
+          : "text-ink-3";
     return (
       <span
         ref={ref}
         className={classNames(
-          "font-mono text-xs tracking-[0.06em]",
+          "text-[12.5px] leading-[18px] font-extrabold tracking-[0.07em] uppercase",
           c,
           className,
         )}

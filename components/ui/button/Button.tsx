@@ -2,20 +2,28 @@ import classNames from "classnames";
 import React, { forwardRef } from "react";
 import { tv } from "tailwind-variants";
 
+// Chunky button: 2px line with a thicker bottom edge that flattens when
+// pressed. dark / green / accent are all the primary (blue) button — use at
+// most one per screen.
+const PRIMARY =
+  "border-accent-edge bg-accent text-on-accent [--edge:var(--color-accent-edge)] hover:bg-accent-edge";
+
 const button = tv({
-  base: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border-[1.5px] font-semibold transition-colors select-none",
+  base: "inline-flex press cursor-pointer items-center justify-center gap-2 rounded-lg border-2 text-center font-extrabold tracking-[0.06em] uppercase edge focus-ring select-none disabled:cursor-not-allowed disabled:border-line disabled:bg-sunken disabled:text-ink-3 disabled:shadow-none",
   variants: {
     variant: {
-      dark: "border-ink bg-ink text-paper hover:bg-ink-2",
-      green: "border-green bg-green text-card hover:bg-green-deep",
-      outline: "border-ink bg-transparent text-ink hover:bg-sand",
-      accent: "border-green bg-card text-green hover:bg-green-bg",
-      danger: "border-red bg-transparent text-red hover:bg-red-bg",
+      dark: PRIMARY,
+      green: PRIMARY,
+      accent: PRIMARY,
+      outline:
+        "border-control bg-surface text-ink-2 [--edge:var(--color-control)] hover:bg-sunken",
+      danger:
+        "border-bad-edge bg-bad text-on-accent [--edge:var(--color-bad-edge)] hover:bg-bad-edge",
     },
     size: {
-      sm: "px-3 py-1.5 text-[13px]",
-      md: "px-4 py-2 text-sm",
-      lg: "px-5 py-2.5 text-[15px]",
+      sm: "min-h-9 rounded-md px-3 py-1.5 text-xs leading-4",
+      md: "min-h-11 px-4 py-2.5 text-[13.5px] leading-5",
+      lg: "min-h-[52px] px-5 py-3 text-[13.5px] leading-5 max-md:w-full",
     },
   },
   defaultVariants: { variant: "outline", size: "md" },

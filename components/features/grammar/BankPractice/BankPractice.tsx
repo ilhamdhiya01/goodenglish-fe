@@ -79,7 +79,7 @@ const BankPractice = React.memo(({ topic }: { topic: PracticeTopic }) => {
           <Pill key={id} size="sm" on={set === id} onClick={() => setSet(id)}>
             {no} · {label}
             {bank && (
-              <span className="font-mono text-[11px] opacity-70">
+              <span className="text-[11px] font-bold">
                 {Object.keys(stats[id]?.done || {}).length}/{total(id)}
               </span>
             )}

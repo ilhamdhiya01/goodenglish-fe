@@ -39,7 +39,12 @@ export default defineConfig({
     command:
       "pnpm build && cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/ && node .next/standalone/server.js",
     url: `http://localhost:${PORT}/access`,
-    env: { NEXT_PUBLIC_API_URL: "/api/v1", PORT: String(PORT) },
+    env: {
+      NEXT_PUBLIC_API_URL: "/api/v1",
+      // Builds the /dev/ui primitive gallery so it can be checked too.
+      NEXT_PUBLIC_DEV_UI: "1",
+      PORT: String(PORT),
+    },
     reuseExistingServer: !process.env.CI,
     timeout: 300_000,
   },

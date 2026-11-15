@@ -15,6 +15,7 @@
     "landmark-one-main": 1,
     "region": 350
   },
+  "desktop/dev-ui": {},
   "desktop/errors": {
     "color-contrast": 2,
     "landmark-one-main": 1,
@@ -107,6 +108,7 @@
     "region": 349,
     "scrollable-region-focusable": 11
   },
+  "mobile/dev-ui": {},
   "mobile/errors": {
     "color-contrast": 2,
     "landmark-one-main": 1,
@@ -118,9 +120,9 @@
     "region": 161
   },
   "mobile/grammar-latihan": {
-    "color-contrast": 2,
+    "color-contrast": 3,
     "landmark-one-main": 1,
-    "region": 128
+    "region": 129
   },
   "mobile/grammar-tense": {
     "color-contrast": 6,

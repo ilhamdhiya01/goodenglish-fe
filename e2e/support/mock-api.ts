@@ -225,6 +225,19 @@ export const installMockApi = async (
   return api;
 };
 
+/** Same "random" quiz questions and option order on every run, so axe
+ * counts and screenshots of shuffled screens are comparable. */
+export const seedRandom = (page: Page) =>
+  page.addInitScript(() => {
+    let a = 0x9e3779b9;
+    Math.random = () => {
+      a = (a + 0x6d2b79f5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  });
+
 /** Records every text the app asks the browser to speak. */
 export const spyOnSpeech = (page: Page) =>
   page.addInitScript(() => {
