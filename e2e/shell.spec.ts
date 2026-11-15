@@ -84,7 +84,8 @@ test("baris Hari ini: tidak di Rencana, bisa disembunyikan untuk hari ini", asyn
   page,
 }) => {
   await openApp(page, "/plan");
-  await expect(page.getByText(/^Hari ini \d+\/\d+$/)).toHaveCount(0);
+  const hide = page.getByRole("button", { name: "Sembunyikan untuk hari ini" });
+  await expect(hide).toHaveCount(0);
   await expect(
     page.getByText("Salah ucap itu bagian dari belajar. Terus bicara."),
   ).toBeVisible();
@@ -98,7 +99,7 @@ test("baris Hari ini: tidak di Rencana, bisa disembunyikan untuk hari ini", asyn
   await expect(line).toHaveCount(0);
   await page.reload();
   await expect(page.getByText("MEMUAT…")).toHaveCount(0, { timeout: 15_000 });
-  await expect(line).toHaveCount(0);
+  await expect(hide).toHaveCount(0);
 });
 
 test("tombol kembali ke atas muncul setelah menggulir", async ({ page }) => {

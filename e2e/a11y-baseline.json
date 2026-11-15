@@ -22,7 +22,6 @@
     "region": 2
   },
   "desktop/grammar-latihan": {
-    "color-contrast": 1,
     "region": 2
   },
   "desktop/grammar-tense": {
@@ -33,7 +32,6 @@
     "region": 3
   },
   "desktop/plan": {
-    "button-name": 5,
     "region": 2
   },
   "desktop/pronunciation": {
@@ -91,9 +89,7 @@
     "color-contrast": 4
   },
   "mobile/pencarian": {},
-  "mobile/plan": {
-    "button-name": 5
-  },
+  "mobile/plan": {},
   "mobile/pronunciation": {},
   "mobile/review": {},
   "mobile/review-jawaban": {},
