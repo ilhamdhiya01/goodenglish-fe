@@ -18,17 +18,21 @@ import type { ErrorResponse } from "@/lib/types/api.types";
 
 type Hook = ReturnType<typeof useAiSettings>;
 
+const HINT = "text-[12.5px] leading-[18px] font-semibold text-ink-2";
+// Names from the server setup, in the body font (mono is for access tokens).
+const CODE = "rounded-sm bg-surface px-1 font-sans font-extrabold";
+
 const KeyStatus = ({ s }: { s: AiSettings }) =>
   !s.hasKey ? (
-    <span className="text-[13px] text-red">
+    <span className="text-sm font-bold text-bad">
       Belum ada API key — Tanya AI nonaktif untuk semua pengguna.
     </span>
   ) : s.keyReadable ? (
-    <span className="text-[13px] text-green">
+    <span className="text-sm font-bold text-ok">
       Key tersimpan · …{s.last4} — Tanya AI aktif.
     </span>
   ) : (
-    <span className="text-[13px] text-red">
+    <span className="text-sm font-bold text-bad">
       Key tersimpan (…{s.last4}) tapi tidak bisa dibaca server, kemungkinan
       ENCRYPTION_KEY berubah. Masukkan key lagi.
     </span>
@@ -71,16 +75,20 @@ const Form = ({ s, hook }: { s: AiSettings; hook: Hook }) => {
   };
 
   return (
-    <Card tone="ink" pad="lg" className="gap-4">
+    <Card tone="line" pad="lg" className="gap-4">
       <SectionLabel tone="green">GOOGLE GEMINI · TANYA AI</SectionLabel>
       <KeyStatus s={s} />
 
       {!s.encryptionReady && (
-        <div className="rounded-lg border border-red-line bg-red-bg px-3 py-2.5 text-[13px] text-red-deep">
-          <b>ENCRYPTION_KEY</b> belum di-set di <code>.env</code> server, jadi
-          API key belum bisa disimpan. Isi dengan hasil{" "}
-          <code>openssl rand -hex 32</code>, lalu restart backend.
-        </div>
+        <Card tone="redBg" pad="sm">
+          <span className="text-[13.5px] leading-5 font-semibold text-bad-edge">
+            <b className="font-extrabold">ENCRYPTION_KEY</b> belum di-set di{" "}
+            <code className={CODE}>.env</code> server, jadi API key belum bisa
+            disimpan. Isi dengan hasil{" "}
+            <code className={CODE}>openssl rand -hex 32</code>, lalu restart
+            backend.
+          </span>
+        </Card>
       )}
 
       <FieldLabel label={s.hasKey ? "Ganti API key (opsional)" : "API key"}>
@@ -98,10 +106,9 @@ const Form = ({ s, hook }: { s: AiSettings; hook: Hook }) => {
               ? `Tersimpan (…${s.last4}) — isi untuk mengganti`
               : "Tempel API key dari aistudio.google.com/apikey"
           }
-          className="font-mono"
+          error={keyError || undefined}
         />
       </FieldLabel>
-      {keyError && <span className="text-[13px] text-red">{keyError}</span>}
 
       <div className="flex flex-col gap-1.5">
         <div className="flex flex-wrap items-end gap-3">
@@ -119,7 +126,6 @@ const Form = ({ s, hook }: { s: AiSettings; hook: Hook }) => {
           {typedKey && !preview && (
             <Button
               variant="outline"
-              size="sm"
               disabled={hook.isPreviewing}
               onClick={() => void loadModels()}
             >
@@ -127,7 +133,7 @@ const Form = ({ s, hook }: { s: AiSettings; hook: Hook }) => {
             </Button>
           )}
         </div>
-        <span className="text-xs text-faint">
+        <span className={HINT}>
           {hook.isLoadingModels && !list
             ? "Memuat daftar model dari Google…"
             : list?.source === "live"
@@ -150,6 +156,7 @@ const Form = ({ s, hook }: { s: AiSettings; hook: Hook }) => {
         {s.hasKey && (
           <TextButton
             tone="red"
+            className="hit-44"
             disabled={hook.isRemoving}
             onClick={() => {
               if (
@@ -164,13 +171,13 @@ const Form = ({ s, hook }: { s: AiSettings; hook: Hook }) => {
           </TextButton>
         )}
         {s.updatedAt && (
-          <span className="text-xs text-muted">
+          <span className={HINT}>
             Terakhir diubah {s.updatedBy ? `oleh ${s.updatedBy} · ` : ""}
             {formatDateTime(s.updatedAt)}
           </span>
         )}
       </div>
-      <span className="text-xs text-faint">
+      <span className={HINT}>
         Key dicek ke Google sebelum disimpan, lalu disimpan terenkripsi di
         database. Perubahan langsung berlaku tanpa restart.
       </span>
@@ -182,10 +189,10 @@ const Form = ({ s, hook }: { s: AiSettings; hook: Hook }) => {
 const AiSettingsCard = React.memo(() => {
   const hook = useAiSettings();
   if (hook.isLoading)
-    return <span className="font-mono text-xs text-muted">Memuat…</span>;
+    return <span className="text-[13px] font-bold text-ink-2">Memuat…</span>;
   if (hook.isError || !hook.settings)
     return (
-      <span className="text-sm text-red">
+      <span className="text-sm font-bold text-bad">
         Gagal memuat pengaturan Tanya AI.
       </span>
     );

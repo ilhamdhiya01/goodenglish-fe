@@ -1,10 +1,10 @@
 "use client";
 
 import type { AxiosError } from "axios";
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useSyncExternalStore } from "react";
 
+import { Wordmark } from "@/components/shared/layout/nav/NavParts";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import Input from "@/components/ui/input";
@@ -20,9 +20,31 @@ import { clearAiChat } from "@/stores/useAiChatStore";
 const safeCallback = (raw: string | null) =>
   raw && raw.startsWith("/") && !raw.startsWith("//") ? raw : ROUTES.PLAN;
 
+const OFFLINE =
+  "Tidak bisa terhubung ke server. Periksa koneksi, lalu coba lagi.";
+
+// navigator.onLine, kept current by the online / offline events.
+const useOnline = () =>
+  useSyncExternalStore(
+    (onChange) => {
+      window.addEventListener("online", onChange);
+      window.addEventListener("offline", onChange);
+      return () => {
+        window.removeEventListener("online", onChange);
+        window.removeEventListener("offline", onChange);
+      };
+    },
+    () => navigator.onLine,
+    () => true,
+  );
+
+// The token screen: one centered column — wordmark, title, the ge_… field
+// and a full-width "Masuk". Errors sit under the field; an offline device is
+// told so before it tries.
 const AccessForm = React.memo(() => {
   const searchParams = useSearchParams();
   const { handleRedeem, isRedeeming } = useRedeemToken();
+  const online = useOnline();
   const [token, setToken] = useState("");
   const [error, setError] = useState("");
 
@@ -44,7 +66,7 @@ const AccessForm = React.memo(() => {
         setError(
           (err as AxiosError).response
             ? accessErrorText((err as Error).message)
-            : "Tidak bisa terhubung ke server. Periksa koneksi, lalu coba lagi.",
+            : OFFLINE,
         );
       }
     },
@@ -52,12 +74,9 @@ const AccessForm = React.memo(() => {
   );
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-[560px] flex-col justify-center gap-6 px-[clamp(14px,3vw,28px)] py-12">
-      <span className="flex items-center gap-2.5 font-mono text-sm font-bold tracking-[0.12em] text-ink">
-        <Image src="/icon.svg" alt="" width={28} height={28} unoptimized />
-        GOODENGLISH
-      </span>
-      <div className="flex flex-col gap-2.5">
+    <main className="mx-auto flex min-h-dvh w-full max-w-[392px] flex-col justify-center gap-6 px-4 py-12">
+      <Wordmark className="text-[28px]" />
+      <div className="flex flex-col gap-2">
         <SectionLabel tone="green">AKSES</SectionLabel>
         <PageHeading>Masukkan token akses</PageHeading>
         <Lead>
@@ -65,33 +84,37 @@ const AccessForm = React.memo(() => {
           jadi bisa dilanjutkan dari perangkat lain dengan token yang sama.
         </Lead>
       </div>
-      <Card tone="ink" pad="lg">
-        <form onSubmit={onSubmit} className="flex flex-col gap-3">
-          <Input
-            autoFocus
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-            placeholder="ge_…"
-            autoComplete="off"
-            spellCheck={false}
-            className="font-mono"
-          />
-          {error && (
-            <span className="text-[13.5px] leading-[1.45] text-red">
-              {error}
-            </span>
-          )}
-          <Button
-            type="submit"
-            variant="green"
-            disabled={isRedeeming || !token.trim()}
-            className="self-start"
-          >
-            {isRedeeming ? "Memeriksa…" : "Masuk"}
-          </Button>
-        </form>
-      </Card>
-    </div>
+      {!online && (
+        <Card tone="dashed" pad="sm">
+          <span className="text-[13.5px] leading-[19px] font-bold text-ink-2">
+            {OFFLINE}
+          </span>
+        </Card>
+      )}
+      <form onSubmit={onSubmit} className="flex flex-col gap-3">
+        <Input
+          autoFocus
+          value={token}
+          onChange={(e) => setToken(e.target.value)}
+          readOnly={isRedeeming}
+          aria-label="Token akses"
+          placeholder="ge_…"
+          autoComplete="off"
+          spellCheck={false}
+          error={error || undefined}
+          className="font-mono"
+        />
+        <Button
+          type="submit"
+          variant="green"
+          size="lg"
+          disabled={isRedeeming || !token.trim()}
+          className="w-full"
+        >
+          {isRedeeming ? "Memeriksa…" : "Masuk"}
+        </Button>
+      </form>
+    </main>
   );
 });
 

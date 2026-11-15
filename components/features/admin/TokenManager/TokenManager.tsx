@@ -23,11 +23,34 @@ import TokenForm from "../TokenForm";
 import TokenRowMenu from "../TokenRowMenu";
 import TokenSummaryPanel from "../TokenSummaryPanel";
 
-const STATUS: Record<AccessTokenItem["status"], [string, string]> = {
-  active: ["Aktif", "bg-green-bg2 text-green-deep"],
-  revoked: ["Nonaktif", "bg-red-bg text-red-deep"],
-  expired: ["Kedaluwarsa", "bg-track text-muted"],
+// [word, mark, colour]: the mark keeps the state readable without colour.
+const STATUS: Record<AccessTokenItem["status"], [string, string, string]> = {
+  active: ["Aktif", "●", "text-ok"],
+  revoked: ["Nonaktif", "○", "text-ink-2"],
+  expired: ["Kedaluwarsa", "✕", "text-bad"],
 };
+
+const HEADS = [
+  "PEMILIK",
+  "AKSES",
+  "PERANGKAT",
+  "KEDALUWARSA",
+  "TERAKHIR DIPAKAI",
+  "STATUS",
+  "",
+];
+
+// From 700px a table; below it each row is a card of "label  value" lines.
+// Same markup either way, only the CSS changes.
+const TD =
+  "md:border-b-2 md:border-line md:px-3 md:py-2.5 max-md:flex max-md:items-baseline max-md:gap-3";
+
+// The column name in front of a value, phones only (the table has a header).
+const CellLabel = ({ children }: { children: React.ReactNode }) => (
+  <span className="w-[120px] shrink-0 text-[12.5px] leading-[18px] font-extrabold tracking-[0.07em] text-ink-3 uppercase md:hidden">
+    {children}
+  </span>
+);
 
 const menuLabels = (t: AccessTokenItem) =>
   t.role === "admin"
@@ -199,91 +222,105 @@ const TokenManager = React.memo(() => {
         </Modal>
       )}
 
-      <Card tone="line" pad="sm" className="overflow-x-auto">
+      <Card
+        tone="line"
+        pad="sm"
+        className="max-md:border-0 max-md:bg-transparent max-md:p-0 max-md:shadow-none"
+      >
         {isLoading ? (
-          <span className="p-2 font-mono text-xs text-muted">Memuat…</span>
+          <span className="p-2 text-[13px] font-bold text-ink-2">Memuat…</span>
         ) : isError ? (
-          <span className="p-2 text-sm text-red">
+          <span className="p-2 text-sm font-bold text-bad">
             Gagal memuat daftar token.
           </span>
         ) : (
-          <table className="w-full min-w-[920px] border-collapse text-left text-[13.5px]">
-            <thead>
-              <tr className="font-mono text-[11px] tracking-[0.06em] text-muted">
-                {[
-                  "PEMILIK",
-                  "AKSES",
-                  "PERANGKAT",
-                  "KEDALUWARSA",
-                  "TERAKHIR DIPAKAI",
-                  "STATUS",
-                  "",
-                ].map((h) => (
+          <table className="w-full border-collapse text-left text-sm max-md:block">
+            <thead className="max-md:hidden">
+              <tr>
+                {HEADS.map((h) => (
                   <th
                     key={h}
-                    className="border-b-[1.5px] border-line px-2.5 py-2 font-normal"
+                    className="border-b-2 border-line px-3 py-2.5 text-[12.5px] leading-[18px] font-extrabold tracking-[0.07em] text-ink-3 uppercase"
                   >
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="max-md:flex max-md:flex-col max-md:gap-3">
               {tokens.map((t) => {
                 const busy =
                   (isActing && actingOn?.id === t.id) ||
                   (isRegenerating && regeneratingId === t.id);
+                const [word, mark, tone] = STATUS[t.status];
                 return (
                   <tr
                     key={t.id}
-                    className={classNames("align-top", { "opacity-50": busy })}
+                    aria-busy={busy || undefined}
+                    className={classNames(
+                      "align-top md:h-11",
+                      "max-md:relative max-md:flex max-md:flex-col max-md:gap-2 max-md:rounded-xl max-md:border-2 max-md:border-line max-md:p-4 max-md:edge-card",
+                      busy ? "bg-sunken" : "max-md:bg-surface",
+                    )}
                   >
-                    <td className="border-b border-hairline px-2.5 py-2.5">
+                    <td className={classNames(TD, "max-md:pr-12")}>
                       <div className="flex flex-col gap-0.5">
-                        <span className="font-semibold">
+                        <span className="font-extrabold text-ink">
                           {t.label}
                           {t.role === "admin" && (
-                            <span className="ml-1.5 rounded bg-ink px-1.5 py-px font-mono text-[10.5px] text-paper">
+                            <span className="ml-1.5 rounded-sm bg-accent-tint px-1.5 py-px align-[1px] text-[11.5px] font-extrabold text-accent-edge">
                               ADMIN
                             </span>
                           )}
                         </span>
-                        <span className="font-mono text-[11.5px] text-faint">
+                        <span className="font-mono text-xs text-ink-2">
                           {t.tokenPrefix}…
                         </span>
                       </div>
                     </td>
-                    <td className="max-w-[300px] border-b border-hairline px-2.5 py-2.5 text-ink-3">
-                      <div>{menuLabels(t)}</div>
-                      <div className="text-[12.5px] text-muted">
-                        {levelLabels(t)}
-                      </div>
-                      {aiLabel(t) && (
-                        <div className="font-mono text-[11.5px] text-green">
-                          {aiLabel(t)}
+                    <td className={classNames(TD, "md:max-w-[300px]")}>
+                      <CellLabel>{HEADS[1]}</CellLabel>
+                      <div className="flex min-w-0 flex-col gap-0.5">
+                        <div className="text-ink">{menuLabels(t)}</div>
+                        <div className="text-[13px] text-ink-2">
+                          {levelLabels(t)}
                         </div>
-                      )}
-                    </td>
-                    <td className="border-b border-hairline px-2.5 py-2.5 font-mono tabular-nums">
-                      {t.activeDevices} / {t.maxDevices}
-                    </td>
-                    <td className="border-b border-hairline px-2.5 py-2.5">
-                      {t.expiresAt ? formatDate(t.expiresAt) : "—"}
-                    </td>
-                    <td className="border-b border-hairline px-2.5 py-2.5 text-muted">
-                      {t.lastUsedAt ? formatDateTime(t.lastUsedAt) : "belum"}
-                    </td>
-                    <td className="border-b border-hairline px-2.5 py-2.5">
-                      <span
-                        className={classNames(
-                          "rounded px-2 py-0.5 font-mono text-[11px]",
-                          STATUS[t.status][1],
+                        {aiLabel(t) && (
+                          <div className="text-[13px] font-bold text-accent-edge">
+                            {aiLabel(t)}
+                          </div>
                         )}
-                      >
-                        {STATUS[t.status][0]}
+                      </div>
+                    </td>
+                    <td className={classNames(TD, "tabular-nums")}>
+                      <CellLabel>{HEADS[2]}</CellLabel>
+                      <span>
+                        {t.activeDevices} / {t.maxDevices}
                       </span>
                     </td>
-                    <td className="border-b border-hairline px-2.5 py-2.5">
+                    <td className={TD}>
+                      <CellLabel>{HEADS[3]}</CellLabel>
+                      <span>{t.expiresAt ? formatDate(t.expiresAt) : "—"}</span>
+                    </td>
+                    <td className={classNames(TD, "text-ink-2")}>
+                      <CellLabel>{HEADS[4]}</CellLabel>
+                      <span>
+                        {t.lastUsedAt ? formatDateTime(t.lastUsedAt) : "belum"}
+                      </span>
+                    </td>
+                    <td className={TD}>
+                      <CellLabel>{HEADS[5]}</CellLabel>
+                      <span
+                        className={classNames(
+                          "inline-flex items-baseline gap-1.5 font-extrabold whitespace-nowrap",
+                          tone,
+                        )}
+                      >
+                        <span aria-hidden>{mark}</span>
+                        <span>{word}</span>
+                      </span>
+                    </td>
+                    <td className="max-md:absolute max-md:top-3 max-md:right-3 md:border-b-2 md:border-line md:px-3 md:py-1">
                       <div className="flex justify-end">
                         <TokenRowMenu
                           disabled={busy}

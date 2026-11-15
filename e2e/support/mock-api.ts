@@ -84,6 +84,8 @@ export interface MockApi {
   puts: { key: string; data: unknown }[];
   /** Every POST /ai/chat body. */
   chats: unknown[];
+  /** Every token action, "METHOD /admin/tokens/…". */
+  admin: string[];
   lastPut: (key: string) => unknown;
 }
 
@@ -121,6 +123,7 @@ export const installMockApi = async (
   const api: MockApi = {
     puts: [],
     chats: [],
+    admin: [],
     lastPut: (key) =>
       [...api.puts].reverse().find((p) => p.key === key)?.data ?? undefined,
   };
@@ -141,6 +144,16 @@ export const installMockApi = async (
     }
     if (path === "/auth/redeem" && method === "POST") {
       const { token } = req.postDataJSON() as { token: string };
+      // One token per backend refusal, to check every error message.
+      const refusal: Record<string, [number, string]> = {
+        ge_revoked: [403, "token_revoked"],
+        ge_expired: [410, "token_expired"],
+        ge_devices: [429, "device_limit"],
+      };
+      if (refusal[token]) {
+        const [status, code] = refusal[token];
+        return json(route, { errors: [{ message: code }] }, status);
+      }
       if (token !== "ge_e2e") {
         return json(route, { errors: [{ message: "invalid_token" }] }, 401);
       }
@@ -207,6 +220,17 @@ export const installMockApi = async (
 
     if (path === "/admin/tokens" && method === "GET") {
       return json(route, ADMIN_TOKENS);
+    }
+    // Token actions: record them and answer with a plausible item.
+    if (path.startsWith("/admin/tokens") && method !== "GET") {
+      api.admin.push(`${method} ${path}`);
+      const id = path.split("/")[3] ?? "t9";
+      const item = { ...ADMIN_TOKENS[0], id, label: "Baru" };
+      if (method === "DELETE" && path.split("/").length === 4)
+        return json(route, null);
+      if (path === "/admin/tokens" || path.endsWith("/regenerate"))
+        return json(route, { token: "ge_e2e_baru_123456", item });
+      return json(route, item);
     }
     if (path.startsWith("/admin/tokens/") && path.endsWith("/summary")) {
       return json(route, {
