@@ -102,6 +102,69 @@ test.describe("logo", () => {
     });
   });
 
+  test.describe("ikon", () => {
+    test.use({ mock: { session: null } });
+
+    test("favicon, ikon iOS dan PWA tersaji tanpa sesi; tidak ada 404", async ({
+      page,
+      request,
+    }) => {
+      const missing: string[] = [];
+      page.on("response", (r) => {
+        if (r.status() === 404) missing.push(r.url());
+      });
+      await page.goto("/access");
+      await expect(
+        page.getByText("GoodEnglish", { exact: true }),
+      ).toBeVisible();
+
+      const links = await page
+        .locator('head link[rel="icon"], head link[rel="apple-touch-icon"]')
+        .evaluateAll((ls) =>
+          ls.map((l) => ({
+            href: l.getAttribute("href")!,
+            sizes: l.getAttribute("sizes"),
+            type: l.getAttribute("type"),
+          })),
+        );
+      // SVG first, then the 32 and 16 px PNGs, and the 180 px iOS icon.
+      expect(links.map((l) => l.type ?? l.sizes)).toEqual([
+        "image/svg+xml",
+        "image/png",
+        "image/png",
+        "image/png",
+      ]);
+      expect(links.map((l) => l.sizes)).toEqual([
+        "any",
+        "32x32",
+        "16x16",
+        "180x180",
+      ]);
+      expect(
+        await page.locator('meta[name="theme-color"]').getAttribute("content"),
+      ).toBe("#2f6fed");
+
+      const manifest = await (
+        await request.get("/manifest.webmanifest")
+      ).json();
+      expect(manifest.theme_color).toBe("#2f6fed");
+      expect(manifest.background_color).toBe("#ffffff");
+      expect(manifest.icons.map((i: { purpose: string }) => i.purpose)).toEqual(
+        ["any", "any", "maskable"],
+      );
+
+      for (const href of [
+        ...links.map((l) => l.href),
+        ...manifest.icons.map((i: { src: string }) => i.src),
+      ]) {
+        const res = await request.get(href, { maxRedirects: 0 });
+        expect(res.status(), href).toBe(200);
+        expect(res.headers()["content-type"], href).toMatch(/^image\//);
+      }
+      expect(missing).toEqual([]);
+    });
+  });
+
   test.describe("admin", () => {
     test.use({ mock: { session: adminSession } });
 

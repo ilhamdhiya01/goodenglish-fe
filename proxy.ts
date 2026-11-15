@@ -27,6 +27,6 @@ export const config = {
   // fetches them on the token screen, and a redirect to /access would make
   // the app uninstallable.
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|icon.svg|icon1.png|icon2.png|apple-icon.png|manifest.webmanifest|sw.js|icons/|brand/).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|icon.svg|icon1.png|icon2.png|apple-icon.png|manifest.webmanifest|sw.js|brand/).*)",
   ],
 };

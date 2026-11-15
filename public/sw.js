@@ -5,7 +5,8 @@
 // stale login. No offline mode; the only other cached files are the logo
 // and Jalak in /brand, so the offline message on /access has its picture.
 
-const CACHE = "ge-static-v1";
+// v2: drops the old /icons files from v1.
+const CACHE = "ge-static-v2";
 // Each deploy brings new hashed chunks; keep the cache from growing forever.
 const MAX_ENTRIES = 300;
 
@@ -43,12 +44,10 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Content-hashed (/_next/static) or versioned-by-name (/icons) files: once
-// fetched, never different.
+// Content-hashed (/_next/static) files: once fetched, never different.
 const isImmutable = (url) =>
   url.origin === self.location.origin &&
-  (url.pathname.startsWith("/_next/static/") ||
-    url.pathname.startsWith("/icons/"));
+  url.pathname.startsWith("/_next/static/");
 
 // The logo and Jalak (/brand): from cache at once, so they show offline too,
 // and refreshed in the background so a new design still arrives.
