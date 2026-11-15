@@ -29,6 +29,8 @@ for (const s of SCREENS) {
     if (s.mock) test.use({ mock: s.mock });
 
     test(`axe ${s.name}`, async ({ page }, info) => {
+      // A week of word cards is a big DOM; axe needs ~20s on it.
+      test.setTimeout(90_000);
       await openScreen(page, s);
       const { violations } = await new AxeBuilder({ page }).analyze();
       const found = Object.fromEntries(
@@ -53,7 +55,7 @@ for (const s of SCREENS) {
           (v) =>
             `${v.id} (${known[v.id] ?? 0} → ${v.nodes.length}): ${v.help}\n  ` +
             v.nodes
-              .slice(0, 3)
+              .slice(0, 12)
               .map((n) => n.target.join(" "))
               .join("\n  "),
         );

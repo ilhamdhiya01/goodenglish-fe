@@ -17,6 +17,7 @@ test.describe("screens", () => {
       if (s.mock) test.use({ mock: s.mock });
 
       test(`capture ${s.name}`, async ({ page }, info) => {
+        test.setTimeout(90_000);
         await openScreen(page, s);
         const out = path.join("docs/redesign/screens", dir!, info.project.name);
         await mkdir(out, { recursive: true });
