@@ -224,7 +224,7 @@ const PlanPage = React.memo(() => {
         </Card>
       )}
 
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="grid items-start gap-5 @min-[56rem]:grid-cols-[minmax(0,1fr)_340px]">
         <ol className="m-0 flex list-none flex-col gap-3 p-0">
           {blocks.map((b) => {
             const done = !!day[b.id];

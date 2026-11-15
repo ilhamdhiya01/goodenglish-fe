@@ -188,7 +188,7 @@ const ErrorsPage = React.memo(() => {
       )}
 
       {mode === "read" && (
-        <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div className="grid items-start gap-5 @min-[56rem]:grid-cols-[minmax(0,1fr)_280px]">
           <div className="flex min-w-0 flex-col gap-4">
             {groups.map((g) => (
               <Card
@@ -220,7 +220,7 @@ const ErrorsPage = React.memo(() => {
           </div>
           <nav
             aria-label="Kategori"
-            className="hidden flex-col gap-1 rounded-xl border-2 border-line bg-surface p-2 lg:sticky lg:top-6 lg:flex"
+            className="hidden flex-col gap-1 rounded-xl border-2 border-line bg-surface p-2 @min-[56rem]:sticky @min-[56rem]:top-6 @min-[56rem]:flex"
           >
             <SectionLabel className="px-3 pt-1.5 pb-1">
               {groups.length} kategori

@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -25,6 +26,7 @@ import type { ProgressKey, ProgressMap } from "@/lib/types/progress-sync.types";
 import type { MenuId } from "@/lib/types/session.types";
 import { ROUTES } from "@/routes";
 import { useAccessStore } from "@/stores/useAccessStore";
+import { useAiChatStore } from "@/stores/useAiChatStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useSharedWordsStore } from "@/stores/useSharedWordsStore";
 
@@ -61,6 +63,7 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   const setSession = useAccessStore((s) => s.setSession);
   const setWords = useSharedWordsStore((s) => s.setWords);
   const { actions, extras } = useAccountActions();
+  const aiOpen = useAiChatStore((s) => s.open);
 
   // Also re-runs after an admin edit refetches the list.
   useEffect(() => {
@@ -204,15 +207,23 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   return (
     // --shell-top: height of what sticks to the top (the phone's top bar),
     // so sticky page toolbars sit under it.
-    <div className="min-h-dvh [--shell-top:calc(58px+env(safe-area-inset-top))] md:grid md:grid-cols-[88px_minmax(0,1fr)] md:[--shell-top:0px] lg:grid-cols-[250px_minmax(0,1fr)]">
+    <div
+      className={classNames(
+        "min-h-dvh [--shell-top:calc(58px+env(safe-area-inset-top))] md:grid md:grid-cols-[88px_minmax(0,1fr)] md:[--shell-top:0px] lg:grid-cols-[250px_minmax(0,1fr)]",
+        // ≥1100px the open Tanya AI panel sits beside the page: make room.
+        aiOpen && hasAi && "lg:pr-[400px]",
+      )}
+    >
       <VoiceBootstrap />
       <PlanAutoCheck />
       <Sidebar className="hidden lg:flex" />
       <IconRail className="hidden md:flex lg:hidden" />
       <div className="flex min-w-0 flex-col">
         <TopBar actions={actions} hasAi={hasAi} />
-        <main className="mx-auto flex w-full max-w-[1160px] flex-col gap-6 px-4 pt-4 pb-[calc(96px+env(safe-area-inset-bottom))] md:px-8 md:pt-6 md:pb-20">
-          {/* One h1 per page for screen readers; the visible titles are h2. */}
+        <main className="@container mx-auto flex w-full max-w-[1160px] flex-col gap-6 px-4 pt-4 pb-[calc(96px+env(safe-area-inset-bottom))] md:px-8 md:pt-6 md:pb-20">
+          {/* One h1 per page for screen readers; the visible titles are h2.
+              main is a size container: pages pick one or two columns from
+              the room they get (less while Tanya AI sits beside them). */}
           <h1 className="sr-only">
             {NAV.find((n) => isActivePath(pathname, n.path))?.label ??
               "GoodEnglish"}

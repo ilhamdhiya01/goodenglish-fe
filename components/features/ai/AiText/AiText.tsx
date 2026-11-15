@@ -11,13 +11,25 @@ const inline = (text: string): React.ReactNode[] =>
     ) : part.length > 2 && part.startsWith("*") && part.endsWith("*") ? (
       <i key={i}>{part.slice(1, -1)}</i>
     ) : part.startsWith("`") && part.endsWith("`") ? (
-      <code key={i} className="rounded bg-sand px-1 font-mono text-[0.92em]">
+      <code key={i} className="rounded-[6px] bg-chip px-1 font-bold">
         {part.slice(1, -1)}
       </code>
     ) : (
       part
     ),
   );
+
+// A paragraph or list item that is nothing but *an italic sentence* is an
+// English example: it gets its own chip box.
+const EXAMPLE = /^\*[^*\s][^*]*\*$/;
+const example = (key: number, s: string) => (
+  <span
+    key={key}
+    className="block self-start rounded-sm bg-chip px-2.5 py-1.5 font-bold text-ink"
+  >
+    {s.slice(1, -1)}
+  </span>
+);
 
 const BULLET = /^\s*[-*•]\s+/;
 const NUMBER = /^\s*\d+[.)]\s+/;
@@ -95,7 +107,9 @@ const AiText = React.memo(({ text, question }: AiTextProps) => {
         className={`m-0 flex flex-col gap-1 pl-5 ${list.ordered ? "list-decimal" : "list-disc"}`}
       >
         {list.items.map((it, i) => (
-          <li key={i}>{inline(it)}</li>
+          <li key={i}>
+            {EXAMPLE.test(it.trim()) ? example(i, it.trim()) : inline(it)}
+          </li>
         ))}
       </Tag>,
     );
@@ -117,15 +131,17 @@ const AiText = React.memo(({ text, question }: AiTextProps) => {
           blocks.push(
             <p
               key={blocks.length}
-              className="m-0 self-start rounded-lg border border-line-2 bg-sand px-2.5 py-1 text-[13px]"
+              className="m-0 self-start rounded-lg border-2 border-dashed border-control px-2.5 py-1 text-[13.5px]"
             >
-              <span className="mr-1.5 font-mono text-[10.5px] tracking-[0.08em] text-muted">
+              <span className="mr-1.5 text-[11.5px] font-extrabold tracking-[0.07em] text-ink-2">
                 SALAH KETIK
               </span>
               {inline(typos)}
             </p>,
           );
-      } else if (line.trim())
+      } else if (EXAMPLE.test(line.trim()))
+        blocks.push(example(blocks.length, line.trim()));
+      else if (line.trim())
         blocks.push(
           <p key={blocks.length} className="m-0">
             {inline(line.replace(/^#+\s*/, ""))}

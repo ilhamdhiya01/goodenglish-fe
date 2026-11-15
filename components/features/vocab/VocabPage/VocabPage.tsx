@@ -65,13 +65,13 @@ const VocabPage = React.memo(() => {
   }, [limit, list.length]);
 
   return (
-    <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+    <div className="grid items-start gap-6 @min-[56rem]:grid-cols-[minmax(0,1fr)_320px]">
       <div className="flex min-w-0 flex-col gap-4">
         <WeekCover data={data} />
 
         {/* Below 1100px the tense focus folds into one row under the cover. */}
         {d && !searching && (
-          <details className="group rounded-xl border-2 border-line bg-surface lg:hidden">
+          <details className="group rounded-xl border-2 border-line bg-surface @min-[56rem]:hidden">
             <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-[18px] py-3 text-sm font-extrabold text-ink focus-ring">
               <span>
                 <span className="text-ink-2">Fokus tense · </span>
@@ -135,7 +135,7 @@ const VocabPage = React.memo(() => {
 
       <aside
         aria-label="Minggu ini"
-        className="hidden flex-col gap-4 lg:sticky lg:top-6 lg:flex lg:max-h-[calc(100dvh-48px)] lg:overflow-y-auto lg:pb-2"
+        className="hidden flex-col gap-4 @min-[56rem]:sticky @min-[56rem]:top-6 @min-[56rem]:flex @min-[56rem]:max-h-[calc(100dvh-48px)] @min-[56rem]:overflow-y-auto @min-[56rem]:pb-2"
       >
         {d && <TenseIntro d={d} />}
         <Card className="gap-1">

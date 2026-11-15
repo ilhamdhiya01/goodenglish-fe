@@ -142,7 +142,7 @@ const ReviewPage = React.memo(() => {
     : null;
 
   return (
-    <section className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+    <section className="grid items-start gap-6 @min-[56rem]:grid-cols-[minmax(0,1fr)_320px]">
       <div className="flex min-w-0 flex-col gap-5">
         <div className="flex flex-col gap-2">
           <PageHeading>Ulang hari ini</PageHeading>
@@ -318,7 +318,7 @@ const ReviewPage = React.memo(() => {
       {item && (
         <aside
           aria-label="Antrean dan pintasan"
-          className="hidden flex-col gap-4 lg:flex"
+          className="hidden flex-col gap-4 @min-[56rem]:flex"
         >
           {queue.length > 0 && (
             <Card className="gap-1.5">

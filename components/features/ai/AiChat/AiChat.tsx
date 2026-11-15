@@ -2,50 +2,54 @@
 
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
+import {
+  LuChevronLeft,
+  LuHistory,
+  LuPlus,
+  LuTrash2,
+  LuX,
+} from "react-icons/lu";
 
 import AiText from "@/components/features/ai/AiText";
+import Button from "@/components/ui/button";
+import Card from "@/components/ui/card";
+import IconButton from "@/components/ui/icon-button";
+import { FIELD_CLASS } from "@/components/ui/input/Input";
+import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
 import { accessErrorText } from "@/const/access.constant";
 import { formatDateTime } from "@/lib/helpers/date.helper";
 import {
   MAX_QUESTION,
+  stopAiAnswer,
   useAiChat,
   useAiConversationActions,
   useAiConversations,
   useAiUsage,
 } from "@/lib/hooks/ai/useAiChat";
 import { useAiSuggestions } from "@/lib/hooks/ai/useAiSuggestions";
+import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import type { AiMessage } from "@/lib/types/ai.types";
 import { useAiChatStore } from "@/stores/useAiChatStore";
 
-const ChatIcon = ({ size = 24 }: { size?: number }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.4A8 8 0 1 1 21 12z" />
-    <path d="M9 10h6M9 14h4" />
-  </svg>
-);
+// Wide screens: the panel sits beside the page and pushes it aside (see
+// AppShell); narrower ones get a drawer / full screen over the page.
+export const AI_PUSH_QUERY = "(min-width: 68.75rem)";
 
 interface BubbleProps {
   m: AiMessage;
   busy: boolean;
+  /** The answer still streaming in: shows a block cursor at its end. */
+  live?: boolean;
   /** For a reply: the learner's message it answers. */
   question?: string;
 }
 
-const Bubble = React.memo(({ m, busy, question }: BubbleProps) => {
+const Bubble = React.memo(({ m, busy, live, question }: BubbleProps) => {
   if (m.role === "user")
     return (
       <div className="flex justify-end">
-        <div className="max-w-[85%] rounded-2xl rounded-br-md bg-ink px-3.5 py-2.5 text-[14px] leading-[1.5] whitespace-pre-wrap text-paper">
+        <div className="max-w-[85%] rounded-xl rounded-br-sm bg-accent px-3.5 py-2.5 text-[15px] leading-[22px] font-bold whitespace-pre-wrap text-on-accent">
           {m.text}
         </div>
       </div>
@@ -53,16 +57,24 @@ const Bubble = React.memo(({ m, busy, question }: BubbleProps) => {
   return (
     <div
       className={classNames(
-        "max-w-[92%] rounded-2xl rounded-bl-md border px-3.5 py-2.5 text-[14px] leading-[1.55]",
+        "max-w-[92%] rounded-xl rounded-bl-sm border-2 px-3.5 py-2.5 text-[15px] leading-[22px]",
         m.error
-          ? "border-red-line bg-red-bg text-red-deep"
-          : "border-line bg-card text-ink",
+          ? "border-bad-line bg-bad-bg text-ink"
+          : "border-line bg-surface text-ink",
       )}
     >
       {m.text ? (
-        <AiText text={m.text} question={question} />
+        <>
+          <AiText text={m.text} question={question} />
+          {live && (
+            <span
+              aria-hidden
+              className="ml-0.5 inline-block h-4 w-2 animate-pulse rounded-[2px] bg-accent align-[-2px]"
+            />
+          )}
+        </>
       ) : (
-        <span className="font-mono text-xs text-muted">
+        <span className="text-[13px] font-bold text-ink-2">
           {busy ? "Sedang berpikir…" : "—"}
         </span>
       )}
@@ -81,57 +93,69 @@ interface HistoryProps {
 const History = ({ currentId, onOpen, onDelete }: HistoryProps) => {
   const { data, isLoading, isError } = useAiConversations(true);
   if (isLoading)
-    return <p className="m-0 font-mono text-xs text-muted">Memuat riwayat…</p>;
+    return (
+      <p className="m-0 text-[13px] font-bold text-ink-2">Memuat riwayat…</p>
+    );
   if (isError)
     return (
-      <p className="m-0 text-[13.5px] text-red-deep">
-        {accessErrorText("ai_failed")}
-      </p>
+      <Card tone="redBg" pad="sm">
+        <span className="text-[13.5px] font-bold text-ink">
+          {accessErrorText("ai_failed")}
+        </span>
+      </Card>
     );
   if (!data?.length)
     return (
-      <p className="m-0 text-[14px] leading-[1.55] text-ink-2">
+      <p className="m-0 text-[15px] leading-[22px] text-ink-2">
         Belum ada percakapan tersimpan.
       </p>
     );
   return (
-    <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
+    <ul className="m-0 flex list-none flex-col p-0">
       {data.map((c) => (
         <li
           key={c.id}
           className={classNames(
-            "flex items-center gap-2 rounded-lg border bg-card pr-2",
-            c.id === currentId ? "border-green" : "border-line-2",
+            "flex items-center gap-2 border-b-2 py-1",
+            c.id === currentId ? "border-accent-line" : "border-line",
           )}
         >
           <button
             type="button"
+            aria-current={c.id === currentId ? "true" : undefined}
             onClick={() => onOpen(c.id)}
-            className="flex min-w-0 flex-1 cursor-pointer flex-col gap-0.5 border-0 bg-transparent px-3 py-2 text-left font-sans"
+            className="flex min-h-12 min-w-0 flex-1 cursor-pointer flex-col justify-center gap-0.5 rounded-md bg-transparent px-2 py-2 text-left focus-ring hover:bg-sunken"
           >
-            <span className="truncate text-[13.5px] text-ink">{c.title}</span>
-            <span className="font-mono text-[11px] text-muted">
+            <span
+              className={classNames(
+                "truncate text-[15px] font-extrabold",
+                c.id === currentId ? "text-accent-edge" : "text-ink",
+              )}
+            >
+              {c.title}
+            </span>
+            <span className="text-[12.5px] font-bold text-ink-2">
               {formatDateTime(c.updatedAt)} · {c.messageCount} pesan
             </span>
           </button>
-          <button
-            type="button"
+          <IconButton
             aria-label={`Hapus percakapan: ${c.title}`}
             onClick={() => {
               if (window.confirm("Hapus percakapan ini?")) onDelete(c.id);
             }}
-            className="inline-flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent text-muted hover:text-red-deep"
           >
-            ✕
-          </button>
+            <LuTrash2 aria-hidden size={17} />
+          </IconButton>
         </li>
       ))}
     </ul>
   );
 };
 
-// "Tanya AI": tombol melayang di kanan bawah + panel percakapan. Hanya
-// dirender AppShell untuk token yang punya menu "ai".
+// "Tanya AI": panel percakapan, dibuka dari tombol di bar atas. Hanya
+// dirender AppShell untuk token yang punya menu "ai". ≥1100px panel 400px di
+// kanan yang menggeser isi (klik di halaman tidak menutupnya); lebih sempit:
+// drawer / layar penuh yang tertutup saat menekan di luarnya.
 const AiChat = React.memo(() => {
   const open = useAiChatStore((s) => s.open);
   const messages = useAiChatStore((s) => s.messages);
@@ -187,13 +211,15 @@ const AiChat = React.memo(() => {
   // rather than a backdrop, so that same press still reaches the page — e.g.
   // another word card's "tanya AI" closes the panel and reopens it on that
   // word in one click.
+  const push = useMediaQuery(AI_PUSH_QUERY);
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     const onPointer = (e: PointerEvent) => {
       const t = e.target as Element;
-      // The top bar's "Tanya AI" button toggles the panel itself.
-      if (t.closest?.("[data-ai-trigger]")) return;
+      // The top bar's "Tanya AI" button toggles the panel itself, and beside
+      // the page (push mode) the page stays usable while it's open.
+      if (push || t.closest?.("[data-ai-trigger]")) return;
       if (!panelRef.current?.contains(t)) setOpen(false);
     };
     window.addEventListener("keydown", onKey);
@@ -202,7 +228,7 @@ const AiChat = React.memo(() => {
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("pointerdown", onPointer);
     };
-  }, [open, setOpen]);
+  }, [open, setOpen, push]);
 
   // Keep the newest message (and the streaming answer) in view.
   useEffect(() => {
@@ -229,158 +255,194 @@ const AiChat = React.memo(() => {
       ]
     : pageIdeas;
 
+  const lastId = messages[messages.length - 1]?.id;
+  // Out of questions for today: say so, and the field stays closed until
+  // tomorrow (history can still be opened).
+  const quotaOut = !!usage && usage.limit !== null && usage.used >= usage.limit;
+
+  if (!open) return null;
   return (
-    <>
-      {open && (
-        <>
-          <aside
-            ref={panelRef}
-            role="dialog"
-            aria-label="Tanya AI"
-            className="fixed inset-y-0 right-0 z-50 flex w-full flex-col border-l-2 border-ink bg-paper shadow-[-12px_0_32px_rgba(29,27,22,.14)] sm:w-[420px]"
+    <aside
+      ref={panelRef}
+      role="dialog"
+      aria-label="Tanya AI"
+      className={classNames(
+        "fixed inset-y-0 right-0 z-50 flex w-full flex-col bg-surface md:w-[400px] md:border-l-2 md:border-line",
+        // Over the page below 1100px; beside it (no shadow) above.
+        !push && "md:shadow-overlay",
+        push && "z-30",
+      )}
+    >
+      <header className="flex items-center gap-2 border-b-2 border-line px-4 pt-[max(12px,env(safe-area-inset-top))] pb-3">
+        <span className="flex-1 text-xl leading-[26px] font-black whitespace-nowrap text-ink">
+          {view === "history" ? "Riwayat" : "Tanya AI"}
+        </span>
+        <span
+          title={quotaText}
+          className="hidden min-h-[30px] min-w-0 shrink items-center rounded-full border-2 border-line px-2.5 text-[12px] font-extrabold text-ink-2 sm:inline-flex"
+        >
+          <span className="truncate">{quotaText}</span>
+        </span>
+        {view === "chat" && messages.length > 0 && (
+          <IconButton
+            aria-label="Percakapan baru"
+            title="Percakapan baru"
+            onClick={reset}
+            disabled={busy}
           >
-            <header className="flex items-center gap-3 border-b border-line px-4 py-3">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-green text-card">
-                <ChatIcon size={18} />
-              </span>
-              <div className="flex min-w-0 flex-1 flex-col">
-                <span className="text-[15px] font-bold">Tanya AI</span>
-                <span className="font-mono text-[11px] text-muted">
-                  {quotaText}
-                </span>
-              </div>
-              {view === "chat" && messages.length > 0 && (
+            <LuPlus aria-hidden size={18} />
+          </IconButton>
+        )}
+        <IconButton
+          aria-label={view === "history" ? "Kembali" : "Riwayat"}
+          title={view === "history" ? "Kembali" : "Riwayat"}
+          active={view === "history"}
+          onClick={() => {
+            setHistoryError("");
+            setView(view === "history" ? "chat" : "history");
+          }}
+          disabled={busy}
+        >
+          {view === "history" ? (
+            <LuChevronLeft aria-hidden size={18} />
+          ) : (
+            <LuHistory aria-hidden size={18} />
+          )}
+        </IconButton>
+        <IconButton
+          aria-label="Tutup"
+          title="Tutup"
+          onClick={() => setOpen(false)}
+        >
+          <LuX aria-hidden size={18} />
+        </IconButton>
+      </header>
+      {/* The quota line moves under the header on narrow phones. */}
+      <span className="border-b-2 border-line px-4 py-1.5 text-[12.5px] font-bold text-ink-2 sm:hidden">
+        {quotaText}
+      </span>
+
+      <div
+        ref={listRef}
+        className="flex flex-1 flex-col gap-3 overflow-y-auto px-4 py-4"
+      >
+        {historyError && (
+          <Card tone="redBg" pad="sm">
+            <span className="text-[13.5px] font-bold text-ink">
+              {historyError}
+            </span>
+          </Card>
+        )}
+        {view === "history" && (
+          <History
+            currentId={conversationId}
+            onOpen={openConversation}
+            onDelete={deleteConversation}
+          />
+        )}
+        {view === "chat" && messages.length === 0 && (
+          <div className="flex flex-col gap-3">
+            <p className="m-0 text-[15px] leading-[22px] text-ink-2">
+              Tanya apa saja soal bahasa Inggris dan materi GoodEnglish, atau
+              tulis kalimat bahasa Inggrismu untuk dicek apakah sudah benar.
+            </p>
+            <div className="flex flex-col gap-2">
+              {ideas.map((q) => (
                 <button
                   type="button"
-                  onClick={reset}
-                  disabled={busy}
-                  className="cursor-pointer border-0 border-b border-dotted border-faint bg-transparent p-0 text-[12px] text-muted"
+                  key={q}
+                  onClick={() => void ask(q)}
+                  className="min-h-11 press cursor-pointer rounded-lg border-2 border-control bg-surface px-3.5 py-2.5 text-left text-sm font-extrabold text-ink edge focus-ring [--edge:var(--color-control)] hover:bg-sunken"
                 >
-                  Percakapan baru
+                  {q}
                 </button>
-              )}
-              <button
-                type="button"
-                onClick={() => {
-                  setHistoryError("");
-                  setView(view === "history" ? "chat" : "history");
-                }}
-                disabled={busy}
-                className="cursor-pointer border-0 border-b border-dotted border-faint bg-transparent p-0 text-[12px] text-muted"
-              >
-                {view === "history" ? "Kembali" : "Riwayat"}
-              </button>
-              <button
-                type="button"
-                aria-label="Tutup"
-                onClick={() => setOpen(false)}
-                className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[1.5px] border-line-2 bg-card text-ink hover:border-ink"
-              >
-                ✕
-              </button>
-            </header>
-
-            <div
-              ref={listRef}
-              className="flex flex-1 flex-col gap-3 overflow-y-auto px-4 py-4"
-            >
-              {historyError && (
-                <p className="m-0 rounded-lg border border-red-line bg-red-bg px-3 py-2 text-[13px] text-red-deep">
-                  {historyError}
-                </p>
-              )}
-              {view === "history" && (
-                <History
-                  currentId={conversationId}
-                  onOpen={openConversation}
-                  onDelete={deleteConversation}
-                />
-              )}
-              {view === "chat" && messages.length === 0 && (
-                <div className="flex flex-col gap-3">
-                  <p className="m-0 text-[14px] leading-[1.55] text-ink-2">
-                    Tanya apa saja soal bahasa Inggris dan materi GoodEnglish,
-                    atau tulis kalimat bahasa Inggrismu untuk dicek apakah sudah
-                    benar.
-                  </p>
-                  <div className="flex flex-col gap-1.5">
-                    {ideas.map((q) => (
-                      <button
-                        type="button"
-                        key={q}
-                        onClick={() => void ask(q)}
-                        className="cursor-pointer rounded-lg border border-line-2 bg-card px-3 py-2 text-left font-sans text-[13.5px] text-ink hover:border-green"
-                      >
-                        {q}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {view === "chat" &&
-                messages.map((m, i) => (
-                  <Bubble
-                    key={m.id}
-                    m={m}
-                    busy={busy}
-                    question={
-                      m.role === "model" && messages[i - 1]?.role === "user"
-                        ? messages[i - 1].text
-                        : undefined
-                    }
-                  />
-                ))}
+              ))}
             </div>
+          </div>
+        )}
+        {view === "chat" &&
+          messages.map((m, i) => (
+            <React.Fragment key={m.id}>
+              {m.role === "user" && m.word && (
+                <span className="self-end rounded-[7px] bg-chip px-2 py-0.5 text-[12px] font-extrabold text-ink-2">
+                  Kata: {m.word.word}
+                </span>
+              )}
+              <Bubble
+                m={m}
+                busy={busy}
+                live={busy && m.id === lastId && m.role === "model"}
+                question={
+                  m.role === "model" && messages[i - 1]?.role === "user"
+                    ? messages[i - 1].text
+                    : undefined
+                }
+              />
+            </React.Fragment>
+          ))}
+      </div>
 
-            {view === "chat" && (
-              <footer className="flex flex-col gap-2 border-t border-line px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))]">
-                {word && (
-                  <div className="flex">
-                    <span className="inline-flex min-w-0 items-center gap-1 rounded-full bg-green-bg px-2.5 py-1 text-[12px] text-green-deep">
-                      <span className="truncate">Kata: {word.word}</span>
-                      <SpeakButton nested size={18} icon={9} text={word.word} />
-                      <button
-                        type="button"
-                        aria-label="Lepas kata"
-                        onClick={clearWord}
-                        className="cursor-pointer border-0 bg-transparent p-0 text-green-deep"
-                      >
-                        ✕
-                      </button>
-                    </span>
-                  </div>
-                )}
-                <div className="flex items-end gap-2">
-                  <textarea
-                    ref={inputRef}
-                    value={draft}
-                    rows={2}
-                    maxLength={MAX_QUESTION}
-                    onChange={(e) => setDraft(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        send();
-                      }
-                    }}
-                    placeholder="Tanya apa saja, atau tulis kalimatmu untuk dicek…"
-                    className="max-h-40 min-h-[44px] flex-1 resize-none rounded-lg border-[1.5px] border-line-2 bg-card px-3 py-2.5 font-sans text-[14px] text-ink outline-none focus:border-green"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => send()}
-                    disabled={busy || !draft.trim()}
-                    className="h-11 cursor-pointer rounded-lg border-[1.5px] border-green bg-green px-4 text-[13.5px] font-semibold text-card disabled:cursor-default disabled:opacity-50"
-                  >
-                    Kirim
-                  </button>
-                </div>
-              </footer>
+      {view === "chat" && (
+        <footer className="flex flex-col gap-2 border-t-2 border-line px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))]">
+          {word && (
+            <div className="flex">
+              <span className="inline-flex min-w-0 items-center gap-1.5 rounded-full border-2 border-accent-line bg-accent-tint py-0.5 pr-1 pl-2.5 text-[13px] font-extrabold text-accent-edge">
+                <span className="truncate">Kata: {word.word}</span>
+                <SpeakButton nested size={26} icon={12} text={word.word} />
+                <button
+                  type="button"
+                  aria-label="Lepas kata"
+                  onClick={clearWord}
+                  className="hit-44 inline-flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-transparent text-accent-edge focus-ring"
+                >
+                  <LuX aria-hidden size={14} />
+                </button>
+              </span>
+            </div>
+          )}
+          {quotaOut && (
+            <Card tone="redBg" pad="sm" className="gap-1">
+              <SectionLabel tone="red">KUOTA HARI INI HABIS</SectionLabel>
+              <span className="text-[13.5px] leading-[19px] text-ink">
+                {accessErrorText("ai_quota_exceeded")}
+              </span>
+            </Card>
+          )}
+          <div className="flex items-end gap-2">
+            <textarea
+              ref={inputRef}
+              value={draft}
+              rows={2}
+              maxLength={MAX_QUESTION}
+              onChange={(e) => setDraft(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  send();
+                }
+              }}
+              aria-label="Pertanyaan"
+              disabled={quotaOut}
+              placeholder="Tanya apa saja, atau tulis kalimatmu untuk dicek…"
+              className={classNames(FIELD_CLASS, "max-h-40 flex-1 resize-none")}
+            />
+            {busy ? (
+              <Button variant="green" onClick={stopAiAnswer}>
+                Berhenti
+              </Button>
+            ) : (
+              <Button
+                variant="green"
+                onClick={() => send()}
+                disabled={quotaOut || !draft.trim()}
+              >
+                Kirim
+              </Button>
             )}
-          </aside>
-        </>
+          </div>
+        </footer>
       )}
-    </>
+    </aside>
   );
 });
 

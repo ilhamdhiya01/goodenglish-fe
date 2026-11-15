@@ -60,7 +60,7 @@ export const quizOptions = (page: Page): Locator =>
   page.getByTestId("quiz-option");
 
 export const openAiPanel = async (page: Page) => {
-  await page.getByRole("button", { name: "Tanya AI" }).first().click();
+  await page.getByRole("button", { name: "Tanya AI", exact: true }).click();
   return page.getByRole("dialog", { name: "Tanya AI" });
 };
 

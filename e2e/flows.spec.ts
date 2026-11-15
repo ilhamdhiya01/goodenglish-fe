@@ -166,12 +166,15 @@ test.describe("tanya AI", () => {
   test.describe("kuota habis", () => {
     test.use({ mock: { aiUsage: { used: 20, limit: 20 } } });
 
-    test("pertanyaan ditolak dengan pesan kuota", async ({ page }) => {
+    test("kartu kuota habis, kolom dan Kirim nonaktif", async ({ page }) => {
       await openApp(page, "/plan");
       const panel = await openAiPanel(page);
-      await panel.getByPlaceholder(/Tanya apa saja/).fill("halo");
-      await panel.getByRole("button", { name: "Kirim" }).click();
+      await expect(panel.getByText("KUOTA HARI INI HABIS")).toBeVisible();
       await expect(panel.getByText(/habis/i).first()).toBeVisible();
+      await expect(
+        panel.getByRole("textbox", { name: "Pertanyaan" }),
+      ).toBeDisabled();
+      await expect(panel.getByRole("button", { name: "Kirim" })).toBeDisabled();
     });
   });
 });

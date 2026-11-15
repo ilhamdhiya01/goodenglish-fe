@@ -61,7 +61,7 @@ const WeekCover = React.memo(({ data }: Props) => {
           size="sm"
           aria-haspopup="dialog"
           onClick={() => setWeeks(true)}
-          className="lg:hidden"
+          className="@min-[56rem]:hidden"
         >
           Minggu
           <LuChevronDown aria-hidden size={14} />
