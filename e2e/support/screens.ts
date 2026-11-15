@@ -1,6 +1,12 @@
 import { expect, type Page } from "@playwright/test";
 
-import { globalSearchInput, openAiPanel, openApp, startQuickTest } from "./app";
+import {
+  globalSearchInput,
+  openAiPanel,
+  openApp,
+  startQuickTest,
+  toggleVocabMode,
+} from "./app";
 import { adminSession, type MockOptions, progressWithDue } from "./mock-api";
 
 // Every screen the redesign touches, in the state worth comparing. Used for
@@ -39,7 +45,7 @@ export const SCREENS: Screen[] = [
     name: "vocab-mode-tes",
     path: "/vocab",
     setup: async (page) => {
-      await page.getByRole("button", { name: /Mode tes/ }).click();
+      await toggleVocabMode(page, /Mode tes/);
     },
   },
   {

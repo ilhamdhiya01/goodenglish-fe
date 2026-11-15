@@ -86,9 +86,7 @@
   "mobile/dev-ui-buta-warna": {},
   "mobile/errors": {},
   "mobile/grammar-been": {},
-  "mobile/grammar-latihan": {
-    "color-contrast": 1
-  },
+  "mobile/grammar-latihan": {},
   "mobile/grammar-tense": {
     "color-contrast": 4
   },

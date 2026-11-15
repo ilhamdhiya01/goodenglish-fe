@@ -1,13 +1,21 @@
 "use client";
 
 import classNames from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
+import Correction from "@/components/shared/patterns/correction";
+import TargetMark from "@/components/shared/patterns/target-mark";
+import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
+import Pill from "@/components/ui/pill";
+import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
+import TextButton from "@/components/ui/text-button";
 import TypeBadge from "@/components/ui/type-badge";
 import { hasNote, idOf, noteOf } from "@/lib/content";
 import { speak } from "@/lib/helpers/speech.helper";
 import { itemKey, today } from "@/lib/helpers/storage.helper";
+import { findTarget } from "@/lib/helpers/target.helper";
 import { formsLine, formsOf, strip } from "@/lib/helpers/verb-forms.helper";
 import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useNotes } from "@/lib/hooks/useNotes";
@@ -152,27 +160,28 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
     <>
       <TypeBadge type={t} />
       {isMine && (
-        <span className="rounded border border-dashed border-green px-[7px] py-0.5 font-mono text-[10.5px] tracking-[0.06em] text-green">
+        <span className="rounded-[7px] border-2 border-dashed border-accent-line px-1.5 py-px text-[11px] font-extrabold tracking-[0.06em] text-accent-edge">
           KATAKU
         </span>
       )}
     </>
   );
 
+  // Dashed "look first" button that reveals the hidden half of the card.
   const revealLink = (label: string) => (
     <button
       type="button"
       onClick={() => ui().reveal(k)}
-      className="cursor-pointer self-start border-0 border-b-[1.5px] border-dotted border-green bg-transparent p-0 font-sans text-[13px] text-green"
+      className="min-h-11 w-full cursor-pointer rounded-lg border-2 border-dashed border-control bg-transparent px-3.5 py-2 text-left text-sm font-extrabold text-accent-edge focus-ring hover:bg-sunken"
     >
       {label}
     </button>
   );
 
   const recallBox = (
-    <div className="flex max-w-[420px] flex-col gap-1.5 self-stretch">
+    <div className="flex max-w-[460px] flex-col gap-1.5 self-stretch">
       <div className="flex gap-2">
-        <input
+        <Input
           value={typed}
           onChange={(e) => {
             setTyped(e.target.value);
@@ -181,57 +190,71 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
           onKeyDown={(e) => {
             if (e.key === "Enter") check();
           }}
+          aria-label="Kata Inggrisnya"
+          aria-invalid={result === false}
           placeholder="Ketik kata Inggrisnya, lalu Enter"
-          className={classNames(
-            "min-w-0 flex-1 rounded-md border-[1.5px] bg-card px-2.5 py-2 font-sans text-sm text-ink outline-none",
-            result === false
-              ? "border-red"
-              : result
-                ? "border-green"
-                : "border-line-2",
-          )}
+          className={classNames(result && "border-ok")}
         />
-        <button
-          type="button"
-          onClick={check}
-          className="cursor-pointer rounded-md bg-ink px-3.5 py-2 font-sans text-[13px] font-semibold whitespace-nowrap text-paper"
-        >
+        <Button variant="green" onClick={check} className="shrink-0">
           Cek
-        </button>
+        </Button>
       </div>
       {result === false && (
-        <span className="text-[12.5px] text-red">
-          Belum tepat. Coba lagi, atau{" "}
-          <button
-            type="button"
-            onClick={() => ui().reveal(k)}
-            className="cursor-pointer border-0 border-b border-dotted border-red bg-transparent p-0 text-red"
-          >
+        <span className="text-[13px] font-bold text-bad">
+          ✕ Belum tepat. Coba lagi, atau{" "}
+          <TextButton tone="red" onClick={() => ui().reveal(k)}>
             lihat jawabannya
-          </button>
+          </TextButton>
           .
         </span>
       )}
       {result && (
-        <span className="text-[12.5px] font-semibold text-green">✓ Tepat!</span>
+        <span className="text-[13px] font-extrabold text-ok">✓ Tepat!</span>
       )}
     </div>
+  );
+
+  // The example with the card's word marked ("We *ran out of* coffee").
+  const target = useMemo(
+    () => (ex ? findTarget(ex, en, vf) : null),
+    // vf is derived from it on every render; it changes only with it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ex, en, it],
+  );
+  const example = target ? (
+    <>
+      {ex.slice(0, target[0])}
+      <TargetMark>{ex.slice(target[0], target[1])}</TargetMark>
+      {ex.slice(target[1])}
+    </>
+  ) : (
+    ex
   );
 
   return (
     <article
       ref={ref}
       className={classNames(
-        "flex flex-wrap items-start justify-between gap-3.5 rounded-[10px] border-[1.5px] px-[18px] py-4 transition-[box-shadow,border-color] duration-300",
-        kn ? "border-known-line bg-known-bg" : "border-line bg-card",
-        focused && "border-green shadow-[0_0_0_3px_var(--color-focus-ring)]",
+        // content-visibility: a week can hold 350 cards; off-screen ones
+        // skip layout and paint until scrolled near.
+        "grid gap-2.5 rounded-xl border-2 px-4 py-3.5 edge-card transition-colors duration-300 [contain-intrinsic-size:auto_240px] [content-visibility:auto] md:grid-cols-[minmax(0,1fr)_auto] md:gap-3 md:px-[18px] md:py-4",
+        focused
+          ? "border-accent bg-surface [--edge:var(--color-accent)]"
+          : kn
+            ? "border-line bg-sunken"
+            : "border-line bg-surface",
       )}
     >
-      <div className="flex min-w-0 flex-[1_1_260px] flex-col gap-[7px]">
+      <div className="flex min-w-0 flex-col gap-1.5 md:gap-2">
         {flip && (
           <>
-            <div className="flex flex-wrap items-baseline gap-2.5">
-              <span className="text-xl font-bold tracking-[-0.01em] wrap-anywhere">
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+              <span
+                className={classNames(
+                  "text-xl leading-[26px] font-black wrap-anywhere",
+                  kn ? "text-ink-3" : "text-ink",
+                )}
+              >
                 {id}
               </span>
               {badges}
@@ -243,117 +266,146 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
           </>
         )}
         {(!flip || !hidden) && (
-          <div className="flex flex-wrap items-baseline gap-2.5">
-            {flip ? (
-              <span className="text-[17px] font-semibold wrap-anywhere text-green">
-                {en}
-              </span>
-            ) : (
-              <span className="text-xl font-bold tracking-[-0.01em] wrap-anywhere">
-                {en}
-              </span>
-            )}
+          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+            <span
+              className={classNames(
+                "wrap-anywhere",
+                flip
+                  ? "text-[17px] leading-6 font-extrabold text-accent-edge"
+                  : classNames(
+                      "text-xl leading-[26px] font-black",
+                      kn ? "text-ink-3" : "text-ink",
+                    ),
+              )}
+            >
+              {en}
+            </span>
             <SpeakButton text={en} />
             {!!pron && (
-              <span className="font-mono text-[12.5px] text-muted">
+              <span className="text-[13.5px] font-semibold text-ink-2">
                 /{pron}/
               </span>
             )}
             {!flip && badges}
-            {hasNoteFor && !hidden && (
-              <button
-                type="button"
-                onClick={() => setNoteOpen(!noteOpen)}
-                title="Penjelasan detail"
-                className={classNames(
-                  "inline-flex cursor-pointer items-center gap-[5px] rounded-full border-[1.5px] px-[9px] py-[3px] font-sans text-[11.5px] font-semibold transition-colors",
-                  noteOpen
-                    ? "border-green bg-green text-card"
-                    : "border-line-2 bg-transparent text-green hover:border-green",
-                )}
-              >
-                <span className="font-serif text-[13px] leading-none italic">
-                  i
-                </span>
-                {noteOpen ? "Tutup penjelasan" : "Penjelasan"}
-              </button>
-            )}
           </div>
         )}
         {/* Disembunyikan di mode tes "sembunyikan kata Inggris" supaya jawabannya tidak bocor. */}
         {!!forms && !(flip && hidden) && (
-          <div className="flex flex-wrap items-center gap-2 font-mono text-[12.5px] text-muted">
+          <div className="flex flex-wrap items-center gap-2 text-[13px] font-bold text-ink-2">
             <span
               className={classNames(
-                "rounded px-1.5 py-0.5 text-[10.5px] tracking-[0.06em]",
-                v?.[2] ? "bg-red-bg text-red" : "bg-green-bg text-green",
+                "rounded-[6px] px-1.5 py-px text-[10.5px] font-extrabold tracking-[0.06em]",
+                v?.[2] ? "bg-bad-bg text-bad" : "bg-chip text-ink-2",
               )}
             >
               {v?.[2] ? "IRREGULAR" : "REGULAR"}
             </span>
             <span className="text-ink">{forms}</span>
-            {same && <span className="text-faint">V1 = V2 = V3</span>}
-            {!!ing && <span className="text-faint">· -ing: {ing}</span>}
+            {same && <span>V1 = V2 = V3</span>}
+            {!!ing && <span>· -ing: {ing}</span>}
             <SpeakButton
-              size={22}
-              icon={11}
+              size={28}
+              icon={13}
               onClick={speakForms}
               title="Dengarkan bentuknya"
             />
           </div>
         )}
-        {!flip && !hidden && (
-          <span className="text-[15px] text-ink-2">{id}</span>
-        )}
         {!flip &&
           hidden &&
           revealLink("Tebak artinya dulu, lalu klik untuk lihat")}
         {(!flip || !hidden) && (
-          <span className="font-serif text-[17px] leading-[1.4] text-pretty text-ink italic">
-            {ex}
-          </span>
+          <p className="m-0 text-[15px] leading-[22px] text-pretty text-ink">
+            {!flip && !hidden && (
+              <>
+                <b className="font-extrabold">{id}</b>
+                {ex && " · "}
+              </>
+            )}
+            {example}
+          </p>
         )}
         {!hidden && !!ex && !!idOf(ex) && (
-          <span className="-mt-1 text-[13.5px] leading-[1.45] text-pretty text-muted">
+          <span className="-mt-1 text-[13.5px] leading-[19px] text-pretty text-ink-2">
             {idOf(ex)}
           </span>
         )}
         {!!syn && syn !== "—" && (
-          <span className="text-[13px] text-muted">
-            <span className="font-semibold text-green">Lebih natural: </span>
+          <span className="text-[13.5px] text-ink-2">
+            <span className="font-extrabold text-accent-edge">
+              Lebih natural:{" "}
+            </span>
             {syn}
           </span>
         )}
 
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+          {hasNoteFor && !hidden && (
+            <TextButton
+              aria-expanded={noteOpen}
+              title="Penjelasan detail"
+              onClick={() => setNoteOpen(!noteOpen)}
+            >
+              {noteOpen ? "Tutup penjelasan" : "Penjelasan"}
+            </TextButton>
+          )}
+          <TextButton onClick={() => setOpen(!open)}>
+            {own
+              ? open
+                ? "tutup kalimatku"
+                : "✎ kalimatku"
+              : open
+                ? "tutup"
+                : "+ kalimatku"}
+          </TextButton>
+          {hasAi && (
+            <TextButton
+              title="Tanya AI soal kata ini"
+              onClick={() => useAiChatStore.getState().openWith(aiWord, {})}
+            >
+              tanya AI
+            </TextButton>
+          )}
+          {isMine && (
+            <>
+              <TextButton onClick={edit}>Ubah</TextButton>
+              <TextButton tone="red" onClick={remove}>
+                Hapus
+              </TextButton>
+            </>
+          )}
+          {kn && srs && (
+            <span className="text-xs font-bold text-ink-2">
+              {srs.due <= T0
+                ? "ulang hari ini"
+                : "ulang dalam " + (srs.due - T0) + " hari"}
+            </span>
+          )}
+        </div>
+
         {hasNoteFor && noteOpen && !hidden && !note && (
-          <span className="mt-1.5 text-[13px] text-muted">
+          <span className="text-[13px] font-bold text-ink-2">
             Memuat penjelasan…
           </span>
         )}
         {!!note && noteOpen && !hidden && (
-          <div className="mt-1.5 flex flex-col gap-3.5 rounded-lg border border-line bg-sand px-4 py-3.5">
+          <div className="flex flex-col gap-3.5 rounded-lg border-2 border-line bg-sunken px-4 py-3.5">
             <div className="flex flex-col gap-1">
-              <span className="font-mono text-[11px] tracking-[0.08em] text-green">
-                INTI
-              </span>
-              <span className="text-[14.5px] leading-[1.55] text-pretty text-ink">
+              <SectionLabel tone="green">INTI</SectionLabel>
+              <span className="text-[15px] leading-[22px] text-pretty text-ink">
                 {note.core}
               </span>
             </div>
             {!!note.forms?.length && (
               <div className="flex flex-col gap-1">
-                <span className="font-mono text-[11px] tracking-[0.08em] text-green">
-                  BENTUK
-                </span>
+                <SectionLabel tone="green">BENTUK</SectionLabel>
                 <div className="grid grid-cols-[auto_1fr] items-baseline gap-x-3.5 gap-y-1">
                   {note.forms.map(([a, b], i) => (
                     <div key={i} className="contents">
-                      <span className="text-[13px] whitespace-nowrap text-muted">
+                      <span className="text-[13px] font-semibold whitespace-nowrap text-ink-2">
                         {a}
                       </span>
-                      <span className="font-mono text-[13px] text-ink">
-                        {b}
-                      </span>
+                      <span className="text-sm font-bold text-ink">{b}</span>
                     </div>
                   ))}
                 </div>
@@ -361,30 +413,23 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
             )}
             {!!note.use?.length && (
               <div className="flex flex-col gap-1">
-                <span className="font-mono text-[11px] tracking-[0.08em] text-green">
-                  KAPAN DIPAKAI
-                </span>
-                <div className="flex flex-col gap-1.5">
+                <SectionLabel tone="green">KAPAN DIPAKAI</SectionLabel>
+                <div className="flex flex-col gap-2">
                   {note.use.map(([e, i2], i) => (
                     <div key={i} className="flex flex-col gap-0.5">
-                      <div className="flex flex-wrap items-baseline gap-2.5">
-                        <span className="font-serif text-base leading-[1.4] text-ink italic">
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        <span className="text-[15px] leading-[22px] font-bold text-ink">
                           {e}
                         </span>
-                        <SpeakButton
-                          size={22}
-                          icon={11}
-                          text={e}
-                          className="self-center"
-                        />
+                        <SpeakButton size={28} icon={13} text={e} />
                         {!!i2 && i2 !== idOf(e) && (
-                          <span className="font-mono text-[11px] tracking-[0.04em] text-faint">
+                          <span className="text-xs font-bold text-ink-2">
                             {i2}
                           </span>
                         )}
                       </div>
                       {!!(idOf(e) || i2) && (
-                        <span className="text-[13px] text-muted">
+                        <span className="text-[13px] text-ink-2">
                           {idOf(e) || i2}
                         </span>
                       )}
@@ -394,53 +439,40 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
               </div>
             )}
             {!!note.traps?.length && (
-              <div className="flex flex-col gap-1">
-                <span className="font-mono text-[11px] tracking-[0.08em] text-red">
-                  JEBAKAN UMUM
-                </span>
-                <div className="flex flex-col gap-1.5">
-                  {note.traps.map(([bad, good, why], i) => (
-                    <div key={i} className="flex flex-col gap-px">
-                      <div className="flex flex-wrap items-baseline gap-2 text-sm">
-                        {!!bad && (
-                          <span
-                            className={classNames(
-                              "text-red",
-                              good && "line-through",
-                            )}
-                          >
-                            {good ? "✗ " : ""}
-                            {bad}
-                          </span>
-                        )}
-                        {!!good && (
-                          <span className="font-semibold text-green">
-                            ✓ {good}
+              <div className="flex flex-col gap-1.5">
+                <SectionLabel tone="red">JEBAKAN UMUM</SectionLabel>
+                <div className="flex flex-col gap-2.5">
+                  {note.traps.map(([bad, good, why], i) =>
+                    good ? (
+                      <Correction
+                        key={i}
+                        wrong={bad || undefined}
+                        right={good}
+                        why={why || undefined}
+                      />
+                    ) : (
+                      <div key={i} className="flex flex-col gap-0.5">
+                        <span className="text-[15px] font-bold text-bad">
+                          {bad}
+                        </span>
+                        {!!why && (
+                          <span className="text-[13.5px] text-ink-2">
+                            {why}
                           </span>
                         )}
                       </div>
-                      {!!why && (
-                        <span className="text-[12.5px] text-muted">{why}</span>
-                      )}
-                    </div>
-                  ))}
+                    ),
+                  )}
                 </div>
               </div>
             )}
             {!!note.see?.length && (
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-[11px] tracking-[0.08em] text-muted">
-                  LIHAT JUGA
-                </span>
+                <SectionLabel>LIHAT JUGA</SectionLabel>
                 {note.see.map((s) => (
-                  <button
-                    type="button"
-                    key={s}
-                    onClick={() => jumpToWord(s)}
-                    className="cursor-pointer rounded-full border border-line-2 bg-card px-2.5 py-[3px] font-sans text-[13px] text-green hover:border-green"
-                  >
+                  <Pill key={s} size="sm" onClick={() => jumpToWord(s)}>
                     {s}
-                  </button>
+                  </Pill>
                 ))}
               </div>
             )}
@@ -448,56 +480,51 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
         )}
 
         {showOwn && (
-          <div className="mt-1 flex flex-col gap-[5px]">
+          <div className="flex flex-col gap-1.5">
             <div className="flex items-center gap-2">
-              <input
+              <Input
                 value={val}
                 onChange={(e) => setDraft(e.target.value)}
                 onBlur={commit}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") (e.target as HTMLInputElement).blur();
                 }}
+                aria-label="Kalimatku"
                 placeholder="Tulis satu kalimatmu sendiri dengan kata ini, lalu Enter…"
-                className="min-w-0 flex-1 rounded-md border-[1.5px] border-dashed border-line-2 bg-transparent px-2.5 py-[7px] font-sans text-[13.5px] text-ink outline-none"
               />
               {hasOwn && (
                 <>
-                  <SpeakButton
-                    size={30}
-                    text={own}
-                    title="Dengarkan kalimatku"
-                  />
+                  <SpeakButton text={own} title="Dengarkan kalimatku" />
                   {hasAi && !dirty && (
-                    <button
-                      type="button"
+                    <TextButton
+                      title="Cek kalimatku dengan AI"
+                      className="whitespace-nowrap"
                       onClick={() =>
                         useAiChatStore.getState().openWith(aiWord, {
                           text: `Cek kalimatku dengan kata "${en}": ${own}`,
                         })
                       }
-                      title="Cek kalimatku dengan AI"
-                      className="cursor-pointer border-0 border-b border-dotted border-green bg-transparent p-0 text-xs whitespace-nowrap text-green"
                     >
                       cek AI
-                    </button>
+                    </TextButton>
                   )}
-                  <button
-                    type="button"
+                  <TextButton
+                    tone="red"
+                    title="Hapus kalimatku"
+                    className="whitespace-nowrap"
                     onClick={() => {
                       setOwnSentence(k, "");
                       setDraft(null);
                       setOpen(false);
                     }}
-                    title="Hapus kalimatku"
-                    className="cursor-pointer border-0 border-b border-dotted border-red bg-transparent p-0 text-xs whitespace-nowrap text-red"
                   >
                     hapus
-                  </button>
+                  </TextButton>
                 </>
               )}
             </div>
             {hasOwn && !dirty && (
-              <span className="font-mono text-[11px] text-green">
+              <span className="text-xs font-extrabold text-ok">
                 ✓ tersimpan · dipakai saat ulangan
               </span>
             )}
@@ -505,68 +532,17 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
         )}
       </div>
 
-      <div className="flex flex-col items-end gap-1.5">
-        <button
-          type="button"
-          onClick={() => toggleKnown(k)}
+      <div className="md:col-start-2 md:row-start-1">
+        <Button
+          size="sm"
+          variant={kn ? "green" : "outline"}
+          aria-pressed={kn}
           title="Tandai hafal"
-          className={classNames(
-            "flex cursor-pointer items-center gap-1.5 rounded-full border-[1.5px] px-3 py-1.5 font-sans text-[12.5px] font-semibold whitespace-nowrap transition-colors",
-            kn
-              ? "border-green bg-green text-card"
-              : "border-line-2 bg-transparent text-ink hover:border-ink",
-          )}
+          onClick={() => toggleKnown(k)}
+          className="w-full whitespace-nowrap md:w-auto"
         >
           {kn ? "✓ Hafal" : "Tandai hafal"}
-        </button>
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          className="cursor-pointer border-0 border-b border-dotted border-faint bg-transparent p-0 font-sans text-[11.5px] text-muted"
-        >
-          {own
-            ? open
-              ? "tutup kalimatku"
-              : "✎ kalimatku"
-            : open
-              ? "tutup"
-              : "+ kalimatku"}
-        </button>
-        {hasAi && (
-          <button
-            type="button"
-            onClick={() => useAiChatStore.getState().openWith(aiWord, {})}
-            title="Tanya AI soal kata ini"
-            className="cursor-pointer border-0 border-b border-dotted border-green bg-transparent p-0 font-sans text-[11.5px] text-green"
-          >
-            tanya AI
-          </button>
-        )}
-        {isMine && (
-          <div className="flex gap-2.5">
-            <button
-              type="button"
-              onClick={edit}
-              className="cursor-pointer border-0 border-b border-dotted border-green bg-transparent p-0 font-sans text-[11.5px] text-green"
-            >
-              Ubah
-            </button>
-            <button
-              type="button"
-              onClick={remove}
-              className="cursor-pointer border-0 border-b border-dotted border-red bg-transparent p-0 font-sans text-[11.5px] text-red"
-            >
-              Hapus
-            </button>
-          </div>
-        )}
-        {kn && srs && (
-          <span className="font-mono text-[10.5px] text-faint">
-            {srs.due <= T0
-              ? "ulang hari ini"
-              : "ulang dalam " + (srs.due - T0) + " hari"}
-          </span>
-        )}
+        </Button>
       </div>
     </article>
   );

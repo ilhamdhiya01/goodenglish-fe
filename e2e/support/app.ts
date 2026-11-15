@@ -41,9 +41,19 @@ export const clickAccountAction = async (page: Page, name: string) => {
 export const importInput = (page: Page): Locator =>
   page.locator('input[type="file"][accept*="json"]');
 
-/** Start the 20-question quick test for the open week on /vocab. */
+/** Start the 20-question quick test from the week cover on /vocab. */
 export const startQuickTest = async (page: Page) => {
-  await page.getByRole("button", { name: /Tes minggu \d+ · 20 soal/ }).click();
+  await page.getByRole("button", { name: /^Tes cepat/ }).click();
+};
+
+/** Turn a Kosakata mode on/off from the "Mode" sheet, then close it. */
+export const toggleVocabMode = async (page: Page, name: RegExp) => {
+  await page.getByRole("button", { name: /^Mode · \d/ }).click();
+  await page
+    .getByRole("dialog", { name: "Mode belajar" })
+    .getByRole("button", { name })
+    .click();
+  await page.keyboard.press("Escape");
 };
 
 export const quizOptions = (page: Page): Locator =>

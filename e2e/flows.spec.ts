@@ -10,6 +10,7 @@ import {
   quizOptions,
   searchResults,
   startQuickTest,
+  toggleVocabMode,
 } from "./support/app";
 import { expect, test } from "./support/fixtures";
 import { DUE_KEYS, limitedSession, progressWithDue } from "./support/mock-api";
@@ -60,7 +61,7 @@ test.describe("kosakata", () => {
   test("mode tes menyembunyikan arti sampai dibuka", async ({ page }) => {
     await openApp(page, "/vocab");
     await expect(page.getByText("adalah / berada").first()).toBeVisible();
-    await page.getByRole("button", { name: /Mode tes/ }).click();
+    await toggleVocabMode(page, /Mode tes/);
     await expect(page.getByText("adalah / berada")).toHaveCount(0);
     await page
       .getByRole("button", { name: /Tebak artinya dulu/ })
@@ -71,7 +72,7 @@ test.describe("kosakata", () => {
 
   test("mode ketik memeriksa jawaban", async ({ page }) => {
     await openApp(page, "/vocab");
-    await page.getByRole("button", { name: /Mode ketik/ }).click();
+    await toggleVocabMode(page, /Mode ketik/);
     const box = page.getByPlaceholder(/Ketik kata Inggrisnya/).first();
     await box.fill("be");
     await box.press("Enter");

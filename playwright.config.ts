@@ -7,6 +7,7 @@ const PORT = 3100;
 // CI. The API base is a same-origin path the mocks intercept.
 export default defineConfig({
   testDir: "./e2e",
+  globalSetup: "./e2e/global-setup.ts",
   fullyParallel: true,
   // axe on a week of word cards is CPU-heavy; more workers only time out.
   workers: 3,

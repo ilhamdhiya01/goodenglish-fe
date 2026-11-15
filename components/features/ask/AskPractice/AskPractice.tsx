@@ -474,7 +474,7 @@ const AskPractice = React.memo(
                   >
                     <span className="text-[13px] text-muted">
                       {noCue(x.prompt)}{" "}
-                      <span className="text-faint">· {x.hint}</span>
+                      <span className="text-ink-2">· {x.hint}</span>
                     </span>
                     <span className="inline-flex items-center gap-2 font-serif text-[15.5px] italic">
                       {x.ans}

@@ -6,8 +6,8 @@ import type { QuizScope, QuizState } from "@/lib/types/quiz.types";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 
-// Sesi "Tes cepat" 20 soal. Panelnya hidup di halaman Kosakata, tapi pemicunya
-// (scope + tombol mulai) ada di navigasi global — makanya state-nya di store.
+// Sesi "Tes cepat" 20 soal. Dimulai dari kartu sampul minggu di Kosakata dan
+// tampil sebagai dialog; pemilih level juga menutupnya — makanya di store.
 
 interface QuizStoreState {
   session: QuizState | null;
@@ -39,11 +39,18 @@ export const useQuizStore = create<QuizStoreState>((set, get) => {
         const q = s.session;
         if (!q || q.picked !== null || q.done) return {};
         const cur = q.qs[q.i];
+        const right = opt === cur.ans;
         return {
           session: {
             ...q,
             picked: opt,
-            score: opt === cur.ans ? q.score + 1 : q.score,
+            score: right ? q.score + 1 : q.score,
+            misses: right
+              ? q.misses
+              : [
+                  ...(q.misses || []),
+                  { word: cur.word, ans: cur.ans, picked: opt },
+                ],
           },
         };
       }),
