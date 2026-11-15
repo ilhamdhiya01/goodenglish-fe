@@ -107,11 +107,10 @@ test("tes cepat di dialog: Esc menutup, 20 soal sampai hasil", async ({
   await expect.poll(() => api.lastPut("plan")).toBeTruthy();
 });
 
-// "otherwise" sits deep in its week: the old smooth scroll rendered the
-// cards it passed (their real heights differ from the content-visibility
-// estimate) and ended thousands of pixels past it.
+// "otherwise" sits deep in its week: the jump must end right under the
+// toolbar, and travel there smoothly (not in one jump).
 for (const word of ["family", "otherwise"]) {
-  test(`lompat dari pencarian ke "${word}": kartu tepat di bawah toolbar`, async ({
+  test(`lompat dari pencarian ke "${word}": halus dan tepat di bawah toolbar`, async ({
     page,
   }) => {
     await openApp(page, "/plan");
@@ -127,16 +126,32 @@ for (const word of ["family", "otherwise"]) {
       .filter({ has: page.getByText(word, { exact: true }) })
       .first();
     await expect(card).toBeAttached();
-    // Let the jump settle, then compare the card's top with the bottom of
-    // the sticky toolbar.
-    await page.waitForTimeout(1200);
-    const gap = await card.evaluate((el) => {
-      const bar = document.querySelector<HTMLElement>("[data-vocab-toolbar]")!;
-      return (
-        el.getBoundingClientRect().top - bar.getBoundingClientRect().bottom
-      );
+
+    // Sample the scroll position while it moves.
+    const ys = await page.evaluate(async () => {
+      const out: number[] = [];
+      for (let i = 0; i < 30; i++) {
+        out.push(Math.round(window.scrollY));
+        await new Promise((r) => setTimeout(r, 40));
+      }
+      return out;
     });
-    expect(gap).toBeGreaterThanOrEqual(0);
-    expect(gap).toBeLessThan(40);
+    const gap = () =>
+      card.evaluate((el) => {
+        const bar = document.querySelector<HTMLElement>(
+          "[data-vocab-toolbar]",
+        )!;
+        return (
+          el.getBoundingClientRect().top - bar.getBoundingClientRect().bottom
+        );
+      });
+    await expect.poll(gap, { timeout: 5000 }).toBeGreaterThanOrEqual(0);
+    await expect.poll(gap, { timeout: 5000 }).toBeLessThan(40);
+
+    // Far targets: at least one sample strictly between start and end.
+    const end = await page.evaluate(() => Math.round(window.scrollY));
+    if (end - ys[0] > 1500) {
+      expect(ys.some((y) => y > ys[0] + 50 && y < end - 50)).toBe(true);
+    }
   });
 }

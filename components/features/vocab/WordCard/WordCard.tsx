@@ -141,27 +141,42 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
         ? bar.offsetHeight + (parseFloat(css.top) || 0) + 16
         : 110;
     };
-    // Jump straight there, then re-check every frame until it holds. A smooth
-    // scroll would render the cards it passes (content-visibility), whose real
-    // heights differ from the 240px estimate, so it ended far from the card.
-    let frame = 0;
-    let tries = 0;
-    let still = 0;
-    const step = () => {
-      const el = ref.current;
-      if (!el) return;
-      const delta = el.getBoundingClientRect().top - wantTop();
-      if (Math.abs(delta) > 2) {
-        window.scrollBy({ top: delta, behavior: "auto" });
-        still = 0;
-      } else still++;
-      if (still < 4 && ++tries < 45) frame = requestAnimationFrame(step);
+    // Smooth scroll there; once it stops, check and correct once more in
+    // case something above changed height meanwhile. Reduced motion jumps.
+    const behavior: ScrollBehavior = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    ).matches
+      ? "auto"
+      : "smooth";
+    const delta = () =>
+      ref.current ? ref.current.getBoundingClientRect().top - wantTop() : 0;
+    let settle = 0;
+    let fixes = 0;
+    const check = () => {
+      const d = delta();
+      if (Math.abs(d) > 4 && fixes++ < 2) {
+        window.scrollBy({ top: d, behavior });
+        settle = window.setTimeout(check, 700);
+      }
+    };
+    const onEnd = () => {
+      clearTimeout(settle);
+      settle = window.setTimeout(check, 50);
     };
     // The learner scrolling on their own takes over.
-    const stop = () => cancelAnimationFrame(frame);
+    const stop = () => {
+      clearTimeout(settle);
+      window.removeEventListener("scrollend", onEnd);
+      fixes = 99;
+    };
+    window.addEventListener("scrollend", onEnd);
     window.addEventListener("wheel", stop, { passive: true, once: true });
     window.addEventListener("touchstart", stop, { passive: true, once: true });
-    const t = setTimeout(() => (frame = requestAnimationFrame(step)), 60);
+    const t = setTimeout(() => {
+      window.scrollBy({ top: delta(), behavior });
+      // Browsers without scrollend still get the check.
+      settle = window.setTimeout(check, 900);
+    }, 60);
     return () => {
       clearTimeout(t);
       stop();
@@ -250,9 +265,7 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
     <article
       ref={ref}
       className={classNames(
-        // content-visibility: a week can hold 350 cards; off-screen ones
-        // skip layout and paint until scrolled near.
-        "grid gap-2.5 rounded-xl border-2 px-4 py-3.5 edge-card transition-colors duration-300 [contain-intrinsic-size:auto_240px] [content-visibility:auto] md:grid-cols-[minmax(0,1fr)_auto] md:gap-3 md:px-[18px] md:py-4",
+        "grid gap-2.5 rounded-xl border-2 px-4 py-3.5 edge-card transition-colors duration-300 md:grid-cols-[minmax(0,1fr)_auto] md:gap-3 md:px-[18px] md:py-4",
         focused
           ? "border-accent bg-surface [--edge:var(--color-accent)]"
           : kn
