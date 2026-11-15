@@ -11,7 +11,8 @@ export const metadata: Metadata = {
   title: "GoodEnglish",
   other: { google: "notranslate" },
   // iPhone "Add to Home Screen" (Safari ignores most of the web manifest);
-  // the icon is app/apple-icon.png.
+  // the icon is app/apple-icon.png. The tab icons are app/icon.svg, with
+  // app/icon1.png (32px) and app/icon2.png (16px) for browsers without SVG.
   appleWebApp: {
     capable: true,
     title: "GoodEnglish",
@@ -19,11 +20,11 @@ export const metadata: Metadata = {
   },
 };
 
-// Colors the installed app's title bar / Android status bar (--color-paper).
+// Colors the installed app's title bar / Android status bar (--color-accent).
 // viewportFit "cover" lets env(safe-area-inset-*) report the iPhone notch and
 // home bar, which the fixed bottom controls pad around.
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#2f6fed",
   viewportFit: "cover",
 };
 

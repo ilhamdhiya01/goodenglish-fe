@@ -22,10 +22,11 @@ export const proxy = async (request: NextRequest) => {
 };
 
 export const config = {
-  // Icons and the PWA files (manifest, service worker, app icons) must load
-  // before there is a session too: the browser fetches them on the token
-  // screen, and a redirect to /access would make the app uninstallable.
+  // Icons and the PWA files (manifest, service worker, app icons, the logo and
+  // Jalak in /brand) must load before there is a session too: the browser
+  // fetches them on the token screen, and a redirect to /access would make
+  // the app uninstallable.
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|icon.svg|apple-icon.png|manifest.webmanifest|sw.js|icons/).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|icon.svg|icon1.png|icon2.png|apple-icon.png|manifest.webmanifest|sw.js|icons/|brand/).*)",
   ],
 };
