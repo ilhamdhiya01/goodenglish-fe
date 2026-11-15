@@ -1,6 +1,11 @@
 import type { Page } from "@playwright/test";
 
-import { openApp, startQuickTest, toggleVocabMode } from "./support/app";
+import {
+  globalSearchInput,
+  openApp,
+  startQuickTest,
+  toggleVocabMode,
+} from "./support/app";
 import { expect, test } from "./support/fixtures";
 
 // Kosakata after the redesign: every mode and filter still works, and the
@@ -101,3 +106,37 @@ test("tes cepat di dialog: Esc menutup, 20 soal sampai hasil", async ({
   // The score is logged to the plan.
   await expect.poll(() => api.lastPut("plan")).toBeTruthy();
 });
+
+// "otherwise" sits deep in its week: the old smooth scroll rendered the
+// cards it passed (their real heights differ from the content-visibility
+// estimate) and ended thousands of pixels past it.
+for (const word of ["family", "otherwise"]) {
+  test(`lompat dari pencarian ke "${word}": kartu tepat di bawah toolbar`, async ({
+    page,
+  }) => {
+    await openApp(page, "/plan");
+    await (await globalSearchInput(page)).fill(word);
+    await page
+      .getByTestId("search-result")
+      .filter({ has: page.getByText(word, { exact: true }) })
+      .first()
+      .click();
+    await expect(page).toHaveURL(/\/vocab/);
+    const card = page
+      .locator("article")
+      .filter({ has: page.getByText(word, { exact: true }) })
+      .first();
+    await expect(card).toBeAttached();
+    // Let the jump settle, then compare the card's top with the bottom of
+    // the sticky toolbar.
+    await page.waitForTimeout(1200);
+    const gap = await card.evaluate((el) => {
+      const bar = document.querySelector<HTMLElement>("[data-vocab-toolbar]")!;
+      return (
+        el.getBoundingClientRect().top - bar.getBoundingClientRect().bottom
+      );
+    });
+    expect(gap).toBeGreaterThanOrEqual(0);
+    expect(gap).toBeLessThan(40);
+  });
+}

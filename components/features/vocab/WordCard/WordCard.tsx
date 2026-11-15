@@ -132,26 +132,41 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
   useEffect(() => {
     if (!focused) return;
     if (hasNoteFor) setNoteOpen(true);
-    const go = () => {
-      if (ref.current) {
-        // Sisakan ruang untuk toolbar yang menempel di atas (kalau sedang sticky),
-        // yang sendiri duduk di bawah bar atas HP (top = --shell-top).
-        const bar = document.querySelector<HTMLElement>("[data-vocab-toolbar]");
-        const css = bar && getComputedStyle(bar);
-        const offset =
-          bar && css?.position === "sticky"
-            ? bar.offsetHeight + (parseFloat(css.top) || 0) + 16
-            : 110;
-        const y =
-          ref.current.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      }
+    // Where the card's top should land: under the sticky toolbar (which
+    // itself sits under the phone's top bar, top = --shell-top).
+    const wantTop = () => {
+      const bar = document.querySelector<HTMLElement>("[data-vocab-toolbar]");
+      const css = bar && getComputedStyle(bar);
+      return bar && css?.position === "sticky"
+        ? bar.offsetHeight + (parseFloat(css.top) || 0) + 16
+        : 110;
     };
-    const t1 = setTimeout(go, 60);
-    const t2 = setTimeout(go, 400);
+    // Jump straight there, then re-check every frame until it holds. A smooth
+    // scroll would render the cards it passes (content-visibility), whose real
+    // heights differ from the 240px estimate, so it ended far from the card.
+    let frame = 0;
+    let tries = 0;
+    let still = 0;
+    const step = () => {
+      const el = ref.current;
+      if (!el) return;
+      const delta = el.getBoundingClientRect().top - wantTop();
+      if (Math.abs(delta) > 2) {
+        window.scrollBy({ top: delta, behavior: "auto" });
+        still = 0;
+      } else still++;
+      if (still < 4 && ++tries < 45) frame = requestAnimationFrame(step);
+    };
+    // The learner scrolling on their own takes over.
+    const stop = () => cancelAnimationFrame(frame);
+    window.addEventListener("wheel", stop, { passive: true, once: true });
+    window.addEventListener("touchstart", stop, { passive: true, once: true });
+    const t = setTimeout(() => (frame = requestAnimationFrame(step)), 60);
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
+      clearTimeout(t);
+      stop();
+      window.removeEventListener("wheel", stop);
+      window.removeEventListener("touchstart", stop);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focused]);
