@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
+import Jalak from "@/components/brand/Jalak";
 import TenseIntro from "@/components/features/vocab/TenseIntro/TenseIntro";
 import VocabToolbar from "@/components/features/vocab/VocabToolbar/VocabToolbar";
 import WeekCover from "@/components/features/vocab/WeekCover/WeekCover";
@@ -113,7 +114,8 @@ const VocabPage = React.memo(() => {
               })}
               {list.length === 0 &&
                 (!searching && hideKnown ? (
-                  <Card tone="greenBg">
+                  <Card tone="greenBg" className="flex-row items-center gap-4">
+                    <Jalak mood="senang" />
                     <span className="text-[15px] font-bold text-ink">
                       ✓ Semua item di filter ini sudah hafal. Lanjut ke minggu
                       berikutnya.
@@ -121,6 +123,8 @@ const VocabPage = React.memo(() => {
                   </Card>
                 ) : (
                   <Card tone="dashed" className="items-center py-8 text-center">
+                    {/* Search or a type filter came up empty. */}
+                    {(searching || type !== "all") && <Jalak mood="berpikir" />}
                     <span className="text-[15px] font-bold text-ink-2">
                       {searching
                         ? "Tidak ada kata yang cocok."

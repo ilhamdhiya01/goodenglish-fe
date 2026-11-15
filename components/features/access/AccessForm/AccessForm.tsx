@@ -4,6 +4,7 @@ import type { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
 import React, { useCallback, useState, useSyncExternalStore } from "react";
 
+import Jalak from "@/components/brand/Jalak";
 import Logo from "@/components/brand/Logo";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
@@ -85,7 +86,8 @@ const AccessForm = React.memo(() => {
         </Lead>
       </div>
       {!online && (
-        <Card tone="dashed" pad="sm">
+        <Card tone="dashed" pad="sm" className="flex-row items-center gap-3">
+          <Jalak mood="sedih" />
           <span className="text-[13.5px] leading-[19px] font-bold text-ink-2">
             {OFFLINE}
           </span>

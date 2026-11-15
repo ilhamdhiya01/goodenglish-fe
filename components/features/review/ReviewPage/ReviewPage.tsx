@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 
+import Jalak from "@/components/brand/Jalak";
 import Correction from "@/components/shared/patterns/correction";
 import TargetMark from "@/components/shared/patterns/target-mark";
 import Button from "@/components/ui/button";
@@ -303,6 +304,10 @@ const ReviewPage = React.memo(() => {
             tone="dashed"
             className="items-center gap-3.5 px-6 py-9 text-center"
           >
+            {/* Nothing due: proud after a session today, happy otherwise. */}
+            {scheduled && (
+              <Jalak mood={doneToday > 0 ? "bangga" : "senang"} size={96} />
+            )}
             <span className="text-[15px] leading-[22px] font-semibold text-ink-2">
               {scheduled
                 ? "Tidak ada yang jatuh tempo hari ini. Lanjut belajar kata baru."

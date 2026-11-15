@@ -3,6 +3,7 @@
 import classNames from "classnames";
 import React, { useState } from "react";
 
+import Jalak from "@/components/brand/Jalak";
 import AnswerOption, {
   type AnswerState,
 } from "@/components/shared/patterns/answer-option/AnswerOption";
@@ -413,6 +414,10 @@ const AskPractice = React.memo(
 
         {P && P.finished && (
           <Card tone="done" pad="lg" className="gap-3">
+            <Jalak
+              mood={P.score / P.qs.length >= 0.8 ? "senang" : "biasa"}
+              size={96}
+            />
             <span className="text-[44px] leading-12 font-black tracking-[-0.02em] text-ink">
               {P.score} / {P.qs.length}{" "}
               <span className="text-base font-bold text-ink-2">

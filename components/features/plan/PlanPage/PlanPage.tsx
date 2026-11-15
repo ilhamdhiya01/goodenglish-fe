@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { LuEllipsis } from "react-icons/lu";
 
+import Jalak from "@/components/brand/Jalak";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import IconButton from "@/components/ui/icon-button";
@@ -216,7 +217,8 @@ const PlanPage = React.memo(() => {
       </div>
 
       {allDone && (
-        <Card tone="greenBg">
+        <Card tone="greenBg" className="flex-row items-center gap-4">
+          <Jalak mood="bangga" />
           <span className="text-[15px] leading-[22px] font-bold text-ink">
             ✓ Hari ini selesai. Besok blok yang sama; kalau Sabtu, kerjakan
             checkpoint di bawah.
@@ -376,7 +378,12 @@ const PlanPage = React.memo(() => {
               ))}
             </ul>
             {passed ? (
-              <Card tone="greenBg" pad="sm">
+              <Card
+                tone="greenBg"
+                pad="sm"
+                className="flex-row items-center gap-3"
+              >
+                <Jalak mood="bangga" />
                 <span className="text-sm font-extrabold text-ink">
                   ✓ Lolos. Naikkan minggu di tab Kosakata.
                 </span>

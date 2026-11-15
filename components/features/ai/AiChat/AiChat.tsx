@@ -10,6 +10,7 @@ import {
   LuX,
 } from "react-icons/lu";
 
+import Jalak from "@/components/brand/Jalak";
 import AiText from "@/components/features/ai/AiText";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
@@ -63,7 +64,12 @@ const Bubble = React.memo(({ m, busy, live, question }: BubbleProps) => {
           : "border-line bg-surface text-ink",
       )}
     >
-      {m.text ? (
+      {m.error ? (
+        <div className="flex items-center gap-3">
+          <Jalak mood="sedih" size={48} />
+          <AiText text={m.text} question={question} />
+        </div>
+      ) : m.text ? (
         <>
           <AiText text={m.text} question={question} />
           {live && (
@@ -74,7 +80,8 @@ const Bubble = React.memo(({ m, busy, live, question }: BubbleProps) => {
           )}
         </>
       ) : (
-        <span className="text-[13px] font-bold text-ink-2">
+        <span className="flex items-center gap-3 text-[13px] font-bold text-ink-2">
+          {live && <Jalak mood="berpikir" size={48} />}
           {busy ? "Sedang berpikir…" : "—"}
         </span>
       )}
@@ -342,6 +349,8 @@ const AiChat = React.memo(() => {
         )}
         {view === "chat" && messages.length === 0 && (
           <div className="flex flex-col gap-3">
+            {/* With the quota gone, the sad face on the quota card is enough. */}
+            {!quotaOut && <Jalak mood="bicara" />}
             <p className="m-0 text-[15px] leading-[22px] text-ink-2">
               Tanya apa saja soal bahasa Inggris dan materi GoodEnglish, atau
               tulis kalimat bahasa Inggrismu untuk dicek apakah sudah benar.
@@ -401,10 +410,13 @@ const AiChat = React.memo(() => {
             </div>
           )}
           {quotaOut && (
-            <Card tone="redBg" pad="sm" className="gap-1">
-              <SectionLabel tone="red">KUOTA HARI INI HABIS</SectionLabel>
-              <span className="text-[13.5px] leading-[19px] text-ink">
-                {accessErrorText("ai_quota_exceeded")}
+            <Card tone="redBg" pad="sm" className="flex-row items-center gap-3">
+              <Jalak mood="sedih" size={48} />
+              <span className="flex flex-col gap-1">
+                <SectionLabel tone="red">KUOTA HARI INI HABIS</SectionLabel>
+                <span className="text-[13.5px] leading-[19px] text-ink">
+                  {accessErrorText("ai_quota_exceeded")}
+                </span>
               </span>
             </Card>
           )}

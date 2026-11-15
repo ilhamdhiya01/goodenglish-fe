@@ -3,6 +3,7 @@
 import React from "react";
 import { LuX } from "react-icons/lu";
 
+import Jalak from "@/components/brand/Jalak";
 import AnswerOption from "@/components/shared/patterns/answer-option";
 import Correction from "@/components/shared/patterns/correction";
 import Button from "@/components/ui/button";
@@ -124,6 +125,7 @@ const QuizPanel = React.memo(() => {
 
         {qz.done && (
           <div className="flex flex-col gap-4">
+            <Jalak mood={qz.score >= 16 ? "senang" : "biasa"} size={96} />
             <span className="text-[44px] leading-12 font-black tracking-[-0.02em] text-ink">
               {qz.score} / {qz.qs.length}
             </span>
