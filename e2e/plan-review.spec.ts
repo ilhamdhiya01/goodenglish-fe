@@ -99,7 +99,7 @@ test("checkpoint: kotak centang manual tersimpan", async ({ page, api }) => {
     .toContain('"rec":true');
 });
 
-test("reset rencana lewat menu ⋯ dengan konfirmasi", async ({ page, api }) => {
+test("reset rencana lewat menu ⋯ dengan konfirmasi", async ({ page }) => {
   await openApp(page, "/plan");
   await page.getByRole("checkbox", { name: /Rekam 2 menit/ }).click();
   await page.getByRole("button", { name: "Menu rencana" }).click();
