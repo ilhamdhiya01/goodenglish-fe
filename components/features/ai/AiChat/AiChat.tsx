@@ -191,7 +191,10 @@ const AiChat = React.memo(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     const onPointer = (e: PointerEvent) => {
-      if (!panelRef.current?.contains(e.target as Node)) setOpen(false);
+      const t = e.target as Element;
+      // The top bar's "Tanya AI" button toggles the panel itself.
+      if (t.closest?.("[data-ai-trigger]")) return;
+      if (!panelRef.current?.contains(t)) setOpen(false);
     };
     window.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onPointer);
@@ -228,18 +231,6 @@ const AiChat = React.memo(() => {
 
   return (
     <>
-      {!open && (
-        <button
-          type="button"
-          aria-label="Tanya AI"
-          title="Tanya AI"
-          onClick={() => setOpen(true)}
-          className="fixed right-[max(16px,env(safe-area-inset-right))] bottom-[max(20px,env(safe-area-inset-bottom))] z-30 inline-flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-[1.5px] border-green-deep bg-green text-card shadow-[0_8px_24px_rgba(29,27,22,.22)] transition-colors hover:bg-green-deep"
-        >
-          <ChatIcon />
-        </button>
-      )}
-
       {open && (
         <>
           <aside

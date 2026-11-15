@@ -105,7 +105,7 @@ export const SCREENS: Screen[] = [
     viewport: true,
     path: "/vocab",
     setup: async (page) => {
-      await globalSearchInput(page).fill("run");
+      await (await globalSearchInput(page)).fill("run");
       await expect(page.getByTestId("search-result").first()).toBeVisible();
     },
   },

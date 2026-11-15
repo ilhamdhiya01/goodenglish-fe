@@ -47,7 +47,7 @@ const VocabPage = React.memo(() => {
     <div className="flex flex-wrap items-start gap-7">
       <WeekSidebar data={data} />
 
-      <main className="flex min-w-0 flex-[999_1_480px] flex-col gap-5.5">
+      <div className="flex min-w-0 flex-[999_1_480px] flex-col gap-5.5">
         {d && !searching && <TenseIntro d={d} />}
 
         {!d && !searching && (
@@ -99,7 +99,7 @@ const VocabPage = React.memo(() => {
             </div>
           </>
         )}
-      </main>
+      </div>
     </div>
   );
 });

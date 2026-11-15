@@ -10,87 +10,63 @@
     "region": 19
   },
   "desktop/cheatsheet": {
-    "color-contrast": 2,
     "heading-order": 1,
-    "landmark-one-main": 1,
-    "region": 350
+    "region": 2
   },
   "desktop/dev-ui": {},
   "desktop/dev-ui-buta-warna": {},
   "desktop/errors": {
-    "color-contrast": 2,
-    "landmark-one-main": 1,
-    "region": 130
+    "region": 2
   },
   "desktop/grammar-been": {
-    "color-contrast": 2,
-    "landmark-one-main": 1,
-    "region": 155
+    "region": 2
   },
   "desktop/grammar-latihan": {
-    "color-contrast": 3,
-    "landmark-one-main": 1,
-    "region": 131
+    "color-contrast": 1,
+    "region": 2
   },
   "desktop/grammar-tense": {
-    "color-contrast": 6,
-    "landmark-one-main": 1,
-    "region": 126
+    "color-contrast": 4,
+    "region": 2
   },
   "desktop/pencarian": {
-    "color-contrast": 1,
     "region": 3
   },
   "desktop/plan": {
     "button-name": 5,
-    "color-contrast": 2,
-    "landmark-one-main": 1,
-    "region": 19
+    "region": 2
   },
   "desktop/pronunciation": {
-    "color-contrast": 2,
-    "landmark-one-main": 1,
-    "region": 16
+    "region": 2
   },
   "desktop/review": {
-    "landmark-one-main": 1,
-    "region": 8
+    "region": 2
   },
   "desktop/review-jawaban": {
-    "landmark-one-main": 1,
-    "region": 12
+    "region": 2
   },
   "desktop/review-kosong": {
-    "landmark-one-main": 1,
-    "region": 6
+    "region": 2
   },
   "desktop/scenario": {
-    "color-contrast": 5,
-    "landmark-one-main": 1,
-    "region": 53
+    "color-contrast": 3,
+    "region": 2
   },
   "desktop/tanya-ai": {
     "aria-allowed-role": 1,
-    "color-contrast": 2,
-    "landmark-no-duplicate-banner": 1,
-    "landmark-unique": 1,
-    "region": 3
+    "region": 2
   },
   "desktop/tes-cepat": {
-    "color-contrast": 2,
-    "region": 6
+    "region": 2
   },
   "desktop/vocab": {
-    "color-contrast": 2,
-    "region": 3
+    "region": 2
   },
   "desktop/vocab-mode-tes": {
-    "color-contrast": 2,
-    "region": 3
+    "region": 2
   },
   "desktop/vocab-penjelasan": {
-    "color-contrast": 2,
-    "region": 3
+    "region": 2
   },
   "mobile/access": {
     "landmark-one-main": 1,
@@ -103,87 +79,37 @@
     "region": 19
   },
   "mobile/cheatsheet": {
-    "color-contrast": 2,
     "heading-order": 1,
-    "landmark-one-main": 1,
-    "region": 349,
     "scrollable-region-focusable": 11
   },
   "mobile/dev-ui": {},
   "mobile/dev-ui-buta-warna": {},
-  "mobile/errors": {
-    "color-contrast": 2,
-    "landmark-one-main": 1,
-    "region": 129
-  },
-  "mobile/grammar-been": {
-    "color-contrast": 2,
-    "landmark-one-main": 1,
-    "region": 161
-  },
+  "mobile/errors": {},
+  "mobile/grammar-been": {},
   "mobile/grammar-latihan": {
-    "color-contrast": 3,
-    "landmark-one-main": 1,
-    "region": 129
+    "color-contrast": 1
   },
   "mobile/grammar-tense": {
-    "color-contrast": 6,
-    "landmark-one-main": 1,
-    "region": 125
+    "color-contrast": 4
   },
-  "mobile/pencarian": {
-    "color-contrast": 3,
-    "region": 2
-  },
+  "mobile/pencarian": {},
   "mobile/plan": {
-    "button-name": 5,
-    "color-contrast": 2,
-    "landmark-one-main": 1,
-    "region": 18
+    "button-name": 5
   },
-  "mobile/pronunciation": {
-    "color-contrast": 2,
-    "landmark-one-main": 1,
-    "region": 15
-  },
-  "mobile/review": {
-    "landmark-one-main": 1,
-    "region": 7
-  },
-  "mobile/review-jawaban": {
-    "landmark-one-main": 1,
-    "region": 11
-  },
-  "mobile/review-kosong": {
-    "landmark-one-main": 1,
-    "region": 5
-  },
+  "mobile/pronunciation": {},
+  "mobile/review": {},
+  "mobile/review-jawaban": {},
+  "mobile/review-kosong": {},
   "mobile/scenario": {
-    "color-contrast": 5,
-    "landmark-one-main": 1,
-    "region": 52
+    "color-contrast": 3
   },
   "mobile/tanya-ai": {
     "aria-allowed-role": 1,
-    "color-contrast": 2,
     "landmark-no-duplicate-banner": 1,
-    "landmark-unique": 1,
-    "region": 2
+    "landmark-unique": 1
   },
-  "mobile/tes-cepat": {
-    "color-contrast": 2,
-    "region": 5
-  },
-  "mobile/vocab": {
-    "color-contrast": 2,
-    "region": 2
-  },
-  "mobile/vocab-mode-tes": {
-    "color-contrast": 2,
-    "region": 2
-  },
-  "mobile/vocab-penjelasan": {
-    "color-contrast": 2,
-    "region": 2
-  }
+  "mobile/tes-cepat": {},
+  "mobile/vocab": {},
+  "mobile/vocab-mode-tes": {},
+  "mobile/vocab-penjelasan": {}
 }

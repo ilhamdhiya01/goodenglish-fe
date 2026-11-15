@@ -20,7 +20,10 @@ const WeekSidebar = React.memo(({ data }: { data: LevelData }) => {
   const { plan, V } = data;
 
   return (
-    <aside className="flex min-w-0 flex-[1_1_260px] flex-col gap-1 min-[900px]:sticky min-[900px]:top-4 min-[900px]:max-w-[300px]">
+    <aside
+      aria-label="Daftar minggu"
+      className="flex min-w-0 flex-[1_1_260px] flex-col gap-1 min-[900px]:sticky min-[900px]:top-4 min-[900px]:max-w-[300px]"
+    >
       <span className="px-2.5 pb-1.5 font-mono text-[11px] tracking-[0.08em] text-muted">
         RENCANA BELAJAR · {levelName(level).toUpperCase()}
       </span>

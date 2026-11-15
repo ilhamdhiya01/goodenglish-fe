@@ -126,11 +126,13 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
     if (hasNoteFor) setNoteOpen(true);
     const go = () => {
       if (ref.current) {
-        // Sisakan ruang untuk toolbar yang menempel di atas (kalau sedang sticky).
+        // Sisakan ruang untuk toolbar yang menempel di atas (kalau sedang sticky),
+        // yang sendiri duduk di bawah bar atas HP (top = --shell-top).
         const bar = document.querySelector<HTMLElement>("[data-vocab-toolbar]");
+        const css = bar && getComputedStyle(bar);
         const offset =
-          bar && getComputedStyle(bar).position === "sticky"
-            ? bar.offsetHeight + 16
+          bar && css?.position === "sticky"
+            ? bar.offsetHeight + (parseFloat(css.top) || 0) + 16
             : 110;
         const y =
           ref.current.getBoundingClientRect().top + window.scrollY - offset;

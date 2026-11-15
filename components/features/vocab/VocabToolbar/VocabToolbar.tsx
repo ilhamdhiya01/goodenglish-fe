@@ -45,7 +45,7 @@ const VocabToolbar = React.memo(
       <>
         <div
           data-vocab-toolbar
-          className="sticky top-0 z-20 flex flex-col gap-2.5 border-b border-line bg-paper py-2.5 md:gap-3"
+          className="sticky top-[var(--shell-top,0px)] z-20 flex flex-col gap-2.5 border-b border-line bg-paper py-2.5 md:gap-3"
         >
           <div className="flex flex-col gap-2 md:flex-row md:flex-wrap md:items-center md:gap-2.5">
             <div className="flex h-10 min-w-0 items-center gap-2 rounded-lg border-[1.5px] border-ink bg-card px-3 md:flex-[1_1_240px]">

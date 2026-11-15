@@ -31,6 +31,8 @@ interface MenuProps {
   /** Renders the opening button; spread the props onto it. */
   button: (props: TriggerProps) => React.ReactNode;
   align?: "start" | "end";
+  /** Open below (default) or above the button (bottom of the sidebar). */
+  side?: "bottom" | "top";
   className?: string;
   children: React.ReactNode;
 }
@@ -39,7 +41,7 @@ const CloseContext = createContext<() => void>(() => {});
 
 const items = (list: HTMLElement | null) => [
   ...(list?.querySelectorAll<HTMLElement>(
-    '[role="menuitem"]:not([aria-disabled="true"])',
+    '[role^="menuitem"]:not([aria-disabled="true"])',
   ) ?? []),
 ];
 
@@ -47,6 +49,7 @@ const Menu = ({
   label,
   button,
   align = "end",
+  side = "bottom",
   className,
   children,
 }: MenuProps) => {
@@ -67,8 +70,14 @@ const Menu = ({
   useEffect(() => {
     if (!open) return;
     const list = items(listRef.current);
+    // Start on the current choice in a pick-one menu (level).
+    const checked = list.find(
+      (el) => el.getAttribute("aria-checked") === "true",
+    );
     const target =
-      focusFirst.current === "last" ? list[list.length - 1] : list[0];
+      focusFirst.current === "last"
+        ? list[list.length - 1]
+        : (checked ?? list[0]);
     target?.focus();
     focusFirst.current = null;
   }, [open]);
@@ -125,8 +134,9 @@ const Menu = ({
           aria-label={label}
           onKeyDown={onListKey}
           className={classNames(
-            "absolute top-[calc(100%+8px)] z-40 flex max-h-[min(70vh,480px)] min-w-[220px] animate-[fade-in_120ms_var(--ease-lompat)] flex-col overflow-y-auto rounded-xl border-2 border-line bg-surface p-1.5 shadow-overlay",
+            "absolute z-40 flex max-h-[min(70vh,480px)] min-w-[220px] animate-[fade-in_120ms_var(--ease-lompat)] flex-col overflow-y-auto rounded-xl border-2 border-line bg-surface p-1.5 shadow-overlay",
             align === "end" ? "right-0" : "left-0",
+            side === "top" ? "bottom-[calc(100%+8px)]" : "top-[calc(100%+8px)]",
           )}
         >
           <CloseContext.Provider value={close}>
@@ -140,6 +150,8 @@ const Menu = ({
 
 interface MenuItemProps {
   onSelect: () => void;
+  /** The current choice in a pick-one menu (level): ✓ and aria-checked. */
+  selected?: boolean;
   tone?: "default" | "bad";
   disabled?: boolean;
   /** Small second line under the label. */
@@ -149,6 +161,7 @@ interface MenuItemProps {
 
 const MenuItem = ({
   onSelect,
+  selected,
   tone = "default",
   disabled,
   hint,
@@ -158,7 +171,8 @@ const MenuItem = ({
   return (
     <button
       type="button"
-      role="menuitem"
+      role={selected === undefined ? "menuitem" : "menuitemradio"}
+      aria-checked={selected}
       tabIndex={-1}
       aria-disabled={disabled || undefined}
       onClick={() => {
@@ -167,11 +181,19 @@ const MenuItem = ({
         onSelect();
       }}
       className={classNames(
-        "flex min-h-11 w-full cursor-pointer flex-col items-start justify-center rounded-md px-3 py-2 text-left text-sm font-extrabold outline-none focus:bg-accent-tint aria-disabled:cursor-not-allowed aria-disabled:text-ink-3",
+        "flex min-h-11 w-full cursor-pointer flex-col items-start justify-center rounded-md px-3 py-2 text-left text-sm font-extrabold outline-none focus:bg-sunken focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent aria-disabled:cursor-not-allowed aria-disabled:text-ink-3",
         tone === "bad" ? "text-bad" : "text-ink hover:bg-sunken",
+        selected && "bg-accent-tint text-accent-edge",
       )}
     >
-      {children}
+      {selected ? (
+        <span className="flex w-full items-center gap-2">
+          <span aria-hidden>✓</span>
+          {children}
+        </span>
+      ) : (
+        children
+      )}
       {hint && (
         <span className="text-[12.5px] leading-[18px] font-bold text-ink-2">
           {hint}

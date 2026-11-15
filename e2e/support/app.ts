@@ -11,14 +11,32 @@ export const openApp = async (page: Page, path = "/plan") => {
   await expect(page.locator("main, body").first()).toBeVisible();
 };
 
-export const globalSearchInput = (page: Page): Locator =>
-  page.getByPlaceholder("Cari kata di semua level…");
+const isPhone = (page: Page) => (page.viewportSize()?.width ?? 1280) < 700;
+
+/** The global search field; on a phone it first opens the search screen. */
+export const globalSearchInput = async (page: Page): Promise<Locator> => {
+  if (isPhone(page))
+    await page.getByRole("button", { name: "Cari kata" }).click();
+  return page.getByRole("combobox", { name: "Cari kata di semua level" });
+};
 
 export const searchResults = (page: Page): Locator =>
   page.getByTestId("search-result");
 
-export const exportButton = (page: Page): Locator =>
-  page.getByRole("button", { name: "Ekspor progres ke file" });
+/** Account actions live in the ⋯ menu (computer) or "Lainnya" (phone). */
+export const clickAccountAction = async (page: Page, name: string) => {
+  const more = page.getByRole("button", { name: "Lainnya" });
+  if (isPhone(page) && (await more.isVisible())) {
+    await more.click();
+    await page
+      .getByRole("dialog", { name: "Lainnya" })
+      .getByRole("button", { name })
+      .click();
+    return;
+  }
+  await page.getByRole("button", { name: "Menu akun" }).click();
+  await page.getByRole("menuitem", { name }).click();
+};
 
 export const importInput = (page: Page): Locator =>
   page.locator('input[type="file"][accept*="json"]');

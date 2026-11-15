@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 
 import {
-  exportButton,
+  clickAccountAction,
   globalSearchInput,
   importInput,
   navLink,
@@ -178,7 +178,7 @@ test.describe("tanya AI", () => {
 test.describe("pencarian global", () => {
   test("memilih hasil melompat ke kata di Kosakata", async ({ page }) => {
     await openApp(page, "/plan");
-    await globalSearchInput(page).fill("run out of");
+    await (await globalSearchInput(page)).fill("run out of");
     await expect(searchResults(page).first()).toBeVisible();
     await searchResults(page).first().click();
     await expect(page).toHaveURL(/\/vocab/);
@@ -193,7 +193,7 @@ test.describe("ekspor dan impor", () => {
     await openApp(page, "/plan");
     const [download] = await Promise.all([
       page.waitForEvent("download"),
-      exportButton(page).click(),
+      clickAccountAction(page, "Ekspor progres"),
     ]);
     const file = await download.path();
     const data = JSON.parse(await readFile(file, "utf8"));

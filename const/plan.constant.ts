@@ -77,3 +77,13 @@ export const ASK_RULES: [string, string][] = [
   ["r3", "Rumus 3"],
   ["r4", "Rumus 4"],
 ];
+
+// Satu kalimat penyemangat per minggu (dulu di header, kini di Rencana).
+export const CHEERS = [
+  "Salah ucap itu bagian dari belajar. Terus bicara.",
+  "Sedikit tiap hari lebih kuat daripada banyak sekali-sekali.",
+  "Kamu sudah lebih jago dari minggu lalu.",
+  "Tidak perlu sempurna, yang penting dimengerti.",
+  "Satu kalimat hari ini, satu percakapan besok.",
+  "Berani mencoba sudah setengah jalan.",
+];

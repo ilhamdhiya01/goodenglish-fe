@@ -8,10 +8,9 @@ import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import SectionLabel from "@/components/ui/section-label";
 import TextButton from "@/components/ui/text-button";
-import { ASK_RULES } from "@/const/plan.constant";
-import { PRON_SECS } from "@/const/pronunciation.constant";
-import { today } from "@/lib/helpers/storage.helper";
+import { ASK_RULES, CHEERS } from "@/const/plan.constant";
 import { useShellData } from "@/lib/hooks/useShellData";
+import { useTodayPlan } from "@/lib/hooks/useTodayPlan";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 
@@ -52,100 +51,25 @@ const Check = ({
 // Halaman Rencana: rutinitas harian 3 blok (dicentang otomatis oleh
 // PlanAutoCheck) + checkpoint mingguan.
 const PlanPage = React.memo(() => {
-  const { level, week, srs, known } = useShellData();
+  const { level, week } = useShellData();
   const P = usePlanStore((s) => s.plan);
   const setPlan = usePlanStore((s) => s.setPlan);
   const askPrac = useAskPracticeStore((s) => s.stats);
   const router = useRouter();
 
-  const T = today();
-  const key = String(T);
-  const day = P.days?.[key] || {};
-  const dow = new Date().getDay();
-  const sat = dow === 6;
-  const sun = dow === 0;
-  const wknd = sat || sun;
-  const odd = T % 2 === 1;
-  const dueCount = Object.keys(srs).filter(
-    (k) => srs[k].due <= T && known[k],
-  ).length;
-  const rule = P.rule || "r1";
-  const ruleNo = ASK_RULES.find((r) => r[0] === rule)![1];
-  const pronIdx = (P.pronIdx || 0) % PRON_SECS.length;
-  const pronName = PRON_SECS[pronIdx][1];
-
-  interface Block {
-    id: string;
-    no: string;
-    name: string;
-    min: string;
-    to: string;
-    go: string;
-    desc: string;
-    why: string;
-  }
-  const blocks: Block[] = (
-    [
-      {
-        id: "b1",
-        no: "1",
-        name: "Ulang",
-        min: "10 mnt",
-        to: "/review",
-        go: "Ulang hari ini",
-        desc: dueCount
-          ? `${dueCount} kata jatuh tempo. Jawab dengan suara, bukan dalam hati.`
-          : "Tidak ada yang jatuh tempo. Buka Kosakata dan ucapkan 10 kata yang sudah hafal.",
-        why: "Kata yang pernah diucapkan lebih cepat keluar saat bicara.",
-      },
-      wknd
-        ? null
-        : {
-            id: "b2",
-            no: "2",
-            name: "Masuk",
-            min: "15 mnt",
-            to: "/vocab",
-            go: "Kosakata",
-            desc: "10–12 kata baru di minggu aktif. Dengar, ulangi 2×, baca contohnya keras, tulis Kalimatku lalu ucapkan.",
-            why: "Tandai hafal hanya yang sudah kamu pakai dalam kalimat sendiri.",
-          },
-      wknd
-        ? null
-        : odd
-          ? {
-              id: "b3",
-              no: "3",
-              name: "Bentuk",
-              min: "15 mnt",
-              to: "/grammar/ask",
-              go: "Grammar › Bertanya · " + ruleNo,
-              desc: `Satu set 20 soal ${ruleNo}. Naik tahap saat ≥ 16/20 dua kali berturut.`,
-              why: 'Menyerang "tahu katanya tapi susunan kacau".',
-            }
-          : {
-              id: "b3",
-              no: "3",
-              name: "Bentuk",
-              min: "15 mnt",
-              to: "/pronunciation",
-              go: "Pelafalan · " + pronName,
-              desc: `Shadowing bagian "${pronName}" 10 menit, lalu Panduan grammar › Kata bantu "Satu kalimat, enam tense" 5 menit. Selesai? Klik "sudah, lanjut bagian berikutnya" di bawah.`,
-              why: 'Menyerang pelafalan dan "tidak paham ucapan cepat".',
-            },
-    ] as (Block | null)[]
-  ).filter((b): b is Block => !!b);
-
-  const doneN = blocks.filter((b) => !!day[b.id]).length;
-  const allDone = doneN === blocks.length;
-  let streak = 0;
-  for (let d = T - (allDone ? 0 : 1); d > T - 400; d--) {
-    const dd = P.days?.[String(d)];
-    const n = dd ? Object.values(dd).filter(Boolean).length : 0;
-    const wd = new Date(d * 86400000).getDay();
-    if (n >= (wd === 0 || wd === 6 ? 1 : 3)) streak++;
-    else break;
-  }
+  const {
+    day,
+    dow,
+    sat,
+    sun,
+    rule,
+    ruleNo,
+    pronName,
+    blocks,
+    doneN,
+    allDone,
+    streak,
+  } = useTodayPlan();
   const weekQuiz = (P.quiz || []).filter(
     (q) => q.scope === "week" && q.level === level && q.week === week,
   );
@@ -229,6 +153,9 @@ const PlanPage = React.memo(() => {
           <h2 className="m-0 text-3xl leading-[1.15] font-bold tracking-[-0.02em]">
             40 menit, tiga blok, urutan tetap.
           </h2>
+          <span className="text-sm font-bold text-ink-2">
+            {CHEERS[(week - 1) % CHEERS.length]}
+          </span>
           <p className="m-0 text-[15px] leading-[1.55] text-pretty text-ink-2">
             Rutinitasnya sama setiap hari supaya tidak ada energi terbuang untuk
             memutuskan &quot;belajar apa sekarang&quot;. Yang berubah hanya
