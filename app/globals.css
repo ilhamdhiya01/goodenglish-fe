@@ -32,6 +32,7 @@
   --color-accent-mark: #d3e1ff; /* garis bawah tebal pada kata target */
   --color-accent-wash: #f5f8ff; /* isi kartu yang sedang giliran (Card ink) */
   --color-on-accent: #ffffff; /* teks di atas accent dan bad */
+  --color-accent-on-dark: #7da6ff; /* "English" pada logo di latar gelap/biru */
 
   /* Semantik */
   --color-ok: #147a3b; /* teks/ikon benar; 4.8:1 di ok-bg */
@@ -153,6 +154,14 @@ input::placeholder {
 @keyframes mark-sweep {
   from {
     background-size: 0% 8px;
+  }
+}
+
+/* Jalak muncul: naik 6px sambil memudar masuk, sekali. */
+@keyframes jalak-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
   }
 }
 

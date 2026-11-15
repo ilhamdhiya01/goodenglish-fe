@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
+import Logo from "@/components/brand/Logo";
 import TextButton from "@/components/ui/text-button";
 import { useLogout } from "@/lib/hooks/auth/useLogout";
 import { useSession } from "@/lib/hooks/auth/useSession";
@@ -49,8 +50,11 @@ const AdminShell = React.memo(({ children }: AdminShellProps) => {
     <div className="mx-auto flex max-w-[1280px] flex-col gap-6 px-[clamp(14px,3vw,28px)] pt-[clamp(18px,4vw,36px)] pb-20">
       <header className="flex flex-wrap items-start justify-between gap-4 border-b-2 border-line pb-5">
         <div className="flex flex-col gap-2">
-          <span className="text-[13px] leading-[18px] font-black tracking-[0.08em] text-ink">
-            GOOD<span className="text-accent-edge">ENGLISH</span> · ADMIN
+          <span className="flex items-center gap-2">
+            <Logo size="sm" />
+            <span className="text-[13px] leading-[18px] font-black tracking-[0.08em] text-ink-2">
+              · ADMIN
+            </span>
           </span>
           <h1 className="m-0 text-2xl leading-[30px] font-black tracking-[-0.02em] text-ink md:text-[30px] md:leading-9">
             {current[2]}

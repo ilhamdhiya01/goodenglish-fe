@@ -1,30 +1,8 @@
 import classNames from "classnames";
 import React from "react";
 
-// Small pieces shared by the sidebar, icon rail and bottom nav.
-
-/** "GoodEnglish": "Good" in ink, "English" in the accent. */
-export const Wordmark = ({ className }: { className?: string }) => (
-  <span
-    className={classNames(
-      "text-2xl leading-none font-black tracking-[-0.02em] text-ink",
-      className,
-    )}
-  >
-    Good<span className="text-accent">English</span>
-  </span>
-);
-
-/** Square "ge" mark for the narrow icon rail. */
-export const LogoMark = () => (
-  <span
-    aria-label="GoodEnglish"
-    role="img"
-    className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-accent text-lg leading-none font-black text-on-accent"
-  >
-    ge
-  </span>
-);
+// Small pieces shared by the sidebar, icon rail and bottom nav (the logo is
+// components/brand/Logo).
 
 /** Count of words due ("Ulang"); the visible number has a spoken label. */
 export const NavBadge = ({

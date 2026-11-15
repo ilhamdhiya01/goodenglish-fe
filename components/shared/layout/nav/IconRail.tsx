@@ -4,7 +4,9 @@ import classNames from "classnames";
 import Link from "next/link";
 import React from "react";
 
-import { LogoMark, NavBadge } from "./NavParts";
+import Logo from "@/components/brand/Logo";
+
+import { NavBadge } from "./NavParts";
 import { useNavItems } from "./useNavItems";
 
 // 700–1099px: the sidebar folded into an 88px rail of icons. Each icon is
@@ -20,7 +22,7 @@ const IconRail = React.memo(({ className }: { className?: string }) => {
       )}
     >
       <Link href="/plan" className="rounded-md focus-ring">
-        <LogoMark />
+        <Logo variant="mark" size="md" />
       </Link>
       <nav
         aria-label="Menu utama"

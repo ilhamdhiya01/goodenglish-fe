@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { LuMenu } from "react-icons/lu";
 
+import Logo from "@/components/brand/Logo";
 import Sheet from "@/components/ui/sheet";
 
 import type { AccountAction } from "../account/useAccountActions";
@@ -77,7 +78,11 @@ const BottomNav = React.memo(
         </nav>
 
         {open && (
-          <Sheet label="Lainnya" onClose={() => setOpen(false)}>
+          <Sheet
+            label="Lainnya"
+            header={<Logo size="sm" />}
+            onClose={() => setOpen(false)}
+          >
             {more.map(({ id, path, label, icon: Icon, active }) => (
               <Link
                 key={id}

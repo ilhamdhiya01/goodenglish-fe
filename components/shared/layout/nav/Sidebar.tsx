@@ -4,8 +4,10 @@ import classNames from "classnames";
 import Link from "next/link";
 import React from "react";
 
+import Logo from "@/components/brand/Logo";
+
 import LevelPicker from "../level-picker";
-import { NavBadge, Wordmark } from "./NavParts";
+import { NavBadge } from "./NavParts";
 import { useNavItems } from "./useNavItems";
 
 // ≥1100px: logo, the menus with icon + caps label, the due badge on "Ulang",
@@ -24,7 +26,7 @@ const Sidebar = React.memo(({ className }: { className?: string }) => {
         href="/plan"
         className="self-start rounded-sm px-2 no-underline focus-ring"
       >
-        <Wordmark />
+        <Logo size="md" />
       </Link>
       {/* Only the menu list scrolls on short screens, so the level menu
           (which opens above the picker, wider than the sidebar) isn't clipped. */}

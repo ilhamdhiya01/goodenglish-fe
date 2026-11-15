@@ -4,7 +4,7 @@ import type { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
 import React, { useCallback, useState, useSyncExternalStore } from "react";
 
-import { Wordmark } from "@/components/shared/layout/nav/NavParts";
+import Logo from "@/components/brand/Logo";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import Input from "@/components/ui/input";
@@ -38,7 +38,7 @@ const useOnline = () =>
     () => true,
   );
 
-// The token screen: one centered column — wordmark, title, the ge_… field
+// The token screen: one centered column — logo, title, the ge_… field
 // and a full-width "Masuk". Errors sit under the field; an offline device is
 // told so before it tries.
 const AccessForm = React.memo(() => {
@@ -75,7 +75,7 @@ const AccessForm = React.memo(() => {
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[392px] flex-col justify-center gap-6 px-4 py-12">
-      <Wordmark className="text-[28px]" />
+      <Logo variant="stacked" size="lg" className="self-center" />
       <div className="flex flex-col gap-2">
         <SectionLabel tone="green">AKSES</SectionLabel>
         <PageHeading>Masukkan token akses</PageHeading>

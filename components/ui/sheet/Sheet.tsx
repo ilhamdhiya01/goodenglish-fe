@@ -8,6 +8,8 @@ import { useDialog } from "../modal/useDialog";
 interface SheetProps {
   /** Accessible name; also shown as the sheet's title. */
   label: string;
+  /** Shown above the title (the logo in "Lainnya"). */
+  header?: React.ReactNode;
   onClose: () => void;
   children: React.ReactNode;
 }
@@ -15,7 +17,7 @@ interface SheetProps {
 // Bottom sheet (phone menus: "Lainnya", level, week, vocab modes). Same
 // behavior as Modal — Escape / tap outside closes, focus stays inside —
 // sliding up from the bottom edge, clear of the home bar.
-const Sheet = ({ label, onClose, children }: SheetProps) => {
+const Sheet = ({ label, header, onClose, children }: SheetProps) => {
   const boxRef = useRef<HTMLDivElement>(null);
   useDialog(boxRef, onClose);
 
@@ -36,6 +38,7 @@ const Sheet = ({ label, onClose, children }: SheetProps) => {
       >
         <div className="flex flex-col items-center gap-3 px-4 pt-2.5 pb-2">
           <span aria-hidden className="h-1.5 w-10 rounded-full bg-line" />
+          {header && <div className="self-start pt-1.5 pb-1">{header}</div>}
           <span className="self-start text-base leading-[22px] font-extrabold text-ink">
             {label}
           </span>
