@@ -250,6 +250,7 @@ const AskPractice = React.memo(
                     <button
                       type="button"
                       key={o}
+                      data-testid="practice-option"
                       onClick={() => answer(o)}
                       className={classNames(
                         "flex cursor-pointer flex-col gap-1.5 rounded-lg border-[1.5px] px-3.5 py-3 text-left font-sans text-[15px] transition-colors hover:border-ink",
@@ -331,6 +332,7 @@ const AskPractice = React.memo(
                       <button
                         type="button"
                         key={tk.i}
+                        data-testid="practice-token"
                         onClick={() => {
                           if (answered) return;
                           // Kartu abu-abu = kata yang sudah ada di kotak: perlakukan sama seperti mengklik kata itu.

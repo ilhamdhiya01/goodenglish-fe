@@ -1,0 +1,193 @@
+{
+  "desktop/access": {
+    "landmark-one-main": 1,
+    "page-has-heading-one": 1,
+    "region": 3
+  },
+  "desktop/admin-tokens": {
+    "color-contrast": 4,
+    "empty-table-header": 1,
+    "landmark-one-main": 1,
+    "region": 19
+  },
+  "desktop/cheatsheet": {
+    "color-contrast": 3,
+    "heading-order": 1,
+    "landmark-one-main": 1,
+    "region": 350
+  },
+  "desktop/errors": {
+    "color-contrast": 7,
+    "landmark-one-main": 1,
+    "region": 130
+  },
+  "desktop/grammar-been": {
+    "color-contrast": 44,
+    "landmark-one-main": 1,
+    "region": 155
+  },
+  "desktop/grammar-latihan": {
+    "color-contrast": 35,
+    "landmark-one-main": 1,
+    "region": 131
+  },
+  "desktop/grammar-tense": {
+    "color-contrast": 47,
+    "landmark-one-main": 1,
+    "region": 126
+  },
+  "desktop/pencarian": {
+    "color-contrast": 71,
+    "region": 3
+  },
+  "desktop/plan": {
+    "button-name": 5,
+    "color-contrast": 3,
+    "landmark-one-main": 1,
+    "region": 19
+  },
+  "desktop/pronunciation": {
+    "color-contrast": 3,
+    "landmark-one-main": 1,
+    "region": 16
+  },
+  "desktop/review": {
+    "color-contrast": 3,
+    "landmark-one-main": 1,
+    "region": 8
+  },
+  "desktop/review-jawaban": {
+    "color-contrast": 3,
+    "landmark-one-main": 1,
+    "region": 12
+  },
+  "desktop/review-kosong": {
+    "color-contrast": 2,
+    "landmark-one-main": 1,
+    "region": 6
+  },
+  "desktop/scenario": {
+    "color-contrast": 6,
+    "landmark-one-main": 1,
+    "region": 53
+  },
+  "desktop/tanya-ai": {
+    "aria-allowed-role": 1,
+    "color-contrast": 32,
+    "landmark-no-duplicate-banner": 1,
+    "landmark-unique": 1,
+    "region": 3
+  },
+  "desktop/tes-cepat": {
+    "color-contrast": 32,
+    "region": 6
+  },
+  "desktop/vocab": {
+    "color-contrast": 32,
+    "region": 3
+  },
+  "desktop/vocab-mode-tes": {
+    "color-contrast": 32,
+    "region": 3
+  },
+  "desktop/vocab-penjelasan": {
+    "color-contrast": 36,
+    "region": 3
+  },
+  "mobile/access": {
+    "landmark-one-main": 1,
+    "page-has-heading-one": 1,
+    "region": 3
+  },
+  "mobile/admin-tokens": {
+    "color-contrast": 4,
+    "empty-table-header": 1,
+    "landmark-one-main": 1,
+    "region": 19
+  },
+  "mobile/cheatsheet": {
+    "color-contrast": 2,
+    "heading-order": 1,
+    "landmark-one-main": 1,
+    "region": 349,
+    "scrollable-region-focusable": 11
+  },
+  "mobile/errors": {
+    "color-contrast": 6,
+    "landmark-one-main": 1,
+    "region": 129
+  },
+  "mobile/grammar-been": {
+    "color-contrast": 43,
+    "landmark-one-main": 1,
+    "region": 161
+  },
+  "mobile/grammar-latihan": {
+    "color-contrast": 34,
+    "landmark-one-main": 1,
+    "region": 129
+  },
+  "mobile/grammar-tense": {
+    "color-contrast": 46,
+    "landmark-one-main": 1,
+    "region": 125
+  },
+  "mobile/pencarian": {
+    "color-contrast": 71,
+    "region": 2
+  },
+  "mobile/plan": {
+    "button-name": 5,
+    "color-contrast": 2,
+    "landmark-one-main": 1,
+    "region": 18
+  },
+  "mobile/pronunciation": {
+    "color-contrast": 2,
+    "landmark-one-main": 1,
+    "region": 15
+  },
+  "mobile/review": {
+    "color-contrast": 2,
+    "landmark-one-main": 1,
+    "region": 7
+  },
+  "mobile/review-jawaban": {
+    "color-contrast": 2,
+    "landmark-one-main": 1,
+    "region": 11
+  },
+  "mobile/review-kosong": {
+    "color-contrast": 1,
+    "landmark-one-main": 1,
+    "region": 5
+  },
+  "mobile/scenario": {
+    "color-contrast": 5,
+    "landmark-one-main": 1,
+    "region": 52
+  },
+  "mobile/tanya-ai": {
+    "aria-allowed-role": 1,
+    "color-contrast": 31,
+    "landmark-no-duplicate-banner": 1,
+    "landmark-unique": 1,
+    "region": 2
+  },
+  "mobile/tes-cepat": {
+    "color-contrast": 31,
+    "region": 5
+  },
+  "mobile/vocab": {
+    "color-contrast": 31,
+    "region": 2
+  },
+  "mobile/vocab-mode-tes": {
+    "color-contrast": 31,
+    "region": 2
+  },
+  "mobile/vocab-penjelasan": {
+    "color-contrast": 35,
+    "region": 2
+  }
+}

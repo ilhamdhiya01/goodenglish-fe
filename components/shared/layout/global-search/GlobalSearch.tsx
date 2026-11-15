@@ -165,6 +165,7 @@ const GlobalSearch = React.memo(() => {
               <button
                 type="button"
                 key={itemKey(x.lv || "pre", x.w, x.it[0], x.it[1])}
+                data-testid="search-result"
                 onMouseEnter={() => setHi(i)}
                 onClick={() => pick(x)}
                 className={classNames(

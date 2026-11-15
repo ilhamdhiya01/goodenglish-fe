@@ -60,6 +60,7 @@ const QuizPanel = React.memo(() => {
                 <button
                   type="button"
                   key={o}
+                  data-testid="quiz-option"
                   onClick={() => pick(o)}
                   className={classNames(
                     "cursor-pointer rounded-lg border-[1.5px] px-4 py-3.5 text-left font-sans text-[15px] text-ink transition-colors hover:border-ink",
