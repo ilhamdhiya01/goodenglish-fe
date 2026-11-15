@@ -37,28 +37,28 @@ const ToastCard = ({
   const isVisible = entered && t.visible;
 
   const accentBarClass = classNames(
-    "absolute inset-y-0 left-0 w-[2px] rounded-l-lg",
+    "absolute inset-y-0 left-0 w-1 rounded-l-xl",
     {
-      "bg-green": variant === "success",
-      "bg-red": variant === "error",
-      "bg-orange": variant === "warning",
-      "bg-blue": variant === "info" || variant === "loading",
+      "bg-ok": variant === "success",
+      "bg-bad": variant === "error",
+      "bg-ink-2": variant === "warning",
+      "bg-accent": variant === "info" || variant === "loading",
     },
   );
 
   const iconWrapClass = classNames(
-    "flex h-6 w-6 flex-none items-center justify-center rounded-full border",
+    "flex h-6 w-6 flex-none items-center justify-center rounded-full",
     {
-      "border-green-line bg-green-bg text-green": variant === "success",
-      "border-red-line bg-red-bg text-red": variant === "error",
-      "border-line bg-sand text-orange": variant === "warning",
-      "border-line bg-sand text-blue":
+      "bg-ok-bg text-ok": variant === "success",
+      "bg-bad-bg text-bad": variant === "error",
+      "bg-sunken text-ink-2": variant === "warning",
+      "bg-accent-tint text-accent-edge":
         variant === "info" || variant === "loading",
     },
   );
 
   const cardClass = classNames(
-    "relative flex w-[360px] items-start gap-3 rounded-lg border-[1.5px] border-ink bg-card p-4 pr-9 shadow-lg transition-all duration-300 ease-out",
+    "relative flex w-[360px] max-w-[calc(100vw-32px)] items-start gap-3 rounded-xl border-2 border-line bg-surface p-4 pr-10 shadow-overlay transition-all duration-300 ease-out",
     {
       "translate-y-0 opacity-100": isVisible,
       "-translate-y-2 opacity-0": !isVisible,
@@ -78,9 +78,9 @@ const ToastCard = ({
         />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="text-[13.5px] font-semibold text-ink">{title}</p>
+        <p className="text-sm font-extrabold text-ink">{title}</p>
         {description && (
-          <p className="mt-1 text-[12.5px] text-muted">{description}</p>
+          <p className="mt-1 text-[13px] text-ink-2">{description}</p>
         )}
         {action && (
           <button
@@ -90,7 +90,7 @@ const ToastCard = ({
               action.onClick();
               handleDismiss();
             }}
-            className="mt-2 text-[12.5px] font-semibold text-green underline underline-offset-2"
+            className="mt-2 rounded-sm text-[13px] font-extrabold text-accent-edge underline decoration-2 underline-offset-[3px] focus-ring"
           >
             {action.label}
           </button>
@@ -103,7 +103,7 @@ const ToastCard = ({
           e.stopPropagation();
           handleDismiss();
         }}
-        className="absolute top-2.5 right-2.5 text-faint hover:text-ink"
+        className="hit-44 absolute top-2.5 right-2.5 rounded-sm text-ink-2 focus-ring hover:text-ink"
       >
         <Icon icon="TbX" size={14} />
       </button>

@@ -173,7 +173,7 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
 
   if (progressError) {
     return (
-      <div className="mx-auto max-w-[640px] px-6 py-24 font-mono text-sm text-red">
+      <div className="mx-auto max-w-[640px] px-6 py-24 text-sm font-bold text-bad">
         Gagal memuat progres. Muat ulang halaman untuk mencoba lagi.
       </div>
     );
@@ -198,7 +198,7 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
 
   if (!ready || !menuAllowed) {
     return (
-      <div className="flex min-h-screen items-center justify-center font-mono text-xs tracking-[0.08em] text-muted">
+      <div className="flex min-h-screen items-center justify-center text-[12.5px] font-extrabold tracking-[0.07em] text-ink-2">
         MEMUAT…
       </div>
     );

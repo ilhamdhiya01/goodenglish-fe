@@ -42,50 +42,6 @@
   --color-bad-bg: #fdebe8;
   --color-bad-line: #eba59c;
 
-  /* Alias lama → baru, supaya kelas yang ada tetap jalan selama migrasi.
-     Dihapus di tahap terakhir. `green` di repo ini adalah warna utama
-     (tombol, link, item aktif), jadi diarahkan ke aksen, bukan ok — ke
-     accent-edge, karena kebanyakan dipakai sebagai teks, juga di atas tint. */
-  --font-serif: var(--font-sans);
-  --color-card: var(--color-surface);
-  --color-ink-4: var(--color-ink);
-  --color-muted: var(--color-ink-2);
-  --color-faint: var(--color-ink-3);
-  --color-ondark: var(--color-line);
-  --color-line-2: var(--color-control);
-  --color-hairline: var(--color-line);
-  --color-sand: var(--color-sunken);
-  --color-green: var(--color-accent-edge);
-  --color-green-deep: var(--color-ink);
-  --color-green-mid: var(--color-ink-2);
-  --color-mint: var(--color-accent-line);
-  --color-green-bg: var(--color-accent-tint);
-  --color-green-bg2: var(--color-accent-tint);
-  --color-green-line: var(--color-accent-line);
-  --color-focus-ring: var(--color-accent-mark);
-  --color-red: var(--color-bad);
-  --color-red-deep: var(--color-bad-edge);
-  --color-red-bg: var(--color-bad-bg);
-  --color-red-line: var(--color-bad-line);
-  --color-blue: var(--color-accent-edge);
-  --color-orange: var(--color-ink-2);
-  --color-gold: var(--color-ink-2);
-  --color-known-bg: var(--color-sunken);
-  --color-known-line: var(--color-line);
-  /* Jenis kata tidak lagi dibedakan warna: semuanya chip netral. */
-  --color-tint-w: var(--color-chip);
-  --color-ink-w: var(--color-ink-2);
-  --color-tint-pv: var(--color-chip);
-  --color-ink-pv: var(--color-ink-2);
-  --color-tint-col: var(--color-chip);
-  --color-ink-col: var(--color-ink-2);
-  --color-tint-st: var(--color-chip);
-  --color-ink-st: var(--color-ink-2);
-  --color-tint-ex: var(--color-chip);
-  --color-ink-ex: var(--color-ink-2);
-  --color-tint-cj: var(--color-chip);
-  --color-ink-cj: var(--color-ink-2);
-
   /* Bentuk */
   --radius-sm: 8px; /* chip, kotak contoh */
   --radius-md: 12px; /* tombol kecil, ubin kata, item daftar */
@@ -132,14 +88,6 @@ input::placeholder {
 
 * {
   box-sizing: border-box;
-}
-
-/* Baris yang bisa digeser ke samping tanpa scrollbar terlihat (toolbar kosakata di layar kecil). */
-.no-scrollbar {
-  scrollbar-width: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
 }
 
 /* Tepi bawah tebal pada kontrol dan kartu. Digambar sebagai bayangan
