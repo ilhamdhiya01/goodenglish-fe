@@ -192,6 +192,21 @@ input::placeholder {
     opacity: 0;
   }
 }
+/* Jawaban salah: opsi bergeser 4px sekali. */
+@keyframes nudge {
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+/* Tandai hafal / jawaban benar: garis bawah kata target menyapu kiri → kanan. */
+@keyframes mark-sweep {
+  from {
+    background-size: 0% 8px;
+  }
+}
 
 /* Semua gerak mati kalau pengguna memintanya. */
 @media (prefers-reduced-motion: reduce) {

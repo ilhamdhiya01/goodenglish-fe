@@ -60,3 +60,29 @@ test("cincin fokus terlihat saat Tab", async ({ page }) => {
   );
   expect(outline).toBe("solid");
 });
+
+test("opsi jawaban: hasil ditulis, bukan hanya warna", async ({ page }) => {
+  await page.getByRole("button", { name: /I didn't went there/ }).click();
+  await expect(page.getByRole("button", { name: /Pilihanmu/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /✓ Benar/ })).toContainText(
+    "Setelah did selalu V1.",
+  );
+});
+
+test("ubin kata: dipakai lalu dikembalikan", async ({ page }) => {
+  const tile = page.getByRole("button", { name: "Does", exact: true });
+  await tile.click();
+  await expect(tile).toHaveClass(/border-dashed/);
+  await tile.click();
+  await expect(tile).not.toHaveClass(/border-dashed/);
+});
+
+test("item daftar: yang aktif ditandai aria-current", async ({ page }) => {
+  const nav = page.getByRole("navigation", { name: "Minggu" });
+  await nav.getByRole("button", { name: /Di kantor/ }).click();
+  await expect(nav.getByRole("button", { name: /Di kantor/ })).toHaveAttribute(
+    "aria-current",
+    "true",
+  );
+  await expect(nav.locator("[aria-current]")).toHaveCount(1);
+});

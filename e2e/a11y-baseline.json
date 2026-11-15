@@ -16,6 +16,7 @@
     "region": 350
   },
   "desktop/dev-ui": {},
+  "desktop/dev-ui-buta-warna": {},
   "desktop/errors": {
     "color-contrast": 2,
     "landmark-one-main": 1,
@@ -109,6 +110,7 @@
     "scrollable-region-focusable": 11
   },
   "mobile/dev-ui": {},
+  "mobile/dev-ui-buta-warna": {},
   "mobile/errors": {
     "color-contrast": 2,
     "landmark-one-main": 1,

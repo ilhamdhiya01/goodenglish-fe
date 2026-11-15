@@ -19,6 +19,19 @@ export interface Screen {
 
 export const SCREENS: Screen[] = [
   { name: "dev-ui", path: "/dev/ui", bare: true },
+  {
+    // Status must survive without color: the gallery in full color blindness.
+    name: "dev-ui-buta-warna",
+    path: "/dev/ui",
+    bare: true,
+    setup: async (page) => {
+      await page.getByRole("button", { name: /I didn't went there/ }).click();
+      const cdp = await page.context().newCDPSession(page);
+      await cdp.send("Emulation.setEmulatedVisionDeficiency", {
+        type: "achromatopsia",
+      });
+    },
+  },
   { name: "access", path: "/access", mock: { session: null }, bare: true },
   { name: "plan", path: "/plan" },
   { name: "vocab", path: "/vocab" },

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 
+import { Patterns } from "@/components/shared/patterns";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import FieldLabel from "@/components/ui/field-label";
@@ -56,6 +57,9 @@ const UiGallery = () => {
   const [modal, setModal] = useState(false);
   const [sheet, setSheet] = useState(false);
   const [picked, setPicked] = useState("");
+  const [answer, setAnswer] = useState<string | null>(null);
+  const [built, setBuilt] = useState<number[]>([]);
+  const [week, setWeek] = useState(3);
 
   return (
     <main className="mx-auto flex max-w-[960px] flex-col gap-8 px-4 py-8 md:px-8">
@@ -192,6 +196,123 @@ const UiGallery = () => {
           label="selesai"
           className="w-[360px]"
         />
+      </Section>
+
+      <Section title="Pola · Koreksi">
+        <Card className="w-full max-w-[520px]">
+          <Patterns.Correction
+            wrong="I am agree with you."
+            right="I agree with you."
+            speak="I agree with you."
+            why={
+              <>
+                <i>Agree</i> sudah kata kerja, jadi tidak perlu <i>am</i>.
+              </>
+            }
+          />
+          <Patterns.Correction
+            wrong="She don't like coffee."
+            right="She doesn't like coffee."
+            speak="She doesn't like coffee."
+            why="He/she/it memakai doesn't."
+          />
+        </Card>
+      </Section>
+
+      <Section title="Pola · Opsi jawaban (klik salah satu)">
+        <div className="flex w-full max-w-[520px] flex-col gap-2">
+          {(
+            [
+              ["A", "I didn't went there."],
+              ["B", "I didn't go there."],
+              ["C", "I not go there."],
+            ] as const
+          ).map(([letter, text]) => (
+            <Patterns.AnswerOption
+              key={letter}
+              letter={letter}
+              disabled={answer !== null}
+              onClick={() => setAnswer(letter)}
+              note={letter === "B" ? "Setelah did selalu V1." : undefined}
+              state={
+                answer === null
+                  ? "idle"
+                  : letter === "B"
+                    ? "correct"
+                    : letter === answer
+                      ? "wrong"
+                      : "dimmed"
+              }
+            >
+              {text}
+            </Patterns.AnswerOption>
+          ))}
+          {answer && (
+            <TextButton className="self-start" onClick={() => setAnswer(null)}>
+              ulangi
+            </TextButton>
+          )}
+        </div>
+      </Section>
+
+      <Section title="Pola · Ubin kata">
+        <div className="flex w-full flex-col gap-3">
+          <div className="flex min-h-[52px] flex-wrap items-center gap-2 border-b-[3px] border-ink pb-2">
+            {built.map((i) => (
+              <span key={i} className="text-lg font-extrabold">
+                {["Does", "she", "live", "in", "Bandung?"][i]}
+              </span>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {["Does", "she", "live", "in", "Bandung?"].map((w, i) => (
+              <Patterns.WordTile
+                key={w}
+                used={built.includes(i)}
+                onClick={() =>
+                  setBuilt((b) =>
+                    b.includes(i) ? b.filter((x) => x !== i) : [...b, i],
+                  )
+                }
+              >
+                {w}
+              </Patterns.WordTile>
+            ))}
+            <Patterns.WordTile selected>dipilih</Patterns.WordTile>
+            <Patterns.WordTile cross>sink</Patterns.WordTile>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Pola · Item daftar · Kata target">
+        <nav aria-label="Minggu" className="flex w-[300px] flex-col gap-1">
+          {[
+            [1, "Perkenalan", "✓"],
+            [2, "Keluarga", "✓"],
+            [3, "Rutinitas pagi", "86/214"],
+            [4, "Di kantor", "0/180"],
+            [5, "Akhir pekan", "segera"],
+          ].map(([n, title, meta]) => (
+            <Patterns.ListItem
+              key={n}
+              active={week === n}
+              muted={meta === "segera"}
+              trailing={meta}
+              onClick={() => setWeek(n as number)}
+            >
+              {n} · {title}
+            </Patterns.ListItem>
+          ))}
+        </nav>
+        <p className="m-0 max-w-[360px] text-[15px] leading-[22px]">
+          <b>kehabisan</b> · We{" "}
+          <Patterns.TargetMark>ran out of</Patterns.TargetMark> coffee this
+          morning. I{" "}
+          <Patterns.TargetMark sweep key={week}>
+            look forward to
+          </Patterns.TargetMark>{" "}
+          seeing you.
+        </p>
       </Section>
 
       <Section title="Modal · Sheet · Menu">
