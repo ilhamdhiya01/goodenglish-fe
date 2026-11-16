@@ -82,8 +82,9 @@ export const loadKokoro = (): Promise<void> => {
 export const generate = async (
   text: string,
   voice = useTtsStore.getState().voice,
+  speed = useTtsStore.getState().speed,
 ): Promise<AudioBuffer> => {
-  const key = voice + "|" + text;
+  const key = voice + "|" + speed + "|" + text;
   const hit = cache.get(key);
   if (hit) return hit;
   await loadKokoro();
@@ -95,7 +96,7 @@ export const generate = async (
       id,
       text,
       voice,
-      speed: 0.95,
+      speed,
     } satisfies KokoroIn);
   });
   cache.set(key, buf);
