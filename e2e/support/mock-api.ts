@@ -132,6 +132,10 @@ export const installMockApi = async (
     await context.addCookies([{ name: "session", value: "e2e", url: baseURL }]);
   }
 
+  // The AI voice model (±90 MB from Hugging Face) is never downloaded in
+  // tests: speaking is checked through window.__spoken (spyOnSpeech).
+  await context.route("https://huggingface.co/**", (route) => route.abort());
+
   await context.route(`**${API}/**`, async (route) => {
     const req = route.request();
     const path = new URL(req.url()).pathname.slice(API.length);
@@ -262,22 +266,11 @@ export const seedRandom = (page: Page) =>
     };
   });
 
-/** Records every text the app asks the browser to speak. */
+/** Records every text the app asks to read aloud (speech.helper pushes to
+ * window.__spoken when it exists; headless runs make no sound). */
 export const spyOnSpeech = (page: Page) =>
   page.addInitScript(() => {
-    const w = window as unknown as { __spoken: string[] };
-    w.__spoken = [];
-    const synth = window.speechSynthesis;
-    if (!synth) return;
-    const orig = synth.speak.bind(synth);
-    synth.speak = (u: SpeechSynthesisUtterance) => {
-      w.__spoken.push(u.text);
-      try {
-        orig(u);
-      } catch {
-        /* headless voices may be missing */
-      }
-    };
+    (window as unknown as { __spoken: string[] }).__spoken = [];
   });
 
 export const spoken = (page: Page) =>

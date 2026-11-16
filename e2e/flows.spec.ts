@@ -133,9 +133,9 @@ test.describe("grammar", () => {
     const tokens = page.getByTestId("practice-token");
     await expect(tokens.first()).toBeVisible();
     const n = await tokens.count();
-    for (let i = 0; i < n && !(await feedback.isVisible()); i++) {
-      await tokens.nth(i).click();
-    }
+    for (let i = 0; i < n; i++) await tokens.nth(i).click();
+    await expect(feedback).toBeHidden();
+    await page.getByRole("button", { name: "Periksa" }).click();
     await expect(feedback).toBeVisible();
 
     await page.getByRole("button", { name: /^3 · / }).click();

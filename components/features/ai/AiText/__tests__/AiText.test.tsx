@@ -80,6 +80,49 @@ describe("AiText", () => {
     expect(container.textContent).toContain("Kalimatmu sudah benar!");
   });
 
+  it("puts a speaker after each English sentence that has a meaning", () => {
+    const { getAllByRole } = render(
+      <AiText
+        text={
+          "Contoh: I take piano lessons every Saturday. (*Aku ikut les piano setiap Sabtu.*)\n- **I am tired.** (*Aku capek.*) She is *really* happy. (*Dia sangat senang.*)"
+        }
+      />,
+    );
+    expect(
+      getAllByRole("button", { name: /^Dengarkan: / }).map((b) =>
+        b.getAttribute("aria-label"),
+      ),
+    ).toEqual([
+      "Dengarkan: I take piano lessons every Saturday.",
+      "Dengarkan: I am tired.",
+      "Dengarkan: She is really happy.",
+    ]);
+  });
+
+  it("adds no speaker to a term glossed inside an Indonesian sentence", () => {
+    const { getAllByRole } = render(
+      <AiText
+        text={
+          "Berikut adalah beberapa contoh kalimat menggunakan kata **living room** (*ruang tamu/keluarga*):\n- We watch TV together in the **living room**. (*Kami nonton TV bersama di ruang tamu.*)"
+        }
+      />,
+    );
+    expect(
+      getAllByRole("button").map((b) => b.getAttribute("aria-label")),
+    ).toEqual(["Dengarkan: We watch TV together in the living room."]);
+  });
+
+  it("adds no speaker to text without a meaning, or to the typo notice", () => {
+    const { queryAllByRole } = render(
+      <AiText
+        text={
+          "Ejaan: *somtimes* → **sometimes**\n\nSometimes artinya kadang-kadang."
+        }
+      />,
+    );
+    expect(queryAllByRole("button")).toHaveLength(0);
+  });
+
   it("never turns model output into markup", () => {
     const { container } = render(
       <AiText text={'<img src=x onerror="alert(1)"> hi'} />,

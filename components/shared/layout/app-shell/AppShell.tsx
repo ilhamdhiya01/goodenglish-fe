@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import AiChat from "@/components/features/ai/AiChat";
 import PlanAutoCheck from "@/components/providers/PlanAutoCheck";
-import VoiceBootstrap from "@/components/providers/VoiceBootstrap";
+import TtsBootstrap from "@/components/providers/TtsBootstrap";
 import { isActivePath, NAV } from "@/const/nav.constant";
 import { loadNotes } from "@/lib/content";
 import { applyProgress } from "@/lib/helpers/progress-hydrate.helper";
@@ -213,7 +213,7 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
         aiOpen && hasAi && "lg:pr-[400px]",
       )}
     >
-      <VoiceBootstrap />
+      <TtsBootstrap />
       <PlanAutoCheck />
       <Sidebar className="hidden lg:flex" />
       <IconRail className="hidden md:flex lg:hidden" />

@@ -50,9 +50,10 @@ const answerOne = async (page: Page, stage: "mc" | "order" | "type") => {
     const tokens = page.getByTestId("practice-token");
     await expect(tokens.first()).toBeVisible();
     const n = await tokens.count();
-    for (let i = 0; i < n && !(await feedback(page).isVisible()); i++) {
-      await tokens.nth(i).click();
-    }
+    for (let i = 0; i < n; i++) await tokens.nth(i).click();
+    // Checked only on demand, never by the last tile.
+    await expect(feedback(page)).toBeHidden();
+    await page.getByRole("button", { name: "Periksa" }).click();
   } else {
     const box = page.getByRole("textbox", { name: "Jawabanmu" });
     await box.fill("is");

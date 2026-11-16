@@ -105,8 +105,7 @@ const AskPractice = React.memo(
       });
       setSel(null);
     };
-    // built: susunan kata terbaru dari tahap Susun kata. answer() dipanggil lewat setTimeout dengan P lama
-    // (belum berisi kata terakhir), jadi tanpa ini kata terakhir hilang dari kotak jawaban setelah dinilai.
+    // built: susunan kata yang dinilai (tahap Susun kata, lewat tombol Periksa).
     const answer = (given: string, built?: PracticeSession["built"]) => {
       if (!P || P.picked !== null) return;
       const q = P.qs[P.i];
@@ -339,13 +338,9 @@ const AskPractice = React.memo(
                             });
                             return setSel(null);
                           }
-                          const nb = [...P.built, tk];
-                          setP({ ...P, built: nb });
-                          if (nb.length === q.tokens.length)
-                            setTimeout(
-                              () => answer(nb.map((b) => b.t).join(" "), nb),
-                              120,
-                            );
+                          // Not checked yet: the learner presses Periksa,
+                          // so a stray tap on the last tile can't submit.
+                          setP({ ...P, built: [...P.built, tk] });
                         }}
                       >
                         {tk.t}
@@ -353,6 +348,35 @@ const AskPractice = React.memo(
                     );
                   })}
                 </div>
+                {!answered && (
+                  <div className="flex flex-wrap items-center gap-4">
+                    <Button
+                      variant="green"
+                      disabled={P.built.length < q.tokens.length}
+                      onClick={() =>
+                        answer(P.built.map((b) => b.t).join(" "), P.built)
+                      }
+                    >
+                      Periksa
+                    </Button>
+                    {P.built.length > 0 && (
+                      <TextButton
+                        onClick={() => {
+                          setP({ ...P, built: [] });
+                          setSel(null);
+                        }}
+                      >
+                        Susun ulang
+                      </TextButton>
+                    )}
+                    {P.built.length < q.tokens.length && (
+                      <span className="text-[13px] font-bold text-ink-2">
+                        Pakai semua kata dulu ({P.built.length}/
+                        {q.tokens.length})
+                      </span>
+                    )}
+                  </div>
+                )}
               </>
             )}
 

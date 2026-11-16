@@ -1,5 +1,7 @@
 import React from "react";
 
+import SpeakButton from "@/components/ui/speak-button";
+
 // Renders the small Markdown subset Gemini actually uses: paragraphs,
 // "- " / "* " / "1. " lists (nesting flattened), **bold**, *italic* and
 // `code`. Built from React nodes, never innerHTML, so model output can't
@@ -18,6 +20,69 @@ const inline = (text: string): React.ReactNode[] =>
       part
     ),
   );
+
+// Every English sentence in an answer is followed by its meaning as
+// "(*...*)" (backend prompt), e.g. "Contoh: I am tired. (*Aku capek.*)".
+// The text before that marker, after the last ":" / "→" / "=" / "—", gets a
+// speaker button, but only when it is an English sentence: the model also
+// glosses a term inside an Indonesian sentence ("kata **living room**
+// (*ruang tamu*)"), and that must not be read aloud.
+const MEANING = /(\s*\(\*[^*]+\*\))/;
+const englishOf = (chunk: string) =>
+  chunk
+    .split(/[:→=—–]/)
+    .pop()!
+    .replace(/[*`"“”]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+// Common Indonesian words; one of them means the text is not English.
+const INDONESIAN = new Set(
+  (
+    "yang dan di ke dari ini itu adalah ialah dengan untuk tidak nggak gak " +
+    "kamu aku saya kita kami dia mereka contoh contohnya kalimat kata frasa " +
+    "berikut beberapa menggunakan pakai dipakai artinya arti seperti kalau " +
+    "jika atau juga sudah belum akan bisa ada dalam pada sebagai misalnya " +
+    "sama saja lebih jadi karena tapi tetapi bukan harus boleh biasanya " +
+    "cara bentuk mana apa kenapa mengapa gimana bagaimana yaitu sedang lagi"
+  ).split(" "),
+);
+
+/** The text to read aloud, or "" when it isn't an English sentence. */
+export const englishSentence = (chunk: string): string => {
+  const s = englishOf(chunk);
+  const words = s.match(/[a-z']+/gi) ?? [];
+  if (words.length < 2 || s.length > 300) return "";
+  if (words.some((w) => INDONESIAN.has(w.toLowerCase()))) return "";
+  return s;
+};
+
+const withVoice = (text: string): React.ReactNode[] => {
+  const parts = text.split(MEANING);
+  if (parts.length === 1) return inline(text);
+  return parts.map((part, i) => {
+    // Odd parts are the "(*meaning*)" markers; even ones the text before.
+    if (i % 2 === 1 || !MEANING.test(parts[i + 1] ?? ""))
+      return <React.Fragment key={i}>{inline(part)}</React.Fragment>;
+    const en = englishSentence(part);
+    return (
+      <React.Fragment key={i}>
+        {inline(part)}
+        {en && (
+          <SpeakButton
+            text={en}
+            size={20}
+            icon={11}
+            title={`Dengarkan: ${en}`}
+            // Centred on the text and no taller than a line, so lines with
+            // a speaker keep the same spacing as the rest.
+            className="mx-1.5 -translate-y-px align-middle"
+          />
+        )}
+      </React.Fragment>
+    );
+  });
+};
 
 // A paragraph or list item that is nothing but *an italic sentence* is an
 // English example: it gets its own chip box.
@@ -108,7 +173,7 @@ const AiText = React.memo(({ text, question }: AiTextProps) => {
       >
         {list.items.map((it, i) => (
           <li key={i}>
-            {EXAMPLE.test(it.trim()) ? example(i, it.trim()) : inline(it)}
+            {EXAMPLE.test(it.trim()) ? example(i, it.trim()) : withVoice(it)}
           </li>
         ))}
       </Tag>,
@@ -144,7 +209,7 @@ const AiText = React.memo(({ text, question }: AiTextProps) => {
       else if (line.trim())
         blocks.push(
           <p key={blocks.length} className="m-0">
-            {inline(line.replace(/^#+\s*/, ""))}
+            {withVoice(line.replace(/^#+\s*/, ""))}
           </p>,
         );
     }

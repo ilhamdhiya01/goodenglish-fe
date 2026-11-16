@@ -4,7 +4,7 @@ import classNames from "classnames";
 import React, { forwardRef } from "react";
 
 import { speak } from "@/lib/helpers/speech.helper";
-import { useSpeaking } from "@/lib/hooks/useSpeaking";
+import { usePreparing, useSpeaking } from "@/lib/hooks/useSpeaking";
 
 import SpeakerIcon from "../speaker-icon";
 
@@ -43,7 +43,14 @@ const SpeakButton = forwardRef<HTMLButtonElement, SpeakButtonProps>(
     ref,
   ) => {
     const playing = useSpeaking(text);
-    const cls = classNames(BASE, playing ? PLAYING : IDLE, className);
+    // The AI voice takes a moment for a new sentence: pulse until it plays.
+    const preparing = usePreparing(text);
+    const cls = classNames(
+      BASE,
+      playing ? PLAYING : IDLE,
+      preparing && "animate-pulse",
+      className,
+    );
     if (nested) {
       const play = (e: React.SyntheticEvent) => {
         e.stopPropagation();
@@ -55,6 +62,7 @@ const SpeakButton = forwardRef<HTMLButtonElement, SpeakButtonProps>(
           tabIndex={0}
           title={title}
           aria-label={rest["aria-label"] ?? title}
+          aria-busy={preparing || undefined}
           onClick={play}
           onKeyDown={(e) => {
             if (e.key !== "Enter" && e.key !== " ") return;
@@ -74,6 +82,7 @@ const SpeakButton = forwardRef<HTMLButtonElement, SpeakButtonProps>(
         type={type}
         title={title}
         aria-label={title}
+        aria-busy={preparing || undefined}
         onClick={onClick || (text ? () => speak(text) : undefined)}
         className={cls}
         style={{ width: size, height: size }}

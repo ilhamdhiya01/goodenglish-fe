@@ -22,7 +22,11 @@ import type { Scenario } from "@/lib/types/scenario.types";
 import { useLevelStore } from "@/stores/useLevelStore";
 
 const SC = VOCAB_SCEN as Scenario[];
-const isYou = (r: string) => r === "You" || r === "A";
+// The learner's role: "You" in most dialogues, "A" in the ones written as an
+// A/B pair (Kenalan pertama kali). Where both appear, "A" is the other
+// person (Small talk sebelum meeting: A, You).
+const learnerRole = (lines: Scenario["lines"]) =>
+  lines.some((l) => l[0] === "You") ? "You" : "A";
 
 // Halaman Skenario: daftar skenario per level, dialog 8–12 baris sebagai
 // gelembung (lawan bicara kiri, "You" kanan), frasa kunci, variasi jawaban.
@@ -39,6 +43,8 @@ const ScenarioPage = React.memo(() => {
   const cur = SC.find((x) => x.id === id) ||
     SC[0] || { id: "", level: "", title: "", where: "", lines: [] };
   const key = VOCAB_SCEN_KEY[id];
+  const me = learnerRole(cur.lines);
+  const isYou = (r: string) => r === me;
   const byLevel = [level]
     .concat(LEVELS.map((l) => l[0]).filter((l) => l !== level))
     .map((lv) => ({

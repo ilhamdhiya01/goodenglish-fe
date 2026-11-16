@@ -14,9 +14,7 @@ import {
 
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
-import FieldLabel from "@/components/ui/field-label";
 import Modal from "@/components/ui/modal";
-import Select from "@/components/ui/select";
 import {
   exportProgress,
   importProgressFile,
@@ -26,7 +24,8 @@ import { useInstallPrompt } from "@/lib/hooks/useInstallPrompt";
 import { toast } from "@/lib/toast";
 import { ROUTES } from "@/routes";
 import { useAccessStore } from "@/stores/useAccessStore";
-import { useVoiceStore } from "@/stores/useVoiceStore";
+
+import { VoiceFields } from "./TtsFields";
 
 export interface AccountAction {
   id: string;
@@ -37,20 +36,12 @@ export interface AccountAction {
   disabled?: boolean;
 }
 
-const voiceLabel = (v: SpeechSynthesisVoice) =>
-  v.name
-    .replace(/^Microsoft |^Google /, "")
-    .replace(/ Online \(Natural\)/, " (Natural)");
-
 // The device/account actions that used to be icons in the header: install,
 // export, import, voice, admin dashboard, sign out. Shown in the ⋯ menu on
 // a computer and in the "Lainnya" sheet on a phone. `extras` (the hidden
 // file input and the voice dialog) must be rendered once by the caller.
 export const useAccountActions = () => {
   const router = useRouter();
-  const voices = useVoiceStore((s) => s.list);
-  const current = useVoiceStore((s) => s.current);
-  const selectVoice = useVoiceStore((s) => s.select);
   const isAdmin = useAccessStore((s) => s.session?.role === "admin");
   const { handleLogout, isLoggingOut } = useLogout();
   const { canInstall, install } = useInstallPrompt();
@@ -77,7 +68,7 @@ export const useAccountActions = () => {
         icon: LuUpload,
         onSelect: () => document.getElementById(fileId)?.click(),
       },
-      voices.length > 0 && {
+      {
         id: "voice",
         label: "Pilih suara",
         icon: LuVolume2,
@@ -125,22 +116,7 @@ export const useAccountActions = () => {
             <span className="text-xl leading-[26px] font-black">
               Suara pengucap
             </span>
-            <FieldLabel label="Suara">
-              <Select
-                value={current}
-                onChange={(e) => selectVoice(e.target.value)}
-              >
-                {voices.map((v) => (
-                  <option key={v.name} value={v.name}>
-                    {voiceLabel(v) + " · " + v.lang}
-                  </option>
-                ))}
-              </Select>
-            </FieldLabel>
-            <span className="text-[13.5px] leading-[19px] text-ink-2">
-              Memilih suara akan memutar contoh. Suara &quot;Natural&quot;
-              terdengar paling alami.
-            </span>
+            <VoiceFields />
             <Button
               variant="outline"
               className="self-end"

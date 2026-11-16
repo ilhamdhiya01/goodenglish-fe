@@ -1,59 +1,16 @@
-import { loadStr, saveStr, STORAGE_KEYS } from "@/lib/helpers/storage.helper";
+import { toast } from "@/lib/toast";
+import { generate, kokoroSay, stopKokoro } from "@/lib/tts/kokoro";
 
-// TTS Web Speech API + pemilihan suara paling natural yang tersedia.
+// Reads English aloud with Kokoro (an AI voice that runs on the device, see
+// lib/tts). Every speaker button in the app goes through speak()/speakAll().
 
-export const voices = (): SpeechSynthesisVoice[] => {
-  try {
-    return (
-      window.speechSynthesis ? window.speechSynthesis.getVoices() : []
-    ).filter((v) => /^en[-_]/i.test(v.lang));
-  } catch {
-    return [];
-  }
-};
-
-// Urutan preferensi: Google (Chrome), Microsoft Natural (Edge), suara premium Apple,
-// lalu en-* mana pun; suara robotic/novelty dihukum.
-export const bestVoice = (): SpeechSynthesisVoice | null => {
-  const list = voices();
-  if (!list.length) return null;
-  const saved = loadStr(STORAGE_KEYS.voice);
-  if (saved) {
-    const s = list.find((v) => v.name === saved);
-    if (s) return s;
-  }
-  const score = (v: SpeechSynthesisVoice) => {
-    const n = v.name.toLowerCase();
-    let s = 0;
-    if (/google/.test(n)) s += 50;
-    if (/natural|online|neural/.test(n)) s += 60;
-    if (
-      /samantha|ava|allison|daniel|karen|moira|serena|tessa|zira|aria|jenny|guy/.test(
-        n,
-      )
-    )
-      s += 40;
-    if (/premium|enhanced/.test(n)) s += 30;
-    if (/^en-us$/i.test(v.lang)) s += 10;
-    if (/en-gb/i.test(v.lang)) s += 6;
-    if (
-      /compact|espeak|fred|albert|bad news|bells|boing|bubbles|cellos|deranged|good news|hysterical|junior|kathy|pipe|ralph|trinoids|whisper|zarvox|novelty/.test(
-        n,
-      )
-    )
-      s -= 100;
-    if (v.localService === false) s += 5;
-    return s;
-  };
-  return [...list].sort((a, b) => score(b) - score(a))[0];
-};
-
-// What is being spoken right now, so speaker buttons can show it. Tracked per
-// utterance: cancel() fires the old one's end/error after the new one starts.
-let playing: { u: SpeechSynthesisUtterance; text: string } | null = null;
+// What is being read right now, so speaker buttons can show it: "preparing"
+// while the model loads or the audio is being made, then "playing".
+type Phase = "preparing" | "playing";
+let now: { id: object; text: string; phase: Phase } | null = null;
 const listeners = new Set<() => void>();
-const setPlaying = (p: typeof playing) => {
-  playing = p;
+const setNow = (n: typeof now) => {
+  now = n;
   listeners.forEach((l) => l());
 };
 
@@ -64,53 +21,59 @@ export const subscribeSpeaking = (l: () => void) => {
   };
 };
 
-export const speakingText = () => playing?.text ?? null;
+export const speakingText = () => (now?.phase === "playing" ? now.text : null);
+export const preparingText = () =>
+  now?.phase === "preparing" ? now.text : null;
+
+// One message per failure burst, not one per tap.
+let lastError = 0;
+const reportError = () => {
+  if (Date.now() - lastError < 8000) return;
+  lastError = Date.now();
+  toast.error("Suara gagal dimuat", {
+    description: "Periksa koneksi internet, lalu tekan tombol suara lagi.",
+  });
+};
+
+// e2e tests read what was asked to be spoken (no audio in headless runs).
+const record = (text: string) =>
+  (window as unknown as { __spoken?: string[] }).__spoken?.push(text);
+
+const say = async (text: string, id: object): Promise<boolean> => {
+  setNow({ id, text, phase: "preparing" });
+  try {
+    const finished = await kokoroSay(text, () => {
+      if (now?.id === id) setNow({ id, text, phase: "playing" });
+    });
+    return finished;
+  } catch {
+    reportError();
+    return false;
+  } finally {
+    if (now?.id === id && now.text === text) setNow(null);
+  }
+};
 
 export const speak = (text: string) => {
-  try {
-    if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.onstart = () => setPlaying({ u, text });
-    u.onend = u.onerror = () => {
-      if (playing?.u === u) setPlaying(null);
-    };
-    u.rate = 0.9;
-    u.pitch = 1;
-    const v = bestVoice();
-    if (v) {
-      u.voice = v;
-      u.lang = v.lang;
-    } else u.lang = "en-US";
-    window.speechSynthesis.speak(u);
-  } catch {
-    /* ignore */
+  if (!text.trim()) return;
+  record(text);
+  void say(text, {});
+};
+
+/** Read lines one after another (a whole dialogue); any other speak() stops it. */
+export const speakAll = async (texts: string[]) => {
+  const lines = texts.filter((t) => t.trim());
+  lines.forEach(record);
+  const id = {};
+  for (let i = 0; i < lines.length; i++) {
+    // Make the next line while this one plays, so there is no gap.
+    if (lines[i + 1]) generate(lines[i + 1]).catch(() => {});
+    const finished = await say(lines[i], id);
+    if (!finished) return;
   }
 };
 
-export const speakAll = (texts: string[]) => {
-  try {
-    window.speechSynthesis.cancel();
-    texts.forEach((t) => {
-      const u = new SpeechSynthesisUtterance(t);
-      u.lang = "en-US";
-      u.rate = 0.92;
-      window.speechSynthesis.speak(u);
-    });
-  } catch {
-    /* ignore */
-  }
-};
-
-export const setVoice = (name: string) => {
-  saveStr(STORAGE_KEYS.voice, name);
-  const v = voices().find((x) => x.name === name);
-  if (v) {
-    const u = new SpeechSynthesisUtterance("Hello, this is how I sound.");
-    u.voice = v;
-    u.lang = v.lang;
-    u.rate = 0.9;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(u);
-  }
+export const stopSpeaking = () => {
+  stopKokoro();
+  setNow(null);
 };
