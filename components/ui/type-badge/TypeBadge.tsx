@@ -3,7 +3,8 @@ import React, { forwardRef } from "react";
 
 import { typeDef } from "@/const/vocab-types.constant";
 
-// Word-type badge (Kata dasar / Phrasal verb / ...) colored per type.
+// Word-type badge (Kata dasar / Phrasal verb / ...): one neutral chip for
+// every type, named by its label.
 interface TypeBadgeProps {
   type: string;
   className?: string;
@@ -16,7 +17,7 @@ const TypeBadge = forwardRef<HTMLSpanElement, TypeBadgeProps>(
       <span
         ref={ref}
         className={classNames(
-          "rounded px-2 py-0.5 font-mono text-[11px]",
+          "rounded-[7px] px-2 py-0.5 text-[11.5px] leading-4 font-extrabold whitespace-nowrap",
           t.chip,
           className,
         )}

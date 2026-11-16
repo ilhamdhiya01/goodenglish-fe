@@ -1,10 +1,11 @@
 "use client";
 
-import classNames from "classnames";
 import React from "react";
 
+import Button from "@/components/ui/button";
 import FieldLabel from "@/components/ui/field-label";
 import Input from "@/components/ui/input";
+import Pill from "@/components/ui/pill";
 import SectionLabel from "@/components/ui/section-label";
 import Select from "@/components/ui/select";
 import TextButton from "@/components/ui/text-button";
@@ -108,7 +109,7 @@ const WordForm = React.memo(
     const fGuess = form.type || (form.en ? guessType(form.en) : "w");
 
     return (
-      <div className="flex flex-col gap-3 rounded-[10px] border-[1.5px] border-green bg-card px-4.5 py-4">
+      <div className="flex flex-col gap-3 rounded-xl border-2 border-accent-line bg-accent-wash px-4.5 py-4">
         <div className="flex flex-wrap items-baseline justify-between gap-2.5">
           <SectionLabel tone="green">
             KATAKU ·{" "}
@@ -161,9 +162,9 @@ const WordForm = React.memo(
           />
         </FieldLabel>
         <div className="flex flex-col gap-1.5">
-          <span className="text-xs text-muted">
+          <span className="text-[13px] font-extrabold text-ink-2">
             Jenis ·{" "}
-            <span className="text-green">
+            <span className="text-accent-edge">
               {TYPES[fGuess] ? TYPES[fGuess].label : "Kata dasar"}
             </span>
             {!form.type && " (tebakan otomatis, klik untuk ubah)"}
@@ -172,33 +173,26 @@ const WordForm = React.memo(
             {Object.keys(TYPES).map((k) => {
               const on = fGuess === k;
               return (
-                <button
-                  type="button"
+                <Pill
                   key={k}
+                  size="sm"
+                  on={on}
                   onClick={() => setF({ type: k })}
-                  className={classNames(
-                    "cursor-pointer rounded-full border-[1.5px] px-[11px] py-1 text-[12.5px] transition-colors",
-                    on
-                      ? TYPES[k].chip + " border-transparent font-semibold"
-                      : "border-line bg-transparent text-muted",
-                  )}
                 >
                   {TYPES[k].label}
-                </button>
+                </Pill>
               );
             })}
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <button
-            type="button"
-            onClick={submit}
-            className="cursor-pointer rounded-full border-[1.5px] border-green bg-green px-[18px] py-2 font-sans text-sm font-semibold text-card transition-colors hover:bg-green-deep"
-          >
+          <Button variant="green" onClick={submit}>
             Simpan
-          </button>
-          {formErr && <span className="text-[13px] text-red">{formErr}</span>}
-          <span className="text-xs text-faint">
+          </Button>
+          {formErr && (
+            <span className="text-[13px] font-bold text-bad">{formErr}</span>
+          )}
+          <span className="text-[12.5px] text-ink-2">
             Tersimpan di akunmu; ikut Ekspor progres.
           </span>
         </div>

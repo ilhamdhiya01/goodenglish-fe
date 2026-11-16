@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import React, { useCallback, useState } from "react";
 
 import Button from "@/components/ui/button";
@@ -9,7 +10,6 @@ import Input from "@/components/ui/input";
 import Pill from "@/components/ui/pill";
 import SectionLabel from "@/components/ui/section-label";
 import Select from "@/components/ui/select";
-import TextButton from "@/components/ui/text-button";
 import { LEVEL_OPTIONS, MENU_OPTIONS } from "@/const/access.constant";
 import type { TokenFormValues } from "@/lib/types/admin.types";
 import type { LevelId, MenuId } from "@/lib/types/session.types";
@@ -26,6 +26,10 @@ const DEFAULT_VALUES: TokenFormValues = {
 };
 
 const AI_LIMIT_MAX = 10000;
+
+// Label above a row of choices, same look as FieldLabel.
+const GROUP_LABEL = "mb-2 p-0 text-[13px] font-extrabold text-ink-2";
+const HINT = "text-[12.5px] leading-[18px] font-semibold text-ink-2";
 
 interface TokenFormProps {
   title: string;
@@ -71,10 +75,10 @@ const TokenForm = React.memo(
     );
 
     return (
-      <Card tone="ink" pad="lg">
+      <Card tone="line" pad="lg">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <SectionLabel tone="green">{title}</SectionLabel>
-          <div className="grid gap-3 sm:grid-cols-[2fr_1fr_1fr_1fr]">
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
             <FieldLabel label="Nama / label pemilik">
               <Input
                 value={values.label}
@@ -131,21 +135,20 @@ const TokenForm = React.memo(
           </div>
 
           {isAdmin ? (
-            <span className="text-[13.5px] text-muted">
+            <span className="text-sm font-semibold text-ink-2">
               Admin otomatis bisa membuka semua menu, semua level, dan dashboard
               ini.
             </span>
           ) : (
             <>
-              <div className="flex flex-col gap-1.5">
-                <span className="text-xs text-muted">
-                  Menu yang boleh dibuka
-                </span>
+              <fieldset className="m-0 min-w-0 border-0 p-0">
+                <legend className={GROUP_LABEL}>Menu yang boleh dibuka</legend>
                 <div className="flex flex-wrap gap-2">
                   {MENU_OPTIONS.map((m) => (
                     <Pill
                       key={m.id}
                       size="sm"
+                      check
                       on={values.menus.includes(m.id)}
                       onClick={() =>
                         setValues({
@@ -158,17 +161,16 @@ const TokenForm = React.memo(
                     </Pill>
                   ))}
                 </div>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <span className="text-xs text-muted">
-                  Level yang boleh dibuka
-                </span>
+              </fieldset>
+              <fieldset className="m-0 min-w-0 border-0 p-0">
+                <legend className={GROUP_LABEL}>Level yang boleh dibuka</legend>
                 <div className="flex flex-wrap gap-2">
                   {LEVEL_OPTIONS.map((l) => (
                     <Pill
                       key={l.id}
                       size="sm"
                       tone="green"
+                      check
                       on={values.levels.includes(l.id)}
                       onClick={() =>
                         setValues({
@@ -181,16 +183,14 @@ const TokenForm = React.memo(
                     </Pill>
                   ))}
                 </div>
-              </div>
+              </fieldset>
             </>
           )}
 
           {hasAi && (
-            <div className="flex flex-col gap-1.5">
-              <span className="text-xs text-muted">
-                Batas Tanya AI per hari
-              </span>
-              <div className="flex flex-wrap items-center gap-3">
+            <fieldset className="m-0 min-w-0 border-0 p-0">
+              <legend className={GROUP_LABEL}>Batas Tanya AI per hari</legend>
+              <div className="flex flex-wrap items-center gap-4">
                 <div className="w-28">
                   <Input
                     type="number"
@@ -212,7 +212,7 @@ const TokenForm = React.memo(
                     }}
                   />
                 </div>
-                <label className="flex cursor-pointer items-center gap-2 text-[13.5px] text-ink">
+                <label className="flex min-h-11 cursor-pointer items-center gap-2.5 text-sm font-extrabold text-ink">
                   <input
                     type="checkbox"
                     checked={unlimited}
@@ -222,19 +222,19 @@ const TokenForm = React.memo(
                         aiDailyLimit: e.target.checked ? null : lastLimit,
                       })
                     }
-                    className="h-4 w-4 accent-green"
+                    className="h-5 w-5 cursor-pointer accent-accent focus-ring"
                   />
                   Tanpa batas
                 </label>
               </div>
-              <span className="text-xs text-faint">
+              <p className={classNames(HINT, "m-0 mt-2")}>
                 Jumlah pertanyaan + cek kalimat per hari. 0 = tidak bisa
                 bertanya. Dihitung ulang tiap tengah malam WIB.
-              </span>
-            </div>
+              </p>
+            </fieldset>
           )}
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             <Button
               type="submit"
               variant="green"
@@ -242,7 +242,9 @@ const TokenForm = React.memo(
             >
               {isSubmitting ? "Menyimpan…" : submitLabel}
             </Button>
-            <TextButton onClick={onCancel}>Batal</TextButton>
+            <Button variant="outline" onClick={onCancel}>
+              Batal
+            </Button>
           </div>
         </form>
       </Card>

@@ -9,6 +9,7 @@ import Rich from "@/components/shared/rich";
 import Card from "@/components/ui/card";
 import Lead from "@/components/ui/lead";
 import PageHeading from "@/components/ui/page-heading";
+import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
 import {
   CORE_TENSES,
@@ -67,10 +68,12 @@ const TenseGuide = React.memo(() => {
       </div>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-3.5">
         {tips.map(([h, b]) => (
-          <Card key={h} tone="ink" className="gap-2 p-5">
-            <span className="font-mono text-[13px] text-green">{h}</span>
-            <span className="text-[15px] leading-[1.5]">
-              <Rich text={b} boldClassName="" />
+          <Card key={h} pad="lg" className="gap-2">
+            <span className="text-[15px] leading-[22px] font-extrabold text-accent-edge">
+              {h}
+            </span>
+            <span className="text-[15px] leading-[22px] text-ink">
+              <Rich text={b} boldClassName="font-extrabold" />
             </span>
           </Card>
         ))}
@@ -78,13 +81,13 @@ const TenseGuide = React.memo(() => {
 
       <GrammarDetail d={DETAIL.tense} />
 
-      <Card tone="green" className="gap-2">
-        <span className="font-mono text-xs tracking-[0.06em] text-green">
+      <Card tone="ink" className="gap-2">
+        <SectionLabel tone="green">
           CUKUP {core.length} TENSE INI UNTUK ±90% PERCAKAPAN
-        </span>
-        <span className="text-[15px] leading-[1.55] text-pretty text-ink">
+        </SectionLabel>
+        <span className="text-[15px] leading-[22px] text-pretty text-ink">
           Kuasai yang ditandai hijau di tabel sampai otomatis:{" "}
-          <b>
+          <b className="font-extrabold">
             {rows
               .filter((r) => isCore(r.name))
               .map((r) => r.name)
@@ -96,13 +99,15 @@ const TenseGuide = React.memo(() => {
         </span>
       </Card>
 
-      <div className="overflow-auto rounded-[10px] border-[1.5px] border-ink bg-card">
+      <div className="overflow-x-auto rounded-xl border-2 border-line bg-surface">
         <div className="min-w-[720px]">
           <div
-            className="grid border-b-[1.5px] border-ink bg-hairline font-mono text-xs tracking-[0.05em] text-muted"
+            className="grid border-b-2 border-line text-[12.5px] font-extrabold tracking-[0.07em] text-ink-3 uppercase"
             style={{ gridTemplateColumns: COL }}
           >
-            <span className="px-4 py-2.5">TENSE</span>
+            <span className="sticky left-0 z-[1] bg-surface px-4 py-2.5">
+              TENSE
+            </span>
             <span className="px-4 py-2.5">DIPAKAI UNTUK</span>
             <span className="px-4 py-2.5">POLA</span>
             <span className="px-4 py-2.5">CONTOH</span>
@@ -115,36 +120,40 @@ const TenseGuide = React.memo(() => {
                 <div
                   key={t.week || t.name}
                   className={classNames(
-                    "grid border-b border-track text-sm leading-[1.5]",
-                    c ? "bg-card" : "bg-[#faf8f3]",
+                    "grid border-b-2 border-line text-sm leading-5",
+                    c ? "bg-surface" : "bg-sunken",
                   )}
                   style={{ gridTemplateColumns: COL }}
                 >
                   <span
                     className={classNames(
-                      "border-l-[3px] px-4 py-3.5 font-bold",
-                      c ? "border-green" : "border-transparent",
+                      "sticky left-0 z-[1] border-l-4 px-4 py-3.5 font-extrabold text-ink",
+                      c
+                        ? "border-ok bg-surface"
+                        : "border-transparent bg-sunken",
                     )}
                   >
                     {t.name}
-                    <span className="block font-mono text-[11px] font-normal text-muted">
+                    <span className="mt-0.5 block text-xs font-bold tracking-[0.04em] text-ink-2">
                       {t.week ? "MINGGU " + t.week : "TAMBAHAN"}
                       {c ? " · INTI" : ""}
                     </span>
                   </span>
-                  <span className="px-4 py-3.5 text-ink-2">{t.use}</span>
+                  <span className="px-4 py-3.5 font-semibold text-ink-2">
+                    {t.use}
+                  </span>
                   <div className="flex flex-col gap-2 px-4 py-3.5">
                     {(() => {
                       const f = formulaOf(t.name);
                       const low = t.name.toLowerCase();
                       return f ? (
-                        <div className="flex flex-col gap-[3px] rounded-md bg-green-bg px-[9px] py-[7px]">
+                        <div className="flex flex-col gap-1 rounded-md bg-accent-tint px-2.5 py-2">
                           {f.map((x, k) => (
                             <span
                               key={k}
-                              className="font-mono text-xs font-semibold text-green-deep"
+                              className="text-[13px] leading-[18px] font-bold text-ink"
                             >
-                              <span className="mr-1.5 text-faint">
+                              <span className="mr-1.5 font-extrabold text-accent-edge">
                                 {f.length > 1 &&
                                 f.length <= 3 &&
                                 !low.includes("conditional") &&
@@ -159,7 +168,7 @@ const TenseGuide = React.memo(() => {
                         </div>
                       ) : null;
                     })()}
-                    <span className="font-mono text-[12.5px] whitespace-pre-line">
+                    <span className="text-[13px] leading-[19px] font-bold whitespace-pre-line text-ink-2">
                       {t.form}
                     </span>
                   </div>
@@ -167,17 +176,17 @@ const TenseGuide = React.memo(() => {
                     {t.exList.map((e, i) => (
                       <div key={i} className="flex flex-col gap-px">
                         <div className="flex items-center gap-2">
-                          <span className="font-serif text-base italic">
+                          <span className="text-[15px] leading-[22px] font-bold text-ink">
                             {e}
                           </span>
                           <SpeakButton
-                            size={22}
-                            icon={11}
+                            size={28}
+                            icon={13}
                             onClick={() => speak(e)}
                           />
                         </div>
                         {!!(idOf(e) || t.exId[i]) && (
-                          <span className="text-xs text-faint">
+                          <span className="text-[13px] text-ink-2">
                             {idOf(e) || t.exId[i]}
                           </span>
                         )}
@@ -191,7 +200,7 @@ const TenseGuide = React.memo(() => {
             <button
               type="button"
               onClick={() => setShowAll(!showAll)}
-              className="w-full cursor-pointer border-none bg-transparent px-4 py-3 text-center font-sans text-[13.5px] font-semibold text-green"
+              className="min-h-11 w-full cursor-pointer border-none bg-transparent px-4 py-3 text-center text-[13.5px] font-extrabold text-accent-edge focus-ring transition-colors hover:bg-sunken"
             >
               {showAll
                 ? "Sembunyikan tense lanjutan ↑"

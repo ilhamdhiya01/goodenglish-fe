@@ -1,11 +1,14 @@
 "use client";
 
-import classNames from "classnames";
 import React, { useState } from "react";
 
+import TargetMark from "@/components/shared/patterns/target-mark";
+import WordTile from "@/components/shared/patterns/word-tile";
 import Card from "@/components/ui/card";
 import Lead from "@/components/ui/lead";
 import PageHeading from "@/components/ui/page-heading";
+import Pill from "@/components/ui/pill";
+import SectionLabel from "@/components/ui/section-label";
 import SpeakerIcon from "@/components/ui/speaker-icon";
 import TextButton from "@/components/ui/text-button";
 import { PRON_SECS } from "@/const/pronunciation.constant";
@@ -17,6 +20,34 @@ const clean = (s: string) =>
     .replace(/\s*[✗↗↘].*$/, "")
     .replace(/\(.*?\)/g, "")
     .trim();
+
+const Speaker = () => (
+  <span aria-hidden className="inline-flex text-accent">
+    <SpeakerIcon size={13} />
+  </span>
+);
+
+// "phoTOgraphy": the capitalised syllable is the stressed one (the hint
+// above says so). It keeps its capitals and also gets the target band.
+const Stressed = ({ w }: { w: string }) => (
+  <>
+    {w
+      .split(/([A-Z]{2,})/)
+      .map((p, i) =>
+        i % 2 ? (
+          <TargetMark key={i}>{p}</TargetMark>
+        ) : (
+          <React.Fragment key={i}>{p}</React.Fragment>
+        ),
+      )}
+  </>
+);
+
+const Hint = ({ children }: { children: React.ReactNode }) => (
+  <span className="max-w-[760px] text-[13px] leading-[18px] text-pretty text-ink-2">
+    {children}
+  </span>
+);
 
 // Halaman Pelafalan: bunyi sulit, -ed, tekanan kata, intonasi, ucapan cepat, frasa saat mentok.
 const PronPage = React.memo(() => {
@@ -36,153 +67,154 @@ const PronPage = React.memo(() => {
         </Lead>
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        {PRON_SECS.map(([id, label]) => (
-          <button
-            type="button"
-            key={id}
-            onClick={() => setSec(id)}
-            className={classNames(
-              "inline-flex h-9 cursor-pointer items-center rounded-full border-[1.5px] px-3.5 font-sans text-[13.5px] font-semibold transition-colors",
-              sec === id
-                ? "border-ink bg-ink text-paper"
-                : "border-line-2 bg-card text-ink hover:border-ink",
-            )}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-
-      {sec === "sounds" && (
-        <>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-3.5">
-            {D.sounds.map(
-              (s: {
-                sym: string;
-                name: string;
-                tip: string;
-                pairs: [string, string][];
-              }) => (
-                <Card key={s.sym} tone="ink">
-                  <div className="flex flex-col gap-1">
-                    <div className="flex flex-wrap items-baseline gap-2.5">
-                      <span className="font-mono text-[15px] font-bold text-green">
-                        {s.sym}
-                      </span>
-                      <span className="text-[17px] font-bold">{s.name}</span>
-                    </div>
-                    <span className="text-[13.5px] leading-[1.5] text-pretty text-ink-3">
-                      {s.tip}
-                    </span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    {s.pairs.map(([a, b], i) => (
-                      <div key={i} className="contents">
-                        <button
-                          type="button"
-                          onClick={() => speak(a)}
-                          title="Dengarkan"
-                          className="col-start-1 flex cursor-pointer items-center justify-between gap-1.5 rounded-md border-none bg-green-bg px-2.5 py-[7px] text-left font-sans text-[15px] font-semibold text-green-deep hover:bg-green-bg2"
-                        >
-                          {a}
-                          <SpeakerIcon size={12} />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => speak(clean(b))}
-                          title="Dengarkan"
-                          className="col-start-2 flex cursor-pointer items-center justify-between gap-1.5 rounded-md border-none bg-sand px-2.5 py-[7px] text-left font-sans text-[15px] text-muted hover:bg-track"
-                        >
-                          {b}
-                          <SpeakerIcon size={12} />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </Card>
-              ),
-            )}
-          </div>
-          <span className="text-[13px] text-muted">
+      <div className="flex flex-col gap-2.5">
+        <div className="flex flex-wrap gap-2">
+          {PRON_SECS.map(([id, label]) => (
+            <Pill key={id} on={sec === id} onClick={() => setSec(id)}>
+              {label}
+            </Pill>
+          ))}
+        </div>
+        {sec === "sounds" && (
+          <Hint>
             Kolom kiri = bunyi target, kolom kanan = pasangan pembandingnya (✗ =
             ucapan salah yang umum). Klik untuk dengar keduanya berurutan sampai
             bedanya terasa.
-          </span>
-        </>
+          </Hint>
+        )}
+        {sec === "stress" && (
+          <Hint>
+            Huruf KAPITAL = suku kata yang ditekan (lebih keras, lebih panjang,
+            nada lebih tinggi). Suku kata lain dilemahkan.
+          </Hint>
+        )}
+      </div>
+
+      {sec === "sounds" && (
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-3.5">
+          {D.sounds.map(
+            (s: {
+              sym: string;
+              name: string;
+              tip: string;
+              pairs: [string, string][];
+            }) => (
+              <Card key={s.sym} className="gap-4">
+                <div className="flex flex-wrap items-start gap-x-4 gap-y-1">
+                  <span className="text-[38px] leading-[44px] font-black text-accent">
+                    {s.sym}
+                  </span>
+                  <div className="flex min-w-[180px] flex-1 flex-col gap-1 pt-1">
+                    <span className="text-lg leading-6 font-black text-ink">
+                      {s.name}
+                    </span>
+                    <span className="text-sm leading-5 text-pretty text-ink-2">
+                      {s.tip}
+                    </span>
+                  </div>
+                </div>
+                {/* Each row is a pair: target on the left, its contrast on the right. */}
+                <div className="grid grid-cols-2 gap-x-2.5 gap-y-2">
+                  <SectionLabel tone="green">Target</SectionLabel>
+                  <SectionLabel>Kontras</SectionLabel>
+                  {s.pairs.map(([a, b], i) => (
+                    <div key={i} className="contents">
+                      <WordTile
+                        onClick={() => speak(a)}
+                        title="Dengarkan"
+                        className="col-start-1 text-left"
+                      >
+                        <span className="min-w-0 flex-1">{a}</span>
+                        <Speaker />
+                      </WordTile>
+                      {/* Contrast words are real words, not mistakes: dashed,
+                          without a ✕ (the data marks real slips with ✗). */}
+                      <WordTile
+                        used
+                        onClick={() => speak(clean(b))}
+                        title="Dengarkan"
+                        className="col-start-2 text-left"
+                      >
+                        <span className="min-w-0 flex-1">{b}</span>
+                        <Speaker />
+                      </WordTile>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            ),
+          )}
+        </div>
       )}
 
       {sec === "ed" && (
         <>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-3.5">
+          <Card pad="lg" className="max-w-[920px] gap-0">
             {D.ed.map((e: { rule: string; when: string; ex: string[] }) => (
-              <Card key={e.rule} tone="ink" className="gap-2.5">
-                <div className="flex items-baseline justify-between gap-2.5">
-                  <span className="font-mono text-[26px] font-bold text-green">
+              <div
+                key={e.rule}
+                className="grid gap-3 border-t-2 border-dashed border-line py-4 first:border-t-0 first:pt-0 last:pb-0 md:grid-cols-[220px_minmax(0,1fr)] md:gap-5"
+              >
+                <div className="flex flex-col gap-1">
+                  <span className="text-[28px] leading-9 font-black text-accent">
                     -ed = {e.rule}
+                  </span>
+                  <span className="text-sm leading-5 text-pretty text-ink-2">
+                    {e.when}
                   </span>
                   <TextButton
                     tone="green"
                     onClick={() => speak(e.ex.join(", "))}
+                    className="hit-44 mt-1 self-start"
                   >
                     dengar semua
                   </TextButton>
                 </div>
-                <span className="text-[13.5px] leading-[1.5] text-ink-3">
-                  {e.when}
-                </span>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap content-start gap-2">
                   {e.ex.map((w) => (
-                    <button
-                      type="button"
-                      key={w}
-                      onClick={() => speak(w)}
-                      className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border-none bg-green-bg px-[11px] py-[5px] font-sans text-[14.5px] font-semibold text-green-deep hover:bg-green-bg2"
-                    >
+                    <WordTile key={w} onClick={() => speak(w)}>
                       {w}
-                      <SpeakerIcon size={11} />
-                    </button>
+                      <Speaker />
+                    </WordTile>
                   ))}
                 </div>
-              </Card>
+              </div>
             ))}
-          </div>
-          <div className="max-w-[760px] rounded-[10px] border-[1.5px] border-ink bg-card px-5 py-4 text-sm leading-[1.55]">
-            <b>Kesalahan paling umum:</b> membaca semua -ed sebagai
-            &quot;-ed&quot; dua suku kata (<i>work-ed</i>, <i>stop-ed</i>).
-            Hanya setelah <b>t</b> dan <b>d</b> yang jadi /ɪd/. Sisanya satu
-            suku kata: <i>worked</i> = &quot;workt&quot;, <i>played</i> =
-            &quot;pleid&quot;.
-          </div>
+          </Card>
+          <Card className="max-w-[760px] text-sm leading-[22px] text-ink-2">
+            <p className="m-0">
+              <b className="font-extrabold text-ink">Kesalahan paling umum:</b>{" "}
+              membaca semua -ed sebagai &quot;-ed&quot; dua suku kata (
+              <i>work-ed</i>, <i>stop-ed</i>). Hanya setelah{" "}
+              <b className="font-extrabold text-ink">t</b> dan{" "}
+              <b className="font-extrabold text-ink">d</b> yang jadi /ɪd/.
+              Sisanya satu suku kata: <i>worked</i> = &quot;workt&quot;,{" "}
+              <i>played</i> = &quot;pleid&quot;.
+            </p>
+          </Card>
         </>
       )}
 
       {sec === "stress" && (
         <div className="flex max-w-[820px] flex-col gap-3">
           {D.stress.map((s: { rule: string; ex: string[] }) => (
-            <Card key={s.rule} tone="ink" className="gap-2.5 px-5 py-4">
-              <span className="text-[15px] font-bold">{s.rule}</span>
-              <div className="flex flex-wrap gap-1.5">
+            <Card key={s.rule} className="gap-3">
+              <span className="text-[15px] leading-[22px] font-extrabold text-ink">
+                {s.rule}
+              </span>
+              <div className="flex flex-wrap gap-2">
                 {s.ex.map((w) => (
-                  <button
-                    type="button"
+                  <WordTile
                     key={w}
                     onClick={() => speak(clean(w).toLowerCase())}
-                    className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-line bg-sand px-[11px] py-[5px] font-mono text-sm text-ink hover:bg-track"
                   >
-                    {w}
-                    <span className="inline-flex text-green">
-                      <SpeakerIcon size={11} />
-                    </span>
-                  </button>
+                    <Stressed w={w} />
+                    <Speaker />
+                  </WordTile>
                 ))}
               </div>
             </Card>
           ))}
-          <span className="text-[13px] text-muted">
-            Huruf KAPITAL = suku kata yang ditekan (lebih keras, lebih panjang,
-            nada lebih tinggi). Suku kata lain dilemahkan.
-          </span>
         </div>
       )}
 
@@ -190,17 +222,19 @@ const PronPage = React.memo(() => {
         <div className="flex max-w-[820px] flex-col gap-3">
           {D.intonation.map(
             (s: { name: string; tip: string; ex: [string, string][] }) => (
-              <Card key={s.name} tone="ink" className="gap-2.5 px-5 py-4">
-                <div className="flex flex-col gap-[3px]">
-                  <span className="text-base font-bold">{s.name}</span>
-                  <span className="text-[13.5px] leading-[1.5] text-ink-3">
+              <Card key={s.name} className="gap-2.5">
+                <div className="flex flex-col gap-1">
+                  <span className="text-base leading-[22px] font-black text-ink">
+                    {s.name}
+                  </span>
+                  <span className="text-sm leading-5 text-pretty text-ink-2">
                     {s.tip}
                   </span>
                 </div>
                 {s.ex.map(([t, note], i) => (
                   <div
                     key={i}
-                    className="flex flex-wrap items-baseline gap-2.5 border-t border-dashed border-line pt-2"
+                    className="flex flex-wrap items-center gap-x-2.5 gap-y-0.5 border-t-2 border-dashed border-line pt-2"
                   >
                     <button
                       type="button"
@@ -211,18 +245,16 @@ const PronPage = React.memo(() => {
                             .replace(/^\w/, (c) => c.toUpperCase()),
                         )
                       }
-                      className="inline-flex cursor-pointer items-center gap-2 border-none bg-transparent p-0 font-serif text-lg leading-[1.4] text-ink hover:text-green"
+                      className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-sm bg-transparent p-0 text-left text-[15px] leading-[22px] font-bold text-ink focus-ring hover:text-accent-edge"
                     >
                       {t}
-                      <span className="inline-flex text-green">
-                        <SpeakerIcon size={13} />
-                      </span>
+                      <Speaker />
                     </button>
                     {!!note && (
-                      <span className="text-[13px] text-muted">→ {note}</span>
+                      <span className="text-[13px] text-ink-2">→ {note}</span>
                     )}
                     {!!idOf(t) && (
-                      <span className="-mt-1 basis-full text-[12.5px] text-faint">
+                      <span className="basis-full text-[13px] text-ink-2">
                         {idOf(t)}
                       </span>
                     )}
@@ -238,10 +270,12 @@ const PronPage = React.memo(() => {
         <div className="flex flex-col gap-3.5">
           {D.connected.map(
             (g: { name: string; tip: string; items: string[][] }) => (
-              <Card key={g.name} tone="ink">
-                <div className="flex flex-col gap-[3px]">
-                  <span className="text-lg font-bold">{g.name}</span>
-                  <span className="text-[13.5px] leading-[1.5] text-ink-3">
+              <Card key={g.name}>
+                <div className="flex flex-col gap-1">
+                  <span className="text-lg leading-6 font-black text-ink">
+                    {g.name}
+                  </span>
+                  <span className="text-sm leading-5 text-pretty text-ink-2">
                     {g.tip}
                   </span>
                 </div>
@@ -251,23 +285,21 @@ const PronPage = React.memo(() => {
                       type="button"
                       key={i}
                       onClick={() => speak(ex)}
-                      className="flex cursor-pointer flex-col gap-[3px] rounded-lg border border-line bg-card px-3 py-2.5 text-left font-sans transition-colors hover:border-ink"
+                      className="flex cursor-pointer flex-col gap-1 rounded-lg border-2 border-line bg-surface px-3 py-2.5 text-left focus-ring transition-colors hover:bg-sunken"
                     >
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[17px] font-bold text-green">
+                      <div className="flex w-full flex-wrap items-center gap-2">
+                        <span className="text-[17px] leading-6 font-black text-accent-edge">
                           {fast}
                         </span>
-                        <span className="font-mono text-[12.5px] text-muted">
-                          {pron}
-                        </span>
-                        <span className="ml-auto inline-flex text-green">
-                          <SpeakerIcon size={13} />
+                        <span className="text-[13px] text-ink-2">{pron}</span>
+                        <span className="ml-auto">
+                          <Speaker />
                         </span>
                       </div>
                       {fast !== full && (
-                        <span className="text-[13px] text-muted">= {full}</span>
+                        <span className="text-[13px] text-ink-2">= {full}</span>
                       )}
-                      <span className="font-serif text-[15px] text-ink-2 italic">
+                      <span className="text-[15px] leading-[22px] font-bold text-ink">
                         {ex}
                       </span>
                     </button>
@@ -281,18 +313,22 @@ const PronPage = React.memo(() => {
 
       {sec === "stuck" && (
         <>
-          <span className="max-w-[760px] text-[15px] leading-[1.55] text-ink-3">
+          <span className="max-w-[760px] text-[15px] leading-[22px] text-ink-2">
             Fluent bukan berarti tidak pernah mentok, tapi{" "}
-            <b>tetap mengalir saat mentok</b>. Hafalkan satu frasa per kelompok,
-            pakai otomatis.
+            <b className="font-extrabold text-ink">
+              tetap mengalir saat mentok
+            </b>
+            . Hafalkan satu frasa per kelompok, pakai otomatis.
           </span>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-3.5">
             {D.stuck.map(
               (g: { name: string; tip: string; items: string[][] }) => (
-                <Card key={g.name} tone="ink">
-                  <div className="flex flex-col gap-[3px]">
-                    <span className="text-lg font-bold">{g.name}</span>
-                    <span className="text-[13.5px] leading-[1.5] text-ink-3">
+                <Card key={g.name} className="gap-2.5">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-lg leading-6 font-black text-ink">
+                      {g.name}
+                    </span>
+                    <span className="text-sm leading-5 text-pretty text-ink-2">
                       {g.tip}
                     </span>
                   </div>
@@ -301,22 +337,22 @@ const PronPage = React.memo(() => {
                       type="button"
                       key={i}
                       onClick={() => speak(ex)}
-                      className="flex cursor-pointer flex-col gap-[3px] border-t border-dashed border-line bg-transparent pt-2.5 text-left font-sans"
+                      className="flex cursor-pointer flex-col gap-1 rounded-sm border-t-2 border-dashed border-line bg-transparent pt-2.5 text-left focus-ring"
                     >
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-base font-bold text-green">
+                      <div className="flex w-full flex-wrap items-center gap-2">
+                        <span className="text-base leading-[22px] font-extrabold text-accent-edge">
                           {en}
                         </span>
-                        <span className="text-[13px] text-ink-3">{id}</span>
-                        <span className="ml-auto inline-flex text-green">
-                          <SpeakerIcon size={13} />
+                        <span className="text-[13px] text-ink-2">{id}</span>
+                        <span className="ml-auto">
+                          <Speaker />
                         </span>
                       </div>
-                      <span className="font-serif text-[15.5px] leading-[1.4] italic">
+                      <span className="text-[15px] leading-[22px] font-bold text-ink">
                         {ex}
                       </span>
                       {!!note && (
-                        <span className="font-mono text-xs text-muted">
+                        <span className="text-[12.5px] font-bold text-ink-2">
                           {note}
                         </span>
                       )}

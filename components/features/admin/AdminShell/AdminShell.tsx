@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
+import Logo from "@/components/brand/Logo";
+import TextButton from "@/components/ui/text-button";
 import { useLogout } from "@/lib/hooks/auth/useLogout";
 import { useSession } from "@/lib/hooks/auth/useSession";
 import { ROUTES } from "@/routes";
@@ -38,32 +40,37 @@ const AdminShell = React.memo(({ children }: AdminShellProps) => {
 
   if (!isAdmin) {
     return (
-      <div className="flex min-h-screen items-center justify-center font-mono text-xs tracking-[0.08em] text-muted">
+      <div className="flex min-h-screen items-center justify-center text-[12.5px] font-extrabold tracking-[0.07em] text-ink-2">
         MEMUAT…
       </div>
     );
   }
 
   return (
-    <div className="mx-auto flex max-w-[1280px] flex-col gap-7 px-[clamp(14px,3vw,28px)] pt-[clamp(18px,4vw,36px)] pb-20">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-ink pb-6">
+    <div className="mx-auto flex max-w-[1280px] flex-col gap-6 px-[clamp(14px,3vw,28px)] pt-[clamp(18px,4vw,36px)] pb-20">
+      <header className="flex flex-wrap items-start justify-between gap-4 border-b-2 border-line pb-5">
         <div className="flex flex-col gap-2">
-          <span className="font-mono text-xs font-medium tracking-[0.12em] text-ink">
-            GOODENGLISH · ADMIN
+          <span className="flex items-center gap-2">
+            <Logo size="sm" />
+            <span className="text-[13px] leading-[18px] font-black tracking-[0.08em] text-ink-2">
+              · ADMIN
+            </span>
           </span>
-          <h1 className="m-0 text-[clamp(28px,4vw,40px)] leading-none font-bold tracking-[-0.025em]">
+          <h1 className="m-0 text-2xl leading-[30px] font-black tracking-[-0.02em] text-ink md:text-[30px] md:leading-9">
             {current[2]}
           </h1>
-          <nav className="mt-2 flex gap-2">
+          {/* Pill look on real links (Pill itself is a <button>). */}
+          <nav className="mt-2 flex flex-wrap gap-2">
             {SECTIONS.map(([path, label]) => (
               <Link
                 key={path}
                 href={path}
+                aria-current={path === current[0] ? "page" : undefined}
                 className={classNames(
-                  "rounded-full border-[1.5px] border-ink px-3.5 py-1 text-[13px] font-semibold",
+                  "hit-44 inline-flex min-h-[38px] items-center rounded-full border-2 px-4 text-sm font-extrabold no-underline focus-ring transition-colors",
                   path === current[0]
-                    ? "bg-ink text-paper"
-                    : "bg-card text-ink",
+                    ? "border-accent-line bg-accent-tint text-accent-edge hover:text-accent-edge"
+                    : "border-control bg-surface text-ink hover:bg-sunken hover:text-ink",
                 )}
               >
                 {label}
@@ -71,21 +78,23 @@ const AdminShell = React.memo(({ children }: AdminShellProps) => {
             ))}
           </nav>
         </div>
-        <div className="flex items-center gap-4">
-          <Link href={ROUTES.ROOT} className="text-sm font-semibold">
+        <div className="flex items-center gap-5">
+          <Link
+            href={ROUTES.ROOT}
+            className="hit-44 rounded-sm text-sm font-extrabold text-accent-edge focus-ring"
+          >
             ← Kembali ke app
           </Link>
-          <button
-            type="button"
+          <TextButton
+            className="hit-44"
             disabled={isLoggingOut}
             onClick={() => handleLogout()}
-            className="cursor-pointer border-b border-dotted border-faint bg-transparent p-0 text-[12.5px] text-muted"
           >
             Keluar
-          </button>
+          </TextButton>
         </div>
       </header>
-      {children}
+      <main className="flex flex-col gap-6">{children}</main>
     </div>
   );
 });

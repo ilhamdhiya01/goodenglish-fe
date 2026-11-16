@@ -92,6 +92,12 @@ export const useAiUsage = (enabled: boolean) => {
   return data;
 };
 
+// The answer being streamed, so "Berhenti" can cut it off.
+let streaming: AbortController | null = null;
+
+/** Stops the answer that is streaming in; what arrived so far is kept. */
+export const stopAiAnswer = () => streaming?.abort();
+
 // Sends a message (a question, or a sentence to check: the model tells them
 // apart), writing both sides of the exchange into useAiChatStore (the answer
 // grows as it streams in).
@@ -135,9 +141,11 @@ export const useAiChat = () => {
       const history = toHistory(useAiChatStore.getState().messages);
       store.append({ id: replyId, role: "model", text: "" });
       store.setBusy(true);
+      const controller = new AbortController();
+      streaming = controller;
 
+      let answer = "";
       try {
-        let answer = "";
         await streamChat(
           {
             messages: history,
@@ -151,6 +159,7 @@ export const useAiChat = () => {
               useAiChatStore.getState().update(replyId, { text: answer });
             },
           },
+          controller.signal,
         );
         if (!answer)
           store.update(replyId, {
@@ -158,8 +167,12 @@ export const useAiChat = () => {
             error: true,
           });
       } catch (err) {
-        store.update(replyId, { text: errorText(err), error: true });
+        // Stopped by the learner: keep what arrived (or a dash if nothing did).
+        if (controller.signal.aborted)
+          store.update(replyId, { text: answer || "—" });
+        else store.update(replyId, { text: errorText(err), error: true });
       } finally {
+        if (streaming === controller) streaming = null;
         store.setBusy(false);
         void queryClient.invalidateQueries({ queryKey: aiKeys.usage });
         void queryClient.invalidateQueries({

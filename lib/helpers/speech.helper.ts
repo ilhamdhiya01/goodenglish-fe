@@ -48,11 +48,33 @@ export const bestVoice = (): SpeechSynthesisVoice | null => {
   return [...list].sort((a, b) => score(b) - score(a))[0];
 };
 
+// What is being spoken right now, so speaker buttons can show it. Tracked per
+// utterance: cancel() fires the old one's end/error after the new one starts.
+let playing: { u: SpeechSynthesisUtterance; text: string } | null = null;
+const listeners = new Set<() => void>();
+const setPlaying = (p: typeof playing) => {
+  playing = p;
+  listeners.forEach((l) => l());
+};
+
+export const subscribeSpeaking = (l: () => void) => {
+  listeners.add(l);
+  return () => {
+    listeners.delete(l);
+  };
+};
+
+export const speakingText = () => playing?.text ?? null;
+
 export const speak = (text: string) => {
   try {
     if (!window.speechSynthesis) return;
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
+    u.onstart = () => setPlaying({ u, text });
+    u.onend = u.onerror = () => {
+      if (playing?.u === u) setPlaying(null);
+    };
     u.rate = 0.9;
     u.pitch = 1;
     const v = bestVoice();

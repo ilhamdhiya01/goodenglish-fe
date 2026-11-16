@@ -1,10 +1,12 @@
 "use client";
 
+import classNames from "classnames";
 import React, { useEffect, useMemo, useState } from "react";
 
 import { Ask } from "@/components/features/ask";
 import Card from "@/components/ui/card";
-import Pill from "@/components/ui/pill";
+import ProgressBar from "@/components/ui/progress-bar";
+import SectionLabel from "@/components/ui/section-label";
 import { PRACTICE, type PracticeTopic } from "@/const/practice-sets.constant";
 import { bankGen, type BankItem } from "@/lib/helpers/bank-practice.helper";
 import type { PracticeStage } from "@/lib/types/ask-practice.types";
@@ -65,29 +67,56 @@ const BankPractice = React.memo(({ topic }: { topic: PracticeTopic }) => {
   const meta = sets.find((s) => s[0] === set) || sets[0];
 
   return (
-    <Card tone="ink" pad="lg" className="gap-3.5">
+    <Card pad="lg" className="gap-4">
       <div className="flex flex-col gap-1">
-        <span className="font-mono text-xs tracking-[0.06em] text-green">
+        <SectionLabel tone="green">
           LATIHAN SOAL · {sets.length} SET
-        </span>
-        <span className="text-sm leading-[1.5] text-pretty text-ink-2">
+        </SectionLabel>
+        <span className="text-sm leading-5 text-pretty text-ink-2">
           {intro}
         </span>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {sets.map(([id, no, label]) => (
-          <Pill key={id} size="sm" on={set === id} onClick={() => setSet(id)}>
-            {no} · {label}
-            {bank && (
-              <span className="font-mono text-[11px] opacity-70">
-                {Object.keys(stats[id]?.done || {}).length}/{total(id)}
+      {/* The question bank: one row per set with its progress. */}
+      <div className="grid gap-2 md:grid-cols-2">
+        {sets.map(([id, no, label]) => {
+          const done = Object.keys(stats[id]?.done || {}).length;
+          const tot = total(id);
+          const on = set === id;
+          return (
+            <button
+              type="button"
+              key={id}
+              aria-pressed={on}
+              onClick={() => setSet(id)}
+              className={classNames(
+                "flex cursor-pointer flex-col gap-2 rounded-lg border-2 px-3.5 py-2.5 text-left focus-ring",
+                on
+                  ? "border-accent-line bg-accent-tint"
+                  : "border-line bg-surface hover:bg-sunken",
+              )}
+            >
+              <span
+                className={classNames(
+                  "text-sm font-extrabold",
+                  on ? "text-accent-edge" : "text-ink",
+                )}
+              >
+                {no} · {label}
               </span>
-            )}
-          </Pill>
-        ))}
+              {bank && (
+                <ProgressBar
+                  pct={tot ? (done / tot) * 100 : 0}
+                  label={`${done}/${tot}`}
+                  name={`${no} · ${label}: ${done} dari ${tot} selesai`}
+                  className="[&>[role=progressbar]]:h-2"
+                />
+              )}
+            </button>
+          );
+        })}
       </div>
-      <span className="text-[13.5px] leading-[1.5] text-ink-3">
-        <b>{meta[2]}.</b> {meta[3]}
+      <span className="text-[13.5px] leading-[19px] text-ink-2">
+        <b className="font-extrabold text-ink">{meta[2]}.</b> {meta[3]}
       </span>
       {gen ? (
         <Ask.AskPractice
@@ -100,7 +129,7 @@ const BankPractice = React.memo(({ topic }: { topic: PracticeTopic }) => {
           placeholder="Ketik isian bagian kosong, lalu Enter…"
         />
       ) : (
-        <span className="font-mono text-xs text-muted">Memuat soal…</span>
+        <span className="text-[13px] font-bold text-ink-2">Memuat soal…</span>
       )}
     </Card>
   );

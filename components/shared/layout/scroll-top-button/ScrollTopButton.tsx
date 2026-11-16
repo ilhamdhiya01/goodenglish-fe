@@ -2,52 +2,38 @@
 
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
+import { LuArrowUp } from "react-icons/lu";
 
-// Tombol "kembali ke atas" mengambang di kanan bawah; muncul setelah scroll jauh.
-// `raised`: duduk di atas tombol Tanya AI (56px), sejajar di tengahnya.
-const ScrollTopButton = React.memo(
-  ({ raised = false }: { raised?: boolean }) => {
-    const [show, setShow] = useState(false);
+import IconButton from "@/components/ui/icon-button";
 
-    useEffect(() => {
-      const onScroll = () => setShow(window.scrollY > 600);
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
-      return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+// "Kembali ke atas" at the bottom right, above the phone's bottom nav; shows
+// once the page has scrolled two screens down.
+const ScrollTopButton = React.memo(() => {
+  const [show, setShow] = useState(false);
 
-    return (
-      <button
-        type="button"
-        aria-label="Kembali ke atas"
-        title="Kembali ke atas"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={classNames(
-          "fixed z-30 inline-flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border-[1.5px] border-ink bg-ink text-paper shadow-[0_8px_24px_rgba(29,27,22,.22)] transition-all duration-200 hover:bg-ink-4",
-          raised
-            ? "right-[max(20px,calc(env(safe-area-inset-right)+4px))] bottom-[max(88px,calc(env(safe-area-inset-bottom)+68px))]"
-            : "right-[max(16px,env(safe-area-inset-right))] bottom-[max(20px,env(safe-area-inset-bottom))]",
-          show
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none translate-y-3 opacity-0",
-        )}
-      >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M12 19V5m0 0l-6 6m6-6l6 6" />
-        </svg>
-      </button>
-    );
-  },
-);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > window.innerHeight * 2);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <IconButton
+      aria-label="Kembali ke atas"
+      title="Kembali ke atas"
+      tabIndex={show ? 0 : -1}
+      aria-hidden={!show}
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className={classNames(
+        "fixed right-[max(16px,env(safe-area-inset-right))] bottom-[calc(84px+env(safe-area-inset-bottom))] z-20 transition-opacity duration-200 md:bottom-6",
+        show ? "opacity-100" : "pointer-events-none opacity-0",
+      )}
+    >
+      <LuArrowUp aria-hidden size={18} />
+    </IconButton>
+  );
+});
 
 ScrollTopButton.displayName = "ScrollTopButton";
 

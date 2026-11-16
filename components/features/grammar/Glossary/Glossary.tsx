@@ -6,6 +6,7 @@ import Rich from "@/components/shared/rich";
 import Card from "@/components/ui/card";
 import Lead from "@/components/ui/lead";
 import PageHeading from "@/components/ui/page-heading";
+import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
 import { ANATOMY, TERMS } from "@/const/glossary.constant";
 import { speak } from "@/lib/helpers/speech.helper";
@@ -13,7 +14,7 @@ import { speak } from "@/lib/helpers/speech.helper";
 // Sub-tab "Istilah": anatomi satu kalimat + daftar istilah (S, V1, Aux, …).
 const Glossary = React.memo(() => {
   return (
-    <div className="flex flex-col gap-5.5">
+    <div className="flex flex-col gap-5">
       <div className="flex max-w-[760px] flex-col gap-1.5">
         <PageHeading>Istilah dan singkatan dalam rumus</PageHeading>
         <Lead>
@@ -22,29 +23,26 @@ const Glossary = React.memo(() => {
         </Lead>
       </div>
 
-      <Card tone="ink" pad="lg" className="gap-3.5">
-        <span className="font-mono text-xs tracking-[0.06em] text-green">
+      <Card pad="lg" className="gap-4">
+        <SectionLabel tone="green">
           SATU KALIMAT, DIPOTONG PER BAGIAN
-        </span>
-        <div className="flex flex-wrap items-end gap-2">
-          {ANATOMY.map(([w, tag, c]) => (
+        </SectionLabel>
+        <div className="flex flex-wrap items-end gap-x-3 gap-y-2">
+          {ANATOMY.map(([w, tag]) => (
             <div key={w} className="flex flex-col items-center gap-1">
-              <span
-                className="border-b-[3px] px-0.5 pb-0.5 font-serif text-[22px] italic"
-                style={{ borderColor: c }}
-              >
+              <span className="border-b-[3px] border-ink px-0.5 pb-0.5 text-xl font-extrabold text-ink">
                 {w}
               </span>
-              <span className="font-mono text-[11.5px]" style={{ color: c }}>
+              <span className="rounded-[7px] bg-chip px-1.5 py-px text-[12px] font-extrabold text-ink-2">
                 {tag}
               </span>
             </div>
           ))}
           <SpeakButton text="My sister is cooking fried rice in the kitchen now." />
         </div>
-        <span className="text-sm leading-[1.55] text-pretty text-ink-2">
+        <span className="text-sm leading-5 text-pretty text-ink-2">
           Rumusnya:{" "}
-          <b className="font-mono text-[13px]">
+          <b className="font-extrabold text-ink">
             S + am/is/are + V-ing + O + keterangan
           </b>
           . Urutan dasar bahasa Inggris hampir selalu{" "}
@@ -52,29 +50,29 @@ const Glossary = React.memo(() => {
         </span>
       </Card>
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-2.5">
+      <div className="grid gap-3 md:grid-cols-2">
         {TERMS.map(([k, en, id, b, ex]) => (
           <div
             key={k}
-            className="flex flex-col gap-1.5 rounded-[10px] border border-line bg-card px-4 py-3.5"
+            className="flex flex-col gap-1.5 rounded-xl border-2 border-line bg-surface px-4 py-3.5"
           >
             <div className="flex flex-wrap items-baseline gap-2.5">
-              <span className="font-mono text-[17px] font-bold text-green">
+              <span className="text-[17px] font-black text-accent-edge">
                 {k}
               </span>
-              <span className="text-sm font-bold">{en}</span>
-              <span className="text-[13px] text-muted">· {id}</span>
+              <span className="text-sm font-extrabold text-ink">{en}</span>
+              <span className="text-[13px] text-ink-2">· {id}</span>
             </div>
-            <span className="text-[13.5px] leading-[1.5] text-pretty text-ink-2">
+            <span className="text-[13.5px] leading-[19px] text-pretty text-ink-2">
               {b}
             </span>
-            <div className="flex items-center gap-2 border-t border-dashed border-line pt-1.5">
-              <span className="font-serif text-[15.5px] italic">
+            <div className="flex items-center gap-2 border-t-2 border-dashed border-line pt-2">
+              <span className="text-[15px] leading-[22px] font-bold text-ink">
                 <Rich text={ex} />
               </span>
               <SpeakButton
-                size={22}
-                icon={11}
+                size={28}
+                icon={13}
                 onClick={() => speak(ex.replace(/<\/?b>/g, ""))}
               />
             </div>

@@ -3,6 +3,7 @@
 import classNames from "classnames";
 import React, { useState } from "react";
 
+import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
 import TextButton from "@/components/ui/text-button";
 import { idOf } from "@/lib/content";
@@ -12,7 +13,7 @@ interface Props {
   rows: [string, string, string?][];
   /** Tampilkan terjemahan otomatis (idOf) di bawah soal & jawaban. */
   showIds?: boolean;
-  /** Label mono di atas grid + tombol "Tutup semua". Kosongkan untuk tanpa header. */
+  /** Label bagian di atas grid + tombol "Tutup semua". Kosongkan untuk tanpa header. */
   label?: string;
 }
 
@@ -24,9 +25,7 @@ const DrillGrid = React.memo(({ rows, showIds = false, label }: Props) => {
     <div className="flex flex-col gap-2.5">
       {!!label && (
         <div className="flex flex-wrap items-baseline justify-between gap-2.5">
-          <span className="font-mono text-xs tracking-[0.06em] text-muted">
-            {label}
-          </span>
+          <SectionLabel>{label}</SectionLabel>
           <TextButton onClick={() => setOpen({})}>Tutup semua</TextButton>
         </div>
       )}
@@ -39,42 +38,44 @@ const DrillGrid = React.memo(({ rows, showIds = false, label }: Props) => {
               key={i}
               onClick={() => setOpen((s) => ({ ...s, [i]: !s[i] }))}
               className={classNames(
-                "flex cursor-pointer flex-col gap-[5px] rounded-lg border-[1.5px] px-[13px] py-[11px] text-left font-sans transition-colors hover:border-ink",
-                o ? "border-green bg-green-bg" : "border-line bg-card",
+                "flex press cursor-pointer flex-col gap-1.5 rounded-lg border-2 px-3.5 py-3 text-left edge focus-ring",
+                o
+                  ? "border-accent-line bg-accent-wash [--edge:var(--color-accent-line)]"
+                  : "border-control bg-surface [--edge:var(--color-control)] hover:bg-sunken",
               )}
             >
-              <span className="text-[14.5px] text-ink">
-                <span className="mr-1.5 font-mono text-[11px] text-faint">
+              <span className="text-[15px] leading-[22px] font-semibold text-ink">
+                <span className="mr-1.5 text-[13px] font-extrabold text-ink-3 tabular-nums">
                   {i + 1}.
                 </span>
                 {q}
               </span>
               {showIds && !!idOf(q.split(" → ")[0]) && (
-                <span className="text-[12.5px] text-faint">
+                <span className="text-[13px] text-ink-2">
                   {idOf(q.split(" → ")[0])}
                 </span>
               )}
               {o ? (
-                <span className="flex flex-col gap-[5px]">
+                <span className="flex flex-col gap-1 border-t-2 border-dashed border-accent-line pt-2">
                   <span className="flex items-center gap-2">
-                    <span className="font-serif text-[17px] text-green italic">
+                    <span className="text-base leading-[22px] font-bold text-ink">
                       {a}
                     </span>
-                    <SpeakButton nested size={22} icon={11} text={a} />
+                    <SpeakButton nested size={28} icon={13} text={a} />
                   </span>
                   {showIds && !!idOf(a) && (
-                    <span className="-mt-[3px] text-[12.5px] text-faint">
+                    <span className="-mt-0.5 text-[13px] text-ink-2">
                       {idOf(a)}
                     </span>
                   )}
                   {!!why && (
-                    <span className="font-mono text-[11.5px] text-muted">
+                    <span className="text-[13px] leading-[19px] font-semibold text-ink-2">
                       {why}
                     </span>
                   )}
                 </span>
               ) : (
-                <span className="text-[12.5px] text-faint">
+                <span className="text-[13px] font-bold text-accent-edge">
                   klik untuk lihat jawaban
                 </span>
               )}

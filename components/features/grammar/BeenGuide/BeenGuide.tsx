@@ -4,7 +4,9 @@ import React from "react";
 
 import BankPractice from "@/components/features/grammar/BankPractice/BankPractice";
 import GrammarDetail from "@/components/features/grammar/GrammarDetail/GrammarDetail";
+import Marked from "@/components/features/grammar/Marked/Marked";
 import Card from "@/components/ui/card";
+import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
 import {
   WHB_DETAIL,
@@ -16,60 +18,38 @@ import {
 } from "@/const/was-have-been.constant";
 import { speak } from "@/lib/helpers/speech.helper";
 
-// Kalimat dengan <b>…</b> → bagian yang berubah diberi warna.
-const Marked = ({ s, c }: { s: string; c: string }) => {
-  return (
-    <>
-      {s.split(/(<b>.*?<\/b>)/g).map((p, k) =>
-        p.startsWith("<b>") ? (
-          <b key={k} className="italic" style={{ color: c }}>
-            {p.slice(3, -4)}
-          </b>
-        ) : (
-          <span key={k}>{p}</span>
-        ),
-      )}
-    </>
-  );
-};
-
-// Satu jalur garis waktu: penanda "titik lampau" & "sekarang", lalu batang dari → sampai.
+// Satu jalur garis waktu: sumbu, penanda "titik lampau" (putus-putus) dan
+// "sekarang" (garis tegas), lalu batang dari → sampai. Batang yang menyentuh
+// sekarang (have) berwarna aksen dengan panah; yang berhenti di masa lampau
+// (had / was) netral. Bentuk dan keterangannya selalu tertulis di sebelahnya.
 const Track = ({
   from,
   to,
   now,
-  c,
 }: {
   from: number;
   to: number;
   now: boolean;
-  c: string;
-}) => {
-  return (
-    <div className="relative h-7">
-      <div className="absolute inset-x-0 top-1/2 h-px bg-line-2" />
-      <div
-        className="absolute inset-y-0 border-l-[1.5px] border-dashed border-faint"
-        style={{ left: WHB_PAST + "%" }}
-      />
-      <div className="absolute inset-y-0 right-0 border-l-2 border-ink" />
-      <div
-        className="absolute top-1/2 h-2 -translate-y-1/2 rounded-full"
-        style={{
-          left: from + "%",
-          width: Math.max(to - from, 2) + "%",
-          background: c,
-        }}
-      />
-      {now && (
-        <div
-          className="absolute top-1/2 right-0 h-0 w-0 -translate-y-1/2 border-y-[7px] border-l-[9px] border-y-transparent"
-          style={{ borderLeftColor: c }}
-        />
-      )}
-    </div>
-  );
-};
+}) => (
+  <div aria-hidden className="relative h-7">
+    <div className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 bg-ink" />
+    <div
+      className="absolute inset-y-0 border-l-2 border-dashed border-control"
+      style={{ left: WHB_PAST + "%" }}
+    />
+    <div className="absolute inset-y-0 right-0 border-l-[3px] border-ink" />
+    <div
+      className={
+        "absolute top-1/2 h-2.5 -translate-y-1/2 rounded-full " +
+        (now ? "bg-accent" : "bg-control")
+      }
+      style={{ left: from + "%", width: Math.max(to - from, 2) + "%" }}
+    />
+    {now && (
+      <div className="absolute top-1/2 right-0 h-0 w-0 -translate-y-1/2 border-y-[7px] border-l-[10px] border-y-transparent border-l-accent" />
+    )}
+  </div>
+);
 
 // Sub-tab "Was / Have / Been": detail → garis waktu → satu kalimat lintas bentuk →
 // have sebagai punya vs kata bantu → pasangan yang sering tertukar → latihan soal per set.
@@ -78,12 +58,12 @@ const BeenGuide = React.memo(() => {
     <>
       <GrammarDetail d={WHB_DETAIL} />
 
-      <Card tone="ink" pad="lg" className="gap-3.5">
+      <Card pad="lg" className="gap-4">
         <div className="flex flex-col gap-1">
-          <span className="font-mono text-xs tracking-[0.06em] text-green">
+          <SectionLabel tone="green">
             GARIS WAKTU · DARI KIRI (DULU) KE KANAN (SEKARANG)
-          </span>
-          <span className="text-sm leading-[1.5] text-pretty text-ink-2">
+          </SectionLabel>
+          <span className="text-sm leading-5 text-pretty text-ink-2">
             Garis putus-putus adalah <b>titik lampau</b> yang sedang diceritakan
             (mis. &quot;waktu aku datang&quot;). Garis tegas di kanan adalah{" "}
             <b>sekarang</b>. Batang yang menyentuh sekarang (dengan panah)
@@ -92,29 +72,31 @@ const BeenGuide = React.memo(() => {
           </span>
         </div>
         <div className="flex flex-col gap-1.5">
-          {WHB_TIMELINE.map(([form, ex, from, to, now, note, c], i) => (
+          {WHB_TIMELINE.map(([form, ex, from, to, now, note], i) => (
             <div
               key={i}
-              className="grid grid-cols-[minmax(0,1fr)] gap-2 rounded-lg px-3 py-2.5 odd:bg-sand md:grid-cols-[190px_minmax(0,1fr)] md:items-center md:gap-4"
+              className="grid grid-cols-[minmax(0,1fr)] gap-2 rounded-lg px-3 py-2.5 odd:bg-sunken md:grid-cols-[190px_minmax(0,1fr)] md:items-center md:gap-4"
             >
               <div className="flex min-w-0 flex-col gap-0.5">
                 <span
-                  className="font-mono text-[13px] font-bold"
-                  style={{ color: c }}
+                  className={
+                    "text-sm font-black " +
+                    (now ? "text-accent-edge" : "text-ink")
+                  }
                 >
                   {form}
                 </span>
-                <span className="text-[12.5px] leading-[1.35] text-muted">
+                <span className="text-[13px] leading-[18px] text-ink-2">
                   {note}
                 </span>
               </div>
               <div className="flex min-w-0 flex-col gap-1">
-                <Track from={from} to={to} now={now} c={c} />
+                <Track from={from} to={to} now={now} />
                 <div className="flex items-center gap-2">
-                  <span className="font-serif text-[16px] leading-[1.35] text-ink italic">
+                  <span className="text-[15px] leading-[22px] font-bold text-ink">
                     {ex}
                   </span>
-                  <SpeakButton size={22} icon={11} onClick={() => speak(ex)} />
+                  <SpeakButton size={28} icon={13} onClick={() => speak(ex)} />
                 </div>
               </div>
             </div>
@@ -122,7 +104,7 @@ const BeenGuide = React.memo(() => {
         </div>
         <div className="grid grid-cols-[minmax(0,1fr)] px-3 md:grid-cols-[190px_minmax(0,1fr)] md:gap-4">
           <span className="hidden md:block" />
-          <div className="relative h-5 font-mono text-[11px] tracking-[0.04em] text-muted">
+          <div className="relative h-5 text-[12px] font-extrabold tracking-[0.06em] text-ink-2">
             <span className="absolute left-0">DULU</span>
             <span
               className="absolute -translate-x-1/2"
@@ -135,27 +117,27 @@ const BeenGuide = React.memo(() => {
         </div>
       </Card>
 
-      <Card tone="ink" pad="lg" className="gap-3.5">
+      <Card pad="lg" className="gap-4">
         <div className="flex flex-col gap-1">
-          <span className="font-mono text-xs tracking-[0.06em] text-green">
+          <SectionLabel tone="green">
             SATU KALIMAT, BERUBAH TITIK ACUAN
-          </span>
-          <span className="text-sm leading-[1.5] text-pretty text-ink-2">
+          </SectionLabel>
+          <span className="text-sm leading-5 text-pretty text-ink-2">
             Subjeknya tetap <b>she</b>. Perhatikan bagian berwarna: is → was →
             has been → had been. Dua baris terakhir versi kegiatan (+ -ing).
           </span>
         </div>
         <div className="flex flex-col gap-1.5">
-          {WHB_ROWS.map(([sent, tense, c], i) => (
+          {WHB_ROWS.map(([sent, tense], i) => (
             <div
               key={i}
-              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-lg px-3 py-[9px] odd:bg-sand"
+              className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-lg px-3 py-2.5 odd:bg-sunken"
             >
-              <span className="font-serif text-[19px] leading-[1.3] wrap-anywhere">
-                <Marked s={sent} c={c} />
+              <span className="text-[17px] leading-6 font-bold wrap-anywhere text-ink">
+                <Marked s={sent} />
               </span>
               <div className="flex flex-wrap items-center justify-end gap-2.5">
-                <span className="text-right font-mono text-[11.5px] text-muted">
+                <span className="text-right text-[12.5px] font-bold text-ink-2">
                   {tense}
                 </span>
                 <SpeakButton
@@ -167,12 +149,12 @@ const BeenGuide = React.memo(() => {
         </div>
       </Card>
 
-      <Card tone="ink" pad="lg" className="gap-3.5">
+      <Card pad="lg" className="gap-4">
         <div className="flex flex-col gap-1">
-          <span className="font-mono text-xs tracking-[0.06em] text-green">
+          <SectionLabel tone="green">
             HAVE: &quot;PUNYA&quot; ATAU KATA BANTU?
-          </span>
-          <span className="text-sm leading-[1.5] text-pretty text-ink-2">
+          </SectionLabel>
+          <span className="text-sm leading-5 text-pretty text-ink-2">
             Lihat kata sesudahnya. Kalau benda (a car, a cold) → have ={" "}
             <b>punya</b>, negatif & tanya pakai <b>do</b>. Kalau V3 (bought,
             been, had) → have = <b>kata bantu &quot;sudah&quot;</b>, negatif &
@@ -183,33 +165,26 @@ const BeenGuide = React.memo(() => {
         <div className="flex flex-col gap-1.5">
           <div className="hidden grid-cols-[110px_repeat(2,minmax(0,1fr))] gap-3 px-3 md:grid">
             <span />
-            <span className="font-mono text-[11px] font-bold tracking-[0.06em] text-gold">
-              HAVE = PUNYA
-            </span>
-            <span className="font-mono text-[11px] font-bold tracking-[0.06em] text-green">
-              HAVE + V3 = SUDAH
-            </span>
+            <SectionLabel>HAVE = PUNYA</SectionLabel>
+            <SectionLabel>HAVE + V3 = SUDAH</SectionLabel>
           </div>
           {WHB_HAVE.map(([own, aux, note], i) => (
             <div
               key={i}
-              className="grid grid-cols-[minmax(0,1fr)] gap-2 rounded-lg px-3 py-2.5 odd:bg-sand md:grid-cols-[110px_repeat(2,minmax(0,1fr))] md:gap-3"
+              className="grid grid-cols-[minmax(0,1fr)] gap-2 rounded-lg px-3 py-2.5 odd:bg-sunken md:grid-cols-[110px_repeat(2,minmax(0,1fr))] md:gap-3"
             >
-              <span className="text-[13px] font-semibold text-ink">{note}</span>
+              <span className="text-[13.5px] font-extrabold text-ink">
+                {note}
+              </span>
               {[own, aux].map((s, j) => (
                 <div key={j} className="flex min-w-0 items-center gap-2">
-                  <span
-                    className={
-                      "font-mono text-[10.5px] font-bold md:hidden " +
-                      (j ? "text-green" : "text-gold")
-                    }
-                  >
+                  <span className="text-[11.5px] font-extrabold tracking-[0.06em] text-ink-2 md:hidden">
                     {j ? "SUDAH" : "PUNYA"}
                   </span>
-                  <span className="font-serif text-[16px] leading-[1.35] text-ink">
+                  <span className="text-[15px] leading-[22px] font-bold text-ink">
                     {s}
                   </span>
-                  <SpeakButton size={22} icon={11} onClick={() => speak(s)} />
+                  <SpeakButton size={28} icon={13} onClick={() => speak(s)} />
                 </div>
               ))}
             </div>
@@ -217,15 +192,15 @@ const BeenGuide = React.memo(() => {
         </div>
       </Card>
 
-      <Card tone="ink" pad="lg" className="gap-3.5">
-        <span className="font-mono text-xs tracking-[0.06em] text-green">
+      <Card pad="lg" className="gap-4">
+        <SectionLabel tone="green">
           SERING TERTUKAR · BEDA SATU KATA, BEDA ARTI
-        </span>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-2.5">
+        </SectionLabel>
+        <div className="grid gap-3 md:grid-cols-2">
           {WHB_PAIRS.map(([a, ai, b, bi], i) => (
             <div
               key={i}
-              className="flex flex-col gap-2 rounded-[10px] border border-line px-4 py-3"
+              className="flex flex-col gap-2 rounded-xl border-2 border-line px-4 py-3"
             >
               {[
                 [a, ai],
@@ -233,16 +208,16 @@ const BeenGuide = React.memo(() => {
               ].map(([en, id], k) => (
                 <div key={k} className="flex flex-col gap-px">
                   <div className="flex items-center gap-2">
-                    <span className="font-serif text-[17px] text-ink italic">
+                    <span className="text-base leading-[22px] font-bold text-ink">
                       {en}
                     </span>
                     <SpeakButton
-                      size={22}
-                      icon={11}
+                      size={28}
+                      icon={13}
                       onClick={() => speak(en)}
                     />
                   </div>
-                  <span className="text-[12.5px] text-muted">{id}</span>
+                  <span className="text-[13px] text-ink-2">{id}</span>
                 </div>
               ))}
             </div>

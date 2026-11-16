@@ -1,0 +1,93 @@
+{
+  "desktop/access": {
+    "page-has-heading-one": 1
+  },
+  "desktop/admin-tokens": {
+    "empty-table-header": 1
+  },
+  "desktop/cheatsheet": {
+    "heading-order": 1,
+    "region": 2
+  },
+  "desktop/dev-ui": {},
+  "desktop/dev-ui-buta-warna": {},
+  "desktop/errors": {
+    "region": 2
+  },
+  "desktop/grammar-been": {
+    "region": 2
+  },
+  "desktop/grammar-latihan": {
+    "region": 2
+  },
+  "desktop/grammar-tense": {
+    "region": 2
+  },
+  "desktop/pencarian": {
+    "region": 3
+  },
+  "desktop/plan": {
+    "region": 2
+  },
+  "desktop/pronunciation": {
+    "region": 2
+  },
+  "desktop/review": {
+    "region": 2
+  },
+  "desktop/review-jawaban": {
+    "region": 2
+  },
+  "desktop/review-kosong": {
+    "region": 2
+  },
+  "desktop/scenario": {
+    "region": 2
+  },
+  "desktop/tanya-ai": {
+    "aria-allowed-role": 1,
+    "region": 2
+  },
+  "desktop/tes-cepat": {
+    "region": 2
+  },
+  "desktop/vocab": {
+    "region": 2
+  },
+  "desktop/vocab-mode-tes": {
+    "region": 2
+  },
+  "desktop/vocab-penjelasan": {
+    "region": 2
+  },
+  "mobile/access": {
+    "page-has-heading-one": 1
+  },
+  "mobile/admin-tokens": {},
+  "mobile/cheatsheet": {
+    "heading-order": 1,
+    "scrollable-region-focusable": 11
+  },
+  "mobile/dev-ui": {},
+  "mobile/dev-ui-buta-warna": {},
+  "mobile/errors": {},
+  "mobile/grammar-been": {},
+  "mobile/grammar-latihan": {},
+  "mobile/grammar-tense": {},
+  "mobile/pencarian": {},
+  "mobile/plan": {},
+  "mobile/pronunciation": {},
+  "mobile/review": {},
+  "mobile/review-jawaban": {},
+  "mobile/review-kosong": {},
+  "mobile/scenario": {},
+  "mobile/tanya-ai": {
+    "aria-allowed-role": 1,
+    "landmark-no-duplicate-banner": 1,
+    "landmark-unique": 1
+  },
+  "mobile/tes-cepat": {},
+  "mobile/vocab": {},
+  "mobile/vocab-mode-tes": {},
+  "mobile/vocab-penjelasan": {}
+}

@@ -4,6 +4,7 @@ import classNames from "classnames";
 import React, { forwardRef } from "react";
 
 import { speak } from "@/lib/helpers/speech.helper";
+import { useSpeaking } from "@/lib/hooks/useSpeaking";
 
 import SpeakerIcon from "../speaker-icon";
 
@@ -19,14 +20,18 @@ interface SpeakButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
   nested?: boolean;
 }
 
+// Round blue-tint speaker; filled blue while its text is being spoken. The
+// touch area is at least 44px even when the visible circle is smaller.
 const BASE =
-  "inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border-[1.5px] border-line-2 text-green transition-colors hover:border-green";
+  "hit-44 focus-ring inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors";
+const IDLE = "bg-accent-tint text-accent hover:bg-accent-mark";
+const PLAYING = "bg-accent text-on-accent";
 
 const SpeakButton = forwardRef<HTMLButtonElement, SpeakButtonProps>(
   (
     {
-      size = 26,
-      icon = 13,
+      size = 36,
+      icon = 16,
       text,
       nested,
       title = "Dengarkan",
@@ -37,6 +42,8 @@ const SpeakButton = forwardRef<HTMLButtonElement, SpeakButtonProps>(
     },
     ref,
   ) => {
+    const playing = useSpeaking(text);
+    const cls = classNames(BASE, playing ? PLAYING : IDLE, className);
     if (nested) {
       const play = (e: React.SyntheticEvent) => {
         e.stopPropagation();
@@ -47,13 +54,14 @@ const SpeakButton = forwardRef<HTMLButtonElement, SpeakButtonProps>(
           role="button"
           tabIndex={0}
           title={title}
+          aria-label={rest["aria-label"] ?? title}
           onClick={play}
           onKeyDown={(e) => {
             if (e.key !== "Enter" && e.key !== " ") return;
             e.preventDefault();
             play(e);
           }}
-          className={classNames(BASE, className)}
+          className={cls}
           style={{ width: size, height: size }}
         >
           <SpeakerIcon size={icon} />
@@ -65,8 +73,9 @@ const SpeakButton = forwardRef<HTMLButtonElement, SpeakButtonProps>(
         ref={ref}
         type={type}
         title={title}
+        aria-label={title}
         onClick={onClick || (text ? () => speak(text) : undefined)}
-        className={classNames(BASE, className)}
+        className={cls}
         style={{ width: size, height: size }}
         {...rest}
       >

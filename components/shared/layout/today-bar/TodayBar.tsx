@@ -1,119 +1,73 @@
 "use client";
 
-import classNames from "classnames";
-import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { useState } from "react";
+import { LuX } from "react-icons/lu";
 
-import { VOCAB_SCEN } from "@/lib/content";
-import { itemKey } from "@/lib/helpers/storage.helper";
-import { useShellData } from "@/lib/hooks/useShellData";
+import { useTodayPlan } from "@/lib/hooks/useTodayPlan";
 import { useAccessStore } from "@/stores/useAccessStore";
 
-const NEW_TARGET = 10;
+// Hidden for the rest of the day (this device only).
+const HIDDEN_KEY = "ge-today-line-hidden";
 
-// Satu baris "hari ini mulai dari mana": tiga langkah dengan status & tombol langsung.
+const readHidden = () => {
+  try {
+    return localStorage.getItem(HIDDEN_KEY);
+  } catch {
+    return null;
+  }
+};
+
+// One line on every page except Rencana: today's blocks done and the next
+// one, e.g. "Hari ini 1/3 · berikutnya: Masuk →". The full routine is on
+// the Rencana page. Can be hidden for the day.
 const TodayBar = React.memo(() => {
-  const { level, week, data, known, dueKeys, doneToday } = useShellData();
-  const router = useRouter();
   const pathname = usePathname();
-  const menus = useAccessStore((s) => s.session?.menus);
+  const hasPlan = useAccessStore((s) => s.session?.menus.includes("plan"));
+  const { T, blocks, day, doneN, allDone } = useTodayPlan();
+  const [hiddenDay, setHiddenDay] = useState(readHidden);
 
-  const weekTitle =
-    data.V[String(week)]?.title || data.plan[week - 1]?.[1] || "";
-  const newLeft = (data.V[String(week)]?.items || []).filter(
-    (it) => !known[itemKey(level, week, it[0], it[1])],
-  ).length;
-  const scenTitle =
-    (
-      (VOCAB_SCEN as { level: string; title: string }[]).find(
-        (s) => s.level === level,
-      ) || (VOCAB_SCEN[0] as { title: string })
-    )?.title || "";
-
-  const steps = [
-    {
-      n: "1",
-      path: "/vocab",
-      title: newLeft
-        ? `Pelajari ${Math.min(NEW_TARGET, newLeft)} kata baru`
-        : "Minggu ini sudah hafal semua",
-      sub: `Minggu ${String(week).padStart(2, "0")} · ${weekTitle} · sisa ${newLeft}`,
-      done: newLeft === 0,
-    },
-    {
-      n: "2",
-      path: "/review",
-      title: dueKeys.length
-        ? `Ulang ${dueKeys.length} kata jatuh tempo`
-        : doneToday
-          ? `Ulangan selesai (${doneToday} kata)`
-          : "Belum ada yang perlu diulang",
-      sub: dueKeys.length
-        ? "Jawab jujur; yang lupa kembali ke awal"
-        : "Kata yang kamu tandai hafal muncul di sini besok",
-      done: dueKeys.length === 0,
-    },
-    {
-      n: "3",
-      path: "/scenario",
-      title: "Latih 1 skenario dengan suara",
-      sub: scenTitle,
-      done: false,
-    },
-  ];
+  if (!hasPlan || pathname === "/plan" || hiddenDay === String(T)) return null;
+  const next = blocks.find((b) => !day[b.id]);
 
   return (
-    <div className="flex flex-col gap-2">
-      <span className="font-mono text-[11px] tracking-[0.1em] text-muted">
-        HARI INI · 15–20 MENIT
+    <div className="flex min-h-11 items-center gap-3 rounded-lg border-2 border-line bg-sunken py-1 pr-1 pl-3.5 text-sm font-bold text-ink-2">
+      <span className="min-w-0 flex-1">
+        <span className="font-extrabold text-ink">
+          Hari ini {doneN}/{blocks.length}
+        </span>
+        {" · "}
+        {allDone || !next ? (
+          <span className="text-ok">✓ semua blok selesai</span>
+        ) : (
+          <>
+            berikutnya:{" "}
+            <Link
+              href={next.to}
+              className="rounded-sm font-extrabold text-accent-edge underline decoration-2 underline-offset-[3px] focus-ring"
+            >
+              {next.name} →
+            </Link>
+          </>
+        )}
       </span>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-2.5">
-        {steps
-          .filter((s) => menus?.includes(s.path.slice(1) as never))
-          .map((s) => {
-            const on = pathname === s.path;
-            return (
-              <button
-                type="button"
-                key={s.n}
-                onClick={() => router.push(s.path)}
-                className={classNames(
-                  "flex cursor-pointer items-start gap-3 rounded-[10px] border-[1.5px] px-3.5 py-3 text-left font-sans transition-colors hover:border-ink",
-                  on
-                    ? "border-ink bg-ink text-paper"
-                    : "border-line bg-card text-ink",
-                  s.done && !on && "opacity-65",
-                )}
-              >
-                <span
-                  className={classNames(
-                    "inline-flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full font-mono text-xs font-semibold",
-                    s.done
-                      ? "bg-green text-card"
-                      : on
-                        ? "bg-paper text-ink"
-                        : "bg-hairline text-ink",
-                  )}
-                >
-                  {s.done ? "✓" : s.n}
-                </span>
-                <div className="flex min-w-0 flex-col gap-0.5">
-                  <span className="text-[14.5px] leading-[1.3] font-semibold">
-                    {s.title}
-                  </span>
-                  <span
-                    className={classNames(
-                      "text-[12.5px] leading-[1.4]",
-                      on ? "text-ondark" : "text-muted",
-                    )}
-                  >
-                    {s.sub}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
-      </div>
+      <button
+        type="button"
+        aria-label="Sembunyikan untuk hari ini"
+        title="Sembunyikan untuk hari ini"
+        className="hit-44 inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-md text-ink-2 focus-ring hover:bg-line"
+        onClick={() => {
+          try {
+            localStorage.setItem(HIDDEN_KEY, String(T));
+          } catch {
+            /* private mode — hide for this visit only */
+          }
+          setHiddenDay(String(T));
+        }}
+      >
+        <LuX aria-hidden size={18} />
+      </button>
     </div>
   );
 });

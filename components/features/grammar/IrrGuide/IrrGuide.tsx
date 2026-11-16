@@ -4,6 +4,7 @@ import React from "react";
 
 import BankPractice from "@/components/features/grammar/BankPractice/BankPractice";
 import GrammarDetail from "@/components/features/grammar/GrammarDetail/GrammarDetail";
+import SectionLabel from "@/components/ui/section-label";
 import { DETAIL, IRR } from "@/const/grammar.constant";
 import { VERB_FORMS } from "@/lib/content";
 import { useLevelStore } from "@/stores/useLevelStore";
@@ -24,20 +25,20 @@ const IrrGuide = React.memo(() => {
     <>
       <GrammarDetail d={DETAIL.irr} />
       <div className="flex flex-col gap-2.5">
-        <span className="font-mono text-xs tracking-[0.06em] text-muted">
-          KATA KERJA TIDAK BERATURAN PALING SERING
-        </span>
+        <SectionLabel>KATA KERJA TIDAK BERATURAN PALING SERING</SectionLabel>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-2">
           {irregular.map((v) => (
             <div
               key={v.base}
-              className="flex flex-col gap-0.5 rounded-lg border border-line bg-card px-3 py-2.5"
+              className="flex flex-col gap-0.5 rounded-lg border-2 border-line bg-surface px-3 py-2.5"
             >
-              <span className="text-[15px] font-bold">{v.base}</span>
-              <span className="font-mono text-[12.5px] text-green">
+              <span className="text-[15px] font-extrabold text-ink">
+                {v.base}
+              </span>
+              <span className="text-[13px] font-bold text-accent-edge">
                 {v.past}
               </span>
-              <span className="text-xs text-muted">{v.id}</span>
+              <span className="text-xs text-ink-2">{v.id}</span>
             </div>
           ))}
         </div>
