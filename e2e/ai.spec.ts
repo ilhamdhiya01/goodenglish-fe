@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 
-import { openAiPanel, openApp } from "./support/app";
+import { acceptConfirm, openAiPanel, openApp } from "./support/app";
 import { expect, test } from "./support/fixtures";
 
 // Tanya AI after the redesign: beside the page on wide screens, full screen
@@ -42,10 +42,10 @@ test("riwayat: buka, hapus dengan konfirmasi", async ({ page }) => {
   const del = page.waitForRequest(
     (r) => r.method() === "DELETE" && r.url().includes("/ai/conversations/c1"),
   );
-  page.once("dialog", (d) => d.accept());
   await panel
     .getByRole("button", { name: "Hapus percakapan: run out of vs run out" })
     .click();
+  await acceptConfirm(page, "Hapus");
   await del;
 
   await panel.getByRole("button", { name: /^run out of vs run out/ }).click();

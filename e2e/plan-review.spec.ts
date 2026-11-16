@@ -1,4 +1,4 @@
-import { openApp } from "./support/app";
+import { acceptConfirm, openApp } from "./support/app";
 import { expect, test } from "./support/fixtures";
 import { DUE_KEYS, progressWithDue } from "./support/mock-api";
 
@@ -103,8 +103,8 @@ test("reset rencana lewat menu ⋯ dengan konfirmasi", async ({ page }) => {
   await openApp(page, "/plan");
   await page.getByRole("checkbox", { name: /Rekam 2 menit/ }).click();
   await page.getByRole("button", { name: "Menu rencana" }).click();
-  page.once("dialog", (d) => d.accept());
   await page.getByRole("menuitem", { name: "Reset rencana" }).click();
+  await acceptConfirm(page, "Reset");
   await expect(
     page.getByRole("checkbox", { name: /Rekam 2 menit/ }),
   ).toHaveAttribute("aria-checked", "false");

@@ -79,9 +79,9 @@ const AdminShell = React.memo(({ children }: AdminShellProps) => {
         aria-label="Menu admin"
         className="sticky top-[clamp(14px,3vw,28px)] hidden max-h-[calc(100dvh-2*clamp(14px,3vw,28px))] flex-col gap-3 overflow-y-auto rounded-xl border-2 border-line bg-surface p-2 md:flex"
       >
-        <div className="px-3 pt-2 pb-1">
+        <header className="px-3 pt-2 pb-1">
           <Brand />
-        </div>
+        </header>
         <nav aria-label="Halaman admin" className="flex flex-col gap-3">
           {GROUPS.map(([group, items]) => (
             <div key={group} className="flex flex-col gap-1">
@@ -117,7 +117,7 @@ const AdminShell = React.memo(({ children }: AdminShellProps) => {
 
       <div className="flex min-w-0 flex-col gap-6">
         {/* <700px: brand + exits, then the menus as tabs. */}
-        <div className="flex items-center justify-between gap-4 md:hidden">
+        <header className="flex items-center justify-between gap-4 md:hidden">
           <Brand />
           <div className="flex items-center gap-4">
             <Link
@@ -134,7 +134,7 @@ const AdminShell = React.memo(({ children }: AdminShellProps) => {
               Keluar
             </TextButton>
           </div>
-        </div>
+        </header>
         <nav
           aria-label="Halaman admin"
           className="sticky top-0 z-20 -mx-[clamp(14px,3vw,28px)] -mt-2 flex [scrollbar-width:none] gap-2 overflow-x-auto border-b-2 border-line bg-paper px-[clamp(14px,3vw,28px)] py-2.5 md:hidden"
@@ -156,10 +156,12 @@ const AdminShell = React.memo(({ children }: AdminShellProps) => {
           ))}
         </nav>
 
-        <h1 className="m-0 text-2xl leading-[30px] font-black tracking-[-0.02em] text-ink md:text-[30px] md:leading-9">
-          {current[2]}
-        </h1>
-        <main className="flex flex-col gap-6">{children}</main>
+        <main className="flex flex-col gap-6">
+          <h1 className="m-0 text-2xl leading-[30px] font-black tracking-[-0.02em] text-ink md:text-[30px] md:leading-9">
+            {current[2]}
+          </h1>
+          {children}
+        </main>
       </div>
     </div>
   );

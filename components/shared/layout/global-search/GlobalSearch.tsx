@@ -141,57 +141,56 @@ const GlobalSearch = React.memo(
           {results.map(({ x, f, viaForm, places }, i) => {
             const on = i === hi;
             return (
-              <div
+              // One option per word. Clicking the row opens the first place
+              // (the active level first); with more places, each level label
+              // opens its own. Labels are plain text inside the option, not
+              // buttons: an option must not contain other controls.
+              <button
+                type="button"
                 role="option"
                 aria-selected={on}
                 key={itemKey(x.lv || "pre", x.w, x.it[0], x.it[1])}
                 data-testid="search-result"
                 onMouseEnter={() => setHi(i)}
+                onClick={() => pick(x)}
                 className={classNames(
-                  "flex w-full items-center gap-3 border-t-2 border-line px-3.5 py-2.5",
+                  "flex w-full cursor-pointer items-center gap-3 border-t-2 border-line px-3.5 py-2.5 text-left",
                   on ? "bg-accent-tint" : "bg-transparent",
                 )}
               >
-                <button
-                  type="button"
-                  tabIndex={-1}
-                  onClick={() => pick(x)}
-                  className="flex min-w-0 flex-1 cursor-pointer border-none bg-transparent p-0 text-left"
-                >
-                  <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="flex flex-wrap items-center gap-2">
-                      <span className="text-base leading-[22px] font-extrabold wrap-anywhere text-ink">
-                        <Marked text={x.it[1]} q={viaForm ? "" : ql} />
-                      </span>
-                      <TypeBadge type={x.it[0]} />
+                <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <span className="flex flex-wrap items-center gap-2">
+                    <span className="text-base leading-[22px] font-extrabold wrap-anywhere text-ink">
+                      <Marked text={x.it[1]} q={viaForm ? "" : ql} />
                     </span>
-                    <span className="text-[13.5px] leading-[19px] font-semibold wrap-anywhere text-ink-2">
-                      {x.it[3]}
-                    </span>
-                    {f && (
-                      <FormsLine en={x.it[1]} f={f} hit={viaForm ? ql : ""} />
-                    )}
+                    <TypeBadge type={x.it[0]} />
                   </span>
-                </button>
-                {/* One link per place; the row itself opens the first. */}
+                  <span className="text-[13.5px] leading-[19px] font-semibold wrap-anywhere text-ink-2">
+                    {x.it[3]}
+                  </span>
+                  {f && (
+                    <FormsLine en={x.it[1]} f={f} hit={viaForm ? ql : ""} />
+                  )}
+                </span>
                 <span className="flex shrink-0 flex-col items-end gap-1">
                   {places.map((p) => (
-                    <button
+                    <span
                       key={(p.lv || "pre") + p.w}
-                      type="button"
-                      tabIndex={-1}
-                      onClick={() => pick(p)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        pick(p);
+                      }}
                       className={classNames(
-                        "cursor-pointer rounded-md border-none bg-transparent px-1.5 py-0.5 text-right text-[12.5px] leading-[18px] font-bold whitespace-nowrap text-ink-2 focus-ring",
+                        "rounded-md px-1.5 py-0.5 text-right text-[12.5px] leading-[18px] font-bold whitespace-nowrap text-ink-2",
                         places.length > 1 &&
                           "underline decoration-line decoration-2 underline-offset-[3px] hover:text-accent-edge hover:decoration-accent-line",
                       )}
                     >
                       {lvName(p.lv)} · M{p.w}
-                    </button>
+                    </span>
                   ))}
                 </span>
-              </div>
+              </button>
             );
           })}
         </div>

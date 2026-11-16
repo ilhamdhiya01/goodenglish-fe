@@ -34,7 +34,7 @@ import { useAiSuggestions } from "@/lib/hooks/ai/useAiSuggestions";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import type { AiMessage } from "@/lib/types/ai.types";
 import { useAiChatStore } from "@/stores/useAiChatStore";
-import { confirmDialog } from "@/stores/useConfirmStore";
+import { confirmDialog, useConfirmStore } from "@/stores/useConfirmStore";
 
 // Wide screens: the panel sits beside the page and pushes it aside (see
 // AppShell); narrower ones get a drawer / full screen over the page.
@@ -229,12 +229,17 @@ const AiChat = React.memo(() => {
   const push = useMediaQuery(AI_PUSH_QUERY);
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    // A confirm dialog opened from the panel ("Hapus percakapan ini?") sits
+    // outside it in the DOM: pressing its buttons or Escape answers the
+    // dialog and must not close the panel too.
+    const asking = () => !!useConfirmStore.getState().request;
+    const onKey = (e: KeyboardEvent) =>
+      e.key === "Escape" && !asking() && setOpen(false);
     const onPointer = (e: PointerEvent) => {
       const t = e.target as Element;
       // The top bar's "Tanya AI" button toggles the panel itself, and beside
       // the page (push mode) the page stays usable while it's open.
-      if (push || t.closest?.("[data-ai-trigger]")) return;
+      if (push || asking() || t.closest?.("[data-ai-trigger]")) return;
       if (!panelRef.current?.contains(t)) setOpen(false);
     };
     window.addEventListener("keydown", onKey);

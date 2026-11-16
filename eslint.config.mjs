@@ -60,6 +60,9 @@ const eslintConfig = defineConfig([
     // Project additions:
     "coverage/**",
     "public/**",
+    // Playwright output (pnpm e2e): bundled report and traces.
+    "playwright-report/**",
+    "test-results/**",
     "pnpm-lock.yaml",
     // Static learning content (vocab, notes, translations): plain JS data
     // packs copied verbatim from the old app, loaded by lib/content/index.ts.

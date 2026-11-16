@@ -52,10 +52,11 @@ test.describe("kosakata", () => {
       page.getByRole("button", { name: "✓ Hafal", exact: true }).first(),
     ).toBeVisible();
     await expect
-      .poll(() => Object.keys((api.lastPut("known") as object) ?? {}).length, {
+      .poll(() => Object.keys((api.lastPut("known") as object) ?? {}), {
         timeout: 10_000,
       })
-      .toBe(1);
+      // The word itself, plus the same word in other levels (word twins).
+      .toContainEqual(expect.stringMatching(/^1:w:/));
   });
 
   test("mode tes menyembunyikan arti sampai dibuka", async ({ page }) => {
@@ -201,9 +202,9 @@ test.describe("ekspor dan impor", () => {
     ]);
     const file = await download.path();
     const data = JSON.parse(await readFile(file, "utf8"));
-    expect(Object.keys(data.known)).toEqual(DUE_KEYS);
+    // The same words in Pemula count as memorised too (word twins).
+    expect(Object.keys(data.known)).toEqual(expect.arrayContaining(DUE_KEYS));
 
-    page.once("dialog", (d) => d.accept());
     await importInput(page).setInputFiles({
       name: "progres.json",
       mimeType: "application/json",

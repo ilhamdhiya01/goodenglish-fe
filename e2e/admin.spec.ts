@@ -1,5 +1,6 @@
 import type { Page } from "@playwright/test";
 
+import { acceptConfirm } from "./support/app";
 import { expect, test } from "./support/fixtures";
 import { adminSession } from "./support/mock-api";
 
@@ -11,7 +12,6 @@ test.use({ mock: { session: adminSession } });
 const openTokens = async (page: Page) => {
   await page.goto("/admin/tokens");
   await expect(page.getByText("Budi").first()).toBeVisible();
-  page.on("dialog", (d) => d.accept());
 };
 
 // The ⋯ menu of a token row, by its owner's name.
@@ -51,6 +51,14 @@ test("buat token: tampil sekali dan bisa disalin", async ({
   await expect(page.getByRole("button", { name: "Tersalin ✓" })).toBeVisible();
 });
 
+// Actions that ask first (the app's confirm dialog).
+const ASKS = new Set([
+  "Nonaktifkan",
+  "Reset perangkat",
+  "Buat ulang token",
+  "Hapus",
+]);
+
 const ACTIONS: [string, string, string][] = [
   ["Budi", "Nonaktifkan", "POST /admin/tokens/t0/revoke"],
   ["Sari", "Aktifkan", "POST /admin/tokens/t1/activate"],
@@ -63,6 +71,7 @@ for (const [owner, item, call] of ACTIONS) {
   test(`aksi baris: ${item}`, async ({ page, api }) => {
     await openTokens(page);
     await rowAction(page, owner, item);
+    if (ASKS.has(item)) await acceptConfirm(page);
     await expect.poll(() => api.admin).toContain(call);
   });
 }

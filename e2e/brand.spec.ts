@@ -170,7 +170,8 @@ test.describe("logo", () => {
 
     test("header admin", async ({ page }, info) => {
       await page.goto("/admin/tokens");
-      const header = page.locator("header").first();
+      // One brand header per layout (menu card ≥700px, top row below).
+      const header = page.locator("header:visible").first();
       await expect(
         header.getByText("GoodEnglish", { exact: true }),
       ).toBeVisible();

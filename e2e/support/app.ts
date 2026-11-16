@@ -66,3 +66,15 @@ export const openAiPanel = async (page: Page) => {
 
 export const navLink = (page: Page, name: string | RegExp): Locator =>
   page.getByRole("link", { name });
+
+/** Answers the app's own confirm dialog (not window.confirm) with its action button. */
+export const acceptConfirm = async (page: Page, label?: string) => {
+  const dialog = page.getByRole("alertdialog");
+  await expect(dialog).toBeVisible();
+  await (
+    label
+      ? dialog.getByRole("button", { name: label })
+      : dialog.getByRole("button").last()
+  ).click();
+  await expect(dialog).toBeHidden();
+};
