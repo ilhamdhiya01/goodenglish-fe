@@ -9,7 +9,7 @@ const PageHeading = forwardRef<
   <h2
     ref={ref}
     className={classNames(
-      "m-0 text-[30px] font-bold tracking-[-0.015em]",
+      "m-0 text-2xl leading-[30px] font-black tracking-[-0.02em] text-ink md:text-[30px] md:leading-9",
       className,
     )}
     {...rest}

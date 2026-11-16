@@ -1,9 +1,13 @@
 "use client";
 
 import classNames from "classnames";
-import React from "react";
+import React, { useState } from "react";
+import { LuSearch } from "react-icons/lu";
 
 import WordForm from "@/components/features/vocab/WordForm/WordForm";
+import Button from "@/components/ui/button";
+import Pill from "@/components/ui/pill";
+import Sheet from "@/components/ui/sheet";
 import { TYPES } from "@/const/vocab-types.constant";
 import type { LevelData } from "@/lib/helpers/level-data.helper";
 import type { PlanRow } from "@/lib/types/vocab.types";
@@ -17,11 +21,63 @@ interface Props {
   data: LevelData;
 }
 
-// Baris kontrol Kosakata: cari, mode tes, arah kartu, mode ketik, sembunyikan hafal,
-// lalu filter jenis kata. Menempel di atas saat scroll (semua ukuran layar;
-// di layar kecil tombol & filter jadi satu baris yang bisa digeser supaya tidak memakan layar);
-// form ubah Kataku sengaja di luar bagian yang menempel supaya tidak menutupi layar.
-// Kata baru ditambah admin lewat dashboard (Admin › Kosakata), bukan di sini.
+// One on/off row in the "Mode" sheet; the box shows ✓ when on.
+const ModeRow = ({
+  on,
+  title,
+  hint,
+  onClick,
+}: {
+  on: boolean;
+  title: string;
+  hint?: string;
+  onClick: () => void;
+}) => (
+  <button
+    type="button"
+    aria-pressed={on}
+    onClick={onClick}
+    className={classNames(
+      "flex min-h-14 w-full cursor-pointer items-center gap-3 rounded-lg border-2 px-3.5 py-2.5 text-left focus-ring",
+      on
+        ? "border-accent-line bg-accent-tint"
+        : "border-line bg-surface hover:bg-sunken",
+    )}
+  >
+    <span
+      aria-hidden
+      className={classNames(
+        "inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 text-sm font-black",
+        on
+          ? "border-accent-edge bg-accent text-on-accent"
+          : "border-control bg-surface",
+      )}
+    >
+      {on ? "✓" : ""}
+    </span>
+    <span className="flex min-w-0 flex-col">
+      <span
+        className={classNames(
+          "text-[15px] font-extrabold",
+          on ? "text-accent-edge" : "text-ink",
+        )}
+      >
+        {title}
+      </span>
+      {hint && (
+        <span className="text-[13px] leading-[18px] font-semibold text-ink-2">
+          {hint}
+        </span>
+      )}
+    </span>
+  </button>
+);
+
+// Kosakata controls: search this week, "Mode · N" (test mode, direction,
+// typing mode, hide known) and "Jenis" (word-type filter) in sheets, and a
+// line naming what is active. Sticks under the top bar while scrolling;
+// the Kataku edit form stays outside the sticky part so it never covers the
+// screen. New words are added by an admin (Admin › Kosakata), not here.
 const VocabToolbar = React.memo(
   ({ searching, counts, resultCount, plan, data }: Props) => {
     const q = useVocabUiStore((s) => s.q);
@@ -32,75 +88,87 @@ const VocabToolbar = React.memo(
     const recall = useVocabUiStore((s) => s.recall);
     const form = useVocabUiStore((s) => s.form);
     const ui = useVocabUiStore.getState;
+    const [sheet, setSheet] = useState<"mode" | "type" | null>(null);
 
-    const toggleBtn = (on: boolean) =>
-      classNames(
-        "inline-flex h-10 shrink-0 cursor-pointer items-center gap-2 rounded-lg border-[1.5px] px-3.5 text-[13.5px] font-semibold whitespace-nowrap transition-colors",
-        on
-          ? "border-ink bg-ink text-paper"
-          : "border-ink bg-card text-ink hover:bg-sand",
-      );
+    const quizTitle = flip
+      ? "Mode tes · sembunyikan kata Inggris"
+      : "Mode tes · sembunyikan arti";
+    const modeCount = [quiz, flip, recall, hideKnown].filter(Boolean).length;
+    const active = [
+      quiz && quizTitle,
+      flip && "Indo → Inggris",
+      recall && "Mode ketik · recall",
+      hideKnown && "Sembunyikan yang hafal",
+      type !== "all" && TYPES[type]?.label,
+    ].filter(Boolean) as string[];
 
     return (
       <>
         <div
           data-vocab-toolbar
-          className="sticky top-0 z-20 flex flex-col gap-2.5 border-b border-line bg-paper py-2.5 md:gap-3"
+          className="sticky top-[var(--shell-top,0px)] z-20 -mx-4 flex flex-col gap-2 border-b-2 border-line bg-paper px-4 py-2.5 md:mx-0 md:px-0"
         >
-          <div className="flex flex-col gap-2 md:flex-row md:flex-wrap md:items-center md:gap-2.5">
-            <div className="flex h-10 min-w-0 items-center gap-2 rounded-lg border-[1.5px] border-ink bg-card px-3 md:flex-[1_1_240px]">
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#6b665c"
-                strokeWidth="2"
-              >
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3.5-3.5" />
-              </svg>
+          <div className="flex items-center gap-2">
+            <div className="flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-lg border-2 border-control bg-sunken px-3 transition-colors focus-within:border-accent focus-within:bg-surface">
+              <LuSearch aria-hidden size={18} className="shrink-0 text-ink-2" />
               <input
                 value={q}
                 onChange={(e) => ui().setQ(e.target.value)}
+                aria-label="Cari kata atau arti di minggu ini"
                 placeholder="Cari kata atau arti di minggu ini…"
-                className="min-w-0 flex-1 border-none bg-transparent font-sans text-sm text-ink outline-none"
+                className="min-w-0 flex-1 border-none bg-transparent text-base font-bold text-ink outline-none"
               />
             </div>
-            {/* Layar kecil: tombol jadi satu baris yang bisa digeser; desktop: ikut membungkus seperti biasa. */}
-            <div className="no-scrollbar flex gap-2 overflow-x-auto md:contents">
-              <button
-                type="button"
+            <Button
+              size="sm"
+              variant="outline"
+              aria-haspopup="dialog"
+              onClick={() => setSheet("mode")}
+              className="min-h-11 shrink-0"
+            >
+              Mode · {modeCount}
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              aria-haspopup="dialog"
+              onClick={() => setSheet("type")}
+              className="min-h-11 shrink-0"
+            >
+              Jenis
+            </Button>
+          </div>
+          {(active.length > 0 || searching) && (
+            <span className="text-[13px] leading-[18px] font-bold text-ink-2">
+              {searching && (
+                <>
+                  {resultCount} hasil untuk &quot;{q}&quot; di minggu ini
+                  {active.length > 0 && " · "}
+                </>
+              )}
+              {active.join(" · ")}
+            </span>
+          )}
+        </div>
+
+        {sheet === "mode" && (
+          <Sheet label="Mode belajar" onClose={() => setSheet(null)}>
+            <div className="flex flex-col gap-2 pb-2">
+              <ModeRow
+                on={quiz}
+                title={quizTitle}
                 onClick={() => ui().setQuiz(!quiz)}
-                className={toggleBtn(quiz)}
-              >
-                {flip
-                  ? "Mode tes · sembunyikan kata Inggris"
-                  : "Mode tes · sembunyikan arti"}
-              </button>
-              <button
-                type="button"
+              />
+              <ModeRow
+                on={flip}
+                title={flip ? "Indo → Inggris" : "Inggris → Indo"}
+                hint="Balik arah: arti Indonesia jadi judul, kata Inggris di bawah. Melatih mengeluarkan kata saat bicara."
                 onClick={() => ui().setFlip(!flip)}
-                title="Balik arah: arti Indonesia jadi judul, kata Inggris di bawah. Melatih mengeluarkan kata saat bicara."
-                className={toggleBtn(flip)}
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M7 16V4m0 0L3 8m4-4l4 4" />
-                  <path d="M17 8v12m0 0l4-4m-4 4l-4-4" />
-                </svg>
-                {flip ? "Indo → Inggris" : "Inggris → Indo"}
-              </button>
-              <button
-                type="button"
+              />
+              <ModeRow
+                on={recall}
+                title="Mode ketik · recall"
+                hint="Lihat arti Indonesia, ketik kata Inggrisnya. Melatih mengeluarkan kata, bukan hanya mengenali."
                 onClick={() => {
                   const on = !recall;
                   ui().setRecall(on);
@@ -110,61 +178,43 @@ const VocabToolbar = React.memo(
                   }
                   ui().clearRevealed();
                 }}
-                title="Lihat arti Indonesia, ketik kata Inggrisnya. Melatih mengeluarkan kata, bukan hanya mengenali."
-                className={classNames(
-                  "h-10 shrink-0 cursor-pointer rounded-lg border-[1.5px] border-green px-3.5 text-[13.5px] font-semibold whitespace-nowrap transition-colors",
-                  recall
-                    ? "bg-green text-card"
-                    : "bg-card text-green hover:bg-green-bg",
-                )}
-              >
-                Mode ketik · recall
-              </button>
-              <button
-                type="button"
+              />
+              <ModeRow
+                on={hideKnown}
+                title="Sembunyikan yang hafal"
                 onClick={() => ui().setHideKnown(!hideKnown)}
-                className={toggleBtn(hideKnown)}
-              >
-                Sembunyikan yang hafal
-              </button>
+              />
             </div>
-          </div>
+          </Sheet>
+        )}
 
-          <div className="no-scrollbar flex gap-1.5 overflow-x-auto md:flex-wrap md:overflow-visible">
-            {([["all", "Semua"]] as [string, string][])
-              .concat(
-                Object.keys(TYPES).map(
-                  (k) => [k, TYPES[k].label] as [string, string],
-                ),
-              )
-              .map(([k, label]) => {
-                const on = type === k;
-                return (
-                  <button
-                    type="button"
+        {sheet === "type" && (
+          <Sheet label="Jenis kata" onClose={() => setSheet(null)}>
+            <div className="flex flex-wrap gap-2 pb-2">
+              {([["all", "Semua"]] as [string, string][])
+                .concat(
+                  Object.keys(TYPES).map(
+                    (k) => [k, TYPES[k].label] as [string, string],
+                  ),
+                )
+                .map(([k, label]) => (
+                  <Pill
                     key={k}
-                    onClick={() => ui().setType(k)}
-                    className={classNames(
-                      "flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border-[1.5px] px-3 py-[5px] text-[13px] whitespace-nowrap transition-colors",
-                      on
-                        ? "border-ink bg-ink text-paper"
-                        : "border-line-2 bg-card text-ink hover:border-ink",
-                    )}
+                    on={type === k}
+                    onClick={() => {
+                      ui().setType(k);
+                      setSheet(null);
+                    }}
                   >
                     {label}
-                    <span className="font-mono text-[11px] opacity-70">
+                    <span className="text-xs font-bold tabular-nums">
                       {counts[k] || 0}
                     </span>
-                  </button>
-                );
-              })}
-          </div>
-          {searching && (
-            <span className="text-[13px] text-muted">
-              {resultCount} hasil untuk &quot;{q}&quot; di minggu ini
-            </span>
-          )}
-        </div>
+                  </Pill>
+                ))}
+            </div>
+          </Sheet>
+        )}
 
         {form && <WordForm plan={plan} data={data} />}
       </>

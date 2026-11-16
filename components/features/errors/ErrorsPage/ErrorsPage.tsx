@@ -3,10 +3,17 @@
 import classNames from "classnames";
 import React, { useMemo, useState } from "react";
 
+import AnswerOption from "@/components/shared/patterns/answer-option";
+import Correction from "@/components/shared/patterns/correction";
+import ListItem from "@/components/shared/patterns/list-item";
+import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
+import FieldLabel from "@/components/ui/field-label";
 import Lead from "@/components/ui/lead";
 import PageHeading from "@/components/ui/page-heading";
 import Pill from "@/components/ui/pill";
+import SectionLabel from "@/components/ui/section-label";
+import Select from "@/components/ui/select";
 import SpeakButton from "@/components/ui/speak-button";
 import { LEVELS, LV_SHORT } from "@/const/levels.constant";
 import { VOCAB_ERRORS } from "@/lib/content";
@@ -81,8 +88,11 @@ const ErrorsPage = React.memo(() => {
     if (o === q.right) speak(q.right);
   };
 
+  const catId = (cat: string) =>
+    "kat-" + cat.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
   return (
-    <section className="flex flex-col gap-5.5">
+    <section className="flex flex-col gap-5">
       <div className="flex max-w-[760px] flex-col gap-1.5">
         <PageHeading>Kesalahan umum penutur Indonesia</PageHeading>
         <Lead>
@@ -92,142 +102,139 @@ const ErrorsPage = React.memo(() => {
         </Lead>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-2.5">
-        <div className="flex flex-wrap gap-1.5">
-          {[["all", "Semua level"] as [string, string]]
-            .concat(LEVELS.map((l) => [l[0], l[1]] as [string, string]))
-            .map(([lvId, name]) => (
-              <Pill
-                key={lvId}
-                size="sm"
-                on={lv === lvId}
-                onClick={() => {
-                  setLv(lvId);
-                  setMode("read");
-                }}
-              >
-                {name}
-              </Pill>
-            ))}
-        </div>
-        <div className="flex gap-1.5">
-          <Pill size="sm" on={mode === "read"} onClick={() => setMode("read")}>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <FieldLabel label="Level" className="w-full max-w-[260px]">
+          <Select
+            value={lv}
+            onChange={(e) => {
+              setLv(e.target.value);
+              setMode("read");
+            }}
+          >
+            {[["all", "Semua level"] as [string, string]]
+              .concat(LEVELS.map((l) => [l[0], l[1]] as [string, string]))
+              .map(([lvId, name]) => (
+                <option key={lvId} value={lvId}>
+                  {name}
+                </option>
+              ))}
+          </Select>
+        </FieldLabel>
+        <div className="flex gap-2">
+          <Pill on={mode === "read"} onClick={() => setMode("read")}>
             Baca
           </Pill>
-          <Pill size="sm" tone="green" on={mode === "quiz"} onClick={start}>
+          <Pill on={mode === "quiz"} onClick={start}>
             Kuis · {pool.length} soal
           </Pill>
         </div>
       </div>
 
       {mode === "quiz" && q && (
-        <Card tone="ink" pad="lg" className="max-w-[820px] gap-4 rounded-xl">
+        <Card pad="lg" className="max-w-[760px] gap-4">
           <div className="flex flex-wrap justify-between gap-2.5">
-            <span className="font-mono text-[11px] tracking-[0.06em] text-muted">
-              {q.cat.toUpperCase()}
-            </span>
-            <span className="font-mono text-[11px] text-faint">
+            <SectionLabel>{q.cat}</SectionLabel>
+            <span className="text-[13px] font-bold text-ink-2">
               benar {score.ok}/{score.n} · soal {(i % order.length) + 1}/
               {order.length}
             </span>
           </div>
-          <span className="text-[15px] text-ink-2">
+          <span className="text-[15px] font-semibold text-ink-2">
             Mana yang benar? Ucapkan dulu dalam hati, lalu pilih.
           </span>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-2.5">
-            {q.opts.map((o) => {
-              const isRight = o === q.right;
-              const show = !!picked;
-              return (
-                <button
-                  type="button"
-                  key={o}
-                  onClick={() => choose(o)}
-                  className={classNames(
-                    "flex cursor-pointer items-center justify-between gap-2.5 rounded-[10px] border-[1.5px] px-[18px] py-4 text-left font-sans text-[17px] leading-[1.4] transition-colors",
-                    !show && "border-ink bg-card hover:border-green",
-                    show && isRight && "border-green bg-green-bg2",
-                    show && !isRight && o === picked && "border-red bg-red-bg",
-                    show && !isRight && o !== picked && "border-line bg-card",
-                    show && "cursor-default",
-                  )}
-                >
-                  <span
-                    className={classNames(
-                      show && !isRight && "text-red line-through",
-                      "text-ink",
-                      show && !isRight && "text-red",
-                    )}
-                  >
-                    {o}
-                  </span>
-                  {show && isRight && <SpeakButton nested text={o} />}
-                </button>
-              );
-            })}
+          <div className="grid gap-2.5 md:grid-cols-2">
+            {q.opts.map((o, k) => (
+              <AnswerOption
+                key={o}
+                letter={"AB"[k]}
+                data-testid="error-option"
+                disabled={!!picked}
+                onClick={() => choose(o)}
+                state={
+                  !picked
+                    ? "idle"
+                    : o === q.right
+                      ? "correct"
+                      : o === picked
+                        ? "wrong"
+                        : "dimmed"
+                }
+              >
+                {o}
+              </AnswerOption>
+            ))}
           </div>
           {picked && (
-            <div className="flex flex-col gap-2 border-t border-dashed border-line pt-3.5">
+            <div className="flex flex-col gap-2.5 border-t-2 border-dashed border-line pt-3.5">
               <span
+                role="status"
                 className={classNames(
-                  "text-[15px] font-semibold",
-                  picked === q.right ? "text-green" : "text-red",
+                  "flex items-center gap-2 text-[15px] font-extrabold",
+                  picked === q.right ? "text-ok" : "text-bad",
                 )}
               >
-                {picked === q.right ? "✓ Benar." : "✗ Yang benar: " + q.right}
+                {picked === q.right ? "✓ Benar." : "✕ Yang benar: " + q.right}
+                <SpeakButton size={28} icon={13} text={q.right} />
               </span>
               {!!q.why && (
-                <span className="text-sm leading-[1.5] text-ink-2">
-                  {q.why}
-                </span>
+                <span className="text-sm leading-5 text-ink-2">{q.why}</span>
               )}
-              <button
-                type="button"
-                onClick={next}
-                className="cursor-pointer self-start rounded-full bg-ink px-5 py-2.5 font-sans font-semibold text-paper transition-colors hover:bg-ink-2"
-              >
+              <Button variant="green" className="self-start" onClick={next}>
                 Soal berikutnya →
-              </button>
+              </Button>
             </div>
           )}
         </Card>
       )}
 
       {mode === "read" && (
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-3.5">
-          {groups.map((g) => (
-            <Card key={g.cat} tone="ink">
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="text-[17px] font-bold">{g.cat}</span>
-                <span className="font-mono text-[10px] text-faint">
-                  {LV_SHORT[g.lv] || "PRE"}
-                </span>
-              </div>
-              {g.items.map(([wrong, right, why], k) => (
-                <div
-                  key={k}
-                  className="flex flex-col gap-[3px] border-t border-dashed border-line pt-2.5"
-                >
-                  <span className="text-[14.5px] text-red line-through decoration-red/50">
-                    {wrong}
+        <div className="grid items-start gap-5 @min-[56rem]:grid-cols-[minmax(0,1fr)_280px]">
+          <div className="flex min-w-0 flex-col gap-4">
+            {groups.map((g) => (
+              <Card
+                key={g.cat}
+                id={catId(g.cat)}
+                pad="lg"
+                className="scroll-mt-[calc(var(--shell-top,0px)+16px)] gap-3"
+              >
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="text-xl leading-[26px] font-black text-ink">
+                    {g.cat}
                   </span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[15.5px] font-semibold text-green">
-                      {right}
-                    </span>
-                    <SpeakButton
-                      size={22}
-                      icon={11}
-                      text={right.split(" / ")[0]}
-                    />
-                  </div>
-                  {!!why && (
-                    <span className="text-[12.5px] text-muted">{why}</span>
-                  )}
+                  <span className="text-[13px] font-bold text-ink-2">
+                    {g.items.length} butir · {LV_SHORT[g.lv] || "PRE"}
+                  </span>
                 </div>
-              ))}
-            </Card>
-          ))}
+                {g.items.map(([wrong, right, why], k) => (
+                  <Correction
+                    key={k}
+                    wrong={wrong}
+                    right={right}
+                    speak={right.split(" / ")[0]}
+                    why={why || undefined}
+                    className="border-t-2 border-dashed border-line pt-3"
+                  />
+                ))}
+              </Card>
+            ))}
+          </div>
+          <nav
+            aria-label="Kategori"
+            className="hidden flex-col gap-1 rounded-xl border-2 border-line bg-surface p-2 @min-[56rem]:sticky @min-[56rem]:top-6 @min-[56rem]:flex"
+          >
+            <SectionLabel className="px-3 pt-1.5 pb-1">
+              {groups.length} kategori
+            </SectionLabel>
+            {groups.map((g) => (
+              <ListItem
+                key={g.cat}
+                href={"#" + catId(g.cat)}
+                trailing={g.items.length}
+              >
+                {g.cat}
+              </ListItem>
+            ))}
+          </nav>
         </div>
       )}
     </section>

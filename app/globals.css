@@ -1,69 +1,63 @@
 @import "tailwindcss";
 
+/* Tema "Lompat · biru laut": putih bersih, satu aksen biru, kontrol tebal
+   bertepi bawah. Hijau dan merah hanya berarti benar dan salah. */
 @theme {
-  /* Typography — loaded from Google Fonts in app/layout.tsx (same URL as the
-     Vite app's index.html). */
-  --font-sans: "Bricolage Grotesque", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
-  --font-serif: "Newsreader", Georgia, serif;
+  /* Huruf — dimuat lewat next/font di app/layout.tsx (variabel di <html>). */
+  --font-sans: var(--font-nunito), "Nunito", system-ui, sans-serif;
+  /* Hanya untuk token akses ge_… */
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
 
-  /* Kertas & tinta */
-  --color-paper: #f4f1ea;
-  --color-card: #fffdf8;
-  --color-ink: #1d1b16;
-  --color-ink-2: #3a362f;
-  --color-ink-3: #4a463e;
-  --color-ink-4: #2a2822;
-  --color-muted: #6b665c;
-  --color-faint: #9a9486;
-  --color-ondark: #bdb6a6;
+  /* Permukaan */
+  --color-paper: #ffffff; /* latar halaman */
+  --color-surface: #ffffff; /* kartu, panel, modal */
+  --color-sunken: #f5f7f9; /* kartu selesai/hafal, kolom cari, kotak "Ingat lagi" */
+  --color-chip: #eef1f4; /* chip jenis kata, kotak contoh di jawaban AI */
 
-  /* Garis & latar hangat */
-  --color-line: #ddd6c8;
-  --color-line-2: #cfc7b6;
-  --color-hairline: #ede8dc;
-  --color-track: #e3ddcf;
-  --color-sand: #f7f4ec;
+  /* Teks */
+  --color-ink: #2b3440; /* 12.6:1 di putih */
+  --color-ink-2: #5d6b7a; /* 5.5:1 di putih */
+  --color-ink-3: #647282; /* 4.6:1 di sunken; jangan di bawah 12px */
 
-  /* Hijau utama */
-  --color-green: #1f6b57;
-  --color-green-deep: #14493b;
-  --color-green-mid: #4b6f63;
-  --color-mint: #9fd4c1;
-  --color-green-bg: #f1f6f3;
-  --color-green-bg2: #e6efe9;
-  --color-green-line: #cfe3d8;
-  --color-focus-ring: #cfe5db;
+  /* Garis */
+  --color-line: #e3e8ee; /* garis kartu dan pemisah (dekoratif) */
+  --color-control: #8592a1; /* garis input, tombol outline, pill, kotak centang (≥3:1) */
+  --color-track: #e9edf1; /* rel ProgressBar */
 
-  /* Merah (jebakan / salah) */
-  --color-red: #b42318;
-  --color-red-deep: #7a1a11;
-  --color-red-bg: #fbe9e7;
-  --color-red-line: #f1c9c4;
+  /* Aksen */
+  --color-accent: #2f6fed; /* isi tombol utama, progres, minggu aktif; teks putih 4.5:1 */
+  --color-accent-edge: #2356bd; /* tepi bawah tombol biru, teks biru di atas tint */
+  --color-accent-tint: #e8f0ff; /* latar item aktif */
+  --color-accent-line: #b9cdf7; /* garis item aktif */
+  --color-accent-mark: #d3e1ff; /* garis bawah tebal pada kata target */
+  --color-accent-wash: #f5f8ff; /* isi kartu yang sedang giliran (Card ink) */
+  --color-on-accent: #ffffff; /* teks di atas accent dan bad */
+  --color-accent-on-dark: #7da6ff; /* "English" pada logo di latar gelap/biru */
 
-  /* Biru / oranye / ungu / emas — aksen konten */
-  --color-blue: #1f4e86;
-  --color-orange: #8a4a1f;
-  --color-purple: #6b2f7a;
-  --color-gold: #7a5a00;
+  /* Semantik */
+  --color-ok: #147a3b; /* teks/ikon benar; 4.8:1 di ok-bg */
+  --color-ok-bg: #e2f5ea;
+  --color-ok-line: #7fcb9c;
+  --color-bad: #bd342a; /* teks/ikon salah, isi tombol Lupa/hapus; putih 5.7:1 */
+  --color-bad-edge: #962a22;
+  --color-bad-bg: #fdebe8;
+  --color-bad-line: #eba59c;
 
-  /* Status "sudah hafal" */
-  --color-known-bg: #fbf3c9;
-  --color-known-line: #e6d37a;
+  /* Bentuk */
+  --radius-sm: 8px; /* chip, kotak contoh */
+  --radius-md: 12px; /* tombol kecil, ubin kata, item daftar */
+  --radius-lg: 14px; /* tombol, input, opsi jawaban */
+  --radius-xl: 18px; /* kartu, gelembung, modal */
+  --radius-full: 999px; /* pill, progres, tombol speaker */
 
-  /* Tint per jenis kata (dipakai const/vocab-types.ts) */
-  --color-tint-w: #efe9dc;
-  --color-ink-w: #4a463e;
-  --color-tint-pv: #e4ecf6;
-  --color-ink-pv: #1f4e86;
-  --color-tint-col: #f4e6da;
-  --color-ink-col: #8a4a1f;
-  --color-tint-st: #efe4f1;
-  --color-ink-st: #6b2f7a;
-  --color-tint-ex: #e6efe9;
-  --color-ink-ex: #14493b;
-  --color-tint-cj: #f6e9c8;
-  --color-ink-cj: #7a5a00;
+  --shadow-overlay: 0 18px 40px rgba(30, 50, 90, 0.16); /* hanya dropdown, modal, lembar */
+
+  /* Buka/tutup panel dan lembar (200ms). */
+  --ease-lompat: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* 700px dan 1100px, dalam rem seperti breakpoint bawaan agar urutannya benar. */
+  --breakpoint-md: 43.75rem;
+  --breakpoint-lg: 68.75rem;
 }
 
 html,
@@ -72,6 +66,8 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  /* Nunito tidak dipakai di bawah 600. */
+  font-weight: 600;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -80,25 +76,103 @@ body {
    semua utility Tailwind v4. */
 @layer base {
   a {
-    color: var(--color-green);
+    color: var(--color-accent-edge);
   }
   a:hover {
-    color: var(--color-green-deep);
+    color: var(--color-ink);
   }
 }
 
 input::placeholder {
-  color: var(--color-faint);
+  color: var(--color-ink-3);
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* Baris yang bisa digeser ke samping tanpa scrollbar terlihat (toolbar kosakata di layar kecil). */
-.no-scrollbar {
-  scrollbar-width: none;
+/* Tepi bawah tebal pada kontrol dan kartu. Digambar sebagai bayangan
+   inset di atas garis 2px, jadi menekan tombol (tepi menipis, turun 2px)
+   tidak menggeser tata letak. Warna tepi lewat --edge (default control). */
+@utility edge {
+  box-shadow: inset 0 -2px 0 var(--edge, var(--color-control));
 }
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+@utility edge-card {
+  box-shadow: inset 0 -3px 0 var(--edge, var(--color-line));
+}
+@utility press {
+  transition:
+    transform 80ms,
+    box-shadow 80ms,
+    background-color 120ms;
+  &:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: none;
+  }
+}
+/* Area sentuh minimal 44px untuk kontrol yang tampil lebih kecil. */
+@utility hit-44 {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}
+/* Cincin fokus keyboard yang sama untuk semua kontrol. */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+/* Jawaban salah: opsi bergeser 4px sekali. */
+@keyframes nudge {
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+/* Tandai hafal / jawaban benar: garis bawah kata target menyapu kiri → kanan. */
+@keyframes mark-sweep {
+  from {
+    background-size: 0% 8px;
+  }
+}
+
+/* Jalak muncul: naik 6px sambil memudar masuk, sekali. */
+@keyframes jalak-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* Semua gerak mati kalau pengguna memintanya. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

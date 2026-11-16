@@ -2,9 +2,12 @@
 
 import classNames from "classnames";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { LuSearch } from "react-icons/lu";
 
+import TargetMark from "@/components/shared/patterns/target-mark";
+import Pill from "@/components/ui/pill";
+import TypeBadge from "@/components/ui/type-badge";
 import { LEVELS } from "@/const/levels.constant";
-import { typeDef } from "@/const/vocab-types.constant";
 import type { Flat } from "@/lib/helpers/level-data.helper";
 import { flatten } from "@/lib/helpers/level-data.helper";
 import {
@@ -19,80 +22,168 @@ import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useShellData } from "@/lib/hooks/useShellData";
 import { useAccessStore } from "@/stores/useAccessStore";
 
-// Pencarian global di atas pilihan level: ketik → dropdown hasil dari semua level →
-// klik → pindah ke level & minggu kata itu.
-const GlobalSearch = React.memo(() => {
-  const { allLevels, level } = useShellData();
-  const { jumpTo } = useJumpToWord();
-  const [q, setQ] = useState("");
-  const [open, setOpen] = useState(false);
-  const [hi, setHi] = useState(0);
-  const [scope, setScope] = useState(
-    () => loadStr(STORAGE_KEYS.searchScope) || "all",
-  );
-  const box = useRef<HTMLDivElement>(null);
-  // "Semua level" means every level this access token may open.
-  const allowed = useAccessStore((s) => s.session?.levels);
+interface GlobalSearchProps {
+  /** bar: field in the top row with a dropdown · screen: the phone's
+   * full-screen search (results listed under the field). */
+  variant?: "bar" | "screen";
+  /** Called after a result is picked (the phone screen closes itself). */
+  onPicked?: () => void;
+  autoFocus?: boolean;
+  /** Screen variant: shown left of the field (the back button). */
+  before?: React.ReactNode;
+}
 
-  const pool = useMemo<Flat[]>(
-    () =>
-      (scope === "level"
-        ? [level]
-        : LEVELS.map(([id]) => id).filter((id) =>
-            allowed?.includes(id as never),
-          )
-      ).flatMap((id) =>
-        flatten(allLevels[id]?.V || {}).map((x) => ({ ...x, lv: id })),
-      ),
-    [allLevels, scope, level, allowed],
-  );
-  // Indeks (termasuk bentuk V2/V3 per kartu) dihitung sekali per kumpulan kata, bukan per ketikan.
-  const index = useMemo(() => buildSearchIndex(pool), [pool]);
-  const ql = q.trim().toLowerCase();
-  const results = useMemo(() => searchVocab(index, ql), [index, ql]);
+// Pencarian global: ketik → hasil dari semua level (atau level ini) → klik →
+// pindah ke level & minggu kata itu. Berbeda dari kotak cari di Kosakata yang
+// hanya menyaring minggu yang dibuka.
+const GlobalSearch = React.memo(
+  ({ variant = "bar", onPicked, autoFocus, before }: GlobalSearchProps) => {
+    const { allLevels, level } = useShellData();
+    const { jumpTo } = useJumpToWord();
+    const [q, setQ] = useState("");
+    const [open, setOpen] = useState(variant === "screen");
+    const [hi, setHi] = useState(0);
+    const [scope, setScope] = useState(
+      () => loadStr(STORAGE_KEYS.searchScope) || "all",
+    );
+    const box = useRef<HTMLDivElement>(null);
+    // "Semua level" means every level this access token may open.
+    const allowed = useAccessStore((s) => s.session?.levels);
 
-  // Highlight goes back to the first result whenever the query changes
-  // (reset during render rather than in an effect).
-  const [hiFor, setHiFor] = useState(ql);
-  if (hiFor !== ql) {
-    setHiFor(ql);
-    setHi(0);
-  }
-  useEffect(() => {
-    const onDoc = (e: MouseEvent) => {
-      if (box.current && !box.current.contains(e.target as Node))
-        setOpen(false);
+    const pool = useMemo<Flat[]>(
+      () =>
+        (scope === "level"
+          ? [level]
+          : LEVELS.map(([id]) => id).filter((id) =>
+              allowed?.includes(id as never),
+            )
+        ).flatMap((id) =>
+          flatten(allLevels[id]?.V || {}).map((x) => ({ ...x, lv: id })),
+        ),
+      [allLevels, scope, level, allowed],
+    );
+    // Indeks (termasuk bentuk V2/V3 per kartu) dihitung sekali per kumpulan kata, bukan per ketikan.
+    const index = useMemo(() => buildSearchIndex(pool), [pool]);
+    const ql = q.trim().toLowerCase();
+    const results = useMemo(() => searchVocab(index, ql), [index, ql]);
+
+    // Highlight goes back to the first result whenever the query changes
+    // (reset during render rather than in an effect).
+    const [hiFor, setHiFor] = useState(ql);
+    if (hiFor !== ql) {
+      setHiFor(ql);
+      setHi(0);
+    }
+    useEffect(() => {
+      if (variant === "screen") return;
+      const onDoc = (e: MouseEvent) => {
+        if (box.current && !box.current.contains(e.target as Node))
+          setOpen(false);
+      };
+      document.addEventListener("mousedown", onDoc);
+      return () => document.removeEventListener("mousedown", onDoc);
+    }, [variant]);
+
+    const lvName = (id?: string) => {
+      const L = LEVELS.find((l) => l[0] === id);
+      return L ? String(L[1]) : "";
     };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, []);
+    const pick = (x: Flat) => {
+      jumpTo(x.lv as string, x.w, x.it);
+      setOpen(variant === "screen");
+      setQ("");
+      onPicked?.();
+    };
+    const listId = "global-search-results-" + variant;
+    const show = open && (variant === "screen" || ql.length > 0);
 
-  const lvName = (id?: string) => {
-    const L = LEVELS.find((l) => l[0] === id);
-    return L ? String(L[1]) : "";
-  };
-  const pick = (x: Flat) => {
-    jumpTo(x.lv as string, x.w, x.it);
-    setOpen(false);
-    setQ("");
-  };
-  const show = open && ql.length > 0;
+    const panel = (
+      <div className="flex flex-col">
+        <div className="flex flex-wrap items-center gap-2 px-3 py-2.5">
+          {(["level", "all"] as const).map((s) => (
+            <Pill
+              key={s}
+              size="sm"
+              on={scope === s}
+              title={
+                s === "level"
+                  ? "Cari hanya di level aktif"
+                  : "Cari di semua level"
+              }
+              onClick={() => {
+                setScope(s);
+                saveStr(STORAGE_KEYS.searchScope, s);
+              }}
+            >
+              {s === "level" ? "Level ini" : "Semua level"}
+            </Pill>
+          ))}
+          <span className="ml-auto text-[13px] font-bold text-ink-2 tabular-nums">
+            {ql
+              ? `${results.length} hasil`
+              : `${pool.length} kata${scope === "all" ? " · 4 level" : ""}`}
+          </span>
+        </div>
+        {ql && results.length === 0 && (
+          <div className="px-4 pt-1 pb-4 text-sm text-ink-2">
+            Tidak ada kata yang cocok dengan &quot;{q}&quot;.
+          </div>
+        )}
+        <div id={listId} role="listbox" aria-label="Hasil pencarian">
+          {results.map(({ x, f, viaForm }, i) => {
+            const on = i === hi;
+            return (
+              <button
+                type="button"
+                role="option"
+                aria-selected={on}
+                key={itemKey(x.lv || "pre", x.w, x.it[0], x.it[1])}
+                data-testid="search-result"
+                onMouseEnter={() => setHi(i)}
+                onClick={() => pick(x)}
+                className={classNames(
+                  "flex w-full cursor-pointer items-center gap-3 border-t-2 border-line px-3.5 py-2.5 text-left",
+                  on ? "bg-accent-tint" : "bg-transparent",
+                )}
+              >
+                <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <span className="flex flex-wrap items-center gap-2">
+                    <span className="text-base leading-[22px] font-extrabold wrap-anywhere text-ink">
+                      <Marked text={x.it[1]} q={viaForm ? "" : ql} />
+                    </span>
+                    <TypeBadge type={x.it[0]} />
+                  </span>
+                  <span className="text-[13.5px] leading-[19px] font-semibold wrap-anywhere text-ink-2">
+                    {x.it[3]}
+                  </span>
+                  {f && (
+                    <FormsLine en={x.it[1]} f={f} hit={viaForm ? ql : ""} />
+                  )}
+                </span>
+                <span className="shrink-0 text-right text-[12.5px] leading-[18px] font-bold text-ink-2">
+                  {lvName(x.lv)} · M{x.w}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
 
-  return (
-    <div ref={box} className="relative z-20">
-      <div className="flex h-[46px] items-center gap-2.5 rounded-[10px] border-[1.5px] border-ink bg-card px-3.5">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#6b665c"
-          strokeWidth="2"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <path d="M20 20l-3.5-3.5" />
-        </svg>
+    const field = (
+      <div
+        className={classNames(
+          "flex min-h-11 items-center gap-2.5 rounded-lg border-2 bg-sunken px-3.5 transition-colors focus-within:bg-surface",
+          open ? "border-accent" : "border-control",
+        )}
+      >
+        <LuSearch aria-hidden size={18} className="shrink-0 text-ink-2" />
         <input
+          role="combobox"
+          aria-expanded={show}
+          aria-controls={listId}
+          aria-label="Cari kata di semua level"
+          autoFocus={autoFocus}
           value={q}
           onChange={(e) => {
             setQ(e.target.value);
@@ -107,113 +198,75 @@ const GlobalSearch = React.memo(() => {
               e.preventDefault();
               setHi((h) => Math.max(h - 1, 0));
             } else if (e.key === "Enter" && results[hi]) pick(results[hi].x);
-            else if (e.key === "Escape") setOpen(false);
+            else if (e.key === "Escape" && variant === "bar") setOpen(false);
           }}
           placeholder="Cari kata di semua level…"
-          className="min-w-0 flex-1 border-none bg-transparent font-sans text-[15px] text-ink outline-none max-sm:text-sm"
+          className="min-w-0 flex-1 border-none bg-transparent text-base font-bold text-ink outline-none"
         />
         {q && (
           <button
             type="button"
             onClick={() => {
               setQ("");
-              setOpen(false);
+              if (variant === "bar") setOpen(false);
             }}
-            className="cursor-pointer border-b border-dotted border-muted bg-transparent p-0 text-xs text-muted"
+            className="cursor-pointer rounded-sm text-[13px] font-extrabold text-accent-edge underline decoration-2 underline-offset-[3px] focus-ring"
           >
             hapus
           </button>
         )}
-        <div className="inline-flex h-7 shrink-0 overflow-hidden rounded-full border border-line-2">
-          {(["level", "all"] as const).map((s) => (
-            <button
-              type="button"
-              key={s}
-              onClick={() => {
-                setScope(s);
-                saveStr(STORAGE_KEYS.searchScope, s);
-              }}
-              title={
-                s === "level"
-                  ? "Cari hanya di level aktif"
-                  : "Cari di semua level"
-              }
-              className={classNames(
-                "cursor-pointer border-none px-2.5 font-sans text-[11.5px] font-semibold",
-                scope === s ? "bg-ink text-paper" : "bg-transparent text-ink",
-              )}
-            >
-              {s === "level" ? "Level ini" : "Semua"}
-            </button>
-          ))}
-        </div>
-        <span className="font-mono text-[11px] tracking-[0.06em] whitespace-nowrap text-faint max-sm:hidden">
-          {pool.length} KATA{scope === "all" ? " · 4 LEVEL" : ""}
-        </span>
+        {variant === "bar" && !q && (
+          <kbd className="hidden rounded-md border-2 border-line px-1.5 text-[11px] font-bold text-ink-2 lg:inline">
+            Esc
+          </kbd>
+        )}
       </div>
-      {show && (
-        <div className="absolute top-[calc(100%+6px)] right-0 left-0 flex max-h-[420px] flex-col overflow-y-auto rounded-[10px] border-[1.5px] border-ink bg-card shadow-[0_12px_32px_rgba(29,27,22,.14)]">
-          {results.length === 0 && (
-            <div className="px-4 py-4.5 text-sm text-muted">
-              Tidak ada kata yang cocok dengan &quot;{q}&quot;.
-            </div>
-          )}
-          {results.map(({ x, f, viaForm }, i) => {
-            const T = typeDef(x.it[0]);
-            const on = i === hi;
-            return (
-              <button
-                type="button"
-                key={itemKey(x.lv || "pre", x.w, x.it[0], x.it[1])}
-                onMouseEnter={() => setHi(i)}
-                onClick={() => pick(x)}
-                className={classNames(
-                  "flex cursor-pointer items-center gap-3 border-none px-3.5 py-2.5 text-left font-sans",
-                  i ? "border-t border-hairline" : "",
-                  on ? "bg-green-bg" : "bg-transparent",
-                )}
-              >
-                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <div className="flex flex-wrap items-baseline gap-2">
-                    <span className="text-[15px] font-bold wrap-anywhere">
-                      {x.it[1]}
-                    </span>
-                    <span
-                      className={classNames(
-                        "rounded px-1.5 py-px font-mono text-[10.5px]",
-                        T.chip,
-                      )}
-                    >
-                      {T.label}
-                    </span>
-                  </div>
-                  <span className="text-[13px] wrap-anywhere text-muted">
-                    {x.it[3]}
-                  </span>
-                  {f && (
-                    <FormsLine en={x.it[1]} f={f} hit={viaForm ? ql : ""} />
-                  )}
-                </div>
-                <div className="flex shrink-0 flex-col items-end gap-0.5">
-                  <span className="font-mono text-[11px] tracking-[0.04em] text-green">
-                    {lvName(x.lv).toUpperCase()}
-                  </span>
-                  <span className="font-mono text-[11px] text-faint">
-                    MINGGU {String(x.w).padStart(2, "0")} →
-                  </span>
-                </div>
-              </button>
-            );
-          })}
+    );
+
+    if (variant === "screen") {
+      return (
+        <div className="flex min-h-0 flex-1 flex-col">
+          <div className="flex items-center gap-2 px-4">
+            {before}
+            <div className="min-w-0 flex-1">{field}</div>
+          </div>
+          <div className="min-h-0 flex-1 overflow-y-auto">{panel}</div>
+          <p className="m-0 border-t-2 border-line px-4 py-3 text-[13px] font-semibold text-ink-2">
+            Ketuk hasil untuk melompat ke katanya.
+          </p>
         </div>
-      )}
-    </div>
-  );
-});
+      );
+    }
+
+    return (
+      <div ref={box} className="relative z-30 w-full">
+        {field}
+        {show && (
+          <div className="absolute top-[calc(100%+6px)] right-0 left-0 max-h-[min(70vh,460px)] animate-[fade-in_120ms_var(--ease-lompat)] overflow-y-auto rounded-xl border-2 border-line bg-surface shadow-overlay">
+            {panel}
+          </div>
+        )}
+      </div>
+    );
+  },
+);
 
 GlobalSearch.displayName = "GlobalSearch";
 
 export default GlobalSearch;
+
+// The part of the word that matches the query gets the target-word band.
+const Marked = ({ text, q }: { text: string; q: string }) => {
+  const i = q ? text.toLowerCase().indexOf(q) : -1;
+  if (i < 0) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, i)}
+      <TargetMark>{text.slice(i, i + q.length)}</TargetMark>
+      {text.slice(i + q.length)}
+    </>
+  );
+};
 
 // Baris bentuk kata kerja seperti di kartu ("ride → rode → ridden"). Kalau hasil muncul karena
 // kata kunci cocok dengan V2/V3, bentuk itu ditebalkan supaya jelas kenapa kartunya ikut tampil.
@@ -228,11 +281,11 @@ const FormsLine = ({
 }) => {
   const parts = f.same ? [en] : [en, f.v2, f.v3];
   return (
-    <span className="flex flex-wrap items-center gap-1.5 font-mono text-[11.5px] text-muted">
+    <span className="flex flex-wrap items-center gap-1.5 text-[12.5px] font-bold text-ink-2">
       <span
         className={classNames(
-          "rounded px-1 py-px text-[9.5px] tracking-[0.06em]",
-          f.irregular ? "bg-red-bg text-red" : "bg-green-bg text-green",
+          "rounded-[6px] px-1.5 py-px text-[10.5px] font-extrabold tracking-[0.06em]",
+          f.irregular ? "bg-bad-bg text-bad" : "bg-chip text-ink-2",
         )}
       >
         {f.irregular ? "IRREGULAR" : "REGULAR"}
@@ -246,7 +299,7 @@ const FormsLine = ({
                 i > 0 &&
                   hit &&
                   p.toLowerCase().includes(hit) &&
-                  "font-bold text-ink",
+                  "font-black text-ink",
               )}
             >
               {p}
@@ -254,7 +307,7 @@ const FormsLine = ({
           </span>
         ))}
       </span>
-      {f.same && <span className="text-faint">V1 = V2 = V3</span>}
+      {f.same && <span className="text-ink-3">V1 = V2 = V3</span>}
     </span>
   );
 };

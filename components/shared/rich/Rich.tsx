@@ -6,19 +6,21 @@ interface RichProps {
 }
 
 // Renders a string containing <b>…</b> markers without innerHTML.
-const Rich = React.memo(({ text, boldClassName = "text-green" }: RichProps) => (
-  <>
-    {text.split(/(<b>.*?<\/b>)/g).map((p, i) =>
-      p.startsWith("<b>") ? (
-        <b key={i} className={boldClassName}>
-          {p.slice(3, -4)}
-        </b>
-      ) : (
-        <span key={i}>{p}</span>
-      ),
-    )}
-  </>
-));
+const Rich = React.memo(
+  ({ text, boldClassName = "font-extrabold text-accent-edge" }: RichProps) => (
+    <>
+      {text.split(/(<b>.*?<\/b>)/g).map((p, i) =>
+        p.startsWith("<b>") ? (
+          <b key={i} className={boldClassName}>
+            {p.slice(3, -4)}
+          </b>
+        ) : (
+          <span key={i}>{p}</span>
+        ),
+      )}
+    </>
+  ),
+);
 
 Rich.displayName = "Rich";
 

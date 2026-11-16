@@ -15,13 +15,11 @@ interface TokenSummaryPanelProps {
 }
 
 const Stat = ({ value, label }: { value: number; label: string }) => (
-  <div className="flex flex-col gap-0.5">
-    <span className="text-[28px] leading-none font-bold tabular-nums">
+  <div className="flex flex-col gap-1">
+    <span className="text-[28px] leading-none font-black text-ink tabular-nums">
       {value}
     </span>
-    <span className="font-mono text-[11px] tracking-[0.06em] text-muted">
-      {label}
-    </span>
+    <SectionLabel>{label}</SectionLabel>
   </div>
 );
 
@@ -30,56 +28,59 @@ const TokenSummaryPanel = React.memo(
     const { summary, isLoading } = useTokenSummary(id);
 
     return (
-      <Card tone="ink" pad="lg">
+      <Card tone="line" pad="lg" className="gap-4">
         <div className="flex items-center justify-between gap-3">
           <SectionLabel tone="green">
             PROGRES · {label.toUpperCase()}
           </SectionLabel>
-          <TextButton onClick={onClose}>Tutup</TextButton>
+          <TextButton className="hit-44" onClick={onClose}>
+            Tutup
+          </TextButton>
         </div>
         {isLoading || !summary ? (
-          <span className="font-mono text-xs text-muted">Memuat…</span>
+          <span className="text-[13px] font-bold text-ink-2">Memuat…</span>
         ) : (
           <>
-            <div className="flex flex-wrap gap-8">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-5 md:flex md:flex-wrap">
               <Stat value={summary.knownCount} label="KATA HAFAL" />
               <Stat value={summary.srsCount} label="DIJADWALKAN ULANG" />
               <Stat value={summary.ownSentenceCount} label="KALIMATKU" />
               <Stat value={summary.customWordCount} label="KATAKU" />
             </div>
-            <span className="text-[13px] text-muted">
+            <span className="text-[13.5px] font-semibold text-ink-2">
               Terakhir menyimpan progres:{" "}
               {summary.lastProgressAt
                 ? formatDateTime(summary.lastProgressAt)
                 : "belum pernah"}
             </span>
-            <div className="flex flex-col gap-1.5">
-              <span className="text-xs text-muted">Perangkat</span>
+            <div className="flex flex-col">
+              <SectionLabel className="pb-1.5">Perangkat</SectionLabel>
               {summary.sessions.length === 0 && (
-                <span className="text-[13px] text-faint">
+                <span className="text-[13.5px] font-semibold text-ink-2">
                   Belum pernah dipakai.
                 </span>
               )}
               {summary.sessions.map((s) => (
                 <div
                   key={s.id}
-                  className="flex flex-wrap items-baseline justify-between gap-2 border-t border-hairline pt-1.5 text-[13px]"
+                  className="flex min-h-11 flex-wrap items-center justify-between gap-x-3 gap-y-0.5 border-t-2 border-line py-2 text-[13.5px]"
                 >
                   <span
-                    className="max-w-[60ch] truncate text-ink-3"
+                    className="max-w-[60ch] truncate font-bold text-ink"
                     title={s.deviceLabel}
                   >
                     {s.deviceLabel}
                   </span>
-                  <span
-                    className={
-                      s.active
-                        ? "font-mono text-[11.5px] text-green"
-                        : "font-mono text-[11.5px] text-faint"
-                    }
-                  >
-                    {s.active ? "aktif" : "keluar"} · terakhir{" "}
-                    {formatDateTime(s.lastSeenAt)}
+                  <span className="text-[13px] font-semibold text-ink-2">
+                    <span
+                      className={
+                        s.active ? "font-extrabold text-ok" : "font-extrabold"
+                      }
+                    >
+                      <span aria-hidden>{s.active ? "● " : "○ "}</span>
+                      {s.active ? "aktif" : "keluar"}
+                    </span>{" "}
+                    · terakhir {formatDateTime(s.lastSeenAt)}
                   </span>
                 </div>
               ))}

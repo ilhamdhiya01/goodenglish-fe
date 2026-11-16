@@ -1,8 +1,10 @@
 "use client";
 
 import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { createPortal } from "react-dom";
+
+import { useDialog } from "./useDialog";
 
 interface ModalProps {
   /** Accessible name of the dialog. */
@@ -13,33 +15,17 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-// Centered dialog over a dimmed page: Escape or a click outside the box
-// closes it (forms included, same as the Tanya AI panel), the page behind
-// doesn't scroll, and tall content scrolls inside the dialog.
+// Centered dialog over a dimmed page; full screen below 700px. Escape or a
+// click outside the box closes it (forms included, same as the Tanya AI
+// panel), focus stays inside while it's open, the page behind doesn't
+// scroll, and tall content scrolls inside the dialog.
 const Modal = ({ label, onClose, size = "md", children }: ModalProps) => {
   const boxRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
-
-  // Lock page scroll and move focus into the dialog; give both back on close.
-  useEffect(() => {
-    const prevOverflow = document.body.style.overflow;
-    const prevFocus = document.activeElement as HTMLElement | null;
-    document.body.style.overflow = "hidden";
-    boxRef.current?.focus();
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      prevFocus?.focus();
-    };
-  }, []);
+  useDialog(boxRef, onClose);
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-ink/35 px-4 py-[max(16px,6vh)]"
+      className="fixed inset-0 z-50 flex animate-[fade-in_200ms_var(--ease-lompat)] overflow-y-auto bg-ink/40 md:items-start md:justify-center md:px-4 md:py-[max(16px,6vh)]"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -51,8 +37,10 @@ const Modal = ({ label, onClose, size = "md", children }: ModalProps) => {
         aria-label={label}
         tabIndex={-1}
         className={classNames(
-          "w-full shadow-[0_24px_64px_rgba(29,27,22,.28)] outline-none",
-          size === "lg" ? "max-w-[920px]" : "max-w-[640px]",
+          "w-full outline-none md:rounded-xl md:shadow-overlay",
+          // Phone: the box (usually a Card) fills the screen, clear of the notch.
+          "max-md:min-h-full max-md:bg-surface max-md:pt-[env(safe-area-inset-top)] max-md:pb-[env(safe-area-inset-bottom)] max-md:[&>*]:min-h-full max-md:[&>*]:rounded-none max-md:[&>*]:border-0 max-md:[&>*]:shadow-none",
+          size === "lg" ? "md:max-w-[920px]" : "md:max-w-[640px]",
         )}
       >
         {children}

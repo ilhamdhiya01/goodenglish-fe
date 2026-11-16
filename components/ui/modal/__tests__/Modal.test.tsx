@@ -38,3 +38,30 @@ describe("Modal", () => {
     expect(onClose).not.toHaveBeenCalled();
   });
 });
+
+describe("Modal focus trap", () => {
+  it("keeps Tab inside the dialog and moves focus back on close", () => {
+    const outside = document.createElement("button");
+    document.body.appendChild(outside);
+    outside.focus();
+
+    const { unmount } = render(
+      <Modal label="Tes" onClose={() => {}}>
+        <button type="button">Satu</button>
+        <button type="button">Dua</button>
+      </Modal>,
+    );
+    const [one, two] = screen.getAllByRole("button", { name: /Satu|Dua/ });
+
+    two.focus();
+    fireEvent.keyDown(window, { key: "Tab" });
+    expect(document.activeElement).toBe(one);
+
+    fireEvent.keyDown(window, { key: "Tab", shiftKey: true });
+    expect(document.activeElement).toBe(two);
+
+    unmount();
+    expect(document.activeElement).toBe(outside);
+    outside.remove();
+  });
+});

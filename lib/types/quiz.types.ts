@@ -11,10 +11,19 @@ export interface QuizQ {
   opts: string[];
 }
 
+/** A question answered wrong, listed on the result screen. */
+export interface QuizMiss {
+  word: string;
+  ans: string;
+  picked: string;
+}
+
 export interface QuizState {
   qs: QuizQ[];
   i: number;
   score: number;
   picked: string | null;
   done: boolean;
+  /** Wrong answers so far (kept in memory only, for the result screen). */
+  misses?: QuizMiss[];
 }

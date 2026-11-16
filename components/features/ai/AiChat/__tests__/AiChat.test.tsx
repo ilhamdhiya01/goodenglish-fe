@@ -17,6 +17,7 @@ const { ask, openSaved, removeSaved, conversations } = vi.hoisted(() => ({
 }));
 vi.mock("@/lib/hooks/ai/useAiChat", () => ({
   MAX_QUESTION: 1000,
+  stopAiAnswer: vi.fn(),
   useAiChat: () => ({ ask }),
   useAiUsage: () => undefined,
   // Stable functions, like the real useCallback ones.
@@ -66,6 +67,23 @@ describe("AiChat panel", () => {
     fireEvent.pointerDown(screen.getByText("Tombol di halaman"));
     expect(useAiChatStore.getState().open).toBe(false);
     expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("beside the page (≥1100px) a press outside leaves it open", () => {
+    const mm = window.matchMedia;
+    window.matchMedia = ((q: string) => ({
+      matches: true,
+      media: q,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    })) as unknown as typeof window.matchMedia;
+    try {
+      openPanel();
+      fireEvent.pointerDown(screen.getByText("Tombol di halaman"));
+      expect(useAiChatStore.getState().open).toBe(true);
+    } finally {
+      window.matchMedia = mm;
+    }
   });
 
   it("stays open for presses inside it", () => {

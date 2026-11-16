@@ -12,7 +12,7 @@ const FieldLabel = forwardRef<HTMLLabelElement, FieldLabelProps>(
     <label
       ref={ref}
       className={classNames(
-        "flex flex-col gap-1 text-xs text-muted",
+        "flex flex-col gap-1.5 text-[13px] font-extrabold text-ink-2",
         className,
       )}
     >

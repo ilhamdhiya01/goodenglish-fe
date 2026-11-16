@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
+import { IBM_Plex_Mono, Nunito } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 
 import QueryProvider from "@/components/providers/QueryProvider";
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
   title: "GoodEnglish",
   other: { google: "notranslate" },
   // iPhone "Add to Home Screen" (Safari ignores most of the web manifest);
-  // the icon is app/apple-icon.png.
+  // the icon is app/apple-icon.png. The tab icons are app/icon.svg, with
+  // app/icon1.png (32px) and app/icon2.png (16px) for browsers without SVG.
   appleWebApp: {
     capable: true,
     title: "GoodEnglish",
@@ -18,34 +20,42 @@ export const metadata: Metadata = {
   },
 };
 
-// Colors the installed app's title bar / Android status bar.
+// Colors the installed app's title bar / Android status bar (--color-accent).
+// viewportFit "cover" lets env(safe-area-inset-*) report the iPhone notch and
+// home bar, which the fixed bottom controls pad around.
 export const viewport: Viewport = {
-  themeColor: "#1f6b57",
+  themeColor: "#2f6fed",
+  viewportFit: "cover",
 };
 
-// Fonts load from the exact Google Fonts URL the Vite app used, on purpose:
-// it asks for a fixed-weight Newsreader with an opsz axis and Plex Mono at
-// 400/500 only, so bold text is browser-synthesized. next/font can't express
-// that combination and loads the full variable weight range instead, which
-// visibly changes bold/italic text — and the UI must match the old app.
-const GOOGLE_FONTS =
-  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap";
+// Self-hosted by next/font. Nunito is a variable font, so one file per style
+// covers every weight the UI uses (600–900); --font-sans in globals.css reads
+// these variables.
+const nunito = Nunito({
+  subsets: ["latin", "latin-ext"],
+  style: ["normal", "italic"],
+  variable: "--font-nunito",
+  display: "swap",
+});
+
+// Only for access tokens (ge_…).
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+  display: "swap",
+});
 
 const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <html lang="id" translate="no" className="notranslate">
-    <head>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-      />
-      <link href={GOOGLE_FONTS} rel="stylesheet" />
-    </head>
+  <html
+    lang="id"
+    translate="no"
+    className={`notranslate ${nunito.variable} ${plexMono.variable}`}
+  >
     <body>
       <QueryProvider>{children}</QueryProvider>
       <Toaster position="top-right" />

@@ -9,7 +9,6 @@ import Input from "@/components/ui/input";
 import Pill from "@/components/ui/pill";
 import SectionLabel from "@/components/ui/section-label";
 import Select from "@/components/ui/select";
-import TextButton from "@/components/ui/text-button";
 import { LEVEL_OPTIONS } from "@/const/access.constant";
 import { TYPES } from "@/const/vocab-types.constant";
 import { flatten, guessType, levelData } from "@/lib/helpers/level-data.helper";
@@ -113,7 +112,7 @@ const SharedWordForm = React.memo(
       <Card tone="ink" pad="lg">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <SectionLabel tone="green">{title}</SectionLabel>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-3 md:grid-cols-2">
             <FieldLabel label="Kata / frasa (Inggris) *">
               <Input
                 value={values.en}
@@ -174,11 +173,12 @@ const SharedWordForm = React.memo(
             </FieldLabel>
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <span className="text-xs text-muted">
-              Jenis · <span className="text-green">{TYPES[type]?.label}</span>
+          <fieldset className="m-0 min-w-0 border-0 p-0">
+            <legend className="mb-2 p-0 text-[13px] font-extrabold text-ink-2">
+              Jenis ·{" "}
+              <span className="text-accent-edge">{TYPES[type]?.label}</span>
               {!values.type && " (tebakan otomatis, klik untuk ubah)"}
-            </span>
+            </legend>
             <div className="flex flex-wrap gap-2">
               {Object.keys(TYPES).map((k) => (
                 <Pill
@@ -192,21 +192,32 @@ const SharedWordForm = React.memo(
                 </Pill>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           {movesKey && (
-            <span className="text-[13px] text-red">
-              Mengubah kata, level, minggu, atau jenis membuat progres hafal
-              pelajar untuk kata ini mulai dari nol.
-            </span>
+            <Card tone="redBg" pad="sm">
+              <span className="text-[13.5px] leading-5 font-bold text-bad">
+                Mengubah kata, level, minggu, atau jenis membuat progres hafal
+                pelajar untuk kata ini mulai dari nol.
+              </span>
+            </Card>
           )}
 
-          <div className="flex flex-wrap items-center gap-4">
+          {err && (
+            <Card tone="redBg" pad="sm">
+              <span className="text-[13.5px] leading-5 font-bold text-bad">
+                ✕ {err}
+              </span>
+            </Card>
+          )}
+
+          <div className="flex flex-wrap items-center gap-3">
             <Button type="submit" variant="green" disabled={isSubmitting}>
               {isSubmitting ? "Menyimpan…" : submitLabel}
             </Button>
-            <TextButton onClick={onCancel}>Batal</TextButton>
-            {err && <span className="text-[13px] text-red">{err}</span>}
+            <Button variant="outline" onClick={onCancel}>
+              Batal
+            </Button>
           </div>
         </form>
       </Card>

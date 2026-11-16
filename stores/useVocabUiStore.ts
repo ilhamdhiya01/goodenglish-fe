@@ -27,7 +27,7 @@ interface VocabUiState {
   setRecall: (b: boolean) => void;
   reveal: (k: string) => void;
   clearRevealed: () => void;
-  /** Sorot satu kartu ~5 detik (dipakai "lompat ke kata" dari pencarian global). */
+  /** Sorot satu kartu ~2 detik (dipakai "lompat ke kata" dari pencarian global). */
   flashFocus: (k: string) => void;
   openForm: (f: FormState) => void;
   closeForm: () => void;
@@ -71,7 +71,7 @@ export const useVocabUiStore = create<VocabUiState>((set) => ({
     if (focusTimer) clearTimeout(focusTimer);
     set({ focusKey: "" });
     setTimeout(() => set({ focusKey: k }), 0);
-    focusTimer = setTimeout(() => set({ focusKey: "" }), 5000);
+    focusTimer = setTimeout(() => set({ focusKey: "" }), 2000);
   },
 
   openForm: (form) => set({ form, formErr: "" }),

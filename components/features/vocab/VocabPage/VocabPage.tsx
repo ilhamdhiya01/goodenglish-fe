@@ -1,19 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+import Jalak from "@/components/brand/Jalak";
 import TenseIntro from "@/components/features/vocab/TenseIntro/TenseIntro";
 import VocabToolbar from "@/components/features/vocab/VocabToolbar/VocabToolbar";
+import WeekCover from "@/components/features/vocab/WeekCover/WeekCover";
 import WeekSidebar from "@/components/features/vocab/WeekSidebar/WeekSidebar";
 import WordCard from "@/components/features/vocab/WordCard/WordCard";
+import Card from "@/components/ui/card";
 import type { Flat } from "@/lib/helpers/level-data.helper";
 import { itemKey } from "@/lib/helpers/storage.helper";
 import { formsOf, formsSearchText } from "@/lib/helpers/verb-forms.helper";
 import { useShellData } from "@/lib/hooks/useShellData";
-import type { PlanRow } from "@/lib/types/vocab.types";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
 
-// Halaman Kosakata: sidebar rencana minggu + intro tense + toolbar filter + daftar kartu.
+const FIRST_CARDS = 40;
+const MORE_CARDS = 60;
+
+// Halaman Kosakata: sampul minggu (dengan Tes cepat) + toolbar + daftar kartu;
+// di layar lebar kolom kanan berisi fokus tense, kata sambung, dan daftar minggu.
 const VocabPage = React.memo(() => {
   const { level, week, data, known } = useShellData();
   const q = useVocabUiStore((s) => s.q);
@@ -41,29 +47,48 @@ const VocabPage = React.memo(() => {
   if (hideKnown)
     list = list.filter((x) => !known[itemKey(level, x.w, x.it[0], x.it[1])]);
 
-  const pl: PlanRow = plan[week - 1] || [week, "—", "—", "—"];
+  // A week can hold 350 cards: show the first ones at once and add the rest
+  // in chunks over the next frames, so the page is usable sooner. Restarts
+  // when the list changes; always reaches a card jumped to from search.
+  const listKey = [level, week, ql, type, hideKnown].join("|");
+  const [shown, setShown] = useState({ key: listKey, n: FIRST_CARDS });
+  if (shown.key !== listKey) setShown({ key: listKey, n: FIRST_CARDS });
+  const focusAt = focusKey
+    ? list.findIndex((x) => itemKey(level, x.w, x.it[0], x.it[1]) === focusKey)
+    : -1;
+  const limit = Math.max(shown.n, focusAt + 1);
+  useEffect(() => {
+    if (limit >= list.length) return;
+    const id = requestAnimationFrame(() =>
+      setShown((s) => ({ ...s, n: Math.max(s.n, limit) + MORE_CARDS })),
+    );
+    return () => cancelAnimationFrame(id);
+  }, [limit, list.length]);
 
   return (
-    <div className="flex flex-wrap items-start gap-7">
-      <WeekSidebar data={data} />
+    <div className="grid items-start gap-6 @min-[56rem]:grid-cols-[minmax(0,1fr)_320px]">
+      <div className="flex min-w-0 flex-col gap-4">
+        <WeekCover data={data} />
 
-      <main className="flex min-w-0 flex-[999_1_480px] flex-col gap-5.5">
-        {d && !searching && <TenseIntro d={d} />}
-
-        {!d && !searching && (
-          <section className="flex flex-col gap-2 rounded-[10px] border-[1.5px] border-dashed border-faint bg-card p-7">
-            <span className="font-mono text-xs tracking-[0.06em] text-muted">
-              MINGGU {String(pl[0]).padStart(2, "0")} · SEGERA
-            </span>
-            <span className="text-2xl font-bold">{pl[1]}</span>
-            <span className="text-sm leading-[1.5] text-ink-3">
-              Fokus tense: <b>{pl[2]}</b> · Kata sambung: {pl[3]}
-            </span>
-            <span className="text-[13px] text-muted">
-              Materi minggu ini belum tersedia di level ini. Topik, tense, dan
-              kata sambung di atas adalah rencananya.
-            </span>
-          </section>
+        {/* Below 1100px the tense focus folds into one row under the cover. */}
+        {d && !searching && (
+          <details className="group rounded-xl border-2 border-line bg-surface @min-[56rem]:hidden">
+            <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-[18px] py-3 text-sm font-extrabold text-ink focus-ring">
+              <span>
+                <span className="text-ink-2">Fokus tense · </span>
+                {d.tense?.name}
+              </span>
+              <span
+                aria-hidden
+                className="text-ink-2 transition-transform group-open:rotate-180"
+              >
+                ▾
+              </span>
+            </summary>
+            <div className="flex flex-col gap-3 px-3 pb-3">
+              <TenseIntro d={d} />
+            </div>
+          </details>
         )}
 
         {(d || searching) && (
@@ -76,7 +101,7 @@ const VocabPage = React.memo(() => {
               data={data}
             />
             <div className="flex flex-col gap-2.5">
-              {list.map((x) => {
+              {list.slice(0, limit).map((x) => {
                 const ik = itemKey(level, x.w, x.it[0], x.it[1]);
                 return (
                   <WordCard
@@ -87,19 +112,40 @@ const VocabPage = React.memo(() => {
                   />
                 );
               })}
-              {list.length === 0 && (
-                <div className="rounded-[10px] border-[1.5px] border-dashed border-line-2 px-5 py-10 text-center text-sm text-muted">
-                  {searching
-                    ? "Tidak ada kata yang cocok."
-                    : hideKnown
-                      ? "Semua item di filter ini sudah hafal. Lanjut ke minggu berikutnya."
-                      : "Belum ada item."}
-                </div>
-              )}
+              {list.length === 0 &&
+                (!searching && hideKnown ? (
+                  <Card tone="greenBg" className="flex-row items-center gap-4">
+                    <Jalak mood="senang" />
+                    <span className="text-[15px] font-bold text-ink">
+                      ✓ Semua item di filter ini sudah hafal. Lanjut ke minggu
+                      berikutnya.
+                    </span>
+                  </Card>
+                ) : (
+                  <Card tone="dashed" className="items-center py-8 text-center">
+                    {/* Search or a type filter came up empty. */}
+                    {(searching || type !== "all") && <Jalak mood="berpikir" />}
+                    <span className="text-[15px] font-bold text-ink-2">
+                      {searching
+                        ? "Tidak ada kata yang cocok."
+                        : "Belum ada item."}
+                    </span>
+                  </Card>
+                ))}
             </div>
           </>
         )}
-      </main>
+      </div>
+
+      <aside
+        aria-label="Minggu ini"
+        className="hidden flex-col gap-4 @min-[56rem]:sticky @min-[56rem]:top-6 @min-[56rem]:flex @min-[56rem]:max-h-[calc(100dvh-48px)] @min-[56rem]:overflow-y-auto @min-[56rem]:pb-2"
+      >
+        {d && <TenseIntro d={d} />}
+        <Card className="gap-1">
+          <WeekSidebar data={data} />
+        </Card>
+      </aside>
     </div>
   );
 });

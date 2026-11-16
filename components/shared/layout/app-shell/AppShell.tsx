@@ -1,11 +1,13 @@
 "use client";
 
+import classNames from "classnames";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import AiChat from "@/components/features/ai/AiChat";
 import PlanAutoCheck from "@/components/providers/PlanAutoCheck";
 import VoiceBootstrap from "@/components/providers/VoiceBootstrap";
+import { isActivePath, NAV } from "@/const/nav.constant";
 import { loadNotes } from "@/lib/content";
 import { applyProgress } from "@/lib/helpers/progress-hydrate.helper";
 import {
@@ -24,16 +26,18 @@ import type { ProgressKey, ProgressMap } from "@/lib/types/progress-sync.types";
 import type { MenuId } from "@/lib/types/session.types";
 import { ROUTES } from "@/routes";
 import { useAccessStore } from "@/stores/useAccessStore";
+import { useAiChatStore } from "@/stores/useAiChatStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useSharedWordsStore } from "@/stores/useSharedWordsStore";
 
-import GlobalSearch from "../global-search";
-import Header from "../header";
+import { useAccountActions } from "../account/useAccountActions";
 import ImportPrompt from "../import-prompt";
-import LevelPicker from "../level-picker";
+import BottomNav from "../nav/BottomNav";
+import IconRail from "../nav/IconRail";
+import Sidebar from "../nav/Sidebar";
 import ScrollTopButton from "../scroll-top-button";
-import TabsNav from "../tabs-nav";
 import TodayBar from "../today-bar";
+import TopBar from "../top-bar";
 
 // This browser already answered the "import old progress?" question.
 const IMPORT_DECIDED_KEY = "vocab-import-decided-v1";
@@ -44,10 +48,12 @@ interface AppShellProps {
   children: React.ReactNode;
 }
 
-// Page frame (header, global search, level picker, today bar, tabs, then the
-// route content) — the same layout the SPA had. It renders nothing until the
-// device session and the token's progress are loaded, so every store starts
-// from server data and the server render never disagrees with the client.
+// Page frame. ≥1100px: sidebar + top row (search, ⋯, Tanya AI); 700–1099px:
+// icon rail + the same top row; <700px: a sticky top bar and a bottom nav.
+// Then the "Hari ini" line and the route content. It renders nothing until
+// the device session and the token's progress are loaded, so every store
+// starts from server data and the server render never disagrees with the
+// client.
 const AppShell = React.memo(({ children }: AppShellProps) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -56,6 +62,8 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   const { words, isError: wordsError } = useWords(!!session);
   const setSession = useAccessStore((s) => s.setSession);
   const setWords = useSharedWordsStore((s) => s.setWords);
+  const { actions, extras } = useAccountActions();
+  const aiOpen = useAiChatStore((s) => s.open);
 
   // Also re-runs after an admin edit refetches the list.
   useEffect(() => {
@@ -165,7 +173,7 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
 
   if (progressError) {
     return (
-      <div className="mx-auto max-w-[640px] px-6 py-24 font-mono text-sm text-red">
+      <div className="mx-auto max-w-[640px] px-6 py-24 text-sm font-bold text-bad">
         Gagal memuat progres. Muat ulang halaman untuk mencoba lagi.
       </div>
     );
@@ -190,23 +198,43 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
 
   if (!ready || !menuAllowed) {
     return (
-      <div className="flex min-h-screen items-center justify-center font-mono text-xs tracking-[0.08em] text-muted">
+      <div className="flex min-h-screen items-center justify-center text-[12.5px] font-extrabold tracking-[0.07em] text-ink-2">
         MEMUAT…
       </div>
     );
   }
 
   return (
-    <div className="mx-auto flex max-w-[1280px] flex-col gap-7 px-[clamp(14px,3vw,28px)] pt-[clamp(18px,4vw,36px)] pb-20">
+    // --shell-top: height of what sticks to the top (the phone's top bar),
+    // so sticky page toolbars sit under it.
+    <div
+      className={classNames(
+        "min-h-dvh [--shell-top:calc(58px+env(safe-area-inset-top))] md:grid md:grid-cols-[88px_minmax(0,1fr)] md:[--shell-top:0px] lg:grid-cols-[250px_minmax(0,1fr)]",
+        // ≥1100px the open Tanya AI panel sits beside the page: make room.
+        aiOpen && hasAi && "lg:pr-[400px]",
+      )}
+    >
       <VoiceBootstrap />
       <PlanAutoCheck />
-      <Header />
-      <GlobalSearch />
-      <LevelPicker />
-      <TodayBar />
-      <TabsNav />
-      {children}
-      <ScrollTopButton raised={hasAi} />
+      <Sidebar className="hidden lg:flex" />
+      <IconRail className="hidden md:flex lg:hidden" />
+      <div className="flex min-w-0 flex-col">
+        <TopBar actions={actions} hasAi={hasAi} />
+        <main className="@container mx-auto flex w-full max-w-[1160px] flex-col gap-6 px-4 pt-4 pb-[calc(96px+env(safe-area-inset-bottom))] md:px-8 md:pt-6 md:pb-20">
+          {/* One h1 per page for screen readers; the visible titles are h2.
+              main is a size container: pages pick one or two columns from
+              the room they get (less while Tanya AI sits beside them). */}
+          <h1 className="sr-only">
+            {NAV.find((n) => isActivePath(pathname, n.path))?.label ??
+              "GoodEnglish"}
+          </h1>
+          <TodayBar />
+          {children}
+        </main>
+      </div>
+      <BottomNav actions={actions} className="md:hidden" />
+      <ScrollTopButton />
+      {extras}
       {hasAi && <AiChat />}
     </div>
   );
