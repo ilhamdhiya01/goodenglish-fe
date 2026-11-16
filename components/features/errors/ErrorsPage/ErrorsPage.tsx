@@ -220,7 +220,7 @@ const ErrorsPage = React.memo(() => {
           </div>
           <nav
             aria-label="Kategori"
-            className="hidden flex-col gap-1 rounded-xl border-2 border-line bg-surface p-2 @min-[56rem]:sticky @min-[56rem]:top-6 @min-[56rem]:flex"
+            className="hidden flex-col gap-1 rounded-xl border-2 border-line bg-surface p-2 @min-[56rem]:sticky @min-[56rem]:top-[calc(var(--shell-top)+24px)] @min-[56rem]:flex"
           >
             <SectionLabel className="px-3 pt-1.5 pb-1">
               {groups.length} kategori

@@ -58,7 +58,7 @@ const GrammarPage = React.memo(({ sub }: { sub: GrammarSub }) => {
         </FieldLabel>
         <nav
           aria-label="Bagian panduan grammar"
-          className="hidden flex-col gap-1 rounded-xl border-2 border-line bg-surface p-2 md:sticky md:top-6 md:flex"
+          className="hidden flex-col gap-1 rounded-xl border-2 border-line bg-surface p-2 md:sticky md:top-[calc(var(--shell-top)+24px)] md:flex"
         >
           {GRAMMAR_SUBS.map(({ id, label }) => (
             <ListItem key={id} href={"/grammar/" + id} active={id === sub}>

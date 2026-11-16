@@ -15,6 +15,7 @@ import { formatDateTime } from "@/lib/helpers/date.helper";
 import { useAiSettings } from "@/lib/hooks/admin/useAiSettings";
 import type { AiModels, AiSettings } from "@/lib/types/ai-settings.types";
 import type { ErrorResponse } from "@/lib/types/api.types";
+import { confirmDialog } from "@/stores/useConfirmStore";
 
 type Hook = ReturnType<typeof useAiSettings>;
 
@@ -158,14 +159,16 @@ const Form = ({ s, hook }: { s: AiSettings; hook: Hook }) => {
             tone="red"
             className="hit-44"
             disabled={hook.isRemoving}
-            onClick={() => {
-              if (
-                window.confirm(
-                  "Hapus API key? Tanya AI langsung nonaktif untuk semua pengguna.",
-                )
-              )
-                void hook.handleRemoveKey().catch(() => {});
-            }}
+            onClick={() =>
+              void confirmDialog({
+                title: "Hapus API key?",
+                message: "Tanya AI langsung nonaktif untuk semua pengguna.",
+                confirmLabel: "Hapus key",
+                tone: "danger",
+              }).then((ok) => {
+                if (ok) void hook.handleRemoveKey().catch(() => {});
+              })
+            }
           >
             Hapus key
           </TextButton>

@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 import QueryProvider from "@/components/providers/QueryProvider";
 import ServiceWorkerRegister from "@/components/providers/ServiceWorkerRegister";
+import ConfirmDialog from "@/components/ui/confirm-dialog";
 
 export const metadata: Metadata = {
   title: "GoodEnglish",
@@ -59,6 +60,7 @@ const RootLayout = ({
     <body>
       <QueryProvider>{children}</QueryProvider>
       <Toaster position="top-right" />
+      <ConfirmDialog />
       <ServiceWorkerRegister />
     </body>
   </html>

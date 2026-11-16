@@ -205,11 +205,10 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   }
 
   return (
-    // --shell-top: height of what sticks to the top (the phone's top bar),
-    // so sticky page toolbars sit under it.
+    // --shell-top (height of the sticky top bar) lives in globals.css.
     <div
       className={classNames(
-        "min-h-dvh [--shell-top:calc(58px+env(safe-area-inset-top))] md:grid md:grid-cols-[88px_minmax(0,1fr)] md:[--shell-top:0px] lg:grid-cols-[250px_minmax(0,1fr)]",
+        "min-h-dvh md:grid md:grid-cols-[88px_minmax(0,1fr)] lg:grid-cols-[250px_minmax(0,1fr)]",
         // ≥1100px the open Tanya AI panel sits beside the page: make room.
         aiOpen && hasAi && "lg:pr-[400px]",
       )}

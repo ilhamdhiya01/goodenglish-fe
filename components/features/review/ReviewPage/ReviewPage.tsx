@@ -37,11 +37,12 @@ const Stat = ({ n, label }: { n: number; label: string }) => (
   </span>
 );
 
-const Kbd = ({ children }: { children: React.ReactNode }) => (
-  <kbd className="rounded-md border-2 border-line bg-surface px-1.5 py-px text-xs font-extrabold text-ink">
-    {children}
-  </kbd>
-);
+const SHORTCUTS = [
+  ["Spasi", "Buka jawaban"],
+  ["1", "Lupa"],
+  ["2", "Ragu"],
+  ["3", "Ingat"],
+] as const;
 
 // Keys that would also act on whatever has focus (a button, a field) are
 // left alone, and nothing happens while a dialog or the AI panel is open.
@@ -343,12 +344,22 @@ const ReviewPage = React.memo(() => {
               ))}
             </Card>
           )}
-          <Card className="gap-2">
-            <SectionLabel>Pintasan</SectionLabel>
-            <span className="text-[13.5px] leading-5 font-semibold text-ink-2">
-              <Kbd>Spasi</Kbd> buka jawaban · <Kbd>1</Kbd> Lupa · <Kbd>2</Kbd>{" "}
-              Ragu · <Kbd>3</Kbd> Ingat
-            </span>
+          <Card className="gap-1.5">
+            <SectionLabel className="pb-1">Pintasan</SectionLabel>
+            <dl className="m-0 flex flex-col gap-2">
+              {SHORTCUTS.map(([key, label]) => (
+                <div key={key} className="flex items-center gap-3">
+                  <dt className="w-14 shrink-0">
+                    <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-md border-2 border-b-[3px] border-line bg-surface px-1.5 font-mono text-xs font-extrabold text-ink">
+                      {key}
+                    </kbd>
+                  </dt>
+                  <dd className="m-0 text-[13.5px] font-semibold text-ink-2">
+                    {label}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </Card>
         </aside>
       )}

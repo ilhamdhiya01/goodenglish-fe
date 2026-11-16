@@ -23,6 +23,7 @@ import {
 } from "@/lib/helpers/progress-export.helper";
 import { useLogout } from "@/lib/hooks/auth/useLogout";
 import { useInstallPrompt } from "@/lib/hooks/useInstallPrompt";
+import { toast } from "@/lib/toast";
 import { ROUTES } from "@/routes";
 import { useAccessStore } from "@/stores/useAccessStore";
 import { useVoiceStore } from "@/stores/useVoiceStore";
@@ -109,7 +110,12 @@ export const useAccountActions = () => {
         className="hidden"
         onChange={(e) => {
           const f = e.target.files?.[0];
-          if (f) importProgressFile(f, (msg) => alert(msg));
+          if (f)
+            importProgressFile(f, (msg) =>
+              msg.startsWith("Progres diimpor")
+                ? toast.success(msg)
+                : toast.error(msg),
+            );
           e.target.value = "";
         }}
       />

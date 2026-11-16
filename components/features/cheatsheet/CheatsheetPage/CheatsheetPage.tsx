@@ -254,7 +254,7 @@ const CheatsheetPage = React.memo(() => {
       </label>
       <nav
         aria-label="Isi cheat sheet"
-        className="hidden max-h-[calc(100dvh-48px)] flex-col gap-1 overflow-y-auto rounded-xl border-2 border-line bg-surface p-2 md:sticky md:top-6 md:flex"
+        className="hidden max-h-[calc(100dvh-var(--shell-top)-48px)] flex-col gap-1 overflow-y-auto rounded-xl border-2 border-line bg-surface p-2 md:sticky md:top-[calc(var(--shell-top)+24px)] md:flex"
       >
         {CHEAT_SECTIONS.map((s, i) => (
           <ListItem
@@ -273,7 +273,7 @@ const CheatsheetPage = React.memo(() => {
             key={s.id}
             id={s.id}
             pad="lg"
-            className="scroll-mt-[calc(var(--shell-top,0px)+76px)] gap-4 md:scroll-mt-6"
+            className="scroll-mt-[calc(var(--shell-top,0px)+76px)] gap-4 md:scroll-mt-[calc(var(--shell-top)+24px)]"
           >
             <h3 className="m-0 text-xl leading-[26px] font-black tracking-[-0.01em] text-ink">
               {i + 1}. {s.title}

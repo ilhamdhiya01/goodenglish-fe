@@ -17,6 +17,7 @@ import {
 import { useTokenList } from "@/lib/hooks/admin/useTokenList";
 import { useUpdateToken } from "@/lib/hooks/admin/useUpdateToken";
 import type { AccessTokenItem, TokenFormValues } from "@/lib/types/admin.types";
+import { confirmDialog, type ConfirmOptions } from "@/stores/useConfirmStore";
 
 import CreatedTokenNotice from "../CreatedTokenNotice";
 import TokenForm from "../TokenForm";
@@ -73,12 +74,26 @@ const aiLabel = (t: AccessTokenItem) =>
       ? "Tanya AI: tanpa batas"
       : `Tanya AI: ${t.aiDailyLimit}/hari`;
 
-const CONFIRM: Partial<Record<TokenAction, string>> = {
-  revoke: "Nonaktifkan token ini? Semua perangkatnya langsung keluar.",
-  reset:
-    "Keluarkan semua perangkat yang memakai token ini? Progresnya tetap aman.",
-  delete:
-    "Hapus token ini beserta SELURUH progres belajarnya? Tidak bisa dibatalkan.",
+const CONFIRM: Partial<Record<TokenAction, ConfirmOptions>> = {
+  revoke: {
+    title: "Nonaktifkan token ini?",
+    message: "Semua perangkatnya langsung keluar.",
+    confirmLabel: "Nonaktifkan",
+    tone: "danger",
+  },
+  reset: {
+    title: "Reset perangkat?",
+    message:
+      "Semua perangkat yang memakai token ini akan keluar. Progresnya tetap aman.",
+    confirmLabel: "Reset perangkat",
+  },
+  delete: {
+    title: "Hapus token ini?",
+    message:
+      "Token beserta SELURUH progres belajarnya dihapus. Tidak bisa dibatalkan.",
+    confirmLabel: "Hapus",
+    tone: "danger",
+  },
 };
 
 const TokenManager = React.memo(() => {
@@ -124,9 +139,9 @@ const TokenManager = React.memo(() => {
   );
 
   const run = useCallback(
-    (id: string, action: TokenAction) => {
-      const msg = CONFIRM[action];
-      if (msg && !window.confirm(msg)) return;
+    async (id: string, action: TokenAction) => {
+      const ask = CONFIRM[action];
+      if (ask && !(await confirmDialog(ask))) return;
       handleAction({ id, action });
       if (action === "delete" && summaryOf?.id === id) setSummaryOf(null);
     },
@@ -136,9 +151,12 @@ const TokenManager = React.memo(() => {
   const regenerate = useCallback(
     async (t: AccessTokenItem) => {
       if (
-        !window.confirm(
-          `Buat token baru untuk ${t.label}? Token lama langsung tidak berlaku dan semua perangkatnya keluar. Progres tetap aman.`,
-        )
+        !(await confirmDialog({
+          title: `Buat ulang token ${t.label}?`,
+          message:
+            "Token lama langsung tidak berlaku dan semua perangkatnya keluar. Progres tetap aman.",
+          confirmLabel: "Buat ulang",
+        }))
       )
         return;
       try {

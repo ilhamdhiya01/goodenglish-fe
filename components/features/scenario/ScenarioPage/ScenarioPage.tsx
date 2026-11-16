@@ -85,7 +85,7 @@ const ScenarioPage = React.memo(() => {
         </FieldLabel>
         <nav
           aria-label="Daftar skenario"
-          className="hidden flex-col gap-3 rounded-xl border-2 border-line bg-surface p-2 md:sticky md:top-6 md:flex"
+          className="hidden flex-col gap-3 rounded-xl border-2 border-line bg-surface p-2 md:sticky md:top-[calc(var(--shell-top)+24px)] md:flex"
         >
           {byLevel.map((g, gi) => (
             <div key={g.lv} className="flex flex-col gap-1">

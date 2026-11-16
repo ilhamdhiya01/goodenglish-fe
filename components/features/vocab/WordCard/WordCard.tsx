@@ -22,6 +22,7 @@ import { useNotes } from "@/lib/hooks/useNotes";
 import type { Item } from "@/lib/types/vocab.types";
 import { useAccessStore } from "@/stores/useAccessStore";
 import { useAiChatStore } from "@/stores/useAiChatStore";
+import { confirmDialog } from "@/stores/useConfirmStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useProgressStore } from "@/stores/useProgressStore";
 import { isSharedKey } from "@/stores/useSharedWordsStore";
@@ -124,8 +125,16 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
   };
   const remove = () => {
     const c = custom.find((x) => x.key === it[6]);
-    if (c && window.confirm('Hapus "' + c.en + '" dari Kataku?'))
-      removeCustomWord(c.key, (x) => itemKey(level, x.week, x.type, x.en));
+    if (!c) return;
+    void confirmDialog({
+      title: `Hapus "${c.en}" dari Kataku?`,
+      confirmLabel: "Hapus",
+      tone: "danger",
+    }).then(
+      (ok) =>
+        ok &&
+        removeCustomWord(c.key, (x) => itemKey(level, x.week, x.type, x.en)),
+    );
   };
 
   const T0 = today();

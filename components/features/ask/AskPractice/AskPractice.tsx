@@ -24,6 +24,7 @@ import type {
   PracticeStage,
 } from "@/lib/types/ask-practice.types";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
+import { confirmDialog } from "@/stores/useConfirmStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 import { usePracticeSessionStore } from "@/stores/usePracticeSessionStore";
 
@@ -202,12 +203,18 @@ const AskPractice = React.memo(
                 <b className="text-ink">{Object.keys(R.done).length}</b>
               </span>
               <TextButton
-                onClick={() => {
-                  if (window.confirm("Hapus progres latihan rumus ini?")) {
+                onClick={() =>
+                  void confirmDialog({
+                    title: "Reset latihan rumus ini?",
+                    message: "Progres latihan rumus ini akan dihapus.",
+                    confirmLabel: "Reset",
+                    tone: "danger",
+                  }).then((ok) => {
+                    if (!ok) return;
                     resetRule(rule);
                     setP(null);
-                  }
-                }}
+                  })
+                }
               >
                 reset
               </TextButton>

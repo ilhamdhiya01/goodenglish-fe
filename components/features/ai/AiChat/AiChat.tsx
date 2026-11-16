@@ -6,6 +6,8 @@ import {
   LuChevronLeft,
   LuHistory,
   LuPlus,
+  LuSendHorizontal,
+  LuSquare,
   LuTrash2,
   LuX,
 } from "react-icons/lu";
@@ -32,6 +34,7 @@ import { useAiSuggestions } from "@/lib/hooks/ai/useAiSuggestions";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import type { AiMessage } from "@/lib/types/ai.types";
 import { useAiChatStore } from "@/stores/useAiChatStore";
+import { confirmDialog } from "@/stores/useConfirmStore";
 
 // Wide screens: the panel sits beside the page and pushes it aside (see
 // AppShell); narrower ones get a drawer / full screen over the page.
@@ -147,9 +150,14 @@ const History = ({ currentId, onOpen, onDelete }: HistoryProps) => {
           </button>
           <IconButton
             aria-label={`Hapus percakapan: ${c.title}`}
-            onClick={() => {
-              if (window.confirm("Hapus percakapan ini?")) onDelete(c.id);
-            }}
+            onClick={() =>
+              void confirmDialog({
+                title: "Hapus percakapan ini?",
+                message: c.title,
+                confirmLabel: "Hapus",
+                tone: "danger",
+              }).then((ok) => ok && onDelete(c.id))
+            }
           >
             <LuTrash2 aria-hidden size={17} />
           </IconButton>
@@ -280,7 +288,9 @@ const AiChat = React.memo(() => {
         push && "z-30",
       )}
     >
-      <header className="flex items-center gap-2 border-b-2 border-line px-4 pt-[max(12px,env(safe-area-inset-top))] pb-3">
+      {/* Same height as the page's top bar (--shell-top), so both bottom
+          lines meet in one straight line. */}
+      <header className="flex h-(--shell-top) shrink-0 items-center gap-2 border-b-2 border-line px-4 pt-[env(safe-area-inset-top)]">
         <span className="flex-1 text-xl leading-[26px] font-black whitespace-nowrap text-ink">
           {view === "history" ? "Riwayat" : "Tanya AI"}
         </span>
@@ -438,17 +448,28 @@ const AiChat = React.memo(() => {
               placeholder="Tanya apa saja, atau tulis kalimatmu untuk dicek…"
               className={classNames(FIELD_CLASS, "max-h-40 flex-1 resize-none")}
             />
+            {/* Icon only, like a chat app: a paper plane to send, a square
+                to stop the answer that is still streaming. */}
             {busy ? (
-              <Button variant="green" onClick={stopAiAnswer}>
-                Berhenti
+              <Button
+                variant="green"
+                aria-label="Berhenti"
+                title="Berhenti"
+                onClick={stopAiAnswer}
+                className="h-13 w-13 shrink-0 px-0"
+              >
+                <LuSquare aria-hidden size={20} fill="currentColor" />
               </Button>
             ) : (
               <Button
                 variant="green"
+                aria-label="Kirim"
+                title="Kirim (Enter)"
                 onClick={() => send()}
                 disabled={quotaOut || !draft.trim()}
+                className="h-13 w-13 shrink-0 px-0"
               >
-                Kirim
+                <LuSendHorizontal aria-hidden size={24} />
               </Button>
             )}
           </div>

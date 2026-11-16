@@ -34,6 +34,7 @@ vi.mock("@/lib/hooks/ai/useAiSuggestions", () => ({
 
 const { default: AiChat } = await import("../AiChat");
 const { useAiChatStore } = await import("@/stores/useAiChatStore");
+const { useConfirmStore } = await import("@/stores/useConfirmStore");
 
 const openPanel = () => {
   render(
@@ -126,7 +127,7 @@ describe("AiChat panel", () => {
     expect(openSaved).toHaveBeenCalledWith("c1");
   });
 
-  it("lists saved threads under Riwayat and opens or deletes one", () => {
+  it("lists saved threads under Riwayat and opens or deletes one", async () => {
     openPanel();
     fireEvent.click(screen.getByRole("button", { name: "Riwayat" }));
     expect(screen.queryByPlaceholderText(/Tanya apa saja/)).toBeNull();
@@ -134,10 +135,15 @@ describe("AiChat panel", () => {
     fireEvent.click(screen.getByText("Apa itu lesson?"));
     expect(openSaved).toHaveBeenCalledWith("c1");
 
-    vi.spyOn(window, "confirm").mockReturnValue(true);
     fireEvent.click(
       screen.getByRole("button", { name: "Hapus percakapan: Apa itu lesson?" }),
     );
+    // Asks first (the themed confirm dialog), deletes only after "Hapus".
+    expect(removeSaved).not.toHaveBeenCalled();
+    expect(useConfirmStore.getState().request?.title).toBe(
+      "Hapus percakapan ini?",
+    );
+    await act(async () => useConfirmStore.getState().settle(true));
     expect(removeSaved).toHaveBeenCalledWith("c1");
   });
 

@@ -139,7 +139,7 @@ const VocabPage = React.memo(() => {
 
       <aside
         aria-label="Minggu ini"
-        className="hidden flex-col gap-4 @min-[56rem]:sticky @min-[56rem]:top-6 @min-[56rem]:flex @min-[56rem]:max-h-[calc(100dvh-48px)] @min-[56rem]:overflow-y-auto @min-[56rem]:pb-2"
+        className="hidden flex-col gap-4 @min-[56rem]:sticky @min-[56rem]:top-[calc(var(--shell-top)+24px)] @min-[56rem]:flex @min-[56rem]:max-h-[calc(100dvh-var(--shell-top)-48px)] @min-[56rem]:overflow-y-auto @min-[56rem]:pb-2"
       >
         {d && <TenseIntro d={d} />}
         <Card className="gap-1">

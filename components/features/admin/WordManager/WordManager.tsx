@@ -12,6 +12,7 @@ import { useWordMutations } from "@/lib/hooks/words/useWordMutations";
 import { useWords } from "@/lib/hooks/words/useWords";
 import type { LevelId } from "@/lib/types/session.types";
 import type { SharedWordInput } from "@/lib/types/words.types";
+import { confirmDialog } from "@/stores/useConfirmStore";
 
 import SharedWordForm from "../SharedWordForm";
 import TokenRowMenu from "../TokenRowMenu";
@@ -77,11 +78,14 @@ const WordManager = React.memo(() => {
   );
 
   const remove = useCallback(
-    (id: string, en: string) => {
+    async (id: string, en: string) => {
       if (
-        !window.confirm(
-          `Hapus "${en}"? Kata ini hilang dari Kosakata semua pelajar.`,
-        )
+        !(await confirmDialog({
+          title: `Hapus "${en}"?`,
+          message: "Kata ini hilang dari Kosakata semua pelajar.",
+          confirmLabel: "Hapus",
+          tone: "danger",
+        }))
       )
         return;
       handleDelete(id).catch(() => {});

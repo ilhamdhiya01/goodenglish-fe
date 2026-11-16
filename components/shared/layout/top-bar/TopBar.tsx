@@ -19,8 +19,9 @@ interface TopBarProps {
 }
 
 // The row above the page content.
-// ≥700px: global search (max 560px), the level picker on tablets (the
-// sidebar holds it on wide screens), the ⋯ account menu and "Tanya AI".
+// ≥700px: a 76px bar that stays on top — global search (max 560px), the
+// level picker on tablets (the sidebar holds it on wide screens), the ⋯
+// account menu and "Tanya AI".
 // <700px: a 58px bar that stays on top — level, magnifier, "Tanya AI", and
 // the ⋯ menu when every menu already fits in the bottom nav.
 const TopBar = React.memo(({ actions, hasAi }: TopBarProps) => {
@@ -40,7 +41,7 @@ const TopBar = React.memo(({ actions, hasAi }: TopBarProps) => {
       </header>
       {search && <SearchScreen onClose={() => setSearch(false)} />}
 
-      <div className="hidden items-center gap-3 px-8 pt-[26px] md:flex">
+      <div className="sticky top-0 z-30 hidden h-(--shell-top) items-center gap-3 border-b-2 border-line bg-paper px-8 md:flex">
         <div className="max-w-[560px] min-w-[200px] flex-1">
           <GlobalSearch />
         </div>

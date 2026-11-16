@@ -18,6 +18,7 @@ import { ASK_RULES, CHEERS } from "@/const/plan.constant";
 import { useShellData } from "@/lib/hooks/useShellData";
 import { useTodayPlan } from "@/lib/hooks/useTodayPlan";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
+import { confirmDialog } from "@/stores/useConfirmStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 
 // A read-only count shaped like a Pill ("Hari ini 1/3", "Streak 6 hari").
@@ -201,14 +202,15 @@ const PlanPage = React.memo(() => {
           >
             <Menu.Item
               tone="bad"
-              onSelect={() => {
-                if (
-                  window.confirm(
-                    "Hapus semua catatan rencana (checklist, streak, riwayat tes)?",
-                  )
-                )
-                  usePlanStore.getState().reset();
-              }}
+              onSelect={() =>
+                void confirmDialog({
+                  title: "Reset rencana?",
+                  message:
+                    "Semua catatan rencana (checklist, streak, riwayat tes) akan dihapus.",
+                  confirmLabel: "Reset",
+                  tone: "danger",
+                }).then((ok) => ok && usePlanStore.getState().reset())
+              }
             >
               Reset rencana
             </Menu.Item>

@@ -2,6 +2,7 @@
 
 import classNames from "classnames";
 import React from "react";
+import { LuSparkles } from "react-icons/lu";
 
 import Button from "@/components/ui/button";
 import { useAiChatStore } from "@/stores/useAiChatStore";
@@ -20,6 +21,7 @@ const AskAiButton = ({ className }: { className?: string }) => {
       onClick={() => setOpen(!open)}
       className={classNames("text-accent-edge", className)}
     >
+      <LuSparkles aria-hidden size={15} className="shrink-0" />
       Tanya AI
     </Button>
   );

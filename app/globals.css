@@ -60,6 +60,18 @@
   --breakpoint-lg: 68.75rem;
 }
 
+/* Tinggi bar atas yang menempel: 58px di HP, 76px mulai 700px. Bagian
+   sticky di halaman (toolbar, daftar isi) memakai ini supaya tidak
+   tertutup. Ditaruh di :root agar ikut terbaca di portal dan dialog. */
+:root {
+  --shell-top: calc(58px + env(safe-area-inset-top));
+}
+@media (min-width: 43.75rem) {
+  :root {
+    --shell-top: 76px;
+  }
+}
+
 html,
 body {
   margin: 0;
