@@ -1,5 +1,6 @@
+import { LEVELS } from "@/const/levels.constant";
 import { VERB_CARDS, VERB_FORMS } from "@/lib/content";
-import type { Flat } from "@/lib/helpers/level-data.helper";
+import { type Flat, sameWord } from "@/lib/helpers/level-data.helper";
 import type { Item } from "@/lib/types/vocab.types";
 
 // Bentuk kata kerja (V1 → V2 → V3) satu kartu, dipakai bersama oleh kartu kosakata dan pencarian.
@@ -119,4 +120,42 @@ export const searchVocab = (
       rest.push({ x: r.x, f: r.f, viaForm: true });
   }
   return starts.concat(formStarts, rest).slice(0, limit);
+};
+
+export interface SearchGroup extends SearchHit {
+  /** Semua tempat kata ini muncul (level · minggu); x = places[0]. */
+  places: Flat[];
+}
+
+const levelRank = (lv?: string) => {
+  const i = LEVELS.findIndex(([id]) => id === lv);
+  return i < 0 ? LEVELS.length : i;
+};
+
+/**
+ * Satu baris per kata: kata yang sama dengan arti sama di beberapa level
+ * (chicken = ayam di Pemula M5 dan Pre-intermediate M2) digabung. Tempatnya
+ * diurutkan level aktif dulu, lalu urutan level, lalu minggu. Urutan baris
+ * mengikuti hasil pertama tiap kata.
+ */
+export const groupHits = (
+  hits: SearchHit[],
+  active?: string,
+): SearchGroup[] => {
+  const groups: SearchGroup[] = [];
+  for (const h of hits) {
+    const g = groups.find((x) => sameWord(x.x.it, h.x.it));
+    if (g) g.places.push(h.x);
+    else groups.push({ ...h, places: [h.x] });
+  }
+  for (const g of groups) {
+    g.places.sort(
+      (a, b) =>
+        +(b.lv === active) - +(a.lv === active) ||
+        levelRank(a.lv) - levelRank(b.lv) ||
+        a.w - b.w,
+    );
+    g.x = g.places[0];
+  }
+  return groups;
 };

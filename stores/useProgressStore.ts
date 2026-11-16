@@ -3,9 +3,11 @@ import { create } from "zustand";
 import { GAPS } from "@/const/srs.constant";
 import { allLevelData, migrateProgress } from "@/lib/helpers/derived.helper";
 import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
+import { twinIndex, withTwins } from "@/lib/helpers/word-twins.helper";
 import type { SrsEntry } from "@/lib/types/progress.types";
 import type { CustomWord } from "@/lib/types/vocab.types";
 import { usePlanStore } from "@/stores/usePlanStore";
+import { useSharedWordsStore } from "@/stores/useSharedWordsStore";
 
 // Semua progres pengguna: kata hafal, jadwal SRS, "Kalimatku", kata tambahan (Kataku),
 // dan hitungan ulangan hari ini. Persist manual ke localStorage (kunci & bentuk lama).
@@ -72,9 +74,39 @@ const initialState = () => {
   };
 };
 
+// Same word in other levels (bundled + shared + Kataku), see word-twins.
+const twinsNow = (custom: CustomWord[]) =>
+  twinIndex(
+    allLevelsCached([...useSharedWordsStore.getState().words, ...custom]),
+  );
+
+// allLevelData builds every level: reuse it while the word lists are the same.
+let lastWords: CustomWord[] | null = null;
+let lastAll: ReturnType<typeof allLevelData> | null = null;
+const allLevelsCached = (words: CustomWord[]) => {
+  const same =
+    lastWords &&
+    lastWords.length === words.length &&
+    lastWords.every((w, i) => w === words[i]);
+  if (!same || !lastAll) {
+    lastWords = words;
+    lastAll = allLevelData(words);
+  }
+  return lastAll;
+};
+
 export const useProgressStore = create<ProgressState>((set, get) => ({
   ...initialState(),
-  hydrate: () => set(initialState()),
+  hydrate: () => {
+    set(initialState());
+    // Words memorised in one level before twins were shared (or in another
+    // level since) count as memorised in every level that has them. Only
+    // "known" is filled in: the review schedule stays on the card that was
+    // memorised, so the same word is never due twice.
+    const { known, custom, setKnown } = get();
+    const filled = withTwins(known, twinsNow(custom));
+    if (filled !== known) setKnown(() => filled);
+  },
 
   setKnown: (f) =>
     set((s) => {
@@ -107,23 +139,30 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
       return { doneToday };
     }),
 
+  // The same word in other levels follows along (hafal there too, or not
+  // any more). Only this card gets a review schedule.
   toggleKnown: (key) => {
-    const { setKnown, setSrs } = get();
+    const { setKnown, setSrs, custom } = get();
     const on = get().known[key];
+    const keys = [key, ...(twinsNow(custom).get(key) ?? [])];
     if (on) {
       setKnown((k) => {
         const c = { ...k };
-        delete c[key];
+        keys.forEach((x) => delete c[x]);
         return c;
       });
       setSrs((s) => {
         const c = { ...s };
-        delete c[key];
+        keys.forEach((x) => delete c[x]);
         return c;
       });
       usePlanStore.getState().bumpTally("known", -1);
     } else {
-      setKnown((k) => ({ ...k, [key]: 1 }));
+      setKnown((k) => {
+        const c = { ...k };
+        keys.forEach((x) => (c[x] = 1));
+        return c;
+      });
       setSrs((s) => ({ ...s, [key]: { st: 0, due: today() + 1 } }));
       usePlanStore.getState().bumpTally("known");
     }

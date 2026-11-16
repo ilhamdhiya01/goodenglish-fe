@@ -62,6 +62,16 @@ export const sameMeaning = (a: string, b: string): boolean => {
   );
 };
 
+/**
+ * Kartu yang sama: ejaan dan jenis kata sama, artinya juga sama (lihat sameMeaning).
+ * "chicken = ayam" di Pemula dan Pre-intermediate itu satu kata; "watch = jam tangan"
+ * dan "watch = menonton" dua kata.
+ */
+export const sameWord = (a: Item, b: Item): boolean =>
+  a[0] === b[0] &&
+  a[1].toLowerCase().trim() === b[1].toLowerCase().trim() &&
+  sameMeaning(a[3], b[3]);
+
 // Buang kata yang muncul lebih dari sekali dalam satu level (dipakai yang paling awal). Kata yang sama tapi artinya beda (watch = jam tangan / menonton) tetap dipertahankan.
 // Kata yang sengaja muncul dua kali dengan kelas kata berbeda (sifat vs kerja, benda vs kerja) dan artinya mirip di bahasa Indonesia.
 const KEEP_BOTH = new Set(["open", "clean", "stop", "turn"]);
@@ -107,8 +117,18 @@ export const levelData = (id: string, custom: CustomWord[]): LevelData => {
       ? { plan: L.plan || [], V: dedupe({ ...(L.weeks || {}) }) }
       : { plan: [], V: {} };
   }
-  // Kata tambahan pengguna ("Kataku"): [type,en,pron,id,ex,syn] + key di index 6
-  const mine = custom.filter((c) => c.level === id);
+  // Kata bersama (admin) lalu Kataku: [type,en,pron,id,ex,syn] + key di index 6.
+  // Yang sudah ada di level ini dengan arti sama (dari data bawaan atau kata
+  // tambahan sebelumnya) tidak ditampilkan lagi. Kedua form menolak duplikat
+  // saat menambah, tapi data bawaan bisa belakangan memuat kata yang sama.
+  const have: Item[] = flatten(out.V).map((x) => x.it);
+  const mine = custom.filter((c) => {
+    if (c.level !== id) return false;
+    const it: Item = [c.type, c.en, "", c.id, "", ""];
+    if (have.some((h) => sameWord(h, it))) return false;
+    have.push(it);
+    return true;
+  });
   if (mine.length) {
     const V: Record<string, Week> = {};
     Object.keys(out.V).forEach((w) => {

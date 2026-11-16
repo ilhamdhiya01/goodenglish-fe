@@ -17,7 +17,11 @@ import {
   STORAGE_KEYS,
 } from "@/lib/helpers/storage.helper";
 import type { VerbForms } from "@/lib/helpers/verb-forms.helper";
-import { buildSearchIndex, searchVocab } from "@/lib/helpers/verb-forms.helper";
+import {
+  buildSearchIndex,
+  groupHits,
+  searchVocab,
+} from "@/lib/helpers/verb-forms.helper";
 import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useShellData } from "@/lib/hooks/useShellData";
 import { useAccessStore } from "@/stores/useAccessStore";
@@ -65,7 +69,11 @@ const GlobalSearch = React.memo(
     // Indeks (termasuk bentuk V2/V3 per kartu) dihitung sekali per kumpulan kata, bukan per ketikan.
     const index = useMemo(() => buildSearchIndex(pool), [pool]);
     const ql = q.trim().toLowerCase();
-    const results = useMemo(() => searchVocab(index, ql), [index, ql]);
+    // Kata yang sama di beberapa level jadi satu baris (lihat groupHits).
+    const results = useMemo(
+      () => groupHits(searchVocab(index, ql, 120), level).slice(0, 40),
+      [index, ql, level],
+    );
 
     // Highlight goes back to the first result whenever the query changes
     // (reset during render rather than in an effect).
@@ -130,40 +138,60 @@ const GlobalSearch = React.memo(
           </div>
         )}
         <div id={listId} role="listbox" aria-label="Hasil pencarian">
-          {results.map(({ x, f, viaForm }, i) => {
+          {results.map(({ x, f, viaForm, places }, i) => {
             const on = i === hi;
             return (
-              <button
-                type="button"
+              <div
                 role="option"
                 aria-selected={on}
                 key={itemKey(x.lv || "pre", x.w, x.it[0], x.it[1])}
                 data-testid="search-result"
                 onMouseEnter={() => setHi(i)}
-                onClick={() => pick(x)}
                 className={classNames(
-                  "flex w-full cursor-pointer items-center gap-3 border-t-2 border-line px-3.5 py-2.5 text-left",
+                  "flex w-full items-center gap-3 border-t-2 border-line px-3.5 py-2.5",
                   on ? "bg-accent-tint" : "bg-transparent",
                 )}
               >
-                <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <span className="flex flex-wrap items-center gap-2">
-                    <span className="text-base leading-[22px] font-extrabold wrap-anywhere text-ink">
-                      <Marked text={x.it[1]} q={viaForm ? "" : ql} />
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  onClick={() => pick(x)}
+                  className="flex min-w-0 flex-1 cursor-pointer border-none bg-transparent p-0 text-left"
+                >
+                  <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <span className="flex flex-wrap items-center gap-2">
+                      <span className="text-base leading-[22px] font-extrabold wrap-anywhere text-ink">
+                        <Marked text={x.it[1]} q={viaForm ? "" : ql} />
+                      </span>
+                      <TypeBadge type={x.it[0]} />
                     </span>
-                    <TypeBadge type={x.it[0]} />
+                    <span className="text-[13.5px] leading-[19px] font-semibold wrap-anywhere text-ink-2">
+                      {x.it[3]}
+                    </span>
+                    {f && (
+                      <FormsLine en={x.it[1]} f={f} hit={viaForm ? ql : ""} />
+                    )}
                   </span>
-                  <span className="text-[13.5px] leading-[19px] font-semibold wrap-anywhere text-ink-2">
-                    {x.it[3]}
-                  </span>
-                  {f && (
-                    <FormsLine en={x.it[1]} f={f} hit={viaForm ? ql : ""} />
-                  )}
+                </button>
+                {/* One link per place; the row itself opens the first. */}
+                <span className="flex shrink-0 flex-col items-end gap-1">
+                  {places.map((p) => (
+                    <button
+                      key={(p.lv || "pre") + p.w}
+                      type="button"
+                      tabIndex={-1}
+                      onClick={() => pick(p)}
+                      className={classNames(
+                        "cursor-pointer rounded-md border-none bg-transparent px-1.5 py-0.5 text-right text-[12.5px] leading-[18px] font-bold whitespace-nowrap text-ink-2 focus-ring",
+                        places.length > 1 &&
+                          "underline decoration-line decoration-2 underline-offset-[3px] hover:text-accent-edge hover:decoration-accent-line",
+                      )}
+                    >
+                      {lvName(p.lv)} · M{p.w}
+                    </button>
+                  ))}
                 </span>
-                <span className="shrink-0 text-right text-[12.5px] leading-[18px] font-bold text-ink-2">
-                  {lvName(x.lv)} · M{x.w}
-                </span>
-              </button>
+              </div>
             );
           })}
         </div>

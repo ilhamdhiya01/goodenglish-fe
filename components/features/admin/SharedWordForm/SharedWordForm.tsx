@@ -67,6 +67,40 @@ const SharedWordForm = React.memo(
       : Array.from({ length: 12 }, (_, i) => [i + 1, ""] as const);
     const type = values.type || (values.en ? guessType(values.en) : "w");
 
+    // The same spelling in other levels: allowed (each level is its own
+    // course), but shown so the admin knows. Bundled lists are built once.
+    const bundledAll = useMemo(
+      () =>
+        LEVEL_OPTIONS.map((l) => ({
+          ...l,
+          items: flatten(levelData(l.id, []).V),
+        })),
+      [],
+    );
+    const low = values.en.trim().toLowerCase();
+    const elsewhere = useMemo(() => {
+      if (!low) return [];
+      const label = (id: string) =>
+        LEVEL_OPTIONS.find((l) => l.id === id)?.label ?? id;
+      return [
+        ...bundledAll
+          .filter((l) => l.id !== values.level)
+          .flatMap((l) =>
+            l.items
+              .filter((x) => x.it[1].toLowerCase() === low)
+              .map((x) => `${l.label} · M${x.w} (${x.it[3]})`),
+          ),
+        ...words
+          .filter(
+            (w) =>
+              w.id !== editing?.id &&
+              w.level !== values.level &&
+              w.en.toLowerCase() === low,
+          )
+          .map((w) => `${label(w.level)} · M${w.week} (${w.meaning})`),
+      ];
+    }, [low, values.level, bundledAll, words, editing]);
+
     // Progress keys are built from level/week/type/spelling, so changing any
     // of them orphans what learners already memorised for this word.
     const movesKey =
@@ -193,6 +227,16 @@ const SharedWordForm = React.memo(
               ))}
             </div>
           </fieldset>
+
+          {elsewhere.length > 0 && (
+            <Card pad="sm">
+              <span className="text-[13.5px] leading-5 font-bold text-ink-2">
+                &quot;{values.en.trim()}&quot; juga ada di{" "}
+                {elsewhere.join(", ")}. Boleh disimpan; di pencarian, kata
+                dengan arti yang sama tampil sebagai satu baris.
+              </span>
+            </Card>
+          )}
 
           {movesKey && (
             <Card tone="redBg" pad="sm">
