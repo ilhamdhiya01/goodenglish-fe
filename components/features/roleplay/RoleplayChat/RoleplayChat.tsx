@@ -184,6 +184,21 @@ const RoleplayChat = ({
 
   const micNote = rec.error;
   const canMic = rec.supported && !rec.denied;
+  // The language spoken into the mic (never auto-detected). Off = English;
+  // on for when the learner answers in Indonesian. Shown next to the mic on
+  // phones and in the button row on wider screens (one of them is hidden).
+  const languagePill = (
+    <Pill
+      size="sm"
+      check
+      on={language === "id"}
+      disabled={listening || transcribing}
+      title="Nyalakan kalau kamu menjawab dalam bahasa Indonesia"
+      onClick={() => setLanguage(language === "id" ? "en" : "id")}
+    >
+      Bahasa Indonesia
+    </Pill>
+  );
   const micState = transcribing
     ? "processing"
     : listening
@@ -345,7 +360,9 @@ const RoleplayChat = ({
         )}
 
         <div className="sticky bottom-[calc(84px+env(safe-area-inset-bottom))] z-10 flex flex-col gap-2 rounded-xl border-2 border-line bg-paper p-3 shadow-sm md:bottom-4">
-          <div className="flex items-end gap-2">
+          {/* Phone: the answer box gets the full width, mic / language /
+              Kirim under it. md+: one row, mic | box | Kirim. */}
+          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 [grid-template-areas:'text_text_text'_'mic_lang_send'] md:items-end md:[grid-template-areas:'mic_text_send']">
             {canMic && (
               <button
                 type="button"
@@ -363,7 +380,7 @@ const RoleplayChat = ({
                 title={listening ? "Berhenti merekam" : "Bicara"}
                 data-state={micState}
                 className={classNames(
-                  "hit-44 inline-flex h-12 w-12 shrink-0 press cursor-pointer items-center justify-center rounded-full border-2 edge focus-ring disabled:cursor-not-allowed",
+                  "hit-44 inline-flex h-12 w-12 shrink-0 press cursor-pointer items-center justify-center rounded-full border-2 edge focus-ring [grid-area:mic] disabled:cursor-not-allowed",
                   micState === "recording"
                     ? "animate-pulse border-bad-edge bg-bad text-on-accent [--edge:var(--color-bad-edge)]"
                     : micState === "processing"
@@ -400,13 +417,22 @@ const RoleplayChat = ({
                   : listening
                     ? `Mendengarkan… bicara dalam ${LANGUAGE_NAME[language]}`
                     : canMic
-                      ? "Tekan mikrofon, atau ketik jawabanmu"
+                      ? "Tekan mikrofon atau ketik jawabanmu"
                       : "Ketik jawabanmu"
               }
-              className={classNames(FIELD_CLASS, "min-h-12 resize-none")}
+              className={classNames(
+                FIELD_CLASS,
+                "min-h-12 resize-none [grid-area:text]",
+              )}
             />
+            {canMic && (
+              <span className="justify-self-start [grid-area:lang] md:hidden">
+                {languagePill}
+              </span>
+            )}
             <Button
               variant="green"
+              className="[grid-area:send]"
               disabled={
                 busy ||
                 listening ||
@@ -446,39 +472,40 @@ const RoleplayChat = ({
               sebelum dikirim.
             </span>
           )}
-          <div className="flex flex-wrap gap-2">
-            <Pill size="sm" disabled={!s.lastAi} onClick={() => s.replay()}>
+          {/* Phone: an even 2×2 grid; md+: one wrapping row, Selesai right. */}
+          <div className="grid grid-cols-2 gap-2 md:flex md:flex-wrap">
+            <Pill
+              size="sm"
+              className="justify-center"
+              disabled={!s.lastAi}
+              onClick={() => s.replay()}
+            >
               Ulangi
             </Pill>
-            <Pill size="sm" disabled={!s.lastAi} onClick={() => s.replay(true)}>
+            <Pill
+              size="sm"
+              className="justify-center"
+              disabled={!s.lastAi}
+              onClick={() => s.replay(true)}
+            >
               Lebih pelan
             </Pill>
             <Pill
               size="sm"
+              className="justify-center"
               disabled={busy || s.helpLeft === 0 || turnsUsedUp}
               onClick={() => void s.help()}
             >
               {s.pending === "help" ? "Mencari contoh…" : "Bantu aku"}
             </Pill>
-            {/* The language spoken into the mic (never auto-detected). Off =
-                English; on for when the learner answers in Indonesian. */}
             {canMic && (
-              <Pill
-                size="sm"
-                check
-                on={language === "id"}
-                disabled={listening || transcribing}
-                title="Nyalakan kalau kamu menjawab dalam bahasa Indonesia"
-                onClick={() => setLanguage(language === "id" ? "en" : "id")}
-              >
-                Bahasa Indonesia
-              </Pill>
+              <span className="hidden md:contents">{languagePill}</span>
             )}
             <Pill
               size="sm"
               disabled={busy}
               onClick={() => void s.end()}
-              className="ml-auto"
+              className="justify-center md:ml-auto"
             >
               {s.pending === "finish" ? "Merangkum…" : "Selesai"}
             </Pill>
