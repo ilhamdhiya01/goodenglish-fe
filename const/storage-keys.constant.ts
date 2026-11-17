@@ -22,4 +22,6 @@ export const STORAGE_KEYS = {
   mistakes: "vocab-mistakes-v1",
   // "Menyimak": set results, unlocked stages, seen items, pair stats.
   listening: "vocab-listening-v1",
+  // "Bacaan": quiz results, texts done, cached word meanings.
+  reading: "vocab-reading-v1",
 } as const;

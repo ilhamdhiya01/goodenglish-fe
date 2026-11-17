@@ -11,7 +11,7 @@ import Sheet from "@/components/ui/sheet";
 import { TYPES } from "@/const/vocab-types.constant";
 import type { LevelData } from "@/lib/helpers/level-data.helper";
 import type { PlanRow } from "@/lib/types/vocab.types";
-import { useVocabUiStore } from "@/stores/useVocabUiStore";
+import { MINE_TYPE, useVocabUiStore } from "@/stores/useVocabUiStore";
 
 interface Props {
   searching: boolean;
@@ -99,7 +99,9 @@ const VocabToolbar = React.memo(
       flip && "Indo → Inggris",
       recall && "Mode ketik · recall",
       hideKnown && "Sembunyikan yang hafal",
-      type !== "all" && TYPES[type]?.label,
+      type === MINE_TYPE
+        ? "Kataku (pribadi) · semua minggu"
+        : type !== "all" && TYPES[type]?.label,
     ].filter(Boolean) as string[];
 
     return (
@@ -196,6 +198,7 @@ const VocabToolbar = React.memo(
                   Object.keys(TYPES).map(
                     (k) => [k, TYPES[k].label] as [string, string],
                   ),
+                  [[MINE_TYPE, "Kataku (pribadi)"]],
                 )
                 .map(([k, label]) => (
                   <Pill

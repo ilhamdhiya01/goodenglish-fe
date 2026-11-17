@@ -59,6 +59,61 @@ export const listeningSession: SessionData = {
   menus: [...ALL_MENUS, "listening"],
 };
 
+/** A learner who may also open "Bacaan". */
+export const readingSession: SessionData = {
+  ...fullSession,
+  menus: [...ALL_MENUS, "reading"],
+};
+
+/** A published "Bacaan" text (level pre, week 1 words: be, have, do). */
+export const readingText = (id: string, week = 1, o: object = {}) => ({
+  id,
+  level: "pre",
+  week,
+  slot: "A",
+  status: "published",
+  title: "A rainy morning",
+  paragraphs: [
+    {
+      en: "I have a small quokka toy. We do our homework every day.",
+      id: "Aku punya mainan quokka kecil. Kami mengerjakan PR setiap hari.",
+    },
+    {
+      en: "It can be fun to jump in a puddle!",
+      id: "Melompat ke genangan air bisa menyenangkan!",
+    },
+  ],
+  targetWordsUsed: ["be", "have", "do"],
+  glossary: [{ word: "puddle", meaningId: "genangan air" }],
+  questions: [
+    ...[1, 2, 3].map((n) => ({
+      type: "mcq",
+      question: `Question ${n}?`,
+      options: ["Right", "Wrong 1", "Wrong 2", "Wrong 3"],
+      answerIndex: 0,
+      explanationId: `Penjelasan ${n}.`,
+    })),
+    {
+      type: "true_false",
+      statement: "They do homework every day.",
+      answer: true,
+      explanationId: "Disebut di paragraf 1.",
+    },
+    {
+      type: "find_word",
+      promptId: 'Temukan kata di teks yang artinya "genangan air"',
+      answer: "puddle",
+    },
+  ],
+  wordCount: 19,
+  warnings: [],
+  createdBy: "Admin",
+  publishedAt: new Date().toISOString(),
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+  ...o,
+});
+
 const words = (n: number, w: string) =>
   Array.from({ length: n }, (_, i) => `${w}${i % 7}`).join(" ");
 
@@ -143,6 +198,8 @@ export interface MockOptions {
   roleplayFailTurns?: number;
   /** Published Dengar & jawab items the learner gets (default: 2). */
   listeningItems?: unknown[];
+  /** Published Bacaan texts the learner gets (default: 2 in week 1). */
+  readingTexts?: unknown[];
 }
 
 export interface MockApi {
@@ -156,6 +213,8 @@ export interface MockApi {
   roleplay: { path: string; body: unknown }[];
   /** Every admin Menyimak call, "METHOD /admin/listening/…" with its body. */
   listening: { call: string; body: unknown }[];
+  /** Every Bacaan call (learner lookups and admin), with its body. */
+  reading: { call: string; body: unknown }[];
   lastPut: (key: string) => unknown;
 }
 
@@ -196,6 +255,7 @@ export const installMockApi = async (
     admin: [],
     roleplay: [],
     listening: [],
+    reading: [],
     lastPut: (key) =>
       [...api.puts].reverse().find((p) => p.key === key)?.data ?? undefined,
   };
@@ -203,6 +263,16 @@ export const installMockApi = async (
   // Admin Menyimak bank for this test (starts with one draft).
   const bank: (ReturnType<typeof listenItem> & Record<string, unknown>)[] = [
     listenItem("bank1", 1, { status: "draft", title: "Station draft" }),
+  ];
+
+  // Admin Bacaan texts (start with one draft that misses the rules).
+  const texts: (ReturnType<typeof readingText> & Record<string, unknown>)[] = [
+    readingText("rd1", 1, {
+      status: "draft",
+      title: "Warned draft",
+      publishedAt: null,
+      warnings: [{ code: "word_count", count: 19, min: 150, max: 200 }],
+    }),
   ];
 
   if (session) {
@@ -450,6 +520,69 @@ export const installMockApi = async (
       }
       if (method === "DELETE") {
         bank.splice(bank.indexOf(found), 1);
+        return json(route, null);
+      }
+    }
+
+    // "Bacaan": learner texts + lookups, and the admin texts (in memory).
+    if (path === "/reading/texts") {
+      return json(
+        route,
+        opts.readingTexts ?? [
+          readingText("rt1", 1),
+          readingText("rt2", 1, { slot: "B", title: "Second text" }),
+        ],
+      );
+    }
+    if (path === "/reading/lookup") {
+      const body = req.postDataJSON() as { word: string };
+      api.reading.push({ call: `${method} ${path}`, body });
+      const w = body.word.toLowerCase();
+      return json(route, {
+        word: w,
+        lemma: w,
+        meaningId: `arti-${w}`,
+        pron: "KWOK-a",
+        cached: false,
+      });
+    }
+    if (path.startsWith("/admin/reading")) {
+      const body =
+        method === "POST" || method === "PATCH"
+          ? (req.postDataJSON() as Record<string, unknown> | null)
+          : null;
+      api.reading.push({ call: `${method} ${path}`, body });
+      const id = path.split("/")[3];
+      const found = texts.find((t) => t.id === id);
+      if (path === "/admin/reading" && method === "GET") {
+        return json(route, texts);
+      }
+      if (path === "/admin/reading/generate") {
+        const created = readingText(`gen${texts.length + 1}`, 1, {
+          status: "draft",
+          slot: body?.slot ?? "A",
+          title: "Generated text",
+          publishedAt: null,
+        });
+        texts.push(created);
+        return json(route, created);
+      }
+      if (!found)
+        return json(route, { errors: [{ message: "reading_not_found" }] }, 404);
+      if (method === "PATCH") {
+        Object.assign(found, body, { warnings: [] });
+        return json(route, found);
+      }
+      if (path.endsWith("/publish")) {
+        found.status = "published";
+        return json(route, found);
+      }
+      if (path.endsWith("/unpublish")) {
+        found.status = "draft";
+        return json(route, found);
+      }
+      if (method === "DELETE") {
+        texts.splice(texts.indexOf(found), 1);
         return json(route, null);
       }
     }

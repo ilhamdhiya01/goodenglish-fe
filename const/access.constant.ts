@@ -51,6 +51,16 @@ export const ACCESS_ERRORS: Record<string, string> = {
   listening_word_count: "Panjang audio harus 40–120 kata.",
   listening_bad_questions:
     "Harus ada 3 soal, masing-masing 4 pilihan berbeda, satu kunci, dan penjelasan.",
+  reading_not_allowed: "Token ini belum bisa membuka Bacaan. Hubungi admin.",
+  reading_not_found: "Bacaan ini sudah dihapus.",
+  reading_bad_title: "Judul wajib diisi.",
+  reading_bad_paragraphs:
+    "Paragraf tidak valid: setiap paragraf butuh teks Inggris dan terjemahannya (maks. 10).",
+  reading_bad_questions:
+    "Harus ada 5 soal: 3 pilihan ganda (4 pilihan berbeda + kunci + pembahasan), 1 benar/salah, 1 temukan kata.",
+  lookup_rate_limited:
+    "Terlalu banyak kata baru dicari dalam semenit. Tunggu sebentar, ya.",
+  lookup_bad_word: "Kata ini tidak bisa dicari.",
   level_not_allowed: "Level ini tidak dibuka untuk token ini.",
   stt_no_speech: "Suaramu tidak terdengar, coba lagi ya.",
   stt_too_long: "Rekamannya terlalu panjang (maksimal 60 detik).",
@@ -90,6 +100,7 @@ export const MENU_OPTIONS: { id: MenuId; label: string }[] = [
   { id: "grammar", label: "Panduan grammar" },
   { id: "pronunciation", label: "Pelafalan" },
   { id: "listening", label: "Menyimak" },
+  { id: "reading", label: "Bacaan" },
   { id: "cheatsheet", label: "Cheat sheet" },
   { id: "ai", label: "Tanya AI" },
   { id: "roleplay", label: "Main peran" },

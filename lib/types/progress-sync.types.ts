@@ -14,6 +14,7 @@ export type ProgressKey =
   | "search_scope"
   | "roleplay"
   | "mistakes"
-  | "listening";
+  | "listening"
+  | "reading";
 
 export type ProgressMap = Partial<Record<ProgressKey, unknown>>;

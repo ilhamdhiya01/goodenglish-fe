@@ -28,6 +28,7 @@ const DOC_KEYS: Record<string, ProgressKey> = {
   [STORAGE_KEYS.roleplay]: "roleplay",
   [STORAGE_KEYS.mistakes]: "mistakes",
   [STORAGE_KEYS.listening]: "listening",
+  [STORAGE_KEYS.reading]: "reading",
 };
 
 let snapshot: ProgressMap = {};

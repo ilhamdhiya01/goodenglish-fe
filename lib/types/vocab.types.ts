@@ -35,6 +35,10 @@ export interface CustomWord {
   pron: string;
   ex: string;
   syn?: string;
+  /** Kartu pribadi yang disimpan dari Bacaan ("Simpan ke Ulang"). */
+  personal?: boolean;
+  /** Asal kartu pribadi, mis. "Bacaan: A busy Monday". */
+  source?: string;
 }
 
 /** State form tambah/ubah Kataku. */

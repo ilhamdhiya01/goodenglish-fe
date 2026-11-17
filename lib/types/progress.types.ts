@@ -8,7 +8,7 @@ export interface SrsEntry {
   lapses?: number;
 }
 
-/** Bentuk file JSON ekspor/impor progres (format v5, kompatibel v1–v4). */
+/** Bentuk file JSON ekspor/impor progres (format v6, kompatibel v1–v5). */
 export interface ProgressSnapshot {
   v: number;
   exportedAt: string;
@@ -25,4 +25,6 @@ export interface ProgressSnapshot {
   mistakes?: unknown;
   /** v5: Menyimak (ListeningData). */
   listening?: unknown;
+  /** v6: Bacaan (ReadingData). Kartu pribadinya ada di `custom`. */
+  reading?: unknown;
 }

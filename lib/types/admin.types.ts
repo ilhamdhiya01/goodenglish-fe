@@ -53,6 +53,10 @@ export interface TokenSummary {
   srsCount: number;
   ownSentenceCount: number;
   customWordCount: number;
+  // Of customWordCount, saved from Bacaan. Optional: older backends.
+  personalWordCount?: number;
+  // Bacaan texts finished. Optional: older backends.
+  readingDoneCount?: number;
   lastProgressAt: string | null;
   sessions: TokenSessionItem[];
   // Newest week first. Optional: an older backend doesn't send it.

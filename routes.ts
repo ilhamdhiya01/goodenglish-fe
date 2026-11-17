@@ -13,12 +13,15 @@ export const ROUTES = {
   ROLEPLAY_HISTORY: "/scenario/history",
   LISTENING: "/listening",
   ADMIN_LISTENING: "/admin/listening",
+  READING: "/reading",
+  ADMIN_READING: "/admin/reading",
   ADMIN_TOKENS: "/admin/tokens",
   ADMIN_WORDS: "/admin/words",
   ADMIN_AI: "/admin/ai",
   grammarSub: (sub: string) => `/grammar/${sub}`,
   roleplay: (scenarioId: string) => `/scenario/roleplay/${scenarioId}`,
   listeningTab: (tab: string) => `/listening/${tab}`,
+  readingText: (id: string) => `/reading/${id}`,
 } as const;
 
 // API endpoints (consumed by services/*.service.ts)
@@ -68,6 +71,18 @@ export const API_ADMIN_LISTENING_PUBLISH = (id: string) =>
   `${API_ADMIN_LISTENING_ITEM(id)}/publish`;
 export const API_ADMIN_LISTENING_UNPUBLISH = (id: string) =>
   `${API_ADMIN_LISTENING_ITEM(id)}/unpublish`;
+
+// "Bacaan": published texts + tap-a-word meanings (learners), admin texts
+export const API_READING_TEXTS = `${API_BASE_URL}/reading/texts`;
+export const API_READING_LOOKUP = `${API_BASE_URL}/reading/lookup`;
+export const API_ADMIN_READING = `${API_BASE_URL}/admin/reading`;
+export const API_ADMIN_READING_GENERATE = `${API_ADMIN_READING}/generate`;
+export const API_ADMIN_READING_TEXT = (id: string) =>
+  `${API_ADMIN_READING}/${id}`;
+export const API_ADMIN_READING_PUBLISH = (id: string) =>
+  `${API_ADMIN_READING_TEXT(id)}/publish`;
+export const API_ADMIN_READING_UNPUBLISH = (id: string) =>
+  `${API_ADMIN_READING_TEXT(id)}/unpublish`;
 
 // Admin: Gemini key + model behind Tanya AI
 export const API_ADMIN_AI_SETTINGS = `${API_BASE_URL}/admin/ai-settings`;

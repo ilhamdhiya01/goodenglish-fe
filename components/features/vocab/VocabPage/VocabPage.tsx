@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import Jalak from "@/components/brand/Jalak";
 import TenseIntro from "@/components/features/vocab/TenseIntro/TenseIntro";
@@ -9,11 +9,12 @@ import WeekCover from "@/components/features/vocab/WeekCover/WeekCover";
 import WeekSidebar from "@/components/features/vocab/WeekSidebar/WeekSidebar";
 import WordCard from "@/components/features/vocab/WordCard/WordCard";
 import Card from "@/components/ui/card";
-import type { Flat } from "@/lib/helpers/level-data.helper";
+import { type Flat, flatten } from "@/lib/helpers/level-data.helper";
 import { itemKey } from "@/lib/helpers/storage.helper";
 import { formsOf, formsSearchText } from "@/lib/helpers/verb-forms.helper";
 import { useShellData } from "@/lib/hooks/useShellData";
-import { useVocabUiStore } from "@/stores/useVocabUiStore";
+import { useProgressStore } from "@/stores/useProgressStore";
+import { MINE_TYPE, useVocabUiStore } from "@/stores/useVocabUiStore";
 
 const FIRST_CARDS = 40;
 const MORE_CARDS = 60;
@@ -26,6 +27,7 @@ const VocabPage = React.memo(() => {
   const type = useVocabUiStore((s) => s.type);
   const hideKnown = useVocabUiStore((s) => s.hideKnown);
   const focusKey = useVocabUiStore((s) => s.focusKey);
+  const custom = useProgressStore((s) => s.custom);
 
   const { plan, V } = data;
   const d = V[String(week)];
@@ -38,12 +40,24 @@ const VocabPage = React.memo(() => {
     formsSearchText(formsOf(x.it)).includes(ql);
   const weekItems: Flat[] = d ? d.items.map((it) => ({ w: week, it })) : [];
   const src: Flat[] = searching ? weekItems.filter(match) : weekItems;
+  // "Kataku (pribadi)": cards saved from Bacaan, every week of this level.
+  const personal = useMemo(() => {
+    const keys = new Set(custom.filter((c) => c.personal).map((c) => c.key));
+    return flatten(V).filter((x) => !!x.it[6] && keys.has(x.it[6]));
+  }, [custom, V]);
+  const personalSrc = searching ? personal.filter(match) : personal;
 
-  const counts: Record<string, number> = { all: src.length };
+  const counts: Record<string, number> = {
+    all: src.length,
+    [MINE_TYPE]: personalSrc.length,
+  };
   src.forEach((x) => {
     counts[x.it[0]] = (counts[x.it[0]] || 0) + 1;
   });
-  let list = src.filter((x) => type === "all" || x.it[0] === type);
+  let list =
+    type === MINE_TYPE
+      ? personalSrc
+      : src.filter((x) => type === "all" || x.it[0] === type);
   if (hideKnown)
     list = list.filter((x) => !known[itemKey(level, x.w, x.it[0], x.it[1])]);
 
@@ -91,7 +105,7 @@ const VocabPage = React.memo(() => {
           </details>
         )}
 
-        {(d || searching) && (
+        {(d || searching || type === MINE_TYPE) && (
           <>
             <VocabToolbar
               searching={searching}
@@ -128,7 +142,9 @@ const VocabPage = React.memo(() => {
                     <span className="text-[15px] font-bold text-ink-2">
                       {searching
                         ? "Tidak ada kata yang cocok."
-                        : "Belum ada item."}
+                        : type === MINE_TYPE
+                          ? "Belum ada kartu pribadi. Simpan kata dari Bacaan dengan “Simpan ke Ulang”."
+                          : "Belum ada item."}
                     </span>
                   </Card>
                 ))}

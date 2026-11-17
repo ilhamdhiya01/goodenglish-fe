@@ -80,6 +80,10 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
   // it[6] terisi untuk kata tambahan: Kataku milik sendiri, atau kosakata
   // bersama dari admin (dikelola di dashboard, tampil seperti kata biasa).
   const isMine = !!it[6] && !isSharedKey(it[6]);
+  // Saved from Bacaan: private to this learner, with where it came from.
+  const personal = isMine
+    ? custom.find((c) => c.key === it[6] && c.personal)
+    : undefined;
   const vf = formsOf(it);
   const v: [string, string, boolean] | null = vf
     ? [vf.v2, vf.v3, vf.irregular]
@@ -200,7 +204,12 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
       <TypeBadge type={t} />
       {isMine && (
         <span className="rounded-[7px] border-2 border-dashed border-accent-line px-1.5 py-px text-[11px] font-extrabold tracking-[0.06em] text-accent-edge">
-          KATAKU
+          {personal ? "PRIBADI" : "KATAKU"}
+        </span>
+      )}
+      {personal?.source && (
+        <span className="text-[12px] font-bold text-ink-2">
+          {personal.source}
         </span>
       )}
     </>

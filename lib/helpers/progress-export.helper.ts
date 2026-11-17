@@ -9,21 +9,22 @@ import { mergeListening, useListeningStore } from "@/stores/useListeningStore";
 import { mergeMistakes, useMistakeStore } from "@/stores/useMistakeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 import { useProgressStore } from "@/stores/useProgressStore";
+import { mergeReading, useReadingStore } from "@/stores/useReadingStore";
 import {
   mergeRoleplay,
   useRoleplayStore,
   validRecord,
 } from "@/stores/useRoleplayStore";
 
-// Ekspor/impor progres — format v5, kompatibel dengan file ekspor lama
-// (v1–v4). Kunci yang tidak ada di file lama diberi nilai default kosong.
+// Ekspor/impor progres — format v6, kompatibel dengan file ekspor lama
+// (v1–v5). Kunci yang tidak ada di file lama diberi nilai default kosong.
 
 export const exportProgress = () => {
   try {
     const P = useProgressStore.getState();
     const { level } = useLevelStore.getState();
     const d: ProgressSnapshot = {
-      v: 5,
+      v: 6,
       exportedAt: new Date().toISOString(),
       known: P.known,
       srs: P.srs,
@@ -40,6 +41,9 @@ export const exportProgress = () => {
         seen,
         pairs,
       }))(useListeningStore.getState()),
+      reading: (({ results, done, lookups }) => ({ results, done, lookups }))(
+        useReadingStore.getState(),
+      ),
     };
     const blob = new Blob([JSON.stringify(d, null, 1)], {
       type: "application/json",
@@ -141,6 +145,11 @@ export const applyImport = (d: ProgressSnapshot): string => {
     useListeningStore
       .getState()
       .setAll((cur) => mergeListening(cur, d.listening));
+  }
+
+  // v6: Bacaan (file lama: tidak ada, tidak diubah).
+  if (d.reading && typeof d.reading === "object") {
+    useReadingStore.getState().setAll((cur) => mergeReading(cur, d.reading));
   }
 
   return (
