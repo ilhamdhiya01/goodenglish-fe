@@ -53,6 +53,12 @@ export const progressWithDue = () => ({
 
 export const adminSession: SessionData = { ...fullSession, role: "admin" };
 
+/** A learner who may also use "Main peran" (needs Skenario too). */
+export const roleplaySession: SessionData = {
+  ...fullSession,
+  menus: [...ALL_MENUS, "roleplay"],
+};
+
 const ADMIN_TOKENS = (["active", "revoked", "expired"] as const).map(
   (status, i) => ({
     id: "t" + i,
@@ -63,6 +69,7 @@ const ADMIN_TOKENS = (["active", "revoked", "expired"] as const).map(
     levels: ["beginner", "pre"],
     maxDevices: 2,
     aiDailyLimit: 20,
+    roleplayDailyLimit: 3,
     activeDevices: i === 0 ? 1 : 0,
     status,
     expiresAt: null,
@@ -77,6 +84,11 @@ export interface MockOptions {
   progress?: Record<string, unknown>;
   aiUsage?: { used: number; limit: number | null };
   aiReply?: string;
+  roleplayUsage?: { used: number; limit: number | null };
+  /** What the STT "hears" from a recording ("" = 422 stt_no_speech). */
+  roleplayTranscript?: string;
+  /** How many "Main peran" turns fail (502) before they work. */
+  roleplayFailTurns?: number;
 }
 
 export interface MockApi {
@@ -86,6 +98,8 @@ export interface MockApi {
   chats: unknown[];
   /** Every token action, "METHOD /admin/tokens/…". */
   admin: string[];
+  /** Every "Main peran" call, "METHOD /roleplay/…" with its body. */
+  roleplay: { path: string; body: unknown }[];
   lastPut: (key: string) => unknown;
 }
 
@@ -124,6 +138,7 @@ export const installMockApi = async (
     puts: [],
     chats: [],
     admin: [],
+    roleplay: [],
     lastPut: (key) =>
       [...api.puts].reverse().find((p) => p.key === key)?.data ?? undefined,
   };
@@ -222,6 +237,106 @@ export const installMockApi = async (
       });
     }
 
+    // "Main peran": 2 learner turns finish the mission (order: 3 steps).
+    if (path === "/roleplay/usage") {
+      return json(route, opts.roleplayUsage ?? { used: 0, limit: 3 });
+    }
+    if (path.startsWith("/roleplay/sessions")) {
+      // The mic upload is multipart; everything else is JSON.
+      if (path.endsWith("/transcribe")) {
+        const raw = req.postDataBuffer() ?? Buffer.alloc(0);
+        const text = raw.toString("latin1");
+        const language = /name="language"\r\n\r\n(\w+)/.exec(text)?.[1];
+        const file =
+          /name="audio"; filename="([^"]+)"\r\nContent-Type: ([^\r]+)/.exec(
+            text,
+          );
+        api.roleplay.push({
+          path,
+          body: {
+            contentType: req.headers()["content-type"] ?? "",
+            language,
+            fileName: file?.[1],
+            fileType: file?.[2],
+            bytes: raw.length,
+          },
+        });
+        const said =
+          opts.roleplayTranscript ??
+          (language === "id" ? "Saya mau dua kopi" : "I go to event yesterday");
+        if (!said) {
+          return json(route, { errors: [{ message: "stt_no_speech" }] }, 422);
+        }
+        return json(route, {
+          text: said,
+          language,
+          durationSec: 1.2,
+          transcribeLeft: 29,
+        });
+      }
+      const body = method === "POST" ? req.postDataJSON() : null;
+      api.roleplay.push({ path, body });
+      if (path === "/roleplay/sessions") {
+        return json(route, {
+          id: "rp1",
+          reply: "Hi! What can I get for you?",
+          remaining: 2,
+        });
+      }
+      const transcript = (body as { transcript: { role: string }[] })
+        .transcript;
+      const userTurns = transcript.filter((l) => l.role === "user").length;
+      if (path.endsWith("/turn")) {
+        if ((opts.roleplayFailTurns ?? 0) > 0) {
+          opts.roleplayFailTurns!--;
+          return json(route, { errors: [{ message: "ai_failed" }] }, 502);
+        }
+        const done = userTurns >= 2;
+        return json(route, {
+          reply: done
+            ? "That's 65,000. Have a nice day!"
+            : "Sure. Anything else?",
+          stepsDone: done ? [0, 1, 2] : [0],
+          missionComplete: done,
+          userTurns,
+          turnsLeft: 12 - userTurns,
+        });
+      }
+      if (path.endsWith("/help")) {
+        return json(route, {
+          suggestions: [
+            { en: "Can I have a latte, please?", id: "Boleh minta latte?" },
+            { en: "How much is it?", id: "Berapa harganya?" },
+          ],
+          helpLeft: 5,
+        });
+      }
+      if (path.endsWith("/finish")) {
+        return json(route, {
+          missionComplete: userTurns >= 2,
+          summary: "Bagus! Kamu berhasil memesan dengan jelas.",
+          corrections: [
+            {
+              original: "I want two latte",
+              corrected: "I want two lattes",
+              explanation: "Benda jamak pakai -s: two lattes.",
+              category: "kesalahan",
+            },
+          ],
+          moreNatural: [
+            {
+              original: "I want two lattes",
+              natural: "Can I have two lattes, please?",
+            },
+          ],
+          keyPhrasesUsed: ["Anything else?"],
+          durationSec: 125,
+          userTurns,
+          stepsDone: userTurns >= 2 ? [0, 1, 2] : [0],
+        });
+      }
+    }
+
     if (path === "/admin/tokens" && method === "GET") {
       return json(route, ADMIN_TOKENS);
     }
@@ -244,6 +359,10 @@ export const installMockApi = async (
         customWordCount: 1,
         lastProgressAt: new Date().toISOString(),
         sessions: [],
+        roleplayWeeks: [
+          { weekStart: "2026-11-16", sessions: 2, minutes: 13 },
+          { weekStart: "2026-11-09", sessions: 0, minutes: 0 },
+        ],
       });
     }
 

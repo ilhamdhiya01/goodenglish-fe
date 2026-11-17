@@ -8,7 +8,10 @@ export type MenuId =
   | "pronunciation"
   | "cheatsheet"
   // Not a tab: the floating "Tanya AI" chat.
-  | "ai";
+  | "ai"
+  // Not a tab either: "Main peran" (voice roleplay) inside Skenario. Needs
+  // "scenario" too.
+  | "roleplay";
 
 export type LevelId = "beginner" | "pre" | "inter" | "upper";
 

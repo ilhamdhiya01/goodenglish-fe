@@ -16,4 +16,8 @@ export const STORAGE_KEYS = {
   searchScope: "vocab-search-scope-v1",
   plan: "vocab-plan-v1",
   practiceSession: "vocab-practice-session-v1",
+  // Ditambahkan bersama "Main peran": riwayat sesi dan kesalahan yang
+  // terkumpul darinya (bakal dipakai Buku kesalahanku).
+  roleplay: "vocab-roleplay-v1",
+  mistakes: "vocab-mistakes-v1",
 } as const;

@@ -1,5 +1,10 @@
 import { toast } from "@/lib/toast";
-import { generate, kokoroSay, stopKokoro } from "@/lib/tts/kokoro";
+import {
+  generate,
+  kokoroSay,
+  releaseAudio,
+  stopKokoro,
+} from "@/lib/tts/kokoro";
 
 // Reads English aloud with Kokoro (an AI voice that runs on the device, see
 // lib/tts). Every speaker button in the app goes through speak()/speakAll().
@@ -39,12 +44,20 @@ const reportError = () => {
 const record = (text: string) =>
   (window as unknown as { __spoken?: string[] }).__spoken?.push(text);
 
-const say = async (text: string, id: object): Promise<boolean> => {
+const say = async (
+  text: string,
+  id: object,
+  speed?: number,
+): Promise<boolean> => {
   setNow({ id, text, phase: "preparing" });
   try {
-    const finished = await kokoroSay(text, () => {
-      if (now?.id === id) setNow({ id, text, phase: "playing" });
-    });
+    const finished = await kokoroSay(
+      text,
+      () => {
+        if (now?.id === id) setNow({ id, text, phase: "playing" });
+      },
+      speed,
+    );
     return finished;
   } catch {
     reportError();
@@ -54,10 +67,11 @@ const say = async (text: string, id: object): Promise<boolean> => {
   }
 };
 
-export const speak = (text: string) => {
+/** `speed` overrides the speed chosen in Pilih suara for this line only. */
+export const speak = (text: string, opts?: { speed?: number }) => {
   if (!text.trim()) return;
   record(text);
-  void say(text, {});
+  void say(text, {}, opts?.speed);
 };
 
 /** Read lines one after another (a whole dialogue); any other speak() stops it. */
@@ -75,5 +89,11 @@ export const speakAll = async (texts: string[]) => {
 
 export const stopSpeaking = () => {
   stopKokoro();
+  setNow(null);
+};
+
+/** Stop speaking and free the audio output for the microphone (Main peran). */
+export const releaseSpeech = () => {
+  releaseAudio();
   setNow(null);
 };

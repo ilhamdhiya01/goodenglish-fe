@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import AiChat from "@/components/features/ai/AiChat";
 import PlanAutoCheck from "@/components/providers/PlanAutoCheck";
 import TtsBootstrap from "@/components/providers/TtsBootstrap";
+import { NON_TAB_MENUS } from "@/const/access.constant";
 import { isActivePath, NAV } from "@/const/nav.constant";
 import { loadNotes } from "@/lib/content";
 import { applyProgress } from "@/lib/helpers/progress-hydrate.helper";
@@ -116,8 +117,9 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   useEffect(() => {
     if (!ready || !session) return;
     const menu = menuOfPath(pathname);
-    // "ai" is the floating chat, never a page to land on.
-    const home = session.menus.find((m) => m !== "ai");
+    // "ai" (the floating chat) and "roleplay" (inside Skenario) are never a
+    // page to land on.
+    const home = session.menus.find((m) => !NON_TAB_MENUS.includes(m));
     if (!session.menus.includes(menu) && home) router.replace("/" + home);
   }, [ready, session, pathname, router]);
 

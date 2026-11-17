@@ -5,17 +5,24 @@ import type { ProgressSnapshot } from "@/lib/types/progress.types";
 import type { CustomWord } from "@/lib/types/vocab.types";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { useLevelStore } from "@/stores/useLevelStore";
+import { mergeMistakes, useMistakeStore } from "@/stores/useMistakeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 import { useProgressStore } from "@/stores/useProgressStore";
+import {
+  mergeRoleplay,
+  useRoleplayStore,
+  validRecord,
+} from "@/stores/useRoleplayStore";
 
-// Ekspor/impor progres — format v3, kompatibel dengan file ekspor lama (v1/v2).
+// Ekspor/impor progres — format v4, kompatibel dengan file ekspor lama
+// (v1–v3). Kunci yang tidak ada di file lama diberi nilai default kosong.
 
 export const exportProgress = () => {
   try {
     const P = useProgressStore.getState();
     const { level } = useLevelStore.getState();
     const d: ProgressSnapshot = {
-      v: 3,
+      v: 4,
       exportedAt: new Date().toISOString(),
       known: P.known,
       srs: P.srs,
@@ -24,6 +31,8 @@ export const exportProgress = () => {
       level,
       plan: usePlanStore.getState().plan,
       askprac: useAskPracticeStore.getState().stats,
+      roleplay: useRoleplayStore.getState().history,
+      mistakes: useMistakeStore.getState().mistakes,
     };
     const blob = new Blob([JSON.stringify(d, null, 1)], {
       type: "application/json",
@@ -105,11 +114,27 @@ export const applyImport = (d: ProgressSnapshot): string => {
     }
   }
 
+  // v4: riwayat Main peran & kesalahan, digabung per id (file lama: kosong).
+  const rp = Array.isArray(d.roleplay)
+    ? d.roleplay.filter(validRecord).length
+    : 0;
+  if (rp) {
+    useRoleplayStore
+      .getState()
+      .setHistory((cur) => mergeRoleplay(cur, d.roleplay));
+  }
+  if (Array.isArray(d.mistakes) && d.mistakes.length) {
+    useMistakeStore
+      .getState()
+      .setMistakes((cur) => mergeMistakes(cur, d.mistakes));
+  }
+
   return (
     "Progres diimpor: " +
     Object.keys(d.known).length +
     " kata hafal" +
     (Array.isArray(d.custom) ? ", " + d.custom.length + " kata tambahan" : "") +
+    (rp ? ", " + rp + " sesi main peran" : "") +
     "."
   );
 };

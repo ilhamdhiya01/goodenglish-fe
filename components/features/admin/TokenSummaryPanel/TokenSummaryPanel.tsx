@@ -7,6 +7,7 @@ import SectionLabel from "@/components/ui/section-label";
 import TextButton from "@/components/ui/text-button";
 import { formatDateTime } from "@/lib/helpers/date.helper";
 import { useTokenSummary } from "@/lib/hooks/admin/useTokenSummary";
+import type { RoleplayWeek } from "@/lib/types/admin.types";
 
 interface TokenSummaryPanelProps {
   id: string;
@@ -20,6 +21,56 @@ const Stat = ({ value, label }: { value: number; label: string }) => (
       {value}
     </span>
     <SectionLabel>{label}</SectionLabel>
+  </div>
+);
+
+// "17 Nov": the Monday a week starts on.
+const weekLabel = (ymd: string) =>
+  new Date(`${ymd}T00:00:00`).toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "short",
+  });
+
+// Main peran per calendar week (Monday–Sunday, WIB), newest first.
+const RoleplayWeeks = ({ weeks }: { weeks: RoleplayWeek[] }) => (
+  <div className="flex flex-col">
+    <SectionLabel className="pb-1.5">Main peran per minggu</SectionLabel>
+    {weeks.every((w) => w.sessions === 0) ? (
+      <span className="text-[13.5px] font-semibold text-ink-2">
+        Belum ada sesi main peran dalam {weeks.length} minggu terakhir.
+      </span>
+    ) : (
+      <table className="w-full border-collapse text-left text-[13.5px]">
+        <thead>
+          <tr className="border-b-2 border-line text-[12px] font-extrabold tracking-[0.07em] text-ink-3 uppercase">
+            <th scope="col" className="py-1.5 pr-3">
+              Minggu mulai
+            </th>
+            <th scope="col" className="py-1.5 pr-3 text-right">
+              Sesi
+            </th>
+            <th scope="col" className="py-1.5 text-right">
+              Menit
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {weeks.map((w) => (
+            <tr key={w.weekStart} className="border-b-2 border-line">
+              <td className="py-1.5 pr-3 font-bold text-ink">
+                {weekLabel(w.weekStart)}
+              </td>
+              <td className="py-1.5 pr-3 text-right font-bold tabular-nums">
+                {w.sessions}
+              </td>
+              <td className="py-1.5 text-right font-bold tabular-nums">
+                {w.minutes}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )}
   </div>
 );
 
@@ -53,6 +104,9 @@ const TokenSummaryPanel = React.memo(
                 ? formatDateTime(summary.lastProgressAt)
                 : "belum pernah"}
             </span>
+            {summary.roleplayWeeks && (
+              <RoleplayWeeks weeks={summary.roleplayWeeks} />
+            )}
             <div className="flex flex-col">
               <SectionLabel className="pb-1.5">Perangkat</SectionLabel>
               {summary.sessions.length === 0 && (

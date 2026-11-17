@@ -33,6 +33,7 @@ import x4 from "./raw/x4.js";
 import x5 from "./raw/x5.js";
 import x6 from "./raw/x6.js";
 import x7 from "./raw/x7.js";
+import { SCENARIO_ROLEPLAY } from "./roleplay";
 
 // Semua paket data dijalankan berurutan ke satu objek bersama, meniru urutan <script> pada versi HTML.
 const W: Record<string, any> = {};
@@ -77,7 +78,11 @@ const W: Record<string, any> = {};
 export const VOCAB: Record<string, any> = W.VOCAB || {};
 export const VOCAB_X: Record<string, any[]> = W.VOCAB_X || {};
 export const VOCAB_L: Record<string, any> = W.VOCAB_L || {};
-export const VOCAB_SCEN: any[] = W.VOCAB_SCEN || [];
+// Each scenario also gets its static "Main peran" data (lib/content/roleplay).
+export const VOCAB_SCEN: any[] = (W.VOCAB_SCEN || []).map((s: any) => ({
+  ...s,
+  roleplay: SCENARIO_ROLEPLAY[s.id],
+}));
 export const VOCAB_ERRORS: any[] = W.VOCAB_ERRORS || [];
 export const VERB_FORMS: {
   IRREG: Record<string, string[]>;
@@ -98,6 +103,7 @@ export const ASK_GEN: {
 
 // Bentuk V2 / V3 per kartu kata kerja: kunci "type|en|arti" → [V2, V3, 1 = tak beraturan].
 import verbCards from "./verb-forms.json";
+
 export const VERB_CARDS = verbCards as unknown as Record<
   string,
   [string, string, number]

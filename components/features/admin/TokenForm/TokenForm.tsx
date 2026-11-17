@@ -10,26 +10,91 @@ import Input from "@/components/ui/input";
 import Pill from "@/components/ui/pill";
 import SectionLabel from "@/components/ui/section-label";
 import Select from "@/components/ui/select";
-import { LEVEL_OPTIONS, MENU_OPTIONS } from "@/const/access.constant";
+import {
+  LEVEL_OPTIONS,
+  MENU_OPTIONS,
+  NON_TAB_MENUS,
+} from "@/const/access.constant";
 import type { TokenFormValues } from "@/lib/types/admin.types";
 import type { LevelId, MenuId } from "@/lib/types/session.types";
 
 const DEFAULT_VALUES: TokenFormValues = {
   label: "",
   role: "learner",
-  // Tanya AI costs per question, so it's opt-in per learner.
-  menus: MENU_OPTIONS.map((m) => m.id).filter((id) => id !== "ai"),
+  // Tanya AI and Main peran cost per use, so they're opt-in per learner.
+  menus: MENU_OPTIONS.map((m) => m.id).filter(
+    (id) => !NON_TAB_MENUS.includes(id),
+  ),
   levels: ["beginner"],
   maxDevices: 2,
   expiresAt: null,
   aiDailyLimit: 30,
+  roleplayDailyLimit: 3,
 };
 
 const AI_LIMIT_MAX = 10000;
+const ROLEPLAY_LIMIT_MAX = 100;
 
 // Label above a row of choices, same look as FieldLabel.
 const GROUP_LABEL = "mb-2 p-0 text-[13px] font-extrabold text-ink-2";
 const HINT = "text-[12.5px] leading-[18px] font-semibold text-ink-2";
+
+// A per-day limit: a number, or "Tanpa batas" (null). Unticking it brings
+// back the last number typed.
+const LimitField = ({
+  legend,
+  hint,
+  value,
+  max,
+  fallback,
+  onChange,
+}: {
+  legend: string;
+  hint: string;
+  value: number | null;
+  max: number;
+  fallback: number;
+  onChange: (v: number | null) => void;
+}) => {
+  const [last, setLast] = useState(value ?? fallback);
+  const unlimited = value === null;
+  return (
+    <fieldset className="m-0 min-w-0 border-0 p-0">
+      <legend className={GROUP_LABEL}>{legend}</legend>
+      <div className="flex flex-wrap items-center gap-4">
+        <div className="w-28">
+          <Input
+            type="number"
+            min={0}
+            max={max}
+            disabled={unlimited}
+            value={unlimited ? "" : value}
+            placeholder="∞"
+            aria-label={legend}
+            onChange={(e) => {
+              const n = Math.max(
+                0,
+                Math.min(max, Math.floor(+e.target.value) || 0),
+              );
+              setLast(n);
+              onChange(n);
+            }}
+          />
+        </div>
+        <label className="flex min-h-11 cursor-pointer items-center gap-2.5 text-sm font-extrabold text-ink">
+          <input
+            type="checkbox"
+            checked={unlimited}
+            onChange={(e) => onChange(e.target.checked ? null : last)}
+            className="h-5 w-5 cursor-pointer accent-accent focus-ring"
+          />
+          Tanpa batas
+        </label>
+      </div>
+      <p className={classNames(HINT, "m-0 mt-2")}>{hint}</p>
+    </fieldset>
+  );
+};
 
 interface TokenFormProps {
   title: string;
@@ -55,16 +120,16 @@ const TokenForm = React.memo(
     const [values, setValues] = useState<TokenFormValues>(
       initialValues ?? DEFAULT_VALUES,
     );
-    // Remembered so unticking "Tanpa batas" brings the old number back.
-    const [lastLimit, setLastLimit] = useState(values.aiDailyLimit ?? 30);
     const isAdmin = values.role === "admin";
     const hasAi = isAdmin || values.menus.includes("ai");
-    const unlimited = values.aiDailyLimit === null;
-    // "Tanya AI" is the floating chat, not a page: a learner needs a tab too.
+    const hasRoleplay = isAdmin || values.menus.includes("roleplay");
+    // "Tanya AI" (floating chat) and "Main peran" (inside Skenario) are not
+    // pages: a learner needs a tab too.
     const canSubmit =
       values.label.trim().length > 0 &&
       (isAdmin ||
-        (values.menus.some((m) => m !== "ai") && values.levels.length > 0));
+        (values.menus.some((m) => !NON_TAB_MENUS.includes(m)) &&
+          values.levels.length > 0));
 
     const handleSubmit = useCallback(
       (e: React.FormEvent) => {
@@ -161,6 +226,13 @@ const TokenForm = React.memo(
                     </Pill>
                   ))}
                 </div>
+                {values.menus.includes("roleplay") &&
+                  !values.menus.includes("scenario") && (
+                    <p className={classNames(HINT, "m-0 mt-2")}>
+                      Main peran ada di dalam Skenario, jadi centang Skenario
+                      juga.
+                    </p>
+                  )}
               </fieldset>
               <fieldset className="m-0 min-w-0 border-0 p-0">
                 <legend className={GROUP_LABEL}>Level yang boleh dibuka</legend>
@@ -188,50 +260,25 @@ const TokenForm = React.memo(
           )}
 
           {hasAi && (
-            <fieldset className="m-0 min-w-0 border-0 p-0">
-              <legend className={GROUP_LABEL}>Batas Tanya AI per hari</legend>
-              <div className="flex flex-wrap items-center gap-4">
-                <div className="w-28">
-                  <Input
-                    type="number"
-                    min={0}
-                    max={AI_LIMIT_MAX}
-                    disabled={unlimited}
-                    value={unlimited ? "" : (values.aiDailyLimit ?? "")}
-                    placeholder="∞"
-                    onChange={(e) => {
-                      const n = Math.max(
-                        0,
-                        Math.min(
-                          AI_LIMIT_MAX,
-                          Math.floor(+e.target.value) || 0,
-                        ),
-                      );
-                      setLastLimit(n);
-                      setValues({ ...values, aiDailyLimit: n });
-                    }}
-                  />
-                </div>
-                <label className="flex min-h-11 cursor-pointer items-center gap-2.5 text-sm font-extrabold text-ink">
-                  <input
-                    type="checkbox"
-                    checked={unlimited}
-                    onChange={(e) =>
-                      setValues({
-                        ...values,
-                        aiDailyLimit: e.target.checked ? null : lastLimit,
-                      })
-                    }
-                    className="h-5 w-5 cursor-pointer accent-accent focus-ring"
-                  />
-                  Tanpa batas
-                </label>
-              </div>
-              <p className={classNames(HINT, "m-0 mt-2")}>
-                Jumlah pertanyaan + cek kalimat per hari. 0 = tidak bisa
-                bertanya. Dihitung ulang tiap tengah malam WIB.
-              </p>
-            </fieldset>
+            <LimitField
+              legend="Batas Tanya AI per hari"
+              hint="Jumlah pertanyaan + cek kalimat per hari. 0 = tidak bisa bertanya. Dihitung ulang tiap tengah malam WIB."
+              value={values.aiDailyLimit}
+              max={AI_LIMIT_MAX}
+              fallback={30}
+              onChange={(v) => setValues({ ...values, aiDailyLimit: v })}
+            />
+          )}
+
+          {hasRoleplay && (
+            <LimitField
+              legend="Batas sesi main peran per hari"
+              hint="Terpisah dari batas Tanya AI. 0 = tidak bisa main peran. Dihitung ulang tiap tengah malam WIB."
+              value={values.roleplayDailyLimit}
+              max={ROLEPLAY_LIMIT_MAX}
+              fallback={3}
+              onChange={(v) => setValues({ ...values, roleplayDailyLimit: v })}
+            />
           )}
 
           <div className="flex flex-wrap items-center gap-3">

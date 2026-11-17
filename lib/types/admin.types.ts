@@ -12,6 +12,8 @@ export interface AccessTokenItem {
   maxDevices: number;
   // Tanya AI questions per day; null = unlimited.
   aiDailyLimit: number | null;
+  // Main peran sessions per day; null = unlimited.
+  roleplayDailyLimit: number | null;
   activeDevices: number;
   status: TokenStatus;
   expiresAt: string | null;
@@ -34,6 +36,7 @@ export interface TokenFormValues {
   expiresAt: string | null;
   // null = unlimited.
   aiDailyLimit: number | null;
+  roleplayDailyLimit: number | null;
 }
 
 export interface TokenSessionItem {
@@ -52,4 +55,13 @@ export interface TokenSummary {
   customWordCount: number;
   lastProgressAt: string | null;
   sessions: TokenSessionItem[];
+  // Newest week first. Optional: an older backend doesn't send it.
+  roleplayWeeks?: RoleplayWeek[];
+}
+
+// Main peran activity in one calendar week (Monday–Sunday, WIB).
+export interface RoleplayWeek {
+  weekStart: string;
+  sessions: number;
+  minutes: number;
 }

@@ -10,10 +10,12 @@ export const ROUTES = {
   GRAMMAR: "/grammar",
   PRONUNCIATION: "/pronunciation",
   CHEATSHEET: "/cheatsheet",
+  ROLEPLAY_HISTORY: "/scenario/history",
   ADMIN_TOKENS: "/admin/tokens",
   ADMIN_WORDS: "/admin/words",
   ADMIN_AI: "/admin/ai",
   grammarSub: (sub: string) => `/grammar/${sub}`,
+  roleplay: (scenarioId: string) => `/scenario/roleplay/${scenarioId}`,
 } as const;
 
 // API endpoints (consumed by services/*.service.ts)
@@ -40,6 +42,18 @@ export const API_AI_USAGE = `${API_BASE_URL}/ai/usage`;
 export const API_AI_CONVERSATIONS = `${API_BASE_URL}/ai/conversations`;
 export const API_AI_CONVERSATION = (id: string) =>
   `${API_AI_CONVERSATIONS}/${id}`;
+
+// "Main peran" (voice roleplay with the AI inside Skenario)
+export const API_ROLEPLAY_USAGE = `${API_BASE_URL}/roleplay/usage`;
+export const API_ROLEPLAY_SESSIONS = `${API_BASE_URL}/roleplay/sessions`;
+export const API_ROLEPLAY_TURN = (id: string) =>
+  `${API_ROLEPLAY_SESSIONS}/${id}/turn`;
+export const API_ROLEPLAY_HELP = (id: string) =>
+  `${API_ROLEPLAY_SESSIONS}/${id}/help`;
+export const API_ROLEPLAY_TRANSCRIBE = (id: string) =>
+  `${API_ROLEPLAY_SESSIONS}/${id}/transcribe`;
+export const API_ROLEPLAY_FINISH = (id: string) =>
+  `${API_ROLEPLAY_SESSIONS}/${id}/finish`;
 
 // Admin: Gemini key + model behind Tanya AI
 export const API_ADMIN_AI_SETTINGS = `${API_BASE_URL}/admin/ai-settings`;

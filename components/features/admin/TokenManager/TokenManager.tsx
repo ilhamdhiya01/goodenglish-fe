@@ -74,6 +74,13 @@ const aiLabel = (t: AccessTokenItem) =>
       ? "Tanya AI: tanpa batas"
       : `Tanya AI: ${t.aiDailyLimit}/hari`;
 
+const roleplayLabel = (t: AccessTokenItem) =>
+  t.role !== "admin" && !t.menus.includes("roleplay")
+    ? null
+    : t.roleplayDailyLimit === null || t.roleplayDailyLimit === undefined
+      ? "Main peran: tanpa batas"
+      : `Main peran: ${t.roleplayDailyLimit} sesi/hari`;
+
 const CONFIRM: Partial<Record<TokenAction, ConfirmOptions>> = {
   revoke: {
     title: "Nonaktifkan token ini?",
@@ -223,6 +230,7 @@ const TokenManager = React.memo(() => {
               maxDevices: editing.maxDevices,
               expiresAt: editing.expiresAt,
               aiDailyLimit: editing.aiDailyLimit,
+              roleplayDailyLimit: editing.roleplayDailyLimit,
             }}
             onSubmit={(v) => void onEdit(v)}
             onCancel={closeForm}
@@ -306,6 +314,11 @@ const TokenManager = React.memo(() => {
                         {aiLabel(t) && (
                           <div className="text-[13px] font-bold text-accent-edge">
                             {aiLabel(t)}
+                          </div>
+                        )}
+                        {roleplayLabel(t) && (
+                          <div className="text-[13px] font-bold text-accent-edge">
+                            {roleplayLabel(t)}
                           </div>
                         )}
                       </div>

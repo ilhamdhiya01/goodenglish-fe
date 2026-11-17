@@ -107,6 +107,17 @@ export const generate = async (
 let current: { src: AudioBufferSourceNode; done: () => void } | null = null;
 let request = 0;
 
+/**
+ * Stop the voice and suspend its audio output until the next line. On
+ * Safari (iOS especially) a running AudioContext keeps the audio session in
+ * playback mode, and speech recognition then hears only silence. kokoroSay
+ * resumes it on the next line.
+ */
+export const releaseAudio = () => {
+  stopKokoro();
+  if (ctx && ctx.state === "running") void ctx.suspend();
+};
+
 /** Stop what is playing and drop anything still being prepared. */
 export const stopKokoro = () => {
   request++;
@@ -129,6 +140,8 @@ export const stopKokoro = () => {
 export const kokoroSay = async (
   text: string,
   onStart?: () => void,
+  // Overrides the chosen speed for this line (Main peran's "Lebih pelan").
+  speed?: number,
 ): Promise<boolean> => {
   stopKokoro();
   const mine = request;
@@ -136,7 +149,7 @@ export const kokoroSay = async (
   // (Safari especially) no longer counts it as a user gesture.
   const ac = audioCtx();
   if (ac.state === "suspended") void ac.resume();
-  const buf = await generate(text);
+  const buf = await generate(text, undefined, speed);
   if (mine !== request) return false;
   if (ac.state === "suspended") await ac.resume();
   return new Promise<boolean>((resolve) => {

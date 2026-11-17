@@ -20,6 +20,7 @@ import { useTodayPlan } from "@/lib/hooks/useTodayPlan";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { confirmDialog } from "@/stores/useConfirmStore";
 import { usePlanStore } from "@/stores/usePlanStore";
+import { roleplaySeconds, useRoleplayStore } from "@/stores/useRoleplayStore";
 
 // A read-only count shaped like a Pill ("Hari ini 1/3", "Streak 6 hari").
 const Stat = ({ children }: { children: React.ReactNode }) => (
@@ -80,6 +81,7 @@ const PlanPage = React.memo(() => {
   const P = usePlanStore((s) => s.plan);
   const setPlan = usePlanStore((s) => s.setPlan);
   const askPrac = useAskPracticeStore((s) => s.stats);
+  const roleplayHistory = useRoleplayStore((s) => s.history);
   const router = useRouter();
 
   const {
@@ -102,6 +104,9 @@ const PlanPage = React.memo(() => {
   const ap = askPrac[rule] || { seen: 0, right: 0 };
   const askAcc = ap.seen >= 20 ? Math.round((ap.right / ap.seen) * 100) : null;
   const wkKey = level + "|" + week;
+  const rpMinutes = Math.floor(
+    roleplaySeconds(roleplayHistory, level, week) / 60,
+  );
   const wk = P.week?.[wkKey] || {};
   const toggleWk = (k: "rec" | "gpt") =>
     setPlan((p) => ({
@@ -136,8 +141,18 @@ const PlanPage = React.memo(() => {
       toggle: () => toggleWk("rec"),
     },
     {
-      name: "Sesi ChatGPT voice 10 menit tanpa satu pun kata Indonesia",
-      ok: !!wk.gpt,
+      // Ticks itself once the Main peran sessions of this level + week add
+      // up to 10 minutes. The manual tick (the old "gpt" key, so earlier
+      // weeks keep their state) stays as a fallback.
+      name: "Main peran 10 menit",
+      ok: rpMinutes >= 10 || !!wk.gpt,
+      val:
+        rpMinutes >= 10
+          ? `${rpMinutes} menit · otomatis`
+          : rpMinutes
+            ? `${rpMinutes} / 10 menit`
+            : "belum dicoba",
+      go: () => router.push("/scenario"),
       toggle: () => toggleWk("gpt"),
     },
   ];

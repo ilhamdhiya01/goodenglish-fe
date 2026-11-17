@@ -28,6 +28,33 @@ export const ACCESS_ERRORS: Record<string, string> = {
   encryption_key_missing:
     "ENCRYPTION_KEY belum di-set di .env server, jadi key tidak bisa disimpan.",
   model_invalid: "Nama model tidak valid.",
+  roleplay_not_allowed:
+    "Token ini belum bisa memakai Main peran. Hubungi admin.",
+  roleplay_quota_exceeded:
+    "Jatah sesi Main peran hari ini sudah habis. Coba lagi besok, ya.",
+  roleplay_turn_limit: "Sesi ini sudah mencapai 12 giliran.",
+  roleplay_help_limit:
+    "Bantuan untuk sesi ini sudah habis. Coba jawab sendiri, ya.",
+  roleplay_session_expired: "Sesi ini sudah terlalu lama. Mulai sesi baru, ya.",
+  roleplay_session_not_found: "Sesi tidak ditemukan. Mulai sesi baru, ya.",
+  roleplay_ended: "Sesi ini sudah selesai.",
+  roleplay_no_turns: "Belum ada jawabanmu, jadi belum ada yang dirangkum.",
+  roleplay_bad_turn: "Tulis atau ucapkan jawabanmu dulu.",
+  roleplay_transcribe_limit:
+    "Batas rekaman suara untuk sesi ini sudah habis. Ketik jawabanmu, ya.",
+  stt_no_speech: "Suaramu tidak terdengar, coba lagi ya.",
+  stt_too_long: "Rekamannya terlalu panjang (maksimal 60 detik).",
+  stt_too_large: "Rekamannya terlalu besar. Coba jawab lebih singkat, ya.",
+  stt_bad_audio: "Rekamannya tidak bisa dibaca. Coba rekam lagi, ya.",
+  stt_bad_language: "Pilih bahasa EN atau ID dulu.",
+  stt_busy: "Server sedang sibuk. Tunggu sebentar, lalu coba lagi.",
+  stt_rate_limited:
+    "Terlalu banyak rekaman dalam semenit. Tunggu sebentar, ya.",
+  stt_timeout:
+    "Server terlalu lama memproses suaramu. Coba lagi dengan jawaban lebih pendek.",
+  stt_unavailable:
+    "Fitur suara sedang tidak tersedia. Ketik jawabanmu dulu, ya.",
+  stt_failed: "Suaramu belum bisa dituliskan. Coba lagi, ya.",
 };
 
 // Why the model picker shows the built-in list instead of Google's.
@@ -54,7 +81,11 @@ export const MENU_OPTIONS: { id: MenuId; label: string }[] = [
   { id: "pronunciation", label: "Pelafalan" },
   { id: "cheatsheet", label: "Cheat sheet" },
   { id: "ai", label: "Tanya AI" },
+  { id: "roleplay", label: "Main peran" },
 ];
+
+// Menus that are not pages: a learner token needs at least one other one.
+export const NON_TAB_MENUS: MenuId[] = ["ai", "roleplay"];
 
 export const LEVEL_OPTIONS: { id: LevelId; label: string }[] = [
   { id: "beginner", label: "Pemula" },

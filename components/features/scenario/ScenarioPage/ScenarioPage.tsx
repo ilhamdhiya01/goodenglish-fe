@@ -1,8 +1,10 @@
 "use client";
 
 import classNames from "classnames";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
+import { Roleplay } from "@/components/features/roleplay";
 import ListItem from "@/components/shared/patterns/list-item";
 import WordTile from "@/components/shared/patterns/word-tile";
 import Button from "@/components/ui/button";
@@ -19,6 +21,8 @@ import { LEVELS } from "@/const/levels.constant";
 import { VOCAB_SCEN, VOCAB_SCEN_KEY } from "@/lib/content";
 import { speak, speakAll } from "@/lib/helpers/speech.helper";
 import type { Scenario } from "@/lib/types/scenario.types";
+import { ROUTES } from "@/routes";
+import { useAccessStore } from "@/stores/useAccessStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 
 const SC = VOCAB_SCEN as Scenario[];
@@ -32,6 +36,11 @@ const learnerRole = (lines: Scenario["lines"]) =>
 // gelembung (lawan bicara kiri, "You" kanan), frasa kunci, variasi jawaban.
 const ScenarioPage = React.memo(() => {
   const level = useLevelStore((s) => s.level);
+  const router = useRouter();
+  // "Main peran" needs its own permission on the token (and an AI behind it).
+  const canRoleplay = !!useAccessStore((s) =>
+    s.session?.menus.includes("roleplay"),
+  );
 
   const first = SC.find((x) => x.level === level) || SC[0];
   const [id, setId] = useState(first ? first.id : "standup");
@@ -124,13 +133,24 @@ const ScenarioPage = React.memo(() => {
                 </span>
                 <span className="text-[13.5px] text-ink-2">{cur.where}</span>
               </div>
-              <Button
-                variant="green"
-                size="sm"
-                onClick={() => speakAll(cur.lines.map((l) => l[1]))}
-              >
-                Putar semua
-              </Button>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  variant={canRoleplay ? "outline" : "green"}
+                  size="sm"
+                  onClick={() => speakAll(cur.lines.map((l) => l[1]))}
+                >
+                  Putar semua
+                </Button>
+                {canRoleplay && cur.roleplay && (
+                  <Button
+                    variant="green"
+                    size="sm"
+                    onClick={() => router.push(ROUTES.roleplay(cur.id))}
+                  >
+                    Main peran
+                  </Button>
+                )}
+              </div>
             </div>
             <div className="flex flex-wrap gap-2">
               <Pill
@@ -245,6 +265,8 @@ const ScenarioPage = React.memo(() => {
               );
             })}
           </ol>
+
+          {canRoleplay && <Roleplay.RoleplayRecent />}
 
           {key && (
             <div className="grid gap-4 lg:grid-cols-2">

@@ -2,7 +2,7 @@
 
 import type { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
-import React, { useCallback, useState, useSyncExternalStore } from "react";
+import React, { useCallback, useState } from "react";
 
 import Jalak from "@/components/brand/Jalak";
 import Logo from "@/components/brand/Logo";
@@ -14,6 +14,7 @@ import PageHeading from "@/components/ui/page-heading";
 import SectionLabel from "@/components/ui/section-label";
 import { accessErrorText } from "@/const/access.constant";
 import { useRedeemToken } from "@/lib/hooks/auth/useRedeemToken";
+import { useOnline } from "@/lib/hooks/useOnline";
 import { ROUTES } from "@/routes";
 import { clearAiChat } from "@/stores/useAiChatStore";
 
@@ -23,21 +24,6 @@ const safeCallback = (raw: string | null) =>
 
 const OFFLINE =
   "Tidak bisa terhubung ke server. Periksa koneksi, lalu coba lagi.";
-
-// navigator.onLine, kept current by the online / offline events.
-const useOnline = () =>
-  useSyncExternalStore(
-    (onChange) => {
-      window.addEventListener("online", onChange);
-      window.addEventListener("offline", onChange);
-      return () => {
-        window.removeEventListener("online", onChange);
-        window.removeEventListener("offline", onChange);
-      };
-    },
-    () => navigator.onLine,
-    () => true,
-  );
 
 // The token screen: one centered column — logo, title, the ge_… field
 // and a full-width "Masuk". Errors sit under the field; an offline device is

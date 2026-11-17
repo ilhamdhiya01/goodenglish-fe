@@ -89,3 +89,39 @@ test("lihat progres token", async ({ page }) => {
   await rowAction(page, "Budi", "Lihat progres");
   await expect(page.getByText("86").first()).toBeVisible();
 });
+
+test("lihat progres token: sesi dan menit main peran per minggu", async ({
+  page,
+}) => {
+  await openTokens(page);
+  await rowAction(page, "Budi", "Lihat progres");
+  await expect(page.getByText("Main peran per minggu")).toBeVisible();
+  const row = page.locator("tr", { hasText: "16 Nov" });
+  await expect(row.getByRole("cell").nth(1)).toHaveText("2");
+  await expect(row.getByRole("cell").nth(2)).toHaveText("13");
+});
+
+test("form token: batas sesi main peran terpisah dari Tanya AI", async ({
+  page,
+  api,
+}) => {
+  await openTokens(page);
+  await rowAction(page, "Budi", "Ubah");
+  const dialog = page.getByRole("dialog");
+  const limit = dialog.getByRole("spinbutton", {
+    name: "Batas sesi main peran per hari",
+  });
+  // Budi's token doesn't have Main peran yet: no limit field until it's on.
+  await expect(limit).toHaveCount(0);
+  await dialog.getByRole("button", { name: "Main peran" }).click();
+  await expect(limit).toHaveValue("3");
+  await limit.fill("5");
+  const patch = page.waitForRequest(
+    (r) => r.method() === "PATCH" && r.url().includes("/admin/tokens/t0"),
+  );
+  await dialog.getByRole("button", { name: "Simpan" }).click();
+  const body = (await patch).postDataJSON() as Record<string, unknown>;
+  expect(body.roleplayDailyLimit).toBe(5);
+  expect(body.menus).toContain("roleplay");
+  await expect.poll(() => api.admin).toContain("PATCH /admin/tokens/t0");
+});
