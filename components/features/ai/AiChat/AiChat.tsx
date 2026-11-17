@@ -134,17 +134,20 @@ const History = ({ currentId, onOpen, onDelete }: HistoryProps) => {
             type="button"
             aria-current={c.id === currentId ? "true" : undefined}
             onClick={() => onOpen(c.id)}
-            className="flex min-h-12 min-w-0 flex-1 cursor-pointer flex-col justify-center gap-0.5 rounded-md bg-transparent px-2 py-2 text-left focus-ring hover:bg-sunken"
+            // Plain block layout, not flex: some Safari versions don't lay a
+            // <button> out as a flex box, and the long title then spills out
+            // of the row instead of ending in "…".
+            className="block min-h-12 min-w-0 flex-1 cursor-pointer overflow-hidden rounded-md bg-transparent px-2 py-2 text-left focus-ring hover:bg-sunken"
           >
             <span
               className={classNames(
-                "truncate text-[15px] font-extrabold",
+                "block w-full truncate text-[15px] font-extrabold",
                 c.id === currentId ? "text-accent-edge" : "text-ink",
               )}
             >
               {c.title}
             </span>
-            <span className="text-[12.5px] font-bold text-ink-2">
+            <span className="mt-0.5 block w-full truncate text-[12.5px] font-bold text-ink-2">
               {formatDateTime(c.updatedAt)} · {c.messageCount} pesan
             </span>
           </button>

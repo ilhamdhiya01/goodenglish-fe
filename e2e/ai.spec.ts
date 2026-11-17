@@ -78,3 +78,47 @@ test("dibuka dari kartu kata: chip Kata ikut", async ({ page }) => {
   const panel = page.getByRole("dialog", { name: "Tanya AI" });
   await expect(panel.getByText("Kata: be")).toBeVisible();
 });
+
+test("riwayat: judul panjang terpotong, tidak meluber keluar panel", async ({
+  page,
+  context,
+}) => {
+  const title =
+    'Buatkan 3 contoh kalimat tentang "Idiom yang sering dipakai native speaker". Kamu jawab pakai bahasa Indonesia ya';
+  await context.route("**/api/v1/ai/conversations", (r) =>
+    r.fulfill({
+      contentType: "application/json",
+      body: JSON.stringify({
+        data: [
+          {
+            id: "c1",
+            title,
+            updatedAt: new Date().toISOString(),
+            messageCount: 2,
+          },
+        ],
+      }),
+    }),
+  );
+  await openApp(page, "/plan");
+  const panel = await openAiPanel(page);
+  await panel.getByRole("button", { name: "Riwayat" }).click();
+  const row = panel.getByRole("button", { name: new RegExp("^Buatkan 3") });
+  await expect(row).toBeVisible();
+  const fits = await row.evaluate((btn) => {
+    const title = btn.querySelector("span")!;
+    const list = btn.closest("ul")!.parentElement!;
+    return {
+      titleInside:
+        title.getBoundingClientRect().right <=
+        btn.getBoundingClientRect().right + 1,
+      truncated: title.scrollWidth > title.clientWidth,
+      noSideScroll: list.scrollWidth <= list.clientWidth,
+    };
+  });
+  expect(fits).toEqual({
+    titleInside: true,
+    truncated: true,
+    noSideScroll: true,
+  });
+});
