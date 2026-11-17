@@ -48,6 +48,7 @@ const say = async (
   text: string,
   id: object,
   speed?: number,
+  voice?: string,
 ): Promise<boolean> => {
   setNow({ id, text, phase: "preparing" });
   try {
@@ -57,6 +58,7 @@ const say = async (
         if (now?.id === id) setNow({ id, text, phase: "playing" });
       },
       speed,
+      voice,
     );
     return finished;
   } catch {
@@ -67,24 +69,41 @@ const say = async (
   }
 };
 
-/** `speed` overrides the speed chosen in Pilih suara for this line only. */
-export const speak = (text: string, opts?: { speed?: number }) => {
+export interface SpeakOptions {
+  /** Overrides the speed chosen in Pilih suara for this line only. */
+  speed?: number;
+  /** Overrides the voice chosen in Pilih suara (second speaker of a dialogue). */
+  voice?: string;
+}
+
+export const speak = (text: string, opts?: SpeakOptions) => {
   if (!text.trim()) return;
   record(text);
-  void say(text, {}, opts?.speed);
+  void say(text, {}, opts?.speed, opts?.voice);
 };
 
-/** Read lines one after another (a whole dialogue); any other speak() stops it. */
-export const speakAll = async (texts: string[]) => {
-  const lines = texts.filter((t) => t.trim());
-  lines.forEach(record);
+export type SpeakLine = string | ({ text: string } & SpeakOptions);
+
+/**
+ * Read lines one after another (a whole dialogue); any other speak() stops
+ * it. Resolves true when every line was played to the end.
+ */
+export const speakAll = async (texts: SpeakLine[]): Promise<boolean> => {
+  const lines = texts
+    .map((t) => (typeof t === "string" ? { text: t } : t))
+    .filter((t) => t.text.trim());
+  lines.forEach((l) => record(l.text));
   const id = {};
   for (let i = 0; i < lines.length; i++) {
-    // Make the next line while this one plays, so there is no gap.
-    if (lines[i + 1]) generate(lines[i + 1]).catch(() => {});
-    const finished = await say(lines[i], id);
-    if (!finished) return;
+    // Make the next line while this one plays, so there is no gap. Same
+    // voice and speed as it will be played with, or the cache misses.
+    const next = lines[i + 1];
+    if (next) generate(next.text, next.voice, next.speed).catch(() => {});
+    const l = lines[i];
+    const finished = await say(l.text, id, l.speed, l.voice);
+    if (!finished) return false;
   }
+  return true;
 };
 
 export const stopSpeaking = () => {
