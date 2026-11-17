@@ -37,7 +37,7 @@ export interface PracticeGen {
   view?: (q: AskQ, stage: PracticeStage) => StageView;
 }
 
-const mulberry = (a: number) => {
+export const mulberry = (a: number) => {
   return () => {
     a |= 0;
     a = (a + 0x6d2b79f5) | 0;
@@ -46,7 +46,7 @@ const mulberry = (a: number) => {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 };
-const shuffle = <T>(r: () => number, arr: T[]): T[] => {
+export const shuffle = <T>(r: () => number, arr: T[]): T[] => {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(r() * (i + 1));

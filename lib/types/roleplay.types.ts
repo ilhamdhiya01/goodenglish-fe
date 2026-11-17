@@ -67,7 +67,7 @@ export interface RoleplayRecord {
  * names follow the product spec so that feature can read them as they are. */
 export interface MistakeRecord {
   id: string;
-  source: "Main peran";
+  source: "Main peran" | "Menyimak";
   wrong: string;
   correct: string;
   explanation_id: string;

@@ -11,11 +11,14 @@ export const ROUTES = {
   PRONUNCIATION: "/pronunciation",
   CHEATSHEET: "/cheatsheet",
   ROLEPLAY_HISTORY: "/scenario/history",
+  LISTENING: "/listening",
+  ADMIN_LISTENING: "/admin/listening",
   ADMIN_TOKENS: "/admin/tokens",
   ADMIN_WORDS: "/admin/words",
   ADMIN_AI: "/admin/ai",
   grammarSub: (sub: string) => `/grammar/${sub}`,
   roleplay: (scenarioId: string) => `/scenario/roleplay/${scenarioId}`,
+  listeningTab: (tab: string) => `/listening/${tab}`,
 } as const;
 
 // API endpoints (consumed by services/*.service.ts)
@@ -54,6 +57,17 @@ export const API_ROLEPLAY_TRANSCRIBE = (id: string) =>
   `${API_ROLEPLAY_SESSIONS}/${id}/transcribe`;
 export const API_ROLEPLAY_FINISH = (id: string) =>
   `${API_ROLEPLAY_SESSIONS}/${id}/finish`;
+
+// "Menyimak": published Dengar & jawab items (learners) and the admin bank
+export const API_LISTENING_ITEMS = `${API_BASE_URL}/listening/items`;
+export const API_ADMIN_LISTENING = `${API_BASE_URL}/admin/listening`;
+export const API_ADMIN_LISTENING_GENERATE = `${API_ADMIN_LISTENING}/generate`;
+export const API_ADMIN_LISTENING_ITEM = (id: string) =>
+  `${API_ADMIN_LISTENING}/${id}`;
+export const API_ADMIN_LISTENING_PUBLISH = (id: string) =>
+  `${API_ADMIN_LISTENING_ITEM(id)}/publish`;
+export const API_ADMIN_LISTENING_UNPUBLISH = (id: string) =>
+  `${API_ADMIN_LISTENING_ITEM(id)}/unpublish`;
 
 // Admin: Gemini key + model behind Tanya AI
 export const API_ADMIN_AI_SETTINGS = `${API_BASE_URL}/admin/ai-settings`;

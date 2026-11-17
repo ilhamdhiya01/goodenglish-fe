@@ -5,6 +5,7 @@ import type { ProgressSnapshot } from "@/lib/types/progress.types";
 import type { CustomWord } from "@/lib/types/vocab.types";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { useLevelStore } from "@/stores/useLevelStore";
+import { mergeListening, useListeningStore } from "@/stores/useListeningStore";
 import { mergeMistakes, useMistakeStore } from "@/stores/useMistakeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 import { useProgressStore } from "@/stores/useProgressStore";
@@ -14,15 +15,15 @@ import {
   validRecord,
 } from "@/stores/useRoleplayStore";
 
-// Ekspor/impor progres — format v4, kompatibel dengan file ekspor lama
-// (v1–v3). Kunci yang tidak ada di file lama diberi nilai default kosong.
+// Ekspor/impor progres — format v5, kompatibel dengan file ekspor lama
+// (v1–v4). Kunci yang tidak ada di file lama diberi nilai default kosong.
 
 export const exportProgress = () => {
   try {
     const P = useProgressStore.getState();
     const { level } = useLevelStore.getState();
     const d: ProgressSnapshot = {
-      v: 4,
+      v: 5,
       exportedAt: new Date().toISOString(),
       known: P.known,
       srs: P.srs,
@@ -33,6 +34,12 @@ export const exportProgress = () => {
       askprac: useAskPracticeStore.getState().stats,
       roleplay: useRoleplayStore.getState().history,
       mistakes: useMistakeStore.getState().mistakes,
+      listening: (({ results, stages, seen, pairs }) => ({
+        results,
+        stages,
+        seen,
+        pairs,
+      }))(useListeningStore.getState()),
     };
     const blob = new Blob([JSON.stringify(d, null, 1)], {
       type: "application/json",
@@ -127,6 +134,13 @@ export const applyImport = (d: ProgressSnapshot): string => {
     useMistakeStore
       .getState()
       .setMistakes((cur) => mergeMistakes(cur, d.mistakes));
+  }
+
+  // v5: Menyimak (file lama: tidak ada, tidak diubah).
+  if (d.listening && typeof d.listening === "object") {
+    useListeningStore
+      .getState()
+      .setAll((cur) => mergeListening(cur, d.listening));
   }
 
   return (

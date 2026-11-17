@@ -20,4 +20,6 @@ export const STORAGE_KEYS = {
   // terkumpul darinya (bakal dipakai Buku kesalahanku).
   roleplay: "vocab-roleplay-v1",
   mistakes: "vocab-mistakes-v1",
+  // "Menyimak": set results, unlocked stages, seen items, pair stats.
+  listening: "vocab-listening-v1",
 } as const;
