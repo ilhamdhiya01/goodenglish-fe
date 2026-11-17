@@ -82,10 +82,14 @@ test.describe("dengan izin Main peran", () => {
     await page.getByRole("button", { name: "Kirim" }).click();
     await expect(page.getByText("Sure. Anything else?")).toBeVisible();
     await expect(page.getByText("(selesai)")).toHaveCount(1);
-    await expect(page.getByText("Giliran 1/12")).toBeVisible();
+    // Shown in the composer on phones and in the side panel on desktop.
+    await expect(
+      page.getByText("Giliran 1/12").filter({ visible: true }).first(),
+    ).toBeVisible();
 
     // "Bantu aku": a suggestion fills the answer box.
-    await page.getByRole("button", { name: "Bantu aku" }).click();
+    await page.getByRole("button", { name: "Bantuan" }).click();
+    await page.getByRole("menuitem", { name: /^Bantu aku/ }).click();
     await page.getByRole("button", { name: "How much is it?" }).click();
     await expect(answerBox(page)).toHaveValue("How much is it?");
     await answerBox(page).press("Enter");

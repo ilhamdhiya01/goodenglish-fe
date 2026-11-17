@@ -2,13 +2,14 @@
 
 import classNames from "classnames";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { LuLoaderCircle, LuMic, LuSquare } from "react-icons/lu";
+import { LuChevronDown, LuLoaderCircle, LuMic, LuSquare } from "react-icons/lu";
 
 import Jalak from "@/components/brand/Jalak";
 import WordTile from "@/components/shared/patterns/word-tile";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import { FIELD_CLASS } from "@/components/ui/input/Input";
+import Menu from "@/components/ui/menu";
 import Pill from "@/components/ui/pill";
 import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
@@ -88,6 +89,10 @@ const LANGUAGE_NAME: Record<SttLanguage, string> = {
   en: "bahasa Inggris",
   id: "bahasa Indonesia",
 };
+
+// Pill-shaped button that opens a menu (EN ▾, Bantuan ▾).
+const MENU_TRIGGER =
+  "hit-44 inline-flex min-h-[38px] shrink-0 cursor-pointer items-center gap-1 rounded-full border-2 border-control bg-surface px-3 text-[13px] font-extrabold text-ink focus-ring hover:bg-sunken aria-expanded:bg-sunken disabled:cursor-not-allowed disabled:border-line disabled:bg-sunken disabled:text-ink-3";
 
 // The conversation: bubbles (AI left, learner right), the mission checklist,
 // then the answer box. The mic records the answer and the self-hosted
@@ -184,21 +189,6 @@ const RoleplayChat = ({
 
   const micNote = rec.error;
   const canMic = rec.supported && !rec.denied;
-  // The language spoken into the mic (never auto-detected). Off = English;
-  // on for when the learner answers in Indonesian. Shown next to the mic on
-  // phones and in the button row on wider screens (one of them is hidden).
-  const languagePill = (
-    <Pill
-      size="sm"
-      check
-      on={language === "id"}
-      disabled={listening || transcribing}
-      title="Nyalakan kalau kamu menjawab dalam bahasa Indonesia"
-      onClick={() => setLanguage(language === "id" ? "en" : "id")}
-    >
-      Bahasa Indonesia
-    </Pill>
-  );
   const micState = transcribing
     ? "processing"
     : listening
@@ -360,9 +350,43 @@ const RoleplayChat = ({
         )}
 
         <div className="sticky bottom-[calc(84px+env(safe-area-inset-bottom))] z-10 flex flex-col gap-2 rounded-xl border-2 border-line bg-paper p-3 shadow-sm md:bottom-4">
-          {/* Phone: the answer box gets the full width, mic / language /
-              Kirim under it. md+: one row, mic | box | Kirim. */}
-          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 [grid-template-areas:'text_text_text'_'mic_lang_send'] md:items-end md:[grid-template-areas:'mic_text_send']">
+          {/* Top line: progress on the left, ending the session on the right
+              (kept visible, not tucked into a menu). */}
+          <div className="flex items-center justify-between gap-2">
+            {/* The side panel shows it on wide screens. */}
+            <span className="text-[12.5px] font-extrabold text-ink-2 tabular-nums lg:invisible">
+              Giliran {s.userTurns}/{MAX_TURNS}
+            </span>
+            <TextButton
+              disabled={busy}
+              onClick={() => void s.end()}
+              className="min-h-11"
+            >
+              {s.pending === "finish" ? "Merangkum…" : "Selesai"}
+            </TextButton>
+          </div>
+          <textarea
+            ref={boxRef}
+            rows={2}
+            value={draft}
+            readOnly={listening || transcribing}
+            maxLength={600}
+            onChange={(e) => setDraft(e.target.value)}
+            onKeyDown={onKeyDown}
+            disabled={turnsUsedUp}
+            aria-label="Jawabanmu"
+            placeholder={
+              transcribing
+                ? "Menuliskan ucapanmu…"
+                : listening
+                  ? `Mendengarkan… bicara dalam ${LANGUAGE_NAME[language]}`
+                  : canMic
+                    ? "Tekan mikrofon atau ketik jawabanmu"
+                    : "Ketik jawabanmu"
+            }
+            className={classNames(FIELD_CLASS, "min-h-12 resize-none")}
+          />
+          <div className="flex items-center gap-2">
             {canMic && (
               <button
                 type="button"
@@ -380,7 +404,7 @@ const RoleplayChat = ({
                 title={listening ? "Berhenti merekam" : "Bicara"}
                 data-state={micState}
                 className={classNames(
-                  "hit-44 inline-flex h-12 w-12 shrink-0 press cursor-pointer items-center justify-center rounded-full border-2 edge focus-ring [grid-area:mic] disabled:cursor-not-allowed",
+                  "hit-44 inline-flex h-12 w-12 shrink-0 press cursor-pointer items-center justify-center rounded-full border-2 edge focus-ring disabled:cursor-not-allowed",
                   micState === "recording"
                     ? "animate-pulse border-bad-edge bg-bad text-on-accent [--edge:var(--color-bad-edge)]"
                     : micState === "processing"
@@ -401,38 +425,79 @@ const RoleplayChat = ({
                 )}
               </button>
             )}
-            <textarea
-              ref={boxRef}
-              rows={2}
-              value={draft}
-              readOnly={listening || transcribing}
-              maxLength={600}
-              onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={onKeyDown}
-              disabled={turnsUsedUp}
-              aria-label="Jawabanmu"
-              placeholder={
-                transcribing
-                  ? "Menuliskan ucapanmu…"
-                  : listening
-                    ? `Mendengarkan… bicara dalam ${LANGUAGE_NAME[language]}`
-                    : canMic
-                      ? "Tekan mikrofon atau ketik jawabanmu"
-                      : "Ketik jawabanmu"
-              }
-              className={classNames(
-                FIELD_CLASS,
-                "min-h-12 resize-none [grid-area:text]",
-              )}
-            />
+            {/* The language spoken into the mic (never auto-detected). */}
             {canMic && (
-              <span className="justify-self-start [grid-area:lang] md:hidden">
-                {languagePill}
-              </span>
+              <Menu
+                label="Bahasa jawaban"
+                side="top"
+                align="start"
+                button={(p) => (
+                  <button
+                    type="button"
+                    {...p}
+                    disabled={listening || transcribing}
+                    aria-label={`Bahasa jawaban: ${LANGUAGE_NAME[language]}`}
+                    title="Bahasa yang kamu ucapkan ke mikrofon"
+                    className={MENU_TRIGGER}
+                  >
+                    {language.toUpperCase()}
+                    <LuChevronDown aria-hidden size={14} />
+                  </button>
+                )}
+              >
+                <Menu.Item
+                  selected={language === "en"}
+                  hint="Untuk jawaban dalam bahasa Inggris"
+                  onSelect={() => setLanguage("en")}
+                >
+                  Inggris (EN)
+                </Menu.Item>
+                <Menu.Item
+                  selected={language === "id"}
+                  hint="Kalau kamu menjawab dalam bahasa Indonesia"
+                  onSelect={() => setLanguage("id")}
+                >
+                  Indonesia (ID)
+                </Menu.Item>
+              </Menu>
             )}
+            <Menu
+              label="Bantuan"
+              side="top"
+              // Opens leftwards so it stays on screen on narrow phones.
+              align="end"
+              button={(p) => (
+                <button type="button" {...p} className={MENU_TRIGGER}>
+                  {s.pending === "help" ? "Mencari…" : "Bantuan"}
+                  <LuChevronDown aria-hidden size={14} />
+                </button>
+              )}
+            >
+              <Menu.Item
+                disabled={busy || s.helpLeft === 0 || turnsUsedUp}
+                hint="2 contoh jawaban singkat"
+                onSelect={() => void s.help()}
+              >
+                Bantu aku
+              </Menu.Item>
+              <Menu.Item
+                disabled={!s.lastAi}
+                hint="Putar lagi ucapan AI"
+                onSelect={() => s.replay()}
+              >
+                Ulangi
+              </Menu.Item>
+              <Menu.Item
+                disabled={!s.lastAi}
+                hint="Putar lagi lebih pelan"
+                onSelect={() => s.replay(true)}
+              >
+                Lebih pelan
+              </Menu.Item>
+            </Menu>
             <Button
               variant="green"
-              className="[grid-area:send]"
+              className="ml-auto"
               disabled={
                 busy ||
                 listening ||
@@ -472,44 +537,6 @@ const RoleplayChat = ({
               sebelum dikirim.
             </span>
           )}
-          {/* Phone: an even 2×2 grid; md+: one wrapping row, Selesai right. */}
-          <div className="grid grid-cols-2 gap-2 md:flex md:flex-wrap">
-            <Pill
-              size="sm"
-              className="justify-center"
-              disabled={!s.lastAi}
-              onClick={() => s.replay()}
-            >
-              Ulangi
-            </Pill>
-            <Pill
-              size="sm"
-              className="justify-center"
-              disabled={!s.lastAi}
-              onClick={() => s.replay(true)}
-            >
-              Lebih pelan
-            </Pill>
-            <Pill
-              size="sm"
-              className="justify-center"
-              disabled={busy || s.helpLeft === 0 || turnsUsedUp}
-              onClick={() => void s.help()}
-            >
-              {s.pending === "help" ? "Mencari contoh…" : "Bantu aku"}
-            </Pill>
-            {canMic && (
-              <span className="hidden md:contents">{languagePill}</span>
-            )}
-            <Pill
-              size="sm"
-              disabled={busy}
-              onClick={() => void s.end()}
-              className="justify-center md:ml-auto"
-            >
-              {s.pending === "finish" ? "Merangkum…" : "Selesai"}
-            </Pill>
-          </div>
         </div>
       </div>
 

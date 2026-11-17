@@ -51,10 +51,10 @@ test("rekam (EN), teks masuk ke kotak, bisa diedit, baru dikirim", async ({
   api,
 }) => {
   await start(page);
-  // English unless "Bahasa Indonesia" is switched on.
+  // English unless Indonesian is picked in the language menu.
   await expect(
-    page.getByRole("button", { name: "Bahasa Indonesia" }),
-  ).toHaveAttribute("aria-pressed", "false");
+    page.getByRole("button", { name: "Bahasa jawaban: bahasa Inggris" }),
+  ).toHaveText(/EN/);
   await answerBox(page).fill("Hello,");
   await record(page);
 
@@ -88,9 +88,13 @@ test("rekam (EN), teks masuk ke kotak, bisa diedit, baru dikirim", async ({
 
 test("pilihan ID dikirim ke server dan diingat", async ({ page, api }) => {
   await start(page);
-  const id = page.getByRole("button", { name: "Bahasa Indonesia" });
-  await id.click();
-  await expect(id).toHaveAttribute("aria-pressed", "true");
+  await page
+    .getByRole("button", { name: "Bahasa jawaban: bahasa Inggris" })
+    .click();
+  await page.getByRole("menuitemradio", { name: /^Indonesia \(ID\)/ }).click();
+  await expect(
+    page.getByRole("button", { name: "Bahasa jawaban: bahasa Indonesia" }),
+  ).toHaveText(/ID/);
   await record(page, 800);
   await expect(answerBox(page)).toHaveValue("Saya mau dua kopi");
   const call = api.roleplay.find((c) => c.path.endsWith("/transcribe"));
