@@ -42,6 +42,16 @@ export const ACCESS_ERRORS: Record<string, string> = {
   roleplay_bad_turn: "Tulis atau ucapkan jawabanmu dulu.",
   roleplay_transcribe_limit:
     "Batas rekaman suara untuk sesi ini sudah habis. Ketik jawabanmu, ya.",
+  listening_not_allowed:
+    "Token ini belum bisa membuka Menyimak. Hubungi admin.",
+  listening_not_found: "Soal ini sudah dihapus.",
+  listening_bad_title: "Judul wajib diisi.",
+  listening_bad_lines:
+    "Baris audio tidak valid: dialog butuh penutur A dan B, monolog hanya A.",
+  listening_word_count: "Panjang audio harus 40–120 kata.",
+  listening_bad_questions:
+    "Harus ada 3 soal, masing-masing 4 pilihan berbeda, satu kunci, dan penjelasan.",
+  level_not_allowed: "Level ini tidak dibuka untuk token ini.",
   stt_no_speech: "Suaramu tidak terdengar, coba lagi ya.",
   stt_too_long: "Rekamannya terlalu panjang (maksimal 60 detik).",
   stt_too_large: "Rekamannya terlalu besar. Coba jawab lebih singkat, ya.",
@@ -79,6 +89,7 @@ export const MENU_OPTIONS: { id: MenuId; label: string }[] = [
   { id: "errors", label: "Kesalahan umum" },
   { id: "grammar", label: "Panduan grammar" },
   { id: "pronunciation", label: "Pelafalan" },
+  { id: "listening", label: "Menyimak" },
   { id: "cheatsheet", label: "Cheat sheet" },
   { id: "ai", label: "Tanya AI" },
   { id: "roleplay", label: "Main peran" },

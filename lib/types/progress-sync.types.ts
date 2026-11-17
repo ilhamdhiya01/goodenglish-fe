@@ -13,6 +13,7 @@ export type ProgressKey =
   | "flip"
   | "search_scope"
   | "roleplay"
-  | "mistakes";
+  | "mistakes"
+  | "listening";
 
 export type ProgressMap = Partial<Record<ProgressKey, unknown>>;

@@ -53,6 +53,58 @@ export const progressWithDue = () => ({
 
 export const adminSession: SessionData = { ...fullSession, role: "admin" };
 
+/** A learner who may also open "Menyimak". */
+export const listeningSession: SessionData = {
+  ...fullSession,
+  menus: [...ALL_MENUS, "listening"],
+};
+
+const words = (n: number, w: string) =>
+  Array.from({ length: n }, (_, i) => `${w}${i % 7}`).join(" ");
+
+/** A published "Dengar & jawab" item (level pre). */
+export const listenItem = (id: string, week = 1, o: object = {}) => ({
+  id,
+  level: "pre",
+  week,
+  status: "published",
+  type: "dialog",
+  title: `Item ${id}`,
+  lines: [
+    { speaker: "A", text: `Hello, the train leaves at ten. ${words(26, "a")}` },
+    {
+      speaker: "B",
+      text: `Thanks, I will take platform two. ${words(26, "b")}`,
+    },
+  ],
+  questions: [
+    {
+      question: "When does the train leave?",
+      options: ["At nine", "At ten", "At eleven", "At noon"],
+      answerIndex: 1,
+      explanationId: 'Disebut "at ten".',
+    },
+    {
+      question: "Which platform?",
+      options: ["One", "Two", "Three", "Four"],
+      answerIndex: 1,
+      explanationId: 'Disebut "platform two".',
+    },
+    {
+      question: "Who says thanks?",
+      options: ["A", "B", "Both", "Nobody"],
+      answerIndex: 1,
+      explanationId: "B yang berterima kasih.",
+    },
+  ],
+  wordCount: 70,
+  createdBy: "Admin",
+  publishedAt: new Date().toISOString(),
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+  ...o,
+});
+
 /** A learner who may also use "Main peran" (needs Skenario too). */
 export const roleplaySession: SessionData = {
   ...fullSession,
@@ -89,6 +141,8 @@ export interface MockOptions {
   roleplayTranscript?: string;
   /** How many "Main peran" turns fail (502) before they work. */
   roleplayFailTurns?: number;
+  /** Published Dengar & jawab items the learner gets (default: 2). */
+  listeningItems?: unknown[];
 }
 
 export interface MockApi {
@@ -100,6 +154,8 @@ export interface MockApi {
   admin: string[];
   /** Every "Main peran" call, "METHOD /roleplay/…" with its body. */
   roleplay: { path: string; body: unknown }[];
+  /** Every admin Menyimak call, "METHOD /admin/listening/…" with its body. */
+  listening: { call: string; body: unknown }[];
   lastPut: (key: string) => unknown;
 }
 
@@ -139,9 +195,15 @@ export const installMockApi = async (
     chats: [],
     admin: [],
     roleplay: [],
+    listening: [],
     lastPut: (key) =>
       [...api.puts].reverse().find((p) => p.key === key)?.data ?? undefined,
   };
+
+  // Admin Menyimak bank for this test (starts with one draft).
+  const bank: (ReturnType<typeof listenItem> & Record<string, unknown>)[] = [
+    listenItem("bank1", 1, { status: "draft", title: "Station draft" }),
+  ];
 
   if (session) {
     await context.addCookies([{ name: "session", value: "e2e", url: baseURL }]);
@@ -334,6 +396,61 @@ export const installMockApi = async (
           userTurns,
           stepsDone: userTurns >= 2 ? [0, 1, 2] : [0],
         });
+      }
+    }
+
+    // "Menyimak": learner items and the admin bank (kept in memory).
+    if (path === "/listening/items") {
+      return json(
+        route,
+        opts.listeningItems ?? [listenItem("li1", 1), listenItem("li2", 1)],
+      );
+    }
+    if (path.startsWith("/admin/listening")) {
+      const body =
+        method === "POST" || method === "PATCH"
+          ? (req.postDataJSON() as Record<string, unknown> | null)
+          : null;
+      api.listening.push({ call: `${method} ${path}`, body });
+      const id = path.split("/")[3];
+      const found = bank.find((i) => i.id === id);
+      if (path === "/admin/listening" && method === "GET") {
+        return json(route, bank);
+      }
+      if (path === "/admin/listening/generate") {
+        const created = listenItem(
+          `gen${bank.length + 1}`,
+          Number(body?.week ?? 1),
+          {
+            status: "draft",
+            title: "Generated draft",
+            publishedAt: null,
+          },
+        );
+        bank.push(created);
+        return json(route, { items: [created], failed: 0 });
+      }
+      if (!found)
+        return json(
+          route,
+          { errors: [{ message: "listening_not_found" }] },
+          404,
+        );
+      if (method === "PATCH") {
+        Object.assign(found, body);
+        return json(route, found);
+      }
+      if (path.endsWith("/publish")) {
+        found.status = "published";
+        return json(route, found);
+      }
+      if (path.endsWith("/unpublish")) {
+        found.status = "draft";
+        return json(route, found);
+      }
+      if (method === "DELETE") {
+        bank.splice(bank.indexOf(found), 1);
+        return json(route, null);
       }
     }
 

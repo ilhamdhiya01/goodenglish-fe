@@ -11,7 +11,9 @@ export type MenuId =
   | "ai"
   // Not a tab either: "Main peran" (voice roleplay) inside Skenario. Needs
   // "scenario" too.
-  | "roleplay";
+  | "roleplay"
+  // "Menyimak": listening practice (a tab).
+  | "listening";
 
 export type LevelId = "beginner" | "pre" | "inter" | "upper";
 

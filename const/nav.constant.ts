@@ -5,6 +5,7 @@ import {
   LuBookOpen,
   LuClipboardList,
   LuFileText,
+  LuHeadphones,
   LuMessageSquare,
   LuRotateCcw,
   LuTriangleAlert,
@@ -48,6 +49,12 @@ export const NAV: NavItem[] = [
     path: "/pronunciation",
     label: "Pelafalan",
     icon: LuAudioLines,
+  },
+  {
+    id: "listening",
+    path: "/listening",
+    label: "Menyimak",
+    icon: LuHeadphones,
   },
   {
     id: "cheatsheet",

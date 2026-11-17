@@ -2,6 +2,7 @@ import { setProgressSnapshot } from "@/lib/helpers/storage.helper";
 import type { ProgressMap } from "@/lib/types/progress-sync.types";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { useLevelStore } from "@/stores/useLevelStore";
+import { useListeningStore } from "@/stores/useListeningStore";
 import { useMistakeStore } from "@/stores/useMistakeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 import { usePracticeSessionStore } from "@/stores/usePracticeSessionStore";
@@ -31,4 +32,5 @@ export const applyProgress = (map: ProgressMap) => {
   useVocabUiStore.getState().hydrate();
   useRoleplayStore.getState().hydrate();
   useMistakeStore.getState().hydrate();
+  useListeningStore.getState().hydrate();
 };
