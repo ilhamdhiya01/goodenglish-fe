@@ -13,7 +13,9 @@ export type MenuId =
   // "scenario" too.
   | "roleplay"
   // "Menyimak": listening practice (a tab).
-  | "listening";
+  | "listening"
+  // "Bacaan": graded reading texts (a tab).
+  | "reading";
 
 export type LevelId = "beginner" | "pre" | "inter" | "upper";
 

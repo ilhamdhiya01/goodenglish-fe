@@ -96,7 +96,21 @@ const TokenSummaryPanel = React.memo(
               <Stat value={summary.knownCount} label="KATA HAFAL" />
               <Stat value={summary.srsCount} label="DIJADWALKAN ULANG" />
               <Stat value={summary.ownSentenceCount} label="KALIMATKU" />
-              <Stat value={summary.customWordCount} label="KATAKU" />
+              <Stat
+                value={
+                  summary.customWordCount - (summary.personalWordCount ?? 0)
+                }
+                label="KATAKU"
+              />
+              {summary.personalWordCount !== undefined && (
+                <Stat
+                  value={summary.personalWordCount}
+                  label="KARTU PRIBADI (BACAAN)"
+                />
+              )}
+              {summary.readingDoneCount !== undefined && (
+                <Stat value={summary.readingDoneCount} label="BACAAN SELESAI" />
+              )}
             </div>
             <span className="text-[13.5px] font-semibold text-ink-2">
               Terakhir menyimpan progres:{" "}

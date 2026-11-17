@@ -3,6 +3,7 @@ import {
   LuAlignLeft,
   LuAudioLines,
   LuBookOpen,
+  LuBookOpenText,
   LuClipboardList,
   LuFileText,
   LuHeadphones,
@@ -55,6 +56,12 @@ export const NAV: NavItem[] = [
     path: "/listening",
     label: "Menyimak",
     icon: LuHeadphones,
+  },
+  {
+    id: "reading",
+    path: "/reading",
+    label: "Bacaan",
+    icon: LuBookOpenText,
   },
   {
     id: "cheatsheet",

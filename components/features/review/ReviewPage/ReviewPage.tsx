@@ -74,7 +74,12 @@ const ReviewPage = React.memo(() => {
   const { jumpToWord } = useJumpToWord();
   const router = useRouter();
 
-  const rvKey = dueKeys[0];
+  // The first due card that still exists: a deleted Kataku/personal card
+  // must not block the ones behind it.
+  const rvKey = useMemo(
+    () => dueKeys.find((k) => resolveItemKey(allLevels, k)) ?? "",
+    [dueKeys, allLevels],
+  );
   const [revealed, setRevealed] = useState(false);
   // Reset saat kata berganti atau mode flip dibalik (seperti rvRevealed versi lama).
   // Done during render (React's "reset state when a value changes" pattern)
@@ -131,13 +136,14 @@ const ReviewPage = React.memo(() => {
   });
 
   const queue = dueKeys
-    .slice(1, 6)
+    .filter((k) => k !== rvKey)
     .map((k) => ({
       k,
       item: resolveItemKey(allLevels, k),
       st: srs[k]?.st ?? 0,
     }))
-    .filter((x) => x.item);
+    .filter((x) => x.item)
+    .slice(0, 5);
   const example = item?.it[4] || "";
   const target = item
     ? findTarget(example, item.it[1], formsOf(item.it))

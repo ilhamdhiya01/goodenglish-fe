@@ -39,6 +39,9 @@ interface VocabUiState {
   hydrate: () => void;
 }
 
+/** Filter "Kataku (pribadi)": personal cards saved from Bacaan. */
+export const MINE_TYPE = "mine";
+
 let focusTimer: ReturnType<typeof setTimeout> | undefined;
 
 export const useVocabUiStore = create<VocabUiState>((set) => ({

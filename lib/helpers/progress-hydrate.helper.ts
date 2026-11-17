@@ -7,6 +7,7 @@ import { useMistakeStore } from "@/stores/useMistakeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 import { usePracticeSessionStore } from "@/stores/usePracticeSessionStore";
 import { useProgressStore } from "@/stores/useProgressStore";
+import { useReadingStore } from "@/stores/useReadingStore";
 import { useRoleplayStore } from "@/stores/useRoleplayStore";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
 
@@ -33,4 +34,5 @@ export const applyProgress = (map: ProgressMap) => {
   useRoleplayStore.getState().hydrate();
   useMistakeStore.getState().hydrate();
   useListeningStore.getState().hydrate();
+  useReadingStore.getState().hydrate();
 };

@@ -29,6 +29,9 @@ interface ProgressState {
 
   /** Tandai/urungkan hafal — saat menghafal, kata langsung dijadwalkan besok (st 0). */
   toggleKnown: (key: string) => void;
+  /** Tandai hafal tanpa membatalkan ("Simpan ke Ulang"): kata yang belum
+   * hafal dijadwalkan besok. False kalau sudah hafal sebelumnya. */
+  markKnown: (key: string) => boolean;
   /** Simpan/hapus "Kalimatku" untuk satu kata. */
   setOwnSentence: (key: string, v: string) => void;
   /** Naikkan/turunkan tahap SRS + hitung ulang jatuh tempo. */
@@ -166,6 +169,20 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
       setSrs((s) => ({ ...s, [key]: { st: 0, due: today() + 1 } }));
       usePlanStore.getState().bumpTally("known");
     }
+  },
+
+  markKnown: (key) => {
+    const { known, setKnown, setSrs, custom } = get();
+    if (known[key]) return false;
+    const keys = [key, ...(twinsNow(custom).get(key) ?? [])];
+    setKnown((k) => {
+      const c = { ...k };
+      keys.forEach((x) => (c[x] = 1));
+      return c;
+    });
+    setSrs((s) => ({ ...s, [key]: { st: 0, due: today() + 1 } }));
+    usePlanStore.getState().bumpTally("known");
+    return true;
   },
 
   setOwnSentence: (key, v) => {

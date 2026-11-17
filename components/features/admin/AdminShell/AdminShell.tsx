@@ -26,6 +26,7 @@ const GROUPS: readonly (readonly [group: string, items: readonly Section[]])[] =
         [ROUTES.ADMIN_TOKENS, "Token akses", "Kelola token akses"],
         [ROUTES.ADMIN_WORDS, "Kosakata", "Kosakata bersama"],
         [ROUTES.ADMIN_LISTENING, "Menyimak", "Bank soal Dengar & jawab"],
+        [ROUTES.ADMIN_READING, "Bacaan", "Teks bacaan bertingkat"],
       ],
     ],
     ["Pengaturan", [[ROUTES.ADMIN_AI, "Tanya AI", "Pengaturan Tanya AI"]]],
