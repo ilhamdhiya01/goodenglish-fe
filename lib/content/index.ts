@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- the content packs are untyped JS data (see raw/*.js); typing them is phase-2 work when content moves to the database. */
+import { PRON_WORD_PAIRS } from "./pron-extra";
 import ask from "./raw/ask.js";
 import askgen from "./raw/askgen.js";
 import beginner from "./raw/beginner.js";
@@ -88,7 +89,18 @@ export const VERB_FORMS: {
   IRREG: Record<string, string[]>;
   SPELL: Record<string, string[]>;
 } = W.VERB_FORMS || { IRREG: {}, SPELL: {} };
-export const VOCAB_PRON: any = W.VOCAB_PRON || null;
+// Sounds whose own pairs are only mispronunciations also get real-word
+// pairs (lib/content/pron-extra) as `wordPairs`.
+export const VOCAB_PRON: any = W.VOCAB_PRON
+  ? {
+      ...W.VOCAB_PRON,
+      sounds: (W.VOCAB_PRON.sounds || []).map((s: any) =>
+        PRON_WORD_PAIRS[s.name]
+          ? { ...s, wordPairs: PRON_WORD_PAIRS[s.name] }
+          : s,
+      ),
+    }
+  : null;
 export const VOCAB_ASK: any = W.VOCAB_ASK || null;
 export const ASK_GEN: {
   make: (
