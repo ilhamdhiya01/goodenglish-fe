@@ -1,5 +1,6 @@
 import { setProgressSnapshot } from "@/lib/helpers/storage.helper";
 import type { ProgressMap } from "@/lib/types/progress-sync.types";
+import { useActivityStore } from "@/stores/useActivityStore";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { useExamStore } from "@/stores/useExamStore";
 import { useLevelStore } from "@/stores/useLevelStore";
@@ -37,4 +38,6 @@ export const applyProgress = (map: ProgressMap) => {
   useListeningStore.getState().hydrate();
   useReadingStore.getState().hydrate();
   useExamStore.getState().hydrate();
+  // Last: its first fill reads the other docs.
+  useActivityStore.getState().hydrate();
 };

@@ -2,13 +2,17 @@ import axiosInstance from "@/lib/axios";
 import type {
   AccessTokenItem,
   CreatedToken,
+  LearnerOverview,
   TokenFormValues,
   TokenSummary,
 } from "@/lib/types/admin.types";
 import type { ApiResponse } from "@/lib/types/api.types";
+import type { ProgressMap } from "@/lib/types/progress-sync.types";
 import {
+  API_ADMIN_LEARNERS,
   API_ADMIN_TOKEN,
   API_ADMIN_TOKEN_ACTIVATE,
+  API_ADMIN_TOKEN_PROGRESS,
   API_ADMIN_TOKEN_REGENERATE,
   API_ADMIN_TOKEN_REVOKE,
   API_ADMIN_TOKEN_SESSIONS,
@@ -112,6 +116,29 @@ export const getTokenSummary = async (
 ): Promise<ApiResponse<TokenSummary>> => {
   try {
     const res = await axiosInstance.get(API_ADMIN_TOKEN_SUMMARY(id));
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// A learner's raw progress docs, for the read-only "Progres" report.
+export const getTokenProgress = async (
+  id: string,
+): Promise<ApiResponse<ProgressMap>> => {
+  try {
+    const res = await axiosInstance.get(API_ADMIN_TOKEN_PROGRESS(id));
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getLearnersOverview = async (): Promise<
+  ApiResponse<LearnerOverview[]>
+> => {
+  try {
+    const res = await axiosInstance.get(API_ADMIN_LEARNERS);
     return res.data;
   } catch (error) {
     throw error;

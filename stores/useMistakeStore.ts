@@ -14,6 +14,7 @@ import type {
   MistakeInput,
   MistakeStatus,
 } from "@/lib/types/mistake.types";
+import { useActivityStore } from "@/stores/useActivityStore";
 import { useProgressStore } from "@/stores/useProgressStore";
 
 // "Buku kesalahanku" (progress doc `mistakes`, included in Export/Import):
@@ -73,6 +74,7 @@ export const useMistakeStore = create<MistakeState>((set, get) => {
     grade: (id, how) => {
       commit(gradeIn(pick(get()), id, how, today(), new Date().toISOString()));
       useProgressStore.getState().setDoneToday((n) => n + 1);
+      useActivityStore.getState().countReview(how === "good");
     },
     setStatus: (id, status) =>
       commit(

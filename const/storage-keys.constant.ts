@@ -26,4 +26,6 @@ export const STORAGE_KEYS = {
   reading: "vocab-reading-v1",
   // Tes penempatan + ujian akhir level.
   exam: "vocab-exam-v1",
+  // "Progres": minutes per day and menu, reviews, words learned, sessions.
+  activity: "vocab-activity-v1",
 } as const;

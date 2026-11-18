@@ -21,6 +21,7 @@ import {
   startRoleplay,
   transcribeRoleplay,
 } from "@/services/roleplay.service";
+import { useActivityStore } from "@/stores/useActivityStore";
 import { useMistakeStore } from "@/stores/useMistakeStore";
 import { useRoleplayStore } from "@/stores/useRoleplayStore";
 
@@ -184,6 +185,10 @@ export const useRoleplaySession = ({
         summary: sum,
       };
       useRoleplayStore.getState().add(record);
+      useActivityStore.getState().log("roleplay", {
+        durationSec: record.durationSec,
+        meta: { scenarioId: record.scenarioId, level: record.level },
+      });
       useMistakeStore.getState().addMany(mistakesOf(sum, level, record.id));
       setSummary(sum);
       setStepsDone(sum.stepsDone);

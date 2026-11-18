@@ -6,6 +6,7 @@ import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
 import { twinIndex, withTwins } from "@/lib/helpers/word-twins.helper";
 import type { SrsEntry } from "@/lib/types/progress.types";
 import type { CustomWord } from "@/lib/types/vocab.types";
+import { useActivityStore } from "@/stores/useActivityStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 import { useSharedWordsStore } from "@/stores/useSharedWordsStore";
 
@@ -160,6 +161,7 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
         return c;
       });
       usePlanStore.getState().bumpTally("known", -1);
+      useActivityStore.getState().countLearned(-1);
     } else {
       setKnown((k) => {
         const c = { ...k };
@@ -168,6 +170,7 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
       });
       setSrs((s) => ({ ...s, [key]: { st: 0, due: today() + 1 } }));
       usePlanStore.getState().bumpTally("known");
+      useActivityStore.getState().countLearned(1);
     }
   },
 
@@ -182,6 +185,7 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
     });
     setSrs((s) => ({ ...s, [key]: { st: 0, due: today() + 1 } }));
     usePlanStore.getState().bumpTally("known");
+    useActivityStore.getState().countLearned(1);
     return true;
   },
 
@@ -202,6 +206,7 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
       return { ...s, [key]: next };
     });
     get().setDoneToday((n) => n + 1);
+    useActivityStore.getState().countReview(how === "good");
   },
 
   renameProgressKey: (oldKey, newKey) => {

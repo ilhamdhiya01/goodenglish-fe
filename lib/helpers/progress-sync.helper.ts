@@ -74,3 +74,8 @@ export const flushProgressOnExit = () => {
   }
   pending.clear();
 };
+
+// Back online: send what piled up right away instead of at the next retry.
+if (typeof window !== "undefined") {
+  window.addEventListener("online", () => void flushProgress());
+}

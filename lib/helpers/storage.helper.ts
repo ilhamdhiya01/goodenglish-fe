@@ -30,12 +30,31 @@ const DOC_KEYS: Record<string, ProgressKey> = {
   [STORAGE_KEYS.listening]: "listening",
   [STORAGE_KEYS.reading]: "reading",
   [STORAGE_KEYS.exam]: "exam",
+  [STORAGE_KEYS.activity]: "activity",
 };
 
 let snapshot: ProgressMap = {};
+// Bumped on every change, so a page can show the docs live (Progres).
+let version = 0;
+const listeners = new Set<() => void>();
+const changed = () => {
+  version++;
+  listeners.forEach((l) => l());
+};
 
 export const setProgressSnapshot = (map: ProgressMap) => {
   snapshot = { ...map };
+  changed();
+};
+
+/** Every progress doc as it is now (read-only: write through save()). */
+export const getProgressSnapshot = (): ProgressMap => snapshot;
+export const snapshotVersion = () => version;
+export const subscribeSnapshot = (l: () => void) => {
+  listeners.add(l);
+  return () => {
+    listeners.delete(l);
+  };
 };
 
 const weekLevel = (k: string) =>
@@ -77,6 +96,7 @@ export const save = (k: string, v: unknown) => {
   if (doc) {
     snapshot[doc] = v;
     queueProgress(doc, v);
+    changed();
     return;
   }
   localSet(k, JSON.stringify(v));
@@ -100,6 +120,7 @@ export const saveStr = (k: string, v: string) => {
   if (doc) {
     snapshot[doc] = v;
     queueProgress(doc, v);
+    changed();
     return;
   }
   const lvl = weekLevel(k);
@@ -107,6 +128,7 @@ export const saveStr = (k: string, v: string) => {
     const weeks = { ...weeksDoc(), [lvl]: v };
     snapshot.weeks = weeks;
     queueProgress("weeks", weeks);
+    changed();
     return;
   }
   localSet(k, v);
