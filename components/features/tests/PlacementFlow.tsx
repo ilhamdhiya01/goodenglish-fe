@@ -53,7 +53,6 @@ const PlacementFlow = ({ onClose }: { onClose: () => void }) => {
     step: number;
     qs: TestQuestion[];
   } | null>(null);
-  const [done, setDone] = useState(0);
   const [perLevel, setPerLevel] = useState<
     Partial<Record<LevelId, SectionScores>>
   >({});
@@ -217,15 +216,11 @@ const PlacementFlow = ({ onClose }: { onClose: () => void }) => {
       title={`TES PENEMPATAN · ${levelName(level).toUpperCase()}`}
       questions={qs}
       gens={gens}
-      offset={done}
-      // Each level adds about 10; shown as "of about 30".
-      total={Math.max(done + qs.length, Math.min(allowed.length, 3) * 10)}
       onQuit={onClose}
       onDone={(answers) => {
         const s = scoreSections(qs, answers, gens);
         const scores = { ...perLevel, [level]: s };
         setPerLevel(scores);
-        setDone(done + qs.length);
         if (placementGoesUp(s) && step + 1 < allowed.length) setStep(step + 1);
         else finish(scores);
       }}

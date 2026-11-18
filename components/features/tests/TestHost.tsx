@@ -26,14 +26,14 @@ const Welcome = () => {
         <PageHeading>Selamat datang di GoodEnglish!</PageHeading>
         <Lead>
           Supaya kamu mulai di level dan minggu yang pas, ikuti tes penempatan
-          singkat: sekitar 30 soal kosakata, grammar, dan menyimak, ±10 menit.
-          Siapkan suara (speaker atau earphone).
+          singkat: 10 soal per level (kosakata, grammar, dan menyimak), ±3 menit
+          per level. Siapkan suara (speaker atau earphone).
         </Lead>
       </div>
       <Card className="gap-1 text-sm leading-5 text-ink-2">
-        Tes dimulai dari level paling dasar. Kalau jawabanmu ≥ 70% benar, soal
-        naik ke level berikutnya. Tes ini tidak menandai kata apa pun sebagai
-        hafal.
+        Tes dimulai dari level paling dasar. Kalau jawabanmu ≥ 70% benar, kamu
+        lanjut ke 10 soal level berikutnya; kalau tidak, tes selesai. Tes ini
+        tidak menandai kata apa pun sebagai hafal.
       </Card>
       <div className="flex flex-wrap gap-3">
         <Button

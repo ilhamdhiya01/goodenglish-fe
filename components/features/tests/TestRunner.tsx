@@ -22,10 +22,6 @@ interface Props {
   title: string;
   questions: TestQuestion[];
   gens: Gens;
-  /** Questions answered before this batch (placement goes level by level). */
-  offset?: number;
-  /** Expected total, for the progress bar. */
-  total?: number;
   onDone: (answers: TestAnswer[]) => void;
   onQuit: () => void;
 }
@@ -35,21 +31,14 @@ const finalAnswer = (q: TestQuestion, v: TestAnswer): TestAnswer =>
   q.kind === "grammar" && q.stage === "order" ? orderText(q.q.shuffled, v) : v;
 
 // One question per screen with a progress bar; no feedback until the end.
-const TestRunner = ({
-  title,
-  questions,
-  gens,
-  offset = 0,
-  total,
-  onDone,
-  onQuit,
-}: Props) => {
+const TestRunner = ({ title, questions, gens, onDone, onQuit }: Props) => {
   const [i, setI] = useState(0);
   const [answers, setAnswers] = useState<TestAnswer[]>([]);
   const [value, setValue] = useState<TestAnswer>(null);
   const top = useRef<HTMLDivElement>(null);
   const q = questions[i];
-  const count = total ?? offset + questions.length;
+  // Placement counts per level (each level is its own batch of 10).
+  const count = questions.length;
   const filled =
     value !== null && !(typeof value === "string" && !value.trim());
 
@@ -83,7 +72,7 @@ const TestRunner = ({
   };
 
   if (!q) return null;
-  const n = offset + i + 1;
+  const n = i + 1;
   return (
     <div ref={top} className="flex flex-col gap-5">
       <div className="flex items-center gap-3">

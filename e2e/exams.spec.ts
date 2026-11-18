@@ -63,7 +63,8 @@ test.describe("pelajar baru", () => {
   }) => {
     await openApp(page, "/plan");
     await page.getByRole("button", { name: "Mulai tes" }).click();
-    await expect(page.getByText(/Soal 1 dari/)).toBeVisible();
+    // Counted per level (10 each), not over the whole test.
+    await expect(page.getByText("Soal 1 dari 10")).toBeVisible();
     await axe(page, "soal");
     // Dictation questions play their sentence.
     let played = false;
