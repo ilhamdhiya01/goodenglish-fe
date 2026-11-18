@@ -24,4 +24,6 @@ export const STORAGE_KEYS = {
   listening: "vocab-listening-v1",
   // "Bacaan": quiz results, texts done, cached word meanings.
   reading: "vocab-reading-v1",
+  // Tes penempatan + ujian akhir level.
+  exam: "vocab-exam-v1",
 } as const;

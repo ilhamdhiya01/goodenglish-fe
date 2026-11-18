@@ -244,3 +244,66 @@ export const PRACTICE: Record<PracticeTopic, PracticeTopicDef> = {
     ],
   },
 };
+
+/**
+ * Level of each practice set, for the placement test and end-of-level exams
+ * (the banks themselves carry no level). Based on what each set practises.
+ */
+export const SET_LEVEL: Record<string, "beginner" | "pre" | "inter" | "upper"> =
+  {
+    bedo1: "beginner",
+    bedo2: "beginner",
+    bedo3: "beginner",
+    thit1: "beginner",
+    thit2: "beginner",
+    thit3: "beginner",
+    whb1: "beginner",
+    whb2: "beginner",
+    prep1: "beginner",
+    prep2: "beginner",
+    tense1: "beginner",
+    irr1: "beginner",
+    bedo4: "pre",
+    thit4: "pre",
+    whb3: "pre",
+    whb4: "pre",
+    prep3: "pre",
+    tense2: "pre",
+    tense3: "pre",
+    irr2: "pre",
+    conj1: "pre",
+    whb5: "inter",
+    prep4: "inter",
+    tense4: "inter",
+    irr3: "inter",
+    irr4: "inter",
+    conj2: "inter",
+    conj3: "inter",
+    whb6: "upper",
+    whb7: "upper",
+    irr5: "upper",
+    conj4: "upper",
+  };
+
+/** [topic, set id] of every practice set tagged with this level. */
+export const setsForLevel = (level: string): [PracticeTopic, string][] =>
+  (Object.keys(PRACTICE) as PracticeTopic[]).flatMap((t) =>
+    PRACTICE[t].sets
+      .filter(([id]) => SET_LEVEL[id] === level)
+      .map(([id]) => [t, id] as [PracticeTopic, string]),
+  );
+
+// Banks per topic load on demand (a separate chunk each), not in the
+// first bundle. Shared by the practice tabs and the tests.
+export const loadBank = (topic: PracticeTopic): Promise<{ default: unknown }> =>
+  BANK_LOAD[topic]();
+
+const BANK_LOAD: Record<PracticeTopic, () => Promise<{ default: unknown }>> = {
+  whb: () => import("@/lib/content/practice/whb.json"),
+  irr: () => import("@/lib/content/practice/irr.json"),
+  prep: () => import("@/lib/content/practice/prep.json"),
+  bedo: () => import("@/lib/content/practice/bedo.json"),
+  tense: () => import("@/lib/content/practice/tense.json"),
+  conj: () => import("@/lib/content/practice/conj.json"),
+  thit: () => import("@/lib/content/practice/thit.json"),
+};

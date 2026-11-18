@@ -10,6 +10,8 @@ import Sheet from "@/components/ui/sheet";
 import { levelName, LEVELS } from "@/const/levels.constant";
 import { flatten, levelData } from "@/lib/helpers/level-data.helper";
 import { itemKey } from "@/lib/helpers/storage.helper";
+import { useUnlockedLevels } from "@/lib/hooks/useUnlockedLevels";
+import type { LevelId } from "@/lib/types/session.types";
 import { useAccessStore } from "@/stores/useAccessStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useProgressStore } from "@/stores/useProgressStore";
@@ -53,8 +55,13 @@ const pick = (id: string) => {
   useQuizStore.getState().close();
 };
 
-const LevelBody = ({ s }: { s: LevelStat }) => (
+const LevelBody = ({ s, locked }: { s: LevelStat; locked?: boolean }) => (
   <span className="flex w-full flex-col gap-1.5">
+    {locked && (
+      <span className="text-[12px] font-extrabold text-ink-2">
+        🔒 Lulus ujian akhir level sebelumnya dulu
+      </span>
+    )}
     <span className="flex items-baseline justify-between gap-3">
       <span>{s.name}</span>
       <span className="text-xs font-bold text-ink-2 tabular-nums">
@@ -88,6 +95,8 @@ const LevelPicker = React.memo(
     const level = useLevelStore((s) => s.level);
     const week = useLevelStore((s) => s.week);
     const stats = useLevelStats();
+    // "Wajib lulus ujian": the next level waits for the exam.
+    const open = useUnlockedLevels();
     const [sheet, setSheet] = useState(false);
 
     const label =
@@ -138,6 +147,7 @@ const LevelPicker = React.memo(
                   type="button"
                   key={s.id}
                   aria-current={s.id === level ? "true" : undefined}
+                  disabled={!open.includes(s.id as LevelId)}
                   onClick={() => {
                     pick(s.id);
                     setSheet(false);
@@ -147,9 +157,10 @@ const LevelPicker = React.memo(
                     s.id === level
                       ? "border-accent-line bg-accent-tint text-accent-edge"
                       : "border-line text-ink hover:bg-sunken",
+                    "disabled:cursor-not-allowed disabled:text-ink-3 disabled:hover:bg-transparent",
                   )}
                 >
-                  <LevelBody s={s} />
+                  <LevelBody s={s} locked={!open.includes(s.id as LevelId)} />
                 </button>
               ))}
             </Sheet>
@@ -180,9 +191,10 @@ const LevelPicker = React.memo(
             <Menu.Item
               key={s.id}
               selected={s.id === level}
+              disabled={!open.includes(s.id as LevelId)}
               onSelect={() => pick(s.id)}
             >
-              <LevelBody s={s} />
+              <LevelBody s={s} locked={!open.includes(s.id as LevelId)} />
             </Menu.Item>
           ))}
         </div>

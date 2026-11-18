@@ -6,6 +6,7 @@ import React from "react";
 import { LuEllipsis } from "react-icons/lu";
 
 import Jalak from "@/components/brand/Jalak";
+import { Tests } from "@/components/features/tests";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import IconButton from "@/components/ui/icon-button";
@@ -417,6 +418,8 @@ const PlanPage = React.memo(() => {
               Intermediate tuntas.
             </span>
           </Card>
+
+          <Tests.ExamCard />
         </div>
       </div>
     </section>

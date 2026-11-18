@@ -8,7 +8,7 @@ export interface SrsEntry {
   lapses?: number;
 }
 
-/** Bentuk file JSON ekspor/impor progres (format v7, kompatibel v1–v6). */
+/** Bentuk file JSON ekspor/impor progres (format v8, kompatibel v1–v7). */
 export interface ProgressSnapshot {
   v: number;
   exportedAt: string;
@@ -27,4 +27,6 @@ export interface ProgressSnapshot {
   listening?: unknown;
   /** v6: Bacaan (ReadingData). Kartu pribadinya ada di `custom`. */
   reading?: unknown;
+  /** v8: tes penempatan + ujian akhir level (ExamData). */
+  exam?: unknown;
 }

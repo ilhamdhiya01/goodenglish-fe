@@ -14,6 +14,8 @@ import ProgressBar from "@/components/ui/progress-bar";
 import SectionLabel from "@/components/ui/section-label";
 import { LEVELS } from "@/const/levels.constant";
 import { useShellData } from "@/lib/hooks/useShellData";
+import { useUnlockedLevels } from "@/lib/hooks/useUnlockedLevels";
+import type { LevelId } from "@/lib/types/session.types";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useQuizStore } from "@/stores/useQuizStore";
 
@@ -34,8 +36,13 @@ const QuizPanel = React.memo(() => {
   const close = useQuizStore((s) => s.close);
   const setLevel = useLevelStore((s) => s.setLevel);
 
+  // "Wajib lulus ujian" (or a level the token doesn't allow): no shortcut.
+  const unlocked = useUnlockedLevels();
+
   if (!qz) return null;
-  const up = LEVELS[LEVELS.findIndex((l) => l[0] === level) + 1];
+  const after = LEVELS[LEVELS.findIndex((l) => l[0] === level) + 1];
+  const up =
+    after && unlocked.includes(after[0] as LevelId) ? after : undefined;
   const cur = qz.qs[qz.i];
   const picked = qz.picked !== null;
   const last = qz.i === qz.qs.length - 1;

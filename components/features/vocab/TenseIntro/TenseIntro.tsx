@@ -1,16 +1,14 @@
 import React from "react";
 
-import WordTile from "@/components/shared/patterns/word-tile";
 import Card from "@/components/ui/card";
 import SectionLabel from "@/components/ui/section-label";
 import { idOf } from "@/lib/content";
-import { speak } from "@/lib/helpers/speech.helper";
 import type { Week } from "@/lib/types/vocab.types";
 
-// The week's grammar focus and its conjunctions. In the right column on wide
-// screens; folded into a "Fokus tense" row under the cover on smaller ones.
+// The week's grammar focus. In the right column on wide screens; folded into
+// a "Fokus tense" row under the cover on smaller ones. (Its conjunctions are
+// word cards in the list: Jenis › Kata sambung.)
 const TenseIntro = React.memo(({ d }: { d: Week }) => {
-  const conj = d.items.filter((i) => i[0] === "cj");
   return (
     <>
       <Card className="gap-3">
@@ -57,23 +55,6 @@ const TenseIntro = React.memo(({ d }: { d: Week }) => {
           </div>
         ))}
       </Card>
-      {conj.length > 0 && (
-        <Card className="gap-3">
-          <SectionLabel>Kata sambung minggu ini</SectionLabel>
-          <div className="flex flex-wrap gap-2">
-            {conj.map((i) => (
-              <WordTile
-                key={i[1]}
-                title={`Dengarkan "${i[1]}"`}
-                onClick={() => speak(i[1])}
-              >
-                {i[1]}
-                <span className="font-semibold text-ink-2">· {i[3]}</span>
-              </WordTile>
-            ))}
-          </div>
-        </Card>
-      )}
     </>
   );
 });

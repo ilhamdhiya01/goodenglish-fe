@@ -29,6 +29,7 @@ const DOC_KEYS: Record<string, ProgressKey> = {
   [STORAGE_KEYS.mistakes]: "mistakes",
   [STORAGE_KEYS.listening]: "listening",
   [STORAGE_KEYS.reading]: "reading",
+  [STORAGE_KEYS.exam]: "exam",
 };
 
 let snapshot: ProgressMap = {};

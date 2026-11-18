@@ -8,7 +8,9 @@ import Card from "@/components/ui/card";
 import FieldLabel from "@/components/ui/field-label";
 import Input from "@/components/ui/input";
 import { FIELD_CLASS } from "@/components/ui/input/Input";
+import Modal from "@/components/ui/modal";
 import Pill from "@/components/ui/pill";
+import SectionLabel from "@/components/ui/section-label";
 import Select from "@/components/ui/select";
 import { LEVEL_OPTIONS } from "@/const/access.constant";
 import { levelData } from "@/lib/helpers/level-data.helper";
@@ -382,105 +384,142 @@ const ListeningManager = () => {
                   </span>
                 </div>
 
-                {editing === it.id ? (
-                  <ItemEditor
-                    item={it}
-                    saving={L.isSaving}
-                    onCancel={() => setEditing(null)}
-                    onSave={(d) =>
-                      void L.update({ id: it.id, body: d })
-                        .then(() => setEditing(null))
-                        .catch(() => {})
-                    }
-                  />
-                ) : (
-                  <>
-                    {open === it.id && (
-                      <div className="flex flex-col gap-3">
-                        <ol className="m-0 flex list-none flex-col gap-1.5 p-0">
-                          {it.lines.map((l, i) => (
-                            <li
-                              key={i}
-                              className="flex gap-2 text-[14px] leading-5"
-                            >
-                              <span className="w-5 shrink-0 font-black text-ink-3">
-                                {l.speaker}
-                              </span>
-                              <span className="text-ink">{l.text}</span>
-                            </li>
-                          ))}
-                        </ol>
-                        {it.questions.map((q, qi) => (
-                          <div key={qi} className="flex flex-col gap-1">
-                            <span className="text-[14px] font-extrabold text-ink">
-                              {qi + 1}. {q.question}
-                            </span>
-                            {q.options.map((o, oi) => (
-                              <span
-                                key={oi}
-                                className={classNames(
-                                  "pl-4 text-[13.5px]",
-                                  oi === q.answerIndex
-                                    ? "font-extrabold text-ok"
-                                    : "text-ink-2",
-                                )}
-                              >
-                                {LETTERS[oi]}. {o}
-                                {oi === q.answerIndex && " ✓"}
-                              </span>
-                            ))}
-                            <span className="pl-4 text-[12.5px] text-ink-3">
-                              {q.explanationId}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    <div className="flex flex-wrap gap-2">
-                      <Button size="sm" onClick={() => preview(it)}>
-                        Putar
-                      </Button>
-                      <Button
-                        size="sm"
-                        aria-expanded={open === it.id}
-                        onClick={() => {
-                          stopSpeaking();
-                          setOpen(open === it.id ? null : it.id);
-                        }}
-                      >
-                        {open === it.id ? "Tutup isi" : "Lihat isi"}
-                      </Button>
-                      <Button size="sm" onClick={() => setEditing(it.id)}>
-                        Ubah
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant={
-                          it.status === "published" ? "outline" : "green"
+                {editing === it.id && (
+                  <Modal
+                    label={`Ubah soal ${it.title}`}
+                    size="lg"
+                    onClose={() => setEditing(null)}
+                  >
+                    <Card pad="lg" className="gap-4">
+                      <SectionLabel tone="green">
+                        UBAH · {it.title.toUpperCase()}
+                      </SectionLabel>
+                      <ItemEditor
+                        item={it}
+                        saving={L.isSaving}
+                        onCancel={() => setEditing(null)}
+                        onSave={(d) =>
+                          void L.update({ id: it.id, body: d })
+                            .then(() => setEditing(null))
+                            .catch(() => {})
                         }
-                        disabled={L.busyId === it.id}
-                        onClick={() =>
-                          void L.setPublished({
-                            id: it.id,
-                            published: it.status !== "published",
-                          }).catch(() => {})
-                        }
-                      >
-                        {it.status === "published"
-                          ? "Tarik ke draf"
-                          : "Terbitkan"}
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="danger"
-                        disabled={L.busyId === it.id}
-                        onClick={() => void remove(it)}
-                      >
-                        Hapus
-                      </Button>
-                    </div>
-                  </>
+                      />
+                    </Card>
+                  </Modal>
                 )}
+                <>
+                  {open === it.id && (
+                    <Modal
+                      label={`Isi soal ${it.title}`}
+                      size="lg"
+                      onClose={() => setOpen(null)}
+                    >
+                      <Card pad="lg" className="gap-3">
+                        <SectionLabel tone="green">
+                          ISI · {it.title.toUpperCase()}
+                        </SectionLabel>
+                        <div className="flex flex-col gap-3">
+                          <ol className="m-0 flex list-none flex-col gap-1.5 p-0">
+                            {it.lines.map((l, i) => (
+                              <li
+                                key={i}
+                                className="flex gap-2 text-[14px] leading-5"
+                              >
+                                <span className="w-5 shrink-0 font-black text-ink-3">
+                                  {l.speaker}
+                                </span>
+                                <span className="text-ink">{l.text}</span>
+                              </li>
+                            ))}
+                          </ol>
+                          {it.questions.map((q, qi) => (
+                            <div key={qi} className="flex flex-col gap-1">
+                              <span className="text-[14px] font-extrabold text-ink">
+                                {qi + 1}. {q.question}
+                              </span>
+                              {q.options.map((o, oi) => (
+                                <span
+                                  key={oi}
+                                  className={classNames(
+                                    "pl-4 text-[13.5px]",
+                                    oi === q.answerIndex
+                                      ? "font-extrabold text-ok"
+                                      : "text-ink-2",
+                                  )}
+                                >
+                                  {LETTERS[oi]}. {o}
+                                  {oi === q.answerIndex && " ✓"}
+                                </span>
+                              ))}
+                              <span className="pl-4 text-[12.5px] text-ink-3">
+                                {q.explanationId}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          <Button size="sm" onClick={() => preview(it)}>
+                            Putar
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={() => {
+                              stopSpeaking();
+                              setOpen(null);
+                            }}
+                          >
+                            Tutup
+                          </Button>
+                        </div>
+                      </Card>
+                    </Modal>
+                  )}
+                  <div className="flex flex-wrap gap-2">
+                    <Button size="sm" onClick={() => preview(it)}>
+                      Putar
+                    </Button>
+                    <Button
+                      size="sm"
+                      aria-haspopup="dialog"
+                      onClick={() => {
+                        stopSpeaking();
+                        setOpen(it.id);
+                      }}
+                    >
+                      Lihat isi
+                    </Button>
+                    <Button
+                      size="sm"
+                      aria-haspopup="dialog"
+                      onClick={() => setEditing(it.id)}
+                    >
+                      Ubah
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant={it.status === "published" ? "outline" : "green"}
+                      disabled={L.busyId === it.id}
+                      onClick={() =>
+                        void L.setPublished({
+                          id: it.id,
+                          published: it.status !== "published",
+                        }).catch(() => {})
+                      }
+                    >
+                      {it.status === "published"
+                        ? "Tarik ke draf"
+                        : "Terbitkan"}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="danger"
+                      disabled={L.busyId === it.id}
+                      onClick={() => void remove(it)}
+                    >
+                      Hapus
+                    </Button>
+                  </div>
+                </>
               </Card>
             </li>
           ))}

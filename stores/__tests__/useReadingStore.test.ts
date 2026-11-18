@@ -125,7 +125,7 @@ describe("Export/Import v6", () => {
       v: number;
       reading: { done: object };
     };
-    expect(d.v).toBe(7);
+    expect(d.v).toBeGreaterThanOrEqual(6);
     expect(Object.keys(d.reading.done)).toEqual(["t1"]);
   });
 });

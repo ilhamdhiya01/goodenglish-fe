@@ -627,6 +627,25 @@ export const installMockApi = async (
           { weekStart: "2026-11-16", sessions: 2, minutes: 13 },
           { weekStart: "2026-11-09", sessions: 0, minutes: 0 },
         ],
+        placement: {
+          status: "done",
+          date: "2026-11-15T03:00:00.000Z",
+          level: "inter",
+          week: 5,
+        },
+        examAttempts: [
+          {
+            level: "pre",
+            date: "2026-11-17T03:00:00.000Z",
+            pct: 82,
+            passed: true,
+            sections: [
+              { section: "vocab", right: 13, total: 15 },
+              { section: "grammar", right: 12, total: 15 },
+              { section: "listening", right: 8, total: 10 },
+            ],
+          },
+        ],
       });
     }
 
