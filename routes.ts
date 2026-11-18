@@ -84,6 +84,9 @@ export const API_ADMIN_READING_PUBLISH = (id: string) =>
 export const API_ADMIN_READING_UNPUBLISH = (id: string) =>
   `${API_ADMIN_READING_TEXT(id)}/unpublish`;
 
+// Speech-to-text for "Betulkan kalimat" cards in Ulang
+export const API_STT_TRANSCRIBE = `${API_BASE_URL}/stt/transcribe`;
+
 // Admin: Gemini key + model behind Tanya AI
 export const API_ADMIN_AI_SETTINGS = `${API_BASE_URL}/admin/ai-settings`;
 export const API_ADMIN_AI_KEY = `${API_ADMIN_AI_SETTINGS}/key`;

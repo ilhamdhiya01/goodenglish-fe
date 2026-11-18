@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 import type { AiMessage, AiWord } from "@/lib/types/ai.types";
+import type { MistakeSource } from "@/lib/types/mistake.types";
 
 // Percakapan "Tanya AI". Isinya disimpan di server per token (lihat
 // useAiConversations), jadi sama di semua perangkat. Di perangkat ini cukup
@@ -13,7 +14,11 @@ const LEGACY_KEY = "ge-ai-chat-v1";
 
 /** From a word card: a message to send as soon as the panel opens ("cek
  * AI"), or none, to just focus the input ("tanya AI"). */
-export type AiPending = { text?: string };
+export type AiPending = {
+  text?: string;
+  /** "cek AI" on Kalimatku: where a wrong sentence goes in Buku kesalahanku. */
+  mistake?: { source: MistakeSource; wrong: string };
+};
 
 export type AiChatView = "chat" | "history";
 

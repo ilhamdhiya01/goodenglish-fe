@@ -20,7 +20,7 @@ export interface Block {
 }
 
 export const useTodayPlan = () => {
-  const { srs, known } = useShellData();
+  const { srs, known, dueMistakes } = useShellData();
   const P = usePlanStore((s) => s.plan);
 
   const T = today();
@@ -48,9 +48,16 @@ export const useTodayPlan = () => {
         min: "10 mnt",
         to: "/review",
         go: "Ulang hari ini",
-        desc: dueCount
-          ? `${dueCount} kata jatuh tempo. Jawab dengan suara, bukan dalam hati.`
-          : "Tidak ada yang jatuh tempo. Buka Kosakata dan ucapkan 10 kata yang sudah hafal.",
+        desc:
+          dueCount + dueMistakes.length
+            ? [
+                dueCount && `${dueCount} kata`,
+                dueMistakes.length && `${dueMistakes.length} kesalahan`,
+              ]
+                .filter(Boolean)
+                .join(" + ") +
+              " jatuh tempo. Jawab dengan suara, bukan dalam hati."
+            : "Tidak ada yang jatuh tempo. Buka Kosakata dan ucapkan 10 kata yang sudah hafal.",
         why: "Kata yang pernah diucapkan lebih cepat keluar saat bicara.",
       },
       wknd

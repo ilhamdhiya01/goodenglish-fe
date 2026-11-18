@@ -51,7 +51,7 @@ describe("applyImport", () => {
     expect(msg).toContain("Progres diimpor");
     expect(msg).not.toContain("main peran");
     expect(useRoleplayStore.getState().history).toEqual([]);
-    expect(useMistakeStore.getState().mistakes).toEqual([]);
+    expect(useMistakeStore.getState().items).toEqual([]);
   });
 
   it("merges v4 roleplay history and mistakes by id", () => {
@@ -83,9 +83,85 @@ describe("applyImport", () => {
         .history.map((r) => r.id)
         .sort(),
     ).toEqual(["a", "b"]);
-    expect(useMistakeStore.getState().mistakes.map((m) => m.id)).toEqual([
-      "m1",
+    // Old array → Buku kesalahanku records (ids kept).
+    expect(useMistakeStore.getState().items).toEqual([
+      expect.objectContaining({
+        id: "m1",
+        source: "Main peran",
+        category: "kata-tertukar",
+        status: "active",
+        count: 1,
+      }),
     ]);
     expect(msg).toContain("2 sesi main peran");
+  });
+});
+
+describe("Buku kesalahanku in Export/Import", () => {
+  it("imports v7 data and merges an old v6 array by pattern", () => {
+    reset();
+    useMistakeStore.getState().add({
+      source: "Grammar",
+      wrong: "She go.",
+      correct: "She goes.",
+      explanation_id: "",
+      category: "aturan-dasar",
+      level: "pre",
+    });
+    applyImport({
+      v: 6,
+      exportedAt: "",
+      known: {},
+      srs: {},
+      own: {},
+      mistakes: [
+        {
+          id: "old",
+          source: "Main peran",
+          wrong: "she go",
+          correct: "She goes!",
+          explanation_id: "",
+          category: "aturan-dasar",
+          level: "pre",
+          createdAt: "2026-11-01T00:00:00Z",
+        },
+      ],
+    });
+    expect(useMistakeStore.getState().items).toHaveLength(1);
+    applyImport({
+      v: 7,
+      exportedAt: "",
+      known: {},
+      srs: {},
+      own: {},
+      mistakes: {
+        v: 2,
+        items: [
+          {
+            id: "n",
+            key: "x",
+            source: "Tanya AI",
+            wrong: "I am agree.",
+            correct: "I agree.",
+            explanation_id: "",
+            category: "am-is-are",
+            level: "pre",
+            createdAt: "2026-11-02T00:00:00Z",
+            lastAt: "2026-11-02T00:00:00Z",
+            count: 3,
+            status: "mastered",
+            srs: { st: 4, due: 1, streak: 4, lastGap: 30, reps: 7 },
+          },
+        ],
+        reviewOn: true,
+        intro: { day: 0, n: 0 },
+      },
+    });
+    const items = useMistakeStore.getState().items;
+    expect(items).toHaveLength(2);
+    expect(items.find((m) => m.correct === "I agree.")).toMatchObject({
+      count: 3,
+      status: "mastered",
+    });
   });
 });

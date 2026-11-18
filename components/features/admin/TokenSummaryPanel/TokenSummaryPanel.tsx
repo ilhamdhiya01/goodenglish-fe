@@ -5,6 +5,7 @@ import React from "react";
 import Card from "@/components/ui/card";
 import SectionLabel from "@/components/ui/section-label";
 import TextButton from "@/components/ui/text-button";
+import { categoryOf } from "@/const/mistake-categories.constant";
 import { formatDateTime } from "@/lib/helpers/date.helper";
 import { useTokenSummary } from "@/lib/hooks/admin/useTokenSummary";
 import type { RoleplayWeek } from "@/lib/types/admin.types";
@@ -108,10 +109,30 @@ const TokenSummaryPanel = React.memo(
                   label="KARTU PRIBADI (BACAAN)"
                 />
               )}
+              {summary.mistakeActiveCount !== undefined && (
+                <Stat
+                  value={summary.mistakeActiveCount}
+                  label="KESALAHAN AKTIF"
+                />
+              )}
+              {summary.mistakeMasteredCount !== undefined && (
+                <Stat
+                  value={summary.mistakeMasteredCount}
+                  label="KESALAHAN DIKUASAI"
+                />
+              )}
               {summary.readingDoneCount !== undefined && (
                 <Stat value={summary.readingDoneCount} label="BACAAN SELESAI" />
               )}
             </div>
+            {!!summary.topMistakeCategories?.length && (
+              <span className="text-[13.5px] font-semibold text-ink-2">
+                Kesalahan terbanyak:{" "}
+                {summary.topMistakeCategories
+                  .map((c) => `${categoryOf(c.id).label} (${c.count})`)
+                  .join(", ")}
+              </span>
+            )}
             <span className="text-[13.5px] font-semibold text-ink-2">
               Terakhir menyimpan progres:{" "}
               {summary.lastProgressAt

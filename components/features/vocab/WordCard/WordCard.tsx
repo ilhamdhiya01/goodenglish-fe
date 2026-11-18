@@ -548,6 +548,7 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
                       onClick={() =>
                         useAiChatStore.getState().openWith(aiWord, {
                           text: `Cek kalimatku dengan kata "${en}": ${own}`,
+                          mistake: { source: "Kalimatku", wrong: own },
                         })
                       }
                     >

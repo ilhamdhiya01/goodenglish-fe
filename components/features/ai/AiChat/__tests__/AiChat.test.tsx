@@ -103,10 +103,17 @@ describe("AiChat panel", () => {
   it('sends the sentence right away from a card\'s "cek AI"', () => {
     render(<AiChat />);
     const text = 'Cek kalimatku dengan kata "commute": I commute by bus.';
+    const mistake = {
+      source: "Kalimatku" as const,
+      wrong: "I commute by bus.",
+    };
     act(() =>
-      useAiChatStore.getState().openWith({ word: "commute" }, { text }),
+      useAiChatStore
+        .getState()
+        .openWith({ word: "commute" }, { text, mistake }),
     );
-    expect(ask).toHaveBeenCalledWith(text);
+    // The sentence goes to Buku kesalahanku as Kalimatku if it's wrong.
+    expect(ask).toHaveBeenCalledWith(text, mistake);
   });
 
   it('only focuses the input from a card\'s "tanya AI"', () => {

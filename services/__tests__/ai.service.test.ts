@@ -45,4 +45,34 @@ describe("streamChat", () => {
     ) as { conversationId?: string };
     expect(sent.conversationId).toBe("c1");
   });
+
+  it("hands the hidden sentence check to onCheck, not to the text", async () => {
+    const check = {
+      original: "She go home.",
+      isCorrect: false,
+      corrected: "She goes home.",
+      explanationId: "Pakai -s.",
+      category: "aturan-dasar",
+    };
+    vi.stubGlobal(
+      "fetch",
+      vi
+        .fn()
+        .mockResolvedValue(
+          sseResponse(
+            'data: {"text":"Belum tepat."}\n\n',
+            `event: check\ndata: ${JSON.stringify(check)}\n\n`,
+            "event: done\ndata: {}\n\n",
+          ),
+        ),
+    );
+    const texts: string[] = [];
+    const checks: unknown[] = [];
+    await streamChat(
+      { messages: [{ role: "user", text: "She go home." }] },
+      { onText: (t) => texts.push(t), onCheck: (c) => checks.push(c) },
+    );
+    expect(texts).toEqual(["Belum tepat."]);
+    expect(checks).toEqual([check]);
+  });
 });

@@ -33,6 +33,8 @@ export interface PracticeGen {
   /** Opsional: cara membandingkan jawaban ketik/susun dengan kunci (default: norm sama). */
   check?: (given: string, q: AskQ, stage: PracticeStage) => boolean;
   explain: (q: AskQ, given: string, stage?: PracticeStage) => string;
+  /** Opsional: kalimat utuh jawaban pelajar (tahap ketik bisa hanya isian). */
+  full?: (q: AskQ, given: string, stage: PracticeStage) => string;
   /** Opsional: apa yang ditampilkan per tahap (default: prompt + promptId). */
   view?: (q: AskQ, stage: PracticeStage) => StageView;
 }
@@ -219,6 +221,10 @@ export const bankGen = (bank: BankItem[]): PracticeGen => {
       if (stage === "type")
         return m.keys.some((k) => sameAnswer(assemble(m, given), k));
       return [...m.keys, ...m.orders].some((k) => sameAnswer(given, k));
+    },
+    full(q, given, stage) {
+      const m = meta.get(q.ans);
+      return m && stage === "type" ? assemble(m, given) : given;
     },
     explain(q, given, stage) {
       const m = meta.get(q.ans);

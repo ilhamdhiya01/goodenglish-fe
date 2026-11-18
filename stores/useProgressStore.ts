@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
-import { GAPS } from "@/const/srs.constant";
 import { allLevelData, migrateProgress } from "@/lib/helpers/derived.helper";
+import { nextSrs } from "@/lib/helpers/srs.helper";
 import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
 import { twinIndex, withTwins } from "@/lib/helpers/word-twins.helper";
 import type { SrsEntry } from "@/lib/types/progress.types";
@@ -197,22 +197,9 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
   bumpSrs: (key, how) => {
     const T = today();
     get().setSrs((s) => {
-      const cur = s[key] || { st: 0, due: T };
-      let st = cur.st;
-      if (how === "good") st = Math.min(st + 1, GAPS.length - 1);
-      else if (how === "forgot") st = 0;
-      const gap =
-        how === "forgot"
-          ? 1
-          : how === "hard"
-            ? Math.max(1, Math.round(GAPS[st] / 2))
-            : GAPS[st];
-      // Dihitung supaya Tanya AI bisa menyarankan kata yang paling sering lupa.
-      const lapses = (cur.lapses ?? 0) + (how === "forgot" ? 1 : 0);
-      return {
-        ...s,
-        [key]: { st, due: T + gap, ...(lapses ? { lapses } : {}) },
-      };
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { gap, ...next } = nextSrs(s[key] || { st: 0, due: T }, how, T);
+      return { ...s, [key]: next };
     });
     get().setDoneToday((n) => n + 1);
   },

@@ -31,8 +31,19 @@ interface ChatBody {
   conversationId?: string;
 }
 
+/** The hidden result of checking a learner's sentence (event: check). */
+export interface SentenceCheck {
+  original: string;
+  isCorrect: boolean;
+  corrected: string;
+  explanationId: string;
+  category: string;
+}
+
 interface ChatHandlers {
   onText: (text: string) => void;
+  /** Sent after the answer when it checked the learner's sentence. */
+  onCheck?: (check: SentenceCheck) => void;
   /** The thread the server saved this exchange in (sent first). */
   onMeta?: (conversationId: string) => void;
 }
@@ -42,7 +53,7 @@ interface ChatHandlers {
 // onText for each piece of the answer as it arrives.
 export const streamChat = async (
   body: ChatBody,
-  { onText, onMeta }: ChatHandlers,
+  { onText, onMeta, onCheck }: ChatHandlers,
   signal?: AbortSignal,
 ): Promise<void> => {
   const res = await fetch(API_AI_CHAT, {
@@ -80,6 +91,10 @@ export const streamChat = async (
             conversationId?: string;
           })
         : {};
+      if (event === "check") {
+        onCheck?.(parsed as unknown as SentenceCheck);
+        continue;
+      }
       if (event === "meta") {
         if (parsed.conversationId) onMeta?.(parsed.conversationId);
         continue;

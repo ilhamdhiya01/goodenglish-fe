@@ -8,7 +8,7 @@ export interface SrsEntry {
   lapses?: number;
 }
 
-/** Bentuk file JSON ekspor/impor progres (format v6, kompatibel v1–v5). */
+/** Bentuk file JSON ekspor/impor progres (format v7, kompatibel v1–v6). */
 export interface ProgressSnapshot {
   v: number;
   exportedAt: string;
@@ -21,7 +21,7 @@ export interface ProgressSnapshot {
   askprac?: unknown;
   /** v4: riwayat Main peran (RoleplayRecord[]). */
   roleplay?: unknown;
-  /** v4: kesalahan yang terkumpul (MistakeRecord[]). */
+  /** v4–v6: kesalahan (array lama); v7: Buku kesalahanku (MistakeData). */
   mistakes?: unknown;
   /** v5: Menyimak (ListeningData). */
   listening?: unknown;

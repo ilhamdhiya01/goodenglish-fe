@@ -12,7 +12,8 @@ import { usePlanStore } from "@/stores/usePlanStore";
 // Dipasang di AppShell (hanya setelah progres server dimuat) supaya hari tetap
 // tercatat walau halaman Rencana tidak dibuka.
 const PlanAutoCheck = () => {
-  const { dueKeys } = useShellData();
+  const { dueKeys, dueMistakes } = useShellData();
+  const due = dueKeys.length + dueMistakes.length;
   const tally = usePlanStore((s) => s.plan.tally);
   const setDayBlocks = usePlanStore((s) => s.setDayBlocks);
 
@@ -26,11 +27,12 @@ const PlanAutoCheck = () => {
 
     setDayBlocks({
       // Jatuh tempo hanya berkurang lewat ulangan, jadi 0 = semua sudah diulang.
-      b1: dueKeys.length === 0,
+      // Kartu kata dan kartu kesalahan.
+      b1: due === 0,
       b2: !wknd && (t.known || 0) >= AUTO_CHECK.known,
       b3: !wknd && b3,
     });
-  }, [dueKeys.length, tally, setDayBlocks]);
+  }, [due, tally, setDayBlocks]);
 
   return null;
 };

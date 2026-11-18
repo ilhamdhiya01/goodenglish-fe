@@ -221,7 +221,7 @@ const AiChat = React.memo(() => {
   useEffect(() => {
     if (!open || !pending) return;
     const p = takePending();
-    if (p?.text) void ask(p.text);
+    if (p?.text) void ask(p.text, p.mistake);
     else inputRef.current?.focus();
   }, [open, pending, takePending, ask]);
 

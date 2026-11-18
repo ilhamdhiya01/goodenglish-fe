@@ -63,19 +63,7 @@ export interface RoleplayRecord {
   summary: RoleplaySummary;
 }
 
-/** A mistake saved for "Buku kesalahanku" (progress doc `mistakes`). Field
- * names follow the product spec so that feature can read them as they are. */
-export interface MistakeRecord {
-  id: string;
-  source: "Main peran" | "Menyimak";
-  wrong: string;
-  correct: string;
-  explanation_id: string;
-  category: string;
-  level: LevelId;
-  /** ISO time. */
-  createdAt: string;
-}
+export type { MistakeRecord } from "@/lib/types/mistake.types";
 
 // API (goodenglish-be src/modules/roleplay)
 
