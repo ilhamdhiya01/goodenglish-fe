@@ -102,6 +102,7 @@ export const MENU_OPTIONS: { id: MenuId; label: string }[] = [
   { id: "pronunciation", label: "Pelafalan" },
   { id: "listening", label: "Menyimak" },
   { id: "reading", label: "Bacaan" },
+  { id: "progress", label: "Progres" },
   { id: "cheatsheet", label: "Cheat sheet" },
   { id: "ai", label: "Tanya AI" },
   { id: "roleplay", label: "Main peran" },

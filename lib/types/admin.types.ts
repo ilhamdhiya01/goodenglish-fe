@@ -90,3 +90,22 @@ export interface RoleplayWeek {
   sessions: number;
   minutes: number;
 }
+
+// One row of "Ringkasan pelajar" (Admin › Kelola).
+export interface LearnerOverview {
+  id: string;
+  label: string;
+  status: TokenStatus;
+  levels: LevelId[];
+  menus: MenuId[];
+  /** Active level in the app, if the learner picked one. */
+  level: LevelId | null;
+  /** Latest of the last sign-in and the last recorded activity. */
+  lastActiveAt: string | null;
+  streak: number;
+  minutes7d: number;
+  wordsThisWeek: number;
+  /** % "Ingat" in Ulang over 28 days; null without reviews. */
+  retention: number | null;
+  reviews28d: number;
+}

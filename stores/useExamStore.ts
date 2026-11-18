@@ -12,6 +12,7 @@ import type {
   PlacementResult,
 } from "@/lib/types/exam.types";
 import type { LevelId } from "@/lib/types/session.types";
+import { useActivityStore } from "@/stores/useActivityStore";
 
 // Tes penempatan + ujian akhir level (progress doc `exam`, in Export/Import).
 
@@ -54,6 +55,9 @@ export const useExamStore = create<ExamState>((set, get) => {
       commit({
         ...cur,
         attempts: [attempt, ...cur.attempts].slice(0, ATTEMPTS_MAX),
+      });
+      useActivityStore.getState().log("exam", {
+        meta: { level: a.level, pct: a.pct, passed: a.passed },
       });
       return attempt;
     },

@@ -14,6 +14,8 @@ export const ROUTES = {
   LISTENING: "/listening",
   ADMIN_LISTENING: "/admin/listening",
   READING: "/reading",
+  PROGRESS: "/progress",
+  ADMIN_LEARNERS: "/admin/learners",
   ADMIN_READING: "/admin/reading",
   ADMIN_TOKENS: "/admin/tokens",
   ADMIN_WORDS: "/admin/words",
@@ -86,6 +88,11 @@ export const API_ADMIN_READING_UNPUBLISH = (id: string) =>
 
 // Speech-to-text for "Betulkan kalimat" cards in Ulang
 export const API_STT_TRANSCRIBE = `${API_BASE_URL}/stt/transcribe`;
+
+// "Progres" for admins: one learner's progress docs, and all learners
+export const API_ADMIN_TOKEN_PROGRESS = (id: string) =>
+  `${API_BASE_URL}/admin/tokens/${id}/progress`;
+export const API_ADMIN_LEARNERS = `${API_BASE_URL}/admin/learners/overview`;
 
 // Admin: Gemini key + model behind Tanya AI
 export const API_ADMIN_AI_SETTINGS = `${API_BASE_URL}/admin/ai-settings`;

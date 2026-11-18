@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import AiChat from "@/components/features/ai/AiChat";
 import { Tests } from "@/components/features/tests";
+import ActivityTracker from "@/components/providers/ActivityTracker";
 import PlanAutoCheck from "@/components/providers/PlanAutoCheck";
 import TtsBootstrap from "@/components/providers/TtsBootstrap";
 import { NON_TAB_MENUS } from "@/const/access.constant";
@@ -47,7 +48,8 @@ import TopBar from "../top-bar";
 // This browser already answered the "import old progress?" question.
 const IMPORT_DECIDED_KEY = "vocab-import-decided-v1";
 
-const menuOfPath = (pathname: string) => pathname.split("/")[1] as MenuId;
+export const menuOfPath = (pathname: string) =>
+  pathname.split("/")[1] as MenuId;
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -243,6 +245,7 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
     >
       <TtsBootstrap />
       <PlanAutoCheck />
+      <ActivityTracker />
       <Sidebar className="hidden lg:flex" />
       <IconRail className="hidden md:flex lg:hidden" />
       <div className="flex min-w-0 flex-col">

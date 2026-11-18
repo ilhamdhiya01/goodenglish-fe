@@ -7,6 +7,7 @@ import type {
   ListeningResult,
   ListeningTab,
 } from "@/lib/types/listening.types";
+import { useActivityStore } from "@/stores/useActivityStore";
 
 // "Menyimak" progress (doc `listening`, included in Export/Import): set
 // results for the Progres page, the highest unlocked stage per tab, items
@@ -119,6 +120,9 @@ export const useListeningStore = create<ListeningState>((set, get) => {
         ...cur,
         results: [result, ...cur.results].slice(0, LISTENING_RESULTS_MAX),
         stages: unlocked ? { ...cur.stages, [r.tab]: top + 1 } : cur.stages,
+      });
+      useActivityStore.getState().log("listening_set", {
+        meta: { tab: r.tab, stage: r.stage, score: r.score, total: r.total },
       });
       return { unlocked };
     },

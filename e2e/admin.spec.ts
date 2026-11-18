@@ -111,7 +111,11 @@ test("lihat progres token: sesi dan menit main peran per minggu", async ({
   await openTokens(page);
   await rowAction(page, "Budi", "Lihat progres");
   await expect(page.getByText("Main peran per minggu")).toBeVisible();
-  const row = page.locator("tr", { hasText: "16 Nov" });
+  // (The Progres charts above have week tables of their own.)
+  const row = page
+    .getByRole("table")
+    .filter({ has: page.getByRole("columnheader", { name: "Sesi" }) })
+    .locator("tr", { hasText: "16 Nov" });
   await expect(row.getByRole("cell").nth(1)).toHaveText("2");
   await expect(row.getByRole("cell").nth(2)).toHaveText("13");
 });

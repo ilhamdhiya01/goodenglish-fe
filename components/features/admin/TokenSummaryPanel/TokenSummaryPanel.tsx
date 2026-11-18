@@ -1,20 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 
+import ProgressReport from "@/components/features/progress/ProgressReport";
 import Card from "@/components/ui/card";
 import SectionLabel from "@/components/ui/section-label";
 import TextButton from "@/components/ui/text-button";
-import { levelName } from "@/const/levels.constant";
 import { categoryOf } from "@/const/mistake-categories.constant";
 import { formatDateTime } from "@/lib/helpers/date.helper";
+import { buildProgressReport } from "@/lib/helpers/progress-report.helper";
+import { today } from "@/lib/helpers/storage.helper";
+import { useTokenProgress } from "@/lib/hooks/admin/useTokenProgress";
 import { useTokenSummary } from "@/lib/hooks/admin/useTokenSummary";
 import type { RoleplayWeek } from "@/lib/types/admin.types";
-import { SECTION_LABEL, type SectionId } from "@/lib/types/exam.types";
+import type { MenuId } from "@/lib/types/session.types";
 
 interface TokenSummaryPanelProps {
   id: string;
   label: string;
+  /** The token's menus: skills it can't open are left out of the report. */
+  menus?: MenuId[];
   onClose: () => void;
 }
 
@@ -78,8 +83,16 @@ const RoleplayWeeks = ({ weeks }: { weeks: RoleplayWeek[] }) => (
 );
 
 const TokenSummaryPanel = React.memo(
-  ({ id, label, onClose }: TokenSummaryPanelProps) => {
+  ({ id, label, menus, onClose }: TokenSummaryPanelProps) => {
     const { summary, isLoading } = useTokenSummary(id);
+    const { progress, isError: progressError } = useTokenProgress(id);
+    const report = useMemo(
+      () =>
+        progress
+          ? buildProgressReport(progress, { today: today(), menus })
+          : null,
+      [progress, menus],
+    );
 
     return (
       <Card tone="line" pad="lg" className="gap-4">
@@ -91,10 +104,20 @@ const TokenSummaryPanel = React.memo(
             Tutup
           </TextButton>
         </div>
+        {report ? (
+          <ProgressReport report={report} readOnly headingLevel="h2" />
+        ) : progressError ? (
+          <span className="text-[13px] font-bold text-bad">
+            Progres gagal dimuat.
+          </span>
+        ) : null}
         {isLoading || !summary ? (
           <span className="text-[13px] font-bold text-ink-2">Memuat…</span>
         ) : (
           <>
+            <SectionLabel className="border-t-2 border-line pt-4">
+              DATA TERSIMPAN
+            </SectionLabel>
             <div className="grid grid-cols-2 gap-x-8 gap-y-5 md:flex md:flex-wrap">
               <Stat value={summary.knownCount} label="KATA HAFAL" />
               <Stat value={summary.srsCount} label="DIJADWALKAN ULANG" />
@@ -127,46 +150,6 @@ const TokenSummaryPanel = React.memo(
                 <Stat value={summary.readingDoneCount} label="BACAAN SELESAI" />
               )}
             </div>
-            {summary.placement !== undefined && (
-              <span className="text-[13.5px] font-semibold text-ink-2">
-                Tes penempatan:{" "}
-                {!summary.placement
-                  ? "belum"
-                  : summary.placement.status === "skipped"
-                    ? "dilewati (pilih level sendiri)"
-                    : `${levelName(summary.placement.level ?? "")} minggu ${summary.placement.week ?? 1}`}
-                {summary.placement?.date &&
-                  ` · ${formatDateTime(summary.placement.date)}`}
-              </span>
-            )}
-            {!!summary.examAttempts?.length && (
-              <div className="flex flex-col gap-1">
-                <SectionLabel>RIWAYAT UJIAN AKHIR LEVEL</SectionLabel>
-                <ul className="m-0 flex list-none flex-col gap-1 p-0">
-                  {summary.examAttempts.map((a) => (
-                    <li
-                      key={a.date}
-                      className="text-[13.5px] font-semibold text-ink"
-                    >
-                      {formatDateTime(a.date)} · {levelName(a.level)} ·{" "}
-                      <b className={a.passed ? "text-ok" : "text-bad"}>
-                        {a.passed ? "Lulus" : "Belum lulus"} {a.pct}%
-                      </b>{" "}
-                      <span className="text-ink-2">
-                        (
-                        {a.sections
-                          .map(
-                            (x) =>
-                              `${SECTION_LABEL[x.section as SectionId] ?? x.section} ${x.right}/${x.total}`,
-                          )
-                          .join(", ")}
-                        )
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
             {!!summary.topMistakeCategories?.length && (
               <span className="text-[13.5px] font-semibold text-ink-2">
                 Kesalahan terbanyak:{" "}

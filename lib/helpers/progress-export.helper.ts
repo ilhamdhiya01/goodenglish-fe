@@ -1,3 +1,4 @@
+import { mergeActivity } from "@/lib/helpers/activity.helper";
 import { allLevelData, migrateProgress } from "@/lib/helpers/derived.helper";
 import { mergeExam } from "@/lib/helpers/exam.helper";
 import { mergeMistakeData } from "@/lib/helpers/mistakes.helper";
@@ -5,6 +6,7 @@ import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
 import type { PlanData } from "@/lib/types/plan.types";
 import type { ProgressSnapshot } from "@/lib/types/progress.types";
 import type { CustomWord } from "@/lib/types/vocab.types";
+import { useActivityStore } from "@/stores/useActivityStore";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { useExamStore } from "@/stores/useExamStore";
 import { useLevelStore } from "@/stores/useLevelStore";
@@ -19,15 +21,15 @@ import {
   validRecord,
 } from "@/stores/useRoleplayStore";
 
-// Ekspor/impor progres — format v8, kompatibel dengan file ekspor lama
-// (v1–v7). Kunci yang tidak ada di file lama diberi nilai default kosong.
+// Ekspor/impor progres — format v9, kompatibel dengan file ekspor lama
+// (v1–v8). Kunci yang tidak ada di file lama diberi nilai default kosong.
 
 export const exportProgress = () => {
   try {
     const P = useProgressStore.getState();
     const { level } = useLevelStore.getState();
     const d: ProgressSnapshot = {
-      v: 8,
+      v: 9,
       exportedAt: new Date().toISOString(),
       known: P.known,
       srs: P.srs,
@@ -49,6 +51,9 @@ export const exportProgress = () => {
         seen,
         pairs,
       }))(useListeningStore.getState()),
+      activity: (({ v, since, days, events }) => ({ v, since, days, events }))(
+        useActivityStore.getState(),
+      ),
       exam: (({ placement, attempts, base }) => ({
         placement,
         attempts,
@@ -169,6 +174,13 @@ export const applyImport = (d: ProgressSnapshot): string => {
   // v8: tes penempatan + ujian (file lama: tidak ada, tidak diubah).
   if (d.exam && typeof d.exam === "object") {
     useExamStore.getState().setAll((cur) => mergeExam(cur, d.exam));
+  }
+
+  // v9: log aktivitas Progres (file lama: tidak ada, tidak diubah).
+  if (d.activity && typeof d.activity === "object") {
+    useActivityStore
+      .getState()
+      .setAll((cur) => mergeActivity(cur, d.activity, today()));
   }
 
   return (

@@ -6,6 +6,7 @@ import type {
   ReadingResult,
   WordMeaning,
 } from "@/lib/types/reading.types";
+import { useActivityStore } from "@/stores/useActivityStore";
 
 // "Bacaan" progress (doc `reading`, included in Export/Import): results per
 // finished text, which texts are done, and word meanings already looked up
@@ -132,6 +133,9 @@ export const useReadingStore = create<ReadingState>((set, get) => {
         done: cur.done[r.textId]
           ? cur.done
           : { ...cur.done, [r.textId]: result.date },
+      });
+      useActivityStore.getState().log("reading", {
+        meta: { textId: r.textId, score: r.score, total: r.total },
       });
       return result;
     },

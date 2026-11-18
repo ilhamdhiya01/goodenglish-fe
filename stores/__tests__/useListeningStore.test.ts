@@ -64,7 +64,7 @@ describe("useListeningStore", () => {
       ["dikte", 3, 10],
     ]);
     expect(s.results[0]).toMatchObject({ level: "pre", week: 2, stage: 1 });
-    expect(queueProgress).toHaveBeenLastCalledWith(
+    expect(queueProgress).toHaveBeenCalledWith(
       "listening",
       expect.objectContaining({ results: s.results }),
     );

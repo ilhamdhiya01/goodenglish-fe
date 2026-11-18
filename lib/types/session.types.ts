@@ -15,7 +15,9 @@ export type MenuId =
   // "Menyimak": listening practice (a tab).
   | "listening"
   // "Bacaan": graded reading texts (a tab).
-  | "reading";
+  | "reading"
+  // "Progres": the learner's progress charts (a tab).
+  | "progress";
 
 export type LevelId = "beginner" | "pre" | "inter" | "upper";
 

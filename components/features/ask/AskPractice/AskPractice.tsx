@@ -25,6 +25,7 @@ import type {
   PracticeStage,
 } from "@/lib/types/ask-practice.types";
 import type { LevelId } from "@/lib/types/session.types";
+import { useActivityStore } from "@/stores/useActivityStore";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { confirmDialog } from "@/stores/useConfirmStore";
 import { useLevelStore } from "@/stores/useLevelStore";
@@ -160,8 +161,17 @@ const AskPractice = React.memo(
     };
     const next = () => {
       if (!P) return;
-      if (P.i >= P.qs.length - 1) setP({ ...P, finished: true });
-      else setP({ ...P, i: P.i + 1, picked: null, typed: "", built: [] });
+      if (P.i >= P.qs.length - 1) {
+        setP({ ...P, finished: true });
+        useActivityStore.getState().log("grammar_set", {
+          meta: {
+            set: rule,
+            stage: P.stage,
+            score: P.score,
+            total: P.qs.length,
+          },
+        });
+      } else setP({ ...P, i: P.i + 1, picked: null, typed: "", built: [] });
       setSel(null);
     };
 

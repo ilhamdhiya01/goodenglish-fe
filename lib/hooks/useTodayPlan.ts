@@ -1,6 +1,7 @@
 import { ASK_RULES } from "@/const/plan.constant";
 import { PRON_SECS } from "@/const/pronunciation.constant";
 import { today } from "@/lib/helpers/storage.helper";
+import { streakOf } from "@/lib/helpers/streak.helper";
 import { useShellData } from "@/lib/hooks/useShellData";
 import { usePlanStore } from "@/stores/usePlanStore";
 
@@ -100,14 +101,7 @@ export const useTodayPlan = () => {
 
   const doneN = blocks.filter((b) => !!day[b.id]).length;
   const allDone = doneN === blocks.length;
-  let streak = 0;
-  for (let d = T - (allDone ? 0 : 1); d > T - 400; d--) {
-    const dd = P.days?.[String(d)];
-    const n = dd ? Object.values(dd).filter(Boolean).length : 0;
-    const wd = new Date(d * 86400000).getDay();
-    if (n >= (wd === 0 || wd === 6 ? 1 : 3)) streak++;
-    else break;
-  }
+  const streak = streakOf(P.days, T);
 
   return {
     T,

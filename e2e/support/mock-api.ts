@@ -53,6 +53,67 @@ export const progressWithDue = () => ({
 
 export const adminSession: SessionData = { ...fullSession, role: "admin" };
 
+export const progressSession: SessionData = {
+  ...fullSession,
+  menus: [...ALL_MENUS, "listening", "reading", "progress"],
+};
+
+/** A learner's progress docs with something in every "Progres" section. */
+export const progressDocs = () => {
+  const T = today();
+  const iso = (d: number) => new Date(d * 86400000 + 3 * 3600000).toISOString();
+  return {
+    level: "pre",
+    known: { "1:w:be": 1, "beginner|1:w:be": 1, "1:w:have": 1 },
+    // One card due, so today's Rencana stays open (PlanAutoCheck rewrites
+    // today from real activity): the streak is the 2 days before.
+    srs: { "1:w:have": { st: 1, due: T } },
+    plan: {
+      days: {
+        [T - 1]: { b1: true, b2: true, b3: true },
+        [T - 2]: { b1: true, b2: true, b3: true },
+      },
+      quiz: [{ d: T, scope: "week", level: "pre", week: 1, score: 17 }],
+      week: { "pre|1": { rec: true, gpt: true } },
+    },
+    askprac: {
+      tense1: { seen: 12, right: 6 },
+      r1: { seen: 10, right: 9 },
+    },
+    activity: {
+      v: 1,
+      since: T - 20,
+      days: {
+        [T]: { m: { vocab: 600, grammar: 300 }, r: 8, g: 6, l: 5 },
+        [T - 1]: { m: { review: 120 }, l: 2 },
+      },
+      events: [],
+    },
+    exam: {
+      placement: {
+        status: "done",
+        date: iso(T - 3),
+        recommended: { level: "inter", week: 5 },
+      },
+      attempts: [
+        {
+          id: "e1",
+          level: "pre",
+          date: iso(T - 1),
+          pct: 82,
+          passed: true,
+          sections: {
+            vocab: { right: 13, total: 15 },
+            grammar: { right: 12, total: 15 },
+            listening: { right: 8, total: 10 },
+          },
+        },
+      ],
+      base: "pre",
+    },
+  };
+};
+
 /** A learner who may also open "Menyimak". */
 export const listeningSession: SessionData = {
   ...fullSession,
@@ -614,6 +675,56 @@ export const installMockApi = async (
       if (path === "/admin/tokens" || path.endsWith("/regenerate"))
         return json(route, { token: "ge_e2e_baru_123456", item });
       return json(route, item);
+    }
+    if (path.startsWith("/admin/tokens/") && path.endsWith("/progress")) {
+      return json(route, progressDocs());
+    }
+    if (path === "/admin/learners/overview" && method === "GET") {
+      const ago = (days: number) =>
+        new Date(Date.now() - days * 86400000).toISOString();
+      const base = {
+        status: "active",
+        levels: ["pre"],
+        menus: [...ALL_MENUS, "progress"],
+        reviews28d: 0,
+      };
+      return json(route, [
+        {
+          ...base,
+          id: "t0",
+          label: "Budi",
+          level: "pre",
+          lastActiveAt: ago(0),
+          streak: 4,
+          minutes7d: 95,
+          wordsThisWeek: 12,
+          retention: 81,
+          reviews28d: 40,
+        },
+        {
+          ...base,
+          id: "t1",
+          label: "Sari",
+          level: "beginner",
+          lastActiveAt: ago(5),
+          streak: 0,
+          minutes7d: 0,
+          wordsThisWeek: 0,
+          retention: null,
+        },
+        {
+          ...base,
+          id: "t2",
+          label: "Andi",
+          level: null,
+          lastActiveAt: ago(1),
+          streak: 1,
+          minutes7d: 20,
+          wordsThisWeek: 3,
+          retention: 64,
+          reviews28d: 11,
+        },
+      ]);
     }
     if (path.startsWith("/admin/tokens/") && path.endsWith("/summary")) {
       return json(route, {

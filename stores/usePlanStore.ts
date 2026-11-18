@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
 import type { PlanData } from "@/lib/types/plan.types";
+import { useActivityStore } from "@/stores/useActivityStore";
 
 // Rencana belajar harian: checklist 3 blok (dicentang otomatis), checkpoint
 // mingguan, riwayat tes. Kunci: vocab-plan-v1 (sama dengan versi HTML).
@@ -38,14 +39,18 @@ export const usePlanStore = create<PlanState>((set, get) => ({
       return { plan };
     }),
 
-  logQuiz: (score, scope, level, week) =>
+  logQuiz: (score, scope, level, week) => {
     get().setPlan((p) => ({
       ...p,
       quiz: [
         ...(p.quiz || []),
         { d: today(), score, scope, level, week },
       ].slice(-60),
-    })),
+    }));
+    useActivityStore
+      .getState()
+      .log("quick_test", { meta: { score, total: 20, scope, level, week } });
+  },
 
   toggleDayBlock: (dayKey, blockId) =>
     get().setPlan((p) => ({

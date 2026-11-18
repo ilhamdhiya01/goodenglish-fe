@@ -165,3 +165,52 @@ describe("Buku kesalahanku in Export/Import", () => {
     });
   });
 });
+
+describe("Progres activity log in Export/Import", () => {
+  it("exports v9 with the log and merges it on import; v8 files leave it alone", async () => {
+    const { useActivityStore } = await import("@/stores/useActivityStore");
+    const { exportProgress } = await import("../progress-export.helper");
+    const { today } = await import("@/lib/helpers/storage.helper");
+    const T = today();
+    reset();
+    useActivityStore.getState().hydrate();
+    useActivityStore.getState().addTime("vocab", 120);
+    let text = "";
+    vi.stubGlobal(
+      "Blob",
+      class {
+        constructor(parts: string[]) {
+          text = parts[0];
+        }
+      },
+    );
+    vi.stubGlobal("URL", { createObjectURL: () => "", revokeObjectURL() {} });
+    vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
+    exportProgress();
+    vi.unstubAllGlobals();
+    const file = JSON.parse(text) as { v: number; activity: { days: object } };
+    expect(file.v).toBe(9);
+    expect(file.activity.days).toEqual({ [T]: { m: { vocab: 120 } } });
+
+    applyImport({ v: 8, exportedAt: "", known: {}, srs: {}, own: {} });
+    expect(useActivityStore.getState().days[T]).toEqual({ m: { vocab: 120 } });
+
+    applyImport({
+      v: 9,
+      exportedAt: "",
+      known: {},
+      srs: {},
+      own: {},
+      activity: {
+        v: 1,
+        since: T - 30,
+        days: { [T]: { m: { vocab: 60, reading: 90 } }, [T - 3]: { r: 5 } },
+        events: [],
+      },
+    });
+    const s = useActivityStore.getState();
+    expect(s.since).toBe(T - 30);
+    expect(s.days[T]).toEqual({ m: { vocab: 120, reading: 90 } });
+    expect(s.days[T - 3]).toEqual({ r: 5 });
+  });
+});

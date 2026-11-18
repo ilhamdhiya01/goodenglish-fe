@@ -240,10 +240,15 @@ const TokenManager = React.memo(() => {
       )}
 
       {summaryOf && (
-        <Modal label={`Progres ${summaryOf.label}`} onClose={closeSummary}>
+        <Modal
+          label={`Progres ${summaryOf.label}`}
+          size="lg"
+          onClose={closeSummary}
+        >
           <TokenSummaryPanel
             id={summaryOf.id}
             label={summaryOf.label}
+            menus={summaryOf.role === "admin" ? undefined : summaryOf.menus}
             onClose={closeSummary}
           />
         </Modal>

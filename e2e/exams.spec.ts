@@ -260,9 +260,9 @@ test.describe("admin", () => {
 
     await rowAction(page, "Budi", "Lihat progres");
     await expect(
-      page.getByText(/Tes penempatan: Intermediate minggu 5/),
+      page.getByText(/Tes penempatan .*: Intermediate minggu 5/),
     ).toBeVisible();
-    await expect(page.getByText("RIWAYAT UJIAN AKHIR LEVEL")).toBeVisible();
+    await expect(page.getByText("UJIAN AKHIR LEVEL")).toBeVisible();
     await expect(page.getByText(/Lulus 82%/)).toBeVisible();
   });
 });
