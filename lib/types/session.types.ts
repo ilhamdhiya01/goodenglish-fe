@@ -28,6 +28,8 @@ export interface SessionData {
   menus: MenuId[];
   levels: LevelId[];
   expiresAt: string | null;
+  /** "Wajib lulus ujian untuk naik level". Optional: older backends. */
+  requireExam?: boolean;
 }
 
 export interface RedeemPayload {

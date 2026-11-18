@@ -9,7 +9,9 @@ import Card from "@/components/ui/card";
 import FieldLabel from "@/components/ui/field-label";
 import Input from "@/components/ui/input";
 import { FIELD_CLASS } from "@/components/ui/input/Input";
+import Modal from "@/components/ui/modal";
 import Pill from "@/components/ui/pill";
+import SectionLabel from "@/components/ui/section-label";
 import Select from "@/components/ui/select";
 import { LEVEL_OPTIONS } from "@/const/access.constant";
 import { levelData } from "@/lib/helpers/level-data.helper";
@@ -582,78 +584,118 @@ const ReadingManager = () => {
                   </div>
                 )}
 
-                {editing === t.id ? (
-                  <TextEditor
-                    text={t}
-                    saving={R.isSaving}
-                    onCancel={() => setEditing(null)}
-                    onSave={(d) =>
-                      void R.update({
-                        id: t.id,
-                        body: {
-                          title: d.title,
-                          paragraphs: d.paragraphs,
-                          targetWordsUsed: d.targetWords
-                            .split(",")
-                            .map((w) => w.trim())
-                            .filter(Boolean),
-                          glossary: d.glossary.filter(
-                            (g) => g.word.trim() && g.meaningId.trim(),
-                          ),
-                          questions: d.questions,
-                          words: allWords,
-                        },
-                      })
-                        .then(() => setEditing(null))
-                        .catch(() => {})
-                    }
-                  />
-                ) : (
-                  <>
-                    {open === t.id && <Preview text={t} />}
-                    <div className="flex flex-wrap gap-2">
-                      <Button
-                        size="sm"
-                        onClick={() =>
-                          void speakAll(
-                            t.paragraphs.flatMap((p) => splitSentences(p.en)),
-                          )
+                {editing === t.id && (
+                  <Modal
+                    label={`Ubah bacaan ${t.title}`}
+                    size="lg"
+                    onClose={() => setEditing(null)}
+                  >
+                    <Card pad="lg" className="gap-4">
+                      <SectionLabel tone="green">
+                        UBAH · {t.title.toUpperCase()}
+                      </SectionLabel>
+                      <TextEditor
+                        text={t}
+                        saving={R.isSaving}
+                        onCancel={() => setEditing(null)}
+                        onSave={(d) =>
+                          void R.update({
+                            id: t.id,
+                            body: {
+                              title: d.title,
+                              paragraphs: d.paragraphs,
+                              targetWordsUsed: d.targetWords
+                                .split(",")
+                                .map((w) => w.trim())
+                                .filter(Boolean),
+                              glossary: d.glossary.filter(
+                                (g) => g.word.trim() && g.meaningId.trim(),
+                              ),
+                              questions: d.questions,
+                              words: allWords,
+                            },
+                          })
+                            .then(() => setEditing(null))
+                            .catch(() => {})
                         }
-                      >
-                        Putar
-                      </Button>
+                      />
+                    </Card>
+                  </Modal>
+                )}
+                {open === t.id && (
+                  <Modal
+                    label={`Isi bacaan ${t.title}`}
+                    size="lg"
+                    onClose={() => {
+                      stopSpeaking();
+                      setOpen(null);
+                    }}
+                  >
+                    <Card pad="lg" className="gap-3">
+                      <SectionLabel tone="green">
+                        ISI · {t.title.toUpperCase()}
+                      </SectionLabel>
+                      <Preview text={t} />
                       <Button
                         size="sm"
-                        aria-expanded={open === t.id}
+                        className="self-start"
                         onClick={() => {
                           stopSpeaking();
-                          setOpen(open === t.id ? null : t.id);
+                          setOpen(null);
                         }}
                       >
-                        {open === t.id ? "Tutup isi" : "Lihat isi"}
+                        Tutup
                       </Button>
-                      <Button size="sm" onClick={() => setEditing(t.id)}>
-                        Ubah
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant={t.status === "published" ? "outline" : "green"}
-                        disabled={R.busyId === t.id}
-                        onClick={() => void publish(t)}
-                      >
-                        {t.status === "published" ? "Sembunyikan" : "Terbitkan"}
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="danger"
-                        disabled={R.busyId === t.id}
-                        onClick={() => void remove(t)}
-                      >
-                        Hapus
-                      </Button>
-                    </div>
-                  </>
+                    </Card>
+                  </Modal>
                 )}
+                <>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      size="sm"
+                      onClick={() =>
+                        void speakAll(
+                          t.paragraphs.flatMap((p) => splitSentences(p.en)),
+                        )
+                      }
+                    >
+                      Putar
+                    </Button>
+                    <Button
+                      size="sm"
+                      aria-haspopup="dialog"
+                      onClick={() => {
+                        stopSpeaking();
+                        setOpen(t.id);
+                      }}
+                    >
+                      Lihat isi
+                    </Button>
+                    <Button
+                      size="sm"
+                      aria-haspopup="dialog"
+                      onClick={() => setEditing(t.id)}
+                    >
+                      Ubah
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant={t.status === "published" ? "outline" : "green"}
+                      disabled={R.busyId === t.id}
+                      onClick={() => void publish(t)}
+                    >
+                      {t.status === "published" ? "Sembunyikan" : "Terbitkan"}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="danger"
+                      disabled={R.busyId === t.id}
+                      onClick={() => void remove(t)}
+                    >
+                      Hapus
+                    </Button>
+                  </div>
+                </>
               </Card>
             </li>
           ))}

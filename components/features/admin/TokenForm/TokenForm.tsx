@@ -30,6 +30,7 @@ const DEFAULT_VALUES: TokenFormValues = {
   expiresAt: null,
   aiDailyLimit: 30,
   roleplayDailyLimit: 3,
+  requireExam: false,
 };
 
 const AI_LIMIT_MAX = 10000;
@@ -279,6 +280,28 @@ const TokenForm = React.memo(
               fallback={3}
               onChange={(v) => setValues({ ...values, roleplayDailyLimit: v })}
             />
+          )}
+
+          {!isAdmin && (
+            <fieldset className="m-0 min-w-0 border-0 p-0">
+              <legend className={GROUP_LABEL}>Naik level</legend>
+              <label className="flex min-h-11 cursor-pointer items-center gap-2.5 text-sm font-extrabold text-ink">
+                <input
+                  type="checkbox"
+                  checked={values.requireExam}
+                  onChange={(e) =>
+                    setValues({ ...values, requireExam: e.target.checked })
+                  }
+                  className="h-5 w-5 cursor-pointer accent-accent focus-ring"
+                />
+                Wajib lulus ujian untuk naik level
+              </label>
+              <p className={classNames(HINT, "m-0 mt-1")}>
+                Kalau nyala, level berikutnya baru bisa dipilih setelah lulus
+                ujian akhir level sebelumnya, walaupun levelnya sudah dibuka di
+                atas.
+              </p>
+            </fieldset>
           )}
 
           <div className="flex flex-wrap items-center gap-3">

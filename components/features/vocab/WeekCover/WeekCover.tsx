@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { LuChevronDown } from "react-icons/lu";
 
+import ExamCard from "@/components/features/tests/ExamCard";
 import WeekSidebar from "@/components/features/vocab/WeekSidebar/WeekSidebar";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
@@ -104,6 +105,7 @@ const WeekCover = React.memo(({ data }: Props) => {
           Semua
         </Pill>
       </div>
+      <ExamCard compact />
       {weeks && (
         <Sheet label="Pilih minggu" onClose={() => setWeeks(false)}>
           <WeekSidebar data={data} bare onPicked={() => setWeeks(false)} />

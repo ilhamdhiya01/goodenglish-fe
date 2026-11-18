@@ -5,11 +5,13 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import AiChat from "@/components/features/ai/AiChat";
+import { Tests } from "@/components/features/tests";
 import PlanAutoCheck from "@/components/providers/PlanAutoCheck";
 import TtsBootstrap from "@/components/providers/TtsBootstrap";
 import { NON_TAB_MENUS } from "@/const/access.constant";
 import { isActivePath, NAV } from "@/const/nav.constant";
 import { loadNotes } from "@/lib/content";
+import { unlockedLevels } from "@/lib/helpers/exam.helper";
 import { applyProgress } from "@/lib/helpers/progress-hydrate.helper";
 import {
   flushProgress,
@@ -24,12 +26,14 @@ import { useSession } from "@/lib/hooks/auth/useSession";
 import { useProgress } from "@/lib/hooks/progress/useProgress";
 import { useWords } from "@/lib/hooks/words/useWords";
 import type { ProgressKey, ProgressMap } from "@/lib/types/progress-sync.types";
-import type { MenuId } from "@/lib/types/session.types";
+import type { LevelId, MenuId } from "@/lib/types/session.types";
 import { ROUTES } from "@/routes";
 import { useAccessStore } from "@/stores/useAccessStore";
 import { useAiChatStore } from "@/stores/useAiChatStore";
+import { useExamStore } from "@/stores/useExamStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useSharedWordsStore } from "@/stores/useSharedWordsStore";
+import { useTestRunStore } from "@/stores/useTestRunStore";
 
 import { useAccountActions } from "../account/useAccountActions";
 import ImportPrompt from "../import-prompt";
@@ -96,6 +100,28 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
       const lvl = useLevelStore.getState();
       if (!session.levels.includes(lvl.level as never)) {
         lvl.setLevel(session.levels[0]);
+      }
+      const exam = useExamStore.getState();
+      if (session.requireExam) {
+        // "Wajib lulus ujian": remember where this learner started, and
+        // never sit on a level the exams haven't opened yet.
+        if (!exam.base && Object.keys(map).length > 0)
+          exam.setBase(useLevelStore.getState().level as LevelId);
+        const open = unlockedLevels({
+          allowed: session.levels,
+          requireExam: true,
+          exam: useExamStore.getState(),
+          current: useLevelStore.getState().level as LevelId,
+        });
+        if (
+          open.length &&
+          !open.includes(useLevelStore.getState().level as LevelId)
+        )
+          useLevelStore.getState().setLevel(open[open.length - 1]);
+      }
+      // A brand-new learner (no progress at all): offer the placement test.
+      if (Object.keys(map).length === 0 && !exam.placement) {
+        useTestRunStore.getState().open({ kind: "welcome" });
       }
       setReady(true);
     },
@@ -236,6 +262,7 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
       <BottomNav actions={actions} className="md:hidden" />
       <ScrollTopButton />
       {extras}
+      <Tests.TestHost />
       {hasAi && <AiChat />}
     </div>
   );

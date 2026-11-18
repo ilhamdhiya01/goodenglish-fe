@@ -8,22 +8,15 @@ import Card from "@/components/ui/card";
 import ProgressBar from "@/components/ui/progress-bar";
 import SectionLabel from "@/components/ui/section-label";
 import { PRACTICE_CATEGORY } from "@/const/mistake-categories.constant";
-import { PRACTICE, type PracticeTopic } from "@/const/practice-sets.constant";
+import {
+  loadBank,
+  PRACTICE,
+  type PracticeTopic,
+} from "@/const/practice-sets.constant";
 import { bankGen, type BankItem } from "@/lib/helpers/bank-practice.helper";
 import type { PracticeStage } from "@/lib/types/ask-practice.types";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { usePracticeSessionStore } from "@/stores/usePracticeSessionStore";
-
-// Bank soal per topik dimuat saat sub-tabnya dibuka (chunk terpisah), bukan di bundle awal.
-const LOAD: Record<PracticeTopic, () => Promise<{ default: unknown }>> = {
-  whb: () => import("@/lib/content/practice/whb.json"),
-  irr: () => import("@/lib/content/practice/irr.json"),
-  prep: () => import("@/lib/content/practice/prep.json"),
-  bedo: () => import("@/lib/content/practice/bedo.json"),
-  tense: () => import("@/lib/content/practice/tense.json"),
-  conj: () => import("@/lib/content/practice/conj.json"),
-  thit: () => import("@/lib/content/practice/thit.json"),
-};
 
 const STAGES: [PracticeStage, string, string][] = [
   [
@@ -57,7 +50,7 @@ const BankPractice = React.memo(({ topic }: { topic: PracticeTopic }) => {
   useEffect(() => {
     let alive = true;
     setBank(null);
-    LOAD[topic]().then((m) => alive && setBank(m.default as BankItem[]));
+    loadBank(topic).then((m) => alive && setBank(m.default as BankItem[]));
     return () => {
       alive = false;
     };

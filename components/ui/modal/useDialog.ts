@@ -2,6 +2,8 @@
 
 import { type RefObject, useEffect } from "react";
 
+import { lockScroll } from "@/lib/helpers/scroll-lock.helper";
+
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
 
@@ -43,12 +45,11 @@ export const useDialog = (
   }, [boxRef, onClose]);
 
   useEffect(() => {
-    const prevOverflow = document.body.style.overflow;
     const prevFocus = document.activeElement as HTMLElement | null;
-    document.body.style.overflow = "hidden";
+    const unlock = lockScroll();
     boxRef.current?.focus();
     return () => {
-      document.body.style.overflow = prevOverflow;
+      unlock();
       prevFocus?.focus();
     };
   }, [boxRef]);

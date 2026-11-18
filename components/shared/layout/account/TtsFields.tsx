@@ -4,7 +4,6 @@ import React from "react";
 
 import FieldLabel from "@/components/ui/field-label";
 import Pill from "@/components/ui/pill";
-import ProgressBar from "@/components/ui/progress-bar";
 import Select from "@/components/ui/select";
 import { speak } from "@/lib/helpers/speech.helper";
 import { KOKORO_SPEEDS, KOKORO_VOICES } from "@/lib/tts/kokoro.types";
@@ -19,7 +18,6 @@ export const VoiceFields = () => {
   const speed = useTtsStore((s) => s.speed);
   const setSpeed = useTtsStore((s) => s.setSpeed);
   const status = useTtsStore((s) => s.status);
-  const progress = useTtsStore((s) => s.progress);
   const device = useTtsStore((s) => s.device);
 
   return (
@@ -66,10 +64,9 @@ export const VoiceFields = () => {
       </div>
 
       {status === "loading" && (
-        <ProgressBar
-          pct={progress}
-          label={`Mengunduh suara AI… ${progress}%`}
-        />
+        <span className="text-[13.5px] font-bold text-ink-2">
+          Suara AI sedang disiapkan…
+        </span>
       )}
       {status === "ready" && (
         <span className="text-[13.5px] font-bold text-ok">

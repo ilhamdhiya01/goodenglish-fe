@@ -46,9 +46,24 @@ test("buat token: tampil sekali dan bisa disalin", async ({
     .fill("Rina");
   await dialog.getByRole("button", { name: "Buat token" }).click();
   await expect.poll(() => api.admin).toContain("POST /admin/tokens");
-  await expect(page.getByText("ge_e2e_baru_123456")).toBeVisible();
-  await page.getByRole("button", { name: "Salin token" }).click();
-  await expect(page.getByRole("button", { name: "Tersalin ✓" })).toBeVisible();
+  // Shown in a popup that can't be closed by accident before copying.
+  const notice = page.getByRole("dialog", { name: /^Token baru/ });
+  await expect(notice.getByText("ge_e2e_baru_123456")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("alertdialog")).toContainText(
+    "Tutup tanpa menyalin token?",
+  );
+  await page
+    .getByRole("alertdialog")
+    .getByRole("button", { name: "Batal" })
+    .click();
+  await expect(notice).toBeVisible();
+  await notice.getByRole("button", { name: "Salin token" }).click();
+  await expect(
+    notice.getByRole("button", { name: "Tersalin ✓" }),
+  ).toBeVisible();
+  await notice.getByRole("button", { name: "Tutup" }).click();
+  await expect(notice).toHaveCount(0);
 });
 
 // Actions that ask first (the app's confirm dialog).
@@ -124,4 +139,16 @@ test("form token: batas sesi main peran terpisah dari Tanya AI", async ({
   expect(body.roleplayDailyLimit).toBe(5);
   expect(body.menus).toContain("roleplay");
   await expect.poll(() => api.admin).toContain("PATCH /admin/tokens/t0");
+});
+
+test("kosakata bersama: form tambah kata muncul di popup", async ({ page }) => {
+  await page.goto("/admin/words");
+  await page.getByRole("button", { name: "+ Tambah kata" }).click();
+  const form = page.getByRole("dialog", { name: "Kata baru" });
+  await expect(form.getByText("KATA BARU")).toBeVisible();
+  await form.getByRole("button", { name: "Batal" }).click();
+  await expect(form).toHaveCount(0);
+  await expect(
+    page.getByRole("button", { name: "+ Tambah kata" }),
+  ).toBeVisible();
 });

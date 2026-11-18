@@ -23,6 +23,33 @@ let markFailed: ((e: Error) => void) | null = null;
 const cache = new Map<string, AudioBuffer>();
 const CACHE_MAX = 200;
 
+// Where transformers.js keeps the model, and its file per device (the
+// worker picks WebGPU with fp32 when available, else WASM with 8-bit).
+const MODEL_CACHE = "transformers-cache";
+const MODEL_FILE = {
+  webgpu: "/onnx/model.onnx",
+  wasm: "/onnx/model_quantized.onnx",
+} as const;
+
+/** The device the worker loads the model on (same rule as the worker). */
+export const loadingDevice = (): keyof typeof MODEL_FILE =>
+  typeof navigator !== "undefined" && "gpu" in navigator ? "webgpu" : "wasm";
+
+/** Whether the model file is already in the browser's cache, so loading it
+ * is no download (no "Mengunduh suara AI" card). */
+export const modelCached = async (
+  d: keyof typeof MODEL_FILE,
+): Promise<boolean> => {
+  try {
+    if (typeof caches === "undefined" || !(await caches.has(MODEL_CACHE)))
+      return false;
+    const keys = await (await caches.open(MODEL_CACHE)).keys();
+    return keys.some((r) => r.url.endsWith(MODEL_FILE[d]));
+  } catch {
+    return false;
+  }
+};
+
 let ctx: AudioContext | null = null;
 const audioCtx = () => (ctx ??= new AudioContext());
 

@@ -5,6 +5,7 @@ import React, { useId, useState } from "react";
 import type { IconType } from "react-icons";
 import {
   LuDownload,
+  LuGraduationCap,
   LuKeyRound,
   LuLogOut,
   LuSmartphone,
@@ -24,6 +25,7 @@ import { useInstallPrompt } from "@/lib/hooks/useInstallPrompt";
 import { toast } from "@/lib/toast";
 import { ROUTES } from "@/routes";
 import { useAccessStore } from "@/stores/useAccessStore";
+import { useTestRunStore } from "@/stores/useTestRunStore";
 
 import { VoiceFields } from "./TtsFields";
 
@@ -67,6 +69,12 @@ export const useAccountActions = () => {
         label: "Impor progres",
         icon: LuUpload,
         onSelect: () => document.getElementById(fileId)?.click(),
+      },
+      {
+        id: "placement",
+        label: "Tes penempatan",
+        icon: LuGraduationCap,
+        onSelect: () => useTestRunStore.getState().open({ kind: "placement" }),
       },
       {
         id: "voice",

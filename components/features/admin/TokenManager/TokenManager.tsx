@@ -231,6 +231,7 @@ const TokenManager = React.memo(() => {
               expiresAt: editing.expiresAt,
               aiDailyLimit: editing.aiDailyLimit,
               roleplayDailyLimit: editing.roleplayDailyLimit,
+              requireExam: !!editing.requireExam,
             }}
             onSubmit={(v) => void onEdit(v)}
             onCancel={closeForm}

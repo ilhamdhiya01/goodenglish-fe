@@ -5,6 +5,7 @@ import React, { useCallback, useMemo, useState } from "react";
 
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
+import Modal from "@/components/ui/modal";
 import Pill from "@/components/ui/pill";
 import TypeBadge from "@/components/ui/type-badge";
 import { LEVEL_OPTIONS } from "@/const/access.constant";
@@ -96,35 +97,43 @@ const WordManager = React.memo(() => {
 
   return (
     <section className="flex flex-col gap-5">
-      {mode === "create" ? (
-        <SharedWordForm
-          title="KATA BARU"
-          submitLabel="Tambah kata"
-          defaultLevel={level}
-          words={all}
-          isSubmitting={isSaving}
-          onSubmit={(v) => void onCreate(v)}
-          onCancel={() => setMode("none")}
-        />
-      ) : editing ? (
-        <SharedWordForm
-          key={editing.id}
-          title={`UBAH · ${editing.en.toUpperCase()}`}
-          submitLabel="Simpan"
-          editing={editing}
-          words={all}
-          isSubmitting={isSaving}
-          onSubmit={(v) => void onEdit(v)}
-          onCancel={() => setMode("none")}
-        />
-      ) : (
-        <Button
-          variant="green"
-          className="self-start"
-          onClick={() => setMode("create")}
+      <Button
+        variant="green"
+        className="self-start"
+        onClick={() => setMode("create")}
+      >
+        + Tambah kata
+      </Button>
+      {mode === "create" && (
+        <Modal label="Kata baru" size="lg" onClose={() => setMode("none")}>
+          <SharedWordForm
+            title="KATA BARU"
+            submitLabel="Tambah kata"
+            defaultLevel={level}
+            words={all}
+            isSubmitting={isSaving}
+            onSubmit={(v) => void onCreate(v)}
+            onCancel={() => setMode("none")}
+          />
+        </Modal>
+      )}
+      {editing && (
+        <Modal
+          label={`Ubah kata ${editing.en}`}
+          size="lg"
+          onClose={() => setMode("none")}
         >
-          + Tambah kata
-        </Button>
+          <SharedWordForm
+            key={editing.id}
+            title={`UBAH · ${editing.en.toUpperCase()}`}
+            submitLabel="Simpan"
+            editing={editing}
+            words={all}
+            isSubmitting={isSaving}
+            onSubmit={(v) => void onEdit(v)}
+            onCancel={() => setMode("none")}
+          />
+        </Modal>
       )}
 
       <div className="flex flex-wrap gap-2">

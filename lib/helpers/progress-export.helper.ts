@@ -1,10 +1,12 @@
 import { allLevelData, migrateProgress } from "@/lib/helpers/derived.helper";
+import { mergeExam } from "@/lib/helpers/exam.helper";
 import { mergeMistakeData } from "@/lib/helpers/mistakes.helper";
 import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
 import type { PlanData } from "@/lib/types/plan.types";
 import type { ProgressSnapshot } from "@/lib/types/progress.types";
 import type { CustomWord } from "@/lib/types/vocab.types";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
+import { useExamStore } from "@/stores/useExamStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { mergeListening, useListeningStore } from "@/stores/useListeningStore";
 import { useMistakeStore } from "@/stores/useMistakeStore";
@@ -17,15 +19,15 @@ import {
   validRecord,
 } from "@/stores/useRoleplayStore";
 
-// Ekspor/impor progres — format v7, kompatibel dengan file ekspor lama
-// (v1–v6). Kunci yang tidak ada di file lama diberi nilai default kosong.
+// Ekspor/impor progres — format v8, kompatibel dengan file ekspor lama
+// (v1–v7). Kunci yang tidak ada di file lama diberi nilai default kosong.
 
 export const exportProgress = () => {
   try {
     const P = useProgressStore.getState();
     const { level } = useLevelStore.getState();
     const d: ProgressSnapshot = {
-      v: 7,
+      v: 8,
       exportedAt: new Date().toISOString(),
       known: P.known,
       srs: P.srs,
@@ -47,6 +49,11 @@ export const exportProgress = () => {
         seen,
         pairs,
       }))(useListeningStore.getState()),
+      exam: (({ placement, attempts, base }) => ({
+        placement,
+        attempts,
+        base,
+      }))(useExamStore.getState()),
       reading: (({ results, done, lookups }) => ({ results, done, lookups }))(
         useReadingStore.getState(),
       ),
@@ -157,6 +164,11 @@ export const applyImport = (d: ProgressSnapshot): string => {
   // v6: Bacaan (file lama: tidak ada, tidak diubah).
   if (d.reading && typeof d.reading === "object") {
     useReadingStore.getState().setAll((cur) => mergeReading(cur, d.reading));
+  }
+
+  // v8: tes penempatan + ujian (file lama: tidak ada, tidak diubah).
+  if (d.exam && typeof d.exam === "object") {
+    useExamStore.getState().setAll((cur) => mergeExam(cur, d.exam));
   }
 
   return (

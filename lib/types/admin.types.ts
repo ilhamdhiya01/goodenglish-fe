@@ -14,6 +14,8 @@ export interface AccessTokenItem {
   aiDailyLimit: number | null;
   // Main peran sessions per day; null = unlimited.
   roleplayDailyLimit: number | null;
+  // Next level only after passing the exam. Optional: older backends.
+  requireExam?: boolean;
   activeDevices: number;
   status: TokenStatus;
   expiresAt: string | null;
@@ -37,6 +39,7 @@ export interface TokenFormValues {
   // null = unlimited.
   aiDailyLimit: number | null;
   roleplayDailyLimit: number | null;
+  requireExam: boolean;
 }
 
 export interface TokenSessionItem {
@@ -61,6 +64,20 @@ export interface TokenSummary {
   mistakeActiveCount?: number;
   mistakeMasteredCount?: number;
   topMistakeCategories?: { id: string; count: number }[];
+  // Tes penempatan + ujian akhir level. Optional: older backends.
+  placement?: {
+    status: "done" | "skipped";
+    date: string | null;
+    level: string | null;
+    week: number | null;
+  } | null;
+  examAttempts?: {
+    level: string;
+    date: string;
+    pct: number;
+    passed: boolean;
+    sections: { section: string; right: number; total: number }[];
+  }[];
   lastProgressAt: string | null;
   sessions: TokenSessionItem[];
   // Newest week first. Optional: an older backend doesn't send it.

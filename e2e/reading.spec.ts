@@ -227,7 +227,16 @@ test.describe("admin", () => {
 
     await page.getByRole("combobox", { name: "Teks" }).selectOption("B");
     await page.getByRole("button", { name: "Buat draf Teks B" }).click();
-    await expect(page.getByText("Generated text")).toBeVisible();
+    // The new draft opens in a popup to check it.
+    const fresh = page.getByRole("dialog", {
+      name: "Isi bacaan Generated text",
+    });
+    await expect(fresh).toBeVisible();
+    await fresh.getByRole("button", { name: "Tutup" }).click();
+    await expect(fresh).toHaveCount(0);
+    await expect(
+      page.getByText("Generated text", { exact: true }),
+    ).toBeVisible();
     const gen = api.reading.find(
       (c) => c.call === "POST /admin/reading/generate",
     );
@@ -245,9 +254,15 @@ test.describe("admin", () => {
       .toContain("POST /admin/reading/rd1/publish");
     await expect(warned.getByText("Terbit", { exact: true })).toBeVisible();
 
+    await warned.getByRole("button", { name: "Lihat isi" }).click();
+    const content = page.getByRole("dialog", { name: /^Isi bacaan/ });
+    await expect(content.getByText(/Kata target:/)).toBeVisible();
+    await content.getByRole("button", { name: "Tutup" }).click();
     await warned.getByRole("button", { name: "Ubah" }).click();
-    await warned.getByLabel("Judul").fill("Edited reading");
-    await warned.getByRole("button", { name: "Simpan" }).click();
+    const form = page.getByRole("dialog", { name: /^Ubah bacaan/ });
+    await form.getByLabel("Judul").fill("Edited reading");
+    await form.getByRole("button", { name: "Simpan" }).click();
+    await expect(form).toHaveCount(0);
     await expect
       .poll(
         () =>

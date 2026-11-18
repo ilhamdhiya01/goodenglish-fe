@@ -244,9 +244,15 @@ test.describe("admin", () => {
       .toContain("POST /admin/listening/bank1/publish");
     await expect(station.getByText("Terbit", { exact: true })).toBeVisible();
 
+    await station.getByRole("button", { name: "Lihat isi" }).click();
+    const content = page.getByRole("dialog", { name: /^Isi soal/ });
+    await expect(content.getByText(/^1\. /).first()).toBeVisible();
+    await content.getByRole("button", { name: "Tutup" }).click();
     await station.getByRole("button", { name: "Ubah" }).click();
-    await station.getByLabel("Judul").fill("Edited title");
-    await station.getByRole("button", { name: "Simpan" }).click();
+    const form = page.getByRole("dialog", { name: /^Ubah soal/ });
+    await form.getByLabel("Judul").fill("Edited title");
+    await form.getByRole("button", { name: "Simpan" }).click();
+    await expect(form).toHaveCount(0);
     await expect
       .poll(
         () =>

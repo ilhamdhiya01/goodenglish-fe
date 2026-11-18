@@ -5,10 +5,12 @@ import React from "react";
 import Card from "@/components/ui/card";
 import SectionLabel from "@/components/ui/section-label";
 import TextButton from "@/components/ui/text-button";
+import { levelName } from "@/const/levels.constant";
 import { categoryOf } from "@/const/mistake-categories.constant";
 import { formatDateTime } from "@/lib/helpers/date.helper";
 import { useTokenSummary } from "@/lib/hooks/admin/useTokenSummary";
 import type { RoleplayWeek } from "@/lib/types/admin.types";
+import { SECTION_LABEL, type SectionId } from "@/lib/types/exam.types";
 
 interface TokenSummaryPanelProps {
   id: string;
@@ -125,6 +127,46 @@ const TokenSummaryPanel = React.memo(
                 <Stat value={summary.readingDoneCount} label="BACAAN SELESAI" />
               )}
             </div>
+            {summary.placement !== undefined && (
+              <span className="text-[13.5px] font-semibold text-ink-2">
+                Tes penempatan:{" "}
+                {!summary.placement
+                  ? "belum"
+                  : summary.placement.status === "skipped"
+                    ? "dilewati (pilih level sendiri)"
+                    : `${levelName(summary.placement.level ?? "")} minggu ${summary.placement.week ?? 1}`}
+                {summary.placement?.date &&
+                  ` · ${formatDateTime(summary.placement.date)}`}
+              </span>
+            )}
+            {!!summary.examAttempts?.length && (
+              <div className="flex flex-col gap-1">
+                <SectionLabel>RIWAYAT UJIAN AKHIR LEVEL</SectionLabel>
+                <ul className="m-0 flex list-none flex-col gap-1 p-0">
+                  {summary.examAttempts.map((a) => (
+                    <li
+                      key={a.date}
+                      className="text-[13.5px] font-semibold text-ink"
+                    >
+                      {formatDateTime(a.date)} · {levelName(a.level)} ·{" "}
+                      <b className={a.passed ? "text-ok" : "text-bad"}>
+                        {a.passed ? "Lulus" : "Belum lulus"} {a.pct}%
+                      </b>{" "}
+                      <span className="text-ink-2">
+                        (
+                        {a.sections
+                          .map(
+                            (x) =>
+                              `${SECTION_LABEL[x.section as SectionId] ?? x.section} ${x.right}/${x.total}`,
+                          )
+                          .join(", ")}
+                        )
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             {!!summary.topMistakeCategories?.length && (
               <span className="text-[13.5px] font-semibold text-ink-2">
                 Kesalahan terbanyak:{" "}
