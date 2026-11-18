@@ -7,6 +7,7 @@ import { Ask } from "@/components/features/ask";
 import Card from "@/components/ui/card";
 import ProgressBar from "@/components/ui/progress-bar";
 import SectionLabel from "@/components/ui/section-label";
+import { PRACTICE_CATEGORY } from "@/const/mistake-categories.constant";
 import { PRACTICE, type PracticeTopic } from "@/const/practice-sets.constant";
 import { bankGen, type BankItem } from "@/lib/helpers/bank-practice.helper";
 import type { PracticeStage } from "@/lib/types/ask-practice.types";
@@ -123,6 +124,7 @@ const BankPractice = React.memo(({ topic }: { topic: PracticeTopic }) => {
           key={set}
           rule={set}
           ruleNo={meta[1]}
+          mistakeCategory={PRACTICE_CATEGORY[topic]}
           gen={gen}
           title={`${total(set)} soal di set ini, 20 per sesi, yang sudah kamu jawab benar tidak diulang`}
           stages={STAGES}

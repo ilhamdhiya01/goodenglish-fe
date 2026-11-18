@@ -1,12 +1,13 @@
 import { allLevelData, migrateProgress } from "@/lib/helpers/derived.helper";
-import { load, save, STORAGE_KEYS } from "@/lib/helpers/storage.helper";
+import { mergeMistakeData } from "@/lib/helpers/mistakes.helper";
+import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
 import type { PlanData } from "@/lib/types/plan.types";
 import type { ProgressSnapshot } from "@/lib/types/progress.types";
 import type { CustomWord } from "@/lib/types/vocab.types";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { mergeListening, useListeningStore } from "@/stores/useListeningStore";
-import { mergeMistakes, useMistakeStore } from "@/stores/useMistakeStore";
+import { useMistakeStore } from "@/stores/useMistakeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 import { useProgressStore } from "@/stores/useProgressStore";
 import { mergeReading, useReadingStore } from "@/stores/useReadingStore";
@@ -16,15 +17,15 @@ import {
   validRecord,
 } from "@/stores/useRoleplayStore";
 
-// Ekspor/impor progres — format v6, kompatibel dengan file ekspor lama
-// (v1–v5). Kunci yang tidak ada di file lama diberi nilai default kosong.
+// Ekspor/impor progres — format v7, kompatibel dengan file ekspor lama
+// (v1–v6). Kunci yang tidak ada di file lama diberi nilai default kosong.
 
 export const exportProgress = () => {
   try {
     const P = useProgressStore.getState();
     const { level } = useLevelStore.getState();
     const d: ProgressSnapshot = {
-      v: 6,
+      v: 7,
       exportedAt: new Date().toISOString(),
       known: P.known,
       srs: P.srs,
@@ -34,7 +35,12 @@ export const exportProgress = () => {
       plan: usePlanStore.getState().plan,
       askprac: useAskPracticeStore.getState().stats,
       roleplay: useRoleplayStore.getState().history,
-      mistakes: useMistakeStore.getState().mistakes,
+      mistakes: (({ v, items, reviewOn, intro }) => ({
+        v,
+        items,
+        reviewOn,
+        intro,
+      }))(useMistakeStore.getState()),
       listening: (({ results, stages, seen, pairs }) => ({
         results,
         stages,
@@ -134,10 +140,11 @@ export const applyImport = (d: ProgressSnapshot): string => {
       .getState()
       .setHistory((cur) => mergeRoleplay(cur, d.roleplay));
   }
-  if (Array.isArray(d.mistakes) && d.mistakes.length) {
+  // v4–v6: an array; v7: { v: 2, items, … }. Combined per pattern.
+  if (d.mistakes && typeof d.mistakes === "object") {
     useMistakeStore
       .getState()
-      .setMistakes((cur) => mergeMistakes(cur, d.mistakes));
+      .setAll((cur) => mergeMistakeData(cur, d.mistakes, today()));
   }
 
   // v5: Menyimak (file lama: tidak ada, tidak diubah).

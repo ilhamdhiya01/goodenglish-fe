@@ -5,8 +5,8 @@ import { useCallback, useRef, useState } from "react";
 import { accessErrorText } from "@/const/access.constant";
 import { speak, stopSpeaking } from "@/lib/helpers/speech.helper";
 import type { ErrorResponse } from "@/lib/types/api.types";
+import type { MistakeInput } from "@/lib/types/mistake.types";
 import type {
-  MistakeRecord,
   RoleplayContext,
   RoleplayLine,
   RoleplayRecord,
@@ -80,9 +80,6 @@ export const toError = (
   };
 };
 
-const uid = () =>
-  Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
-
 /** The request context for a scenario: what the AI needs to play it. */
 export const roleplayContext = (
   sc: Scenario,
@@ -103,17 +100,16 @@ export const roleplayContext = (
 export const mistakesOf = (
   summary: RoleplaySummary,
   level: LevelId,
-  createdAt: string,
-): MistakeRecord[] =>
+  sessionId?: string,
+): MistakeInput[] =>
   summary.corrections.map((c) => ({
-    id: uid(),
     source: "Main peran",
     wrong: c.original,
     correct: c.corrected,
     explanation_id: c.explanation,
     category: c.category,
     level,
-    createdAt,
+    ...(sessionId ? { refId: sessionId } : {}),
   }));
 
 interface Options {
@@ -188,9 +184,7 @@ export const useRoleplaySession = ({
         summary: sum,
       };
       useRoleplayStore.getState().add(record);
-      useMistakeStore
-        .getState()
-        .addMany(mistakesOf(sum, level, new Date().toISOString()));
+      useMistakeStore.getState().addMany(mistakesOf(sum, level, record.id));
       setSummary(sum);
       setStepsDone(sum.stepsDone);
       setMissionComplete(sum.missionComplete);

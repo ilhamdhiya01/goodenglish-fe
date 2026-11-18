@@ -118,12 +118,10 @@ test.describe("dengan izin Main peran", () => {
       level: "beginner",
       missionComplete: true,
     });
-    await expect
-      .poll(() => (api.lastPut("mistakes") as unknown[] | undefined)?.length)
-      .toBe(1);
-    expect(
-      (api.lastPut("mistakes") as Record<string, unknown>[])[0],
-    ).toMatchObject({
+    const mistakes = () =>
+      (api.lastPut("mistakes") as { items?: Record<string, unknown>[] })?.items;
+    await expect.poll(() => mistakes()?.length).toBe(1);
+    expect(mistakes()![0]).toMatchObject({
       source: "Main peran",
       wrong: "I want two latte",
       correct: "I want two lattes",

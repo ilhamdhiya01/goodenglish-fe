@@ -92,14 +92,15 @@ test.describe("pelajar", () => {
       questions: 10,
     });
     // The sentence left wrong went to Buku kesalahanku.
-    const mistakes = api.lastPut("mistakes") as {
-      source: string;
-      category: string;
-    }[];
+    const mistakes = (
+      api.lastPut("mistakes") as {
+        items: { source: string; category: string }[];
+      }
+    ).items;
     expect(mistakes).toHaveLength(1);
     expect(mistakes[0]).toMatchObject({
-      source: "Menyimak",
-      category: "Menyimak",
+      source: "Dikte",
+      category: "menyimak",
     });
   });
 

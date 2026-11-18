@@ -3,6 +3,7 @@
 import classNames from "classnames";
 import React, { useMemo, useRef, useState } from "react";
 
+import WordMarks from "@/components/shared/patterns/word-marks";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import { FIELD_CLASS } from "@/components/ui/input/Input";
@@ -13,7 +14,6 @@ import {
   checkDictation,
   type DictationCheck,
   explainMarks,
-  type WordMark,
 } from "@/lib/helpers/dictation.helper";
 import {
   DICTATION_PER_SET,
@@ -29,7 +29,7 @@ import { useShellData } from "@/lib/hooks/useShellData";
 import type { Scenario } from "@/lib/types/scenario.types";
 import type { LevelId } from "@/lib/types/session.types";
 import { unlockedStage, useListeningStore } from "@/stores/useListeningStore";
-import { useMistakeStore } from "@/stores/useMistakeStore";
+import { addMistake } from "@/stores/useMistakeStore";
 
 import PlayButtons from "../PlayButtons";
 import SetResult from "../SetResult";
@@ -42,39 +42,6 @@ const STAGES = [
 ];
 const SLOW = 0.6;
 
-/** Typed answer marked word by word. */
-export const WordMarks = ({ marks }: { marks: WordMark[] }) => (
-  <p className="m-0 flex flex-wrap gap-x-1.5 gap-y-1 text-[17px] leading-7 font-bold">
-    {marks.map((m, i) =>
-      m.kind === "correct" ? (
-        <span key={i} className="text-ink">
-          {m.word}
-        </span>
-      ) : m.kind === "wrong" ? (
-        <span key={i} className="text-bad">
-          <span className="sr-only">Salah: </span>
-          {m.word}
-          <span className="text-[13px] font-extrabold text-ok">
-            {" "}
-            (<span className="sr-only">yang benar </span>
-            {m.expected})
-          </span>
-        </span>
-      ) : m.kind === "missing" ? (
-        <span key={i} className="rounded bg-sunken px-1 text-ink-3">
-          <span className="sr-only">Terlewat: </span>
-          {m.expected}
-        </span>
-      ) : (
-        <s key={i} className="text-ink-3 decoration-2">
-          <span className="sr-only">Berlebih: </span>
-          {m.word}
-        </s>
-      ),
-    )}
-  </p>
-);
-
 interface Done {
   sentence: DictationSentence;
   check: DictationCheck;
@@ -85,7 +52,6 @@ interface Done {
 const DictationTab = () => {
   const { level, week, data } = useShellData();
   const listening = useListeningStore();
-  const addMistakes = useMistakeStore((s) => s.addMany);
   const unlocked = unlockedStage(listening, "dikte");
   const [stage, setStage] = useState<DictationStage>(
     unlocked as DictationStage,
@@ -138,18 +104,14 @@ const DictationTab = () => {
     if (!cur || !check || !set) return;
     const all = [...done, { sentence: cur, check, typed }];
     if (check.score < 100) {
-      addMistakes([
-        {
-          id: Math.random().toString(36).slice(2) + Date.now().toString(36),
-          source: "Menyimak",
-          wrong: typed.trim(),
-          correct: cur.text,
-          explanation_id: explainMarks(check.marks),
-          category: "Menyimak",
-          level: level as LevelId,
-          createdAt: new Date().toISOString(),
-        },
-      ]);
+      addMistake({
+        source: "Dikte",
+        wrong: typed.trim(),
+        correct: cur.text,
+        explanation_id: explainMarks(check.marks),
+        category: "menyimak",
+        level: level as LevelId,
+      });
     }
     stopSpeaking();
     setDone(all);

@@ -236,6 +236,17 @@ const CheatsheetPage = React.memo(() => {
     });
     return () => io.disconnect();
   }, []);
+  // /cheatsheet#tense (e.g. "Pelajari aturannya" in Buku kesalahanku): the
+  // page renders after the shell loads, so the browser's own jump misses it.
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id || !document.getElementById(id)) return;
+    const t = setTimeout(
+      () => document.getElementById(id)?.scrollIntoView({ block: "start" }),
+      50,
+    );
+    return () => clearTimeout(t);
+  }, []);
 
   let ruleNo = 0;
   return (

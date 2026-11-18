@@ -62,6 +62,7 @@ export const ACCESS_ERRORS: Record<string, string> = {
     "Terlalu banyak kata baru dicari dalam semenit. Tunggu sebentar, ya.",
   lookup_bad_word: "Kata ini tidak bisa dicari.",
   level_not_allowed: "Level ini tidak dibuka untuk token ini.",
+  review_not_allowed: "Token ini belum bisa membuka Ulang. Hubungi admin.",
   stt_no_speech: "Suaramu tidak terdengar, coba lagi ya.",
   stt_too_long: "Rekamannya terlalu panjang (maksimal 60 detik).",
   stt_too_large: "Rekamannya terlalu besar. Coba jawab lebih singkat, ya.",

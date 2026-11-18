@@ -17,8 +17,9 @@ import {
   listAiConversations,
   streamChat,
 } from "@/services/ai.service";
-import { useAiChatStore } from "@/stores/useAiChatStore";
+import { type AiPending, useAiChatStore } from "@/stores/useAiChatStore";
 import { useLevelStore } from "@/stores/useLevelStore";
+import { addMistake } from "@/stores/useMistakeStore";
 
 export const aiKeys = {
   usage: ["ai-usage"] as const,
@@ -126,7 +127,7 @@ export const useAiChat = () => {
   }, [pathname, level, week, word, notesReady]);
 
   const ask = useCallback(
-    async (text: string) => {
+    async (text: string, from?: AiPending["mistake"]) => {
       const store = useAiChatStore.getState();
       const question = text.trim().slice(0, MAX_QUESTION);
       if (!question || store.busy) return;
@@ -158,6 +159,18 @@ export const useAiChat = () => {
               answer += t;
               useAiChatStore.getState().update(replyId, { text: answer });
             },
+            // A sentence the AI found wrong goes to Buku kesalahanku.
+            onCheck: (c) => {
+              if (c.isCorrect || !c.corrected) return;
+              addMistake({
+                source: from?.source ?? "Tanya AI",
+                wrong: from?.wrong || c.original || question,
+                correct: c.corrected,
+                explanation_id: c.explanationId,
+                category: c.category,
+                level,
+              });
+            },
           },
           controller.signal,
         );
@@ -180,7 +193,7 @@ export const useAiChat = () => {
         });
       }
     },
-    [context, queryClient],
+    [context, queryClient, level],
   );
 
   return { ask };

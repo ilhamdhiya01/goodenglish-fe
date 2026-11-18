@@ -112,7 +112,7 @@ describe("Export/Import v6", () => {
     });
   });
 
-  it("exports reading in a v6 file", async () => {
+  it("exports reading (v6+) in the export file", async () => {
     useReadingStore.getState().finish(res());
     let blob: Blob | null = null;
     const url = vi
@@ -125,7 +125,7 @@ describe("Export/Import v6", () => {
       v: number;
       reading: { done: object };
     };
-    expect(d.v).toBe(6);
+    expect(d.v).toBe(7);
     expect(Object.keys(d.reading.done)).toEqual(["t1"]);
   });
 });

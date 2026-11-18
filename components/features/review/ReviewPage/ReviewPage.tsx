@@ -27,8 +27,11 @@ import { useNotes } from "@/lib/hooks/useNotes";
 import { useShellData } from "@/lib/hooks/useShellData";
 import type { LevelId } from "@/lib/types/session.types";
 import { useAccessStore } from "@/stores/useAccessStore";
+import { useMistakeStore } from "@/stores/useMistakeStore";
 import { useProgressStore } from "@/stores/useProgressStore";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
+
+import MistakeReviewCard from "../MistakeReviewCard";
 
 // A read-only count shaped like a Pill ("24 jatuh tempo").
 const Stat = ({ n, label }: { n: number; label: string }) => (
@@ -58,8 +61,12 @@ const ignoreKey = (e: KeyboardEvent) => {
 // Halaman "Ulang hari ini": satu kartu SRS per kata yang jatuh tempo. Spasi
 // membuka jawaban, 1 / 2 / 3 menjawab Lupa / Ragu / Ingat.
 const ReviewPage = React.memo(() => {
-  const { dueKeys, scheduled, doneToday, allLevels, srs, own } = useShellData();
+  const { dueKeys, dueMistakes, scheduled, doneToday, allLevels, srs, own } =
+    useShellData();
   const bumpSrs = useProgressStore((s) => s.bumpSrs);
+  const gradeMistake = useMistakeStore((s) => s.grade);
+  const reviewOn = useMistakeStore((s) => s.reviewOn);
+  const setReviewOn = useMistakeStore((s) => s.setReviewOn);
   const allowed = useAccessStore((s) => s.session?.levels);
   // Every word in the levels this token may open (bundled + admin + Kataku).
   const totalWords = useMemo(
@@ -80,18 +87,28 @@ const ReviewPage = React.memo(() => {
     () => dueKeys.find((k) => resolveItemKey(allLevels, k)) ?? "",
     [dueKeys, allLevels],
   );
+  // Word and mistake cards take turns (by how many were answered today);
+  // when one kind runs out, the other continues.
+  const nextMistake = dueMistakes[0] ?? null;
+  const mistake =
+    nextMistake && (!rvKey || doneToday % 2 === 1) ? nextMistake : null;
+  const cardId = mistake ? `m:${mistake.id}` : `w:${rvKey}`;
   const [revealed, setRevealed] = useState(false);
-  // Reset saat kata berganti atau mode flip dibalik (seperti rvRevealed versi lama).
+  // Reset saat kartu berganti atau mode flip dibalik (seperti rvRevealed versi lama).
   // Done during render (React's "reset state when a value changes" pattern)
   // instead of in an effect, so the old card never flashes revealed.
-  const [revealedFor, setRevealedFor] = useState(`${rvKey}|${flip}`);
-  if (revealedFor !== `${rvKey}|${flip}`) {
-    setRevealedFor(`${rvKey}|${flip}`);
+  const [revealedFor, setRevealedFor] = useState(`${cardId}|${flip}`);
+  if (revealedFor !== `${cardId}|${flip}`) {
+    setRevealedFor(`${cardId}|${flip}`);
     setRevealed(false);
   }
 
-  const item = rvKey ? resolveItemKey(allLevels, rvKey) : null;
-  const cur = rvKey ? srs[rvKey] || { st: 0, due: 0 } : { st: 0, due: 0 };
+  const item = rvKey && !mistake ? resolveItemKey(allLevels, rvKey) : null;
+  const cur = mistake
+    ? mistake.srs
+    : rvKey
+      ? srs[rvKey] || { st: 0, due: 0 }
+      : { st: 0, due: 0 };
   const notesReady = useNotes(!!item && hasNote(item.it[1]));
   const note = item && notesReady ? noteOf(item.it[1]) : null;
   const halfGap = Math.max(1, Math.round(GAPS[cur.st] / 2));
@@ -115,9 +132,14 @@ const ReviewPage = React.memo(() => {
     },
   ];
 
+  const answer = (how: (typeof answers)[number]["how"]) => {
+    if (mistake) gradeMistake(mistake.id, how);
+    else if (rvKey) bumpSrs(rvKey, how);
+  };
+
   // Space opens the answer; 1 / 2 / 3 = Lupa / Ragu / Ingat once it's open.
   useEffect(() => {
-    if (!rvKey) return;
+    if (!item && !mistake) return;
     const onKey = (e: KeyboardEvent) => {
       if (ignoreKey(e)) return;
       if (e.key === " " && !revealed) {
@@ -128,22 +150,60 @@ const ReviewPage = React.memo(() => {
       const a = revealed && answers.find((x) => x.key === e.key);
       if (a) {
         e.preventDefault();
-        bumpSrs(rvKey, a.how);
+        answer(a.how);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   });
 
-  const queue = dueKeys
-    .filter((k) => k !== rvKey)
-    .map((k) => ({
-      k,
-      item: resolveItemKey(allLevels, k),
-      st: srs[k]?.st ?? 0,
-    }))
-    .filter((x) => x.item)
-    .slice(0, 5);
+  const queue = [
+    ...dueKeys
+      .filter((k) => mistake || k !== rvKey)
+      .map((k) => {
+        const it = resolveItemKey(allLevels, k);
+        return (
+          it && {
+            k,
+            label: flip ? it.it[3] : it.it[1],
+            st: srs[k]?.st ?? 0,
+          }
+        );
+      })
+      .filter((x) => !!x)
+      .slice(0, 5),
+    ...dueMistakes
+      .filter((m) => m !== mistake)
+      .slice(0, 5)
+      .map((m) => ({ k: m.id, label: "✕ " + m.wrong, st: m.srs.st })),
+  ].slice(0, 6);
+
+  // Lupa / Ragu / Ingat: the same buttons for word and mistake cards.
+  const answerButtons = (
+    /* On a phone the three answers stay above the bottom nav. */
+    <div className="grid grid-cols-3 gap-2 max-md:sticky max-md:bottom-[calc(76px+env(safe-area-inset-bottom))] max-md:-mx-1 max-md:bg-surface max-md:px-1 max-md:py-2">
+      {answers.map((a) => (
+        <Button
+          key={a.how}
+          variant={
+            a.how === "forgot"
+              ? "danger"
+              : a.how === "hard"
+                ? "outline"
+                : "green"
+          }
+          aria-keyshortcuts={a.key}
+          onClick={() => answer(a.how)}
+          className="min-h-[52px] flex-col gap-0 px-2 leading-5"
+        >
+          {a.title}
+          <span className="text-[11.5px] font-bold tracking-normal normal-case">
+            {a.sub}
+          </span>
+        </Button>
+      ))}
+    </div>
+  );
   const example = item?.it[4] || "";
   const target = item
     ? findTarget(example, item.it[1], formsOf(item.it))
@@ -155,15 +215,27 @@ const ReviewPage = React.memo(() => {
         <div className="flex flex-col gap-2">
           <PageHeading>Ulang hari ini</PageHeading>
           <Lead>
-            Kata yang kamu tandai hafal dijadwalkan ulang: {GAPS.join(" → ")}{" "}
-            hari. Jawab jujur. Kalau lupa, jadwalnya mundur ke awal. Ini yang
-            membuat {totalWords.toLocaleString("id-ID")} kata benar-benar
-            menempel.
+            Kata yang kamu tandai hafal dan kesalahan dari Buku kesalahanku
+            dijadwalkan ulang: {GAPS.join(" → ")} hari. Jawab jujur. Kalau lupa,
+            jadwalnya mundur ke awal. Ini yang membuat{" "}
+            {totalWords.toLocaleString("id-ID")} kata benar-benar menempel.
           </Lead>
           <div className="flex flex-wrap gap-2 pt-1">
-            <Stat n={dueKeys.length} label="jatuh tempo" />
+            <Stat n={dueKeys.length} label="kata jatuh tempo" />
+            <Stat n={dueMistakes.length} label="kesalahan jatuh tempo" />
             <Stat n={doneToday} label="selesai hari ini" />
-            <Stat n={scheduled} label="dalam jadwal" />
+            <Stat n={scheduled} label="kata dalam jadwal" />
+          </div>
+          <div className="pt-1">
+            <Pill
+              size="sm"
+              check
+              on={reviewOn}
+              aria-pressed={reviewOn}
+              onClick={() => setReviewOn(!reviewOn)}
+            >
+              Sertakan kartu kesalahan
+            </Pill>
           </div>
         </div>
 
@@ -261,29 +333,7 @@ const ReviewPage = React.memo(() => {
                     )}
                   </div>
                 )}
-                {/* On a phone the three answers stay above the bottom nav. */}
-                <div className="grid grid-cols-3 gap-2 max-md:sticky max-md:bottom-[calc(76px+env(safe-area-inset-bottom))] max-md:-mx-1 max-md:bg-surface max-md:px-1 max-md:py-2">
-                  {answers.map((a) => (
-                    <Button
-                      key={a.how}
-                      variant={
-                        a.how === "forgot"
-                          ? "danger"
-                          : a.how === "hard"
-                            ? "outline"
-                            : "green"
-                      }
-                      aria-keyshortcuts={a.key}
-                      onClick={() => bumpSrs(rvKey, a.how)}
-                      className="min-h-[52px] flex-col gap-0 px-2 leading-5"
-                    >
-                      {a.title}
-                      <span className="text-[11.5px] font-bold tracking-normal normal-case">
-                        {a.sub}
-                      </span>
-                    </Button>
-                  ))}
-                </div>
+                {answerButtons}
               </>
             ) : (
               <>
@@ -306,7 +356,17 @@ const ReviewPage = React.memo(() => {
           </Card>
         )}
 
-        {!item && (
+        {mistake && (
+          <MistakeReviewCard
+            key={mistake.id}
+            m={mistake}
+            revealed={revealed}
+            onReveal={() => setRevealed(true)}
+            answers={answerButtons}
+          />
+        )}
+
+        {!item && !mistake && (
           <Card
             tone="dashed"
             className="items-center gap-3.5 px-6 py-9 text-center"
@@ -327,7 +387,7 @@ const ReviewPage = React.memo(() => {
         )}
       </div>
 
-      {item && (
+      {(item || mistake) && (
         <aside
           aria-label="Antrean dan pintasan"
           className="hidden flex-col gap-4 @min-[56rem]:flex"
@@ -335,14 +395,12 @@ const ReviewPage = React.memo(() => {
           {queue.length > 0 && (
             <Card className="gap-1.5">
               <SectionLabel className="pb-1">Antrean berikutnya</SectionLabel>
-              {queue.map(({ k, item: q, st }) => (
+              {queue.map(({ k, label, st }) => (
                 <div
                   key={k}
                   className="flex min-h-10 items-center justify-between gap-3 px-1 text-sm font-extrabold text-ink"
                 >
-                  <span className="min-w-0 truncate">
-                    {flip ? q!.it[3] : q!.it[1]}
-                  </span>
+                  <span className="min-w-0 truncate">{label}</span>
                   <span className="shrink-0 text-xs font-bold text-ink-2">
                     tahap {st + 1}
                   </span>

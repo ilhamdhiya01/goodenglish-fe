@@ -3,8 +3,10 @@ import { useCallback, useMemo } from "react";
 import { LEVELS } from "@/const/levels.constant";
 import { allLevelData, dueKeysOf } from "@/lib/helpers/derived.helper";
 import { flatten, levelData } from "@/lib/helpers/level-data.helper";
-import { itemKey } from "@/lib/helpers/storage.helper";
+import { dueMistakesOf } from "@/lib/helpers/mistakes.helper";
+import { itemKey, today } from "@/lib/helpers/storage.helper";
 import { useLevelStore } from "@/stores/useLevelStore";
+import { useMistakeStore } from "@/stores/useMistakeStore";
 import { useProgressStore } from "@/stores/useProgressStore";
 import { useExtraWords } from "@/stores/useSharedWordsStore";
 
@@ -23,6 +25,23 @@ export const useShellData = () => {
   const allLevels = useMemo(() => allLevelData(custom), [custom]);
   const all = useMemo(() => flatten(data.V), [data]);
   const dueKeys = useMemo(() => dueKeysOf(srs, known), [srs, known]);
+  // "Buku kesalahanku" cards due in Ulang (none when switched off there).
+  const mistakeItems = useMistakeStore((s) => s.items);
+  const mistakeReviewOn = useMistakeStore((s) => s.reviewOn);
+  const mistakeIntro = useMistakeStore((s) => s.intro);
+  const dueMistakes = useMemo(
+    () =>
+      dueMistakesOf(
+        {
+          v: 2,
+          items: mistakeItems,
+          reviewOn: mistakeReviewOn,
+          intro: mistakeIntro,
+        },
+        today(),
+      ),
+    [mistakeItems, mistakeReviewOn, mistakeIntro],
+  );
   const scheduled = useMemo(
     () => Object.keys(srs).filter((k) => known[k]).length,
     [srs, known],
@@ -49,6 +68,7 @@ export const useShellData = () => {
     own,
     doneToday,
     dueKeys,
+    dueMistakes,
     scheduled,
     keyOf,
     LV,

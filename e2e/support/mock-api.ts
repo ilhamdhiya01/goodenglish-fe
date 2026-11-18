@@ -191,6 +191,8 @@ export interface MockOptions {
   progress?: Record<string, unknown>;
   aiUsage?: { used: number; limit: number | null };
   aiReply?: string;
+  /** Sent after the reply as `event: check` (a checked sentence). */
+  aiCheck?: Record<string, unknown>;
   roleplayUsage?: { used: number; limit: number | null };
   /** What the STT "hears" from a recording ("" = 422 stt_no_speech). */
   roleplayTranscript?: string;
@@ -225,12 +227,13 @@ const json = (route: Route, data: unknown, status = 200) =>
     body: JSON.stringify(status < 400 ? { data } : data),
   });
 
-const sse = (reply: string) =>
+const sse = (reply: string, check?: Record<string, unknown>) =>
   [
     `event: meta\ndata: ${JSON.stringify({ conversationId: "c-new" })}\n\n`,
     ...reply
       .split(/(?<= )/)
       .map((t) => `data: ${JSON.stringify({ text: t })}\n\n`),
+    ...(check ? [`event: check\ndata: ${JSON.stringify(check)}\n\n`] : []),
     "event: done\ndata: {}\n\n",
   ].join("");
 
@@ -365,7 +368,10 @@ export const installMockApi = async (
       return route.fulfill({
         status: 200,
         contentType: "text/event-stream",
-        body: sse(opts.aiReply ?? "Run out of dipakai dengan benda."),
+        body: sse(
+          opts.aiReply ?? "Run out of dipakai dengan benda.",
+          opts.aiCheck,
+        ),
       });
     }
 
@@ -585,6 +591,14 @@ export const installMockApi = async (
         texts.splice(texts.indexOf(found), 1);
         return json(route, null);
       }
+    }
+
+    if (path === "/stt/transcribe" && method === "POST") {
+      return json(route, {
+        text: "She goes to school.",
+        language: "en",
+        durationSec: 2,
+      });
     }
 
     if (path === "/admin/tokens" && method === "GET") {

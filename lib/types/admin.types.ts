@@ -57,6 +57,10 @@ export interface TokenSummary {
   personalWordCount?: number;
   // Bacaan texts finished. Optional: older backends.
   readingDoneCount?: number;
+  // "Buku kesalahanku". Optional: older backends.
+  mistakeActiveCount?: number;
+  mistakeMasteredCount?: number;
+  topMistakeCategories?: { id: string; count: number }[];
   lastProgressAt: string | null;
   sessions: TokenSessionItem[];
   // Newest week first. Optional: an older backend doesn't send it.

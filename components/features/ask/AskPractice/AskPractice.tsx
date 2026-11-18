@@ -16,6 +16,7 @@ import Pill from "@/components/ui/pill";
 import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
 import TextButton from "@/components/ui/text-button";
+import { PRACTICE_CATEGORY } from "@/const/mistake-categories.constant";
 import { ASK_GEN } from "@/lib/content";
 import { noCue, type PracticeGen } from "@/lib/helpers/bank-practice.helper";
 import type {
@@ -23,8 +24,11 @@ import type {
   PracticeSession,
   PracticeStage,
 } from "@/lib/types/ask-practice.types";
+import type { LevelId } from "@/lib/types/session.types";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
 import { confirmDialog } from "@/stores/useConfirmStore";
+import { useLevelStore } from "@/stores/useLevelStore";
+import { addMistake } from "@/stores/useMistakeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 import { usePracticeSessionStore } from "@/stores/usePracticeSessionStore";
 
@@ -56,6 +60,8 @@ interface Props {
   /** Label & keterangan tiap tahap. */
   stages?: [PracticeStage, string, string][];
   placeholder?: string;
+  /** "Buku kesalahanku" category of wrong answers here. */
+  mistakeCategory?: string;
 }
 
 // Latihan per rumus/set: 20 soal per set, tiga tahap (pilihan ganda → susun kata → ketik).
@@ -69,7 +75,9 @@ const AskPractice = React.memo(
     title = "Soal dibuat otomatis, 20 per set, tidak mengulang yang sudah kamu jawab benar",
     stages: STAGES = ASK_STAGES,
     placeholder = "Ketik pertanyaannya, lalu Enter…",
+    mistakeCategory = PRACTICE_CATEGORY.ask,
   }: Props) => {
+    const level = useLevelStore((s) => s.level);
     const G: PracticeGen | null = gen === undefined ? ASK_GEN : gen;
     const stats = useAskPracticeStore((s) => s.stats);
     const updateRule = useAskPracticeStore((s) => s.updateRule);
@@ -129,6 +137,18 @@ const AskPractice = React.memo(
         }
         return n;
       });
+      if (!ok) {
+        // Buku kesalahanku: the learner's whole sentence vs the key.
+        addMistake({
+          source: "Grammar",
+          wrong: G.full ? G.full(q, given, P.stage) : given,
+          correct: q.ans,
+          explanation_id: G.explain(q, given, P.stage).replace(/^Benar: /, ""),
+          category: mistakeCategory,
+          level: level as LevelId,
+          refId: `${rule}:${q.ans}`,
+        });
+      }
       bumpTally("ask");
       setP({
         ...P,

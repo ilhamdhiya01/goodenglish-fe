@@ -14,7 +14,7 @@ const {
   ROLEPLAY_HISTORY_MAX,
   useRoleplayStore,
 } = await import("../useRoleplayStore");
-const { mergeMistakes, useMistakeStore } = await import("../useMistakeStore");
+const { useMistakeStore } = await import("../useMistakeStore");
 
 const rec = (o: Partial<RoleplayRecord> = {}): RoleplayRecord => ({
   id: "s1",
@@ -110,35 +110,24 @@ describe("roleplaySeconds (Rencana checkpoint)", () => {
 });
 
 describe("useMistakeStore", () => {
-  const m = (id: string, createdAt: string) => ({
-    id,
-    source: "Main peran" as const,
-    wrong: "two coffee",
-    correct: "two coffees",
-    explanation_id: "Jamak pakai -s.",
-    category: "kata-tertukar",
-    level: "beginner" as const,
-    createdAt,
-  });
-
-  it("saves new mistakes first and merges imports by id", () => {
+  it("saves Main peran corrections as one record per pattern", () => {
     setProgressSnapshot({});
     useMistakeStore.getState().hydrate();
-    useMistakeStore.getState().addMany([m("a", "2026-11-15T00:00:00Z")]);
-    useMistakeStore.getState().addMany([m("b", "2026-11-16T00:00:00Z")]);
-    expect(useMistakeStore.getState().mistakes.map((x) => x.id)).toEqual([
-      "b",
-      "a",
-    ]);
+    const m = {
+      source: "Main peran" as const,
+      wrong: "two coffee",
+      correct: "two coffees",
+      explanation_id: "Jamak pakai -s.",
+      category: "jamak",
+      level: "beginner" as const,
+    };
+    useMistakeStore.getState().addMany([m, { ...m, wrong: "Two coffee!" }]);
+    const { items } = useMistakeStore.getState();
+    expect(items).toHaveLength(1);
+    expect(items[0].count).toBe(2);
     expect(queueProgress).toHaveBeenLastCalledWith(
       "mistakes",
-      useMistakeStore.getState().mistakes,
+      expect.objectContaining({ v: 2, items }),
     );
-    expect(
-      mergeMistakes(
-        [m("a", "2026-11-15T00:00:00Z")],
-        [m("a", "x"), { bad: 1 }],
-      ),
-    ).toHaveLength(1);
   });
 });
