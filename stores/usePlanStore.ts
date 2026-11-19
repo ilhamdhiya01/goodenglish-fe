@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
-import type { PlanData } from "@/lib/types/plan.types";
+import type { PlanData, PlanWeek } from "@/lib/types/plan.types";
 import { useActivityStore } from "@/stores/useActivityStore";
 
 // Rencana belajar harian: checklist 3 blok (dicentang otomatis), checkpoint
@@ -28,6 +28,10 @@ interface PlanState {
   setRule: (rule: string) => void;
   advancePron: () => void;
   reset: () => void;
+  /** Rencana: duration chosen for the day (kept as the last choice). */
+  setDurasi: (d: 15 | 25 | 40) => void;
+  /** Rencana: per level|week (lulus, mulai). Older fields are kept. */
+  setMinggu: (weekKey: string, patch: PlanWeek) => void;
   hydrate: () => void;
 }
 
@@ -121,4 +125,15 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   },
 
   reset: () => get().setPlan(() => ({})),
+
+  setDurasi: (durasi) => get().setPlan((p) => ({ ...p, durasi })),
+
+  setMinggu: (weekKey, patch) =>
+    get().setPlan((p) => ({
+      ...p,
+      week: {
+        ...(p.week || {}),
+        [weekKey]: { ...(p.week?.[weekKey] || {}), ...patch },
+      },
+    })),
 }));

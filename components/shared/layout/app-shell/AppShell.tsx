@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import AiChat from "@/components/features/ai/AiChat";
 import { Tests } from "@/components/features/tests";
 import ActivityTracker from "@/components/providers/ActivityTracker";
-import PlanAutoCheck from "@/components/providers/PlanAutoCheck";
+import RencanaWriter from "@/components/providers/RencanaWriter";
 import TtsBootstrap from "@/components/providers/TtsBootstrap";
 import ConnectionError from "@/components/shared/connection-error";
 import { NON_TAB_MENUS } from "@/const/access.constant";
@@ -27,10 +27,17 @@ import {
   hasLegacyProgress,
   readLegacyProgress,
   setTimeZone,
+  today,
 } from "@/lib/helpers/storage.helper";
 import { useSession } from "@/lib/hooks/auth/useSession";
 import { useProgress } from "@/lib/hooks/progress/useProgress";
 import { useWords } from "@/lib/hooks/words/useWords";
+import {
+  kirimLaporan,
+  muatLaporan,
+  simpanAntreLaporan,
+  startLaporan,
+} from "@/lib/rencana/laporan-sync";
 import type { ProgressKey, ProgressMap } from "@/lib/types/progress-sync.types";
 import type { LevelId, MenuId } from "@/lib/types/session.types";
 import { ROUTES } from "@/routes";
@@ -149,6 +156,9 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
       if (Object.keys(map).length === 0 && !exam.placement) {
         useTestRunStore.getState().open({ kind: "welcome" });
       }
+      // Rencana's activity log: this token's reports a closed tab left
+      // behind, then the last days from the server (not blocking).
+      void startLaporan(session.tokenId ?? `label:${session.label}`, today());
       setReady(true);
     },
     [session, setSession, versions],
@@ -196,13 +206,24 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   useEffect(() => {
     if (!ready) return;
     const onVisibility = () => {
-      if (document.visibilityState === "hidden") flushProgressOnHide();
-      else if (!hasPendingProgress()) void refreshProgress();
+      if (document.visibilityState === "hidden") {
+        flushProgressOnHide();
+        simpanAntreLaporan();
+        void kirimLaporan();
+      } else {
+        if (!hasPendingProgress()) void refreshProgress();
+        // Reports from another device since.
+        void muatLaporan(today());
+      }
     };
-    window.addEventListener("pagehide", flushProgressOnExit);
+    const onExit = () => {
+      flushProgressOnExit();
+      simpanAntreLaporan();
+    };
+    window.addEventListener("pagehide", onExit);
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
-      window.removeEventListener("pagehide", flushProgressOnExit);
+      window.removeEventListener("pagehide", onExit);
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, [ready]);
@@ -287,7 +308,7 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
       )}
     >
       <TtsBootstrap />
-      <PlanAutoCheck />
+      <RencanaWriter />
       <ActivityTracker />
       <Sidebar className="hidden lg:flex" />
       <IconRail className="hidden md:flex lg:hidden" />

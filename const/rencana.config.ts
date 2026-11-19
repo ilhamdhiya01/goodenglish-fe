@@ -377,6 +377,8 @@ export interface DefCheckpoint {
   isi: string;
   tautan: string;
   menu: MenuId;
+  /** Jenis aktivitas yang dibaca syarat ini (lib/rencana/evaluasi.ts). */
+  jenis: JenisAktivitas[];
   /** Harus termasuk yang terpenuhi agar lulus. */
   wajib?: boolean;
 }
@@ -388,6 +390,7 @@ export const CHECKPOINT: DefCheckpoint[] = [
     isi: 'Tes cepat "Minggu ini" ≥ 16/20, dikerjakan Sabtu–Senin.',
     tautan: "/vocab",
     menu: "vocab",
+    jenis: ["tes_cepat_selesai"],
   },
   {
     id: "grammar",
@@ -395,6 +398,7 @@ export const CHECKPOINT: DefCheckpoint[] = [
     isi: "Tahap ketik pada topik minggu ini: ≥ 80% dari minimal 10 soal.",
     tautan: "/grammar/{topik}",
     menu: "grammar",
+    jenis: ["jawaban_grammar"],
   },
   {
     id: "menyimak",
@@ -402,6 +406,7 @@ export const CHECKPOINT: DefCheckpoint[] = [
     isi: "Satu set Dikte dengan ≥ 80% kata benar.",
     tautan: "/listening/dikte",
     menu: "listening",
+    jenis: ["dikte_selesai"],
   },
   {
     id: "tugas",
@@ -409,6 +414,7 @@ export const CHECKPOINT: DefCheckpoint[] = [
     isi: "Main peran penuh skenario minggu ini sampai misi tercapai, lalu ringkasan 60–100 kata.",
     tautan: "/scenario/roleplay/{skenario}?mode=penuh",
     menu: "roleplay",
+    jenis: ["main_peran_selesai", "ringkasan_tugas"],
     wajib: true,
   },
 ];
