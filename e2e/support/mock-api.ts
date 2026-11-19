@@ -8,7 +8,7 @@ import type { MenuId, SessionData } from "@/lib/types/session.types";
 
 export const API = "/api/v1";
 
-const ALL_MENUS: MenuId[] = [
+export const ALL_MENUS: MenuId[] = [
   "plan",
   "vocab",
   "review",
@@ -280,6 +280,10 @@ export interface MockOptions {
   versionedProgress?: boolean;
   /** Answer /auth/me with this status instead (e.g. 503 = server down). */
   sessionStatus?: number;
+  /** Activity reports already on the server (Rencana). */
+  laporan?: Record<string, unknown>[];
+  /** Admin week map rows (Rencana). */
+  petaMinggu?: Record<string, unknown>[];
 }
 
 export interface MockApi {
@@ -287,6 +291,12 @@ export interface MockApi {
   puts: { key: string; data: unknown }[];
   /** Saves refused with 409 (versionedProgress). */
   conflicts: string[];
+  /** Activity reports sent by the app (POST /me/laporan). */
+  laporan: Record<string, unknown>[];
+  /** POST /ai/check-sentences bodies. */
+  checks: unknown[];
+  /** PUT /admin/rencana/minggu bodies. */
+  peta: unknown[];
   /** The documents the server holds now (versionedProgress). */
   server: Record<string, { data: unknown; version: number }>;
   /** Every POST /ai/chat body. */
@@ -337,6 +347,9 @@ export const installMockApi = async (
   const api: MockApi = {
     puts: [],
     conflicts: [],
+    laporan: [],
+    checks: [],
+    peta: [],
     server: {},
     chats: [],
     admin: [],
@@ -428,6 +441,51 @@ export const installMockApi = async (
       return json(route, fullSession);
     }
     if (path === "/auth/logout") return json(route, null);
+
+    // Rencana: activity log, week map, sentence check.
+    if (path === "/me/laporan") {
+      if (method === "POST") {
+        const { items } = req.postDataJSON() as {
+          items: Record<string, unknown>[];
+        };
+        api.laporan.push(...items);
+        return json(route, { saved: items.length });
+      }
+      return json(route, [...(opts.laporan ?? []), ...api.laporan]);
+    }
+    if (path === "/rencana/minggu" || path === "/admin/rencana/minggu") {
+      const level = new URL(req.url()).searchParams.get("level");
+      if (method === "PUT") {
+        const body = req.postDataJSON() as Record<string, unknown>;
+        api.peta.push(body);
+        const rows = (opts.petaMinggu ??= []);
+        const at = rows.findIndex(
+          (r) => r.level === body.level && r.week === body.week,
+        );
+        const row = { ...(at >= 0 ? rows[at] : {}), ...body };
+        if (at >= 0) rows[at] = row;
+        else rows.push(row);
+        return json(route, row);
+      }
+      return json(
+        route,
+        (opts.petaMinggu ?? []).filter((r) => !level || r.level === level),
+      );
+    }
+    if (path === "/ai/check-sentences" && method === "POST") {
+      const body = req.postDataJSON() as { sentences: string[] };
+      api.checks.push(body);
+      // "goed" is the one mistake the mock knows.
+      return json(route, {
+        checks: body.sentences.map((s) => ({
+          original: s,
+          isCorrect: !/goed/.test(s),
+          corrected: s.replace(/goed/g, "went"),
+          explanationId: "Lampau dari go adalah went.",
+          category: "tense",
+        })),
+      });
+    }
 
     if (opts.versionedProgress && path.startsWith("/me/progress")) {
       const key = path.split("/")[3];
@@ -565,10 +623,13 @@ export const installMockApi = async (
       const body = method === "POST" ? req.postDataJSON() : null;
       api.roleplay.push({ path, body });
       if (path === "/roleplay/sessions") {
+        const mode = (body as { mode?: string }).mode ?? "penuh";
         return json(route, {
           id: "rp1",
           reply: "Hi! What can I get for you?",
           remaining: 2,
+          mode,
+          maxTurns: mode === "pendek" ? 6 : 12,
         });
       }
       const transcript = (body as { transcript: { role: string }[] })
@@ -901,3 +962,44 @@ export const spoken = (page: Page) =>
   page.evaluate(
     () => (window as unknown as { __spoken: string[] }).__spoken ?? [],
   );
+
+let laporanSeq = 0;
+/** One activity report as the server stores it (Rencana). */
+export const lapor = (
+  jenis: string,
+  day: number,
+  data: Record<string, unknown> = {},
+  o: Record<string, unknown> = {},
+) => ({
+  id: `seed-${++laporanSeq}-${jenis}`,
+  jenis,
+  menu: "plan",
+  level: "pre",
+  week: 1,
+  day,
+  data,
+  ...o,
+});
+
+/** Everything the weekly checkpoint of pre week 1 needs, except the summary
+ * (tugas nyata) when `ringkasan` is false. */
+export const checkpointLulus = (sat: number, ringkasan = true) => [
+  lapor("tes_cepat_selesai", sat, { lingkup: "week" }, { skor: 18, total: 20 }),
+  ...Array.from({ length: 10 }, () =>
+    lapor("jawaban_grammar", sat - 3, {
+      topik: "r",
+      set: "r1",
+      tahap: "type",
+      benar: true,
+    }),
+  ),
+  lapor("main_peran_selesai", sat - 1, {
+    mode: "penuh",
+    misi: true,
+    scenarioId: "standup",
+    giliran: 10,
+  }),
+  ...(ringkasan
+    ? [lapor("ringkasan_tugas", sat, { teks: "…" }, { jumlah: 70 })]
+    : []),
+];
