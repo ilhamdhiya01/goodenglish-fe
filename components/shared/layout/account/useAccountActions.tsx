@@ -25,6 +25,7 @@ import { useInstallPrompt } from "@/lib/hooks/useInstallPrompt";
 import { toast } from "@/lib/toast";
 import { ROUTES } from "@/routes";
 import { useAccessStore } from "@/stores/useAccessStore";
+import { confirmDialog } from "@/stores/useConfirmStore";
 import { useTestRunStore } from "@/stores/useTestRunStore";
 
 import { VoiceFields } from "./TtsFields";
@@ -110,10 +111,21 @@ export const useAccountActions = () => {
         onChange={(e) => {
           const f = e.target.files?.[0];
           if (f)
-            importProgressFile(f, (msg) =>
-              msg.startsWith("Progres diimpor")
-                ? toast.success(msg)
-                : toast.error(msg),
+            importProgressFile(
+              f,
+              (msg) =>
+                msg.startsWith("Progres diimpor")
+                  ? toast.success(msg)
+                  : toast.error(msg),
+              {
+                requireExam: !!useAccessStore.getState().session?.requireExam,
+                confirm: (message) =>
+                  confirmDialog({
+                    title: "Impor progres?",
+                    message,
+                    confirmLabel: "Impor",
+                  }),
+              },
             );
           e.target.value = "";
         }}

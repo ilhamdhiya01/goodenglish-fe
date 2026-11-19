@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 
 import {
+  acceptConfirm,
   clickAccountAction,
   globalSearchInput,
   importInput,
@@ -130,7 +131,10 @@ test.describe("grammar", () => {
     await page.getByTestId("practice-option").first().click();
     await expect(feedback).toBeVisible();
 
+    // Switching stage mid-set asks first (the set would be replaced).
     await page.getByRole("button", { name: /^2 · / }).click();
+    await expect(page.getByRole("alertdialog")).toContainText("Ganti tahap?");
+    await acceptConfirm(page, "Ganti tahap");
     const tokens = page.getByTestId("practice-token");
     await expect(tokens.first()).toBeVisible();
     const n = await tokens.count();
@@ -140,6 +144,7 @@ test.describe("grammar", () => {
     await expect(feedback).toBeVisible();
 
     await page.getByRole("button", { name: /^3 · / }).click();
+    await acceptConfirm(page, "Ganti tahap");
     const typed = page.getByPlaceholder(/Ketik isian/).first();
     await typed.fill("is");
     await typed.press("Enter");
@@ -212,6 +217,10 @@ test.describe("ekspor dan impor", () => {
         JSON.stringify({ ...data, known: { ...data.known, "2:w:work": 1 } }),
       ),
     });
+    // Asks first: nothing changes until "Impor".
+    const dialog = page.getByRole("alertdialog", { name: "Impor progres?" });
+    await expect(dialog).toContainText("digabung dengan progresmu sekarang");
+    await dialog.getByRole("button", { name: "Impor" }).click();
     await expect
       .poll(() => Object.keys((api.lastPut("known") as object) ?? {}))
       .toContain("2:w:work");

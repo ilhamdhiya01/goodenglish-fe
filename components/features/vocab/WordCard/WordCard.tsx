@@ -585,7 +585,19 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
           variant={kn ? "green" : "outline"}
           aria-pressed={kn}
           title="Tandai hafal"
-          onClick={() => toggleKnown(k)}
+          onClick={async () => {
+            // Taking a word out of Ulang asks first (one tap is easy to miss).
+            if (
+              kn &&
+              !(await confirmDialog({
+                title: "Batalkan hafal?",
+                message: `"${it[1]}" keluar dari Ulang. Riwayat ulangnya tetap disimpan dan dipakai lagi bila kamu menandainya hafal lagi.`,
+                confirmLabel: "Batalkan hafal",
+              }))
+            )
+              return;
+            toggleKnown(k);
+          }}
           className="w-full whitespace-nowrap md:w-auto"
         >
           {kn ? "✓ Hafal" : "Tandai hafal"}

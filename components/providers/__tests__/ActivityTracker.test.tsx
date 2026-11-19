@@ -3,9 +3,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/vocab" }));
 const flushProgressOnExit = vi.fn();
+const flushProgressOnHide = vi.fn();
 vi.mock("@/lib/helpers/progress-sync.helper", () => ({
   queueProgress: vi.fn(),
   flushProgressOnExit,
+  flushProgressOnHide,
 }));
 
 const { useActivityStore } = await import("@/stores/useActivityStore");
@@ -22,6 +24,7 @@ beforeEach(() => {
   );
   addTime.mockReset();
   flushProgressOnExit.mockReset();
+  flushProgressOnHide.mockReset();
   useActivityStore.setState({ addTime });
 });
 afterEach(() => {
@@ -47,6 +50,14 @@ describe("ActivityTracker", () => {
     expect(addTime).toHaveBeenCalledWith("vocab", 60);
   });
 
+  it("just opening the app counts nothing", () => {
+    render(<ActivityTracker />);
+    act(() => {
+      vi.advanceTimersByTime(2 * 60_000);
+    });
+    expect(addTime).not.toHaveBeenCalled();
+  });
+
   it("stops counting after a minute without interaction", () => {
     render(<ActivityTracker />);
     act(() => {
@@ -68,7 +79,7 @@ describe("ActivityTracker", () => {
       document.dispatchEvent(new Event("visibilitychange"));
     });
     expect(addTime).toHaveBeenCalledWith("vocab", 10);
-    expect(flushProgressOnExit).toHaveBeenCalled();
+    expect(flushProgressOnHide).toHaveBeenCalled();
     addTime.mockReset();
     act(() => {
       window.dispatchEvent(new Event("pointerdown"));

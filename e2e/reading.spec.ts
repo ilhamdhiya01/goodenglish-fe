@@ -15,6 +15,50 @@ test.describe("pelajar", () => {
   test.use({ mock: { session: readingSession, progress: { level: "pre" } } });
   test.describe.configure({ timeout: 90_000 });
 
+  test("skor di bawah 4/5: belum selesai, soal boleh diulang sekali", async ({
+    page,
+    api,
+  }) => {
+    await openApp(page, "/reading/rt1");
+    await page
+      .getByRole("button", { name: /Selesai membaca · jawab 5 soal/ })
+      .click();
+    const answerWrong = async () => {
+      for (let i = 0; i < 3; i++)
+        await page
+          .getByRole("button", { name: /Wrong 1/ })
+          .nth(i)
+          .click();
+      await page
+        .getByRole("button", { name: /Salah$/ })
+        .first()
+        .click();
+      await page.getByRole("textbox", { name: "Jawaban soal 5" }).fill("rain");
+      await page.getByRole("button", { name: "Periksa jawaban" }).click();
+    };
+    await answerWrong();
+    await expect(page.getByText("BELUM SELESAI")).toBeVisible();
+    await page.getByRole("button", { name: "Ulangi soal (sekali)" }).click();
+    await answerWrong();
+    await expect(page.getByText("BELUM SELESAI")).toBeVisible();
+    // The one retry is used: only "Baca lagi" now.
+    await expect(
+      page.getByRole("button", { name: "Ulangi soal (sekali)" }),
+    ).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Baca lagi" })).toBeVisible();
+    // Both tries are scored, the text isn't done.
+    await expect
+      .poll(
+        () =>
+          (api.lastPut("reading") as { results?: unknown[] } | undefined)
+            ?.results?.length,
+      )
+      .toBe(2);
+    expect(
+      (api.lastPut("reading") as { done?: object } | undefined)?.done ?? {},
+    ).toEqual({});
+  });
+
   test("daftar, baca, tap kata, simpan, soal, selesai", async ({
     page,
     api,
@@ -252,6 +296,11 @@ test.describe("admin", () => {
     await expect
       .poll(() => api.reading.map((c) => c.call))
       .toContain("POST /admin/reading/rd1/publish");
+    // Published on purpose despite the warnings.
+    expect(
+      api.reading.find((c) => c.call === "POST /admin/reading/rd1/publish")
+        ?.body,
+    ).toEqual({ force: true });
     await expect(warned.getByText("Terbit", { exact: true })).toBeVisible();
 
     await warned.getByRole("button", { name: "Lihat isi" }).click();
@@ -286,5 +335,36 @@ test.describe("admin", () => {
       .poll(() => api.reading.map((c) => c.call))
       .toContain("DELETE /admin/reading/rd1");
     await expect(page.getByText("Edited reading")).toHaveCount(0);
+  });
+});
+
+test.describe("admin: arti kata", () => {
+  test.use({ mock: { session: adminSession } });
+
+  test("arti kata dari AI bisa diubah dan dihapus", async ({ page, api }) => {
+    await openApp(page, "/admin/reading");
+    const list = page.getByRole("list", { name: "Arti kata tersimpan" });
+    const row = list.locator("li", { hasText: "went" });
+    await expect(row).toContainText("The light went out.");
+    await row.getByRole("button", { name: "Ubah" }).click();
+    await row.getByLabel("Arti").fill("padam");
+    await row.getByRole("button", { name: "Simpan" }).click();
+    await expect
+      .poll(
+        () =>
+          api.reading.find((c) => c.call === "PATCH /admin/word-meanings/wm1")
+            ?.body,
+      )
+      .toMatchObject({ meaningId: "padam" });
+    await expect(row).toContainText("= padam");
+
+    await row.getByRole("button", { name: "Hapus" }).click();
+    await acceptConfirm(page, "Hapus");
+    await expect
+      .poll(() => api.reading.map((c) => c.call))
+      .toContain("DELETE /admin/word-meanings/wm1");
+    await expect(
+      page.getByText("Belum ada arti kata tersimpan di level ini."),
+    ).toBeVisible();
   });
 });

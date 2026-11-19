@@ -19,6 +19,8 @@ interface ProgressState {
   own: Record<string, string>;
   custom: CustomWord[];
   doneToday: number;
+  /** Day `doneToday` belongs to. */
+  doneDay: number;
 
   setKnown: (f: (k: Record<string, 1>) => Record<string, 1>) => void;
   setSrs: (
@@ -28,7 +30,8 @@ interface ProgressState {
   setCustom: (f: (c: CustomWord[]) => CustomWord[]) => void;
   setDoneToday: (n: number | ((d: number) => number)) => void;
 
-  /** Tandai/urungkan hafal — saat menghafal, kata langsung dijadwalkan besok (st 0). */
+  /** Tandai/urungkan hafal — saat menghafal, kata langsung dijadwalkan besok
+   * (st 0). Riwayat ulang (srs) tidak dihapus saat diurungkan. */
   toggleKnown: (key: string) => void;
   /** Tandai hafal tanpa membatalkan ("Simpan ke Ulang"): kata yang belum
    * hafal dijadwalkan besok. False kalau sudah hafal sebelumnya. */
@@ -71,9 +74,10 @@ const initialState = () => {
       initAll,
     ),
     custom: customInit,
-    doneToday: (() => {
+    ...(() => {
       const dt = load<{ day?: number; n?: number }>(STORAGE_KEYS.done, {});
-      return dt.day === today() ? dt.n || 0 : 0;
+      const T = today();
+      return { doneToday: dt.day === T ? dt.n || 0 : 0, doneDay: T };
     })(),
   };
 };
@@ -136,11 +140,14 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
       save(STORAGE_KEYS.custom, custom);
       return { custom };
     }),
+  // A new day starts from 0 even when the tab stayed open past midnight.
   setDoneToday: (n) =>
     set((s) => {
-      const doneToday = typeof n === "function" ? n(s.doneToday) : n;
-      save(STORAGE_KEYS.done, { day: today(), n: doneToday });
-      return { doneToday };
+      const T = today();
+      const base = s.doneDay === T ? s.doneToday : 0;
+      const doneToday = typeof n === "function" ? n(base) : n;
+      save(STORAGE_KEYS.done, { day: T, n: doneToday });
+      return { doneToday, doneDay: T };
     }),
 
   // The same word in other levels follows along (hafal there too, or not
@@ -155,11 +162,8 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
         keys.forEach((x) => delete c[x]);
         return c;
       });
-      setSrs((s) => {
-        const c = { ...s };
-        keys.forEach((x) => delete c[x]);
-        return c;
-      });
+      // The review history (srs) stays: taking a word out of Ulang must not
+      // lose it. Without `known` it is simply not due.
       usePlanStore.getState().bumpTally("known", -1);
       useActivityStore.getState().countLearned(-1);
     } else {
@@ -168,7 +172,9 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
         keys.forEach((x) => (c[x] = 1));
         return c;
       });
-      setSrs((s) => ({ ...s, [key]: { st: 0, due: today() + 1 } }));
+      setSrs((s) =>
+        s[key] ? s : { ...s, [key]: { st: 0, due: today() + 1 } },
+      );
       usePlanStore.getState().bumpTally("known");
       useActivityStore.getState().countLearned(1);
     }
@@ -183,7 +189,8 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
       keys.forEach((x) => (c[x] = 1));
       return c;
     });
-    setSrs((s) => ({ ...s, [key]: { st: 0, due: today() + 1 } }));
+    // A word back in Ulang keeps its earlier review history.
+    setSrs((s) => (s[key] ? s : { ...s, [key]: { st: 0, due: today() + 1 } }));
     usePlanStore.getState().bumpTally("known");
     useActivityStore.getState().countLearned(1);
     return true;
@@ -207,6 +214,7 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
     });
     get().setDoneToday((n) => n + 1);
     useActivityStore.getState().countReview(how === "good");
+    usePlanStore.getState().bumpTally("rev");
   },
 
   renameProgressKey: (oldKey, newKey) => {

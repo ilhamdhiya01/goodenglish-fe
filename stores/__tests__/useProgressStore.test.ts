@@ -47,12 +47,17 @@ describe("the same word in other levels", () => {
     expect(s.srs[BEGINNER]).toBeDefined();
     expect(s.srs[PRE]).toBeUndefined();
 
-    // Un-memorising from the other level clears both.
+    // Un-memorising from the other level clears both; the review history
+    // stays (and comes back with the word).
+    const history = { st: 3, due: 99_999 };
+    setSrs((x) => ({ ...x, [BEGINNER]: history }));
     toggleKnown(PRE);
     const after = useProgressStore.getState();
     expect(after.known[BEGINNER]).toBeUndefined();
     expect(after.known[PRE]).toBeUndefined();
-    expect(after.srs[BEGINNER]).toBeUndefined();
+    expect(after.srs[BEGINNER]).toEqual(history);
+    toggleKnown(BEGINNER);
+    expect(useProgressStore.getState().srs[BEGINNER]).toEqual(history);
   });
 
   it("leaves a word with another meaning alone", () => {
@@ -63,5 +68,18 @@ describe("the same word in other levels", () => {
     expect(useProgressStore.getState().known["beginner|4:w:watch"]).toBe(
       undefined,
     );
+  });
+});
+
+describe("doneToday", () => {
+  it("starts from 0 on a new day even when the tab stayed open", async () => {
+    const { vi } = await import("vitest");
+    const store = useProgressStore;
+    store.setState({ doneToday: 7, doneDay: 1 });
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-11-20T03:00:00Z"));
+    store.getState().setDoneToday((n) => n + 1);
+    expect(store.getState().doneToday).toBe(1);
+    vi.useRealTimers();
   });
 });

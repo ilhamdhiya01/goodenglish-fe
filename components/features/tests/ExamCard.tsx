@@ -59,8 +59,8 @@ const ExamCard = ({ compact = false }: { compact?: boolean }) => {
       ) : !isOpen ? (
         <span className="flex items-start gap-2 text-sm leading-5 text-ink-2">
           <LuLock aria-hidden size={16} className="mt-0.5 shrink-0" />
-          Terbuka saat 80% kata level ini sudah hafal (sekarang {pct}%) atau
-          saat kamu sampai di minggu {lastWeek}.
+          Terbuka saat 80% kata level ini sudah hafal (sekarang {pct}%), atau di
+          minggu {lastWeek} bila sudah 50% hafal.
         </span>
       ) : wait > 0 ? (
         <span className="text-sm leading-5 text-ink-2">

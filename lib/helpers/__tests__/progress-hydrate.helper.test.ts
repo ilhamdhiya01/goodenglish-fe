@@ -2,6 +2,9 @@ import { describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/helpers/progress-sync.helper", () => ({
   queueProgress: vi.fn(),
+  configureProgressSync: vi.fn(),
+  queueReplay: vi.fn(),
+  startProgressSync: vi.fn(),
 }));
 
 const { applyProgress } = await import("../progress-hydrate.helper");

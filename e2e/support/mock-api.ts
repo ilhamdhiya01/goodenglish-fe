@@ -38,7 +38,16 @@ export const limitedSession: SessionData = {
 };
 
 /** Same epoch-day number the app uses (lib/helpers/storage.helper.ts). */
-export const today = () => Math.floor(Date.now() / 86400000);
+// The app's learning day: the token's time zone (default Asia/Jakarta).
+export const today = () => {
+  const [y, m, d] = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Jakarta",
+  })
+    .format(Date.now())
+    .split("-")
+    .map(Number);
+  return Math.round(Date.UTC(y, m - 1, d) / 86400000);
+};
 
 // Pre-intermediate week 1 words (lib/content/raw/w1.js); the 'pre' level has
 // no key prefix.
@@ -263,11 +272,23 @@ export interface MockOptions {
   listeningItems?: unknown[];
   /** Published Bacaan texts the learner gets (default: 2 in week 1). */
   readingTexts?: unknown[];
+  /**
+   * Behave like the real progress API: documents have versions, saves
+   * update them (a reload sees them) and a save from an outdated version
+   * gets 409 progress_conflict. Off: a fixed snapshot without versions.
+   */
+  versionedProgress?: boolean;
+  /** Answer /auth/me with this status instead (e.g. 503 = server down). */
+  sessionStatus?: number;
 }
 
 export interface MockApi {
-  /** Every PUT /me/progress/:key body, in order. */
+  /** Every accepted PUT /me/progress/:key body, in order. */
   puts: { key: string; data: unknown }[];
+  /** Saves refused with 409 (versionedProgress). */
+  conflicts: string[];
+  /** The documents the server holds now (versionedProgress). */
+  server: Record<string, { data: unknown; version: number }>;
   /** Every POST /ai/chat body. */
   chats: unknown[];
   /** Every token action, "METHOD /admin/tokens/…". */
@@ -315,6 +336,8 @@ export const installMockApi = async (
   const session = opts.session === undefined ? fullSession : opts.session;
   const api: MockApi = {
     puts: [],
+    conflicts: [],
+    server: {},
     chats: [],
     admin: [],
     roleplay: [],
@@ -339,8 +362,29 @@ export const installMockApi = async (
     }),
   ];
 
+  // Meanings the AI gave for tapped words (Admin › Bacaan › Arti kata).
+  const meanings = [
+    {
+      id: "wm1",
+      word: "went",
+      level: "pre",
+      sentence: "The light went out.",
+      lemma: "go",
+      meaningId: "pergi",
+      pron: "went",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+  ];
+
   if (session) {
     await context.addCookies([{ name: "session", value: "e2e", url: baseURL }]);
+  }
+
+  let clock = 1000;
+  if (opts.versionedProgress) {
+    for (const [k, data] of Object.entries(opts.progress ?? { level: "pre" }))
+      api.server[k] = { data, version: clock };
   }
 
   // The AI voice model (±90 MB from Hugging Face) is never downloaded in
@@ -353,6 +397,12 @@ export const installMockApi = async (
     const method = req.method();
 
     if (path === "/auth/me") {
+      if (opts.sessionStatus)
+        return json(
+          route,
+          { errors: [{ message: "unavailable" }] },
+          opts.sessionStatus,
+        );
       return session
         ? json(route, session)
         : json(route, { errors: [{ message: "session_invalid" }] }, 401);
@@ -379,6 +429,45 @@ export const installMockApi = async (
     }
     if (path === "/auth/logout") return json(route, null);
 
+    if (opts.versionedProgress && path.startsWith("/me/progress")) {
+      const key = path.split("/")[3];
+      if (!key && method === "GET") {
+        const docs: Record<string, unknown> = {};
+        const versions: Record<string, number> = {};
+        for (const [k, d] of Object.entries(api.server)) {
+          docs[k] = d.data;
+          versions[k] = d.version;
+        }
+        const withVersions =
+          new URL(req.url()).searchParams.get("withVersions") === "1";
+        return json(route, withVersions ? { docs, versions } : docs);
+      }
+      if (key && method === "GET") {
+        const d = api.server[key];
+        return json(route, d ?? { data: null, version: null });
+      }
+      if (key && method === "PUT") {
+        const { data, baseVersion } = req.postDataJSON() as {
+          data: unknown;
+          baseVersion?: number | null;
+        };
+        const now = api.server[key]?.version ?? null;
+        if (baseVersion !== undefined && baseVersion !== now) {
+          api.conflicts.push(key);
+          return json(
+            route,
+            {
+              errors: [{ field: "baseVersion", message: "progress_conflict" }],
+            },
+            409,
+          );
+        }
+        const version = ++clock;
+        api.server[key] = { data, version };
+        api.puts.push({ key, data });
+        return json(route, { version });
+      }
+    }
     if (path === "/me/progress" && method === "GET") {
       return json(route, opts.progress ?? { level: "pre" });
     }
@@ -612,6 +701,28 @@ export const installMockApi = async (
         pron: "KWOK-a",
         cached: false,
       });
+    }
+    // Admin › Bacaan › Arti kata (in memory).
+    if (path.startsWith("/admin/word-meanings")) {
+      const body = req.postData() ? req.postDataJSON() : null;
+      api.reading.push({ call: `${method} ${path}`, body });
+      const id = path.split("/")[3];
+      if (!id && method === "GET") return json(route, meanings);
+      const m = meanings.find((x) => x.id === id);
+      if (!m)
+        return json(
+          route,
+          { errors: [{ message: "word_meaning_not_found" }] },
+          404,
+        );
+      if (method === "PATCH") {
+        Object.assign(m, body);
+        return json(route, m);
+      }
+      if (method === "DELETE") {
+        meanings.splice(meanings.indexOf(m), 1);
+        return json(route, null);
+      }
     }
     if (path.startsWith("/admin/reading")) {
       const body =

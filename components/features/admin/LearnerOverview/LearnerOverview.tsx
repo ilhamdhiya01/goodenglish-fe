@@ -8,7 +8,7 @@ import Card from "@/components/ui/card";
 import Modal from "@/components/ui/modal";
 import Select from "@/components/ui/select";
 import { levelName } from "@/const/levels.constant";
-import { formatDateTime } from "@/lib/helpers/date.helper";
+import { formatDate, formatDateTime } from "@/lib/helpers/date.helper";
 import { useLearnersOverview } from "@/lib/hooks/admin/useLearnersOverview";
 import type { LearnerOverview as Row } from "@/lib/types/admin.types";
 
@@ -265,7 +265,13 @@ const LearnerOverview = () => {
                         </span>
                         {r.lastActiveAt && (
                           <span className="text-[12.5px] font-semibold text-ink-2">
-                            {formatDateTime(r.lastActiveAt)}
+                            {formatDate(r.lastActiveAt)}
+                          </span>
+                        )}
+                        {/* Opening the app isn't learning: shown apart. */}
+                        {r.lastOpenedAt && (
+                          <span className="text-[12.5px] font-semibold text-ink-2">
+                            Dibuka {formatDateTime(r.lastOpenedAt)}
                           </span>
                         )}
                       </span>

@@ -14,6 +14,7 @@ import Card from "@/components/ui/card";
 import SectionLabel from "@/components/ui/section-label";
 import { levelName } from "@/const/levels.constant";
 import type { ProgressReport as Report } from "@/lib/helpers/progress-report.helper";
+import { dayOf } from "@/lib/helpers/storage.helper";
 import { SECTION_LABEL, type SectionId } from "@/lib/types/exam.types";
 
 const Stat = ({ value, label }: { value: React.ReactNode; label: string }) => (
@@ -269,9 +270,7 @@ const ProgressReport = ({
           <Section title="Riwayat checkpoint dan ujian">
             {r.placement && (
               <span className="text-[13.5px] font-semibold text-ink">
-                Tes penempatan{" "}
-                {dayLong(Math.floor(Date.parse(r.placement.date) / 86_400_000))}
-                :{" "}
+                Tes penempatan {dayLong(dayOf(Date.parse(r.placement.date)))}:{" "}
                 {r.placement.status === "skipped" || !r.placement.recommended
                   ? "dilewati (pilih level sendiri)"
                   : `${levelName(r.placement.recommended.level)} minggu ${r.placement.recommended.week}`}
@@ -286,7 +285,7 @@ const ProgressReport = ({
                       key={a.id}
                       className="text-[13.5px] font-semibold text-ink"
                     >
-                      {dayLong(Math.floor(Date.parse(a.date) / 86_400_000))} ·{" "}
+                      {dayLong(dayOf(Date.parse(a.date)))} ·{" "}
                       {levelName(a.level)} ·{" "}
                       <b className={a.passed ? "text-ok" : "text-bad"}>
                         {a.passed ? "Lulus" : "Belum lulus"} {a.pct}%
@@ -323,7 +322,7 @@ const ProgressReport = ({
                         (Tes cepat{" "}
                         {c.quizBest === null
                           ? "belum dicoba"
-                          : `${c.quizBest}/20`}
+                          : `${c.quizBest}/${c.quizTotal ?? 20}`}
                         , rekaman {c.rec ? "✓" : "–"}, main peran{" "}
                         {c.roleplayMin} menit)
                       </span>

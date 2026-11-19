@@ -4,7 +4,9 @@ import type {
   GenerateReadingBody,
   LookupResult,
   ReadingText,
+  SavedWordMeaning,
   UpdateReadingBody,
+  WordMeaning,
 } from "@/lib/types/reading.types";
 import type { LevelId } from "@/lib/types/session.types";
 import {
@@ -13,6 +15,8 @@ import {
   API_ADMIN_READING_PUBLISH,
   API_ADMIN_READING_TEXT,
   API_ADMIN_READING_UNPUBLISH,
+  API_ADMIN_WORD_MEANING,
+  API_ADMIN_WORD_MEANINGS,
   API_READING_LOOKUP,
   API_READING_TEXTS,
 } from "@/routes";
@@ -57,17 +61,44 @@ export const updateReading = async (
 ): Promise<ApiResponse<ReadingText>> =>
   (await axiosInstance.patch(API_ADMIN_READING_TEXT(id), body)).data;
 
+/** force: publish although the text misses a content rule (warnings). */
 export const setReadingPublished = async (
   id: string,
   published: boolean,
+  force = false,
 ): Promise<ApiResponse<ReadingText>> =>
   (
     await axiosInstance.post(
       published
         ? API_ADMIN_READING_PUBLISH(id)
         : API_ADMIN_READING_UNPUBLISH(id),
+      published && force ? { force: true } : undefined,
     )
   ).data;
 
 export const deleteReading = async (id: string): Promise<ApiResponse<null>> =>
   (await axiosInstance.delete(API_ADMIN_READING_TEXT(id))).data;
+
+export const getWordMeanings = async (q: {
+  level?: LevelId;
+  q?: string;
+}): Promise<ApiResponse<SavedWordMeaning[]>> =>
+  (
+    await axiosInstance.get(API_ADMIN_WORD_MEANINGS, {
+      params: {
+        ...(q.level ? { level: q.level } : {}),
+        ...(q.q?.trim() ? { q: q.q.trim() } : {}),
+      },
+    })
+  ).data;
+
+export const updateWordMeaning = async (
+  id: string,
+  body: Partial<WordMeaning>,
+): Promise<ApiResponse<SavedWordMeaning>> =>
+  (await axiosInstance.patch(API_ADMIN_WORD_MEANING(id), body)).data;
+
+export const deleteWordMeaning = async (
+  id: string,
+): Promise<ApiResponse<null>> =>
+  (await axiosInstance.delete(API_ADMIN_WORD_MEANING(id))).data;

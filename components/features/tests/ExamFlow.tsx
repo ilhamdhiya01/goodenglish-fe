@@ -273,7 +273,27 @@ const ExamFlow = ({
       title={`UJIAN AKHIR LEVEL · ${levelName(level).toUpperCase()}`}
       questions={qs}
       gens={gens}
-      onQuit={onClose}
+      quitMessage={(answered) =>
+        answered > 0
+          ? "Ujian ini dihitung sebagai percobaan: soal yang belum dijawab dihitung salah, dan ujian bisa diulang setelah 24 jam."
+          : "Kamu belum menjawab soal apa pun, jadi ujian ini tidak dihitung."
+      }
+      onQuit={(answers) => {
+        // Leaving after answering counts as a (failed) attempt, so quitting
+        // to dodge a bad score doesn't skip the 24-hour wait.
+        if (answers.length > 0) {
+          const all = qs.map((_, i) => answers[i] ?? null);
+          const sections = scoreSections(qs, all, gens);
+          useExamStore.getState().addAttempt({
+            level,
+            sections,
+            pct: pctOf(totalOf(sections)),
+            passed: false,
+          });
+          useMistakeStore.getState().addMany(examMistakes(qs, all, gens));
+        }
+        onClose();
+      }}
       onDone={(answers) => {
         const sections = scoreSections(qs, answers, gens);
         const a = useExamStore.getState().addAttempt({

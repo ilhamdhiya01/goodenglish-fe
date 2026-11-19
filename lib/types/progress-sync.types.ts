@@ -20,3 +20,18 @@ export type ProgressKey =
   | "activity";
 
 export type ProgressMap = Partial<Record<ProgressKey, unknown>>;
+
+/** Version (ms) of each progress document on the server. */
+export type ProgressVersions = Partial<Record<ProgressKey, number>>;
+
+/** GET /me/progress?withVersions=1 */
+export interface ProgressWithVersions {
+  docs: ProgressMap;
+  versions: ProgressVersions;
+}
+
+/** GET /me/progress/:key — data null and version null: no document yet. */
+export interface ProgressDocResponse {
+  data: unknown;
+  version: number | null;
+}

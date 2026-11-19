@@ -20,6 +20,8 @@ import { typeDef } from "@/const/vocab-types.constant";
 import { hasNote, idOf, noteOf } from "@/lib/content";
 import { resolveItemKey } from "@/lib/helpers/derived.helper";
 import { flatten } from "@/lib/helpers/level-data.helper";
+import { tallyOf } from "@/lib/helpers/plan-check.helper";
+import { today } from "@/lib/helpers/storage.helper";
 import { findTarget } from "@/lib/helpers/target.helper";
 import { formsOf } from "@/lib/helpers/verb-forms.helper";
 import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
@@ -28,10 +30,12 @@ import { useShellData } from "@/lib/hooks/useShellData";
 import type { LevelId } from "@/lib/types/session.types";
 import { useAccessStore } from "@/stores/useAccessStore";
 import { useMistakeStore } from "@/stores/useMistakeStore";
+import { usePlanStore } from "@/stores/usePlanStore";
 import { useProgressStore } from "@/stores/useProgressStore";
 import { useVocabUiStore } from "@/stores/useVocabUiStore";
 
 import MistakeReviewCard from "../MistakeReviewCard";
+import ReviewQuiz from "../ReviewQuiz";
 
 // A read-only count shaped like a Pill ("24 jatuh tempo").
 const Stat = ({ n, label }: { n: number; label: string }) => (
@@ -80,6 +84,12 @@ const ReviewPage = React.memo(() => {
   const flip = useVocabUiStore((s) => s.flip);
   const { jumpToWord } = useJumpToWord();
   const router = useRouter();
+  // The quiz is offered while nothing was reviewed today and it isn't done
+  // yet (kept on screen once started, until it says "selesai").
+  const tally = usePlanStore((s) => s.plan.tally);
+  const t = tallyOf(tally, today());
+  const [quizShown] = useState(() => !t.rev && !t.q1);
+  const quizOffered = quizShown || (!t.rev && !t.q1);
 
   // The first due card that still exists: a deleted Kataku/personal card
   // must not block the ones behind it.
@@ -365,6 +375,10 @@ const ReviewPage = React.memo(() => {
             answers={answerButtons}
           />
         )}
+
+        {/* Nothing due and nothing reviewed today: the quiz that stands in
+            for Blok Ulang (pilot urutan 1). */}
+        {!item && !mistake && quizOffered && <ReviewQuiz />}
 
         {!item && !mistake && (
           <Card

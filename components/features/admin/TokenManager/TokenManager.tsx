@@ -7,6 +7,7 @@ import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import Modal from "@/components/ui/modal";
 import { LEVEL_OPTIONS, MENU_OPTIONS } from "@/const/access.constant";
+import { PILOT } from "@/const/pilot.constant";
 import { formatDate, formatDateTime } from "@/lib/helpers/date.helper";
 import { useCreateToken } from "@/lib/hooks/admin/useCreateToken";
 import { useRegenerateToken } from "@/lib/hooks/admin/useRegenerateToken";
@@ -232,6 +233,7 @@ const TokenManager = React.memo(() => {
               aiDailyLimit: editing.aiDailyLimit,
               roleplayDailyLimit: editing.roleplayDailyLimit,
               requireExam: !!editing.requireExam,
+              timeZone: editing.timeZone ?? PILOT.defaultTimeZone,
             }}
             onSubmit={(v) => void onEdit(v)}
             onCancel={closeForm}

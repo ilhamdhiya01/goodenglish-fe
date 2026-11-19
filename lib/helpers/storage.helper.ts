@@ -1,3 +1,4 @@
+import { PILOT } from "@/const/pilot.constant";
 import { STORAGE_KEYS } from "@/const/storage-keys.constant";
 import { queueProgress } from "@/lib/helpers/progress-sync.helper";
 import type { ProgressKey, ProgressMap } from "@/lib/types/progress-sync.types";
@@ -44,6 +45,12 @@ const changed = () => {
 
 export const setProgressSnapshot = (map: ProgressMap) => {
   snapshot = { ...map };
+  changed();
+};
+
+/** Replace one doc without saving it (a merged / refreshed server copy). */
+export const setSnapshotDoc = (key: ProgressKey, value: unknown) => {
+  snapshot = { ...snapshot, [key]: value };
   changed();
 };
 
@@ -176,8 +183,47 @@ export const hasLegacyProgress = (map: ProgressMap) =>
       : !!v && typeof v === "object" && Object.keys(v).length > 0;
   });
 
-/** Epoch day number (ms / 86400000) — used by the SRS schedule & daily checklist. */
-export const today = () => Math.floor(Date.now() / 86400000);
+// The learning day follows the token's time zone (default Asia/Jakarta), not
+// UTC and not the device clock: a session at 06:00 WIB belongs to that day.
+// Days are numbered like before (days since 1970-01-01), so a stored day
+// number keeps meaning the same calendar date.
+let timeZone: string = PILOT.defaultTimeZone;
+const formatters = new Map<string, Intl.DateTimeFormat>();
+const formatterOf = (tz: string) => {
+  let f = formatters.get(tz);
+  if (!f) {
+    f = new Intl.DateTimeFormat("en-CA", {
+      timeZone: tz,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    formatters.set(tz, f);
+  }
+  return f;
+};
+
+/** Use this time zone for "today" (from the session); invalid ones are ignored. */
+export const setTimeZone = (tz: string | null | undefined) => {
+  if (!tz) return;
+  try {
+    formatterOf(tz);
+    timeZone = tz;
+  } catch {
+    /* unknown zone: keep the current one */
+  }
+};
+
+export const currentTimeZone = () => timeZone;
+
+/** Day number of a moment in a time zone (the token's by default). */
+export const dayOf = (ms: number, tz: string = timeZone) => {
+  const [y, m, d] = formatterOf(tz).format(ms).split("-").map(Number);
+  return Math.round(Date.UTC(y, m - 1, d) / 86400000);
+};
+
+/** Day number of today — used by the SRS schedule, daily checklist and log. */
+export const today = () => dayOf(Date.now());
 
 /** Unique key of a word: the historical 'pre' level has no prefix. The type
  * segment separates same-spelled words of different types. */

@@ -118,3 +118,25 @@ describe("listen items and the shared picker", () => {
     expect(r.items.map((i) => i.id).sort()).toEqual(["a", "b"]);
   });
 });
+
+describe("Dikte of the active week first (pilot urutan 7)", () => {
+  it("puts this week's sentences ahead of older ones", () => {
+    const s = (id: string, week: number) => ({
+      id,
+      text: "a b c",
+      meaning: "",
+      source: "kosakata" as const,
+      week,
+      words: 3,
+      fast: false,
+    });
+    const pool = [s("o1", 1), s("o2", 2), s("n1", 3), s("n2", 3)];
+    const picked = pickDictation(pool, 1, {}, 7, 3, 3);
+    expect(
+      picked
+        .slice(0, 2)
+        .map((x) => x.id)
+        .sort(),
+    ).toEqual(["n1", "n2"]);
+  });
+});

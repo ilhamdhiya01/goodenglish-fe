@@ -5,8 +5,8 @@ import { LEVELS } from "@/const/levels.constant";
 import { allLevelData } from "@/lib/helpers/derived.helper";
 import { flatten } from "@/lib/helpers/level-data.helper";
 import { itemKey } from "@/lib/helpers/storage.helper";
+import { unlockedLevelsNow } from "@/lib/hooks/useUnlockedLevels";
 import type { Item } from "@/lib/types/vocab.types";
-import { useAccessStore } from "@/stores/useAccessStore";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useQuizStore } from "@/stores/useQuizStore";
 import { extraWords } from "@/stores/useSharedWordsStore";
@@ -41,10 +41,11 @@ export const useJumpToWord = () => {
         (x) => x.it[1].toLowerCase() === low,
       );
       if (hit) return jumpTo(lvl, hit.w, hit.it);
-      // Only search levels this access token may open.
-      const allowed = useAccessStore.getState().session?.levels ?? [];
+      // Only search levels this learner may open now (token levels, and
+      // with "Wajib lulus ujian" only those the exams have opened).
+      const open = unlockedLevelsNow();
       for (const [id] of LEVELS) {
-        if (!allowed.includes(id as never)) continue;
+        if (!open.includes(id as never)) continue;
         const h = flatten(allLevels[id].V).find(
           (x) => x.it[1].toLowerCase() === low,
         );

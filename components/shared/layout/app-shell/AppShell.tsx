@@ -9,19 +9,24 @@ import { Tests } from "@/components/features/tests";
 import ActivityTracker from "@/components/providers/ActivityTracker";
 import PlanAutoCheck from "@/components/providers/PlanAutoCheck";
 import TtsBootstrap from "@/components/providers/TtsBootstrap";
+import ConnectionError from "@/components/shared/connection-error";
 import { NON_TAB_MENUS } from "@/const/access.constant";
 import { isActivePath, NAV } from "@/const/nav.constant";
 import { loadNotes } from "@/lib/content";
 import { unlockedLevels } from "@/lib/helpers/exam.helper";
-import { applyProgress } from "@/lib/helpers/progress-hydrate.helper";
+import { startProgress } from "@/lib/helpers/progress-hydrate.helper";
 import {
   flushProgress,
   flushProgressOnExit,
+  flushProgressOnHide,
+  hasPendingProgress,
   queueProgress,
+  refreshProgress,
 } from "@/lib/helpers/progress-sync.helper";
 import {
   hasLegacyProgress,
   readLegacyProgress,
+  setTimeZone,
 } from "@/lib/helpers/storage.helper";
 import { useSession } from "@/lib/hooks/auth/useSession";
 import { useProgress } from "@/lib/hooks/progress/useProgress";
@@ -64,8 +69,20 @@ interface AppShellProps {
 const AppShell = React.memo(({ children }: AppShellProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { session, isError: sessionError } = useSession();
-  const { progress, isError: progressError } = useProgress(!!session);
+  const {
+    session,
+    isError: sessionError,
+    isUnauthorized,
+    refetch: refetchSession,
+    isFetching: sessionFetching,
+  } = useSession();
+  const {
+    progress,
+    versions,
+    isError: progressError,
+    refetch: refetchProgress,
+  } = useProgress(!!session);
+  const [retryingProgress, setRetryingProgress] = useState(false);
   const { words, isError: wordsError } = useWords(!!session);
   const setSession = useAccessStore((s) => s.setSession);
   const setWords = useSharedWordsStore((s) => s.setWords);
@@ -94,10 +111,17 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
   }, [progress]);
 
   const start = useCallback(
-    (map: ProgressMap) => {
+    (docs: ProgressMap) => {
       if (!session) return;
       setSession(session);
-      applyProgress(map);
+      // Before any store reads "today" from the progress just loaded.
+      setTimeZone(session.timeZone);
+      // Server documents plus this token's saves a closed tab left behind.
+      const map = startProgress(
+        docs,
+        versions,
+        session.tokenId ?? `label:${session.label}`,
+      );
       // Land on a level this token may open.
       const lvl = useLevelStore.getState();
       if (!session.levels.includes(lvl.level as never)) {
@@ -127,13 +151,14 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
       }
       setReady(true);
     },
-    [session, setSession],
+    [session, setSession, versions],
   );
 
-  // No (valid) session → token screen.
+  // No (valid) session → token screen. Other errors (offline, server down)
+  // show "Tidak bisa terhubung" below instead of signing the learner out.
   useEffect(() => {
-    if (sessionError) router.replace(ROUTES.ACCESS);
-  }, [sessionError, router]);
+    if (isUnauthorized) router.replace(ROUTES.ACCESS);
+  }, [isUnauthorized, router]);
 
   useEffect(() => {
     if (!session || !progress || !wordsSettled || ready || legacy) return;
@@ -166,18 +191,21 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
     return () => clearTimeout(t);
   }, [ready]);
 
-  // Don't lose the last few taps when the tab is hidden or closed.
+  // Don't lose the last few taps when the tab is hidden or closed; when it
+  // comes back, pick up what another device saved meanwhile.
   useEffect(() => {
-    const onHide = () => {
-      if (document.visibilityState === "hidden") flushProgressOnExit();
+    if (!ready) return;
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") flushProgressOnHide();
+      else if (!hasPendingProgress()) void refreshProgress();
     };
     window.addEventListener("pagehide", flushProgressOnExit);
-    document.addEventListener("visibilitychange", onHide);
+    document.addEventListener("visibilitychange", onVisibility);
     return () => {
       window.removeEventListener("pagehide", flushProgressOnExit);
-      document.removeEventListener("visibilitychange", onHide);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, []);
+  }, [ready]);
 
   const decideImport = useCallback(
     async (doImport: boolean) => {
@@ -191,21 +219,36 @@ const AppShell = React.memo(({ children }: AppShellProps) => {
         return;
       }
       setIsImporting(true);
+      // Start first, so these first saves already carry "no document yet"
+      // as their base.
+      start(legacy);
       for (const [key, value] of Object.entries(legacy)) {
         queueProgress(key as ProgressKey, value);
       }
       await flushProgress();
       setIsImporting(false);
-      start(legacy);
     },
     [legacy, start],
   );
 
+  if (sessionError && !isUnauthorized) {
+    return (
+      <ConnectionError
+        onRetry={() => void refetchSession()}
+        isRetrying={sessionFetching}
+      />
+    );
+  }
+
   if (progressError) {
     return (
-      <div className="mx-auto max-w-[640px] px-6 py-24 text-sm font-bold text-bad">
-        Gagal memuat progres. Muat ulang halaman untuk mencoba lagi.
-      </div>
+      <ConnectionError
+        isRetrying={retryingProgress}
+        onRetry={() => {
+          setRetryingProgress(true);
+          void refetchProgress().finally(() => setRetryingProgress(false));
+        }}
+      />
     );
   }
 

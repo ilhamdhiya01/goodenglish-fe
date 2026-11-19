@@ -98,6 +98,9 @@ const AskPractice = React.memo(
     if (!G) return null;
     const R = stats[rule] || { done: {}, seen: 0, right: 0, wrong: 0 };
     const acc = R.seen ? Math.round((R.right / R.seen) * 100) : 0;
+    // Accuracy of the stage on screen (counted since this was added).
+    const st = R.byStage?.[stage];
+    const stageAcc = st?.seen ? Math.round((st.right / st.seen) * 100) : null;
 
     const start = (st: PracticeStage) => {
       const qs = G.make(rule, 20, Date.now() % 2147483647, R.done) as AskQ[];
@@ -114,6 +117,20 @@ const AskPractice = React.memo(
       });
       setSel(null);
     };
+    // A set in progress is replaced by a new one: ask first.
+    const switchStage = async (st: PracticeStage) => {
+      const running = !!P && !P.finished && (P.i > 0 || P.picked !== null);
+      if (
+        running &&
+        !(await confirmDialog({
+          title: "Ganti tahap?",
+          message: `Set yang sedang berjalan (soal ${P!.i + 1} dari ${P!.qs.length}) diganti dengan 20 soal baru.`,
+          confirmLabel: "Ganti tahap",
+        }))
+      )
+        return;
+      start(st);
+    };
     // built: susunan kata yang dinilai (tahap Susun kata, lewat tombol Periksa).
     const answer = (given: string, built?: PracticeSession["built"]) => {
       if (!P || P.picked !== null) return;
@@ -125,7 +142,16 @@ const AskPractice = React.memo(
             ? G.check(given, q, P.stage)
             : G.norm(given) === G.norm(q.ans);
       updateRule(rule, (cur) => {
-        const n = { ...cur, done: { ...cur.done }, seen: cur.seen + 1 };
+        const was = cur.byStage?.[P.stage] ?? { seen: 0, right: 0 };
+        const n = {
+          ...cur,
+          done: { ...cur.done },
+          seen: cur.seen + 1,
+          byStage: {
+            ...cur.byStage,
+            [P.stage]: { seen: was.seen + 1, right: was.right + (ok ? 1 : 0) },
+          },
+        };
         if (ok) {
           n.right++;
           n.done[q.ans.toLowerCase()] = 1;
@@ -227,6 +253,11 @@ const AskPractice = React.memo(
               <span>
                 akurasi <b className="text-ink">{acc}%</b>
               </span>
+              {stageAcc !== null && (
+                <span>
+                  akurasi tahap ini <b className="text-ink">{stageAcc}%</b>
+                </span>
+              )}
               <span>
                 dikuasai{" "}
                 <b className="text-ink">{Object.keys(R.done).length}</b>
@@ -257,7 +288,7 @@ const AskPractice = React.memo(
               key={id}
               on={stage === id}
               title={desc}
-              onClick={() => start(id)}
+              onClick={() => void switchStage(id)}
             >
               {label}
             </Pill>

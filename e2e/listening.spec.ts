@@ -63,6 +63,13 @@ test.describe("pelajar", () => {
           await expect(
             page.getByRole("button", { name: "Coba lagi" }),
           ).toHaveCount(0);
+        } else {
+          // Before the retry the right sentence stays hidden; only the
+          // place of the missing word is marked (pilot urutan 7).
+          await expect(page.getByText(/Terlewat:\s*___/).first()).toBeVisible();
+          await expect(page.getByText(text, { exact: true })).toHaveCount(0);
+          await page.getByRole("button", { name: "Lihat jawaban" }).click();
+          await expect(page.getByText(text, { exact: true })).toBeVisible();
         }
       } else {
         await box.fill(text);

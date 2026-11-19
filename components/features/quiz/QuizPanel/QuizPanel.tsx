@@ -13,6 +13,7 @@ import Modal from "@/components/ui/modal";
 import ProgressBar from "@/components/ui/progress-bar";
 import SectionLabel from "@/components/ui/section-label";
 import { LEVELS } from "@/const/levels.constant";
+import { quizPassed } from "@/lib/helpers/quiz-pass.helper";
 import { useShellData } from "@/lib/hooks/useShellData";
 import { useUnlockedLevels } from "@/lib/hooks/useUnlockedLevels";
 import type { LevelId } from "@/lib/types/session.types";
@@ -22,6 +23,8 @@ import { useQuizStore } from "@/stores/useQuizStore";
 const LETTERS = "ABCDEFGH";
 const MSG_GOOD =
   "Bagus. Kamu sudah menguasai sebagian besar kosakata level ini. Silakan lanjut ke level berikutnya kalau mau, atau tetap di sini untuk memperkuat.";
+const MSG_GOOD_WEEK =
+  "Bagus. Kosakata minggu ini sudah kuat. Lanjut ke minggu berikutnya.";
 
 // "Tes cepat" 20 soal, in a dialog over Kosakata (full screen on a phone)
 // while a session is active. The final score is logged to the plan by the
@@ -29,7 +32,7 @@ const MSG_GOOD =
 const QuizPanel = React.memo(() => {
   const { level, week, LV } = useShellData();
   const qz = useQuizStore((s) => s.session);
-  const scope = useQuizStore((s) => s.scope);
+  const scope = useQuizStore((s) => s.runScope);
   const pick = useQuizStore((s) => s.pick);
   const next = useQuizStore((s) => s.next);
   const restart = useQuizStore((s) => s.restart);
@@ -41,8 +44,14 @@ const QuizPanel = React.memo(() => {
 
   if (!qz) return null;
   const after = LEVELS[LEVELS.findIndex((l) => l[0] === level) + 1];
+  // Moving up is offered after a test over the whole level only.
   const up =
-    after && unlocked.includes(after[0] as LevelId) ? after : undefined;
+    scope === "all" && after && unlocked.includes(after[0] as LevelId)
+      ? after
+      : undefined;
+  const total = qz.qs.length;
+  const passed = quizPassed(qz.score, total);
+  const fair = qz.score >= Math.ceil(0.6 * total);
   const cur = qz.qs[qz.i];
   const picked = qz.picked !== null;
   const last = qz.i === qz.qs.length - 1;
@@ -132,15 +141,17 @@ const QuizPanel = React.memo(() => {
 
         {qz.done && (
           <div className="flex flex-col gap-4">
-            <Jalak mood={qz.score >= 16 ? "senang" : "biasa"} size={96} />
+            <Jalak mood={passed ? "senang" : "biasa"} size={96} />
             <span className="text-[44px] leading-12 font-black tracking-[-0.02em] text-ink">
               {qz.score} / {qz.qs.length}
             </span>
-            {!(qz.score >= 16 && up) && (
+            {!(passed && up) && (
               <span className="text-[15px] leading-[22px] text-ink-2">
-                {qz.score >= 16
-                  ? MSG_GOOD
-                  : qz.score >= 12
+                {passed
+                  ? scope === "all"
+                    ? MSG_GOOD
+                    : MSG_GOOD_WEEK
+                  : fair
                     ? "Cukup baik. Ulangi minggu yang masih banyak belum hafal, lalu tes lagi."
                     : "Belum stabil. Lanjutkan minggu demi minggu, pakai mode tes untuk latihan, dan coba lagi nanti."}
               </span>
@@ -157,7 +168,7 @@ const QuizPanel = React.memo(() => {
                 ))}
               </Card>
             )}
-            {qz.score >= 16 && up ? (
+            {passed && up ? (
               <Card tone="greenBg" className="gap-3">
                 <span className="text-[15px] leading-[22px] font-bold text-ink">
                   ✓ {MSG_GOOD}

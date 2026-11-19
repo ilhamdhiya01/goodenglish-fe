@@ -125,12 +125,24 @@ const PlacementFlow = ({ onClose }: { onClose: () => void }) => {
     const parts = (Object.keys(sum) as SectionId[]).sort(
       (a, b) => pctOf(sum[b]!) - pctOf(sum[a]!),
     );
-    const choices = unlockedLevels({
-      allowed,
-      requireExam: !!session?.requireExam,
-      exam: { ...useExamStore.getState(), base: result.level },
-      current: result.level,
-    });
+    // "Wajib lulus ujian" with a start level already set (a retake): the
+    // result is information only; levels above open through the exams.
+    const exam = useExamStore.getState();
+    const retake = !!session?.requireExam && !!exam.base;
+    const choices = retake
+      ? unlockedLevels({
+          allowed,
+          requireExam: true,
+          exam,
+          current: useLevelStore.getState().level as LevelId,
+        })
+      : unlockedLevels({
+          allowed,
+          requireExam: !!session?.requireExam,
+          exam: { ...exam, base: result.level },
+          current: result.level,
+        });
+    const canStartHere = choices.includes(result.level);
     return (
       <div className="flex flex-col gap-4">
         <Card
@@ -146,9 +158,11 @@ const PlacementFlow = ({ onClose }: { onClose: () => void }) => {
               {levelName(result.level)} · minggu {result.week}
             </span>
             <span className="text-sm leading-5 text-ink-2">
-              {result.week > 1
-                ? "Kamu sudah menguasai sebagian besar level ini, jadi mulai dari pertengahannya."
-                : "Mulai dari awal level ini supaya fondasinya kuat."}
+              {!canStartHere
+                ? `Hasil ini sebagai gambaran saja: level ${levelName(result.level)} terbuka setelah lulus ujian akhir level sebelumnya.`
+                : result.week > 1
+                  ? "Kamu sudah menguasai sebagian besar level ini, jadi mulai dari pertengahannya."
+                  : "Mulai dari awal level ini supaya fondasinya kuat."}
             </span>
           </div>
         </Card>
@@ -188,12 +202,18 @@ const PlacementFlow = ({ onClose }: { onClose: () => void }) => {
           </Card>
         ) : (
           <div className="flex flex-wrap gap-3">
-            <Button
-              variant="green"
-              onClick={() => start(result.level, result.week)}
-            >
-              Mulai di sini
-            </Button>
+            {canStartHere ? (
+              <Button
+                variant="green"
+                onClick={() => start(result.level, result.week)}
+              >
+                Mulai di sini
+              </Button>
+            ) : (
+              <Button variant="green" onClick={onClose}>
+                Tutup
+              </Button>
+            )}
             <Button onClick={() => setChoosing(true)}>Pilih lain</Button>
           </div>
         )}

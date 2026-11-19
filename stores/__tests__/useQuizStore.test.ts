@@ -39,3 +39,30 @@ describe("useQuizStore misses", () => {
     expect(useQuizStore.getState().session!.misses).toHaveLength(1);
   });
 });
+
+describe("useQuizStore scope and total", () => {
+  it("a week with too few words is tested and logged as all weeks, with its total", async () => {
+    const { usePlanStore } = await import("@/stores/usePlanStore");
+    const item = (w: number, en: string, id: string) => ({
+      w,
+      it: ["w", en, "", id] as never,
+    });
+    const tiny = [item(1, "go", "pergi")];
+    const all = Array.from({ length: 12 }, (_, i) =>
+      item((i % 3) + 1, "word" + i, "arti" + i),
+    );
+    useQuizStore.getState().start(tiny, "week", all);
+    const s = useQuizStore.getState();
+    expect(s.runScope).toBe("all");
+    expect(s.session!.qs.length).toBe(12);
+
+    // Answer everything right, then finish.
+    for (let i = 0; i < 12; i++) {
+      const st = useQuizStore.getState();
+      st.pick(st.session!.qs[st.session!.i].ans);
+      st.next();
+    }
+    const last = usePlanStore.getState().plan.quiz!.at(-1)!;
+    expect(last).toMatchObject({ scope: "all", score: 12, total: 12 });
+  });
+});

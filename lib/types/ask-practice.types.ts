@@ -22,6 +22,8 @@ export interface RuleStats {
   right: number;
   wrong: number;
   retry?: { prompt: string; hint: string; ans: string; why: string }[];
+  /** Answers per stage (added later: older stats only have the totals). */
+  byStage?: Partial<Record<PracticeStage, { seen: number; right: number }>>;
 }
 
 /** Sesi latihan 20 soal yang sedang berjalan. */

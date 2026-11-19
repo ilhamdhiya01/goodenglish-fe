@@ -40,10 +40,15 @@ const WeekCover = React.memo(({ data }: Props) => {
     (it) => known[itemKey(level, week, it[0], it[1])],
   ).length;
 
-  const start = () => {
-    const src = scope === "week" ? all.filter((x) => x.w === week) : all;
-    startQuiz(src.length >= 8 ? src : all);
-  };
+  // A week with too few words is tested over every week, and logged so.
+  const start = () =>
+    scope === "week"
+      ? startQuiz(
+          all.filter((x) => x.w === week),
+          "week",
+          all,
+        )
+      : startQuiz(all, "all");
 
   return (
     <Card pad="lg" className="gap-3">

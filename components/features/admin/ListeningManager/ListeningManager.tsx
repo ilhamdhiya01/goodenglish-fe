@@ -126,7 +126,9 @@ const ItemEditor = ({
               onChange={(e) =>
                 setLine(i, { speaker: e.target.value as "A" | "B" })
               }
-              className={classNames(FIELD_CLASS, "w-16 shrink-0")}
+              // FIELD_CLASS is w-full: the fixed width must win, or the
+              // speaker box takes the whole row and squeezes the text.
+              className={classNames(FIELD_CLASS, "w-16! shrink-0")}
             >
               <option value="A">A</option>
               <option value="B">B</option>
@@ -137,7 +139,7 @@ const ItemEditor = ({
               value={l.text}
               maxLength={600}
               onChange={(e) => setLine(i, { text: e.target.value })}
-              className={classNames(FIELD_CLASS, "min-h-12 resize-y")}
+              className={classNames(FIELD_CLASS, "min-h-12 flex-1 resize-y")}
             />
             <Button
               size="sm"
