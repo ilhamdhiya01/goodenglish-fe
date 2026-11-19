@@ -20,6 +20,7 @@ import TextButton from "@/components/ui/text-button";
 import { LEVELS } from "@/const/levels.constant";
 import { VOCAB_SCEN, VOCAB_SCEN_KEY } from "@/lib/content";
 import { speak, speakAll } from "@/lib/helpers/speech.helper";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type { Scenario } from "@/lib/types/scenario.types";
 import { ROUTES } from "@/routes";
 import { useAccessStore } from "@/stores/useAccessStore";
@@ -42,9 +43,19 @@ const ScenarioPage = React.memo(() => {
     s.session?.menus.includes("roleplay"),
   );
 
-  const first = SC.find((x) => x.level === level) || SC[0];
+  // Rencana links here with ?s=<scenario> (the week's scenario) and
+  // &jawab=1 for "jawab sendiri".
+  const [asked] = useState(() =>
+    typeof window === "undefined"
+      ? null
+      : new URLSearchParams(window.location.search),
+  );
+  const first =
+    SC.find((x) => x.id === asked?.get("s")) ||
+    SC.find((x) => x.level === level) ||
+    SC[0];
   const [id, setId] = useState(first ? first.id : "standup");
-  const [solo, setSolo] = useState(false);
+  const [solo, setSolo] = useState(asked?.get("jawab") === "1");
   const [showId, setShowId] = useState(true);
   const [showEn, setShowEn] = useState(true);
   const [revealed, setRevealed] = useState<Record<number, 1>>({});
@@ -137,7 +148,16 @@ const ScenarioPage = React.memo(() => {
                 <Button
                   variant={canRoleplay ? "outline" : "green"}
                   size="sm"
-                  onClick={() => speakAll(cur.lines.map((l) => l[1]))}
+                  onClick={() =>
+                    void speakAll(cur.lines.map((l) => l[1])).then(
+                      (sampaiHabis) => {
+                        if (sampaiHabis)
+                          laporAktivitas("dialog_diputar", {
+                            data: { scenarioId: cur.id },
+                          });
+                      },
+                    )
+                  }
                 >
                   Putar semua
                 </Button>
@@ -243,9 +263,14 @@ const ScenarioPage = React.memo(() => {
                             </button>
                           )}
                           <TextButton
-                            onClick={() =>
-                              setRevealed((r) => ({ ...r, [i]: 1 }))
-                            }
+                            onClick={() => {
+                              setRevealed((r) => ({ ...r, [i]: 1 }));
+                              // Rencana: a line answered in "jawab sendiri".
+                              if (solo && !revealed[i])
+                                laporAktivitas("dialog_dijawab", {
+                                  data: { scenarioId: cur.id, baris: i },
+                                });
+                            }}
                           >
                             {solo
                               ? "Jawab dengan suaramu, lalu buka"

@@ -4,6 +4,7 @@ import type {
   RoleplayContext,
   RoleplayHelp,
   RoleplayLine,
+  RoleplayMode,
   RoleplayStarted,
   RoleplaySummary,
   RoleplayTurn,
@@ -27,6 +28,7 @@ export const getRoleplayUsage = async (): Promise<ApiResponse<RoleplayUsage>> =>
 export const startRoleplay = async (body: {
   scenarioId: string;
   context: RoleplayContext;
+  mode?: RoleplayMode;
 }): Promise<ApiResponse<RoleplayStarted>> =>
   (await axiosInstance.post(API_ROLEPLAY_SESSIONS, body)).data;
 

@@ -9,6 +9,7 @@ import {
 } from "@/lib/helpers/mistakes.helper";
 import type { SrsAnswer } from "@/lib/helpers/srs.helper";
 import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type {
   MistakeData,
   MistakeInput,
@@ -74,6 +75,9 @@ export const useMistakeStore = create<MistakeState>((set, get) => {
     addMany: (list) => list.forEach((m) => get().add(m)),
     grade: (id, how) => {
       commit(gradeIn(pick(get()), id, how, today(), new Date().toISOString()));
+      laporAktivitas("kartu_diulang", {
+        data: { kartu: "kesalahan", benar: how === "good" },
+      });
       useProgressStore.getState().setDoneToday((n) => n + 1);
       useActivityStore.getState().countReview(how === "good");
       usePlanStore.getState().bumpTally("rev");

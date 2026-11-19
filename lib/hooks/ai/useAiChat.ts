@@ -6,6 +6,7 @@ import { useCallback } from "react";
 import { accessErrorText } from "@/const/access.constant";
 import { noteOf, type WordNote } from "@/lib/content";
 import { useNotes } from "@/lib/hooks/useNotes";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type { AiContext, AiMessage, AiRole } from "@/lib/types/ai.types";
 import type { ErrorResponse } from "@/lib/types/api.types";
 import type { LevelId } from "@/lib/types/session.types";
@@ -159,8 +160,12 @@ export const useAiChat = () => {
               answer += t;
               useAiChatStore.getState().update(replyId, { text: answer });
             },
-            // A sentence the AI found wrong goes to Buku kesalahanku.
+            // Every checked sentence counts for Rencana; a wrong one also
+            // goes to Buku kesalahanku.
             onCheck: (c) => {
+              laporAktivitas("kalimat_dicek", {
+                data: { benar: c.isCorrect, sumber: "tanya_ai" },
+              });
               if (c.isCorrect || !c.corrected) return;
               addMistake({
                 source: from?.source ?? "Tanya AI",

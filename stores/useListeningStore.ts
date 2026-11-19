@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 import { PASS_RATE } from "@/lib/helpers/listening.helper";
 import { load, save, STORAGE_KEYS } from "@/lib/helpers/storage.helper";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type {
   ListeningData,
   ListeningResult,
@@ -124,6 +125,17 @@ export const useListeningStore = create<ListeningState>((set, get) => {
       useActivityStore.getState().log("listening_set", {
         meta: { tab: r.tab, stage: r.stage, score: r.score, total: r.total },
       });
+      if (r.tab === "dengar" || r.tab === "dikte")
+        laporAktivitas(
+          r.tab === "dengar" ? "dengar_selesai" : "dikte_selesai",
+          {
+            level: r.level,
+            week: r.week,
+            skor: r.score,
+            total: r.total,
+            data: { tahap: r.stage },
+          },
+        );
       return { unlocked };
     },
     markSeen: (ids) => {

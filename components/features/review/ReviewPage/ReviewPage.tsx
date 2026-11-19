@@ -27,8 +27,10 @@ import { formsOf } from "@/lib/helpers/verb-forms.helper";
 import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useNotes } from "@/lib/hooks/useNotes";
 import { useShellData } from "@/lib/hooks/useShellData";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type { LevelId } from "@/lib/types/session.types";
 import { useAccessStore } from "@/stores/useAccessStore";
+import { useLaporanStore } from "@/stores/useLaporanStore";
 import { useMistakeStore } from "@/stores/useMistakeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
 import { useProgressStore } from "@/stores/useProgressStore";
@@ -88,7 +90,14 @@ const ReviewPage = React.memo(() => {
   // yet (kept on screen once started, until it says "selesai").
   const tally = usePlanStore((s) => s.plan.tally);
   const t = tallyOf(tally, today());
-  const [quizShown] = useState(() => !t.rev && !t.q1);
+  // Rencana links here with ?kuis=1 (Friday's "Kata" step): the quiz is
+  // shown even after reviewing.
+  const [quizAsked] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      new URLSearchParams(window.location.search).get("kuis") === "1",
+  );
+  const [quizShown] = useState(() => quizAsked || (!t.rev && !t.q1));
   const quizOffered = quizShown || (!t.rev && !t.q1);
 
   // The first due card that still exists: a deleted Kataku/personal card
@@ -114,6 +123,17 @@ const ReviewPage = React.memo(() => {
   }
 
   const item = rvKey && !mistake ? resolveItemKey(allLevels, rvKey) : null;
+
+  // Rencana: the day's due cards are all answered (once per day).
+  const queueEmpty = !rvKey && !nextMistake;
+  useEffect(() => {
+    if (!queueEmpty || doneToday === 0) return;
+    const T = today();
+    const sent = useLaporanStore
+      .getState()
+      .items.some((l) => l.jenis === "ulang_habis" && l.day === T);
+    if (!sent) laporAktivitas("ulang_habis", { data: {} });
+  }, [queueEmpty, doneToday]);
   const cur = mistake
     ? mistake.srs
     : rvKey
@@ -376,8 +396,8 @@ const ReviewPage = React.memo(() => {
           />
         )}
 
-        {/* Nothing due and nothing reviewed today: the quiz that stands in
-            for Blok Ulang (pilot urutan 1). */}
+        {/* Nothing due and nothing reviewed today (or asked for from
+            Rencana): the 5-question quiz. */}
         {!item && !mistake && quizOffered && <ReviewQuiz />}
 
         {!item && !mistake && (

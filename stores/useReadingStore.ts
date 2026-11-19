@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 import { PILOT } from "@/const/pilot.constant";
 import { load, save, STORAGE_KEYS } from "@/lib/helpers/storage.helper";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type {
   ReadingData,
   ReadingResult,
@@ -161,6 +162,17 @@ export const useReadingStore = create<ReadingState>((set, get) => {
       });
       useActivityStore.getState().log("reading", {
         meta: { textId: r.textId, score: r.score, total: r.total },
+      });
+      // Rencana: a text counts once (`baru` = done for the first time now).
+      laporAktivitas("bacaan_selesai", {
+        level: r.level,
+        week: r.week,
+        skor: r.score,
+        total: r.total,
+        data: {
+          textId: r.textId,
+          baru: !cur.done[r.textId] && r.score >= PILOT.readingPass,
+        },
       });
       return result;
     },

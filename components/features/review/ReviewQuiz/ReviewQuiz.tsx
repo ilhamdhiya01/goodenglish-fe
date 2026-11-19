@@ -16,6 +16,7 @@ import { PILOT } from "@/const/pilot.constant";
 import { VOCAB_ERRORS } from "@/lib/content";
 import { buildReviewQuiz, type QuizQ } from "@/lib/helpers/review-quiz.helper";
 import { speak } from "@/lib/helpers/speech.helper";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type { ErrorGroup } from "@/lib/types/scenario.types";
 import type { LevelId } from "@/lib/types/session.types";
 import { useLevelStore } from "@/stores/useLevelStore";
@@ -76,6 +77,11 @@ const ReviewQuiz = ({ onDone }: { onDone?: () => void }) => {
   const next = () => {
     if (i + 1 >= qs.length) {
       usePlanStore.getState().markQuizDone();
+      laporAktivitas("kuis_kesalahan_selesai", {
+        skor: right,
+        total: qs.length,
+        data: {},
+      });
       setDone(true);
       onDone?.();
       return;

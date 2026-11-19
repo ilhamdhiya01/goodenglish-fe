@@ -42,6 +42,7 @@ export interface RoleplaySummary {
   durationSec: number;
   userTurns: number;
   stepsDone: number[];
+  mode?: RoleplayMode;
 }
 
 /** One finished session in the learner's history (progress doc `roleplay`). */
@@ -61,6 +62,8 @@ export interface RoleplayRecord {
   stepsDone: number[];
   transcript: RoleplayLine[];
   summary: RoleplaySummary;
+  /** Short practice or full session (older records: full). */
+  mode?: RoleplayMode;
 }
 
 export type { MistakeRecord } from "@/lib/types/mistake.types";
@@ -84,10 +87,16 @@ export interface RoleplayUsage {
   limit: number | null;
 }
 
+/** Full session (12 turns) or short practice (6 turns). */
+export type RoleplayMode = "penuh" | "pendek";
+
 export interface RoleplayStarted {
   id: string;
   reply: string;
   remaining: number | null;
+  /** Optional: older backends (then a full session). */
+  mode?: RoleplayMode;
+  maxTurns?: number;
 }
 
 export interface RoleplayTurn {

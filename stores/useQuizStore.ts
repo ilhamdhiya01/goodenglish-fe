@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 import type { Flat } from "@/lib/helpers/level-data.helper";
 import { buildQuiz } from "@/lib/helpers/quiz.helper";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type { QuizScope, QuizState } from "@/lib/types/quiz.types";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { usePlanStore } from "@/stores/usePlanStore";
@@ -76,6 +77,13 @@ export const useQuizStore = create<QuizStoreState>((set, get) => {
         usePlanStore
           .getState()
           .logQuiz(q.score, get().runScope, level, week, q.qs.length);
+        laporAktivitas("tes_cepat_selesai", {
+          level,
+          week,
+          skor: q.score,
+          total: q.qs.length,
+          data: { lingkup: get().runScope },
+        });
         set({ session: { ...q, done: true } });
       } else {
         set({ session: { ...q, i: q.i + 1, picked: null } });

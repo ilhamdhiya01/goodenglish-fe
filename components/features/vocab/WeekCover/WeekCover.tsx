@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LuChevronDown } from "react-icons/lu";
 
 import ExamCard from "@/components/features/tests/ExamCard";
@@ -14,9 +14,11 @@ import SectionLabel from "@/components/ui/section-label";
 import Sheet from "@/components/ui/sheet";
 import { levelName } from "@/const/levels.constant";
 import type { LevelData } from "@/lib/helpers/level-data.helper";
-import { itemKey } from "@/lib/helpers/storage.helper";
+import { itemKey, today } from "@/lib/helpers/storage.helper";
 import { useShellData } from "@/lib/hooks/useShellData";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type { PlanRow } from "@/lib/types/vocab.types";
+import { useLaporanStore } from "@/stores/useLaporanStore";
 import { useQuizStore } from "@/stores/useQuizStore";
 
 interface Props {
@@ -39,6 +41,29 @@ const WeekCover = React.memo(({ data }: Props) => {
   const kn = items.filter(
     (it) => known[itemKey(level, week, it[0], it[1])],
   ).length;
+
+  // Rencana: how many words of this week are left (once a day per week).
+  // Only a state, never a tick: it lets Rencana offer "Lewati" when the
+  // week is already all marked.
+  useEffect(() => {
+    if (!items.length) return;
+    const T = today();
+    const sent = useLaporanStore
+      .getState()
+      .items.some(
+        (l) =>
+          l.jenis === "status_kata_minggu" &&
+          l.day === T &&
+          l.level === level &&
+          l.week === week,
+      );
+    if (!sent)
+      laporAktivitas("status_kata_minggu", {
+        level,
+        week,
+        data: { sisa: items.length - kn, total: items.length },
+      });
+  }, [level, week, kn, items.length]);
 
   // A week with too few words is tested over every week, and logged so.
   const start = () =>
