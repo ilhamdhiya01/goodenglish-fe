@@ -30,10 +30,26 @@ export interface PlanTally {
   q1?: boolean;
 }
 
+/** Per level|week. rec/gpt: old manual checkpoint ticks (kept, unused). */
+export interface PlanWeek {
+  rec?: boolean;
+  gpt?: boolean;
+  /** New Rencana: day the weekly checkpoint passed. */
+  lulus?: number;
+  /** New Rencana: "Mulai ulang minggu ini" — evidence counts from this day. */
+  mulai?: number;
+}
+
 export interface PlanData {
+  /**
+   * Day records. Old Rencana: { b1, b2, b3 }. New Rencana: { v2: true, s,
+   * ulang, kata, … } (s = the day counts for the streak).
+   */
   days?: Record<string, Record<string, boolean>>;
   tally?: PlanTally;
-  week?: Record<string, Partial<Record<"rec" | "gpt", boolean>>>;
+  week?: Record<string, PlanWeek>;
+  /** New Rencana: chosen duration (minutes). */
+  durasi?: 15 | 25 | 40;
   quiz?: PlanQuizEntry[];
   rule?: string;
   pronIdx?: number;

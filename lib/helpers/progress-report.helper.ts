@@ -9,7 +9,7 @@ import {
 } from "@/lib/helpers/mistakes.helper";
 import { quizPassed } from "@/lib/helpers/quiz-pass.helper";
 import {
-  blocksOn,
+  dayStrength,
   mondayOf,
   type PlanDays,
   streakOf,
@@ -206,7 +206,7 @@ export const buildProgressReport = (
 
   const calendarDays = Array.from({ length: T - firstDay + 1 }, (_, i) => ({
     day: firstDay + i,
-    blocks: Math.min(3, blocksOn(days, firstDay + i)),
+    blocks: dayStrength(days, firstDay + i),
   }));
   // No Rencana block in 12 weeks: nothing to colour.
   const calendar = calendarDays.some((d) => d.blocks) ? calendarDays : null;
@@ -388,11 +388,14 @@ export const buildProgressReport = (
         quizTotal: best?.total ?? null,
         rec: !!wk.rec,
         roleplayMin: rp,
+        // New Rencana marks the week itself (weekly checkpoint, 3 of 4);
+        // older weeks keep the old rule.
         passed:
-          !!best &&
-          quizPassed(best.score, best.total) &&
-          !!wk.rec &&
-          (rp >= 10 || !!wk.gpt),
+          typeof wk.lulus === "number" ||
+          (!!best &&
+            quizPassed(best.score, best.total) &&
+            !!wk.rec &&
+            (rp >= 10 || !!wk.gpt)),
       };
     });
 

@@ -33,3 +33,21 @@ describe("streakOf", () => {
     expect(streakOf({}, WED)).toBe(0);
   });
 });
+
+describe("new Rencana days (v2)", () => {
+  it("count by their own verdict; old days keep the old rule", async () => {
+    const { dayDone, dayStrength, streakOf } = await import("../streak.helper");
+    const WED = 20411;
+    const days: Record<string, Record<string, boolean>> = {
+      [WED - 2]: { b1: true, b2: true, b3: true },
+      [WED - 1]: { v2: true, s: true, ulang: true },
+      [WED]: { v2: true, s: false, ulang: true, kata: true },
+    };
+    expect(dayDone(days, WED - 1)).toBe(true);
+    expect(dayDone(days, WED)).toBe(false);
+    expect(streakOf(days, WED)).toBe(2);
+    // The marker and the verdict are not steps.
+    expect(dayStrength(days, WED)).toBe(2);
+    expect(dayStrength(days, WED - 1)).toBe(3);
+  });
+});
