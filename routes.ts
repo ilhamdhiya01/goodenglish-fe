@@ -17,6 +17,7 @@ export const ROUTES = {
   PROGRESS: "/progress",
   ADMIN_LEARNERS: "/admin/learners",
   ADMIN_READING: "/admin/reading",
+  ADMIN_RENCANA: "/admin/rencana",
   ADMIN_TOKENS: "/admin/tokens",
   ADMIN_WORDS: "/admin/words",
   ADMIN_AI: "/admin/ai",

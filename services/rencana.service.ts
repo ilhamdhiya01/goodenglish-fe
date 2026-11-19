@@ -36,3 +36,10 @@ export const checkSentences = async (body: {
   level: LevelId;
 }): Promise<ApiResponse<{ checks: SentenceCheck[] }>> =>
   (await axiosInstance.post(API_AI_CHECK_SENTENCES, body)).data;
+
+/** Admin: the week map of one level. */
+export const getAdminPetaMinggu = async (
+  level: LevelId,
+): Promise<ApiResponse<PetaMinggu[]>> =>
+  (await axiosInstance.get(API_ADMIN_RENCANA_MINGGU, { params: { level } }))
+    .data;
