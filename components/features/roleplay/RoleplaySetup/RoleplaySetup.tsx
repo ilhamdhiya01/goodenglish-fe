@@ -34,7 +34,7 @@ const quotaText = (u?: RoleplayUsage) =>
     ? "Memeriksa jatah sesi…"
     : u.limit === null
       ? "Jatah sesi hari ini: tanpa batas."
-      : `Sisa ${Math.max(0, u.limit - u.used)} dari ${u.limit} sesi hari ini.`;
+      : `Sisa ${Math.max(0, u.limit - u.used)} dari ${u.limit} sesi hari ini. Sesi baru terhitung setelah kamu bicara 3 kali.`;
 
 // Before the session: the mission, both roles, a few key phrases and the
 // options (show the AI's words, voice speed). The speed is the same setting

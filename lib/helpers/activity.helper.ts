@@ -1,3 +1,4 @@
+import { dayOf } from "@/lib/helpers/storage.helper";
 import type {
   ActivityData,
   ActivityDay,
@@ -184,7 +185,7 @@ export const backfillActivity = (
       ts,
       durationSec: num(x.durationSec),
     });
-    d = addSeconds(d, Math.floor(ts / DAY_MS), "roleplay", num(x.durationSec));
+    d = addSeconds(d, dayOf(ts), "roleplay", num(x.durationSec));
   });
   const results = (doc: unknown, type: "listening_set" | "reading"): void => {
     const list = obj<{ results?: unknown }>(doc, {}).results;

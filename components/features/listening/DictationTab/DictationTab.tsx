@@ -75,7 +75,16 @@ const DictationTab = () => {
   const start = (st: DictationStage) => {
     stopSpeaking();
     setStage(st);
-    setSet(pickDictation(pool, st, listening.seen, Date.now() % 2147483647));
+    setSet(
+      pickDictation(
+        pool,
+        st,
+        listening.seen,
+        Date.now() % 2147483647,
+        undefined,
+        week,
+      ),
+    );
     setI(0);
     setTyped("");
     setCheck(null);
@@ -87,6 +96,8 @@ const DictationTab = () => {
   };
 
   const cur = set?.[i];
+  // The answer stays hidden until the one retry is used (or given up).
+  const hidden = !!check && check.score < 100 && !retried;
   const play = (slow: boolean) => {
     if (!cur) return;
     speak(cur.text, { speed: slow ? SLOW : dictationSpeed(stage, cur) });
@@ -268,36 +279,52 @@ const DictationTab = () => {
                 {check.correct} dari {check.total} kata benar
               </span>
             </div>
-            <WordMarks marks={check.marks} />
-            <div className="flex items-start gap-2 rounded-lg bg-sunken px-3 py-2">
-              <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <span className="text-[15px] leading-[21px] font-extrabold text-ink">
-                  {cur.text}
-                </span>
-                {cur.meaning && (
-                  <span className="text-[13px] leading-[18px] text-ink-2">
-                    {cur.meaning}
+            {/* Before the one retry (pilot urutan 7) only where the mistakes
+                are is shown, not the sentence. */}
+            <WordMarks marks={check.marks} hideAnswer={hidden} />
+            {hidden ? (
+              <span className="text-[13.5px] font-semibold text-ink-2">
+                Kata yang merah salah, ___ = ada yang terlewat. Dengar lagi lalu
+                coba sekali lagi.
+              </span>
+            ) : (
+              <div className="flex items-start gap-2 rounded-lg bg-sunken px-3 py-2">
+                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <span className="text-[15px] leading-[21px] font-extrabold text-ink">
+                    {cur.text}
                   </span>
-                )}
+                  {cur.meaning && (
+                    <span className="text-[13px] leading-[18px] text-ink-2">
+                      {cur.meaning}
+                    </span>
+                  )}
+                </div>
+                <SpeakButton text={cur.text} size={30} icon={14} />
               </div>
-              <SpeakButton text={cur.text} size={30} icon={14} />
-            </div>
+            )}
             <div className="flex flex-wrap gap-2">
-              {check.score < 100 && !retried && (
-                <Button
-                  onClick={() => {
-                    setRetried(true);
-                    setCheck(null);
-                    setTyped("");
-                    boxRef.current?.focus();
-                  }}
-                >
-                  Coba lagi
+              {hidden ? (
+                <>
+                  <Button
+                    variant="green"
+                    onClick={() => {
+                      setRetried(true);
+                      setCheck(null);
+                      setTyped("");
+                      boxRef.current?.focus();
+                    }}
+                  >
+                    Coba lagi
+                  </Button>
+                  <Button onClick={() => setRetried(true)}>
+                    Lihat jawaban
+                  </Button>
+                </>
+              ) : (
+                <Button variant="green" onClick={next}>
+                  {i + 1 < set.length ? "Lanjut" : "Lihat hasil"}
                 </Button>
               )}
-              <Button variant="green" onClick={next}>
-                {i + 1 < set.length ? "Lanjut" : "Lihat hasil"}
-              </Button>
             </div>
           </div>
         )}

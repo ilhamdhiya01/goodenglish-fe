@@ -24,7 +24,7 @@ import {
 } from "@/lib/helpers/verb-forms.helper";
 import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useShellData } from "@/lib/hooks/useShellData";
-import { useAccessStore } from "@/stores/useAccessStore";
+import { useUnlockedLevels } from "@/lib/hooks/useUnlockedLevels";
 
 interface GlobalSearchProps {
   /** bar: field in the top row with a dropdown · screen: the phone's
@@ -51,15 +51,16 @@ const GlobalSearch = React.memo(
       () => loadStr(STORAGE_KEYS.searchScope) || "all",
     );
     const box = useRef<HTMLDivElement>(null);
-    // "Semua level" means every level this access token may open.
-    const allowed = useAccessStore((s) => s.session?.levels);
+    // "Semua level" means every level this learner may open now: the
+    // token's levels, and with "Wajib lulus ujian" only the opened ones.
+    const allowed = useUnlockedLevels();
 
     const pool = useMemo<Flat[]>(
       () =>
         (scope === "level"
           ? [level]
           : LEVELS.map(([id]) => id).filter((id) =>
-              allowed?.includes(id as never),
+              allowed.includes(id as never),
             )
         ).flatMap((id) =>
           flatten(allLevels[id]?.V || {}).map((x) => ({ ...x, lv: id })),
@@ -129,7 +130,7 @@ const GlobalSearch = React.memo(
           <span className="ml-auto text-[13px] font-bold text-ink-2 tabular-nums">
             {ql
               ? `${results.length} hasil`
-              : `${pool.length} kata${scope === "all" ? " · 4 level" : ""}`}
+              : `${pool.length} kata${scope === "all" ? ` · ${allowed.length} level` : ""}`}
           </span>
         </div>
         {ql && results.length === 0 && (

@@ -29,3 +29,21 @@ export const useUnlockedLevels = (): LevelId[] => {
     [allowed, requireExam, attempts, base, placement, current],
   );
 };
+
+/** The same, read once outside React (event handlers). */
+export const unlockedLevelsNow = (): LevelId[] => {
+  const session = useAccessStore.getState().session;
+  const exam = useExamStore.getState();
+  return unlockedLevels({
+    allowed: LEVELS.map((l) => l[0] as LevelId).filter((l) =>
+      session?.levels.includes(l),
+    ),
+    requireExam: !!session?.requireExam,
+    exam: {
+      attempts: exam.attempts,
+      base: exam.base,
+      placement: exam.placement,
+    },
+    current: useLevelStore.getState().level as LevelId,
+  });
+};

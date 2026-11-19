@@ -5,6 +5,7 @@ import { default as ListeningManager } from "./ListeningManager";
 import { default as ReadingManager } from "./ReadingManager";
 import { default as TokenManager } from "./TokenManager";
 import { default as WordManager } from "./WordManager";
+import { default as WordMeaningManager } from "./WordMeaningManager";
 
 export const Admin = {
   AdminShell,
@@ -14,4 +15,5 @@ export const Admin = {
   ReadingManager,
   TokenManager,
   WordManager,
+  WordMeaningManager,
 } as const;

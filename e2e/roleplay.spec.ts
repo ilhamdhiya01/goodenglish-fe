@@ -52,7 +52,9 @@ test.describe("dengan izin Main peran", () => {
     await expect(
       page.getByRole("list", { name: "Langkah misi" }),
     ).toBeVisible();
-    await expect(page.getByText("Sisa 3 dari 3 sesi hari ini.")).toBeVisible();
+    await expect(
+      page.getByText(/^Sisa 3 dari 3 sesi hari ini\./),
+    ).toBeVisible();
     // Pemula: the AI's words are shown by default.
     await expect(
       page.getByRole("button", { name: "Tampilkan teks ucapan AI" }),

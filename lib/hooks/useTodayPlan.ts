@@ -1,8 +1,9 @@
 import { ASK_RULES } from "@/const/plan.constant";
 import { PRON_SECS } from "@/const/pronunciation.constant";
-import { today } from "@/lib/helpers/storage.helper";
-import { streakOf } from "@/lib/helpers/streak.helper";
+import { tallyOf } from "@/lib/helpers/plan-check.helper";
+import { isWeekend, streakOf } from "@/lib/helpers/streak.helper";
 import { useShellData } from "@/lib/hooks/useShellData";
+import { useToday } from "@/lib/hooks/useToday";
 import { usePlanStore } from "@/stores/usePlanStore";
 
 // The daily routine of the Rencana page — three blocks on weekdays, one at
@@ -21,20 +22,22 @@ export interface Block {
 }
 
 export const useTodayPlan = () => {
-  const { srs, known, dueMistakes } = useShellData();
+  const { dueKeys, dueMistakes } = useShellData();
   const P = usePlanStore((s) => s.plan);
 
-  const T = today();
+  const T = useToday();
   const key = String(T);
   const day = P.days?.[key] || {};
-  const dow = new Date().getDay();
+  // Weekday of the learning day (token time zone), the same one the streak
+  // uses — not the device clock.
+  const dow = new Date(T * 86400000).getUTCDay();
   const sat = dow === 6;
   const sun = dow === 0;
-  const wknd = sat || sun;
+  const wknd = isWeekend(T);
+  const t = tallyOf(P.tally, T);
   const odd = T % 2 === 1;
-  const dueCount = Object.keys(srs).filter(
-    (k) => srs[k].due <= T && known[k],
-  ).length;
+  // Same count as the shell (only cards that still exist).
+  const dueCount = dueKeys.length;
   const rule = P.rule || "r1";
   const ruleNo = ASK_RULES.find((r) => r[0] === rule)![1];
   const pronIdx = (P.pronIdx || 0) % PRON_SECS.length;
@@ -58,7 +61,9 @@ export const useTodayPlan = () => {
                 .filter(Boolean)
                 .join(" + ") +
               " jatuh tempo. Jawab dengan suara, bukan dalam hati."
-            : "Tidak ada yang jatuh tempo. Buka Kosakata dan ucapkan 10 kata yang sudah hafal.",
+            : t.rev
+              ? "Kartu hari ini sudah habis."
+              : "Tidak ada kartu jatuh tempo. Kerjakan kuis 5 soal dari Buku kesalahanku di halaman Ulang.",
         why: "Kata yang pernah diucapkan lebih cepat keluar saat bicara.",
       },
       wknd

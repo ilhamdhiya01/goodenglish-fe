@@ -11,6 +11,7 @@ import Card from "@/components/ui/card";
 import PageHeading from "@/components/ui/page-heading";
 import SectionLabel from "@/components/ui/section-label";
 import { LEVELS } from "@/const/levels.constant";
+import { PILOT } from "@/const/pilot.constant";
 import {
   pieces,
   readingMinutes,
@@ -139,47 +140,68 @@ const Paragraph = ({
   );
 };
 
+// Done only with a passing score (4 of 5); one more try at the
+// questions is allowed right away, after that "Baca lagi".
 const Result = ({
   result,
   onAgain,
+  onRetry,
 }: {
   result: ReadingResult;
   onAgain: () => void;
-}) => (
-  <Card
-    tone="done"
-    pad="lg"
-    className="flex-row items-start gap-4"
-    role="status"
-  >
-    <Jalak
-      mood={result.score / result.total >= 0.8 ? "senang" : "biasa"}
-      className="shrink-0"
-    />
-    <div className="flex min-w-0 flex-col gap-1.5">
-      <SectionLabel tone="ok">BACAAN SELESAI</SectionLabel>
-      <span className="text-2xl font-black text-ink tabular-nums">
-        Skor {result.score}/{result.total}
-      </span>
-      <span className="text-sm font-bold text-ink-2">
-        {result.savedWords
-          ? `${result.savedWords} kata disimpan ke Ulang. Kata-kata itu muncul di Ulang besok.`
-          : "Belum ada kata yang disimpan. Ketuk kata di teks untuk menyimpannya."}
-      </span>
-      <div className="flex flex-wrap gap-3 pt-1.5">
-        <Button variant="green" onClick={onAgain}>
-          Baca lagi
-        </Button>
-        <Link
-          href={ROUTES.READING}
-          className="inline-flex min-h-11 items-center px-1 text-sm font-extrabold text-accent-edge underline-offset-4 focus-ring hover:underline"
-        >
-          Kembali ke daftar
-        </Link>
+  /** Present while the one retry of the questions is still unused. */
+  onRetry?: () => void;
+}) => {
+  const passed = result.score >= PILOT.readingPass;
+  return (
+    <Card
+      tone={passed ? "done" : "line"}
+      pad="lg"
+      className="flex-row items-start gap-4"
+      role="status"
+    >
+      <Jalak mood={passed ? "senang" : "biasa"} className="shrink-0" />
+      <div className="flex min-w-0 flex-col gap-1.5">
+        <SectionLabel tone={passed ? "ok" : "muted"}>
+          {passed ? "BACAAN SELESAI" : "BELUM SELESAI"}
+        </SectionLabel>
+        <span className="text-2xl font-black text-ink tabular-nums">
+          Skor {result.score}/{result.total}
+        </span>
+        {!passed && (
+          <span className="text-sm font-bold text-ink">
+            Bacaan selesai bila benar minimal {PILOT.readingPass} dari{" "}
+            {result.total}.
+            {onRetry
+              ? " Kamu boleh mengulang soalnya sekali."
+              : " Baca teksnya lagi, lalu jawab ulang."}
+          </span>
+        )}
+        <span className="text-sm font-bold text-ink-2">
+          {result.savedWords
+            ? `${result.savedWords} kata disimpan ke Ulang. Kata-kata itu muncul di Ulang besok.`
+            : "Belum ada kata yang disimpan. Ketuk kata di teks untuk menyimpannya."}
+        </span>
+        <div className="flex flex-wrap gap-3 pt-1.5">
+          {onRetry && (
+            <Button variant="green" onClick={onRetry}>
+              Ulangi soal (sekali)
+            </Button>
+          )}
+          <Button variant={onRetry ? "outline" : "green"} onClick={onAgain}>
+            Baca lagi
+          </Button>
+          <Link
+            href={ROUTES.READING}
+            className="inline-flex min-h-11 items-center px-1 text-sm font-extrabold text-accent-edge underline-offset-4 focus-ring hover:underline"
+          >
+            Kembali ke daftar
+          </Link>
+        </div>
       </div>
-    </div>
-  </Card>
-);
+    </Card>
+  );
+};
 
 const ReadingBody = ({ text }: { text: ReadingText }) => {
   const { allLevels } = useShellData();
@@ -200,6 +222,8 @@ const ReadingBody = ({ text }: { text: ReadingText }) => {
   const [playing, setPlaying] = useState(false);
   const [stage, setStage] = useState<"read" | "quiz">("read");
   const [round, setRound] = useState(0);
+  // The one retry of the questions, used or not.
+  const [retryUsed, setRetryUsed] = useState(false);
   const [result, setResult] = useState<ReadingResult | null>(null);
   const quizRef = useRef<HTMLDivElement>(null);
 
@@ -314,8 +338,18 @@ const ReadingBody = ({ text }: { text: ReadingText }) => {
           {result && (
             <Result
               result={result}
+              onRetry={
+                result.score < PILOT.readingPass && !retryUsed
+                  ? () => {
+                      setRetryUsed(true);
+                      setResult(null);
+                      setRound((r) => r + 1);
+                    }
+                  : undefined
+              }
               onAgain={() => {
                 setResult(null);
+                setRetryUsed(false);
                 setStage("read");
                 setRound((r) => r + 1);
                 window.scrollTo({ top: 0 });

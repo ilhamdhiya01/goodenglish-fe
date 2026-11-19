@@ -16,6 +16,8 @@ export interface AccessTokenItem {
   roleplayDailyLimit: number | null;
   // Next level only after passing the exam. Optional: older backends.
   requireExam?: boolean;
+  /** Learning-day time zone. Optional: older backends. */
+  timeZone?: string;
   activeDevices: number;
   status: TokenStatus;
   expiresAt: string | null;
@@ -40,6 +42,8 @@ export interface TokenFormValues {
   aiDailyLimit: number | null;
   roleplayDailyLimit: number | null;
   requireExam: boolean;
+  /** IANA time zone of the learner's day (Ulang, streak, log). */
+  timeZone: string;
 }
 
 export interface TokenSessionItem {
@@ -100,8 +104,10 @@ export interface LearnerOverview {
   menus: MenuId[];
   /** Active level in the app, if the learner picked one. */
   level: LevelId | null;
-  /** Latest of the last sign-in and the last recorded activity. */
+  /** Last day with recorded learning (end of that day). */
   lastActiveAt: string | null;
+  /** Last time the app was opened. Optional: older backends. */
+  lastOpenedAt?: string | null;
   streak: number;
   minutes7d: number;
   wordsThisWeek: number;

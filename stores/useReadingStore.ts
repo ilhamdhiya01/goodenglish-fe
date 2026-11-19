@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+import { PILOT } from "@/const/pilot.constant";
 import { load, save, STORAGE_KEYS } from "@/lib/helpers/storage.helper";
 import type {
   ReadingData,
@@ -92,8 +93,24 @@ export const mergeReading = (
   };
 };
 
-export const lookupKey = (level: string, word: string) =>
-  `${level}|${word.toLowerCase()}`;
+/** Short hash of the sentence a word was tapped in ("" = none). The same
+ * word can mean different things in different sentences. */
+export const sentenceHash = (sentence: string | undefined) => {
+  const n = (sentence ?? "").trim().replace(/\s+/g, " ").toLowerCase();
+  if (!n) return "";
+  // FNV-1a, 32 bit.
+  let h = 0x811c9dc5;
+  for (let i = 0; i < n.length; i++) {
+    h ^= n.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return (h >>> 0).toString(36);
+};
+
+export const lookupKey = (level: string, word: string, sentence?: string) => {
+  const ctx = sentenceHash(sentence);
+  return `${level}|${word.toLowerCase()}${ctx ? `|${ctx}` : ""}`;
+};
 
 const uid = () =>
   Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
@@ -101,7 +118,12 @@ const uid = () =>
 interface ReadingState extends ReadingData {
   /** Save a finished text and mark it done. */
   finish: (r: Omit<ReadingResult, "id" | "date">) => ReadingResult;
-  cacheLookup: (level: string, word: string, m: WordMeaning) => void;
+  cacheLookup: (
+    level: string,
+    word: string,
+    m: WordMeaning,
+    sentence?: string,
+  ) => void;
   setAll: (f: (cur: ReadingData) => ReadingData) => void;
   hydrate: () => void;
 }
@@ -130,20 +152,26 @@ export const useReadingStore = create<ReadingState>((set, get) => {
       commit({
         ...cur,
         results: [result, ...cur.results].slice(0, READING_RESULTS_MAX),
-        done: cur.done[r.textId]
-          ? cur.done
-          : { ...cur.done, [r.textId]: result.date },
+        // Done only with a passing score (4 of 5); texts done before keep
+        // their date.
+        done:
+          cur.done[r.textId] || r.score < PILOT.readingPass
+            ? cur.done
+            : { ...cur.done, [r.textId]: result.date },
       });
       useActivityStore.getState().log("reading", {
         meta: { textId: r.textId, score: r.score, total: r.total },
       });
       return result;
     },
-    cacheLookup: (level, word, m) => {
+    cacheLookup: (level, word, m, sentence) => {
       const cur = pick(get());
       commit({
         ...cur,
-        lookups: trimLookups({ ...cur.lookups, [lookupKey(level, word)]: m }),
+        lookups: trimLookups({
+          ...cur.lookups,
+          [lookupKey(level, word, sentence)]: m,
+        }),
       });
     },
     setAll: (f) => commit(f(pick(get()))),

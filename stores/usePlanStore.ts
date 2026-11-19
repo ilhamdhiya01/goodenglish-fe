@@ -15,12 +15,15 @@ interface PlanState {
     scope: "week" | "all",
     level: string,
     week: number,
+    total: number,
   ) => void;
   toggleDayBlock: (dayKey: string, blockId: string) => void;
   /** Tulis status blok hari ini (hasil hitungan PlanAutoCheck), hanya jika berubah. */
   setDayBlocks: (flags: Record<string, boolean>) => void;
   /** Tambah hitungan aktivitas hari ini (by negatif saat dibatalkan). */
-  bumpTally: (k: "known" | "ask" | "pron", by?: number) => void;
+  bumpTally: (k: "known" | "ask" | "pron" | "rev", by?: number) => void;
+  /** Kuis pengganti Ulang selesai hari ini (blok Ulang). */
+  markQuizDone: () => void;
   toggleWeekCheck: (weekKey: string, k: "rec" | "gpt") => void;
   setRule: (rule: string) => void;
   advancePron: () => void;
@@ -39,17 +42,17 @@ export const usePlanStore = create<PlanState>((set, get) => ({
       return { plan };
     }),
 
-  logQuiz: (score, scope, level, week) => {
+  logQuiz: (score, scope, level, week, total) => {
     get().setPlan((p) => ({
       ...p,
       quiz: [
         ...(p.quiz || []),
-        { d: today(), score, scope, level, week },
+        { d: today(), score, scope, level, week, total },
       ].slice(-60),
     }));
     useActivityStore
       .getState()
-      .log("quick_test", { meta: { score, total: 20, scope, level, week } });
+      .log("quick_test", { meta: { score, total, scope, level, week } });
   },
 
   toggleDayBlock: (dayKey, blockId) =>
@@ -87,6 +90,13 @@ export const usePlanStore = create<PlanState>((set, get) => ({
         ...p,
         tally: { ...cur, [k]: Math.max(0, (cur[k] || 0) + by) },
       };
+    }),
+
+  markQuizDone: () =>
+    get().setPlan((p) => {
+      const T = today();
+      const cur = p.tally?.day === T ? p.tally : { day: T };
+      return { ...p, tally: { ...cur, q1: true } };
     }),
 
   toggleWeekCheck: (weekKey, k) =>

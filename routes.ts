@@ -85,6 +85,9 @@ export const API_ADMIN_READING_PUBLISH = (id: string) =>
   `${API_ADMIN_READING_TEXT(id)}/publish`;
 export const API_ADMIN_READING_UNPUBLISH = (id: string) =>
   `${API_ADMIN_READING_TEXT(id)}/unpublish`;
+export const API_ADMIN_WORD_MEANINGS = `${API_BASE_URL}/admin/word-meanings`;
+export const API_ADMIN_WORD_MEANING = (id: string) =>
+  `${API_ADMIN_WORD_MEANINGS}/${id}`;
 
 // Speech-to-text for "Betulkan kalimat" cards in Ulang
 export const API_STT_TRANSCRIBE = `${API_BASE_URL}/stt/transcribe`;

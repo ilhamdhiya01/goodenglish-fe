@@ -4,7 +4,8 @@ import { LEVELS } from "@/const/levels.constant";
 import { allLevelData, dueKeysOf } from "@/lib/helpers/derived.helper";
 import { flatten, levelData } from "@/lib/helpers/level-data.helper";
 import { dueMistakesOf } from "@/lib/helpers/mistakes.helper";
-import { itemKey, today } from "@/lib/helpers/storage.helper";
+import { itemKey } from "@/lib/helpers/storage.helper";
+import { useToday } from "@/lib/hooks/useToday";
 import { useLevelStore } from "@/stores/useLevelStore";
 import { useMistakeStore } from "@/stores/useMistakeStore";
 import { useProgressStore } from "@/stores/useProgressStore";
@@ -19,12 +20,20 @@ export const useShellData = () => {
   const known = useProgressStore((s) => s.known);
   const srs = useProgressStore((s) => s.srs);
   const own = useProgressStore((s) => s.own);
-  const doneToday = useProgressStore((s) => s.doneToday);
+  const doneTodayRaw = useProgressStore((s) => s.doneToday);
+  const doneDay = useProgressStore((s) => s.doneDay);
 
   const data = useMemo(() => levelData(level, custom), [level, custom]);
   const allLevels = useMemo(() => allLevelData(custom), [custom]);
   const all = useMemo(() => flatten(data.V), [data]);
-  const dueKeys = useMemo(() => dueKeysOf(srs, known), [srs, known]);
+  // Re-read when the learning day changes while the app stays open.
+  const T = useToday();
+  // Counted for today only (the tab may have stayed open past midnight).
+  const doneToday = doneDay === T ? doneTodayRaw : 0;
+  const dueKeys = useMemo(
+    () => dueKeysOf(srs, known, allLevels, T),
+    [srs, known, allLevels, T],
+  );
   // "Buku kesalahanku" cards due in Ulang (none when switched off there).
   const mistakeItems = useMistakeStore((s) => s.items);
   const mistakeReviewOn = useMistakeStore((s) => s.reviewOn);
@@ -38,9 +47,9 @@ export const useShellData = () => {
           reviewOn: mistakeReviewOn,
           intro: mistakeIntro,
         },
-        today(),
+        T,
       ),
-    [mistakeItems, mistakeReviewOn, mistakeIntro],
+    [mistakeItems, mistakeReviewOn, mistakeIntro, T],
   );
   const scheduled = useMemo(
     () => Object.keys(srs).filter((k) => known[k]).length,

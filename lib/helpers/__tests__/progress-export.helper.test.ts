@@ -214,3 +214,41 @@ describe("Progres activity log in Export/Import", () => {
     expect(s.days[T - 3]).toEqual({ r: 5 });
   });
 });
+
+describe("applyImport with Wajib lulus ujian", () => {
+  it("a file can't open levels: passed attempts and base are left out", async () => {
+    const { useExamStore } = await import("@/stores/useExamStore");
+    setProgressSnapshot({});
+    useExamStore.getState().hydrate();
+    const attempt = (id: string, passed: boolean) => ({
+      id,
+      level: "pre",
+      date: "2026-11-10T03:00:00.000Z",
+      sections: {},
+      pct: passed ? 90 : 40,
+      passed,
+    });
+    const file = {
+      v: 9,
+      exportedAt: "",
+      known: {},
+      srs: {},
+      own: {},
+      exam: {
+        placement: null,
+        attempts: [attempt("p", true), attempt("f", false)],
+        base: "upper",
+      },
+    };
+    applyImport(file as never, { requireExam: true });
+    let s = useExamStore.getState();
+    expect(s.attempts.map((a) => a.id)).toEqual(["f"]);
+    expect(s.base).toBeNull();
+
+    // Without the rule the file is taken as is.
+    applyImport(file as never);
+    s = useExamStore.getState();
+    expect(s.attempts.map((a) => a.id).sort()).toEqual(["f", "p"]);
+    expect(s.base).toBe("upper");
+  });
+});

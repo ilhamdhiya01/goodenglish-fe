@@ -23,7 +23,10 @@ interface Props {
   questions: TestQuestion[];
   gens: Gens;
   onDone: (answers: TestAnswer[]) => void;
-  onQuit: () => void;
+  /** Gets the answers given so far (the current one if filled in). */
+  onQuit: (answers: TestAnswer[]) => void;
+  /** What leaving means (default: nothing is saved). */
+  quitMessage?: (answered: number) => string;
 }
 
 /** What gets graded: "Susun kata" tile ids become the sentence. */
@@ -31,7 +34,14 @@ const finalAnswer = (q: TestQuestion, v: TestAnswer): TestAnswer =>
   q.kind === "grammar" && q.stage === "order" ? orderText(q.q.shuffled, v) : v;
 
 // One question per screen with a progress bar; no feedback until the end.
-const TestRunner = ({ title, questions, gens, onDone, onQuit }: Props) => {
+const TestRunner = ({
+  title,
+  questions,
+  gens,
+  onDone,
+  onQuit,
+  quitMessage,
+}: Props) => {
   const [i, setI] = useState(0);
   const [answers, setAnswers] = useState<TestAnswer[]>([]);
   const [value, setValue] = useState<TestAnswer>(null);
@@ -59,15 +69,18 @@ const TestRunner = ({ title, questions, gens, onDone, onQuit }: Props) => {
   };
 
   const quit = async () => {
+    const given = filled ? [...answers, finalAnswer(q, value)] : answers;
     const ok = await confirmDialog({
       title: "Keluar dari tes?",
-      message: "Jawabanmu di tes ini tidak disimpan.",
+      message: quitMessage
+        ? quitMessage(given.length)
+        : "Jawabanmu di tes ini tidak disimpan.",
       confirmLabel: "Keluar",
       tone: "danger",
     });
     if (ok) {
       stopSpeaking();
-      onQuit();
+      onQuit(given);
     }
   };
 

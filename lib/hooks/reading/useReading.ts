@@ -7,24 +7,28 @@ import type { ErrorResponse } from "@/lib/types/api.types";
 import type {
   GenerateReadingBody,
   UpdateReadingBody,
+  WordMeaning,
 } from "@/lib/types/reading.types";
 import type { LevelId } from "@/lib/types/session.types";
 import {
   deleteReading,
+  deleteWordMeaning,
   generateReading,
   getAdminReading,
   getReadingTexts,
+  getWordMeanings,
   lookupWord,
   setReadingPublished,
   updateReading,
+  updateWordMeaning,
 } from "@/services/reading.service";
-import { useReadingStore } from "@/stores/useReadingStore";
+import { sentenceHash, useReadingStore } from "@/stores/useReadingStore";
 
 export const readingKeys = {
   all: ["reading"] as const,
   texts: (level: string) => [...readingKeys.all, "texts", level] as const,
-  lookup: (level: string, word: string) =>
-    [...readingKeys.all, "lookup", level, word] as const,
+  lookup: (level: string, word: string, ctx: string) =>
+    [...readingKeys.all, "lookup", level, word, ctx] as const,
   admin: (level?: string, week?: number) =>
     [...readingKeys.all, "admin", level ?? "", week ?? 0] as const,
 };
@@ -61,11 +65,16 @@ export const useWordLookup = (
 ) => {
   const cacheLookup = useReadingStore((s) => s.cacheLookup);
   const q = useQuery({
-    queryKey: readingKeys.lookup(level, word.toLowerCase()),
+    // One meaning per sentence: the same word elsewhere is looked up again.
+    queryKey: readingKeys.lookup(
+      level,
+      word.toLowerCase(),
+      sentenceHash(sentence),
+    ),
     queryFn: async () => {
       const r = await lookupWord({ word, level, sentence });
       const { lemma, meaningId, pron } = r.data;
-      cacheLookup(level, word, { lemma, meaningId, pron });
+      cacheLookup(level, word, { lemma, meaningId, pron }, sentence);
       return r.data;
     },
     enabled: enabled && !!word,
@@ -118,8 +127,15 @@ export const useAdminReading = (level?: LevelId, week?: number) => {
     onError,
   });
   const publish = useMutation({
-    mutationFn: ({ id, published }: { id: string; published: boolean }) =>
-      setReadingPublished(id, published),
+    mutationFn: ({
+      id,
+      published,
+      force,
+    }: {
+      id: string;
+      published: boolean;
+      force?: boolean;
+    }) => setReadingPublished(id, published, force),
     onSuccess: (_r, v) => {
       refresh();
       toast.success(
@@ -151,5 +167,46 @@ export const useAdminReading = (level?: LevelId, week?: number) => {
       (publish.isPending && publish.variables?.id) ||
       (remove.isPending && remove.variables) ||
       null,
+  };
+};
+
+/** Admin › Bacaan › Arti kata: meanings saved from learners' taps. */
+export const useAdminWordMeanings = (level: LevelId, q: string) => {
+  const qc = useQueryClient();
+  const list = useQuery({
+    queryKey: [...readingKeys.all, "meanings", level, q.trim()] as const,
+    queryFn: () => getWordMeanings({ level, q }),
+    select: (r) => r.data ?? [],
+  });
+  const refresh = () =>
+    void qc.invalidateQueries({
+      queryKey: [...readingKeys.all, "meanings"],
+    });
+  const onError = (e: AxiosError<ErrorResponse>) =>
+    toast.error(accessErrorText(e.message));
+  const update = useMutation({
+    mutationFn: ({ id, body }: { id: string; body: Partial<WordMeaning> }) =>
+      updateWordMeaning(id, body),
+    onSuccess: () => {
+      refresh();
+      toast.success("Arti kata disimpan");
+    },
+    onError,
+  });
+  const remove = useMutation({
+    mutationFn: (id: string) => deleteWordMeaning(id),
+    onSuccess: () => {
+      refresh();
+      toast.success("Arti kata dihapus");
+    },
+    onError,
+  });
+  return {
+    meanings: list.data,
+    isLoading: list.isLoading,
+    isError: list.isError,
+    update: update.mutateAsync,
+    isSaving: update.isPending,
+    remove: remove.mutateAsync,
   };
 };

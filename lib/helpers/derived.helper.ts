@@ -17,14 +17,22 @@ export const allLevelData = (
   return o;
 };
 
-/** Kunci-kata yang jatuh tempo hari ini (hanya yang ditandai hafal). */
+/** Kunci-kata yang jatuh tempo hari ini (hanya yang ditandai hafal). Dengan
+ * `allLevels`, kunci yang katanya sudah tidak ada (kata bersama dihapus admin,
+ * Kataku dihapus) tidak dihitung: Ulang melewatinya, jadi hitungan jatuh
+ * tempo, badge, dan blok Ulang tidak boleh menunggu kartu itu. */
 export const dueKeysOf = (
   srs: Record<string, SrsEntry>,
   known: Record<string, 1>,
-): string[] => {
-  const T = today();
-  return Object.keys(srs).filter((k) => srs[k].due <= T && known[k]);
-};
+  allLevels?: Record<string, LevelData>,
+  T: number = today(),
+): string[] =>
+  Object.keys(srs).filter(
+    (k) =>
+      srs[k].due <= T &&
+      known[k] &&
+      (!allLevels || !!resolveItemKey(allLevels, k)),
+  );
 
 /** Kunci → item kata. Format: "[level|]minggu:tipe:kataInggris" (level 'pre' tanpa prefix).
  * Kunci lama tanpa segmen tipe masih dikenali dan diarahkan ke item pertama yang cocok. */

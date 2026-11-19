@@ -25,6 +25,9 @@ export type RoleId = "admin" | "learner";
 
 // GET /auth/me and POST /auth/redeem
 export interface SessionData {
+  /** Access token id: owner of progress saves left on this device.
+   * Optional: older backends. */
+  tokenId?: string;
   label: string;
   role: RoleId;
   menus: MenuId[];
@@ -32,6 +35,8 @@ export interface SessionData {
   expiresAt: string | null;
   /** "Wajib lulus ujian untuk naik level". Optional: older backends. */
   requireExam?: boolean;
+  /** Learning-day time zone (IANA). Optional: older backends → Asia/Jakarta. */
+  timeZone?: string;
 }
 
 export interface RedeemPayload {

@@ -58,6 +58,11 @@ export const ACCESS_ERRORS: Record<string, string> = {
     "Paragraf tidak valid: setiap paragraf butuh teks Inggris dan terjemahannya (maks. 10).",
   reading_bad_questions:
     "Harus ada 5 soal: 3 pilihan ganda (4 pilihan berbeda + kunci + pembahasan), 1 benar/salah, 1 temukan kata.",
+  reading_slot_taken:
+    "Slot ini sudah punya bacaan yang terbit. Sembunyikan yang lama dulu.",
+  reading_has_warnings:
+    "Bacaan ini belum memenuhi syarat. Terbitkan dengan konfirmasi.",
+  word_meaning_not_found: "Arti kata ini sudah dihapus.",
   lookup_rate_limited:
     "Terlalu banyak kata baru dicari dalam semenit. Tunggu sebentar, ya.",
   lookup_bad_word: "Kata ini tidak bisa dicari.",

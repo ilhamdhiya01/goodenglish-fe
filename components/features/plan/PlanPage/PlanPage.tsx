@@ -16,6 +16,7 @@ import Pill from "@/components/ui/pill";
 import SectionLabel from "@/components/ui/section-label";
 import TextButton from "@/components/ui/text-button";
 import { ASK_RULES, CHEERS } from "@/const/plan.constant";
+import { quizPassed } from "@/lib/helpers/quiz-pass.helper";
 import { useShellData } from "@/lib/hooks/useShellData";
 import { useTodayPlan } from "@/lib/hooks/useTodayPlan";
 import { useAskPracticeStore } from "@/stores/useAskPracticeStore";
@@ -101,7 +102,12 @@ const PlanPage = React.memo(() => {
   const weekQuiz = (P.quiz || []).filter(
     (q) => q.scope === "week" && q.level === level && q.week === week,
   );
-  const bestWeek = weekQuiz.reduce((m, q) => Math.max(m, q.score), 0);
+  // Best by share: older entries had 20 questions, newer ones say how many.
+  const best = weekQuiz.reduce<(typeof weekQuiz)[number] | null>(
+    (b, q) =>
+      !b || q.score / (q.total ?? 20) > b.score / (b.total ?? 20) ? q : b,
+    null,
+  );
   const ap = askPrac[rule] || { seen: 0, right: 0 };
   const askAcc = ap.seen >= 20 ? Math.round((ap.right / ap.seen) * 100) : null;
   const wkKey = level + "|" + week;
@@ -120,9 +126,11 @@ const PlanPage = React.memo(() => {
 
   const checks = [
     {
-      name: 'Tes cepat "Minggu ini" ≥ 16 / 20',
-      ok: bestWeek >= 16,
-      val: weekQuiz.length ? `terbaik ${bestWeek} / 20` : "belum dicoba",
+      name: 'Tes cepat "Minggu ini" ≥ 80%',
+      ok: !!best && quizPassed(best.score, best.total ?? 20),
+      val: best
+        ? `terbaik ${best.score} / ${best.total ?? 20}`
+        : "belum dicoba",
       go: () => router.push("/vocab"),
     },
     {

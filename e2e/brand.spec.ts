@@ -9,7 +9,12 @@ import {
   toggleVocabMode,
 } from "./support/app";
 import { expect, test } from "./support/fixtures";
-import { adminSession, DUE_KEYS, progressWithDue } from "./support/mock-api";
+import {
+  adminSession,
+  DUE_KEYS,
+  progressWithDue,
+  today,
+} from "./support/mock-api";
 
 // The logo in its five places and Jalak in each state of the mascot table:
 // the right mood shows, and nowhere else. BRAND_SCREENS=1 also saves a
@@ -189,7 +194,9 @@ test.describe("rencana", () => {
       progress: {
         level: "pre",
         plan: {
-          tally: { day: T, known: 10, ask: 20, pron: 1 },
+          // Real activity today: cards reviewed (Ulang only ticks after
+          // answering), new words, Bertanya answers and a pronunciation set.
+          tally: { day: T, known: 10, ask: 20, pron: 1, rev: 3 },
           quiz: [{ d: T, score: 18, scope: "week", level: "pre", week: 1 }],
           week: { "pre|1": { rec: true, gpt: true } },
         },
@@ -335,7 +342,7 @@ test.describe("ulang", () => {
   });
 
   test.describe("belum ada yang jatuh tempo", () => {
-    const T = Math.floor(Date.now() / 86400000);
+    const T = today();
     test.use({
       mock: {
         progress: {

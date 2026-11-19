@@ -65,7 +65,7 @@ const WordSheet = ({
     : findVocab(index, tap.word, text.level, text.week);
   const gloss = vocab ? null : findGlossary(text.glossary, tap.word);
   const cached = useReadingStore(
-    (s) => s.lookups[lookupKey(text.level, tap.word)],
+    (s) => s.lookups[lookupKey(text.level, tap.word, tap.sentence)],
   );
   const lookup = useWordLookup(
     text.level,

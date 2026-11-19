@@ -192,7 +192,7 @@ const TextEditor = ({
               value={g.word}
               maxLength={60}
               onChange={(e) => setG(i, { word: e.target.value })}
-              className={classNames(FIELD_CLASS, "w-2/5")}
+              className={classNames(FIELD_CLASS, "w-2/5! shrink-0")}
             />
             <input
               aria-label={`Glosarium ${i + 1}: arti`}
@@ -433,6 +433,18 @@ const ReadingManager = () => {
       R.setPublished({ id: t.id, published: false }).catch(() => {});
       return;
     }
+    // One published text per slot: the old one is hidden first.
+    const other = texts.find(
+      (x) => x.id !== t.id && x.slot === t.slot && x.status === "published",
+    );
+    if (other) {
+      const ok = await confirmDialog({
+        title: `Ganti bacaan slot ${t.slot}?`,
+        message: `"${other.title}" sudah terbit di slot ini. Yang lama disembunyikan (jadi draf), lalu "${t.title}" diterbitkan.`,
+        confirmLabel: "Ganti",
+      });
+      if (!ok) return;
+    }
     if (t.warnings.length) {
       const ok = await confirmDialog({
         title: "Yakin terbitkan?",
@@ -444,7 +456,16 @@ const ReadingManager = () => {
       });
       if (!ok) return;
     }
-    R.setPublished({ id: t.id, published: true }).catch(() => {});
+    try {
+      if (other) await R.setPublished({ id: other.id, published: false });
+      await R.setPublished({
+        id: t.id,
+        published: true,
+        force: t.warnings.length > 0,
+      });
+    } catch {
+      /* the toast says why */
+    }
   };
 
   const remove = async (t: ReadingText) => {

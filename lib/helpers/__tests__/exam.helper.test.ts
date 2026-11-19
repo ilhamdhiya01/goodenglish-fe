@@ -24,7 +24,7 @@ const attempt = (o: Partial<ExamAttempt>): ExamAttempt => ({
 const ALL = ["beginner", "pre", "inter", "upper"] as const;
 
 describe("examOpen", () => {
-  it("opens at 80% memorised or in the last week", () => {
+  it("opens at 80% memorised, or in the last week from 50%", () => {
     expect(examOpen({ known: 79, total: 100, week: 3, lastWeek: 12 })).toBe(
       false,
     );
@@ -32,7 +32,13 @@ describe("examOpen", () => {
       true,
     );
     expect(examOpen({ known: 0, total: 100, week: 12, lastWeek: 12 })).toBe(
+      false,
+    );
+    expect(examOpen({ known: 50, total: 100, week: 12, lastWeek: 12 })).toBe(
       true,
+    );
+    expect(examOpen({ known: 50, total: 100, week: 11, lastWeek: 12 })).toBe(
+      false,
     );
   });
 });

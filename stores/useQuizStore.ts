@@ -11,10 +11,15 @@ import { usePlanStore } from "@/stores/usePlanStore";
 
 interface QuizStoreState {
   session: QuizState | null;
+  /** What the learner picked on the week cover. */
   scope: QuizScope;
+  /** What the running test really covers: a week with too few words is
+   * tested (and logged) as "all weeks". */
+  runScope: QuizScope;
   setScope: (s: QuizScope) => void;
-  /** pool = kata sumber sesuai scope (minggu ini / semua minggu). */
-  start: (pool: Flat[]) => void;
+  /** pool = kata sumber sesuai scope; fallback = semua minggu, dipakai bila
+   * minggu ini terlalu sedikit kata. */
+  start: (pool: Flat[], scope?: QuizScope, fallback?: Flat[]) => void;
   pick: (opt: string) => void;
   next: () => void;
   restart: () => void;
@@ -26,12 +31,20 @@ export const useQuizStore = create<QuizStoreState>((set, get) => {
   return {
     session: null,
     scope: "week",
+    runScope: "week",
 
     setScope: (scope) => set({ scope }),
 
-    start: (pool) => {
+    start: (pool, scope = get().scope, fallback) => {
+      let session = buildQuiz(pool);
+      let runScope = scope;
       lastPool = pool;
-      set({ session: buildQuiz(pool) });
+      if (!session && fallback) {
+        session = buildQuiz(fallback);
+        runScope = "all";
+        lastPool = fallback;
+      }
+      set({ session, runScope });
     },
 
     pick: (opt) =>
@@ -60,7 +73,9 @@ export const useQuizStore = create<QuizStoreState>((set, get) => {
       if (!q || q.picked === null) return;
       if (q.i === q.qs.length - 1) {
         const { level, week } = useLevelStore.getState();
-        usePlanStore.getState().logQuiz(q.score, get().scope, level, week);
+        usePlanStore
+          .getState()
+          .logQuiz(q.score, get().runScope, level, week, q.qs.length);
         set({ session: { ...q, done: true } });
       } else {
         set({ session: { ...q, i: q.i + 1, picked: null } });

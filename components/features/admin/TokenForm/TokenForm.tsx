@@ -15,6 +15,7 @@ import {
   MENU_OPTIONS,
   NON_TAB_MENUS,
 } from "@/const/access.constant";
+import { PILOT } from "@/const/pilot.constant";
 import type { TokenFormValues } from "@/lib/types/admin.types";
 import type { LevelId, MenuId } from "@/lib/types/session.types";
 
@@ -31,7 +32,15 @@ const DEFAULT_VALUES: TokenFormValues = {
   aiDailyLimit: 30,
   roleplayDailyLimit: 3,
   requireExam: false,
+  timeZone: PILOT.defaultTimeZone,
 };
+
+// Indonesia's three zones; another zone set elsewhere stays selectable.
+const TIME_ZONES: [string, string][] = [
+  ["Asia/Jakarta", "WIB (Asia/Jakarta)"],
+  ["Asia/Makassar", "WITA (Asia/Makassar)"],
+  ["Asia/Jayapura", "WIT (Asia/Jayapura)"],
+];
 
 const AI_LIMIT_MAX = 10000;
 const ROLEPLAY_LIMIT_MAX = 100;
@@ -182,6 +191,23 @@ const TokenForm = React.memo(
                   })
                 }
               />
+            </FieldLabel>
+            <FieldLabel label="Zona waktu hari belajar">
+              <Select
+                value={values.timeZone}
+                onChange={(e) =>
+                  setValues({ ...values, timeZone: e.target.value })
+                }
+              >
+                {TIME_ZONES.map(([id, name]) => (
+                  <option key={id} value={id}>
+                    {name}
+                  </option>
+                ))}
+                {!TIME_ZONES.some(([id]) => id === values.timeZone) && (
+                  <option value={values.timeZone}>{values.timeZone}</option>
+                )}
+              </Select>
             </FieldLabel>
             <FieldLabel label="Kedaluwarsa (opsional)">
               <Input

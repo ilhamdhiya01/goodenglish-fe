@@ -7,6 +7,7 @@ import React, { useEffect } from "react";
 import { LuArrowLeft, LuLogOut } from "react-icons/lu";
 
 import Logo from "@/components/brand/Logo";
+import ConnectionError from "@/components/shared/connection-error";
 import ListItem from "@/components/shared/patterns/list-item";
 import SectionLabel from "@/components/ui/section-label";
 import TextButton from "@/components/ui/text-button";
@@ -56,16 +57,24 @@ interface AdminShellProps {
 const AdminShell = React.memo(({ children }: AdminShellProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { session, isError } = useSession();
+  const { session, isError, isUnauthorized, refetch, isFetching } =
+    useSession();
   const current =
     SECTIONS.find(([path]) => pathname.startsWith(path)) ?? SECTIONS[0];
   const { handleLogout, isLoggingOut } = useLogout();
   const isAdmin = session?.role === "admin";
 
   useEffect(() => {
-    if (isError) router.replace(ROUTES.ACCESS);
+    if (isUnauthorized) router.replace(ROUTES.ACCESS);
     else if (session && !isAdmin) router.replace(ROUTES.ROOT);
-  }, [isError, session, isAdmin, router]);
+  }, [isUnauthorized, session, isAdmin, router]);
+
+  // Offline / server down: stay signed in and offer a retry.
+  if (isError && !isUnauthorized) {
+    return (
+      <ConnectionError onRetry={() => void refetch()} isRetrying={isFetching} />
+    );
+  }
 
   if (!isAdmin) {
     return (

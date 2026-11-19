@@ -1,6 +1,6 @@
 import { mergeActivity } from "@/lib/helpers/activity.helper";
 import { allLevelData, migrateProgress } from "@/lib/helpers/derived.helper";
-import { mergeExam } from "@/lib/helpers/exam.helper";
+import { mergeExam, normalizeExam } from "@/lib/helpers/exam.helper";
 import { mergeMistakeData } from "@/lib/helpers/mistakes.helper";
 import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
 import type { PlanData } from "@/lib/types/plan.types";
@@ -77,8 +77,16 @@ export const exportProgress = () => {
   }
 };
 
+export interface ImportOptions {
+  /** "Wajib lulus ujian": a file must not open levels by itself. */
+  requireExam?: boolean;
+}
+
 /** Terapkan snapshot ke stores. Return ringkasan untuk ditampilkan ke pengguna. */
-export const applyImport = (d: ProgressSnapshot): string => {
+export const applyImport = (
+  d: ProgressSnapshot,
+  opts: ImportOptions = {},
+): string => {
   if (!d || !d.known) throw new Error("invalid");
   const P = useProgressStore.getState();
 
@@ -172,8 +180,20 @@ export const applyImport = (d: ProgressSnapshot): string => {
   }
 
   // v8: tes penempatan + ujian (file lama: tidak ada, tidak diubah).
+  // With "Wajib lulus ujian" passed attempts and the start level from a file
+  // are left out: levels only open through exams taken here.
   if (d.exam && typeof d.exam === "object") {
-    useExamStore.getState().setAll((cur) => mergeExam(cur, d.exam));
+    const inc = opts.requireExam
+      ? (() => {
+          const e = normalizeExam(d.exam);
+          return {
+            ...e,
+            attempts: e.attempts.filter((a) => !a.passed),
+            base: null,
+          };
+        })()
+      : d.exam;
+    useExamStore.getState().setAll((cur) => mergeExam(cur, inc));
   }
 
   // v9: log aktivitas Progres (file lama: tidak ada, tidak diubah).
@@ -193,15 +213,37 @@ export const applyImport = (d: ProgressSnapshot): string => {
   );
 };
 
+/**
+ * Read an export file, ask before merging it into the current progress, then
+ * apply it. onDone gets the message to show (nothing when cancelled).
+ */
 export const importProgressFile = (
   file: File,
   onDone: (msg: string) => void,
+  opts: ImportOptions & {
+    confirm?: (summary: string) => Promise<boolean>;
+  } = {},
 ) => {
   const rd = new FileReader();
-  rd.onload = () => {
+  rd.onload = async () => {
+    let d: ProgressSnapshot;
     try {
-      const d = JSON.parse(String(rd.result));
-      onDone(applyImport(d));
+      d = JSON.parse(String(rd.result));
+      if (!d || !d.known) throw new Error("invalid");
+    } catch {
+      onDone("File tidak valid.");
+      return;
+    }
+    const known = Object.keys(d.known).length;
+    const custom = Array.isArray(d.custom) ? d.custom.length : 0;
+    const summary =
+      known +
+      " kata hafal" +
+      (custom ? " dan " + custom + " kata tambahan" : "") +
+      " dari file ini digabung dengan progresmu sekarang. Tidak ada yang dihapus.";
+    if (opts.confirm && !(await opts.confirm(summary))) return;
+    try {
+      onDone(applyImport(d, opts));
     } catch {
       onDone("File tidak valid.");
     }

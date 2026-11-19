@@ -9,7 +9,10 @@ import {
   tickCounts,
   TimeBuffer,
 } from "@/lib/helpers/active-time.helper";
-import { flushProgressOnExit } from "@/lib/helpers/progress-sync.helper";
+import {
+  flushProgressOnExit,
+  flushProgressOnHide,
+} from "@/lib/helpers/progress-sync.helper";
 import { useActivityStore } from "@/stores/useActivityStore";
 import { useTestRunStore } from "@/stores/useTestRunStore";
 
@@ -27,7 +30,8 @@ const ActivityTracker = () => {
   }, [pathname]);
 
   useEffect(() => {
-    let last = Date.now();
+    // No interaction yet: just opening the app isn't learning time.
+    let last = 0;
     const buf = new TimeBuffer();
     const touch = () => {
       last = Date.now();
@@ -55,14 +59,16 @@ const ActivityTracker = () => {
       }
     }, TICK_MS);
     const flush = setInterval(save, SAVE_EVERY_MS);
-    // Hidden or closing: save and send right away (AppShell's own exit
-    // flush may already have run).
+    // Hidden: save and send right away (a normal save, kept queued if it
+    // fails). Closing: the last-chance send.
     const exit = () => {
       save();
       flushProgressOnExit();
     };
     const onHide = () => {
-      if (document.visibilityState === "hidden") exit();
+      if (document.visibilityState !== "hidden") return;
+      save();
+      flushProgressOnHide();
     };
     const events = ["pointerdown", "keydown", "wheel", "touchstart"] as const;
     events.forEach((e) =>

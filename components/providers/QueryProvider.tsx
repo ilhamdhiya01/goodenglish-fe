@@ -8,7 +8,8 @@ interface QueryProviderProps {
   children: React.ReactNode;
 }
 
-const shouldRetry = (failureCount: number, error: unknown) => {
+/** Retry network and server errors (up to 3×), never a 4xx answer. */
+export const shouldRetry = (failureCount: number, error: unknown) => {
   if (isAxiosError(error) && error.response) {
     const { status } = error.response;
     if (status >= 400 && status < 500) return false;

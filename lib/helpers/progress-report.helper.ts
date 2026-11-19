@@ -7,6 +7,7 @@ import {
   dueMistakesOf,
   normalizeMistakes,
 } from "@/lib/helpers/mistakes.helper";
+import { quizPassed } from "@/lib/helpers/quiz-pass.helper";
 import {
   blocksOn,
   mondayOf,
@@ -75,7 +76,7 @@ export const SKILLS: {
 ];
 
 /** Practice topic (askprac key prefix) → Panduan grammar sub-tab. */
-const TOPIC_SUB: Record<string, string> = {
+export const TOPIC_SUB: Record<string, string> = {
   whb: "been",
   irr: "irr",
   prep: "prep",
@@ -85,7 +86,9 @@ const TOPIC_SUB: Record<string, string> = {
   conj: "conj",
   r: "ask",
 };
-const SUB_LABEL = new Map(GRAMMAR_SUBS.map((s) => [s.id as string, s.label]));
+export const SUB_LABEL = new Map(
+  GRAMMAR_SUBS.map((s) => [s.id as string, s.label]),
+);
 // Set ids are "<topic><n>"; Bertanya's rules are "r1".."r4".
 const topicOf = (key: string) => key.replace(/\d+$/, "");
 
@@ -133,6 +136,8 @@ export interface ProgressReport {
     level: string;
     week: number;
     quizBest: number | null;
+    /** Questions of that best test (older entries: 20). */
+    quizTotal: number | null;
     rec: boolean;
     roleplayMin: number;
     passed: boolean;
@@ -339,11 +344,15 @@ export const buildProgressReport = (
   }
 
   // Weekly checkpoints (whatever was tried), newest level and week first.
-  const quizBest = new Map<string, number>();
+  // Best by share of right answers.
+  const quizBest = new Map<string, { score: number; total: number }>();
   (plan.quiz ?? []).forEach((q) => {
     if (q.scope !== "week") return;
     const k = `${q.level}|${q.week}`;
-    quizBest.set(k, Math.max(quizBest.get(k) ?? 0, q.score));
+    const cur = quizBest.get(k);
+    const total = q.total ?? 20;
+    if (!cur || q.score / total > cur.score / cur.total)
+      quizBest.set(k, { score: q.score, total });
   });
   const rpSec = new Map<string, number>();
   (Array.isArray(map.roleplay) ? map.roleplay : []).forEach((r) => {
@@ -375,10 +384,15 @@ export const buildProgressReport = (
       return {
         level,
         week: Number(w),
-        quizBest: best,
+        quizBest: best?.score ?? null,
+        quizTotal: best?.total ?? null,
         rec: !!wk.rec,
         roleplayMin: rp,
-        passed: (best ?? 0) >= 16 && !!wk.rec && (rp >= 10 || !!wk.gpt),
+        passed:
+          !!best &&
+          quizPassed(best.score, best.total) &&
+          !!wk.rec &&
+          (rp >= 10 || !!wk.gpt),
       };
     });
 

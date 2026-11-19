@@ -6,6 +6,8 @@ import type { LevelId } from "@/lib/types/session.types";
 // attempt, and which levels "Wajib lulus ujian" lets the learner pick.
 
 export const EXAM_OPEN_KNOWN = 0.8;
+/** In the level's last week the exam opens from this share memorised. */
+export const EXAM_OPEN_LAST_WEEK_KNOWN = 0.5;
 export const EXAM_RETRY_MS = 24 * 60 * 60 * 1000;
 export const ATTEMPTS_MAX = 100;
 
@@ -18,15 +20,22 @@ export const EMPTY_EXAM: ExamData = {
 const ORDER = LEVELS.map((l) => l[0] as LevelId);
 export const levelIndex = (l: string) => ORDER.indexOf(l as LevelId);
 
-/** Open at ≥ 80% of the level's words memorised, or in its last week. */
+/** Open at ≥ 80% of the level's words memorised, or in its last week once
+ * at least half are (picking the last week alone isn't enough). */
 export const examOpen = (o: {
   known: number;
   total: number;
   week: number;
   lastWeek: number;
-}) =>
-  (o.total > 0 && o.known / o.total >= EXAM_OPEN_KNOWN) ||
-  (o.lastWeek > 0 && o.week >= o.lastWeek);
+}) => {
+  const share = o.total > 0 ? o.known / o.total : 0;
+  return (
+    share >= EXAM_OPEN_KNOWN ||
+    (o.lastWeek > 0 &&
+      o.week >= o.lastWeek &&
+      share >= EXAM_OPEN_LAST_WEEK_KNOWN)
+  );
+};
 
 export const attemptsOf = (d: ExamData, level: string) =>
   d.attempts

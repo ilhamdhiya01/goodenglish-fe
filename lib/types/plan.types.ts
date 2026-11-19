@@ -10,6 +10,8 @@ export interface PlanQuizEntry {
   scope: QuizScope;
   level: string;
   week: number;
+  /** Number of questions (older entries: 20). */
+  total?: number;
 }
 
 /** Hitungan aktivitas satu hari — dasar centang otomatis blok 2 & 3. */
@@ -22,6 +24,10 @@ export interface PlanTally {
   ask?: number;
   /** Bagian Pelafalan yang ditandai selesai hari ini ("sudah, lanjut"). */
   pron?: number;
+  /** Kartu Ulang (kata + kesalahan) yang dijawab hari ini. */
+  rev?: number;
+  /** Kuis 5 soal pengganti Ulang (hari tanpa kartu jatuh tempo) selesai. */
+  q1?: boolean;
 }
 
 export interface PlanData {

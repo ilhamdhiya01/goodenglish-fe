@@ -1,9 +1,21 @@
 import AxeBuilder from "@axe-core/playwright";
 import type { Page } from "@playwright/test";
 
+import { flatten, levelData } from "@/lib/helpers/level-data.helper";
+
 import { clickAccountAction, openApp } from "./support/app";
 import { expect, test } from "./support/fixtures";
 import { adminSession, fullSession, spoken } from "./support/mock-api";
+
+/** Half of Pre-intermediate memorised: enough to open the exam in week 12. */
+const halfOfPre = () => {
+  const all = flatten(levelData("pre", []).V);
+  return Object.fromEntries(
+    all
+      .slice(0, Math.ceil(all.length / 2))
+      .map((x) => [`${x.w}:${x.it[0]}:${x.it[1]}`, 1 as const]),
+  );
+};
 
 // Tes penempatan + ujian akhir level (one test engine, full-screen over the
 // app). Answers here are just "something": the scoring is unit-tested.
@@ -130,9 +142,48 @@ test.describe("keluar dari tes", () => {
   });
 });
 
-test.describe("ujian akhir level", () => {
+test.describe("ujian akhir level: minggu terakhir tanpa cukup hafalan", () => {
   test.use({ mock: { progress: { level: "pre", weeks: { pre: "12" } } } });
+
+  test("masih terkunci di bawah 50% hafal", async ({ page }) => {
+    await openApp(page, "/plan");
+    await expect(page.getByText(/bila sudah 50% hafal/)).toBeVisible();
+    await expect(page.getByRole("button", { name: "Mulai ujian" })).toHaveCount(
+      0,
+    );
+  });
+});
+
+test.describe("ujian akhir level", () => {
+  test.use({
+    mock: {
+      progress: { level: "pre", weeks: { pre: "12" }, known: halfOfPre() },
+    },
+  });
   test.describe.configure({ timeout: 180_000 });
+
+  test("keluar setelah menjawab dihitung percobaan gagal: jeda 24 jam", async ({
+    page,
+    api,
+  }) => {
+    await openApp(page, "/plan");
+    await page.getByRole("button", { name: "Mulai ujian" }).click();
+    await expect(page.getByText(/Soal 1 dari 40/)).toBeVisible();
+    await answerAny(page);
+    await page.getByRole("button", { name: "Keluar dari tes" }).click();
+    const dialog = page.getByRole("alertdialog");
+    await expect(dialog).toContainText("dihitung sebagai percobaan");
+    await dialog.getByRole("button", { name: "Keluar" }).click();
+    await expect(runner(page)).toHaveCount(0);
+    await expect
+      .poll(
+        () =>
+          (api.lastPut("exam") as { attempts?: unknown[] } | undefined)
+            ?.attempts?.[0],
+      )
+      .toMatchObject({ level: "pre", passed: false });
+    await expect(page.getByText(/Bisa diulang dalam 2\d jam/)).toBeVisible();
+  });
 
   test("terbuka di minggu terakhir; belum lulus → jeda 24 jam + Buku kesalahanku", async ({
     page,

@@ -129,3 +129,33 @@ describe("Export/Import v6", () => {
     expect(Object.keys(d.reading.done)).toEqual(["t1"]);
   });
 });
+
+describe("Bacaan selesai", () => {
+  it("a text is done only with at least 4 of 5 right", () => {
+    useReadingStore.setState({ results: [], done: {}, lookups: {} });
+    const { finish } = useReadingStore.getState();
+    finish(res({ score: 3 }));
+    expect(useReadingStore.getState().done).toEqual({});
+    const b = finish(res({ score: 4 }));
+    expect(useReadingStore.getState().done).toEqual({ t1: b.date });
+    // Every try is still recorded with its score.
+    expect(
+      useReadingStore
+        .getState()
+        .results.slice(0, 2)
+        .map((r) => r.score),
+    ).toEqual([4, 3]);
+  });
+});
+
+describe("arti kata per kalimat", () => {
+  it("the same word in another sentence has its own cache entry", () => {
+    expect(lookupKey("pre", "Went", "She went home.")).toBe(
+      lookupKey("pre", "went", "  she WENT  home. "),
+    );
+    expect(lookupKey("pre", "went", "She went home.")).not.toBe(
+      lookupKey("pre", "went", "The light went out."),
+    );
+    expect(lookupKey("pre", "went")).toBe("pre|went");
+  });
+});

@@ -131,16 +131,29 @@ export const pickDictation = (
   seen: Record<string, unknown>,
   seed: number,
   n = DICTATION_PER_SET,
+  /** Sentences of this week first (pilot urutan 7). */
+  activeWeek?: number,
 ): DictationSentence[] => {
   const r = mulberry(seed || 1);
   const inStage = pool.filter((s) => stageOf(s) === stage);
-  const fresh = shuffle(
-    r,
-    inStage.filter((s) => !seen[s.id]),
+  const thisWeekFirst = (list: DictationSentence[]) =>
+    activeWeek === undefined
+      ? list
+      : [
+          ...list.filter((s) => s.week === activeWeek),
+          ...list.filter((s) => s.week !== activeWeek),
+        ];
+  const fresh = thisWeekFirst(
+    shuffle(
+      r,
+      inStage.filter((s) => !seen[s.id]),
+    ),
   );
-  const old = shuffle(
-    r,
-    inStage.filter((s) => seen[s.id]),
+  const old = thisWeekFirst(
+    shuffle(
+      r,
+      inStage.filter((s) => seen[s.id]),
+    ),
   );
   let picked = [...fresh, ...old].slice(0, n);
   if (picked.length < n) {

@@ -86,6 +86,17 @@ export interface WordMeaning {
   pron: string;
 }
 
+/** Admin › Bacaan › Arti kata: a meaning saved from a learner's tap. */
+export interface SavedWordMeaning extends WordMeaning {
+  id: string;
+  word: string;
+  level: LevelId;
+  /** The sentence it was looked up in ("" = saved before sentences). */
+  sentence: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface LookupResult extends WordMeaning {
   word: string;
   cached: boolean;
