@@ -52,7 +52,15 @@ export interface DataJenis {
     benar: boolean;
   };
   /** Satu kalimat buatan pelajar dicek AI. */
-  kalimat_dicek: { benar: boolean; sumber: "rencana" | "tanya_ai" };
+  kalimat_dicek: {
+    benar: boolean;
+    sumber: "rencana" | "tanya_ai";
+    /** Panel Rencana: kalimat, koreksi, dan penjelasan, supaya hasilnya
+     * tetap tampil setelah halaman dimuat ulang. */
+    kalimat?: string;
+    koreksi?: string;
+    alasan?: string;
+  };
   /** Satu sesi Main peran selesai. */
   main_peran_selesai: {
     mode: "penuh" | "pendek";

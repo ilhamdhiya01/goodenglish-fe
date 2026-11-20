@@ -9,6 +9,8 @@ import { ALL_MENUS, checkpointLulus, fullSession } from "./support/mock-api";
 
 const MONDAY = "2026-11-16T09:00:00";
 const TUESDAY = "2026-11-17T09:00:00";
+const WEDNESDAY = "2026-11-18T09:00:00";
+const THURSDAY = "2026-11-19T09:00:00";
 const SATURDAY = "2026-11-14T09:00:00";
 const dayOf = (iso: string) => Math.floor(Date.parse(iso) / 86400000);
 
@@ -32,6 +34,21 @@ const at = async (page: Page, iso: string) => {
   await page.clock.install({ time: new Date(iso) });
   await openApp(page, "/plan");
 };
+
+// Week 2: the week's scenario (smalltalk) isn't the level's first one.
+test.describe("tautan langkah dalam aplikasi", () => {
+  test.use({
+    mock: { session: semua, progress: { level: "pre", weeks: { pre: "2" } } },
+  });
+
+  test("Buka → membawa ?s= ke Skenario (rute statis)", async ({ page }) => {
+    await at(page, WEDNESDAY);
+    await step(page, "Masuk").getByRole("button", { name: "Buka →" }).click();
+    await expect(page).toHaveURL(/\/scenario\?s=smalltalk/);
+    // The scenario picker (the page's only select).
+    await expect(page.locator("main select")).toHaveValue("smalltalk");
+  });
+});
 
 test.describe("hari kerja", () => {
   test.use({
@@ -77,6 +94,13 @@ test.describe("hari kerja", () => {
     await expect
       .poll(() => api.laporan.filter((l) => l.jenis === "kalimat_dicek").length)
       .toBe(3);
+
+    // The results come back from the log after a reload.
+    await page.reload();
+    await expect(
+      page.locator("#pakai").getByText("I went to the office."),
+    ).toBeVisible();
+    await expect(page.locator("#pakai")).toContainText("3/3 KALIMAT");
   });
 
   test("Kata: hitungan naik saat menandai, turun saat dibatalkan", async ({
@@ -111,6 +135,19 @@ test.describe("hari kerja", () => {
       .first()
       .click();
     await expect(step(page, "Kata")).toContainText("0/6");
+  });
+
+  test("Buka → dalam aplikasi membawa ?mode=pendek ke Main peran", async ({
+    page,
+  }) => {
+    // Thursday's "Pakai" is a short roleplay. A client-side move, not a
+    // fresh load: the page must still see the query.
+    await at(page, THURSDAY);
+    await step(page, "Pakai").getByRole("button", { name: "Buka →" }).click();
+    await expect(page).toHaveURL(/\/scenario\/roleplay\/.+\?mode=pendek/);
+    await expect(
+      page.getByRole("button", { name: "Latihan pendek · 6 giliran" }),
+    ).toHaveAttribute("aria-pressed", "true");
   });
 
   test("Mulai ulang minggu ini: tanpa menghapus streak dan riwayat", async ({

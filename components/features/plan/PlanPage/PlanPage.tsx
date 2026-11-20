@@ -267,7 +267,7 @@ const PlanPage = React.memo(() => {
           {/* Stays after the step is done, so the results remain visible
               and more sentences can be checked. */}
           {pakai && (
-            <PakaiKalimat level={level as LevelId} sudah={pakaiSudah} />
+            <PakaiKalimat level={level as LevelId} sudah={pakaiSudah} T={T} />
           )}
         </div>
 
