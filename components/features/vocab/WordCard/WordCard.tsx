@@ -1,12 +1,19 @@
 "use client";
 
 import classNames from "classnames";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import Correction from "@/components/shared/patterns/correction";
 import TargetMark from "@/components/shared/patterns/target-mark";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
+import { FIELD_CLASS } from "@/components/ui/input/Input";
 import Pill from "@/components/ui/pill";
 import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
@@ -97,7 +104,34 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
   const showOwn = open || !!own;
   const hasOwn = !!own;
   const val = draft ?? own;
-  const dirty = draft !== null;
+  const ownRef = useRef<HTMLTextAreaElement>(null);
+  // Height follows the text (also when the card gets narrower).
+  useLayoutEffect(() => {
+    const el = ownRef.current;
+    if (!el) return;
+    const fit = () => {
+      el.style.height = "auto";
+      el.style.height = `${el.scrollHeight + 4}px`;
+    };
+    fit();
+    if (typeof ResizeObserver === "undefined") return;
+    // Only a width change re-measures (setting the height must not loop).
+    let w = el.clientWidth;
+    const ro = new ResizeObserver(() => {
+      if (el.clientWidth === w) return;
+      w = el.clientWidth;
+      fit();
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [val, open]);
+  // Editing starts with the cursor at the end of the sentence.
+  useEffect(() => {
+    const el = ownRef.current;
+    if (!open || !el) return;
+    el.focus();
+    el.setSelectionRange(el.value.length, el.value.length);
+  }, [open]);
   const commit = () => {
     if (draft !== null) {
       setOwnSentence(k, draft);
@@ -395,13 +429,20 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
               {noteOpen ? "Tutup penjelasan" : "Penjelasan"}
             </TextButton>
           )}
-          <TextButton onClick={() => setOpen(!open)}>
-            {own
-              ? open
-                ? "tutup kalimatku"
-                : "✎ kalimatku"
-              : open
-                ? "tutup"
+          <TextButton
+            // Keeps the field focused, so its blur doesn't undo this click.
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => {
+              if (open) commit();
+              setOpen(!open);
+            }}
+          >
+            {open
+              ? own || draft
+                ? "simpan"
+                : "tutup"
+              : own
+                ? "✎ ubah kalimatku"
                 : "+ kalimatku"}
           </TextButton>
           {hasAi && (
@@ -527,50 +568,74 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
 
         {showOwn && (
           <div className="flex flex-col gap-1.5">
-            <div className="flex items-center gap-2">
-              <Input
+            {open ? (
+              // Editing: a field that grows with the sentence. One sentence:
+              // Enter saves instead of starting a new line; leaving saves.
+              <textarea
+                ref={ownRef}
+                rows={1}
                 value={val}
-                onChange={(e) => setDraft(e.target.value)}
-                onBlur={commit}
+                onChange={(e) =>
+                  setDraft(e.target.value.replace(/\s*\n+\s*/g, " "))
+                }
+                onBlur={() => {
+                  commit();
+                  setOpen(false);
+                }}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                  if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+                    e.preventDefault();
+                    e.currentTarget.blur();
+                  }
                 }}
                 aria-label="Kalimatku"
                 placeholder="Tulis satu kalimatmu sendiri dengan kata ini, lalu Enter…"
+                className={classNames(
+                  FIELD_CLASS,
+                  "resize-none overflow-hidden leading-6",
+                )}
               />
-              {hasOwn && (
-                <>
-                  <SpeakButton text={own} title="Dengarkan kalimatku" />
-                  {hasAi && !dirty && (
-                    <TextButton
-                      title="Cek kalimatku dengan AI"
-                      className="whitespace-nowrap"
-                      onClick={() =>
-                        useAiChatStore.getState().openWith(aiWord, {
-                          text: `Cek kalimatku dengan kata "${en}": ${own}`,
-                          mistake: { source: "Kalimatku", wrong: own },
-                        })
-                      }
-                    >
-                      cek AI
-                    </TextButton>
-                  )}
+            ) : (
+              // Saved: plain text, read in full; a tap edits it.
+              <div className="flex items-start gap-2">
+                <button
+                  type="button"
+                  title="Klik untuk mengubah kalimatku"
+                  onClick={() => setOpen(true)}
+                  className="min-w-0 flex-1 cursor-text rounded-md px-1 py-1 text-left text-base leading-6 font-bold wrap-anywhere text-ink focus-ring transition-colors hover:bg-sunken"
+                >
+                  <span className="sr-only">Kalimatku: </span>
+                  {own}
+                </button>
+                <SpeakButton text={own} title="Dengarkan kalimatku" />
+                {hasAi && (
                   <TextButton
-                    tone="red"
-                    title="Hapus kalimatku"
-                    className="whitespace-nowrap"
-                    onClick={() => {
-                      setOwnSentence(k, "");
-                      setDraft(null);
-                      setOpen(false);
-                    }}
+                    title="Cek kalimatku dengan AI"
+                    className="mt-2 whitespace-nowrap"
+                    onClick={() =>
+                      useAiChatStore.getState().openWith(aiWord, {
+                        text: `Cek kalimatku dengan kata "${en}": ${own}`,
+                        mistake: { source: "Kalimatku", wrong: own },
+                      })
+                    }
                   >
-                    hapus
+                    cek AI
                   </TextButton>
-                </>
-              )}
-            </div>
-            {hasOwn && !dirty && (
+                )}
+                <TextButton
+                  tone="red"
+                  title="Hapus kalimatku"
+                  className="mt-2 whitespace-nowrap"
+                  onClick={() => {
+                    setOwnSentence(k, "");
+                    setDraft(null);
+                  }}
+                >
+                  hapus
+                </TextButton>
+              </div>
+            )}
+            {hasOwn && !open && (
               <span className="text-xs font-extrabold text-ok">
                 ✓ tersimpan · dipakai saat ulangan
               </span>

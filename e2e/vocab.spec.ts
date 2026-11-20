@@ -66,6 +66,27 @@ test("kalimatku tersimpan ke progres", async ({ page, api }) => {
   await expect
     .poll(() => Object.values((api.lastPut("own") as object) ?? {}))
     .toContain("I am happy today.");
+
+  // Saved: plain text, no field. A tap edits it.
+  await expect(input).toHaveCount(0);
+  await card
+    .getByRole("button", { name: /^Kalimatku: I am happy today\./ })
+    .click();
+  await expect(input).toBeFocused();
+
+  // A long sentence wraps: the field grows instead of hiding the end.
+  const long =
+    "You just made a mistake, so you have to take a deep breath and try again tomorrow morning before work.";
+  const oneLine = (await input.boundingBox())!.height;
+  await input.fill(long);
+  await expect
+    .poll(async () => (await input.boundingBox())!.height)
+    .toBeGreaterThan(oneLine + 10);
+  await input.press("Enter");
+  await expect(card.getByText(long)).toBeVisible();
+  await expect
+    .poll(() => Object.values((api.lastPut("own") as object) ?? {}))
+    .toContain(long);
 });
 
 test("daftar minggu: pilih minggu 2", async ({ page }) => {
