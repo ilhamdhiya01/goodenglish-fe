@@ -45,24 +45,29 @@ const WeekCover = React.memo(({ data }: Props) => {
   // Rencana: how many words of this week are left (once a day per week).
   // Only a state, never a tick: it lets Rencana offer "Lewati" when the
   // week is already all marked.
+  // Sent a moment later, so jumping to a word (which also changes the week)
+  // isn't slowed down; cancelled if the week changes again meanwhile.
   useEffect(() => {
     if (!items.length) return;
-    const T = today();
-    const sent = useLaporanStore
-      .getState()
-      .items.some(
-        (l) =>
-          l.jenis === "status_kata_minggu" &&
-          l.day === T &&
-          l.level === level &&
-          l.week === week,
-      );
-    if (!sent)
-      laporAktivitas("status_kata_minggu", {
-        level,
-        week,
-        data: { sisa: items.length - kn, total: items.length },
-      });
+    const t = setTimeout(() => {
+      const T = today();
+      const sent = useLaporanStore
+        .getState()
+        .items.some(
+          (l) =>
+            l.jenis === "status_kata_minggu" &&
+            l.day === T &&
+            l.level === level &&
+            l.week === week,
+        );
+      if (!sent)
+        laporAktivitas("status_kata_minggu", {
+          level,
+          week,
+          data: { sisa: items.length - kn, total: items.length },
+        });
+    }, 1500);
+    return () => clearTimeout(t);
   }, [level, week, kn, items.length]);
 
   // A week with too few words is tested over every week, and logged so.

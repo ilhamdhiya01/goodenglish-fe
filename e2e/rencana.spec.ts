@@ -95,7 +95,11 @@ test.describe("hari kerja", () => {
       .first()
       .click();
     await expect(step(page, "Kata")).toContainText("1/6");
-    await page.goto("/vocab");
+    // In-app navigation (a reload would re-read the fixed mock progress).
+    await page
+      .getByRole("link", { name: /^Kosakata/ })
+      .first()
+      .click();
     await page
       .locator("article")
       .first()
