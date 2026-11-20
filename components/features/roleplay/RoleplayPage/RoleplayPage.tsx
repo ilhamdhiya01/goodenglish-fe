@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 
 import Jalak from "@/components/brand/Jalak";
@@ -54,11 +54,9 @@ const RoleplayPage = ({ scenarioId }: { scenarioId: string }) => {
   const { usage } = useRoleplayUsage(allowed);
   const [showText, setShowText] = useState(level === "beginner");
   // Rencana links here with ?mode=pendek (short practice) or ?mode=penuh.
-  const [mode, setMode] = useState<RoleplayMode>(() =>
-    typeof window !== "undefined" &&
-    new URLSearchParams(window.location.search).get("mode") === "pendek"
-      ? "pendek"
-      : "penuh",
+  const modeAsked = useSearchParams().get("mode");
+  const [mode, setMode] = useState<RoleplayMode>(
+    modeAsked === "pendek" ? "pendek" : "penuh",
   );
 
   const scenario = SC.find((x) => x.id === scenarioId);

@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 
 import Jalak from "@/components/brand/Jalak";
@@ -91,12 +91,9 @@ const ReviewPage = React.memo(() => {
   const tally = usePlanStore((s) => s.plan.tally);
   const t = tallyOf(tally, today());
   // Rencana links here with ?kuis=1 (Friday's "Kata" step): the quiz is
-  // shown even after reviewing.
-  const [quizAsked] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      new URLSearchParams(window.location.search).get("kuis") === "1",
-  );
+  // shown even after reviewing. useSearchParams, not window.location: on an
+  // in-app move the address bar changes only after this page has drawn.
+  const quizAsked = useSearchParams().get("kuis") === "1";
   const [quizShown] = useState(() => quizAsked || (!t.rev && !t.q1));
   const quizOffered = quizShown || (!t.rev && !t.q1);
 

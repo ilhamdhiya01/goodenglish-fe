@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
 import { Roleplay } from "@/components/features/roleplay";
@@ -45,17 +45,14 @@ const ScenarioPage = React.memo(() => {
 
   // Rencana links here with ?s=<scenario> (the week's scenario) and
   // &jawab=1 for "jawab sendiri".
-  const [asked] = useState(() =>
-    typeof window === "undefined"
-      ? null
-      : new URLSearchParams(window.location.search),
-  );
+  // Read once on arrival (the state below keeps the learner's own choice).
+  const asked = useSearchParams();
   const first =
-    SC.find((x) => x.id === asked?.get("s")) ||
+    SC.find((x) => x.id === asked.get("s")) ||
     SC.find((x) => x.level === level) ||
     SC[0];
   const [id, setId] = useState(first ? first.id : "standup");
-  const [solo, setSolo] = useState(asked?.get("jawab") === "1");
+  const [solo, setSolo] = useState(asked.get("jawab") === "1");
   const [showId, setShowId] = useState(true);
   const [showEn, setShowEn] = useState(true);
   const [revealed, setRevealed] = useState<Record<number, 1>>({});
