@@ -74,8 +74,8 @@ export const progressDocs = () => {
   return {
     level: "pre",
     known: { "1:w:be": 1, "beginner|1:w:be": 1, "1:w:have": 1 },
-    // One card due, so today's Rencana stays open (PlanAutoCheck rewrites
-    // today from real activity): the streak is the 2 days before.
+    // One card due, so today's Rencana stays open (RencanaWriter rewrites
+    // today from the activity log): the streak is the 2 days before.
     srs: { "1:w:have": { st: 1, due: T } },
     plan: {
       days: {

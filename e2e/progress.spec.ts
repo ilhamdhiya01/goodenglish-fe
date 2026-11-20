@@ -120,8 +120,6 @@ test.describe("tanpa data", () => {
   test("bagian tanpa data disembunyikan", async ({ page }) => {
     await openApp(page, "/progress");
     await expect(stat(page, "kata hafal (semua level)")).toContainText("0");
-    // (The calendar can show today: PlanAutoCheck ticks "Ulang" when nothing
-    // is due.)
     for (const h of [
       "Kata hafal per minggu",
       "Retensi Ulang",
