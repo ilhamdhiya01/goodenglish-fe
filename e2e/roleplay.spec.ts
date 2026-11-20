@@ -61,6 +61,40 @@ test.describe("dengan izin Main peran", () => {
     ).toHaveAttribute("aria-pressed", "true");
   });
 
+  test("latihan pendek dari Rencana: 6 giliran, dilaporkan saat selesai", async ({
+    page,
+    api,
+  }) => {
+    await withoutMic(page);
+    await openApp(page, "/scenario/roleplay/order?mode=pendek");
+    await expect(
+      page.getByRole("button", { name: "Latihan pendek · 6 giliran" }),
+    ).toHaveAttribute("aria-pressed", "true");
+    await page.getByRole("button", { name: "Mulai main peran" }).click();
+    await expect
+      .poll(
+        () =>
+          (
+            api.roleplay.find((c) => c.path === "/roleplay/sessions")?.body as
+              { mode?: string } | undefined
+          )?.mode,
+      )
+      .toBe("pendek");
+    await answerBox(page).fill("I want two latte");
+    await page.getByRole("button", { name: "Kirim" }).click();
+    await expect(
+      page.getByText("Giliran 1/6").filter({ visible: true }).first(),
+    ).toBeVisible();
+    await answerBox(page).fill("How much is it?");
+    await answerBox(page).press("Enter");
+    await expect(page.getByText("✓ MISI TERCAPAI")).toBeVisible();
+    await expect
+      .poll(() => api.laporan.find((l) => l.jenis === "main_peran_selesai"))
+      .toMatchObject({
+        data: { mode: "pendek", misi: true, scenarioId: "order" },
+      });
+  });
+
   test("sesi penuh dengan mengetik (browser tanpa input suara)", async ({
     page,
     api,
@@ -221,7 +255,7 @@ test.describe("kuota habis", () => {
   });
 });
 
-test.describe("checkpoint mingguan di Rencana", () => {
+test.describe("riwayat Main peran", () => {
   test.use({
     mock: {
       session: roleplaySession,
@@ -276,14 +310,6 @@ test.describe("checkpoint mingguan di Rencana", () => {
         ],
       },
     },
-  });
-
-  test("Main peran 10 menit tercentang otomatis", async ({ page }) => {
-    await openApp(page, "/plan");
-    await expect(
-      page.getByRole("checkbox", { name: "Main peran 10 menit" }),
-    ).toHaveAttribute("aria-checked", "true");
-    await expect(page.getByText("11 menit · otomatis")).toBeVisible();
   });
 
   test("riwayat menampilkan kedua sesi, rangkuman bisa dibuka", async ({

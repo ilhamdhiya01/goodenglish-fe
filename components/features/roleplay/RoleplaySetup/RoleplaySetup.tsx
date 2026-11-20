@@ -9,7 +9,7 @@ import SectionLabel from "@/components/ui/section-label";
 import { speak } from "@/lib/helpers/speech.helper";
 import { useInsecurePage } from "@/lib/hooks/useVoiceRecorder";
 import { KOKORO_SPEEDS } from "@/lib/tts/kokoro.types";
-import type { RoleplayUsage } from "@/lib/types/roleplay.types";
+import type { RoleplayMode, RoleplayUsage } from "@/lib/types/roleplay.types";
 import type { Scenario } from "@/lib/types/scenario.types";
 import { useTtsStore } from "@/stores/useTtsStore";
 
@@ -27,6 +27,9 @@ interface RoleplaySetupProps {
   online: boolean;
   starting: boolean;
   onStart: () => void;
+  /** Full session or short practice. */
+  mode: RoleplayMode;
+  onMode: (m: RoleplayMode) => void;
 }
 
 const quotaText = (u?: RoleplayUsage) =>
@@ -49,6 +52,8 @@ const RoleplaySetup = ({
   online,
   starting,
   onStart,
+  mode,
+  onMode,
 }: RoleplaySetupProps) => {
   const rp = scenario.roleplay!;
   const speed = useTtsStore((s) => s.speed);
@@ -104,6 +109,27 @@ const RoleplaySetup = ({
 
       <Card className="gap-3">
         <SectionLabel>PENGATURAN</SectionLabel>
+        <fieldset className="m-0 min-w-0 border-0 p-0">
+          <legend className="mb-2 p-0 text-[13px] font-extrabold text-ink-2">
+            Panjang sesi
+          </legend>
+          <div className="flex flex-wrap gap-2">
+            <Pill
+              size="sm"
+              on={mode === "penuh"}
+              onClick={() => onMode("penuh")}
+            >
+              Penuh · 12 giliran
+            </Pill>
+            <Pill
+              size="sm"
+              on={mode === "pendek"}
+              onClick={() => onMode("pendek")}
+            >
+              Latihan pendek · 6 giliran
+            </Pill>
+          </div>
+        </fieldset>
         <div className="flex flex-wrap gap-2">
           <Pill
             size="sm"

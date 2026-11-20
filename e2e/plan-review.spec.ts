@@ -1,10 +1,9 @@
-import { acceptConfirm, openApp } from "./support/app";
+import { openApp } from "./support/app";
 import { expect, test } from "./support/fixtures";
 import { DUE_KEYS, progressWithDue } from "./support/mock-api";
 
-// Rencana + Ulang after the redesign: keyboard shortcuts on Ulang, the
-// automatic block check, the manual checkpoint boxes, reset, and the
-// Saturday / weekend routine.
+// Ulang's keyboard shortcuts, and Rencana's Ulang step ticking from what
+// Ulang reports (the rest of Rencana: rencana.spec.ts).
 
 test.describe("ulang: pintasan keyboard", () => {
   test.use({ mock: { progress: progressWithDue() } });
@@ -69,61 +68,28 @@ test.describe("ulang: pintasan keyboard", () => {
     expect(api.lastPut("srs")).toBeUndefined();
   });
 
-  test("blok Ulang tercentang otomatis setelah sesi selesai", async ({
+  test("langkah Ulang selesai setelah kartu jatuh tempo habis", async ({
     page,
+    api,
   }) => {
     await openApp(page, "/plan");
-    const ulang = page.locator("li", { hasText: "Ulang · 10 mnt" });
+    const ulang = page
+      .getByRole("list", { name: "Langkah hari ini" })
+      .locator("li", { hasText: "Ulang" });
     await expect(ulang.getByText("Selesai")).toHaveCount(0);
     await page.goto("/review");
     for (let i = 0; i < DUE_KEYS.length; i++) {
       await page.getByRole("button", { name: "Buka jawaban" }).click();
       await page.getByRole("button", { name: /Ingat/ }).click();
     }
+    // Reported to the activity log: each card, then the empty queue.
+    await expect
+      .poll(() => api.laporan.map((l) => l.jenis))
+      .toContain("ulang_habis");
     await page
       .getByRole("link", { name: /^Rencana/ })
       .first()
       .click();
     await expect(ulang.getByText("Selesai")).toBeVisible();
-  });
-});
-
-test("checkpoint: kotak centang manual tersimpan", async ({ page, api }) => {
-  await openApp(page, "/plan");
-  const box = page.getByRole("checkbox", { name: /Rekam 2 menit/ });
-  await expect(box).toHaveAttribute("aria-checked", "false");
-  await box.click();
-  await expect(box).toHaveAttribute("aria-checked", "true");
-  await expect
-    .poll(() => JSON.stringify(api.lastPut("plan") ?? {}))
-    .toContain('"rec":true');
-});
-
-test("reset rencana lewat menu ⋯ dengan konfirmasi", async ({ page }) => {
-  await openApp(page, "/plan");
-  await page.getByRole("checkbox", { name: /Rekam 2 menit/ }).click();
-  await page.getByRole("button", { name: "Menu rencana" }).click();
-  await page.getByRole("menuitem", { name: "Reset rencana" }).click();
-  await acceptConfirm(page, "Reset");
-  await expect(
-    page.getByRole("checkbox", { name: /Rekam 2 menit/ }),
-  ).toHaveAttribute("aria-checked", "false");
-});
-
-test.describe("akhir pekan", () => {
-  test("Sabtu: satu blok dan label checkpoint", async ({ page }) => {
-    // Saturday 2026-11-14, 09:00 local time.
-    await page.clock.install({ time: new Date("2026-11-14T09:00:00") });
-    await openApp(page, "/plan");
-    await expect(page.getByText(/Sabtu · checkpoint/)).toBeVisible();
-    await expect(page.locator("ol > li")).toHaveCount(1);
-    await expect(page.getByText(/Hari ini\s*\d+\/1/)).toBeVisible();
-  });
-
-  test("hari kerja: tiga blok", async ({ page }) => {
-    // Wednesday 2026-11-11.
-    await page.clock.install({ time: new Date("2026-11-11T09:00:00") });
-    await openApp(page, "/plan");
-    await expect(page.locator("ol > li")).toHaveCount(3);
   });
 });

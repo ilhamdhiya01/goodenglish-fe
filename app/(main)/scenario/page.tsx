@@ -1,5 +1,12 @@
+import { Suspense } from "react";
+
 import { Scenario } from "@/components/features/scenario";
 
-const Page = () => <Scenario.ScenarioPage />;
+// ScenarioPage reads ?s and ?jawab, which needs a Suspense boundary.
+const Page = () => (
+  <Suspense>
+    <Scenario.ScenarioPage />
+  </Suspense>
+);
 
 export default Page;

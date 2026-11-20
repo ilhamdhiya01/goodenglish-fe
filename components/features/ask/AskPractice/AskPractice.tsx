@@ -17,8 +17,10 @@ import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
 import TextButton from "@/components/ui/text-button";
 import { PRACTICE_CATEGORY } from "@/const/mistake-categories.constant";
+import { topikDariSet } from "@/const/rencana.config";
 import { ASK_GEN } from "@/lib/content";
 import { noCue, type PracticeGen } from "@/lib/helpers/bank-practice.helper";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type {
   AskQ,
   PracticeSession,
@@ -177,6 +179,14 @@ const AskPractice = React.memo(
         });
       }
       bumpTally("ask");
+      laporAktivitas("jawaban_grammar", {
+        data: {
+          topik: topikDariSet(rule),
+          set: rule,
+          tahap: P.stage,
+          benar: ok,
+        },
+      });
       setP({
         ...P,
         built: built || P.built,

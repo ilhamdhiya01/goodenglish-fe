@@ -17,6 +17,7 @@ export const ROUTES = {
   PROGRESS: "/progress",
   ADMIN_LEARNERS: "/admin/learners",
   ADMIN_READING: "/admin/reading",
+  ADMIN_RENCANA: "/admin/rencana",
   ADMIN_TOKENS: "/admin/tokens",
   ADMIN_WORDS: "/admin/words",
   ADMIN_AI: "/admin/ai",
@@ -38,6 +39,10 @@ export const API_AUTH_ME = `${API_AUTH}/me`;
 // Learning progress (one document per former localStorage key)
 export const API_PROGRESS = `${API_BASE_URL}/me/progress`;
 export const API_PROGRESS_KEY = (key: string) => `${API_PROGRESS}/${key}`;
+export const API_LAPORAN = `${API_BASE_URL}/me/laporan`;
+export const API_RENCANA_MINGGU = `${API_BASE_URL}/rencana/minggu`;
+export const API_ADMIN_RENCANA_MINGGU = `${API_BASE_URL}/admin/rencana/minggu`;
+export const API_AI_CHECK_SENTENCES = `${API_BASE_URL}/ai/check-sentences`;
 
 // Shared vocabulary added by admins (read by everyone, written by admins)
 export const API_WORDS = `${API_BASE_URL}/words`;

@@ -16,7 +16,6 @@ import SpeakButton from "@/components/ui/speak-button";
 import TextButton from "@/components/ui/text-button";
 import { releaseSpeech } from "@/lib/helpers/speech.helper";
 import {
-  MAX_TURNS,
   type RoleplayError,
   type useRoleplaySession,
 } from "@/lib/hooks/roleplay/useRoleplaySession";
@@ -112,7 +111,7 @@ const RoleplayChat = ({
   const listRef = useRef<HTMLOListElement>(null);
   const boxRef = useRef<HTMLTextAreaElement>(null);
   const busy = s.pending !== null;
-  const turnsUsedUp = s.userTurns >= MAX_TURNS;
+  const turnsUsedUp = s.userTurns >= s.maxTurns;
   const [language, setLanguage] = useSttLanguage();
 
   const [transcribing, setTranscribing] = useState(false);
@@ -355,7 +354,7 @@ const RoleplayChat = ({
           <div className="flex items-center justify-between gap-2">
             {/* The side panel shows it on wide screens. */}
             <span className="text-[12.5px] font-extrabold text-ink-2 tabular-nums lg:invisible">
-              Giliran {s.userTurns}/{MAX_TURNS}
+              Giliran {s.userTurns}/{s.maxTurns}
             </span>
             <TextButton
               disabled={busy}
@@ -545,7 +544,7 @@ const RoleplayChat = ({
           <div className="flex items-center justify-between gap-2">
             <SectionLabel tone="green">MISI</SectionLabel>
             <span className="text-[12.5px] font-extrabold text-ink-2 tabular-nums">
-              Giliran {s.userTurns}/{MAX_TURNS}
+              Giliran {s.userTurns}/{s.maxTurns}
             </span>
           </div>
           <span className="text-[13.5px] leading-[19px] font-bold text-ink">

@@ -86,7 +86,7 @@ test.describe("Ulang", () => {
     await expect(page.getByText(/BETULKAN KALIMAT/)).toHaveCount(0);
   });
 
-  test("toggle mati: kartu kesalahan hilang; Blok 1 lewat kuis, bukan otomatis", async ({
+  test("toggle mati: kartu kesalahan hilang; langkah Ulang lewat kuis, bukan otomatis", async ({
     page,
     api,
   }) => {
@@ -100,7 +100,7 @@ test.describe("Ulang", () => {
     // Nothing due and nothing reviewed: no tick, the 5-question quiz instead.
     await expect
       .poll(() => JSON.stringify(api.lastPut("plan") ?? {}))
-      .toContain('"b1":false');
+      .toContain('"ulang":false');
     const quiz = page.getByText(/KUIS PENGGANTI ULANG/);
     await expect(quiz).toBeVisible();
     for (let i = 0; i < 5; i++) {
@@ -117,7 +117,7 @@ test.describe("Ulang", () => {
     await expect(page.getByText(/Kuis selesai/)).toBeVisible();
     await expect
       .poll(() => JSON.stringify(api.lastPut("plan") ?? {}))
-      .toContain('"b1":true');
+      .toContain('"ulang":true');
   });
 });
 

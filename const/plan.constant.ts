@@ -60,30 +60,3 @@ export const PRE_PLAN: PlanRow[] = [
     "even though, despite",
   ],
 ];
-
-// Ambang centang otomatis blok harian (lihat PlanAutoCheck).
-// Blok 1 tidak punya ambang: selesai saat jatuh tempo habis.
-export const AUTO_CHECK = {
-  /** Blok 2: kata yang ditandai hafal hari ini. */
-  known: 10,
-  /** Blok 3 hari ganjil: soal latihan Bertanya yang dijawab hari ini. */
-  ask: 20,
-} as const;
-
-// Rumus "Bertanya" yang dirotasi di blok 3 hari ganjil (id cocok dengan data ask.js).
-export const ASK_RULES: [string, string][] = [
-  ["r1", "Rumus 1"],
-  ["r2", "Rumus 2"],
-  ["r3", "Rumus 3"],
-  ["r4", "Rumus 4"],
-];
-
-// Satu kalimat penyemangat per minggu (dulu di header, kini di Rencana).
-export const CHEERS = [
-  "Salah ucap itu bagian dari belajar. Terus bicara.",
-  "Sedikit tiap hari lebih kuat daripada banyak sekali-sekali.",
-  "Kamu sudah lebih jago dari minggu lalu.",
-  "Tidak perlu sempurna, yang penting dimengerti.",
-  "Satu kalimat hari ini, satu percakapan besok.",
-  "Berani mencoba sudah setengah jalan.",
-];

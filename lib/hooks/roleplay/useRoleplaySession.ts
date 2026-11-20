@@ -4,11 +4,13 @@ import { useCallback, useRef, useState } from "react";
 
 import { accessErrorText } from "@/const/access.constant";
 import { speak, stopSpeaking } from "@/lib/helpers/speech.helper";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type { ErrorResponse } from "@/lib/types/api.types";
 import type { MistakeInput } from "@/lib/types/mistake.types";
 import type {
   RoleplayContext,
   RoleplayLine,
+  RoleplayMode,
   RoleplayRecord,
   RoleplaySummary,
 } from "@/lib/types/roleplay.types";
@@ -27,7 +29,11 @@ import { useRoleplayStore } from "@/stores/useRoleplayStore";
 
 import { roleplayKeys } from "./useRoleplayUsage";
 
+/** Learner turns of a full session and of a short practice. */
 export const MAX_TURNS = 12;
+export const SHORT_TURNS = 6;
+export const turnsOfMode = (mode: RoleplayMode) =>
+  mode === "pendek" ? SHORT_TURNS : MAX_TURNS;
 
 export type RoleplayPhase = "setup" | "talking" | "summary";
 /** What is waiting on the server right now. */
@@ -120,6 +126,8 @@ interface Options {
   phrases: string[];
   /** Speed for the AI's lines (Pilih suara); "Lebih pelan" goes below it. */
   speed: number;
+  /** Full session or short practice (chosen on the setup screen). */
+  mode?: RoleplayMode;
 }
 
 export const useRoleplaySession = ({
@@ -128,6 +136,7 @@ export const useRoleplaySession = ({
   week,
   phrases,
   speed,
+  mode = "penuh",
 }: Options) => {
   const qc = useQueryClient();
   const [phase, setPhase] = useState<RoleplayPhase>("setup");
@@ -142,7 +151,12 @@ export const useRoleplaySession = ({
   const [helpLeft, setHelpLeft] = useState<number | null>(null);
   const [summary, setSummary] = useState<RoleplaySummary | null>(null);
   const [remaining, setRemaining] = useState<number | null>(null);
-  const session = useRef<{ id: string; startedAt: number } | null>(null);
+  const session = useRef<{
+    id: string;
+    startedAt: number;
+    mode: RoleplayMode;
+  } | null>(null);
+  const [maxTurns, setMaxTurns] = useState(turnsOfMode(mode));
   // Always the latest transcript, for callbacks that outlive a render.
   const lines = useRef<RoleplayLine[]>([]);
   const setLines = useCallback((l: RoleplayLine[]) => {
@@ -183,8 +197,19 @@ export const useRoleplaySession = ({
         stepsDone: sum.stepsDone,
         transcript: lines.current,
         summary: sum,
+        mode: sum.mode ?? s.mode,
       };
       useRoleplayStore.getState().add(record);
+      laporAktivitas("main_peran_selesai", {
+        level,
+        week,
+        data: {
+          mode: record.mode ?? "penuh",
+          misi: sum.missionComplete,
+          scenarioId: scenario.id,
+          giliran: sum.userTurns,
+        },
+      });
       useActivityStore.getState().log("roleplay", {
         durationSec: record.durationSec,
         meta: { scenarioId: record.scenarioId, level: record.level },
@@ -208,9 +233,12 @@ export const useRoleplaySession = ({
       const res = await startRoleplay({
         scenarioId: scenario.id,
         context: roleplayContext(scenario, level, phrases),
+        mode,
       });
       const now = Date.now();
-      session.current = { id: res.data.id, startedAt: now };
+      const runMode = res.data.mode ?? "penuh";
+      session.current = { id: res.data.id, startedAt: now, mode: runMode };
+      setMaxTurns(res.data.maxTurns ?? turnsOfMode(runMode));
       setStartedAt(now);
       setRemaining(res.data.remaining);
       setLines([{ role: "ai", text: res.data.reply }]);
@@ -227,7 +255,7 @@ export const useRoleplaySession = ({
       setPending(null);
       void qc.invalidateQueries({ queryKey: roleplayKeys.usage });
     }
-  }, [scenario, level, phrases, say, qc, setLines]);
+  }, [scenario, level, phrases, say, qc, setLines, mode]);
 
   // Sends the transcript as it is (ending with the learner's line).
   const runTurn = useCallback(async () => {
@@ -320,7 +348,8 @@ export const useRoleplaySession = ({
     stepsDone,
     missionComplete,
     userTurns,
-    turnsLeft: MAX_TURNS - userTurns,
+    turnsLeft: maxTurns - userTurns,
+    maxTurns,
     lastAi,
     suggestions,
     helpLeft,

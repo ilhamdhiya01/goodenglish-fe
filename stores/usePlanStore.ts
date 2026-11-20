@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
-import type { PlanData } from "@/lib/types/plan.types";
+import type { PlanData, PlanWeek } from "@/lib/types/plan.types";
 import { useActivityStore } from "@/stores/useActivityStore";
 
-// Rencana belajar harian: checklist 3 blok (dicentang otomatis), checkpoint
-// mingguan, riwayat tes. Kunci: vocab-plan-v1 (sama dengan versi HTML).
+// Rencana belajar harian: catatan per hari (plan.days), checkpoint
+// mingguan, durasi, riwayat tes. Kunci: vocab-plan-v1 (sama dengan versi HTML).
 
 interface PlanState {
   plan: PlanData;
@@ -17,17 +17,17 @@ interface PlanState {
     week: number,
     total: number,
   ) => void;
-  toggleDayBlock: (dayKey: string, blockId: string) => void;
-  /** Tulis status blok hari ini (hasil hitungan PlanAutoCheck), hanya jika berubah. */
+  /** Tulis catatan Rencana hari ini (dari RencanaWriter), hanya jika berubah. */
   setDayBlocks: (flags: Record<string, boolean>) => void;
   /** Tambah hitungan aktivitas hari ini (by negatif saat dibatalkan). */
   bumpTally: (k: "known" | "ask" | "pron" | "rev", by?: number) => void;
   /** Kuis pengganti Ulang selesai hari ini (blok Ulang). */
   markQuizDone: () => void;
-  toggleWeekCheck: (weekKey: string, k: "rec" | "gpt") => void;
-  setRule: (rule: string) => void;
-  advancePron: () => void;
   reset: () => void;
+  /** Rencana: duration chosen for the day (kept as the last choice). */
+  setDurasi: (d: 15 | 25 | 40) => void;
+  /** Rencana: per level|week (lulus, mulai). Older fields are kept. */
+  setMinggu: (weekKey: string, patch: PlanWeek) => void;
   hydrate: () => void;
 }
 
@@ -54,18 +54,6 @@ export const usePlanStore = create<PlanState>((set, get) => ({
       .getState()
       .log("quick_test", { meta: { score, total, scope, level, week } });
   },
-
-  toggleDayBlock: (dayKey, blockId) =>
-    get().setPlan((p) => ({
-      ...p,
-      days: {
-        ...(p.days || {}),
-        [dayKey]: {
-          ...(p.days?.[dayKey] || {}),
-          [blockId]: !p.days?.[dayKey]?.[blockId],
-        },
-      },
-    })),
 
   // Menimpa total isi hari ini, jadi centang manual lama (termasuk "b4")
   // tidak ikut terbawa.
@@ -99,26 +87,16 @@ export const usePlanStore = create<PlanState>((set, get) => ({
       return { ...p, tally: { ...cur, q1: true } };
     }),
 
-  toggleWeekCheck: (weekKey, k) =>
+  reset: () => get().setPlan(() => ({})),
+
+  setDurasi: (durasi) => get().setPlan((p) => ({ ...p, durasi })),
+
+  setMinggu: (weekKey, patch) =>
     get().setPlan((p) => ({
       ...p,
       week: {
         ...(p.week || {}),
-        [weekKey]: {
-          ...(p.week?.[weekKey] || {}),
-          [k]: !p.week?.[weekKey]?.[k],
-        },
+        [weekKey]: { ...(p.week?.[weekKey] || {}), ...patch },
       },
     })),
-
-  setRule: (rule) => get().setPlan((p) => ({ ...p, rule })),
-
-  // Blok 3 hari genap (Pelafalan) tidak punya sinyal selesai sendiri, jadi
-  // "sudah, lanjut" sekaligus dihitung sebagai tanda blok itu dikerjakan.
-  advancePron: () => {
-    get().setPlan((p) => ({ ...p, pronIdx: (p.pronIdx || 0) + 1 }));
-    get().bumpTally("pron");
-  },
-
-  reset: () => get().setPlan(() => ({})),
 }));

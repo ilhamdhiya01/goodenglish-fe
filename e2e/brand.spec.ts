@@ -11,7 +11,10 @@ import {
 import { expect, test } from "./support/fixtures";
 import {
   adminSession,
+  checkpointLulus,
   DUE_KEYS,
+  fullSession,
+  lapor,
   progressWithDue,
   today,
 } from "./support/mock-api";
@@ -188,30 +191,34 @@ test.describe("logo", () => {
 });
 
 test.describe("rencana", () => {
-  const T = dayOf(WEDNESDAY);
+  const SATURDAY = "2026-11-14T09:00:00";
+  const SAT = dayOf(SATURDAY);
   test.use({
     mock: {
-      progress: {
-        level: "pre",
-        plan: {
-          // Real activity today: cards reviewed (Ulang only ticks after
-          // answering), new words, Bertanya answers and a pronunciation set.
-          tally: { day: T, known: 10, ask: 20, pron: 1, rev: 3 },
-          quiz: [{ d: T, score: 18, scope: "week", level: "pre", week: 1 }],
-          week: { "pre|1": { rec: true, gpt: true } },
-        },
-        askprac: { r1: { done: {}, seen: 20, right: 20, wrong: 0 } },
+      session: {
+        ...fullSession,
+        menus: [...fullSession.menus, "roleplay", "listening", "reading"],
       },
+      progress: { level: "pre", weeks: { pre: "1" } },
+      // Saturday: Ulang done (20 cards) and the weekly checkpoint passed.
+      laporan: [
+        ...Array.from({ length: 20 }, () =>
+          lapor("kartu_diulang", SAT, { kartu: "kata", benar: true }),
+        ),
+        ...checkpointLulus(SAT),
+      ],
     },
   });
 
-  test("semua blok selesai dan checkpoint lolos: bangga", async ({
-    page,
-  }, info) => {
-    await page.clock.install({ time: new Date(WEDNESDAY) });
+  test("hari selesai dan checkpoint lulus: bangga", async ({ page }, info) => {
+    await page.clock.install({ time: new Date(SATURDAY) });
     await openApp(page, "/plan");
-    const done = page.getByText(/^✓ Hari ini selesai\./).locator("..");
-    const passed = page.getByText(/^✓ Lolos\./).locator("..");
+    const done = page
+      .getByText("Selesai untuk hari ini. Sampai besok.")
+      .locator("..");
+    const passed = page
+      .getByText("Lulus. Kamu siap ke minggu berikutnya.")
+      .locator("..");
     await expectMood(done, "bangga");
     await expectMood(passed, "bangga");
     await expect(jalak(page)).toHaveCount(2);

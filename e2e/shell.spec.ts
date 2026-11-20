@@ -86,8 +86,9 @@ test("baris Hari ini: tidak di Rencana, bisa disembunyikan untuk hari ini", asyn
   await openApp(page, "/plan");
   const hide = page.getByRole("button", { name: "Sembunyikan untuk hari ini" });
   await expect(hide).toHaveCount(0);
+  // The full day is on the page itself.
   await expect(
-    page.getByText("Salah ucap itu bagian dari belajar. Terus bicara."),
+    page.getByRole("list", { name: "Langkah hari ini" }),
   ).toBeVisible();
 
   await page.goto("/vocab");

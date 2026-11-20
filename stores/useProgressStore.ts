@@ -1,9 +1,20 @@
 import { create } from "zustand";
 
-import { allLevelData, migrateProgress } from "@/lib/helpers/derived.helper";
+import {
+  allLevelData,
+  migrateProgress,
+  resolveItemKey,
+} from "@/lib/helpers/derived.helper";
 import { nextSrs } from "@/lib/helpers/srs.helper";
-import { load, save, STORAGE_KEYS, today } from "@/lib/helpers/storage.helper";
+import {
+  itemKey,
+  load,
+  save,
+  STORAGE_KEYS,
+  today,
+} from "@/lib/helpers/storage.helper";
 import { twinIndex, withTwins } from "@/lib/helpers/word-twins.helper";
+import { laporAktivitas } from "@/lib/rencana/lapor";
 import type { SrsEntry } from "@/lib/types/progress.types";
 import type { CustomWord } from "@/lib/types/vocab.types";
 import { useActivityStore } from "@/stores/useActivityStore";
@@ -103,6 +114,30 @@ const allLevelsCached = (words: CustomWord[]) => {
   return lastAll;
 };
 
+/**
+ * Rencana: a word marked or unmarked, with its level and week (from the
+ * key) and how many words of that week are still unmarked.
+ */
+const laporKata = (jenis: "kata_ditandai" | "kata_batal", key: string) => {
+  const { known, custom } = useProgressStore.getState();
+  const all = allLevelsCached([
+    ...useSharedWordsStore.getState().words,
+    ...custom,
+  ]);
+  const hit = resolveItemKey(all, key);
+  const week = hit ? Number(hit.w) : null;
+  const sisa = hit
+    ? all[hit.lid].V[hit.w].items.filter(
+        (it) => !known[itemKey(hit.lid, hit.w, it[0], it[1])],
+      ).length
+    : null;
+  laporAktivitas(jenis, {
+    level: hit?.lid ?? null,
+    week,
+    data: { kunci: key, sisa },
+  });
+};
+
 export const useProgressStore = create<ProgressState>((set, get) => ({
   ...initialState(),
   hydrate: () => {
@@ -166,6 +201,7 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
       // lose it. Without `known` it is simply not due.
       usePlanStore.getState().bumpTally("known", -1);
       useActivityStore.getState().countLearned(-1);
+      laporKata("kata_batal", key);
     } else {
       setKnown((k) => {
         const c = { ...k };
@@ -177,6 +213,7 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
       );
       usePlanStore.getState().bumpTally("known");
       useActivityStore.getState().countLearned(1);
+      laporKata("kata_ditandai", key);
     }
   },
 
@@ -193,6 +230,7 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
     setSrs((s) => (s[key] ? s : { ...s, [key]: { st: 0, due: today() + 1 } }));
     usePlanStore.getState().bumpTally("known");
     useActivityStore.getState().countLearned(1);
+    laporKata("kata_ditandai", key);
     return true;
   },
 
@@ -215,6 +253,9 @@ export const useProgressStore = create<ProgressState>((set, get) => ({
     get().setDoneToday((n) => n + 1);
     useActivityStore.getState().countReview(how === "good");
     usePlanStore.getState().bumpTally("rev");
+    laporAktivitas("kartu_diulang", {
+      data: { kartu: "kata", benar: how === "good" },
+    });
   },
 
   renameProgressKey: (oldKey, newKey) => {

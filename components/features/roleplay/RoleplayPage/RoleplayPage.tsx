@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 
 import Jalak from "@/components/brand/Jalak";
@@ -15,6 +15,7 @@ import { useRoleplaySession } from "@/lib/hooks/roleplay/useRoleplaySession";
 import { useRoleplayUsage } from "@/lib/hooks/roleplay/useRoleplayUsage";
 import { useOnline } from "@/lib/hooks/useOnline";
 import { useRecorderSupported } from "@/lib/hooks/useVoiceRecorder";
+import type { RoleplayMode } from "@/lib/types/roleplay.types";
 import type { Scenario } from "@/lib/types/scenario.types";
 import type { LevelId } from "@/lib/types/session.types";
 import { ROUTES } from "@/routes";
@@ -52,6 +53,11 @@ const RoleplayPage = ({ scenarioId }: { scenarioId: string }) => {
   const canRecord = useRecorderSupported();
   const { usage } = useRoleplayUsage(allowed);
   const [showText, setShowText] = useState(level === "beginner");
+  // Rencana links here with ?mode=pendek (short practice) or ?mode=penuh.
+  const modeAsked = useSearchParams().get("mode");
+  const [mode, setMode] = useState<RoleplayMode>(
+    modeAsked === "pendek" ? "pendek" : "penuh",
+  );
 
   const scenario = SC.find((x) => x.id === scenarioId);
   const keyPhrases = useMemo(
@@ -69,6 +75,7 @@ const RoleplayPage = ({ scenarioId }: { scenarioId: string }) => {
     week,
     phrases: phraseList,
     speed,
+    mode,
   });
 
   // Leaving mid-conversation loses it: ask first.
@@ -149,6 +156,8 @@ const RoleplayPage = ({ scenarioId }: { scenarioId: string }) => {
             online={online}
             starting={rp.pending === "start"}
             onStart={() => void rp.start()}
+            mode={mode}
+            onMode={setMode}
           />
         </>
       )}
