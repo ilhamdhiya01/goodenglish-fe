@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { LuPlay, LuSnail } from "react-icons/lu";
 
 import AnswerOption from "@/components/shared/patterns/answer-option";
@@ -96,8 +96,11 @@ const Prompt = ({ ask, main }: { ask: string; main: React.ReactNode }) => (
   </div>
 );
 
-// Susun kata: tap the tiles in order; tap a placed word to take it out.
-const Order = ({
+// Susun kata, the same as Panduan grammar: tap the tiles in order. Tap a
+// placed word to mark it; then tap a tile below to put it in that place,
+// tap another placed word to swap the two, or tap it again to cancel. The
+// test has extra tiles, so a marked word can also be taken out.
+export const Order = ({
   tiles,
   value,
   onChange,
@@ -106,6 +109,13 @@ const Order = ({
   value: TestAnswer;
   onChange: (v: string) => void;
 }) => {
+  const [sel, setSel] = useState<number | null>(null);
+  // A new question: nothing marked.
+  const [forTiles, setForTiles] = useState(tiles);
+  if (forTiles !== tiles) {
+    setForTiles(tiles);
+    setSel(null);
+  }
   const built = (
     typeof value === "string" && value ? value.split("\u0001") : []
   )
@@ -113,6 +123,22 @@ const Order = ({
     .filter((n) => !Number.isNaN(n));
   const set = (ids: number[]) => onChange(ids.join("\u0001"));
   const byId = new Map(tiles.map((x) => [x.i, x.t]));
+  const selOn = sel !== null && built.includes(sel);
+
+  const pickSlot = (id: number) => {
+    if (!selOn || sel === id) return setSel(selOn && sel === id ? null : id);
+    set(built.map((x) => (x === sel ? id : x === id ? sel : x)));
+    setSel(null);
+  };
+  const pickTile = (id: number) => {
+    if (built.includes(id)) return pickSlot(id);
+    if (selOn) {
+      set(built.map((x) => (x === sel ? id : x)));
+      return setSel(null);
+    }
+    set([...built, id]);
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <div
@@ -123,8 +149,10 @@ const Order = ({
           built.map((id) => (
             <WordTile
               key={id}
-              selected
-              onClick={() => set(built.filter((x) => x !== id))}
+              selected={sel === id}
+              aria-pressed={sel === id}
+              title="Klik untuk mengganti atau memindah kata ini"
+              onClick={() => pickSlot(id)}
             >
               {byId.get(id)}
             </WordTile>
@@ -135,23 +163,50 @@ const Order = ({
           </span>
         )}
       </div>
+      {built.length > 0 && (
+        <span className="-mt-1 text-xs font-bold text-ink-2">
+          {selOn
+            ? "pilih kata pengganti di bawah, atau kata lain di susunan untuk bertukar · klik lagi untuk batal"
+            : "klik kata di susunan untuk mengganti atau memindahnya"}
+        </span>
+      )}
       <div className="flex flex-wrap gap-1.5">
-        {tiles.map((x) => (
-          <WordTile
-            key={x.i}
-            data-testid="test-tile"
-            used={built.includes(x.i)}
-            disabled={built.includes(x.i)}
-            onClick={() => set([...built, x.i])}
-          >
-            {x.t}
-          </WordTile>
-        ))}
+        {tiles.map((x) => {
+          const u = built.includes(x.i);
+          return (
+            <WordTile
+              key={x.i}
+              data-testid="test-tile"
+              used={u && sel !== x.i}
+              selected={u && sel === x.i}
+              onClick={() => pickTile(x.i)}
+            >
+              {x.t}
+            </WordTile>
+          );
+        })}
       </div>
       {built.length > 0 && (
-        <TextButton className="self-start" onClick={() => set([])}>
-          Ulangi susunan
-        </TextButton>
+        <div className="flex flex-wrap gap-4">
+          {selOn && (
+            <TextButton
+              onClick={() => {
+                set(built.filter((x) => x !== sel));
+                setSel(null);
+              }}
+            >
+              Keluarkan kata ini
+            </TextButton>
+          )}
+          <TextButton
+            onClick={() => {
+              set([]);
+              setSel(null);
+            }}
+          >
+            Ulangi susunan
+          </TextButton>
+        </div>
       )}
     </div>
   );
