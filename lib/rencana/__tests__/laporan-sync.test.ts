@@ -7,6 +7,8 @@ vi.mock("@/services/laporan.service", () => ({ postLaporan, getLaporan }));
 const sync = await import("../laporan-sync");
 const { laporAktivitas } = await import("../lapor");
 const { useLaporanStore } = await import("@/stores/useLaporanStore");
+const { mingguHabis } = await import("../evaluasi");
+const { today } = await import("@/lib/helpers/storage.helper");
 
 describe("laporAktivitas + sync", () => {
   beforeEach(() => {
@@ -76,5 +78,49 @@ describe("laporAktivitas + sync", () => {
     const s = useLaporanStore.getState();
     expect(s.dimuat).toBe(true);
     expect(s.items.map((l) => l.id)).toEqual(["s1"]);
+  });
+});
+
+describe("order after a reload", () => {
+  beforeEach(() => {
+    sync.__resetLaporanSync();
+    localStorage.clear();
+    useLaporanStore.setState({ items: [], dimuat: false });
+    postLaporan.mockReset().mockRejectedValue(new Error("offline"));
+    getLaporan.mockReset().mockResolvedValue({ data: [] });
+    vi.useFakeTimers();
+  });
+  afterEach(() => vi.useRealTimers());
+
+  it("a report left in the outbox stays the latest, after older server ones", async () => {
+    const k = { level: "pre", minggu: 1, topik: "r", skenario: "order" };
+    // Last word of the week marked, tab closed before it was sent.
+    await sync.startLaporan("tok", 20000);
+    laporAktivitas("kata_ditandai", {
+      level: "pre",
+      week: 1,
+      data: { kunci: "w2", sisa: 0 },
+    });
+    sync.__resetLaporanSync();
+    useLaporanStore.setState({ items: [], dimuat: false });
+
+    // Next start: the server has only the earlier mark (sisa 1).
+    getLaporan.mockResolvedValue({
+      data: [
+        {
+          id: "s1",
+          jenis: "kata_ditandai",
+          menu: "vocab",
+          level: "pre",
+          week: 1,
+          day: today(),
+          data: { kunci: "w1", sisa: 1 },
+        },
+      ],
+    });
+    await sync.startLaporan("tok", today());
+    const items = useLaporanStore.getState().items;
+    expect(items.map((l) => l.id)[0]).toBe("s1");
+    expect(mingguHabis(items, k)).toBe(true);
   });
 });
