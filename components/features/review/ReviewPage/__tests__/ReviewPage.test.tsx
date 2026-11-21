@@ -16,6 +16,7 @@ vi.mock("@/lib/hooks/useShellData", () => ({
     allLevels: { pre: { V: {} } },
     srs: { [KEY]: { st: 1, due: 0 } },
     own: {},
+    known: { [KEY]: 1 },
   }),
 }));
 vi.mock("@/lib/helpers/derived.helper", async (importOriginal) => ({
@@ -67,23 +68,33 @@ describe("ReviewPage › word card, Indo → Inggris", () => {
     expect(screen.queryByRole("button", { name: /Buka jawaban/ })).toBeNull();
   });
 
+  // Stage 2 of 6 (st 1): Ingat → 7 days, Ragu → 2 days, Lupa → tomorrow.
   it.each([
-    ["lesson", "✓ Tepat!", /Ingat · Lanjut/, "good"],
-    ["leson", "✓ Hampir", /Ragu · Lanjut/, "hard"],
-    ["class", "✕ Belum tepat", /Lupa · Lanjut/, "forgot"],
+    ["lesson", "Tepat.", /^Muncul lagi \w+, \d+ \w+/, "good"],
+    [
+      "leson",
+      "Hampir. Kamu menulis leson.",
+      /^Muncul lagi \w+, \d+ \w+/,
+      "hard",
+    ],
+    [
+      "class",
+      "Belum tepat. Kamu menulis class.",
+      /^Muncul lagi besok, mulai dari awal$/,
+      "forgot",
+    ],
   ])(
-    'typing "%s" shows %s and rates it for the learner',
-    (typed, message, button, how) => {
+    'typing "%s" shows "%s" and rates it for the learner',
+    (typed, message, comesBack, how) => {
       render(<ReviewPage />);
       typeAnswer(typed);
-      expect(screen.getByRole("status").textContent).toContain(message);
+      expect(screen.getByRole("status").textContent).toBe(message);
       // The answer is shown (word and marked example).
       expect(screen.getAllByText("lesson").length).toBeGreaterThan(0);
-      // One button with the rating the answer earned, not three to pick from.
-      expect(screen.queryAllByRole("button", { name: /Lanjut/ })).toHaveLength(
-        1,
-      );
-      fireEvent.click(screen.getByRole("button", { name: button }));
+      // One Lanjut, saying when the word comes back; no ratings to pick.
+      expect(screen.getByText(comesBack)).toBeTruthy();
+      expect(screen.queryByRole("button", { name: /Ingat/ })).toBeNull();
+      fireEvent.click(screen.getByRole("button", { name: "Lanjut" }));
       expect(bumpSrs).toHaveBeenCalledWith(KEY, how);
     },
   );

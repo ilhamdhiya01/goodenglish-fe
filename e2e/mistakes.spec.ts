@@ -68,7 +68,8 @@ test.describe("Ulang", () => {
   test("kartu Betulkan kalimat: ketik, Enter, Ingat", async ({ page, api }) => {
     await openApp(page, "/review");
     await expect(page.getByText(/BETULKAN KALIMAT/)).toBeVisible();
-    await expect(page.getByText("1 kesalahan jatuh tempo")).toBeVisible();
+    // One card due (the mistake): the header counts what's left.
+    await expect(page.getByText("1 lagi", { exact: true })).toBeVisible();
     await expect(page.getByText("She go to school.")).toBeVisible();
     await axe(page, "kartu kesalahan");
 

@@ -21,9 +21,7 @@ test.describe("ulang: pintasan keyboard", () => {
       await expect(page.getByRole("button", { name: /Ingat/ })).toBeVisible();
       await page.locator("body").press("3");
     }
-    await expect(
-      page.getByText(/Tidak ada yang jatuh tempo hari ini/),
-    ).toBeVisible();
+    await expect(page.getByText("Selesai untuk hari ini")).toBeVisible();
     await expect
       .poll(() => {
         const srs = (api.lastPut("srs") ?? {}) as Record<

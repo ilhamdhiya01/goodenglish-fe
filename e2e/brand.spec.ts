@@ -345,7 +345,7 @@ test.describe("ulang", () => {
         await page.getByRole("button", { name: "Buka jawaban" }).click();
         await page.getByRole("button", { name: /Ingat/ }).click();
       }
-      await expect(page.getByText(/^Tidak ada yang jatuh tempo/)).toBeVisible();
+      await expect(page.getByText("Selesai untuk hari ini")).toBeVisible();
       await expectMood(page.locator("main"), "bangga");
       await shot(page, info, "ulang-selesai");
     });

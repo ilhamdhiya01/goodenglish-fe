@@ -1,6 +1,5 @@
 "use client";
 
-import classNames from "classnames";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -9,32 +8,28 @@ import {
   judgeTyped,
   type TypedResult,
 } from "@/components/features/vocab/KnownProof";
-import Correction from "@/components/shared/patterns/correction";
 import TargetMark from "@/components/shared/patterns/target-mark";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import Input from "@/components/ui/input";
-import Lead from "@/components/ui/lead";
 import PageHeading from "@/components/ui/page-heading";
 import Pill from "@/components/ui/pill";
-import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
+import TextButton from "@/components/ui/text-button";
 import { LEVELS } from "@/const/levels.constant";
 import { GAPS } from "@/const/srs.constant";
-import { typeDef } from "@/const/vocab-types.constant";
 import { hasNote, idOf, noteOf } from "@/lib/content";
 import { resolveItemKey } from "@/lib/helpers/derived.helper";
-import { flatten } from "@/lib/helpers/level-data.helper";
 import { tallyOf } from "@/lib/helpers/plan-check.helper";
+import { nextSrs } from "@/lib/helpers/srs.helper";
 import { today } from "@/lib/helpers/storage.helper";
+import { dayToDate } from "@/lib/helpers/streak.helper";
 import { findTarget } from "@/lib/helpers/target.helper";
 import { formsOf } from "@/lib/helpers/verb-forms.helper";
 import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useNotes } from "@/lib/hooks/useNotes";
 import { useShellData } from "@/lib/hooks/useShellData";
 import { laporAktivitas } from "@/lib/rencana/lapor";
-import type { LevelId } from "@/lib/types/session.types";
-import { useAccessStore } from "@/stores/useAccessStore";
 import { useLaporanStore } from "@/stores/useLaporanStore";
 import { useMistakeStore } from "@/stores/useMistakeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
@@ -44,19 +39,13 @@ import { useVocabUiStore } from "@/stores/useVocabUiStore";
 import MistakeReviewCard from "../MistakeReviewCard";
 import ReviewQuiz from "../ReviewQuiz";
 
-// A read-only count shaped like a Pill ("24 jatuh tempo").
-const Stat = ({ n, label }: { n: number; label: string }) => (
-  <span className="inline-flex min-h-[34px] items-center gap-1.5 rounded-full border-2 border-line bg-surface px-3.5 text-[13px] font-extrabold text-ink-2">
-    <span className="text-ink tabular-nums">{n}</span> {label}
-  </span>
-);
-
-const SHORTCUTS = [
-  ["Spasi", "Buka jawaban"],
-  ["1", "Lupa"],
-  ["2", "Ragu"],
-  ["3", "Ingat"],
-] as const;
+// "Senin, 24 Nov" for a day number (days are UTC midnights, see dayToDate).
+const DAY_FMT = new Intl.DateTimeFormat("id-ID", {
+  weekday: "long",
+  day: "numeric",
+  month: "short",
+  timeZone: "UTC",
+});
 
 // Keys that would also act on whatever has focus (a button, a field) are
 // left alone, and nothing happens while a dialog or the AI panel is open.
@@ -69,32 +58,32 @@ const ignoreKey = (e: KeyboardEvent) => {
   return !!document.querySelector("[aria-modal='true'], aside[role='dialog']");
 };
 
-// Halaman "Ulang hari ini": satu kartu SRS per kata yang jatuh tempo. Spasi
-// membuka jawaban, 1 / 2 / 3 menjawab Lupa / Ragu / Ingat.
+// Halaman "Ulang hari ini": satu kartu SRS per kata yang jatuh tempo, satu
+// kolom. Spasi membuka jawaban, 1 / 2 / 3 menjawab Lupa / Ragu / Ingat; di
+// arah Indo → Inggris kata Inggrisnya diketik dan dinilai otomatis.
 const ReviewPage = React.memo(() => {
-  const { dueKeys, dueMistakes, scheduled, doneToday, allLevels, srs, own } =
-    useShellData();
+  const {
+    dueKeys,
+    dueMistakes,
+    scheduled,
+    doneToday,
+    allLevels,
+    srs,
+    own,
+    known,
+  } = useShellData();
   const bumpSrs = useProgressStore((s) => s.bumpSrs);
   const gradeMistake = useMistakeStore((s) => s.grade);
   const reviewOn = useMistakeStore((s) => s.reviewOn);
   const setReviewOn = useMistakeStore((s) => s.setReviewOn);
-  const allowed = useAccessStore((s) => s.session?.levels);
-  // Every word in the levels this token may open (bundled + admin + Kataku).
-  const totalWords = useMemo(
-    () =>
-      LEVELS.filter(([id]) => allowed?.includes(id as LevelId)).reduce(
-        (n, [id]) => n + flatten(allLevels[id].V).length,
-        0,
-      ),
-    [allLevels, allowed],
-  );
   const flip = useVocabUiStore((s) => s.flip);
   const { jumpToWord } = useJumpToWord();
   const router = useRouter();
   // The quiz is offered while nothing was reviewed today and it isn't done
   // yet (kept on screen once started, until it says "selesai").
   const tally = usePlanStore((s) => s.plan.tally);
-  const t = tallyOf(tally, today());
+  const T0 = today();
+  const t = tallyOf(tally, T0);
   // Rencana links here with ?kuis=1 (Friday's "Kata" step): the quiz is
   // shown even after reviewing. useSearchParams, not window.location: on an
   // in-app move the address bar changes only after this page has drawn.
@@ -115,19 +104,21 @@ const ReviewPage = React.memo(() => {
     nextMistake && (!rvKey || doneToday % 2 === 1) ? nextMistake : null;
   const cardId = mistake ? `m:${mistake.id}` : `w:${rvKey}`;
   const [revealed, setRevealed] = useState(false);
-  // Reset saat kartu berganti atau mode flip dibalik (seperti rvRevealed versi lama).
-  // Done during render (React's "reset state when a value changes" pattern)
-  // instead of in an effect, so the old card never flashes revealed.
-  const [revealedFor, setRevealedFor] = useState(`${cardId}|${flip}`);
   // Indo → Inggris word cards: the English word is typed, then rated from
   // the result (see `typing` below).
   const [typed, setTyped] = useState("");
   const [result, setResult] = useState<TypedResult | null>(null);
+  const [noteOpen, setNoteOpen] = useState(false);
+  // Reset saat kartu berganti atau mode flip dibalik (seperti rvRevealed versi lama).
+  // Done during render (React's "reset state when a value changes" pattern)
+  // instead of in an effect, so the old card never flashes revealed.
+  const [revealedFor, setRevealedFor] = useState(`${cardId}|${flip}`);
   if (revealedFor !== `${cardId}|${flip}`) {
     setRevealedFor(`${cardId}|${flip}`);
     setRevealed(false);
     setTyped("");
     setResult(null);
+    setNoteOpen(false);
   }
 
   const item = rvKey && !mistake ? resolveItemKey(allLevels, rvKey) : null;
@@ -207,26 +198,21 @@ const ReviewPage = React.memo(() => {
     return () => window.removeEventListener("keydown", onKey);
   });
 
-  const queue = [
-    ...dueKeys
-      .filter((k) => mistake || k !== rvKey)
-      .map((k) => {
-        const it = resolveItemKey(allLevels, k);
-        return (
-          it && {
-            k,
-            label: flip ? it.it[3] : it.it[1],
-            st: srs[k]?.st ?? 0,
-          }
-        );
-      })
-      .filter((x) => !!x)
-      .slice(0, 5),
-    ...dueMistakes
-      .filter((m) => m !== mistake)
-      .slice(0, 5)
-      .map((m) => ({ k: m.id, label: "✕ " + m.wrong, st: m.srs.st })),
-  ].slice(0, 6);
+  // The card after this one, for the "Berikutnya" line: same turn-taking
+  // as above, one answer later.
+  const nextWord = (mistake ? dueKeys : dueKeys.filter((k) => k !== rvKey))
+    .map((k) => resolveItemKey(allLevels, k))
+    .find((x) => !!x);
+  const nextMistakeAfter = mistake ? dueMistakes[1] : dueMistakes[0];
+  const upNext =
+    nextMistakeAfter && (!nextWord || (doneToday + 1) % 2 === 1)
+      ? nextMistakeAfter.wrong
+      : nextWord?.it[flip ? 3 : 1];
+  const left = dueKeys.length + dueMistakes.length;
+  const sessionTotal = doneToday + left;
+  const dueTomorrow = Object.keys(srs).filter(
+    (k) => known[k] && srs[k].due === T0 + 1,
+  ).length;
 
   // Lupa / Ragu / Ingat: the same buttons for word and mistake cards.
   const answerButtons = (
@@ -254,128 +240,119 @@ const ReviewPage = React.memo(() => {
       ))}
     </div>
   );
-  // Typed answer: one button that applies the rating the result gave.
-  const typedAnswer = answers.find((a) => a.how === typedHow)!;
+  // Typed answer: one Lanjut that applies the rating the result gave, with
+  // when the word comes back.
+  const gap = nextSrs(cur, typedHow, T0).gap;
+  const comesBack =
+    typedHow === "forgot"
+      ? "Muncul lagi besok, mulai dari awal"
+      : gap === 1
+        ? "Muncul lagi besok"
+        : `Muncul lagi ${DAY_FMT.format(dayToDate(T0 + gap))}`;
   const continueButton = (
-    <div className="max-md:sticky max-md:bottom-[calc(76px+env(safe-area-inset-bottom))] max-md:-mx-1 max-md:bg-surface max-md:px-1 max-md:py-2">
+    <div className="flex flex-col gap-2 max-md:sticky max-md:bottom-[calc(76px+env(safe-area-inset-bottom))] max-md:-mx-1 max-md:bg-surface max-md:px-1 max-md:py-2">
       <Button
-        variant={
-          typedHow === "forgot"
-            ? "danger"
-            : typedHow === "hard"
-              ? "outline"
-              : "green"
-        }
+        variant="green"
+        size="lg"
         autoFocus
         onClick={() => answer(typedHow)}
-        className="min-h-[52px] w-full flex-col gap-0 px-2 leading-5"
+        className="w-full"
       >
-        {typedAnswer.title} · Lanjut
-        <span className="text-[11.5px] font-bold tracking-normal normal-case">
-          {typedAnswer.sub}
-        </span>
+        Lanjut
       </Button>
+      <span className="text-center text-[13px] font-semibold text-ink-3">
+        {comesBack}
+      </span>
     </div>
   );
   const example = item?.it[4] || "";
   const target = item
     ? findTarget(example, item.it[1], formsOf(item.it))
     : null;
+  const trap = note?.traps?.find((x) => !!x[1]);
+  // The English side of the card: the word, its speaker and /pron/.
+  const english = item && (
+    <div className="flex flex-wrap items-center gap-3">
+      <span className="text-[34px] leading-10 font-black tracking-[-0.015em] wrap-anywhere text-ink">
+        {item.it[1]}
+      </span>
+      <SpeakButton text={item.it[1]} />
+      {!!item.it[2] && (
+        <span className="text-[15px] font-semibold text-ink-2">
+          /{item.it[2]}/
+        </span>
+      )}
+    </div>
+  );
+  const meaning = item && (
+    <span className="text-[34px] leading-10 font-black tracking-[-0.015em] wrap-anywhere text-ink">
+      {item.it[3]}
+    </span>
+  );
 
   return (
-    <section className="grid items-start gap-6 @min-[56rem]:grid-cols-[minmax(0,1fr)_320px]">
-      <div className="flex min-w-0 flex-col gap-5">
-        <div className="flex flex-col gap-2">
+    <section className="mx-auto flex w-full max-w-[640px] flex-col gap-6">
+      <div className="flex flex-col gap-3">
+        <div className="flex items-baseline justify-between gap-3">
           <PageHeading>Ulang hari ini</PageHeading>
-          <Lead>
-            Kata yang kamu tandai hafal dan kesalahan dari Buku kesalahanku
-            dijadwalkan ulang: {GAPS.join(" → ")} hari. Jawab jujur. Kalau lupa,
-            jadwalnya mundur ke awal. Ini yang membuat{" "}
-            {totalWords.toLocaleString("id-ID")} kata benar-benar menempel.
-          </Lead>
-          <div className="flex flex-wrap gap-2 pt-1">
-            <Stat n={dueKeys.length} label="kata jatuh tempo" />
-            <Stat n={dueMistakes.length} label="kesalahan jatuh tempo" />
-            <Stat n={doneToday} label="selesai hari ini" />
-            <Stat n={scheduled} label="kata dalam jadwal" />
-          </div>
-          <div className="pt-1">
-            <Pill
-              size="sm"
-              check
-              on={reviewOn}
-              aria-pressed={reviewOn}
-              onClick={() => setReviewOn(!reviewOn)}
-            >
-              Sertakan kartu kesalahan
-            </Pill>
-          </div>
+          {left > 0 && (
+            <span className="text-sm font-bold text-ink-2 tabular-nums">
+              {left} lagi
+            </span>
+          )}
         </div>
+        {sessionTotal > 0 && (
+          <div
+            role="progressbar"
+            aria-label="Ulang hari ini"
+            aria-valuemin={0}
+            aria-valuemax={sessionTotal}
+            aria-valuenow={doneToday}
+            className="h-1 overflow-hidden rounded-full bg-track"
+          >
+            <div
+              className="h-full rounded-full bg-accent transition-[width] duration-300"
+              style={{ width: `${(doneToday / sessionTotal) * 100}%` }}
+            />
+          </div>
+        )}
+      </div>
 
-        {item && (
-          <Card pad="lg" className="gap-4">
-            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-              <span className="text-[13.5px] font-bold text-ink-2">
-                {lvName} · Minggu {item.w} · {typeDef(item.it[0]).label}
+      {item && (
+        <Card pad="lg" className="gap-5">
+          <span className="text-[13px] font-semibold text-ink-3">
+            {lvName} · minggu {item.w}
+          </span>
+          {revealed ? (
+            <>
+              <span className="text-[15px] font-bold text-ink-2">
+                {flip ? item.it[3] : item.it[1]}
               </span>
-              <span className="flex items-center gap-2.5 text-[13.5px] font-bold text-ink-2">
-                Tahap {cur.st + 1} dari {GAPS.length}
-                <span aria-hidden className="flex gap-1">
-                  {GAPS.map((_, i) => (
-                    <span
-                      key={i}
-                      className={classNames(
-                        "h-1.5 w-5 rounded-full",
-                        i <= cur.st ? "bg-accent" : "bg-track",
-                      )}
-                    />
-                  ))}
-                </span>
-              </span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="text-[34px] leading-10 font-black tracking-[-0.02em] wrap-anywhere text-ink md:text-[44px] md:leading-12">
-                  {flip ? item.it[3] : item.it[1]}
-                </span>
-                {!flip && <SpeakButton text={item.it[1]} />}
-              </div>
-              {!flip && !!item.it[2] && (
-                <span className="text-[15px] font-semibold text-ink-2">
-                  /{item.it[2]}/
-                </span>
+              {flip ? english : meaning}
+              {typing && result && (
+                <p
+                  role="status"
+                  className={
+                    result === "bad"
+                      ? "m-0 text-[15px] font-bold text-bad"
+                      : "m-0 text-[15px] font-bold text-ok"
+                  }
+                >
+                  {result === "ok"
+                    ? "Tepat."
+                    : result === "near"
+                      ? "Hampir. Kamu menulis "
+                      : "Belum tepat. Kamu menulis "}
+                  {result !== "ok" && (
+                    <>
+                      <s className="decoration-2">{typed}</s>.
+                    </>
+                  )}
+                </p>
               )}
-            </div>
-            {revealed ? (
-              <>
-                {typing && result && (
-                  <p
-                    role="status"
-                    className={classNames(
-                      "m-0 text-[15px] font-bold",
-                      result === "bad" ? "text-bad" : "text-ok",
-                    )}
-                  >
-                    {result === "ok"
-                      ? "✓ Tepat!"
-                      : result === "near"
-                        ? "✓ Hampir. Jawabanmu:"
-                        : "✕ Belum tepat. Jawabanmu:"}{" "}
-                    {result !== "ok" && (
-                      <span className="text-ink-2 line-through decoration-2">
-                        {typed}
-                      </span>
-                    )}
-                  </p>
-                )}
-                <div className="flex flex-col gap-2 border-t-2 border-dashed border-line pt-4">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="text-xl leading-[26px] font-black text-ink">
-                      {flip ? item.it[1] : item.it[3]}
-                    </span>
-                    {flip && <SpeakButton text={item.it[1]} />}
-                  </div>
-                  <p className="m-0 text-[15px] leading-[22px] text-ink">
+              {!!example && (
+                <div className="flex flex-col gap-0.5">
+                  <p className="m-0 text-base leading-6 text-ink">
                     {target ? (
                       <>
                         {example.slice(0, target[0])}
@@ -389,177 +366,174 @@ const ReviewPage = React.memo(() => {
                     )}
                   </p>
                   {!!idOf(example) && (
-                    <span className="-mt-1 text-[13.5px] text-ink-2">
-                      {idOf(example)}
-                    </span>
-                  )}
-                  {!!own[rvKey] && (
-                    <span className="text-[13.5px] text-ink">
-                      <span className="font-extrabold text-ink-2">
-                        Kalimatmu:{" "}
-                      </span>
-                      <b className="font-extrabold">{own[rvKey]}</b>
-                    </span>
+                    <span className="text-sm text-ink-2">{idOf(example)}</span>
                   )}
                 </div>
-                {note && (
-                  <div className="flex flex-col gap-2 rounded-lg border-2 border-line bg-sunken px-4 py-3">
-                    <SectionLabel>INGAT LAGI</SectionLabel>
-                    <span className="text-sm leading-5 text-ink">
-                      {note.core}
-                    </span>
-                    {!!note.traps?.length && !!note.traps[0][1] && (
-                      <Correction
-                        wrong={note.traps[0][0] || undefined}
-                        right={note.traps[0][1]}
-                      />
-                    )}
-                    {!!note.see?.length && (
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        <SectionLabel>LIHAT JUGA</SectionLabel>
-                        {note.see.map((s) => (
-                          <Pill key={s} size="sm" onClick={() => jumpToWord(s)}>
-                            {s}
-                          </Pill>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
-                {typing ? continueButton : answerButtons}
-              </>
-            ) : typing ? (
+              )}
+              {!!own[rvKey] && (
+                <p className="m-0 text-sm text-ink-2">
+                  Kalimatmu: <b className="text-ink">{own[rvKey]}</b>
+                </p>
+              )}
+              {trap && (
+                <p className="m-0 text-sm leading-6 text-ink-2">
+                  Jangan:{" "}
+                  {trap[0] && (
+                    <s className="text-bad decoration-2">{trap[0]}</s>
+                  )}{" "}
+                  Yang benar: <b className="text-ink">{trap[1]}</b>
+                </p>
+              )}
+              {note && (
+                <div className="flex flex-col gap-2">
+                  <TextButton
+                    aria-expanded={noteOpen}
+                    onClick={() => setNoteOpen(!noteOpen)}
+                    className="self-start"
+                  >
+                    {noteOpen ? "Tutup penjelasan" : "Penjelasan lengkap"}
+                  </TextButton>
+                  {noteOpen && (
+                    <>
+                      <p className="m-0 text-sm leading-6 text-ink-2">
+                        {note.core}
+                      </p>
+                      {!!note.see?.length && (
+                        <div className="flex flex-wrap items-center gap-1.5 text-sm text-ink-2">
+                          Lihat juga:
+                          {note.see.map((s) => (
+                            <Pill
+                              key={s}
+                              size="sm"
+                              onClick={() => jumpToWord(s)}
+                            >
+                              {s}
+                            </Pill>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
+              {typing ? continueButton : answerButtons}
+            </>
+          ) : typing ? (
+            <>
+              {meaning}
               <form
-                className="flex flex-col gap-2"
+                className="flex gap-2"
                 onSubmit={(e) => {
                   e.preventDefault();
                   check();
                 }}
               >
-                <span className="text-sm font-semibold text-ink-2">
-                  Ketik kata Inggrisnya, lalu Cek.
-                </span>
-                <div className="flex gap-2">
-                  <Input
-                    autoFocus
-                    value={typed}
-                    onChange={(e) => setTyped(e.target.value)}
-                    placeholder="Kata Inggrisnya…"
-                    autoComplete="off"
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    spellCheck={false}
-                    aria-label={`Ketik kata Inggris untuk "${item.it[3]}"`}
-                  />
-                  <Button
-                    type="submit"
-                    variant="green"
-                    disabled={!typed.trim()}
-                    className="shrink-0"
-                  >
-                    Cek
-                  </Button>
-                </div>
-              </form>
-            ) : (
-              <>
-                <span className="text-sm font-semibold text-ink-2">
-                  {flip
-                    ? "Ucapkan kata Inggrisnya dan satu kalimat, lalu buka."
-                    : "Ucapkan artinya dan satu kalimat, lalu buka."}
-                </span>
+                <Input
+                  autoFocus
+                  value={typed}
+                  onChange={(e) => setTyped(e.target.value)}
+                  placeholder="Ketik kata Inggrisnya"
+                  autoComplete="off"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  aria-label={`Ketik kata Inggris untuk "${item.it[3]}"`}
+                />
                 <Button
+                  type="submit"
                   variant="green"
-                  size="lg"
-                  aria-keyshortcuts="Space"
-                  className="md:w-full"
-                  onClick={() => setRevealed(true)}
+                  disabled={!typed.trim()}
+                  className="shrink-0"
                 >
-                  Buka jawaban
+                  Cek
                 </Button>
-              </>
-            )}
-          </Card>
-        )}
+              </form>
+            </>
+          ) : (
+            <>
+              {english}
+              <span className="text-sm font-semibold text-ink-2">
+                Ucapkan artinya dan satu kalimat, lalu buka.
+              </span>
+              <Button
+                variant="green"
+                size="lg"
+                aria-keyshortcuts="Space"
+                className="md:w-full"
+                onClick={() => setRevealed(true)}
+              >
+                Buka jawaban
+              </Button>
+            </>
+          )}
+        </Card>
+      )}
 
-        {mistake && (
-          <MistakeReviewCard
-            key={mistake.id}
-            m={mistake}
-            revealed={revealed}
-            onReveal={() => setRevealed(true)}
-            answers={answerButtons}
-          />
-        )}
+      {mistake && (
+        <MistakeReviewCard
+          key={mistake.id}
+          m={mistake}
+          revealed={revealed}
+          onReveal={() => setRevealed(true)}
+          answers={answerButtons}
+        />
+      )}
 
-        {/* Nothing due and nothing reviewed today (or asked for from
-            Rencana): the 5-question quiz. */}
-        {!item && !mistake && quizOffered && <ReviewQuiz />}
+      {(item || mistake) && !!upNext && (
+        <span className="text-[13.5px] font-semibold text-ink-3">
+          Berikutnya: {upNext}
+        </span>
+      )}
 
-        {!item && !mistake && (
-          <Card
-            tone="dashed"
-            className="items-center gap-3.5 px-6 py-9 text-center"
-          >
-            {/* Nothing due: proud after a session today, happy otherwise. */}
-            {scheduled && (
-              <Jalak mood={doneToday > 0 ? "bangga" : "senang"} size={96} />
-            )}
+      {/* Nothing due and nothing reviewed today (or asked for from
+          Rencana): the 5-question quiz. */}
+      {!item && !mistake && quizOffered && <ReviewQuiz />}
+
+      {!item && !mistake && (
+        <Card
+          tone="dashed"
+          className="items-center gap-3 px-6 py-9 text-center"
+        >
+          {/* Nothing due: proud after a session today, happy otherwise. */}
+          {scheduled > 0 && (
+            <Jalak mood={doneToday > 0 ? "bangga" : "senang"} size={96} />
+          )}
+          {doneToday > 0 ? (
+            <>
+              <span className="text-xl font-black text-ink">
+                Selesai untuk hari ini
+              </span>
+              <span className="text-[15px] leading-[22px] text-ink-2">
+                {doneToday} kartu diulang.{" "}
+                {dueTomorrow > 0
+                  ? `Besok ada ${dueTomorrow} kata.`
+                  : "Besok belum ada yang jatuh tempo."}
+              </span>
+            </>
+          ) : (
             <span className="text-[15px] leading-[22px] font-semibold text-ink-2">
-              {scheduled
+              {scheduled > 0
                 ? "Tidak ada yang jatuh tempo hari ini. Lanjut belajar kata baru."
                 : "Belum ada kata terjadwal. Tandai 5 kata sebagai hafal hari ini, dan kata itu akan muncul di sini besok."}
             </span>
-            <Button variant="green" onClick={() => router.push("/vocab")}>
-              Ke Kosakata minggu ini →
-            </Button>
-          </Card>
-        )}
-      </div>
-
-      {(item || mistake) && (
-        <aside
-          aria-label="Antrean dan pintasan"
-          className="hidden flex-col gap-4 @min-[56rem]:flex"
-        >
-          {queue.length > 0 && (
-            <Card className="gap-1.5">
-              <SectionLabel className="pb-1">Antrean berikutnya</SectionLabel>
-              {queue.map(({ k, label, st }) => (
-                <div
-                  key={k}
-                  className="flex min-h-10 items-center justify-between gap-3 px-1 text-sm font-extrabold text-ink"
-                >
-                  <span className="min-w-0 truncate">{label}</span>
-                  <span className="shrink-0 text-xs font-bold text-ink-2">
-                    tahap {st + 1}
-                  </span>
-                </div>
-              ))}
-            </Card>
           )}
-          <Card className="gap-1.5">
-            <SectionLabel className="pb-1">Pintasan</SectionLabel>
-            <dl className="m-0 flex flex-col gap-2">
-              {(typing
-                ? ([["Enter", "Cek, lalu lanjut"]] as const)
-                : SHORTCUTS
-              ).map(([key, label]) => (
-                <div key={key} className="flex items-center gap-3">
-                  <dt className="w-14 shrink-0">
-                    <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-md border-2 border-b-[3px] border-line bg-surface px-1.5 font-mono text-xs font-extrabold text-ink">
-                      {key}
-                    </kbd>
-                  </dt>
-                  <dd className="m-0 text-[13.5px] font-semibold text-ink-2">
-                    {label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Card>
-        </aside>
+          <Button variant="green" onClick={() => router.push("/vocab")}>
+            Ke Kosakata minggu ini →
+          </Button>
+        </Card>
       )}
+
+      <div>
+        <Pill
+          size="sm"
+          check
+          on={reviewOn}
+          aria-pressed={reviewOn}
+          onClick={() => setReviewOn(!reviewOn)}
+        >
+          Sertakan kartu kesalahan
+        </Pill>
+      </div>
     </section>
   );
 });
