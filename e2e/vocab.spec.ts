@@ -2,6 +2,7 @@ import type { Page } from "@playwright/test";
 
 import {
   globalSearchInput,
+  markKnown,
   openApp,
   startQuickTest,
   toggleVocabMode,
@@ -23,11 +24,7 @@ test("arah Indo → Inggris: arti jadi judul kartu", async ({ page }) => {
 
 test("sembunyikan yang hafal + filter jenis", async ({ page, api }) => {
   await openApp(page, "/vocab");
-  await page
-    .locator("article")
-    .first()
-    .getByRole("button", { name: "Tandai hafal", exact: true })
-    .click();
+  await markKnown(page.locator("article").first());
   await expect.poll(() => api.lastPut("known")).toBeTruthy();
   await toggleVocabMode(page, /Sembunyikan yang hafal/);
   await expect(page.getByText("adalah / berada")).toHaveCount(0);

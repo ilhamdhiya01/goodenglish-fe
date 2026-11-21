@@ -5,10 +5,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 
 import Jalak from "@/components/brand/Jalak";
+import {
+  judgeTyped,
+  type TypedResult,
+} from "@/components/features/vocab/KnownProof";
 import Correction from "@/components/shared/patterns/correction";
 import TargetMark from "@/components/shared/patterns/target-mark";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
+import Input from "@/components/ui/input";
 import Lead from "@/components/ui/lead";
 import PageHeading from "@/components/ui/page-heading";
 import Pill from "@/components/ui/pill";
@@ -114,9 +119,15 @@ const ReviewPage = React.memo(() => {
   // Done during render (React's "reset state when a value changes" pattern)
   // instead of in an effect, so the old card never flashes revealed.
   const [revealedFor, setRevealedFor] = useState(`${cardId}|${flip}`);
+  // Indo → Inggris word cards: the English word is typed, then rated from
+  // the result (see `typing` below).
+  const [typed, setTyped] = useState("");
+  const [result, setResult] = useState<TypedResult | null>(null);
   if (revealedFor !== `${cardId}|${flip}`) {
     setRevealedFor(`${cardId}|${flip}`);
     setRevealed(false);
+    setTyped("");
+    setResult(null);
   }
 
   const item = rvKey && !mistake ? resolveItemKey(allLevels, rvKey) : null;
@@ -164,11 +175,23 @@ const ReviewPage = React.memo(() => {
     else if (rvKey) bumpSrs(rvKey, how);
   };
 
+  // Indo → Inggris word cards are answered by typing the English word; the
+  // rating follows from the result instead of being picked: right → Ingat,
+  // a slip → Ragu, wrong → Lupa. Other cards keep Buka jawaban + 1/2/3.
+  const typing = flip && !!item;
+  const typedHow =
+    result === "ok" ? "good" : result === "near" ? "hard" : "forgot";
+  const check = () => {
+    if (!item || !typed.trim()) return;
+    setResult(judgeTyped(item.it[1], typed));
+    setRevealed(true);
+  };
+
   // Space opens the answer; 1 / 2 / 3 = Lupa / Ragu / Ingat once it's open.
   useEffect(() => {
     if (!item && !mistake) return;
     const onKey = (e: KeyboardEvent) => {
-      if (ignoreKey(e)) return;
+      if (typing || ignoreKey(e)) return;
       if (e.key === " " && !revealed) {
         e.preventDefault();
         setRevealed(true);
@@ -229,6 +252,29 @@ const ReviewPage = React.memo(() => {
           </span>
         </Button>
       ))}
+    </div>
+  );
+  // Typed answer: one button that applies the rating the result gave.
+  const typedAnswer = answers.find((a) => a.how === typedHow)!;
+  const continueButton = (
+    <div className="max-md:sticky max-md:bottom-[calc(76px+env(safe-area-inset-bottom))] max-md:-mx-1 max-md:bg-surface max-md:px-1 max-md:py-2">
+      <Button
+        variant={
+          typedHow === "forgot"
+            ? "danger"
+            : typedHow === "hard"
+              ? "outline"
+              : "green"
+        }
+        autoFocus
+        onClick={() => answer(typedHow)}
+        className="min-h-[52px] w-full flex-col gap-0 px-2 leading-5"
+      >
+        {typedAnswer.title} · Lanjut
+        <span className="text-[11.5px] font-bold tracking-normal normal-case">
+          {typedAnswer.sub}
+        </span>
+      </Button>
     </div>
   );
   const example = item?.it[4] || "";
@@ -302,6 +348,26 @@ const ReviewPage = React.memo(() => {
             </div>
             {revealed ? (
               <>
+                {typing && result && (
+                  <p
+                    role="status"
+                    className={classNames(
+                      "m-0 text-[15px] font-bold",
+                      result === "bad" ? "text-bad" : "text-ok",
+                    )}
+                  >
+                    {result === "ok"
+                      ? "✓ Tepat!"
+                      : result === "near"
+                        ? "✓ Hampir. Jawabanmu:"
+                        : "✕ Belum tepat. Jawabanmu:"}{" "}
+                    {result !== "ok" && (
+                      <span className="text-ink-2 line-through decoration-2">
+                        {typed}
+                      </span>
+                    )}
+                  </p>
+                )}
                 <div className="flex flex-col gap-2 border-t-2 border-dashed border-line pt-4">
                   <div className="flex flex-wrap items-center gap-2.5">
                     <span className="text-xl leading-[26px] font-black text-ink">
@@ -360,8 +426,41 @@ const ReviewPage = React.memo(() => {
                     )}
                   </div>
                 )}
-                {answerButtons}
+                {typing ? continueButton : answerButtons}
               </>
+            ) : typing ? (
+              <form
+                className="flex flex-col gap-2"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  check();
+                }}
+              >
+                <span className="text-sm font-semibold text-ink-2">
+                  Ketik kata Inggrisnya, lalu Cek.
+                </span>
+                <div className="flex gap-2">
+                  <Input
+                    autoFocus
+                    value={typed}
+                    onChange={(e) => setTyped(e.target.value)}
+                    placeholder="Kata Inggrisnya…"
+                    autoComplete="off"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    aria-label={`Ketik kata Inggris untuk "${item.it[3]}"`}
+                  />
+                  <Button
+                    type="submit"
+                    variant="green"
+                    disabled={!typed.trim()}
+                    className="shrink-0"
+                  >
+                    Cek
+                  </Button>
+                </div>
+              </form>
             ) : (
               <>
                 <span className="text-sm font-semibold text-ink-2">
@@ -442,7 +541,10 @@ const ReviewPage = React.memo(() => {
           <Card className="gap-1.5">
             <SectionLabel className="pb-1">Pintasan</SectionLabel>
             <dl className="m-0 flex flex-col gap-2">
-              {SHORTCUTS.map(([key, label]) => (
+              {(typing
+                ? ([["Enter", "Cek, lalu lanjut"]] as const)
+                : SHORTCUTS
+              ).map(([key, label]) => (
                 <div key={key} className="flex items-center gap-3">
                   <dt className="w-14 shrink-0">
                     <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-md border-2 border-b-[3px] border-line bg-surface px-1.5 font-mono text-xs font-extrabold text-ink">

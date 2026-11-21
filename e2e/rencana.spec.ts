@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 
-import { acceptConfirm, openApp } from "./support/app";
+import { acceptConfirm, markKnown, openApp } from "./support/app";
 import { expect, test } from "./support/fixtures";
 import { ALL_MENUS, checkpointLulus, fullSession } from "./support/mock-api";
 
@@ -109,11 +109,7 @@ test.describe("hari kerja", () => {
     await at(page, MONDAY);
     await expect(step(page, "Kata")).toContainText("0/6");
     await page.goto("/vocab");
-    const mark = page
-      .locator("article")
-      .first()
-      .getByRole("button", { name: "Tandai hafal", exact: true });
-    await mark.click();
+    await markKnown(page.locator("article").first());
     await page
       .getByRole("link", { name: /^Rencana/ })
       .first()

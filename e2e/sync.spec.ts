@@ -1,4 +1,4 @@
-import { openApp } from "./support/app";
+import { markKnown, openApp } from "./support/app";
 import { expect, test } from "./support/fixtures";
 
 // Saving progress safely: two devices of one token don't overwrite each
@@ -16,10 +16,7 @@ test.describe("dua perangkat", () => {
     // Meanwhile another device memorised a word (a newer version).
     api.server.known = { data: { "s:other-device": 1 }, version: 99_999 };
 
-    await page
-      .getByRole("button", { name: "Tandai hafal", exact: true })
-      .first()
-      .click();
+    await markKnown(page.locator("article").first());
 
     // The first save is refused (409), merged with the server copy and sent
     // again: both words survive.
@@ -43,10 +40,7 @@ test.describe("dua perangkat", () => {
     await openApp(page, "/vocab");
     // The save can't get through before the tab goes away.
     await page.route("**/api/v1/me/progress/known", (route) => route.abort());
-    await page
-      .getByRole("button", { name: "Tandai hafal", exact: true })
-      .first()
-      .click();
+    await markKnown(page.locator("article").first());
     await expect(
       page.getByRole("button", { name: "✓ Hafal", exact: true }).first(),
     ).toBeVisible();

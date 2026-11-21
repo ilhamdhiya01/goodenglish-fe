@@ -78,3 +78,20 @@ export const acceptConfirm = async (page: Page, label?: string) => {
   ).click();
   await expect(dialog).toBeHidden();
 };
+
+/** "Tandai hafal" first asks for the card's English word (KnownProof): type
+ * it in and wait until the card is marked. Expressions default to the
+ * microphone, so they're switched to typing. `card` must keep pointing at
+ * the same card: not a locator filtered on its "Tandai hafal" button. */
+export const markKnown = async (card: Locator) => {
+  const word = (
+    await card.locator("span.font-black").first().innerText()
+  ).trim();
+  await card.getByRole("button", { name: "Tandai hafal", exact: true }).click();
+  const typeInstead = card.getByRole("button", { name: "Ketik saja" });
+  if (await typeInstead.isVisible()) await typeInstead.click();
+  const box = card.getByLabel(/^Ketik (kata|ungkapan) Inggris/);
+  await box.fill(word);
+  await box.press("Enter");
+  await expect(box).toHaveCount(0, { timeout: 5_000 });
+};

@@ -3,6 +3,7 @@ import path from "node:path";
 import type { Locator, Page, TestInfo } from "@playwright/test";
 
 import {
+  markKnown,
   openAiPanel,
   openApp,
   startQuickTest,
@@ -272,11 +273,13 @@ test.describe("kosakata", () => {
       .getByRole("dialog", { name: "Jenis kata" })
       .getByRole("button", { name: /^Phrasal verb/ })
       .click();
-    const mark = page
-      .locator("article")
-      .getByRole("button", { name: "Tandai hafal", exact: true });
-    for (let i = 0; i < 80 && (await mark.count()); i++)
-      await mark.first().click();
+    const unmarked = page.locator("article").filter({
+      has: page.getByRole("button", { name: "Tandai hafal", exact: true }),
+    });
+    // Known cards are hidden, so the first card is always the next one to
+    // mark (a filtered locator would jump to another card mid-proof).
+    for (let i = 0; i < 80 && (await unmarked.count()); i++)
+      await markKnown(page.locator("article").first());
     await expect(page.getByText(/^✓ Semua item di filter ini/)).toBeVisible();
     await expectMood(page.locator("main"), "senang");
     await shot(page, info, "kosakata-hafal");

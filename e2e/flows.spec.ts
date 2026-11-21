@@ -5,6 +5,7 @@ import {
   clickAccountAction,
   globalSearchInput,
   importInput,
+  markKnown,
   navLink,
   openAiPanel,
   openApp,
@@ -45,10 +46,7 @@ test.describe("akses", () => {
 test.describe("kosakata", () => {
   test("tandai hafal menyimpan kata ke progres", async ({ page, api }) => {
     await openApp(page, "/vocab");
-    const mark = page
-      .getByRole("button", { name: "Tandai hafal", exact: true })
-      .first();
-    await mark.click();
+    await markKnown(page.locator("article").first());
     await expect(
       page.getByRole("button", { name: "✓ Hafal", exact: true }).first(),
     ).toBeVisible();
@@ -70,20 +68,6 @@ test.describe("kosakata", () => {
       .first()
       .click();
     await expect(page.getByText("adalah / berada").first()).toBeVisible();
-  });
-
-  test("mode ketik memeriksa jawaban", async ({ page }) => {
-    await openApp(page, "/vocab");
-    await toggleVocabMode(page, /Mode ketik/);
-    const box = page.getByPlaceholder(/Ketik kata Inggrisnya/).first();
-    await box.fill("be");
-    await box.press("Enter");
-    await expect(
-      page
-        .getByRole("heading", { name: "be" })
-        .or(page.getByText(/^be$/))
-        .first(),
-    ).toBeVisible();
   });
 
   test("tes cepat: jawab satu soal lalu lanjut", async ({ page }) => {
