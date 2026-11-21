@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { loadStr, saveStr, STORAGE_KEYS } from "@/lib/helpers/storage.helper";
 import type { FormState } from "@/lib/types/vocab.types";
 
-// State UI halaman Kosakata: pencarian, filter jenis, mode tes/ketik, arah kartu
+// State UI halaman Kosakata: pencarian, filter jenis, mode tes, arah kartu
 // (Inggris→Indo atau sebaliknya), kartu yang dibuka, sorotan hasil "lompat ke kata",
 // dan form Kataku. `flip` dipersist — juga dipakai halaman Ulangan.
 
@@ -13,7 +13,6 @@ interface VocabUiState {
   hideKnown: boolean;
   quiz: boolean;
   flip: boolean;
-  recall: boolean;
   revealed: Record<string, 1>;
   focusKey: string;
   form: FormState | null;
@@ -24,7 +23,6 @@ interface VocabUiState {
   setHideKnown: (b: boolean) => void;
   setQuiz: (b: boolean) => void;
   setFlip: (b: boolean) => void;
-  setRecall: (b: boolean) => void;
   reveal: (k: string) => void;
   clearRevealed: () => void;
   /** Sorot satu kartu ~2 detik (dipakai "lompat ke kata" dari pencarian global). */
@@ -51,7 +49,6 @@ export const useVocabUiStore = create<VocabUiState>((set) => ({
   quiz: false,
   flip: loadStr(STORAGE_KEYS.flip) === "1",
   hydrate: () => set({ flip: loadStr(STORAGE_KEYS.flip) === "1" }),
-  recall: false,
   revealed: {},
   focusKey: "",
   form: null,
@@ -66,7 +63,6 @@ export const useVocabUiStore = create<VocabUiState>((set) => ({
     saveStr(STORAGE_KEYS.flip, flip ? "1" : "0");
     set({ flip, revealed: {} });
   },
-  setRecall: (recall) => set({ recall }),
   reveal: (k) => set((s) => ({ revealed: { ...s.revealed, [k]: 1 } })),
   clearRevealed: () => set({ revealed: {} }),
 

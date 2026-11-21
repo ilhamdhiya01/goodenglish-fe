@@ -69,6 +69,8 @@ export const ACCESS_ERRORS: Record<string, string> = {
   level_not_allowed: "Level ini tidak dibuka untuk token ini.",
   review_not_allowed: "Token ini belum bisa membuka Ulang. Hubungi admin.",
   stt_no_speech: "Suaramu tidak terdengar, coba lagi ya.",
+  stt_not_english:
+    "Kedengarannya bukan bahasa Inggris. Ucapkan ungkapannya dalam bahasa Inggris, ya.",
   stt_too_long: "Rekamannya terlalu panjang (maksimal 60 detik).",
   stt_too_large: "Rekamannya terlalu besar. Coba jawab lebih singkat, ya.",
   stt_bad_audio: "Rekamannya tidak bisa dibaca. Coba rekam lagi, ya.",

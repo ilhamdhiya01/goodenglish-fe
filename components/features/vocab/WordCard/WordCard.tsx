@@ -9,10 +9,10 @@ import React, {
   useState,
 } from "react";
 
+import KnownProof from "@/components/features/vocab/KnownProof";
 import Correction from "@/components/shared/patterns/correction";
 import TargetMark from "@/components/shared/patterns/target-mark";
 import Button from "@/components/ui/button";
-import Input from "@/components/ui/input";
 import { FIELD_CLASS } from "@/components/ui/input/Input";
 import Pill from "@/components/ui/pill";
 import SectionLabel from "@/components/ui/section-label";
@@ -41,15 +41,8 @@ interface Props {
   focused: boolean;
 }
 
-const norm = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/[^a-z' ]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-
 // Satu kartu kosakata: kata, lafal, jenis, arti, contoh, bentuk kata (V1 → V2 → V3),
-// "lebih natural", penjelasan detail, kalimatku, plus mode tes / mode ketik.
+// "lebih natural", penjelasan detail, kalimatku, plus mode tes.
 const WordCard = React.memo(({ k, it, focused }: Props) => {
   const [t, en, pron, id, ex, syn] = it;
   const { jumpToWord } = useJumpToWord();
@@ -59,6 +52,7 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
   const srs = useProgressStore((s) => s.srs[k]);
   const own = useProgressStore((s) => s.own[k] || "");
   const toggleKnown = useProgressStore((s) => s.toggleKnown);
+  const markKnown = useProgressStore((s) => s.markKnown);
   const setOwnSentence = useProgressStore((s) => s.setOwnSentence);
   const custom = useProgressStore((s) => s.custom);
   const removeCustomWord = useProgressStore((s) => s.removeCustomWord);
@@ -67,15 +61,14 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
 
   const quiz = useVocabUiStore((s) => s.quiz);
   const flip = useVocabUiStore((s) => s.flip);
-  const recall = useVocabUiStore((s) => s.recall);
   const revealed = useVocabUiStore((s) => !!s.revealed[k]);
   const ui = useVocabUiStore.getState;
 
   const [draft, setDraft] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [noteOpen, setNoteOpen] = useState(false);
-  const [typed, setTyped] = useState("");
-  const [result, setResult] = useState<boolean | null>(null);
+  // "Tandai hafal" asks for the word first (KnownProof).
+  const [proving, setProving] = useState(false);
   const ref = useRef<HTMLElement>(null);
 
   // Tombol muncul kalau kata punya penjelasan; isinya dimuat saat panel dibuka pertama kali.
@@ -136,15 +129,6 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
     if (draft !== null) {
       setOwnSentence(k, draft);
       setDraft(null);
-    }
-  };
-
-  const check = () => {
-    const ok = norm(typed) === norm(en);
-    setResult(ok);
-    if (ok) {
-      speak(en);
-      setTimeout(() => ui().reveal(k), 500);
     }
   };
 
@@ -260,42 +244,6 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
     </button>
   );
 
-  const recallBox = (
-    <div className="flex max-w-[460px] flex-col gap-1.5 self-stretch">
-      <div className="flex gap-2">
-        <Input
-          value={typed}
-          onChange={(e) => {
-            setTyped(e.target.value);
-            setResult(null);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") check();
-          }}
-          aria-label="Kata Inggrisnya"
-          aria-invalid={result === false}
-          placeholder="Ketik kata Inggrisnya, lalu Enter"
-          className={classNames(result && "border-ok")}
-        />
-        <Button variant="green" onClick={check} className="shrink-0">
-          Cek
-        </Button>
-      </div>
-      {result === false && (
-        <span className="text-[13px] font-bold text-bad">
-          ✕ Belum tepat. Coba lagi, atau{" "}
-          <TextButton tone="red" onClick={() => ui().reveal(k)}>
-            lihat jawabannya
-          </TextButton>
-          .
-        </span>
-      )}
-      {result && (
-        <span className="text-[13px] font-extrabold text-ok">✓ Tepat!</span>
-      )}
-    </div>
-  );
-
   // The example with the card's word marked ("We *ran out of* coffee").
   const target = useMemo(
     () => (ex ? findTarget(ex, en, vf) : null),
@@ -318,356 +266,381 @@ const WordCard = React.memo(({ k, it, focused }: Props) => {
       ref={ref}
       className={classNames(
         "grid gap-2.5 rounded-xl border-2 px-4 py-3.5 edge-card transition-colors duration-300 md:grid-cols-[minmax(0,1fr)_auto] md:gap-3 md:px-[18px] md:py-4",
-        focused
+        focused || proving
           ? "border-accent bg-surface [--edge:var(--color-accent)]"
           : kn
             ? "border-line bg-sunken"
             : "border-line bg-surface",
       )}
     >
-      <div className="flex min-w-0 flex-col gap-1.5 md:gap-2">
-        {flip && (
-          <>
-            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
-              <span
-                className={classNames(
-                  "text-xl leading-[26px] font-black wrap-anywhere",
-                  kn ? "text-ink-3" : "text-ink",
-                )}
-              >
-                {id}
-              </span>
-              {badges}
-            </div>
-            {hidden &&
-              !recall &&
-              revealLink("Ucapkan kata Inggrisnya dulu, lalu klik untuk lihat")}
-            {hidden && recall && recallBox}
-          </>
-        )}
-        {(!flip || !hidden) && (
-          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
-            <span
-              className={classNames(
-                "wrap-anywhere",
-                flip
-                  ? "text-[17px] leading-6 font-extrabold text-accent-edge"
-                  : classNames(
-                      "text-xl leading-[26px] font-black",
-                      kn ? "text-ink-3" : "text-ink",
-                    ),
-              )}
-            >
-              {en}
-            </span>
-            <SpeakButton text={en} />
-            {!!pron && (
-              <span className="text-[13.5px] font-semibold text-ink-2">
-                /{pron}/
-              </span>
-            )}
-            {!flip && badges}
-          </div>
-        )}
-        {/* Disembunyikan di mode tes "sembunyikan kata Inggris" supaya jawabannya tidak bocor. */}
-        {!!forms && !(flip && hidden) && (
-          <div className="flex flex-wrap items-center gap-2 text-[13px] font-bold text-ink-2">
-            <span
-              className={classNames(
-                "rounded-[6px] px-1.5 py-px text-[10.5px] font-extrabold tracking-[0.06em]",
-                v?.[2] ? "bg-bad-bg text-bad" : "bg-chip text-ink-2",
-              )}
-            >
-              {v?.[2] ? "IRREGULAR" : "REGULAR"}
-            </span>
-            <span className="text-ink">{forms}</span>
-            {same && <span>V1 = V2 = V3</span>}
-            {!!ing && <span>· -ing: {ing}</span>}
-            <SpeakButton
-              size={28}
-              icon={13}
-              onClick={speakForms}
-              title="Dengarkan bentuknya"
-            />
-          </div>
-        )}
-        {!flip &&
-          hidden &&
-          revealLink("Tebak artinya dulu, lalu klik untuk lihat")}
-        {(!flip || !hidden) && (
-          <p className="m-0 text-[15px] leading-[22px] text-pretty text-ink">
-            {!flip && !hidden && (
+      {proving ? (
+        <KnownProof
+          en={en}
+          id={id}
+          type={t}
+          ex={ex}
+          target={target}
+          exId={ex ? idOf(ex) : undefined}
+          onDone={() => {
+            markKnown(k);
+            setProving(false);
+          }}
+          onCancel={() => setProving(false)}
+        />
+      ) : (
+        <>
+          <div className="flex min-w-0 flex-col gap-1.5 md:gap-2">
+            {flip && (
               <>
-                <b className="font-extrabold">{id}</b>
-                {ex && " · "}
+                <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                  <span
+                    className={classNames(
+                      "text-xl leading-[26px] font-black wrap-anywhere",
+                      kn ? "text-ink-3" : "text-ink",
+                    )}
+                  >
+                    {id}
+                  </span>
+                  {badges}
+                </div>
+                {hidden &&
+                  revealLink(
+                    "Ucapkan kata Inggrisnya dulu, lalu klik untuk lihat",
+                  )}
               </>
             )}
-            {example}
-          </p>
-        )}
-        {!hidden && !!ex && !!idOf(ex) && (
-          <span className="-mt-1 text-[13.5px] leading-[19px] text-pretty text-ink-2">
-            {idOf(ex)}
-          </span>
-        )}
-        {!!syn && syn !== "—" && (
-          <span className="text-[13.5px] text-ink-2">
-            <span className="font-extrabold text-accent-edge">
-              Lebih natural:{" "}
-            </span>
-            {syn}
-          </span>
-        )}
-
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
-          {hasNoteFor && !hidden && (
-            <TextButton
-              aria-expanded={noteOpen}
-              title="Penjelasan detail"
-              onClick={() => setNoteOpen(!noteOpen)}
-            >
-              {noteOpen ? "Tutup penjelasan" : "Penjelasan"}
-            </TextButton>
-          )}
-          <TextButton
-            // Keeps the field focused, so its blur doesn't undo this click.
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => {
-              if (open) commit();
-              setOpen(!open);
-            }}
-          >
-            {open
-              ? own || draft
-                ? "simpan"
-                : "tutup"
-              : own
-                ? "✎ ubah kalimatku"
-                : "+ kalimatku"}
-          </TextButton>
-          {hasAi && (
-            <TextButton
-              title="Tanya AI soal kata ini"
-              onClick={() => useAiChatStore.getState().openWith(aiWord, {})}
-            >
-              tanya AI
-            </TextButton>
-          )}
-          {isMine && (
-            <>
-              <TextButton onClick={edit}>Ubah</TextButton>
-              <TextButton tone="red" onClick={remove}>
-                Hapus
-              </TextButton>
-            </>
-          )}
-          {kn && srs && (
-            <span className="text-xs font-bold text-ink-2">
-              {srs.due <= T0
-                ? "ulang hari ini"
-                : "ulang dalam " + (srs.due - T0) + " hari"}
-            </span>
-          )}
-        </div>
-
-        {hasNoteFor && noteOpen && !hidden && !note && (
-          <span className="text-[13px] font-bold text-ink-2">
-            Memuat penjelasan…
-          </span>
-        )}
-        {!!note && noteOpen && !hidden && (
-          <div className="flex flex-col gap-3.5 rounded-lg border-2 border-line bg-sunken px-4 py-3.5">
-            <div className="flex flex-col gap-1">
-              <SectionLabel tone="green">INTI</SectionLabel>
-              <span className="text-[15px] leading-[22px] text-pretty text-ink">
-                {note.core}
-              </span>
-            </div>
-            {!!note.forms?.length && (
-              <div className="flex flex-col gap-1">
-                <SectionLabel tone="green">BENTUK</SectionLabel>
-                <div className="grid grid-cols-[auto_1fr] items-baseline gap-x-3.5 gap-y-1">
-                  {note.forms.map(([a, b], i) => (
-                    <div key={i} className="contents">
-                      <span className="text-[13px] font-semibold whitespace-nowrap text-ink-2">
-                        {a}
-                      </span>
-                      <span className="text-sm font-bold text-ink">{b}</span>
-                    </div>
-                  ))}
-                </div>
+            {(!flip || !hidden) && (
+              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                <span
+                  className={classNames(
+                    "wrap-anywhere",
+                    flip
+                      ? "text-[17px] leading-6 font-extrabold text-accent-edge"
+                      : classNames(
+                          "text-xl leading-[26px] font-black",
+                          kn ? "text-ink-3" : "text-ink",
+                        ),
+                  )}
+                >
+                  {en}
+                </span>
+                <SpeakButton text={en} />
+                {!!pron && (
+                  <span className="text-[13.5px] font-semibold text-ink-2">
+                    /{pron}/
+                  </span>
+                )}
+                {!flip && badges}
               </div>
             )}
-            {!!note.use?.length && (
-              <div className="flex flex-col gap-1">
-                <SectionLabel tone="green">KAPAN DIPAKAI</SectionLabel>
-                <div className="flex flex-col gap-2">
-                  {note.use.map(([e, i2], i) => (
-                    <div key={i} className="flex flex-col gap-0.5">
-                      <div className="flex flex-wrap items-center gap-2.5">
-                        <span className="text-[15px] leading-[22px] font-bold text-ink">
-                          {e}
-                        </span>
-                        <SpeakButton size={28} icon={13} text={e} />
-                        {!!i2 && i2 !== idOf(e) && (
-                          <span className="text-xs font-bold text-ink-2">
-                            {i2}
+            {/* Disembunyikan di mode tes "sembunyikan kata Inggris" supaya jawabannya tidak bocor. */}
+            {!!forms && !(flip && hidden) && (
+              <div className="flex flex-wrap items-center gap-2 text-[13px] font-bold text-ink-2">
+                <span
+                  className={classNames(
+                    "rounded-[6px] px-1.5 py-px text-[10.5px] font-extrabold tracking-[0.06em]",
+                    v?.[2] ? "bg-bad-bg text-bad" : "bg-chip text-ink-2",
+                  )}
+                >
+                  {v?.[2] ? "IRREGULAR" : "REGULAR"}
+                </span>
+                <span className="text-ink">{forms}</span>
+                {same && <span>V1 = V2 = V3</span>}
+                {!!ing && <span>· -ing: {ing}</span>}
+                <SpeakButton
+                  size={28}
+                  icon={13}
+                  onClick={speakForms}
+                  title="Dengarkan bentuknya"
+                />
+              </div>
+            )}
+            {!flip &&
+              hidden &&
+              revealLink("Tebak artinya dulu, lalu klik untuk lihat")}
+            {(!flip || !hidden) && (
+              <p className="m-0 text-[15px] leading-[22px] text-pretty text-ink">
+                {!flip && !hidden && (
+                  <>
+                    <b className="font-extrabold">{id}</b>
+                    {ex && " · "}
+                  </>
+                )}
+                {example}
+              </p>
+            )}
+            {!hidden && !!ex && !!idOf(ex) && (
+              <span className="-mt-1 text-[13.5px] leading-[19px] text-pretty text-ink-2">
+                {idOf(ex)}
+              </span>
+            )}
+            {!!syn && syn !== "—" && (
+              <span className="text-[13.5px] text-ink-2">
+                <span className="font-extrabold text-accent-edge">
+                  Lebih natural:{" "}
+                </span>
+                {syn}
+              </span>
+            )}
+
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
+              {hasNoteFor && !hidden && (
+                <TextButton
+                  aria-expanded={noteOpen}
+                  title="Penjelasan detail"
+                  onClick={() => setNoteOpen(!noteOpen)}
+                >
+                  {noteOpen ? "Tutup penjelasan" : "Penjelasan"}
+                </TextButton>
+              )}
+              <TextButton
+                // Keeps the field focused, so its blur doesn't undo this click.
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => {
+                  if (open) commit();
+                  setOpen(!open);
+                }}
+              >
+                {open
+                  ? own || draft
+                    ? "simpan"
+                    : "tutup"
+                  : own
+                    ? "✎ ubah kalimatku"
+                    : "+ kalimatku"}
+              </TextButton>
+              {hasAi && (
+                <TextButton
+                  title="Tanya AI soal kata ini"
+                  onClick={() => useAiChatStore.getState().openWith(aiWord, {})}
+                >
+                  tanya AI
+                </TextButton>
+              )}
+              {isMine && (
+                <>
+                  <TextButton onClick={edit}>Ubah</TextButton>
+                  <TextButton tone="red" onClick={remove}>
+                    Hapus
+                  </TextButton>
+                </>
+              )}
+              {kn && srs && (
+                <span className="text-xs font-bold text-ink-2">
+                  {srs.due <= T0
+                    ? "ulang hari ini"
+                    : "ulang dalam " + (srs.due - T0) + " hari"}
+                </span>
+              )}
+            </div>
+
+            {hasNoteFor && noteOpen && !hidden && !note && (
+              <span className="text-[13px] font-bold text-ink-2">
+                Memuat penjelasan…
+              </span>
+            )}
+            {!!note && noteOpen && !hidden && (
+              <div className="flex flex-col gap-3.5 rounded-lg border-2 border-line bg-sunken px-4 py-3.5">
+                <div className="flex flex-col gap-1">
+                  <SectionLabel tone="green">INTI</SectionLabel>
+                  <span className="text-[15px] leading-[22px] text-pretty text-ink">
+                    {note.core}
+                  </span>
+                </div>
+                {!!note.forms?.length && (
+                  <div className="flex flex-col gap-1">
+                    <SectionLabel tone="green">BENTUK</SectionLabel>
+                    <div className="grid grid-cols-[auto_1fr] items-baseline gap-x-3.5 gap-y-1">
+                      {note.forms.map(([a, b], i) => (
+                        <div key={i} className="contents">
+                          <span className="text-[13px] font-semibold whitespace-nowrap text-ink-2">
+                            {a}
                           </span>
-                        )}
-                      </div>
-                      {!!(idOf(e) || i2) && (
-                        <span className="text-[13px] text-ink-2">
-                          {idOf(e) || i2}
-                        </span>
+                          <span className="text-sm font-bold text-ink">
+                            {b}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {!!note.use?.length && (
+                  <div className="flex flex-col gap-1">
+                    <SectionLabel tone="green">KAPAN DIPAKAI</SectionLabel>
+                    <div className="flex flex-col gap-2">
+                      {note.use.map(([e, i2], i) => (
+                        <div key={i} className="flex flex-col gap-0.5">
+                          <div className="flex flex-wrap items-center gap-2.5">
+                            <span className="text-[15px] leading-[22px] font-bold text-ink">
+                              {e}
+                            </span>
+                            <SpeakButton size={28} icon={13} text={e} />
+                            {!!i2 && i2 !== idOf(e) && (
+                              <span className="text-xs font-bold text-ink-2">
+                                {i2}
+                              </span>
+                            )}
+                          </div>
+                          {!!(idOf(e) || i2) && (
+                            <span className="text-[13px] text-ink-2">
+                              {idOf(e) || i2}
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {!!note.traps?.length && (
+                  <div className="flex flex-col gap-1.5">
+                    <SectionLabel tone="red">JEBAKAN UMUM</SectionLabel>
+                    <div className="flex flex-col gap-2.5">
+                      {note.traps.map(([bad, good, why], i) =>
+                        good ? (
+                          <Correction
+                            key={i}
+                            wrong={bad || undefined}
+                            right={good}
+                            why={why || undefined}
+                          />
+                        ) : (
+                          <div key={i} className="flex flex-col gap-0.5">
+                            <span className="text-[15px] font-bold text-bad">
+                              {bad}
+                            </span>
+                            {!!why && (
+                              <span className="text-[13.5px] text-ink-2">
+                                {why}
+                              </span>
+                            )}
+                          </div>
+                        ),
                       )}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
+                {!!note.see?.length && (
+                  <div className="flex flex-wrap items-center gap-2">
+                    <SectionLabel>LIHAT JUGA</SectionLabel>
+                    {note.see.map((s) => (
+                      <Pill key={s} size="sm" onClick={() => jumpToWord(s)}>
+                        {s}
+                      </Pill>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
-            {!!note.traps?.length && (
+
+            {showOwn && (
               <div className="flex flex-col gap-1.5">
-                <SectionLabel tone="red">JEBAKAN UMUM</SectionLabel>
-                <div className="flex flex-col gap-2.5">
-                  {note.traps.map(([bad, good, why], i) =>
-                    good ? (
-                      <Correction
-                        key={i}
-                        wrong={bad || undefined}
-                        right={good}
-                        why={why || undefined}
-                      />
-                    ) : (
-                      <div key={i} className="flex flex-col gap-0.5">
-                        <span className="text-[15px] font-bold text-bad">
-                          {bad}
-                        </span>
-                        {!!why && (
-                          <span className="text-[13.5px] text-ink-2">
-                            {why}
-                          </span>
-                        )}
-                      </div>
-                    ),
-                  )}
-                </div>
-              </div>
-            )}
-            {!!note.see?.length && (
-              <div className="flex flex-wrap items-center gap-2">
-                <SectionLabel>LIHAT JUGA</SectionLabel>
-                {note.see.map((s) => (
-                  <Pill key={s} size="sm" onClick={() => jumpToWord(s)}>
-                    {s}
-                  </Pill>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {showOwn && (
-          <div className="flex flex-col gap-1.5">
-            {open ? (
-              // Editing: a field that grows with the sentence. One sentence:
-              // Enter saves instead of starting a new line; leaving saves.
-              <textarea
-                ref={ownRef}
-                rows={1}
-                value={val}
-                onChange={(e) =>
-                  setDraft(e.target.value.replace(/\s*\n+\s*/g, " "))
-                }
-                onBlur={() => {
-                  commit();
-                  setOpen(false);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.nativeEvent.isComposing) {
-                    e.preventDefault();
-                    e.currentTarget.blur();
-                  }
-                }}
-                aria-label="Kalimatku"
-                placeholder="Tulis satu kalimatmu sendiri dengan kata ini, lalu Enter…"
-                className={classNames(
-                  FIELD_CLASS,
-                  "resize-none overflow-hidden leading-6",
-                )}
-              />
-            ) : (
-              // Saved: plain text, read in full; a tap edits it.
-              <div className="flex items-start gap-2">
-                <button
-                  type="button"
-                  title="Klik untuk mengubah kalimatku"
-                  onClick={() => setOpen(true)}
-                  className="min-w-0 flex-1 cursor-text rounded-md px-1 py-1 text-left text-base leading-6 font-bold wrap-anywhere text-ink focus-ring transition-colors hover:bg-sunken"
-                >
-                  <span className="sr-only">Kalimatku: </span>
-                  {own}
-                </button>
-                <SpeakButton text={own} title="Dengarkan kalimatku" />
-                {hasAi && (
-                  <TextButton
-                    title="Cek kalimatku dengan AI"
-                    className="mt-2 whitespace-nowrap"
-                    onClick={() =>
-                      useAiChatStore.getState().openWith(aiWord, {
-                        text: `Cek kalimatku dengan kata "${en}": ${own}`,
-                        mistake: { source: "Kalimatku", wrong: own },
-                      })
+                {open ? (
+                  // Editing: a field that grows with the sentence. One sentence:
+                  // Enter saves instead of starting a new line; leaving saves.
+                  <textarea
+                    ref={ownRef}
+                    rows={1}
+                    value={val}
+                    onChange={(e) =>
+                      setDraft(e.target.value.replace(/\s*\n+\s*/g, " "))
                     }
-                  >
-                    cek AI
-                  </TextButton>
+                    onBlur={() => {
+                      commit();
+                      setOpen(false);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+                        e.preventDefault();
+                        e.currentTarget.blur();
+                      }
+                    }}
+                    aria-label="Kalimatku"
+                    placeholder="Tulis satu kalimatmu sendiri dengan kata ini, lalu Enter…"
+                    className={classNames(
+                      FIELD_CLASS,
+                      "resize-none overflow-hidden leading-6",
+                    )}
+                  />
+                ) : (
+                  // Saved: plain text, read in full; a tap edits it.
+                  <div className="flex items-start gap-2">
+                    <button
+                      type="button"
+                      title="Klik untuk mengubah kalimatku"
+                      onClick={() => setOpen(true)}
+                      className="min-w-0 flex-1 cursor-text rounded-md px-1 py-1 text-left text-base leading-6 font-bold wrap-anywhere text-ink focus-ring transition-colors hover:bg-sunken"
+                    >
+                      <span className="sr-only">Kalimatku: </span>
+                      {own}
+                    </button>
+                    <SpeakButton text={own} title="Dengarkan kalimatku" />
+                    {hasAi && (
+                      <TextButton
+                        title="Cek kalimatku dengan AI"
+                        className="mt-2 whitespace-nowrap"
+                        onClick={() =>
+                          useAiChatStore.getState().openWith(aiWord, {
+                            text: `Cek kalimatku dengan kata "${en}": ${own}`,
+                            mistake: { source: "Kalimatku", wrong: own },
+                          })
+                        }
+                      >
+                        cek AI
+                      </TextButton>
+                    )}
+                    <TextButton
+                      tone="red"
+                      title="Hapus kalimatku"
+                      className="mt-2 whitespace-nowrap"
+                      onClick={() => {
+                        setOwnSentence(k, "");
+                        setDraft(null);
+                      }}
+                    >
+                      hapus
+                    </TextButton>
+                  </div>
                 )}
-                <TextButton
-                  tone="red"
-                  title="Hapus kalimatku"
-                  className="mt-2 whitespace-nowrap"
-                  onClick={() => {
-                    setOwnSentence(k, "");
-                    setDraft(null);
-                  }}
-                >
-                  hapus
-                </TextButton>
+                {hasOwn && !open && (
+                  <span className="text-xs font-extrabold text-ok">
+                    ✓ tersimpan · dipakai saat ulangan
+                  </span>
+                )}
               </div>
             )}
-            {hasOwn && !open && (
-              <span className="text-xs font-extrabold text-ok">
-                ✓ tersimpan · dipakai saat ulangan
-              </span>
-            )}
           </div>
-        )}
-      </div>
 
-      <div className="md:col-start-2 md:row-start-1">
-        <Button
-          size="sm"
-          variant={kn ? "green" : "outline"}
-          aria-pressed={kn}
-          title="Tandai hafal"
-          onClick={async () => {
-            // Taking a word out of Ulang asks first (one tap is easy to miss).
-            if (
-              kn &&
-              !(await confirmDialog({
-                title: "Batalkan hafal?",
-                message: `"${it[1]}" keluar dari Ulang. Riwayat ulangnya tetap disimpan dan dipakai lagi bila kamu menandainya hafal lagi.`,
-                confirmLabel: "Batalkan hafal",
-              }))
-            )
-              return;
-            toggleKnown(k);
-          }}
-          className="w-full whitespace-nowrap md:w-auto"
-        >
-          {kn ? "✓ Hafal" : "Tandai hafal"}
-        </Button>
-      </div>
+          <div className="md:col-start-2 md:row-start-1">
+            <Button
+              size="sm"
+              variant={kn ? "green" : "outline"}
+              aria-pressed={kn}
+              title="Tandai hafal"
+              onClick={async () => {
+                // Taking a word out of Ulang asks first (one tap is easy to miss).
+                if (
+                  kn &&
+                  !(await confirmDialog({
+                    title: "Batalkan hafal?",
+                    message: `"${it[1]}" keluar dari Ulang. Riwayat ulangnya tetap disimpan dan dipakai lagi bila kamu menandainya hafal lagi.`,
+                    confirmLabel: "Batalkan hafal",
+                  }))
+                )
+                  return;
+                // Marking known asks for the word first (KnownProof).
+                if (!kn) {
+                  setProving(true);
+                  return;
+                }
+                toggleKnown(k);
+              }}
+              className="w-full whitespace-nowrap md:w-auto"
+            >
+              {kn ? "✓ Hafal" : "Tandai hafal"}
+            </Button>
+          </div>
+        </>
+      )}
     </article>
   );
 });

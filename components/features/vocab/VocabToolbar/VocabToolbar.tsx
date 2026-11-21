@@ -85,7 +85,6 @@ const VocabToolbar = React.memo(
     const hideKnown = useVocabUiStore((s) => s.hideKnown);
     const quiz = useVocabUiStore((s) => s.quiz);
     const flip = useVocabUiStore((s) => s.flip);
-    const recall = useVocabUiStore((s) => s.recall);
     const form = useVocabUiStore((s) => s.form);
     const ui = useVocabUiStore.getState;
     const [sheet, setSheet] = useState<"mode" | "type" | null>(null);
@@ -93,11 +92,10 @@ const VocabToolbar = React.memo(
     const quizTitle = flip
       ? "Mode tes · sembunyikan kata Inggris"
       : "Mode tes · sembunyikan arti";
-    const modeCount = [quiz, flip, recall, hideKnown].filter(Boolean).length;
+    const modeCount = [quiz, flip, hideKnown].filter(Boolean).length;
     const active = [
       quiz && quizTitle,
       flip && "Indo → Inggris",
-      recall && "Mode ketik · recall",
       hideKnown && "Sembunyikan yang hafal",
       type === MINE_TYPE
         ? "Kataku (pribadi) · semua minggu"
@@ -166,20 +164,6 @@ const VocabToolbar = React.memo(
                 title={flip ? "Indo → Inggris" : "Inggris → Indo"}
                 hint="Balik arah: arti Indonesia jadi judul, kata Inggris di bawah. Melatih mengeluarkan kata saat bicara."
                 onClick={() => ui().setFlip(!flip)}
-              />
-              <ModeRow
-                on={recall}
-                title="Mode ketik · recall"
-                hint="Lihat arti Indonesia, ketik kata Inggrisnya. Melatih mengeluarkan kata, bukan hanya mengenali."
-                onClick={() => {
-                  const on = !recall;
-                  ui().setRecall(on);
-                  if (on) {
-                    if (!flip) ui().setFlip(true);
-                    if (!quiz) ui().setQuiz(true);
-                  }
-                  ui().clearRevealed();
-                }}
               />
               <ModeRow
                 on={hideKnown}
