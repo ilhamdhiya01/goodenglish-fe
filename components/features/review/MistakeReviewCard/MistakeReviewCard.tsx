@@ -21,6 +21,7 @@ import TextButton from "@/components/ui/text-button";
 import { accessErrorText } from "@/const/access.constant";
 import { categoryOf } from "@/const/mistake-categories.constant";
 import { checkDictation, type WordMark } from "@/lib/helpers/dictation.helper";
+import { practiceOf } from "@/lib/helpers/practice-ref.helper";
 import { releaseSpeech, speak } from "@/lib/helpers/speech.helper";
 import type { SrsAnswer } from "@/lib/helpers/srs.helper";
 import { useGradeOnLeave } from "@/lib/hooks/useGradeOnLeave";
@@ -201,6 +202,11 @@ const MistakeReviewCard = ({
   const micNote = rec.error ? MIC_HELP[rec.error] : sttError;
   const cat = categoryOf(m.category);
   const section = sectionOfMistake(m);
+  // Panduan grammar mistakes: the practice set, else the Cheat sheet section.
+  const practice = practiceOf(m);
+  const topic = practice
+    ? `${practice.subLabel} · ${practice.title}`
+    : section?.title;
   const marked = listen ? [] : markWrong(m.wrong, m.correct);
   const anyMarked = marked.some((p) => p.bad);
 
@@ -216,7 +222,7 @@ const MistakeReviewCard = ({
   const how = HOW[result];
   const settle = useGradeOnLeave(revealed ? m.id : null, () => onGrade(how));
 
-  const ruleLink = section && (
+  const ruleLink = !!topic && (
     <TextButton onClick={() => setRuleOpen(true)} className="self-start">
       Lihat aturannya
     </TextButton>
@@ -320,10 +326,9 @@ const MistakeReviewCard = ({
               <p className="m-0 text-[28px] leading-9 font-black tracking-[-0.015em] wrap-anywhere text-ink">
                 <Marked parts={marked} />
               </p>
-              {section && (
+              {!!topic && (
                 <span className="text-sm font-semibold text-ink-2">
-                  Materi:{" "}
-                  <b className="font-extrabold text-ink">{section.title}</b> ·{" "}
+                  Materi: <b className="font-extrabold text-ink">{topic}</b> ·{" "}
                   {ruleLink}
                 </span>
               )}

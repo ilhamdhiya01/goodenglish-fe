@@ -11,6 +11,8 @@ vi.mock("@/lib/helpers/speech.helper", async (importOriginal) => ({
 
 const { default: MistakeReviewCard, markWrong } =
   await import("../MistakeReviewCard");
+const { usePracticeSessionStore } =
+  await import("@/stores/usePracticeSessionStore");
 
 const mistake = (o: Partial<MistakeRecord> = {}): MistakeRecord => ({
   id: "m1",
@@ -111,6 +113,30 @@ describe("MistakeReviewCard › Betulkan kalimat", () => {
     expect(sheet.textContent).not.toContain("I wish");
     fireEvent.click(screen.getByRole("button", { name: "Kembali ke kartu" }));
     expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("a grammar practice mistake shows its set, and links to that set", () => {
+    setup(
+      mistake({
+        source: "Grammar",
+        category: "kata-tertukar",
+        rule: undefined,
+        wrong: "We stayed home because of it was raining.",
+        correct: "We stayed home because it was raining.",
+        refId: "conj1:We stayed home because it was raining.",
+      }),
+    );
+    expect(
+      screen.getByText("Kata sambung · Because / because of / so"),
+    ).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Lihat aturannya" }));
+    const sheet = screen.getByRole("dialog", { name: "Kata sambung" });
+    expect(sheet.textContent).toContain("Because / because of / so");
+    expect(sheet.textContent).toContain("because of + kata benda");
+    const link = screen.getByRole("link", { name: /Buka latihannya/ });
+    expect(link.getAttribute("href")).toBe("/grammar/conj");
+    fireEvent.click(link);
+    expect(usePracticeSessionStore.getState().sets.conj).toBe("conj1");
   });
 
   it("without a rule id, shows the category's whole section", () => {

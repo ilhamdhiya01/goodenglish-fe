@@ -5,11 +5,14 @@ import React from "react";
 
 import { Block } from "@/components/features/cheatsheet/CheatsheetPage/CheatsheetPage";
 import Button from "@/components/ui/button";
+import SectionLabel from "@/components/ui/section-label";
 import Sheet from "@/components/ui/sheet";
 import { CHEAT_SECTIONS } from "@/const/cheatsheet.constant";
 import { categoryOf, learnHref } from "@/const/mistake-categories.constant";
 import { ruleOf } from "@/lib/helpers/cheat-rules.helper";
+import { practiceOf } from "@/lib/helpers/practice-ref.helper";
 import type { MistakeRecord } from "@/lib/types/mistake.types";
+import { usePracticeSessionStore } from "@/stores/usePracticeSessionStore";
 
 /** The Cheat sheet section a mistake's rule (or category) belongs to. */
 export const sectionOfMistake = (m: MistakeRecord) =>
@@ -25,11 +28,52 @@ interface Props {
 // "Lihat aturannya" in Ulang: the rule the mistake breaks, over the card
 // (so the card and what was typed stay). Mistakes recorded before rules had
 // ids, or with no single rule, show their category's Cheat sheet section.
+// Panduan grammar practice mistakes show the set they were answered in.
 const RuleSheet = ({ m, onClose }: Props) => {
+  const practice = practiceOf(m);
   const ref = ruleOf(m.rule);
   const section = sectionOfMistake(m);
   const rules = section?.blocks.filter((b) => b.kind === "rule") ?? [];
   const href = section ? `/cheatsheet#${section.id}` : learnHref(m.category);
+
+  if (practice) {
+    return (
+      <Sheet label={practice.subLabel} onClose={onClose}>
+        <div className="flex flex-col gap-4 pb-1">
+          <div className="flex flex-col gap-1.5">
+            <SectionLabel tone="green">
+              LATIHAN · {practice.no.toUpperCase()}
+            </SectionLabel>
+            <span className="text-lg leading-6 font-extrabold text-ink">
+              {practice.title}
+            </span>
+            <p className="m-0 text-[15px] leading-[22px] text-ink-2">
+              {practice.detail}
+            </p>
+          </div>
+          <Link
+            href={`/grammar/${practice.sub}`}
+            onClick={() =>
+              usePracticeSessionStore
+                .getState()
+                .setTopicSet(practice.topic, practice.setId)
+            }
+            className="self-start text-sm font-bold text-accent-edge underline decoration-dotted underline-offset-[3px] focus-ring"
+          >
+            Buka latihannya di Panduan grammar
+          </Link>
+          <Button
+            variant="green"
+            size="lg"
+            className="w-full"
+            onClick={onClose}
+          >
+            Kembali ke kartu
+          </Button>
+        </div>
+      </Sheet>
+    );
+  }
 
   return (
     <Sheet

@@ -5,6 +5,9 @@ import React, { useMemo, useState } from "react";
 import { LuArchive, LuArchiveRestore, LuBookOpen } from "react-icons/lu";
 
 import Jalak from "@/components/brand/Jalak";
+import RuleSheet, {
+  sectionOfMistake,
+} from "@/components/features/review/RuleSheet";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import FieldLabel from "@/components/ui/field-label";
@@ -17,6 +20,7 @@ import {
   MISTAKE_CATEGORIES,
 } from "@/const/mistake-categories.constant";
 import { formatDate } from "@/lib/helpers/date.helper";
+import { practiceOf } from "@/lib/helpers/practice-ref.helper";
 import {
   MISTAKE_SOURCES,
   type MistakeRecord,
@@ -41,9 +45,16 @@ export const topCategories = (items: MistakeRecord[], n: number) => {
     .slice(0, n);
 };
 
+const LEARN_CLASS =
+  "inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-accent-edge focus-ring hover:underline";
+
 const MistakeCard = ({ m }: { m: MistakeRecord }) => {
   const setStatus = useMistakeStore((s) => s.setStatus);
   const cat = categoryOf(m.category);
+  const [ruleOpen, setRuleOpen] = useState(false);
+  // Same sheet as Ulang's "Lihat aturannya" when there is something to show
+  // (the rule, its Cheat sheet section, or the grammar practice set).
+  const hasSheet = !!practiceOf(m) || !!sectionOfMistake(m);
   return (
     <Card className="gap-2.5">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -78,13 +89,21 @@ const MistakeCard = ({ m }: { m: MistakeRecord }) => {
         </span>
       )}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-        <Link
-          href={learnHref(m.category)}
-          className="inline-flex min-h-11 items-center gap-1.5 text-sm font-extrabold text-accent-edge focus-ring hover:underline"
-        >
-          <LuBookOpen aria-hidden size={15} />
-          Pelajari aturannya
-        </Link>
+        {hasSheet ? (
+          <button
+            type="button"
+            onClick={() => setRuleOpen(true)}
+            className={`${LEARN_CLASS} cursor-pointer`}
+          >
+            <LuBookOpen aria-hidden size={15} />
+            Pelajari aturannya
+          </button>
+        ) : (
+          <Link href={learnHref(m.category)} className={LEARN_CLASS}>
+            <LuBookOpen aria-hidden size={15} />
+            Pelajari aturannya
+          </Link>
+        )}
         {m.status === "active" ? (
           <Button
             size="sm"
@@ -105,6 +124,7 @@ const MistakeCard = ({ m }: { m: MistakeRecord }) => {
           </Button>
         )}
       </div>
+      {ruleOpen && <RuleSheet m={m} onClose={() => setRuleOpen(false)} />}
     </Card>
   );
 };

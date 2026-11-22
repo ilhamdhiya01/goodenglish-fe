@@ -251,7 +251,11 @@ test.describe("Punyaku", () => {
     await page.getByLabel("Status").selectOption("archived");
     await expect(page.getByText("She goes home.")).toBeVisible();
 
-    await page.getByRole("link", { name: "Pelajari aturannya" }).click();
+    // Same sheet as Ulang; the full Cheat sheet is one more tap.
+    await page.getByRole("button", { name: "Pelajari aturannya" }).click();
+    const sheet = page.getByRole("dialog", { name: "Lima aturan dasar" });
+    await expect(sheet).toBeVisible();
+    await sheet.getByRole("link", { name: "Buka Cheat sheet lengkap" }).click();
     await expect(page).toHaveURL(/\/cheatsheet#aturan-dasar$/);
     await expect(page.locator("#aturan-dasar")).toBeInViewport();
   });
