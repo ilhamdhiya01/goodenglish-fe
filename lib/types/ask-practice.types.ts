@@ -16,12 +16,23 @@ export interface AskQ {
   ansId?: string;
 }
 
+export interface RetryItem {
+  prompt: string;
+  hint: string;
+  ans: string;
+  /** Why the answer was wrong (older entries: why the key is right). */
+  why: string;
+  /** The learner's whole sentence (missing on older entries). */
+  given?: string;
+}
+
 export interface RuleStats {
   done: Record<string, 1>;
   seen: number;
   right: number;
   wrong: number;
-  retry?: { prompt: string; hint: string; ans: string; why: string }[];
+  /** "Terakhir salah": answered wrong, not yet answered right since. */
+  retry?: RetryItem[];
   /** Answers per stage (added later: older stats only have the totals). */
   byStage?: Partial<Record<PracticeStage, { seen: number; right: number }>>;
 }

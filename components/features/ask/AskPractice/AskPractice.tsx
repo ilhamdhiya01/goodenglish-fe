@@ -4,6 +4,7 @@ import classNames from "classnames";
 import React, { useState } from "react";
 
 import Jalak from "@/components/brand/Jalak";
+import { markWrong } from "@/components/features/review/MistakeReviewCard/MistakeReviewCard";
 import AnswerOption, {
   type AnswerState,
 } from "@/components/shared/patterns/answer-option/AnswerOption";
@@ -25,6 +26,7 @@ import type {
   AskQ,
   PracticeSession,
   PracticeStage,
+  RetryItem,
 } from "@/lib/types/ask-practice.types";
 import type { LevelId } from "@/lib/types/session.types";
 import { useActivityStore } from "@/stores/useActivityStore";
@@ -67,6 +69,57 @@ interface Props {
   mistakeCategory?: string;
 }
 
+/** "Terakhir salah · akan muncul lagi" after one answer: a wrong answer is
+ * (re)added last with what was answered and why; a right one takes the
+ * question off, since it won't come back. */
+export const nextRetry = (
+  list: RetryItem[],
+  q: Pick<RetryItem, "prompt" | "hint" | "ans">,
+  wrong: { given: string; why: string } | null,
+): RetryItem[] => {
+  const rest = list.filter((x) => x.ans !== q.ans);
+  if (!wrong) return rest;
+  return [
+    ...rest,
+    {
+      prompt: q.prompt,
+      hint: q.hint,
+      ans: q.ans,
+      why: wrong.why,
+      given: wrong.given,
+    },
+  ].slice(-30);
+};
+
+/** One "Terakhir salah" card: ✕ the learner's sentence (wrong words in red),
+ * ✓ the key, and why. Entries from before answers were kept show the
+ * question instead of the ✕ line. */
+export const RetryCard = ({ x }: { x: RetryItem }) => (
+  <div className="flex flex-col gap-1.5 rounded-lg border-2 border-bad-line bg-bad-bg px-3.5 py-3">
+    {!x.given && (
+      <span className="text-[13px] text-ink-2">{noCue(x.prompt)}</span>
+    )}
+    <Correction
+      wrong={
+        x.given
+          ? markWrong(x.given, x.ans).map((p, i) =>
+              p.bad ? (
+                <b key={i} className="font-extrabold text-bad">
+                  {p.t}
+                </b>
+              ) : (
+                <React.Fragment key={i}>{p.t}</React.Fragment>
+              ),
+            )
+          : undefined
+      }
+      right={x.ans}
+      speak={x.ans}
+      why={x.why || undefined}
+    />
+  </div>
+);
+
 // Latihan per rumus/set: 20 soal per set, tiga tahap (pilihan ganda → susun kata → ketik).
 // Dipakai tab Bertanya (generator otomatis) dan sub-tab lain dengan bank soal (lib/bank-practice).
 // Statistik per rumus/set di ask-practice store.
@@ -105,6 +158,9 @@ const AskPractice = React.memo(
     const stageAcc = st?.seen ? Math.round((st.right / st.seen) * 100) : null;
 
     const start = (st: PracticeStage) => {
+      // start runs from click handlers only (Mulai / Generate / a stage), never
+      // while rendering, so a fresh seed each time is intended.
+      // eslint-disable-next-line react-hooks/purity
       const qs = G.make(rule, 20, Date.now() % 2147483647, R.done) as AskQ[];
       setSession(rule, st, {
         stage: st,
@@ -143,6 +199,14 @@ const AskPractice = React.memo(
           : G.check
             ? G.check(given, q, P.stage)
             : G.norm(given) === G.norm(q.ans);
+      // The learner's whole sentence and why it's wrong: for "Terakhir
+      // salah" here and for Buku kesalahanku.
+      const wrong = ok
+        ? null
+        : {
+            given: G.full ? G.full(q, given, P.stage) : given,
+            why: G.explain(q, given, P.stage).replace(/^Benar: /, ""),
+          };
       updateRule(rule, (cur) => {
         const was = cur.byStage?.[P.stage] ?? { seen: 0, right: 0 };
         const n = {
@@ -159,20 +223,17 @@ const AskPractice = React.memo(
           n.done[q.ans.toLowerCase()] = 1;
         } else {
           n.wrong++;
-          n.retry = [
-            ...(cur.retry || []).filter((x) => x.ans !== q.ans),
-            { prompt: q.prompt, hint: q.hint, ans: q.ans, why: q.why },
-          ].slice(-30);
         }
+        n.retry = nextRetry(cur.retry || [], q, wrong);
         return n;
       });
-      if (!ok) {
+      if (wrong) {
         // Buku kesalahanku: the learner's whole sentence vs the key.
         addMistake({
           source: "Grammar",
-          wrong: G.full ? G.full(q, given, P.stage) : given,
+          wrong: wrong.given,
           correct: q.ans,
-          explanation_id: G.explain(q, given, P.stage).replace(/^Benar: /, ""),
+          explanation_id: wrong.why,
           category: mistakeCategory,
           level: level as LevelId,
           refId: `${rule}:${q.ans}`,
@@ -551,16 +612,8 @@ const AskPractice = React.memo(
               {R.retry
                 .slice(-6)
                 .reverse()
-                .map((x, i) => (
-                  <div
-                    key={i}
-                    className="flex flex-col gap-1.5 rounded-lg border-2 border-bad-line bg-bad-bg px-3.5 py-3"
-                  >
-                    <span className="text-[13px] text-ink-2">
-                      {noCue(x.prompt)} · {x.hint}
-                    </span>
-                    <Correction right={x.ans} speak={x.ans} />
-                  </div>
+                .map((x) => (
+                  <RetryCard key={x.ans} x={x} />
                 ))}
             </div>
           </div>
