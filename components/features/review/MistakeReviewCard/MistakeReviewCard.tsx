@@ -63,6 +63,13 @@ const word = (s: string) => s.toLowerCase().replace(/[^a-z0-9']/g, "");
 
 /** The wrong sentence's words, those that differ from the right one marked
  * (so the learner knows what to fix). Words only missing can't be marked. */
+/** What the learner types to correct `m`. Ujian records vocabulary as word
+ * pairs ("sepeda = bicycle"): only the answer half is asked for. */
+export const answerOf = (m: Pick<MistakeRecord, "source" | "correct">) => {
+  const pair = m.source === "Ujian" ? m.correct.split(" = ") : [];
+  return pair.length === 2 ? pair[1] : m.correct;
+};
+
 export const markWrong = (wrong: string, correct: string) => {
   const bad: string[] = [];
   for (const m of checkDictation(correct, wrong).marks)
@@ -169,7 +176,7 @@ const MistakeReviewCard = ({
         clip.blob,
         "answer." + extensionOf(clip.mimeType),
         "en",
-        m.correct,
+        answerOf(m),
       );
       if (r.data.text) setTyped(r.data.text);
     } catch (err) {
@@ -218,7 +225,7 @@ const MistakeReviewCard = ({
       : checkDictation(m.correct, typed).score >= NEAR_SCORE
         ? "near"
         : "bad"
-    : judgeTyped(m.correct, typed);
+    : judgeTyped(typed.includes("=") ? m.correct : answerOf(m), typed);
   const how = HOW[result];
   const settle = useGradeOnLeave(revealed ? m.id : null, () => onGrade(how));
 

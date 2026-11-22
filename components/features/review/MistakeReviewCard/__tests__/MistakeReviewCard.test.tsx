@@ -104,6 +104,29 @@ describe("MistakeReviewCard › Betulkan kalimat", () => {
     expect(onGrade).toHaveBeenCalledTimes(1);
   });
 
+  // Ujian records vocabulary as word pairs: only the answer half is typed.
+  it.each([
+    ["bicycle", "Tepat.", "good"],
+    ["sepeda = bicycle", "Tepat.", "good"],
+    ["bicyle", "Hampir. Kamu menulis", "hard"],
+    ["bike", "Belum tepat. Kamu menulis", "forgot"],
+  ])('word pair from Ujian: "%s" → %s', (typed, message, how) => {
+    const { onGrade } = setup(
+      mistake({
+        source: "Ujian",
+        category: "kesalahan",
+        rule: undefined,
+        wrong: "sepeda = bicyle",
+        correct: "sepeda = bicycle",
+        explanation_id: 'Bahasa Inggris "sepeda" adalah bicycle.',
+      }),
+    );
+    answer(/versi yang benar/, typed);
+    expect(screen.getByRole("status").textContent).toContain(message);
+    fireEvent.click(screen.getByRole("button", { name: "Lanjut" }));
+    expect(onGrade).toHaveBeenCalledWith(how);
+  });
+
   it("Lihat aturannya opens the exact rule over the card", () => {
     setup(mistake());
     fireEvent.click(screen.getByRole("button", { name: "Lihat aturannya" }));

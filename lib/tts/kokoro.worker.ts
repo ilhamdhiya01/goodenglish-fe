@@ -5,8 +5,13 @@
 import { KokoroTTS } from "kokoro-js";
 
 import type { KokoroIn, KokoroOut } from "./kokoro.types";
+import { stretch } from "./stretch";
 
 const MODEL = "onnx-community/Kokoro-82M-v1.0-ONNX";
+// Slowest pace Kokoro speaks cleanly (tested: at 0.6 and 0.7 it adds a
+// sound before the first word, which Whisper hears as "It" / "And"; at 0.8
+// none).
+const CLEAN_SPEED = 0.8;
 
 const post = (msg: KokoroOut, transfer: Transferable[] = []) =>
   (self as unknown as DedicatedWorkerGlobalScope).postMessage(msg, transfer);
@@ -47,11 +52,18 @@ self.onmessage = async (e: MessageEvent<KokoroIn>) => {
   try {
     const t = await load();
     if (msg.type !== "speak") return;
+    // Below CLEAN_SPEED Kokoro mumbles before the first word, so a slower
+    // line is made at CLEAN_SPEED and stretched (pitch kept) to its pace.
+    const made = Math.max(msg.speed, CLEAN_SPEED);
     const audio = await t.generate(msg.text, {
       voice: msg.voice as never,
-      speed: msg.speed,
+      speed: made,
     });
-    const data = audio.audio as Float32Array;
+    const data = stretch(
+      audio.audio as Float32Array,
+      made / msg.speed,
+      audio.sampling_rate,
+    );
     post({ type: "audio", id: msg.id, rate: audio.sampling_rate, data }, [
       data.buffer,
     ]);
