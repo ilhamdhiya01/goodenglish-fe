@@ -38,6 +38,8 @@ export interface SentenceCheck {
   corrected: string;
   explanationId: string;
   category: string;
+  /** The Cheat sheet rule it breaks, when one fits. */
+  rule?: string;
 }
 
 interface ChatHandlers {

@@ -5,6 +5,10 @@
 export type CheatBlock =
   | {
       kind: "rule";
+      /** Stable id "<section>/<slug>", stored with a mistake ("Lihat
+       * aturannya" in Ulang). Shared with goodenglish-be
+       * src/common/cheat-rules.ts — keep the two lists in sync. */
+      id: string;
       title: string;
       why: string;
       ok: string[];
@@ -39,6 +43,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
     blocks: [
       {
         kind: "rule",
+        id: "aturan-dasar/be-tanpa-kata-kerja",
         title: "Tidak ada kata kerja → wajib pakai be (am/is/are/was/were).",
         why: 'Bahasa Indonesia boleh bilang *"Aku capek"*, tapi setiap kalimat bahasa Inggris wajib punya kata kerja. Kalau tidak ada, *be* yang mengisi.',
         ok: ["I am tired.", "She is at home.", "The store is open."],
@@ -46,6 +51,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "aturan-dasar/jangan-be-dobel",
         title: "Ada kata kerja → jangan tambah be.",
         why: "*be* sendiri sudah kata kerja. Dua kata kerja bertabrakan.",
         ok: ["I agree.", "It helps me.", "I feel tired."],
@@ -53,6 +59,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "aturan-dasar/setelah-be",
         title:
           "Setelah be, kata kerja hanya boleh V-ing (sedang) atau V3 (di-).",
         why: "*be + V-ing* = sedang melakukan. *be + V3* = dikenai (pasif). *be + V1* atau *be + V2* tidak punya arti.",
@@ -61,6 +68,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "aturan-dasar/setelah-kata-bantu",
         title: "Setelah do/does/did, can/will/should/must, dan to → selalu V1.",
         why: "Penanda waktu (-s atau lampau) sudah dibawa oleh kata bantunya, jadi kata kerjanya tidak berubah lagi. *must, should, can, will* langsung V1 tanpa to. Yang pakai to hanya *have to* dan *need to*.",
         ok: [
@@ -81,6 +89,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "aturan-dasar/v2-sendiri",
         title: "V2 selalu berdiri sendiri, tanpa kata bantu dan tanpa -s.",
         why: "V2 sudah berarti lampau. Tambahan apa pun jadi dobel.",
         ok: ["She left him.", "I went home.", "I fell getting out of the car."],
@@ -135,6 +144,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "am-is-are/benda-jamak-they",
         title: "Benda jamak → they / them, bukan cuma untuk orang.",
         why: 'Kata ganti dipilih dari **jumlah**, bukan dari orang atau benda. Satu → *it*. Banyak → *they* (pelaku) atau *them* (yang dikenai). Bahasa Indonesia cukup bilang "itu", bahasa Inggris harus pilih.',
         ok: [
@@ -222,6 +232,20 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "tense/he-she-it-s",
+        title: "Kebiasaan atau fakta dengan he / she / it → V1 + -s / -es.",
+        why: "Untuk kebiasaan dan fakta pakai simple present. Kalau subjeknya satu orang atau benda (*he, she, it*, nama orang), kata kerjanya ditambah -s, atau -es setelah o, s, sh, ch, x. *I, you, we, they* tanpa -s.",
+        ok: [
+          "She works in a bank.",
+          "My mom cooks every day.",
+          "He watches TV at night.",
+        ],
+        bad: ["She work in a bank.", "My mom cook every day."],
+        check: "Subjeknya he / she / it? Tambah -s di kata kerjanya.",
+      },
+      {
+        kind: "rule",
+        id: "tense/being-sifat",
         title: "be + being + kata sifat → sikap sementara, bukan sifat tetap.",
         why: '*being* = "lagi bersikap" saat ini saja. Tanpa *being*, artinya memang sifat orangnya. Mirip beda "lagi malas" dan "pemalas".',
         ok: [
@@ -235,6 +259,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "tense/i-wish",
         title: "I wish + were / V2 / could → andai (tidak nyata).",
         why: 'V2 di sini bukan lampau, tapi tanda "tidak nyata". *were* dipakai untuk semua subjek, termasuk I.',
         ok: [
@@ -254,6 +279,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
     blocks: [
       {
         kind: "rule",
+        id: "sudah-belum/have-v3",
         title: "Tanya sudah / belum / pernah → Have/Has + subjek + V3?",
         why: 'Yang ditanya hasilnya **sekarang** ("sudah makan belum?"), bukan kapan kejadiannya. Jawabnya pendek, pakai *have* lagi.',
         ok: [
@@ -278,6 +304,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "sudah-belum/yet",
         title:
           "yet → belum. Di pertanyaan dan kalimat negatif, di akhir kalimat.",
         why: '*yet* menunggu sesuatu yang belum terjadi, jadi hanya muncul saat bertanya atau bilang "belum".',
@@ -287,6 +314,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "sudah-belum/already",
         title: "already → sudah. Di kalimat positif.",
         why: "*already, yet, just* tidak mengubah bentuk kata kerja. Yang menentukan tetap kata bantunya: ada *have* → V3, tanpa *have* → V2.",
         ok: ["I've already eaten.|have → V3", "I already ate.|tanpa have → V2"],
@@ -346,6 +374,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "pasif/be-ikut-waktu",
         title: "be ikut waktu, V3 tetap.",
         why: "Yang berubah hanya *be* (is → was → will be → has been). Kata kerjanya selalu bentuk ke-3, tidak pernah V1 atau V2. Tanpa *be*, artinya jadi aktif: *The order has sent* = pesanannya yang mengirim sesuatu.",
         ok: [
@@ -363,6 +392,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "pasif/aktif-atau-pasif",
         title:
           "Pelaku jelas → kalimat aktif. Pelaku tidak penting atau tidak diketahui → pasif.",
         why: "Bahasa Indonesia sering memakai *di-* walau pelakunya disebut. Di bahasa Inggris, kalau pelakunya jelas, kalimat aktif lebih wajar. *by …* dipakai hanya kalau pelakunya justru informasi penting.",
@@ -437,6 +467,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "pertanyaan/preposisi-di-akhir",
         title: "Preposisi di pertanyaan → pindah ke akhir.",
         why: "Asalnya kalimat biasa: *You are from Indonesia.* Saat jadi pertanyaan, *Indonesia* diganti *where*, tapi *from* tetap ikut dan pindah ke akhir.",
         ok: [
@@ -450,6 +481,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "pertanyaan/hari-jam-tanggal",
         title: "Tanya hari / jam / tanggal → What day / time / date is it?",
         why: "*day, time, date* menempel ke *what*, dan subjeknya *it*. Jawabannya juga mulai dengan *It's*.",
         ok: [
@@ -524,6 +556,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "a-an-the/satu-negatif",
         title: "Satu kalimat → satu negatif saja.",
         why: '*nothing* sudah berarti "tidak ada apa-apa". Kalau ditambah *didn\'t*, negatifnya dobel. Pilih salah satu.',
         ok: ["I didn't do anything.", "I did nothing."],
@@ -665,6 +698,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "preposisi-lain/bahasa-in",
         title: "Bahasa → in.",
         why: "Bahasa itu seperti wadah: kalimatnya ada *di dalam* bahasa itu. Tapi kalau bahasanya jadi objek (*speak, learn, study*), tidak perlu preposisi.",
         ok: [
@@ -676,6 +710,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "preposisi-lain/good-at",
         title: "Jago melakukan sesuatu → good at (+ V-ing).",
         why: 'Jago itu soal satu kegiatan, jadi pakai *at* (titik). Jangan terjemahkan "pintar **dalam**" jadi *in*. Kalau setelah *at* ada kata kerja, pakai V-ing.',
         ok: [
@@ -695,6 +730,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "preposisi-lain/keadaan-in",
         title: "Sedang berada dalam suatu keadaan → in.",
         why: "Bayangkan keadaan itu seperti ruangan: kamu sedang *di dalam* masalah, *di dalam* buru-buru, *di dalam* mood yang baik.",
         ok: [
@@ -730,6 +766,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "preposisi-lain/sifat-preposisi",
         title: "Kata sifat + preposisi → hafalkan sepaket.",
         why: 'Pasangan ini tidak selalu bisa ditebak dengan logika, dan sering salah karena terjemahan "dengan". Hafalkan pasangannya, jangan per kata.',
         ok: [
@@ -754,6 +791,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
     blocks: [
       {
         kind: "rule",
+        id: "kata-tertukar/like-looks-like",
         title: "like → suka. looks like / sounds like → seperti.",
         why: "*like* yang berarti suka adalah kata kerja, jadi dapat -s untuk he/she. *looks like* = kelihatan mirip, *sounds like* = kedengarannya seperti.",
         ok: ["She likes coffee.|suka", "She looks like her mom.|mirip"],
@@ -774,6 +812,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "kata-tertukar/look-at",
         title: "Ada bendanya → look at. Tidak ada benda → look saja.",
         why: '*look* sendirian cuma "lihat!". Begitu ada yang dilihat, wajib pakai *at*, bukan *to*.',
         ok: ["She looks at me.", "Look!"],
@@ -796,6 +835,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "kata-tertukar/see-hear-ing",
         title: "Melihat kejadian → see / hear + objek + V-ing (tanpa is/was).",
         why: '-ing di sini = "sedang" **saat kamu melihatnya**, bukan sekarang. Jadi tidak perlu *is/was*, dan tidak pakai V2.',
         ok: ["I saw two cats fighting.", "I saw my mom cooking."],
@@ -809,6 +849,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "kata-tertukar/matter",
         title: "matter → penting (kata kerja) atau masalah (kata benda).",
         why: 'Sebagai kata kerja, *matter* = "penting", jadi negatifnya pakai *doesn\'t*, bukan *is not*. Sebagai kata benda = "masalah".',
         ok: [
@@ -825,6 +866,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "kata-tertukar/must-be",
         title: "must be → pasti (menebak dengan yakin), bukan harus.",
         why: '*must* + kata kerja = harus. Tapi *must be* untuk menebak keadaan orang = "pasti". Mirip "kamu pasti capek ya".',
         ok: ["You must be tired.", "You must be a patient person."],
@@ -850,6 +892,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "waktu/anymore",
         title: "anymore → sudah tidak lagi. Di akhir kalimat dan butuh not.",
         why: '*anymore* sendiri tidak berarti "tidak", cuma "lagi". Jadi tetap butuh *don\'t / doesn\'t*. Kebalikan dari *still* (masih).',
         ok: [
@@ -882,6 +925,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "urutan-kata/s-kata-kerja-utama",
         title:
           "-s menempel ke kata kerja utama, bukan ke never / always / usually.",
         why: '*never, always, usually* cuma numpang di tengah dan tidak pernah berubah. Cari kata kerjanya dengan tanya "dia melakukan apa?", lalu -s ditempel di situ. Setelah *doesn\'t / can*, kembali V1.',
@@ -895,6 +939,7 @@ export const CHEAT_SECTIONS: CheatSection[] = [
       },
       {
         kind: "rule",
+        id: "urutan-kata/something-sifat",
         title:
           "something / anything / nothing + kata sifat → kata sifat di belakang.",
         why: 'Ini pengecualian dari "penjelas di depan benda". *something* bisa langsung jadi subjek, tidak perlu *there is*.',

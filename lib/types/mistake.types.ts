@@ -44,6 +44,9 @@ export interface MistakeInput {
   correct: string;
   explanation_id: string;
   category: string;
+  /** The Cheat sheet rule it breaks (lib/helpers/cheat-rules.helper.ts),
+   * when known; "Lihat aturannya" then shows that rule, not the section. */
+  rule?: string;
   level: LevelId;
   refId?: string;
 }

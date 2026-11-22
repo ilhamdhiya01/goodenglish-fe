@@ -1,5 +1,6 @@
 import { categoryId } from "@/const/mistake-categories.constant";
 import { GAPS } from "@/const/srs.constant";
+import { ruleId } from "@/lib/helpers/cheat-rules.helper";
 import { nextSrs, type SrsAnswer } from "@/lib/helpers/srs.helper";
 import type {
   MistakeData,
@@ -71,6 +72,7 @@ export const makeMistake = (
     correct,
     explanation_id: clean(input.explanation_id, 400),
     category: categoryId(input.category),
+    ...(ruleId(input.rule) ? { rule: ruleId(input.rule) } : {}),
     level: input.level,
     ...(input.refId ? { refId: clean(input.refId, 200) } : {}),
     createdAt: now,
@@ -108,6 +110,7 @@ export const addTo = (
     lastAt: now,
     source: rec.source,
     explanation_id: rec.explanation_id || cur.explanation_id,
+    ...(rec.rule || cur.rule ? { rule: rec.rule || cur.rule } : {}),
     ...(back ? { status: "active" as const, srs: newSrs(T) } : {}),
   };
   const items = [next, ...data.items.filter((_, k) => k !== at)];
@@ -158,6 +161,7 @@ const readRecord = (raw: unknown, T: number): MistakeRecord | null => {
     correct,
     explanation_id: clean(m.explanation_id, 400),
     category: categoryId(m.category),
+    ...(ruleId(m.rule) ? { rule: ruleId(m.rule) } : {}),
     level: (typeof m.level === "string" ? m.level : "pre") as LevelId,
     ...(typeof m.refId === "string" ? { refId: m.refId } : {}),
     createdAt,

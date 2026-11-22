@@ -27,8 +27,6 @@ import { useAccessStore } from "@/stores/useAccessStore";
 const SAY_MAX_SEC = 8;
 // Recorded on after Berhenti, so the last word isn't cut off.
 const TAIL_MS = 400;
-// Share of the expression's words Whisper must hear (checkDictation score).
-const PASS_SCORE = 80;
 
 export type ProofMode = "type" | "say";
 
@@ -120,18 +118,22 @@ const soundsSame = (heard: string, expected: string) => {
   return b.length >= 4 && editDistance(a, b) <= 1;
 };
 
-/** Whether what Whisper heard is the expression: at least 80% of its words,
- * counting homophones and one-letter slips in longer words as right. */
+/** Whether what Whisper heard is the expression: every one of its words,
+ * as strict as typing it ("work" for "worked" fails). Homophones and
+ * one-letter slips in longer words count as right, since those are how
+ * Whisper mishears; extra words (the expression said in a sentence) are fine. */
 export const heardRight = (en: string, heard: string) => {
   if (!heard.trim()) return false;
   const { marks } = checkDictation(en, heard);
-  const total = marks.filter((m) => m.kind !== "extra").length;
-  const right = marks.filter(
-    (m) =>
-      m.kind === "correct" ||
-      (m.kind === "wrong" && soundsSame(m.word, m.expected)),
-  ).length;
-  return total > 0 && (right * 100) / total >= PASS_SCORE;
+  return (
+    marks.some((m) => m.kind !== "extra") &&
+    marks.every(
+      (m) =>
+        m.kind === "correct" ||
+        m.kind === "extra" ||
+        (m.kind === "wrong" && soundsSame(m.word, m.expected)),
+    )
+  );
 };
 
 const MIC_HELP = {

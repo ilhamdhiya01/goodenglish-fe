@@ -21,11 +21,12 @@ import { GAPS } from "@/const/srs.constant";
 import { hasNote, idOf, noteOf } from "@/lib/content";
 import { resolveItemKey } from "@/lib/helpers/derived.helper";
 import { tallyOf } from "@/lib/helpers/plan-check.helper";
-import { nextSrs } from "@/lib/helpers/srs.helper";
+import { nextSrs, type SrsAnswer } from "@/lib/helpers/srs.helper";
 import { today } from "@/lib/helpers/storage.helper";
 import { dayToDate } from "@/lib/helpers/streak.helper";
 import { findTarget } from "@/lib/helpers/target.helper";
 import { formsOf } from "@/lib/helpers/verb-forms.helper";
+import { useGradeOnLeave } from "@/lib/hooks/useGradeOnLeave";
 import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useNotes } from "@/lib/hooks/useNotes";
 import { useShellData } from "@/lib/hooks/useShellData";
@@ -177,12 +178,23 @@ const ReviewPage = React.memo(() => {
     setResult(judgeTyped(item.it[1], typed));
     setRevealed(true);
   };
+  // Nothing to type when the word is simply not known: same as wrong (Lupa).
+  const dontKnow = () => {
+    setTyped("");
+    setResult("bad");
+    setRevealed(true);
+  };
+  const settle = useGradeOnLeave(typing && result ? cardId : null, () =>
+    answer(typedHow),
+  );
 
   // Space opens the answer; 1 / 2 / 3 = Lupa / Ragu / Ingat once it's open.
   useEffect(() => {
     if (!item && !mistake) return;
     const onKey = (e: KeyboardEvent) => {
-      if (typing || ignoreKey(e)) return;
+      // Typed cards (Indo → Inggris words, every mistake card) are checked
+      // and rated from the answer, so no Space / 1 / 2 / 3.
+      if (typing || mistake || ignoreKey(e)) return;
       if (e.key === " " && !revealed) {
         e.preventDefault();
         setRevealed(true);
@@ -241,27 +253,28 @@ const ReviewPage = React.memo(() => {
     </div>
   );
   // Typed answer: one Lanjut that applies the rating the result gave, with
-  // when the word comes back.
-  const gap = nextSrs(cur, typedHow, T0).gap;
-  const comesBack =
-    typedHow === "forgot"
+  // when the card comes back.
+  const comesBack = (how: SrsAnswer) => {
+    const gap = nextSrs(cur, how, T0).gap;
+    return how === "forgot"
       ? "Muncul lagi besok, mulai dari awal"
       : gap === 1
         ? "Muncul lagi besok"
         : `Muncul lagi ${DAY_FMT.format(dayToDate(T0 + gap))}`;
+  };
   const continueButton = (
     <div className="flex flex-col gap-2 max-md:sticky max-md:bottom-[calc(76px+env(safe-area-inset-bottom))] max-md:-mx-1 max-md:bg-surface max-md:px-1 max-md:py-2">
       <Button
         variant="green"
         size="lg"
         autoFocus
-        onClick={() => answer(typedHow)}
+        onClick={() => settle() && answer(typedHow)}
         className="w-full"
       >
         Lanjut
       </Button>
       <span className="text-center text-[13px] font-semibold text-ink-3">
-        {comesBack}
+        {comesBack(typedHow)}
       </span>
     </div>
   );
@@ -340,10 +353,12 @@ const ReviewPage = React.memo(() => {
                 >
                   {result === "ok"
                     ? "Tepat."
-                    : result === "near"
-                      ? "Hampir. Kamu menulis "
-                      : "Belum tepat. Kamu menulis "}
-                  {result !== "ok" && (
+                    : !typed
+                      ? "Belum tahu. Ini jawabannya."
+                      : result === "near"
+                        ? "Hampir. Kamu menulis "
+                        : "Belum tepat. Kamu menulis "}
+                  {result !== "ok" && !!typed && (
                     <>
                       <s className="decoration-2">{typed}</s>.
                     </>
@@ -448,6 +463,9 @@ const ReviewPage = React.memo(() => {
                   Cek
                 </Button>
               </form>
+              <TextButton onClick={dontKnow} className="self-start">
+                Nggak tahu
+              </TextButton>
             </>
           ) : (
             <>
@@ -475,7 +493,8 @@ const ReviewPage = React.memo(() => {
           m={mistake}
           revealed={revealed}
           onReveal={() => setRevealed(true)}
-          answers={answerButtons}
+          onGrade={answer}
+          comesBack={comesBack}
         />
       )}
 
@@ -523,17 +542,31 @@ const ReviewPage = React.memo(() => {
         </Card>
       )}
 
-      <div>
-        <Pill
-          size="sm"
-          check
-          on={reviewOn}
-          aria-pressed={reviewOn}
-          onClick={() => setReviewOn(!reviewOn)}
+      {/* A setting, not part of the card: one row, the whole row toggles. */}
+      <button
+        type="button"
+        role="switch"
+        aria-checked={reviewOn}
+        onClick={() => setReviewOn(!reviewOn)}
+        className="flex w-full items-center justify-between gap-4 rounded-xl border-t border-line pt-4 text-left focus-ring"
+      >
+        <span className="flex flex-col gap-0.5">
+          <span className="text-[15px] font-bold text-ink">
+            Sertakan kartu kesalahan
+          </span>
+          <span className="text-[13px] font-semibold text-ink-3">
+            Kalimat yang pernah kamu salah ikut diulang di sini.
+          </span>
+        </span>
+        <span
+          aria-hidden
+          className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${reviewOn ? "bg-accent" : "bg-control"}`}
         >
-          Sertakan kartu kesalahan
-        </Pill>
-      </div>
+          <span
+            className={`absolute top-0.5 left-0.5 size-6 rounded-full bg-surface shadow-sm transition-transform ${reviewOn ? "translate-x-5" : ""}`}
+          />
+        </span>
+      </button>
     </section>
   );
 });

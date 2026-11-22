@@ -10,6 +10,7 @@ import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
 import {
   ERROR_GROUP_CATEGORY,
+  ERROR_GROUP_RULE,
   FALLBACK_CATEGORY,
 } from "@/const/mistake-categories.constant";
 import { PILOT } from "@/const/pilot.constant";
@@ -69,6 +70,7 @@ const ReviewQuiz = ({ onDone }: { onDone?: () => void }) => {
         correct: q.right,
         explanation_id: q.why,
         category: ERROR_GROUP_CATEGORY[q.cat] ?? FALLBACK_CATEGORY,
+        rule: ERROR_GROUP_RULE[q.cat],
         level: level as LevelId,
         refId: q.cat,
       });

@@ -115,6 +115,7 @@ export const mistakesOf = (
     correct: c.corrected,
     explanation_id: c.explanation,
     category: c.category,
+    rule: c.rule,
     level,
     ...(sessionId ? { refId: sessionId } : {}),
   }));

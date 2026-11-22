@@ -45,10 +45,10 @@ test.use({
 test("rekam: hasilnya masuk ke kotak jawaban", async ({ page }) => {
   await openApp(page, "/review");
   await page.getByRole("button", { name: "Jawab dengan suara" }).click();
-  await expect(page.getByText(/Merekam…/)).toBeVisible();
+  await expect(page.getByText(/Bicara sekarang/)).toBeVisible();
   await page.waitForTimeout(1200);
   await page.getByRole("button", { name: "Berhenti merekam" }).click();
   await expect(
-    page.getByRole("textbox", { name: /Ucapkan atau ketik/ }),
+    page.getByRole("textbox", { name: /Tulis atau ucapkan/ }),
   ).toHaveValue("She goes to school.");
 });

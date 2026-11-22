@@ -30,6 +30,8 @@ export interface RoleplayCorrection {
   explanation: string;
   /** Cheat sheet section id (const/cheatsheet.constant.ts). */
   category: string;
+  /** The Cheat sheet rule it breaks, when one fits. */
+  rule?: string;
 }
 
 export interface RoleplaySummary {

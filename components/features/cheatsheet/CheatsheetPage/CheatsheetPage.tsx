@@ -49,7 +49,8 @@ const Wrong = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-const Block = ({ b, ruleNo }: { b: CheatBlock; ruleNo: number }) => {
+// Also used by "Lihat aturannya" in Ulang (review/RuleSheet).
+export const Block = ({ b, ruleNo }: { b: CheatBlock; ruleNo: number }) => {
   switch (b.kind) {
     case "rule":
       return (

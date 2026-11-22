@@ -30,6 +30,29 @@ const input = (o: Partial<MistakeInput> = {}): MistakeInput => ({
 const add = (d: MistakeData, o: Partial<MistakeInput> = {}, t = T) =>
   addTo(d, input(o), NOW, t).data;
 
+describe("rule", () => {
+  it("keeps a known Cheat sheet rule and drops an unknown one", () => {
+    expect(
+      add(EMPTY_MISTAKES, { rule: "tense/he-she-it-s" }).items[0].rule,
+    ).toBe("tense/he-she-it-s");
+    expect(
+      add(EMPTY_MISTAKES, { rule: "made/up" }).items[0],
+    ).not.toHaveProperty("rule");
+  });
+
+  it("a repeat without a rule keeps the one already known", () => {
+    const first = add(EMPTY_MISTAKES, { rule: "tense/he-she-it-s" });
+    expect(add(first).items[0].rule).toBe("tense/he-she-it-s");
+  });
+
+  it("survives a reload from storage", () => {
+    const d = add(EMPTY_MISTAKES, { rule: "tense/he-she-it-s" });
+    expect(
+      normalizeMistakes(JSON.parse(JSON.stringify(d)), T).items[0].rule,
+    ).toBe("tense/he-she-it-s");
+  });
+});
+
 describe("addTo", () => {
   it("makes one active record, due tomorrow", () => {
     const { data, result } = addTo(EMPTY_MISTAKES, input(), NOW, T);

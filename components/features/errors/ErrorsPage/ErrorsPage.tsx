@@ -18,6 +18,7 @@ import SpeakButton from "@/components/ui/speak-button";
 import { LEVELS, LV_SHORT } from "@/const/levels.constant";
 import {
   ERROR_GROUP_CATEGORY,
+  ERROR_GROUP_RULE,
   FALLBACK_CATEGORY,
 } from "@/const/mistake-categories.constant";
 import { VOCAB_ERRORS } from "@/lib/content";
@@ -116,6 +117,7 @@ const ErrorsPage = React.memo(
           correct: q.right,
           explanation_id: q.why,
           category: ERROR_GROUP_CATEGORY[q.cat] ?? FALLBACK_CATEGORY,
+          rule: ERROR_GROUP_RULE[q.cat],
           level: (lv === "all" ? level : lv) as LevelId,
           refId: q.cat,
         });

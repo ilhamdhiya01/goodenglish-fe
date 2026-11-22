@@ -81,7 +81,7 @@ const record = async () => {
 };
 
 describe("heardRight", () => {
-  it("needs most of the expression's words, ignoring case and punctuation", () => {
+  it("needs the expression's words, ignoring case and punctuation; extra words are fine", () => {
     expect(heardRight("Thanks a lot.", "thanks a lot")).toBe(true);
     expect(heardRight("Thanks a lot.", "Thanks a lot for that")).toBe(true);
     expect(heardRight("Thanks a lot.", "thanks")).toBe(false);
@@ -93,6 +93,15 @@ describe("heardRight", () => {
     expect(heardRight("Just a minute.", "just a minutes")).toBe(true);
     // Short words stay exact: "lot" is not "lots".
     expect(heardRight("Thanks a lot.", "thanks a lots")).toBe(false);
+  });
+
+  it("needs every word, so a wrong key word fails a long expression too", () => {
+    const en = "Yesterday I worked on the checkout page.";
+    expect(heardRight(en, "yesterday I worked on the checkout page")).toBe(
+      true,
+    );
+    expect(heardRight(en, "yesterday I work on the checkout page")).toBe(false);
+    expect(heardRight(en, "yesterday I worked on checkout page")).toBe(false);
   });
 });
 

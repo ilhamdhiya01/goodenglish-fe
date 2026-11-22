@@ -83,7 +83,8 @@ export const learnHref = (id: string): string => {
 /** Kesalahan umum card groups → category. */
 export const ERROR_GROUP_CATEGORY: Record<string, string> = {
   "Lupa kata be": "am-is-are",
-  "Lupa -s untuk he/she/it": "aturan-dasar",
+  // The -s rule is in Cheat sheet "Kapan pakai tense apa", not "Lima aturan dasar".
+  "Lupa -s untuk he/she/it": "tense",
   "Artikel a / an / the": "a-an-the",
   "Preposisi setelah kata kerja": "preposisi-lain",
   "Tense yang tertukar": "tense",
@@ -95,6 +96,13 @@ export const ERROR_GROUP_CATEGORY: Record<string, string> = {
   "Register & nada (lanjutan)": "kolokasi",
   "Kolokasi yang meleset (lanjutan)": "kolokasi",
   'Kata "sudah / belum / masih"': "sudah-belum",
+};
+
+/** Kesalahan umum groups that break one Cheat sheet rule (rule ids in
+ * const/cheatsheet.constant.ts); the others show their category's section. */
+export const ERROR_GROUP_RULE: Record<string, string> = {
+  "Lupa kata be": "aturan-dasar/be-tanpa-kata-kerja",
+  "Lupa -s untuk he/she/it": "tense/he-she-it-s",
 };
 
 /** Panduan grammar practice topics (and the Bertanya tab) → category. */

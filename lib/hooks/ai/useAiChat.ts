@@ -173,6 +173,7 @@ export const useAiChat = () => {
                 correct: c.corrected,
                 explanation_id: c.explanationId,
                 category: c.category,
+                rule: c.rule,
                 level,
               });
             },

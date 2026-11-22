@@ -2,10 +2,8 @@
 
 import type { AxiosError } from "axios";
 import classNames from "classnames";
-import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  LuBookOpen,
   LuLoaderCircle,
   LuMic,
   LuPlay,
@@ -13,19 +11,19 @@ import {
   LuSquare,
 } from "react-icons/lu";
 
-import WordMarks from "@/components/shared/patterns/word-marks";
+import { judgeTyped } from "@/components/features/vocab/KnownProof";
 import Button from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import IconButton from "@/components/ui/icon-button";
 import Input from "@/components/ui/input";
-import SectionLabel from "@/components/ui/section-label";
 import SpeakButton from "@/components/ui/speak-button";
+import TextButton from "@/components/ui/text-button";
 import { accessErrorText } from "@/const/access.constant";
-import { categoryOf, learnHref } from "@/const/mistake-categories.constant";
-import { GAPS } from "@/const/srs.constant";
-import { checkDictation } from "@/lib/helpers/dictation.helper";
-import { normSentence } from "@/lib/helpers/mistakes.helper";
+import { categoryOf } from "@/const/mistake-categories.constant";
+import { checkDictation, type WordMark } from "@/lib/helpers/dictation.helper";
 import { releaseSpeech, speak } from "@/lib/helpers/speech.helper";
+import type { SrsAnswer } from "@/lib/helpers/srs.helper";
+import { useGradeOnLeave } from "@/lib/hooks/useGradeOnLeave";
 import {
   extensionOf,
   type RecordedClip,
@@ -35,6 +33,8 @@ import type { ErrorResponse } from "@/lib/types/api.types";
 import type { MistakeRecord } from "@/lib/types/mistake.types";
 import { transcribeAudio } from "@/services/stt.service";
 
+import RuleSheet, { sectionOfMistake } from "../RuleSheet";
+
 const MIC_HELP = {
   denied:
     "Izin mikrofon ditolak. Izinkan mikrofon untuk situs ini di pengaturan browser, atau ketik jawabanmu.",
@@ -43,34 +43,132 @@ const MIC_HELP = {
   other: "Mikrofon sedang bermasalah. Coba lagi, atau ketik jawabanmu.",
 } as const;
 
+const SLOW = 0.6;
+// A corrected sentence takes a few seconds to say; stop by itself after this.
+const SAY_MAX_SEC = 12;
+// Recorded on after "Berhenti", so the last word isn't cut off.
+const TAIL_MS = 400;
+// Share of a dictated sentence's words that still counts as "hampir".
+const NEAR_SCORE = 80;
+
+type Result = "ok" | "near" | "bad";
+const HOW: Record<Result, SrsAnswer> = {
+  ok: "good",
+  near: "hard",
+  bad: "forgot",
+};
+
+const word = (s: string) => s.toLowerCase().replace(/[^a-z0-9']/g, "");
+
+/** The wrong sentence's words, those that differ from the right one marked
+ * (so the learner knows what to fix). Words only missing can't be marked. */
+export const markWrong = (wrong: string, correct: string) => {
+  const bad: string[] = [];
+  for (const m of checkDictation(correct, wrong).marks)
+    if (m.kind === "wrong" || m.kind === "extra") bad.push(word(m.word));
+  return wrong.split(/(\s+)/).map((t) => {
+    const at = bad.indexOf(word(t));
+    if (!t.trim() || at < 0) return { t, bad: false };
+    bad.splice(at, 1);
+    return { t, bad: true };
+  });
+};
+
+const Marked = ({ parts }: { parts: { t: string; bad: boolean }[] }) => (
+  <>
+    {parts.map((p, i) =>
+      p.bad ? (
+        <span
+          key={i}
+          className="text-bad underline decoration-bad decoration-wavy decoration-2 underline-offset-[6px]"
+        >
+          <span className="sr-only">Salah: </span>
+          {p.t}
+        </span>
+      ) : (
+        <React.Fragment key={i}>{p.t}</React.Fragment>
+      ),
+    )}
+  </>
+);
+
+// What was typed in Dengar & tulis, marked word by word: wrong words with a
+// wavy red line, missing ones put back in green, extra ones struck out.
+const Yours = ({ marks }: { marks: WordMark[] }) => (
+  <p className="m-0 flex flex-wrap gap-x-1.5 text-base leading-7 text-ink">
+    {marks.map((m, i) =>
+      m.kind === "correct" ? (
+        <span key={i}>{m.word}</span>
+      ) : m.kind === "wrong" ? (
+        <span
+          key={i}
+          className="text-bad underline decoration-bad decoration-wavy decoration-2 underline-offset-4"
+        >
+          <span className="sr-only">Salah: </span>
+          {m.word}
+        </span>
+      ) : m.kind === "missing" ? (
+        <span key={i} className="font-extrabold text-ok">
+          <span className="sr-only">Terlewat: </span>
+          {m.expected}
+        </span>
+      ) : (
+        <s key={i} className="text-ink-3 decoration-bad decoration-2">
+          <span className="sr-only">Berlebih: </span>
+          {m.word}
+        </s>
+      ),
+    )}
+  </p>
+);
+
 interface Props {
   m: MistakeRecord;
   revealed: boolean;
   onReveal: () => void;
-  /** Lupa / Ragu / Ingat, shared with word cards. */
-  answers: React.ReactNode;
+  /** Rates the card (the result of what was typed decides). */
+  onGrade: (how: SrsAnswer) => void;
+  /** "Muncul lagi …" for an answer. */
+  comesBack: (how: SrsAnswer) => string;
 }
 
-const SLOW = 0.6;
-
-// "Betulkan kalimat": the learner's old wrong sentence; they say or type
-// the right one, open the answer (Space / Enter), then rate it like a word
-// card. Not graded automatically: the learner compares and decides.
-// A Dikte mistake was misheard, so its card is "dengar & tulis ulang": the
-// sentence is played (not shown), and the answer is marked word by word.
-const MistakeReviewCard = ({ m, revealed, onReveal, answers }: Props) => {
+// A mistake card in Ulang, laid out like a word card.
+// "Betulkan kalimat": the learner's old wrong sentence with the differing
+// words marked; they type (or say) the right one. A Dikte mistake was
+// misheard, so its card is "dengar & tulis ulang": the sentence is played,
+// not shown. Both are graded from the answer against the stored correct
+// sentence (the card trains that very point): right → Ingat, almost →
+// Ragu, otherwise Lupa.
+const MistakeReviewCard = ({
+  m,
+  revealed,
+  onReveal,
+  onGrade,
+  comesBack,
+}: Props) => {
   const [typed, setTyped] = useState("");
   const [busy, setBusy] = useState(false);
   const [sttError, setSttError] = useState<string | null>(null);
+  const [ruleOpen, setRuleOpen] = useState(false);
+  // Mic button pressed (to start / to stop); what they lead to is derived
+  // below, as in Kosakata's KnownProof.
+  const [asked, setAsked] = useState(false);
+  const [stopAsked, setStopAsked] = useState(false);
+  const tailTimer = useRef(0);
 
   const writeDown = async (clip: RecordedClip) => {
+    setAsked(false);
+    setStopAsked(false);
     setBusy(true);
     setSttError(null);
     try {
+      // The right sentence goes along so the server refuses speech that is
+      // clearly not English (Whisper would translate it into the answer).
       const r = await transcribeAudio(
         clip.blob,
         "answer." + extensionOf(clip.mimeType),
         "en",
+        m.correct,
       );
       if (r.data.text) setTyped(r.data.text);
     } catch (err) {
@@ -85,6 +183,15 @@ const MistakeReviewCard = ({ m, revealed, onReveal, answers }: Props) => {
     onRecorded: (c) => void writeDown(c),
     onBeforeRecord: releaseSpeech,
   });
+  const { recording, seconds, stop } = rec;
+  useEffect(() => {
+    if (recording && seconds >= SAY_MAX_SEC) stop();
+  }, [recording, seconds, stop]);
+  useEffect(() => () => clearTimeout(tailTimer.current), []);
+  // Mic asked for but not recording yet: speaking now would be lost.
+  const arming = asked && !recording && !rec.error;
+  // "Berhenti" pressed: the tail is still being recorded.
+  const stopping = stopAsked && recording;
   const listen = m.source === "Dikte" || m.category === "menyimak";
   const [plays, setPlays] = useState(0);
   const play = (slow: boolean) => {
@@ -92,201 +199,241 @@ const MistakeReviewCard = ({ m, revealed, onReveal, answers }: Props) => {
     setPlays((n) => n + 1);
   };
   const micNote = rec.error ? MIC_HELP[rec.error] : sttError;
-  const same =
-    !!typed.trim() && normSentence(typed) === normSentence(m.correct);
   const cat = categoryOf(m.category);
+  const section = sectionOfMistake(m);
+  const marked = listen ? [] : markWrong(m.wrong, m.correct);
+  const anyMarked = marked.some((p) => p.bad);
+
+  const marks = listen ? checkDictation(m.correct, typed).marks : [];
+  const slips = marks.filter((x) => x.kind !== "correct").length;
+  const result: Result = listen
+    ? slips === 0
+      ? "ok"
+      : checkDictation(m.correct, typed).score >= NEAR_SCORE
+        ? "near"
+        : "bad"
+    : judgeTyped(m.correct, typed);
+  const how = HOW[result];
+  const settle = useGradeOnLeave(revealed ? m.id : null, () => onGrade(how));
+
+  const ruleLink = section && (
+    <TextButton onClick={() => setRuleOpen(true)} className="self-start">
+      Lihat aturannya
+    </TextButton>
+  );
 
   return (
-    <Card pad="lg" className="gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <SectionLabel tone="red">
-          {listen ? "DENGAR & TULIS ULANG" : "BETULKAN KALIMAT"} · {cat.label}
-        </SectionLabel>
-        <span className="flex items-center gap-2.5 text-[13.5px] font-bold text-ink-2">
-          Tahap {m.srs.st + 1} dari {GAPS.length}
-          <span aria-hidden className="flex gap-1">
-            {GAPS.map((_, i) => (
-              <span
-                key={i}
-                className={classNames(
-                  "h-1.5 w-5 rounded-full",
-                  i <= m.srs.st ? "bg-accent" : "bg-track",
-                )}
-              />
-            ))}
-          </span>
-        </span>
-      </div>
+    <Card pad="lg" className="gap-5">
+      <span className="text-[13px] font-semibold text-ink-3">
+        Kesalahan{listen ? ` · ${cat.label}` : ""} · dari {m.source}
+        {m.count > 1 ? `, ${m.count} kali` : ""}
+      </span>
 
-      {listen ? (
-        <div className="flex flex-col gap-2.5">
-          <span className="text-[13.5px] leading-[19px] font-bold text-ink-2">
-            Kalimat ini pernah salah kamu tulis di Dikte
-            {m.count > 1 ? ` (${m.count} kali)` : ""}. Dengarkan lagi.
-          </span>
-          <div className="flex flex-wrap items-center gap-2">
-            <Button variant="green" onClick={() => play(false)}>
-              <LuPlay aria-hidden size={16} />
-              {plays ? "Putar lagi" : "Putar"}
-            </Button>
-            <Button disabled={!plays} onClick={() => play(true)}>
-              <LuSnail aria-hidden size={16} />
-              Pelan
-            </Button>
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col gap-1">
-          <span className="text-[13px] font-bold text-ink-2">
-            Kalimat ini salah ({m.source}
-            {m.count > 1 ? `, terjadi ${m.count} kali` : ""}):
-          </span>
-          <p className="m-0 text-2xl leading-8 font-black wrap-anywhere text-ink md:text-[28px] md:leading-9">
-            <span aria-hidden className="mr-2 text-bad">
-              ✕
-            </span>
-            {m.wrong}
-          </p>
-        </div>
-      )}
-
-      <form
-        className="flex flex-col gap-2"
-        onSubmit={(e) => {
-          e.preventDefault();
-          // Out of the field, so 1 / 2 / 3 answer right away.
-          (document.activeElement as HTMLElement | null)?.blur();
-          if (!revealed) onReveal();
-        }}
-      >
-        <label
-          htmlFor={`fix-${m.id}`}
-          className="text-sm font-semibold text-ink-2"
-        >
-          {listen
-            ? "Tulis yang kamu dengar, lalu buka jawaban."
-            : "Ucapkan atau ketik versi yang benar, lalu buka jawaban."}
-        </label>
-        <div className="flex items-start gap-2">
-          <Input
-            id={`fix-${m.id}`}
-            value={typed}
-            onChange={(e) => setTyped(e.target.value)}
-            placeholder={listen ? "Tulis yang kamu dengar…" : "Versi benarmu…"}
-            autoComplete="off"
-            autoCapitalize="none"
-            spellCheck={false}
-            readOnly={revealed}
-          />
-          {rec.supported && !revealed && !listen && (
-            <IconButton
-              aria-label={
-                busy
-                  ? "Menuliskan suaramu…"
-                  : rec.recording
-                    ? "Berhenti merekam"
-                    : "Jawab dengan suara"
-              }
-              disabled={busy}
-              onClick={() => {
-                setSttError(null);
-                if (rec.recording) rec.stop();
-                else void rec.start();
-              }}
-              className={classNames(
-                "h-11 w-11 shrink-0",
-                rec.recording && "border-bad-line! bg-bad-bg! text-bad!",
-              )}
-            >
-              {busy ? (
-                <LuLoaderCircle
-                  aria-hidden
-                  size={20}
-                  className="animate-spin"
-                />
-              ) : rec.recording ? (
-                <LuSquare aria-hidden size={18} />
-              ) : (
-                <LuMic aria-hidden size={20} />
-              )}
-            </IconButton>
-          )}
-        </div>
-        {rec.recording && (
-          <span role="status" className="text-[13px] font-bold text-bad">
-            Merekam… {rec.seconds} detik. Tekan lagi untuk berhenti.
-          </span>
-        )}
-        {micNote && (
-          <span role="status" className="text-[13px] font-bold text-ink-2">
-            {micNote}
-          </span>
-        )}
-        {!revealed && (
-          <Button
-            type="submit"
-            variant="green"
-            size="lg"
-            aria-keyshortcuts="Space"
-            className="md:w-full"
-          >
-            Buka jawaban
-          </Button>
-        )}
-      </form>
-
-      {revealed && (
+      {revealed ? (
         <>
-          <div className="flex flex-col gap-2 border-t-2 border-dashed border-line pt-4">
-            <span className="flex items-start gap-2 text-xl leading-7 font-black text-ink">
-              <span aria-hidden className="text-ok">
-                ✓
-              </span>
-              <span className="sr-only">Yang benar: </span>
-              <span className="min-w-0 flex-1">{m.correct}</span>
-              <SpeakButton text={m.correct} />
+          <span className="text-[15px] font-bold text-ink-2">
+            {listen ? "Kalimat yang diputar" : <Marked parts={marked} />}
+          </span>
+          <div className="flex items-start gap-3">
+            <span className="min-w-0 flex-1 text-[28px] leading-9 font-black tracking-[-0.015em] wrap-anywhere text-ink">
+              {m.correct}
             </span>
-            {!!m.explanation_id && (
-              <span className="text-[14.5px] leading-[21px] text-ink">
-                {m.explanation_id}
-              </span>
-            )}
-            {listen && !!typed.trim() && (
-              <div className="flex flex-col gap-1">
-                <span className="text-[12.5px] font-extrabold tracking-[0.06em] text-ink-2">
-                  TULISANMU SEKARANG
-                </span>
-                <WordMarks marks={checkDictation(m.correct, typed).marks} />
-              </div>
-            )}
-            {listen && (
-              <span className="text-[13.5px] text-ink-2">
-                <span className="font-extrabold">Tulisanmu dulu: </span>
-                <s className="decoration-bad decoration-2">{m.wrong}</s>
-              </span>
-            )}
-            {!listen && !!typed.trim() && (
-              <span className="text-[13.5px] text-ink-2">
-                <span className="font-extrabold">Jawabanmu: </span>
-                {typed.trim()}
-                {same && (
-                  <span className="ml-1.5 font-extrabold text-ok">
-                    · ✓ sama dengan jawaban benar
-                  </span>
-                )}
-              </span>
-            )}
-            <Link
-              href={learnHref(m.category)}
-              className="inline-flex min-h-11 items-center gap-1.5 self-start text-sm font-extrabold text-accent-edge focus-ring hover:underline"
-            >
-              <LuBookOpen aria-hidden size={15} />
-              Pelajari aturannya
-            </Link>
+            <SpeakButton text={m.correct} />
           </div>
-          {answers}
+          <p
+            role="status"
+            className={classNames(
+              "m-0 text-[15px] font-bold",
+              result === "bad" ? "text-bad" : "text-ok",
+            )}
+          >
+            {listen ? (
+              result === "ok" ? (
+                "Tepat. Semua kata benar."
+              ) : result === "near" ? (
+                `Hampir. ${slips} kata belum tepat.`
+              ) : (
+                "Belum tepat."
+              )
+            ) : result === "ok" ? (
+              "Tepat."
+            ) : (
+              <>
+                {result === "near" ? "Hampir. " : "Belum tepat. "}Kamu menulis{" "}
+                <s className="decoration-2">{typed.trim()}</s>.
+              </>
+            )}
+          </p>
+          {listen && result !== "ok" && <Yours marks={marks} />}
+          {listen && (
+            <p className="m-0 text-[13.5px] text-ink-3">
+              Dulu kamu menulis: <s className="decoration-2">{m.wrong}</s>
+            </p>
+          )}
+          {!listen && !!m.explanation_id && (
+            <p className="m-0 text-[14.5px] leading-[22px] text-ink">
+              {m.explanation_id}
+            </p>
+          )}
+          {!listen && ruleLink}
+          {/* On a phone Lanjut stays above the bottom nav. */}
+          <div className="flex flex-col gap-2 max-md:sticky max-md:bottom-[calc(76px+env(safe-area-inset-bottom))] max-md:-mx-1 max-md:bg-surface max-md:px-1 max-md:py-2">
+            <Button
+              variant="green"
+              size="lg"
+              autoFocus
+              onClick={() => settle() && onGrade(how)}
+              className="w-full"
+            >
+              Lanjut
+            </Button>
+            <span className="text-center text-[13px] font-semibold text-ink-3">
+              {comesBack(how)}
+            </span>
+          </div>
+        </>
+      ) : (
+        <>
+          {listen ? (
+            <div className="flex flex-col gap-2.5">
+              <span className="text-sm font-semibold text-ink-2">
+                Dengarkan, lalu tulis kalimatnya.
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <Button variant="green" onClick={() => play(false)}>
+                  <LuPlay aria-hidden size={16} />
+                  {plays ? "Putar lagi" : "Putar"}
+                </Button>
+                <Button disabled={!plays} onClick={() => play(true)}>
+                  <LuSnail aria-hidden size={16} />
+                  Pelan
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <span className="text-[13px] font-bold text-bad">
+                {anyMarked
+                  ? "Kalimat ini salah di bagian yang ditandai"
+                  : "Kalimat ini salah"}
+              </span>
+              <p className="m-0 text-[28px] leading-9 font-black tracking-[-0.015em] wrap-anywhere text-ink">
+                <Marked parts={marked} />
+              </p>
+              {section && (
+                <span className="text-sm font-semibold text-ink-2">
+                  Materi:{" "}
+                  <b className="font-extrabold text-ink">{section.title}</b> ·{" "}
+                  {ruleLink}
+                </span>
+              )}
+            </div>
+          )}
+
+          <form
+            className="flex flex-col gap-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (typed.trim() && !busy && !recording && !arming) onReveal();
+            }}
+          >
+            <label htmlFor={`fix-${m.id}`} className="sr-only">
+              {listen
+                ? "Tulis yang kamu dengar"
+                : "Tulis atau ucapkan versi yang benar"}
+            </label>
+            <div className="flex items-start gap-2">
+              <Input
+                id={`fix-${m.id}`}
+                autoFocus={!listen}
+                value={typed}
+                onChange={(e) => setTyped(e.target.value)}
+                placeholder={
+                  listen ? "Tulis yang kamu dengar" : "Tulis versi yang benar"
+                }
+                autoComplete="off"
+                autoCapitalize="none"
+                spellCheck={false}
+              />
+              {rec.supported && !listen && (
+                <IconButton
+                  aria-label={
+                    busy
+                      ? "Menuliskan suaramu…"
+                      : recording
+                        ? "Berhenti merekam"
+                        : "Jawab dengan suara"
+                  }
+                  disabled={busy || arming || stopping}
+                  onClick={() => {
+                    setSttError(null);
+                    if (recording) {
+                      setStopAsked(true);
+                      tailTimer.current = window.setTimeout(stop, TAIL_MS);
+                    } else {
+                      setAsked(true);
+                      void rec.start();
+                    }
+                  }}
+                  className={classNames(
+                    "h-11 w-11 shrink-0",
+                    recording && "border-bad-line! bg-bad-bg! text-bad!",
+                  )}
+                >
+                  {busy || arming ? (
+                    <LuLoaderCircle
+                      aria-hidden
+                      size={20}
+                      className="animate-spin"
+                    />
+                  ) : recording ? (
+                    <LuSquare aria-hidden size={18} />
+                  ) : (
+                    <LuMic aria-hidden size={20} />
+                  )}
+                </IconButton>
+              )}
+              <Button
+                type="submit"
+                variant="green"
+                disabled={!typed.trim() || busy || recording || arming}
+                className="shrink-0"
+              >
+                Cek
+              </Button>
+            </div>
+            {arming && (
+              <span
+                role="status"
+                className="text-[13px] font-semibold text-ink-2"
+              >
+                Menyiapkan mikrofon… tunggu tanda merah.
+              </span>
+            )}
+            {recording && (
+              <span
+                role="status"
+                className="inline-flex items-center gap-1.5 text-[13px] font-bold text-bad"
+              >
+                <span
+                  aria-hidden="true"
+                  className="h-2.5 w-2.5 animate-pulse rounded-full bg-bad"
+                />
+                {stopping
+                  ? "Menyelesaikan rekaman…"
+                  : `Bicara sekarang · ${seconds} detik. Tekan lagi untuk berhenti.`}
+              </span>
+            )}
+            {micNote && (
+              <span role="status" className="text-[13px] font-bold text-ink-2">
+                {micNote}
+              </span>
+            )}
+          </form>
         </>
       )}
+
+      {ruleOpen && <RuleSheet m={m} onClose={() => setRuleOpen(false)} />}
     </Card>
   );
 };

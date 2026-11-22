@@ -67,24 +67,29 @@ test.describe("Ulang", () => {
 
   test("kartu Betulkan kalimat: ketik, Enter, Ingat", async ({ page, api }) => {
     await openApp(page, "/review");
-    await expect(page.getByText(/BETULKAN KALIMAT/)).toBeVisible();
+    await expect(page.getByText(/^Kalimat ini salah/)).toBeVisible();
     // One card due (the mistake): the header counts what's left.
     await expect(page.getByText("1 lagi", { exact: true })).toBeVisible();
-    await expect(page.getByText("She go to school.")).toBeVisible();
+    // The wrong sentence, with the word to fix marked.
+    await expect(page.getByText("Salah:", { exact: false })).toBeAttached();
+    await expect(
+      page.locator("p", { hasText: /^She .*go to school\.$/ }),
+    ).toBeVisible();
     await axe(page, "kartu kesalahan");
 
     const box = page.getByRole("textbox", {
-      name: /Ucapkan atau ketik versi yang benar/,
+      name: /Tulis atau ucapkan versi yang benar/,
     });
     await box.fill("she goes to school");
     await box.press("Enter");
-    await expect(page.getByText(/sama dengan jawaban benar/)).toBeVisible();
+    // Graded from the answer: right → Ingat, applied by Lanjut.
+    await expect(page.getByText("Tepat.", { exact: true })).toBeVisible();
     await expect(page.getByText("He/she/it pakai -s.")).toBeVisible();
-    await page.keyboard.press("3");
+    await page.getByRole("button", { name: "Lanjut" }).click();
 
     await expect.poll(() => doc(api)?.items[0].srs.reps).toBe(2);
     expect(doc(api)!.items[0].srs.due).toBeGreaterThan(today());
-    await expect(page.getByText(/BETULKAN KALIMAT/)).toHaveCount(0);
+    await expect(page.getByText(/^Kalimat ini salah/)).toHaveCount(0);
   });
 
   test("toggle mati: kartu kesalahan hilang; langkah Ulang lewat kuis, bukan otomatis", async ({
@@ -92,11 +97,11 @@ test.describe("Ulang", () => {
     api,
   }) => {
     await openApp(page, "/review");
-    await expect(page.getByText(/BETULKAN KALIMAT/)).toBeVisible();
+    await expect(page.getByText(/^Kalimat ini salah/)).toBeVisible();
     await page
-      .getByRole("button", { name: /Sertakan kartu kesalahan/ })
+      .getByRole("switch", { name: /Sertakan kartu kesalahan/ })
       .click();
-    await expect(page.getByText(/BETULKAN KALIMAT/)).toHaveCount(0);
+    await expect(page.getByText(/^Kalimat ini salah/)).toHaveCount(0);
     await expect.poll(() => doc(api)?.reviewOn).toBe(false);
     // Nothing due and nothing reviewed: no tick, the 5-question quiz instead.
     await expect
@@ -149,7 +154,9 @@ test.describe("Ulang: kesalahan Dikte", () => {
 
   test("diputar, bukan ditampilkan; ditandai per kata", async ({ page }) => {
     await openApp(page, "/review");
-    await expect(page.getByText(/DENGAR & TULIS ULANG/)).toBeVisible();
+    await expect(
+      page.getByText(/Kesalahan · Menyimak · dari Dikte/),
+    ).toBeVisible();
     // The sentence is heard, not read.
     await expect(page.getByText("work start at nine")).toHaveCount(0);
     await expect(
@@ -161,9 +168,10 @@ test.describe("Ulang: kesalahan Dikte", () => {
     const box = page.getByRole("textbox", { name: /Tulis yang kamu dengar/ });
     await box.fill("work start at nine");
     await box.press("Enter");
-    await expect(page.getByText("TULISANMU SEKARANG")).toBeVisible();
-    await expect(page.getByText("(yang benar starts)")).toBeAttached();
-    await expect(page.getByText("Tulisanmu dulu:")).toBeVisible();
+    // 3 of 4 words right: not enough for "hampir"; the miss is marked.
+    await expect(page.getByText("Belum tepat.", { exact: true })).toBeVisible();
+    await expect(page.getByText("Salah:", { exact: false })).toBeAttached();
+    await expect(page.getByText(/^Dulu kamu menulis:/)).toBeVisible();
     await expect(page.getByText("Work starts at nine.")).toBeVisible();
     await axe(page, "kartu dengar ulang");
   });
