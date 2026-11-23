@@ -61,6 +61,17 @@ const HOW: Record<Result, SrsAnswer> = {
 
 const word = (s: string) => s.toLowerCase().replace(/[^a-z0-9']/g, "");
 
+// Letters first (a typo in a short answer is "almost"), then words: a long
+// sentence is "almost" with at most 1 word in 6 off, however long that word
+// is. Contractions count as their full form (checkDictation normalises them).
+const judgeSentence = (answer: string, typed: string): Result => {
+  const byLetters = judgeTyped(answer, typed);
+  if (byLetters !== "bad") return byLetters;
+  const { marks, total } = checkDictation(answer, typed);
+  const off = marks.filter((x) => x.kind !== "correct").length;
+  return off <= Math.floor(total / 6) ? "near" : "bad";
+};
+
 /** The wrong sentence's words, those that differ from the right one marked
  * (so the learner knows what to fix). Words only missing can't be marked. */
 /** What the learner types to correct `m`. Ujian records vocabulary as word
@@ -225,7 +236,7 @@ const MistakeReviewCard = ({
       : checkDictation(m.correct, typed).score >= NEAR_SCORE
         ? "near"
         : "bad"
-    : judgeTyped(typed.includes("=") ? m.correct : answerOf(m), typed);
+    : judgeSentence(typed.includes("=") ? m.correct : answerOf(m), typed);
   const how = HOW[result];
   const settle = useGradeOnLeave(revealed ? m.id : null, () => onGrade(how));
 

@@ -86,6 +86,32 @@ describe("MistakeReviewCard › Betulkan kalimat", () => {
     expect(onGrade).toHaveBeenCalledWith(how);
   });
 
+  // A long sentence is judged by words: one long word left out is "almost",
+  // and a contraction is the same as the full form.
+  it.each([
+    [
+      "Today, I'm going to fix the bug that was reported to me.",
+      "Hampir. Kamu menulis",
+    ],
+    [
+      "Today, I'm going to fix the bug that was reported to me earlier.",
+      "Tepat.",
+    ],
+    ["Today I fix bug.", "Belum tepat. Kamu menulis"],
+  ])('long sentence: "%s" → %s', (typed, message) => {
+    setup(
+      mistake({
+        source: "Main peran",
+        wrong:
+          "For today, maybe I'm going to fix bug that earlier report to me.",
+        correct:
+          "Today, I am going to fix the bug that was reported to me earlier.",
+      }),
+    );
+    answer(/versi yang benar/, typed);
+    expect(screen.getByRole("status").textContent).toContain(message);
+  });
+
   // The answer was seen: leaving before Lanjut must not let it be redone.
   it("a checked answer counts even when the page is left before Lanjut", () => {
     const { onGrade, unmount } = setup(mistake());
