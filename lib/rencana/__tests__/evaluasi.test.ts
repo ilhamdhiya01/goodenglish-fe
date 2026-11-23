@@ -274,6 +274,13 @@ describe("Pakai per hari", () => {
     expect(done(ctx(FRI, kal(FRI, 3)), "pakai")).toBe(true);
   });
 
+  it("only sentences from the Rencana panel count, not Tanya AI", () => {
+    const ai = Array.from({ length: 3 }, () =>
+      lap("kalimat_dicek", MON, { benar: true, sumber: "tanya_ai" }),
+    );
+    expect(done(ctx(MON, ai), "pakai")).toBe(false);
+  });
+
   it("Wednesday: 3 lines answered in the week's scenario", () => {
     const jawab = (sid: string) =>
       [1, 3, 5].map((b) =>

@@ -101,6 +101,8 @@ const lolos = (
       return d.mode === "penuh";
     case "langkah_ini":
       return d.langkah === langkah;
+    case "dari_rencana":
+      return d.sumber === "rencana";
   }
 };
 

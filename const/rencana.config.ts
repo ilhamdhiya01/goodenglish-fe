@@ -78,7 +78,9 @@ export type Saring =
   | "mode_pendek"
   | "mode_penuh"
   /** langkah_dilewati untuk langkah ini. */
-  | "langkah_ini";
+  | "langkah_ini"
+  /** Kalimat dicek dari panel Pakai di Rencana (bukan obrolan Tanya AI). */
+  | "dari_rencana";
 
 /** Keadaan yang membuat sebuah syarat berlaku. */
 export type Bila =
@@ -157,7 +159,13 @@ const KALIMAT: VarianLangkah = {
   tautan: "#pakai",
   aksi: "pakai_kalimat",
   menu: ["ai"],
-  selesaiBila: [{ jenis: "kalimat_dicek", ambang: RENCANA.kalimatHarian }],
+  selesaiBila: [
+    {
+      jenis: "kalimat_dicek",
+      ambang: RENCANA.kalimatHarian,
+      saring: ["dari_rencana"],
+    },
+  ],
 };
 
 export const LANGKAH: DefLangkah[] = [
