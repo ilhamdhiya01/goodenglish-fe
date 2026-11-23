@@ -5,6 +5,7 @@ import type { ReadingText } from "@/lib/types/reading.types";
 import type { Item } from "@/lib/types/vocab.types";
 
 import {
+  dailyLabel,
   findGlossary,
   findVocab,
   findWordCorrect,
@@ -192,5 +193,15 @@ describe("list helpers", () => {
     expect(
       warningText({ code: "few_target_words", found: 5, min: 8 }),
     ).toContain("Hanya 5");
+  });
+});
+
+describe("dailyLabel", () => {
+  // 23:30 UTC on the 22nd is already the 23rd in WIB.
+  const now = new Date("2026-11-22T23:30:00Z");
+  it("names today and yesterday by the WIB day, older ones by date", () => {
+    expect(dailyLabel("2026-11-23", now)).toBe("Hari ini");
+    expect(dailyLabel("2026-11-22", now)).toBe("Kemarin");
+    expect(dailyLabel("2026-11-20", now)).toMatch(/^Jumat, 20 Nov/);
   });
 });

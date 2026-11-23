@@ -115,10 +115,19 @@ const TextEditor = ({
       <fieldset className="m-0 flex min-w-0 flex-col gap-3 border-0 p-0">
         <legend className="mb-1 p-0 text-[13px] font-extrabold text-ink-2">
           Paragraf ·{" "}
-          <span className={words < min || words > max ? "text-bad" : "text-ok"}>
-            {words} kata
-          </span>{" "}
-          (Teks {text.slot}: {min}–{max})
+          {text.day ? (
+            // Bacaan harian has no length rule.
+            `${words} kata`
+          ) : (
+            <>
+              <span
+                className={words < min || words > max ? "text-bad" : "text-ok"}
+              >
+                {words} kata
+              </span>{" "}
+              (Teks {text.slot}: {min}–{max})
+            </>
+          )}
         </legend>
         {d.paragraphs.map((p, i) => (
           <div
@@ -435,7 +444,11 @@ const ReadingManager = () => {
     }
     // One published text per slot: the old one is hidden first.
     const other = texts.find(
-      (x) => x.id !== t.id && x.slot === t.slot && x.status === "published",
+      (x) =>
+        x.id !== t.id &&
+        x.slot === t.slot &&
+        x.day === t.day &&
+        x.status === "published",
     );
     if (other) {
       const ok = await confirmDialog({
@@ -509,6 +522,7 @@ const ReadingManager = () => {
                 setEditing(null);
               }}
             >
+              <option value={0}>Bacaan harian · otomatis tiap hari</option>
               {plan.map(([w, title, t]) => (
                 <option key={w} value={w}>
                   Minggu {w} · {title}
@@ -517,31 +531,45 @@ const ReadingManager = () => {
               ))}
             </Select>
           </FieldLabel>
-          <FieldLabel label="Teks">
-            <Select
-              value={slot}
-              onChange={(e) => setSlot(e.target.value as ReadingSlot)}
-            >
-              <option value="A">Teks A · 150–200 kata</option>
-              <option value="B">Teks B · 200–300 kata</option>
-            </Select>
-          </FieldLabel>
+          {week !== 0 && (
+            <FieldLabel label="Teks">
+              <Select
+                value={slot}
+                onChange={(e) => setSlot(e.target.value as ReadingSlot)}
+              >
+                <option value="A">Teks A · 150–200 kata</option>
+                <option value="B">Teks B · 200–300 kata</option>
+              </Select>
+            </FieldLabel>
+          )}
         </div>
-        <span className="text-[13px] leading-[18px] font-semibold text-ink-2">
-          Gemini memakai {words.length} kata minggu ini
-          {tense ? ` dan fokus "${tense.name}"` : ""}, minimal 8 kata harus
-          muncul. Draf tidak terlihat pelajar sampai diterbitkan.
-        </span>
+        {week === 0 ? (
+          <span className="text-[13px] leading-[18px] font-semibold text-ink-2">
+            Server membuat satu bacaan bertema bebas untuk setiap level setiap
+            hari (WIB) dan langsung menerbitkannya. Pelajar melihat 7 hari
+            terakhir. Di sini kamu bisa menyembunyikan, mengedit, atau
+            menghapusnya.
+          </span>
+        ) : (
+          <span className="text-[13px] leading-[18px] font-semibold text-ink-2">
+            Gemini memakai {words.length} kata minggu ini
+            {tense ? ` dan fokus "${tense.name}"` : ""}, minimal 8 kata harus
+            muncul. Draf tidak terlihat pelajar sampai diterbitkan.
+          </span>
+        )}
         <div className="flex flex-wrap items-center gap-3">
-          <Button
-            variant="green"
-            disabled={R.isGenerating || !words.length}
-            onClick={() => void generate()}
-          >
-            {R.isGenerating ? "Membuat draf…" : `Buat draf Teks ${slot}`}
-          </Button>
+          {week !== 0 && (
+            <Button
+              variant="green"
+              disabled={R.isGenerating || !words.length}
+              onClick={() => void generate()}
+            >
+              {R.isGenerating ? "Membuat draf…" : `Buat draf Teks ${slot}`}
+            </Button>
+          )}
           <span className="text-sm font-bold text-ink-2" aria-live="polite">
-            Minggu {week}: {published} terbit · {texts.length - published} draf
+            {week === 0 ? "Harian" : `Minggu ${week}`}: {published} terbit ·{" "}
+            {texts.length - published} draf
           </span>
         </div>
       </Card>
@@ -555,8 +583,9 @@ const ReadingManager = () => {
       ) : !texts.length ? (
         <Card tone="dashed">
           <span className="text-sm font-bold text-ink-2">
-            Belum ada bacaan untuk minggu ini. Pilih Teks A atau B, lalu tekan
-            Buat draf.
+            {week === 0
+              ? "Belum ada bacaan harian. Server membuatnya otomatis, paling lambat satu jam lagi."
+              : "Belum ada bacaan untuk minggu ini. Pilih Teks A atau B, lalu tekan Buat draf."}
           </span>
         </Card>
       ) : (
@@ -570,9 +599,10 @@ const ReadingManager = () => {
                       {t.title}
                     </span>
                     <span className="text-[12.5px] font-semibold text-ink-2">
-                      Teks {t.slot} · {t.wordCount} kata ·{" "}
-                      {t.targetWordsUsed.length} kata target ·{" "}
-                      {t.createdBy ?? "—"}
+                      {t.day
+                        ? `${t.day} · ${t.wordCount} kata`
+                        : `Teks ${t.slot} · ${t.wordCount} kata · ${t.targetWordsUsed.length} kata target`}{" "}
+                      · {t.createdBy ?? "—"}
                     </span>
                   </div>
                   <span

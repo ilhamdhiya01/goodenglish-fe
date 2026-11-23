@@ -35,6 +35,9 @@ export interface ListeningItem {
   wordCount: number;
   createdBy: string | null;
   publishedAt: string | null;
+  /** Menyimak harian (made by the server, week 0): its WIB day, YYYY-MM-DD.
+   * null for the weekly items. */
+  day: string | null;
   createdAt: string;
   updatedAt: string;
 }

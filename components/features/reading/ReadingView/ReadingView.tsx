@@ -13,6 +13,7 @@ import SectionLabel from "@/components/ui/section-label";
 import { LEVELS } from "@/const/levels.constant";
 import { PILOT } from "@/const/pilot.constant";
 import {
+  dailyLabel,
   pieces,
   readingMinutes,
   splitSentences,
@@ -259,8 +260,10 @@ const ReadingBody = ({ text }: { text: ReadingText }) => {
       </Link>
       <div className="flex flex-col gap-1.5">
         <SectionLabel tone="green">
-          {String(levelName).toUpperCase()} · MINGGU {text.week} · TEKS{" "}
-          {text.slot}
+          {String(levelName).toUpperCase()} ·{" "}
+          {text.day
+            ? `BACAAN HARIAN · ${dailyLabel(text.day).toUpperCase()}`
+            : `MINGGU ${text.week} · TEKS ${text.slot}`}
         </SectionLabel>
         <PageHeading>{text.title}</PageHeading>
         <span className="text-sm font-bold text-ink-2">
@@ -376,7 +379,7 @@ const ReadingBody = ({ text }: { text: ReadingText }) => {
 
 // /reading/[id]: one text of the active level.
 const ReadingView = ({ id }: { id: string }) => {
-  const { level } = useShellData();
+  const { level, week } = useShellData();
   const { texts, isLoading, isError, refetch } = useReadingTexts(
     level as LevelId,
   );
@@ -418,7 +421,11 @@ const ReadingView = ({ id }: { id: string }) => {
       </Card>
     );
   }
-  return <ReadingBody key={text.id} text={text} />;
+  // A daily text (week 0) belongs to the learner's week: its Kosakata is
+  // marked, saved words and the finished text count there (Rencana too).
+  return (
+    <ReadingBody key={text.id} text={text.day ? { ...text, week } : text} />
+  );
 };
 
 export default ReadingView;

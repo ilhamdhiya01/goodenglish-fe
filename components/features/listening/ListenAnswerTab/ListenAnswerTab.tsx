@@ -160,7 +160,7 @@ const ListenAnswerTab = () => {
         <Jalak mood="biasa" />
         <span className="text-sm leading-5 font-bold text-ink-2">
           Belum ada soal Dengar &amp; jawab untuk minggu 1–{week} di levelmu.
-          Soal disiapkan admin; coba lagi nanti, ya.
+          Soal baru muncul setiap hari; coba lagi nanti, ya.
         </span>
       </Card>
     );

@@ -300,6 +300,7 @@ const ListeningManager = () => {
                 setEditing(null);
               }}
             >
+              <option value={0}>Menyimak harian · otomatis tiap hari</option>
               {plan.map(([w, title, t]) => (
                 <option key={w} value={w}>
                   Minggu {w} · {title}
@@ -308,41 +309,60 @@ const ListeningManager = () => {
               ))}
             </Select>
           </FieldLabel>
-          <FieldLabel label="Jumlah draf">
-            <Select value={count} onChange={(e) => setCount(+e.target.value)}>
-              {[1, 2, 3].map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
-              ))}
-            </Select>
-          </FieldLabel>
-          <FieldLabel label="Jenis">
-            <Select
-              value={type}
-              onChange={(e) => setType(e.target.value as typeof type)}
-            >
-              <option value="dialog">Dialog</option>
-              <option value="monolog">Monolog</option>
-              <option value="mixed">Campur</option>
-            </Select>
-          </FieldLabel>
+          {week !== 0 && (
+            <>
+              <FieldLabel label="Jumlah draf">
+                <Select
+                  value={count}
+                  onChange={(e) => setCount(+e.target.value)}
+                >
+                  {[1, 2, 3].map((n) => (
+                    <option key={n} value={n}>
+                      {n}
+                    </option>
+                  ))}
+                </Select>
+              </FieldLabel>
+              <FieldLabel label="Jenis">
+                <Select
+                  value={type}
+                  onChange={(e) => setType(e.target.value as typeof type)}
+                >
+                  <option value="dialog">Dialog</option>
+                  <option value="monolog">Monolog</option>
+                  <option value="mixed">Campur</option>
+                </Select>
+              </FieldLabel>
+            </>
+          )}
         </div>
-        <span className="text-[13px] leading-[18px] font-semibold text-ink-2">
-          Gemini memakai {words.length} kata minggu ini
-          {tense ? ` dan fokus "${tense.name}"` : ""}. Draf tidak terlihat
-          pelajar sampai diterbitkan.
-        </span>
+        {week === 0 ? (
+          <span className="text-[13px] leading-[18px] font-semibold text-ink-2">
+            Server membuat satu dialog dan satu monolog bertema bebas untuk
+            setiap level setiap hari (WIB) dan langsung menerbitkannya. Pelajar
+            mendapatkan soal 7 hari terakhir. Di sini kamu bisa menyembunyikan,
+            mengedit, atau menghapusnya.
+          </span>
+        ) : (
+          <span className="text-[13px] leading-[18px] font-semibold text-ink-2">
+            Gemini memakai {words.length} kata minggu ini
+            {tense ? ` dan fokus "${tense.name}"` : ""}. Draf tidak terlihat
+            pelajar sampai diterbitkan.
+          </span>
+        )}
         <div className="flex flex-wrap items-center gap-3">
-          <Button
-            variant="green"
-            disabled={L.isGenerating || !words.length}
-            onClick={() => void generate()}
-          >
-            {L.isGenerating ? "Membuat draf…" : `Generate ${count} draf`}
-          </Button>
+          {week !== 0 && (
+            <Button
+              variant="green"
+              disabled={L.isGenerating || !words.length}
+              onClick={() => void generate()}
+            >
+              {L.isGenerating ? "Membuat draf…" : `Generate ${count} draf`}
+            </Button>
+          )}
           <span className="text-sm font-bold text-ink-2" aria-live="polite">
-            Minggu {week}: {published} terbit · {items.length - published} draf
+            {week === 0 ? "Harian" : `Minggu ${week}`}: {published} terbit ·{" "}
+            {items.length - published} draf
           </span>
         </div>
       </Card>
@@ -356,7 +376,9 @@ const ListeningManager = () => {
       ) : !items.length ? (
         <Card tone="dashed">
           <span className="text-sm font-bold text-ink-2">
-            Belum ada soal untuk minggu ini. Tekan Generate untuk membuat draf.
+            {week === 0
+              ? "Belum ada soal harian. Server membuatnya otomatis, paling lambat satu jam lagi."
+              : "Belum ada soal untuk minggu ini. Tekan Generate untuk membuat draf."}
           </span>
         </Card>
       ) : (
@@ -370,6 +392,7 @@ const ListeningManager = () => {
                       {it.title}
                     </span>
                     <span className="text-[12.5px] font-semibold text-ink-2">
+                      {it.day ? `${it.day} · ` : ""}
                       {it.type === "dialog" ? "Dialog" : "Monolog"} ·{" "}
                       {it.wordCount} kata · {it.createdBy ?? "—"}
                     </span>

@@ -5,6 +5,7 @@ import { expect, test } from "./support/fixtures";
 import {
   adminSession,
   readingSession,
+  readingText,
   spoken,
   today,
 } from "./support/mock-api";
@@ -236,6 +237,52 @@ test.describe("pelajar", () => {
       .getByRole("button", { name: /Selesai membaca · jawab 5 soal/ })
       .click();
     await check("soal");
+  });
+});
+
+// Bacaan harian: made by the server each day (week 0), shown above the weeks.
+test.describe("bacaan harian", () => {
+  const wib = (ms: number) =>
+    new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jakarta" }).format(ms);
+  test.use({
+    mock: {
+      session: readingSession,
+      progress: { level: "pre" },
+      readingTexts: [
+        readingText("rt1", 1),
+        readingText("rd-old", 0, {
+          day: wib(Date.now() - 86_400_000),
+          title: "Yesterday's bees",
+        }),
+        readingText("rd-new", 0, {
+          day: wib(Date.now()),
+          title: "Today's whales",
+        }),
+      ],
+    },
+  });
+
+  test("di atas daftar mingguan, terbaru dulu, dan bisa dibaca", async ({
+    page,
+  }) => {
+    await openApp(page, "/reading");
+    const daily = page.getByRole("heading", { name: /Bacaan harian/ });
+    await expect(daily).toBeVisible();
+    const links = page.getByRole("link", { name: /HARI INI|KEMARIN|TEKS A/ });
+    await expect(links.nth(0)).toContainText("HARI INI");
+    await expect(links.nth(0)).toContainText("Today's whales");
+    await expect(links.nth(1)).toContainText("KEMARIN");
+    await expect(links.nth(2)).toContainText("TEKS A");
+    const { violations } = await new AxeBuilder({ page })
+      .include("main")
+      .analyze();
+    expect(violations.map((v) => `${v.id}: ${v.help}`)).toEqual([]);
+
+    await links.nth(0).click();
+    await expect(page.getByText(/BACAAN HARIAN · HARI INI/)).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Today's whales", level: 2 }),
+    ).toBeVisible();
   });
 });
 
