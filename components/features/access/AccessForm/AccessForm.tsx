@@ -18,9 +18,15 @@ import { useOnline } from "@/lib/hooks/useOnline";
 import { ROUTES } from "@/routes";
 import { clearAiChat } from "@/stores/useAiChatStore";
 
-// Only same-site paths, never `//evil.com` or absolute URLs.
-const safeCallback = (raw: string | null) =>
-  raw && raw.startsWith("/") && !raw.startsWith("//") ? raw : ROUTES.PLAN;
+// Only pages of this app. Checked by resolving the URL as the browser will,
+// not by its prefix: "/\evil.com" starts with one slash yet opens evil.com.
+export const safeCallback = (raw: string | null) => {
+  if (!raw?.startsWith("/")) return ROUTES.PLAN;
+  const u = new URL(raw, window.location.origin);
+  return u.origin === window.location.origin
+    ? u.pathname + u.search + u.hash
+    : ROUTES.PLAN;
+};
 
 const OFFLINE =
   "Tidak bisa terhubung ke server. Periksa koneksi, lalu coba lagi.";
