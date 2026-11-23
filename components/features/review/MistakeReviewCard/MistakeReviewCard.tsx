@@ -241,9 +241,11 @@ const MistakeReviewCard = ({
         : "bad"
     : judgeSentence(typed.includes("=") ? m.correct : answerOf(m), typed);
   const how = HOW[result];
-  // Shown after answering only: before, it would turn listening into translating.
-  const meaning =
-    listen && revealed
+  // A listening card shows it after answering only (before, listening would
+  // become translating). An Ujian card's meaning is the task: from the start.
+  const meaning = !listen
+    ? (m.meaning ?? "")
+    : revealed
       ? dictationMeaning(m.correct, VOCAB_SCEN as Scenario[])
       : "";
   const settle = useGradeOnLeave(revealed ? m.id : null, () => onGrade(how));
@@ -355,6 +357,9 @@ const MistakeReviewCard = ({
               <p className="m-0 text-[28px] leading-9 font-black tracking-[-0.015em] wrap-anywhere text-ink">
                 <Marked parts={marked} />
               </p>
+              {!!meaning && (
+                <span className="text-[15px] text-ink-2">{meaning}</span>
+              )}
               {!!topic && (
                 <span className="text-sm font-semibold text-ink-2">
                   Materi: <b className="font-extrabold text-ink">{topic}</b> ·{" "}

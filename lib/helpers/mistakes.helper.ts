@@ -75,6 +75,9 @@ export const makeMistake = (
     ...(ruleId(input.rule) ? { rule: ruleId(input.rule) } : {}),
     level: input.level,
     ...(input.refId ? { refId: clean(input.refId, 200) } : {}),
+    ...(clean(input.meaning, 300)
+      ? { meaning: clean(input.meaning, 300) }
+      : {}),
     createdAt: now,
     lastAt: now,
     count: 1,
@@ -111,6 +114,9 @@ export const addTo = (
     source: rec.source,
     explanation_id: rec.explanation_id || cur.explanation_id,
     ...(rec.rule || cur.rule ? { rule: rec.rule || cur.rule } : {}),
+    ...(rec.meaning || cur.meaning
+      ? { meaning: rec.meaning || cur.meaning }
+      : {}),
     ...(back ? { status: "active" as const, srs: newSrs(T) } : {}),
   };
   const items = [next, ...data.items.filter((_, k) => k !== at)];
@@ -164,6 +170,7 @@ const readRecord = (raw: unknown, T: number): MistakeRecord | null => {
     ...(ruleId(m.rule) ? { rule: ruleId(m.rule) } : {}),
     level: (typeof m.level === "string" ? m.level : "pre") as LevelId,
     ...(typeof m.refId === "string" ? { refId: m.refId } : {}),
+    ...(clean(m.meaning, 300) ? { meaning: clean(m.meaning, 300) } : {}),
     createdAt,
     lastAt: typeof m.lastAt === "string" ? m.lastAt : createdAt,
     count: Math.max(1, num(m.count, 1)),

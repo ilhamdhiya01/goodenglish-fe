@@ -73,6 +73,22 @@ describe("MistakeReviewCard › Betulkan kalimat", () => {
     expect(screen.getByText("Kapan pakai tense apa")).toBeTruthy();
   });
 
+  // An Ujian card shows the sentence it asked for: that is the task, so it's
+  // there before answering (own sentences have no meaning and show none).
+  it("shows the asked-for Indonesian sentence before answering", () => {
+    setup(
+      mistake({
+        source: "Ujian",
+        wrong: "We never use phones on breakfast",
+        correct: "We never use our phones at breakfast.",
+        meaning: "Kami tidak pernah memakai ponsel saat sarapan.",
+      }),
+    );
+    expect(
+      screen.getByText("Kami tidak pernah memakai ponsel saat sarapan."),
+    ).toBeTruthy();
+  });
+
   it.each([
     ["She goes to school", "Tepat.", "good"],
     ["She gose to school", "Hampir. Kamu menulis", "hard"],

@@ -85,6 +85,8 @@ export const examMistakes = (
             ...base,
             wrong: g?.full ? g.full(q.q, String(a), q.stage) : String(a),
             correct: q.q.ans,
+            // What the question asked for: the Indonesian of the answer.
+            meaning: q.q.ansId || q.q.promptId,
             explanation_id: g
               ? g.explain(q.q, String(a), q.stage).replace(/^Benar: /, "")
               : q.q.why,

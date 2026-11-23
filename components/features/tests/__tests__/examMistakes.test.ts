@@ -30,6 +30,9 @@ describe("examMistakes", () => {
     ]);
     const g = qs[2];
     expect(wrong[2].correct).toBe(g.kind === "grammar" ? g.q.ans : "");
+    // The Indonesian sentence the question asked for goes along.
+    expect(wrong[2].meaning).toBe(g.kind === "grammar" ? g.q.promptId : "");
+    expect(wrong[2].meaning).toBeTruthy();
     // Right answers and unanswered ones send nothing.
     const right = qs.map((q) =>
       q.kind === "vocab-mc"

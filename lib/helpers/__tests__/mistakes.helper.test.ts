@@ -53,6 +53,22 @@ describe("rule", () => {
   });
 });
 
+// The Indonesian sentence an Ujian question asked for (shown on the card).
+describe("meaning", () => {
+  it("is kept, survives a reload, and reaches an older card on a repeat", () => {
+    const d = add(EMPTY_MISTAKES, { meaning: "Dia pergi ke sekolah." });
+    expect(d.items[0].meaning).toBe("Dia pergi ke sekolah.");
+    expect(
+      normalizeMistakes(JSON.parse(JSON.stringify(d)), T).items[0].meaning,
+    ).toBe("Dia pergi ke sekolah.");
+    const old = add(EMPTY_MISTAKES);
+    expect(old.items[0]).not.toHaveProperty("meaning");
+    expect(
+      add(old, { meaning: "Dia pergi ke sekolah." }).items[0].meaning,
+    ).toBe("Dia pergi ke sekolah.");
+  });
+});
+
 describe("addTo", () => {
   it("makes one active record, due tomorrow", () => {
     const { data, result } = addTo(EMPTY_MISTAKES, input(), NOW, T);

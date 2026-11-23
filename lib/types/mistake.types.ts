@@ -49,6 +49,9 @@ export interface MistakeInput {
   rule?: string;
   level: LevelId;
   refId?: string;
+  /** Ujian: the Indonesian sentence the question asked for (shown on the
+   * card before answering). Own sentences have none. */
+  meaning?: string;
 }
 
 export interface MistakeRecord extends MistakeInput {
