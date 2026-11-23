@@ -72,6 +72,7 @@ export const toError = (
     "roleplay_turn_limit",
     "roleplay_help_limit",
     "roleplay_transcribe_limit",
+    "roleplay_finish_limit",
     // Sending the same recording again won't help: record again instead.
     "stt_no_speech",
     "stt_too_long",

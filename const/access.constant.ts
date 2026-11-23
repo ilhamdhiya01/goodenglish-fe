@@ -42,6 +42,8 @@ export const ACCESS_ERRORS: Record<string, string> = {
   roleplay_bad_turn: "Tulis atau ucapkan jawabanmu dulu.",
   roleplay_transcribe_limit:
     "Batas rekaman suara untuk sesi ini sudah habis. Ketik jawabanmu, ya.",
+  roleplay_finish_limit:
+    "Ringkasan sesi ini sudah diambil beberapa kali. Mulai sesi baru, ya.",
   listening_not_allowed:
     "Token ini belum bisa membuka Menyimak. Hubungi admin.",
   listening_not_found: "Soal ini sudah dihapus.",
