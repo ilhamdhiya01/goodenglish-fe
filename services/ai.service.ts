@@ -108,43 +108,27 @@ export const streamChat = async (
 };
 
 export const getAiUsage = async (): Promise<ApiResponse<AiUsage>> => {
-  try {
-    const res = await axiosInstance.get(API_AI_USAGE);
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.get(API_AI_USAGE);
+  return res.data;
 };
 
 export const listAiConversations = async (): Promise<
   ApiResponse<AiConversationSummary[]>
 > => {
-  try {
-    const res = await axiosInstance.get(API_AI_CONVERSATIONS);
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.get(API_AI_CONVERSATIONS);
+  return res.data;
 };
 
 export const getAiConversation = async (
   id: string,
 ): Promise<ApiResponse<AiConversation>> => {
-  try {
-    const res = await axiosInstance.get(API_AI_CONVERSATION(id));
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.get(API_AI_CONVERSATION(id));
+  return res.data;
 };
 
 export const deleteAiConversation = async (
   id: string,
 ): Promise<ApiResponse<null>> => {
-  try {
-    const res = await axiosInstance.delete(API_AI_CONVERSATION(id));
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.delete(API_AI_CONVERSATION(id));
+  return res.data;
 };

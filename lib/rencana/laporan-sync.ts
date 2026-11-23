@@ -63,8 +63,10 @@ export const kirimLaporan = async (): Promise<void> => {
       const batch = queue.slice(0, RENCANA.laporanPerKirim);
       try {
         await postLaporan(batch);
-      } catch {
-        schedule(RETRY_MS);
+      } catch (e) {
+        // Session gone: the outbox keeps them for this token's next sign-in.
+        if ((e as { response?: { status?: number } })?.response?.status !== 401)
+          schedule(RETRY_MS);
         return;
       }
       const sent = new Set(batch.map((b) => b.id));

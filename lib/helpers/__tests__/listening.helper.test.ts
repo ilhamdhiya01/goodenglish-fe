@@ -7,6 +7,7 @@ import type { Scenario } from "@/lib/types/scenario.types";
 
 import {
   cleanSentence,
+  dictationMeaning,
   dictationPool,
   dictationSpeed,
   pickDictation,
@@ -26,6 +27,19 @@ describe("cleanSentence", () => {
     expect(cleanSentence("A quarter past nine. (9:15)")).toBe(
       "A quarter past nine.",
     );
+  });
+});
+
+// Mistake cards look the meaning up later (old cards too): every dictation
+// sentence that had a meaning still finds one.
+describe("dictationMeaning", () => {
+  it("finds a meaning for every pool sentence that has one", () => {
+    for (const level of ["beginner", "pre", "inter", "upper"]) {
+      const data = levelData(level, []);
+      for (const s of dictationPool(data, SC, level, 99))
+        if (s.meaning)
+          expect(dictationMeaning(s.text, SC), s.text).not.toBe("");
+    }
   });
 });
 
