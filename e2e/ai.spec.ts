@@ -122,3 +122,28 @@ test("riwayat: judul panjang terpotong, tidak meluber keluar panel", async ({
     noSideScroll: true,
   });
 });
+
+test("pesan dengan kata sangat panjang (URL) dipatah, obrolan tidak bergeser ke samping", async ({
+  page,
+}) => {
+  const url =
+    "https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md";
+  await openApp(page, "/plan");
+  const panel = await openAiPanel(page);
+  await panel.getByRole("textbox", { name: "Pertanyaan" }).fill(url);
+  await panel.getByRole("button", { name: "Kirim" }).click();
+  await expect(
+    panel.getByText("Run out of dipakai dengan benda."),
+  ).toBeVisible();
+  const mine = panel.getByText(url);
+  const fits = await mine.evaluate((el) => {
+    const list = el.closest(".overflow-y-auto")!;
+    return {
+      inside:
+        el.getBoundingClientRect().right <=
+        list.getBoundingClientRect().right + 1,
+      noSideScroll: list.scrollWidth <= list.clientWidth,
+    };
+  });
+  expect(fits).toEqual({ inside: true, noSideScroll: true });
+});

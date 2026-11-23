@@ -53,7 +53,7 @@ const Bubble = React.memo(({ m, busy, live, question }: BubbleProps) => {
   if (m.role === "user")
     return (
       <div className="flex justify-end">
-        <div className="max-w-[85%] rounded-xl rounded-br-sm bg-accent px-3.5 py-2.5 text-[15px] leading-[22px] font-bold whitespace-pre-wrap text-on-accent">
+        <div className="max-w-[85%] rounded-xl rounded-br-sm bg-accent px-3.5 py-2.5 text-[15px] leading-[22px] font-bold wrap-anywhere whitespace-pre-wrap text-on-accent">
           {m.text}
         </div>
       </div>
@@ -61,7 +61,7 @@ const Bubble = React.memo(({ m, busy, live, question }: BubbleProps) => {
   return (
     <div
       className={classNames(
-        "max-w-[92%] rounded-xl rounded-bl-sm border-2 px-3.5 py-2.5 text-[15px] leading-[22px]",
+        "max-w-[92%] rounded-xl rounded-bl-sm border-2 px-3.5 py-2.5 text-[15px] leading-[22px] wrap-anywhere",
         m.error
           ? "border-bad-line bg-bad-bg text-ink"
           : "border-line bg-surface text-ink",
