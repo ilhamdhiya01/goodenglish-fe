@@ -58,6 +58,9 @@ export interface ReadingText {
   warnings: ReadingWarning[];
   createdBy: string | null;
   publishedAt: string | null;
+  /** Bacaan harian (made by the server, week 0): its WIB day, YYYY-MM-DD.
+   * null for the weekly A/B texts. */
+  day: string | null;
   createdAt: string;
   updatedAt: string;
 }

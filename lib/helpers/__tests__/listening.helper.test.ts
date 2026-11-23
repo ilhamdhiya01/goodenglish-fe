@@ -96,6 +96,7 @@ const item = (id: string, week: number): ListeningItem => ({
   id,
   level: "pre",
   week,
+  day: null,
   status: "published",
   type: "dialog",
   title: id,
@@ -114,6 +115,15 @@ describe("listen items and the shared picker", () => {
     expect(pickListenItem(items, 2, { a: 1 }, 1)?.id).toBe("b");
     expect(pickListenItem(items, 1, { a: 1 }, 1)?.id).toBe("a");
     expect(pickListenItem([], 3, {}, 1)).toBeNull();
+  });
+
+  // Menyimak harian (week 0) is open in every week, and new ones come first.
+  it("pickListenItem serves a fresh daily item before a seen weekly one", () => {
+    const items = [
+      item("weekly", 1),
+      { ...item("daily", 0), day: "2026-11-23" },
+    ];
+    expect(pickListenItem(items, 1, { weekly: 1 }, 1)?.id).toBe("daily");
   });
 
   it("pickListeningQuestions mixes stages and returns the asked numbers", () => {

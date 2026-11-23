@@ -223,6 +223,23 @@ export const groupByWeek = (
     }));
 };
 
+/** A Bacaan harian's day for its card: "Hari ini", "Kemarin" or the date.
+ * Days are WIB, as the server makes them. */
+export const dailyLabel = (day: string, now = new Date()): string => {
+  const today = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Jakarta",
+  }).format(now);
+  const ago = (Date.parse(today) - Date.parse(day)) / 86_400_000;
+  if (ago === 0) return "Hari ini";
+  if (ago === 1) return "Kemarin";
+  return new Date(`${day}T00:00:00Z`).toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "short",
+    timeZone: "UTC",
+  });
+};
+
 /** A draft's warning for the admin, in Indonesian. */
 export const warningText = (w: ReadingWarning): string => {
   switch (w.code) {
