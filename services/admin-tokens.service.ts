@@ -21,61 +21,41 @@ import {
 } from "@/routes";
 
 export const getTokens = async (): Promise<ApiResponse<AccessTokenItem[]>> => {
-  try {
-    const res = await axiosInstance.get(API_ADMIN_TOKENS);
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.get(API_ADMIN_TOKENS);
+  return res.data;
 };
 
 export const createToken = async (
   values: TokenFormValues,
 ): Promise<ApiResponse<CreatedToken>> => {
-  try {
-    const { expiresAt, ...rest } = values;
-    const res = await axiosInstance.post(API_ADMIN_TOKENS, {
-      ...rest,
-      ...(expiresAt ? { expiresAt } : {}),
-    });
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const { expiresAt, ...rest } = values;
+  const res = await axiosInstance.post(API_ADMIN_TOKENS, {
+    ...rest,
+    ...(expiresAt ? { expiresAt } : {}),
+  });
+  return res.data;
 };
 
 export const updateToken = async (
   id: string,
   values: Partial<TokenFormValues>,
 ): Promise<ApiResponse<AccessTokenItem>> => {
-  try {
-    const res = await axiosInstance.patch(API_ADMIN_TOKEN(id), values);
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.patch(API_ADMIN_TOKEN(id), values);
+  return res.data;
 };
 
 export const revokeToken = async (
   id: string,
 ): Promise<ApiResponse<AccessTokenItem>> => {
-  try {
-    const res = await axiosInstance.post(API_ADMIN_TOKEN_REVOKE(id));
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.post(API_ADMIN_TOKEN_REVOKE(id));
+  return res.data;
 };
 
 export const activateToken = async (
   id: string,
 ): Promise<ApiResponse<AccessTokenItem>> => {
-  try {
-    const res = await axiosInstance.post(API_ADMIN_TOKEN_ACTIVATE(id));
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.post(API_ADMIN_TOKEN_ACTIVATE(id));
+  return res.data;
 };
 
 // New plaintext on the same row (progress kept); old token and all its
@@ -83,64 +63,40 @@ export const activateToken = async (
 export const regenerateToken = async (
   id: string,
 ): Promise<ApiResponse<CreatedToken>> => {
-  try {
-    const res = await axiosInstance.post(API_ADMIN_TOKEN_REGENERATE(id));
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.post(API_ADMIN_TOKEN_REGENERATE(id));
+  return res.data;
 };
 
 export const resetTokenSessions = async (
   id: string,
 ): Promise<ApiResponse<AccessTokenItem>> => {
-  try {
-    const res = await axiosInstance.delete(API_ADMIN_TOKEN_SESSIONS(id));
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.delete(API_ADMIN_TOKEN_SESSIONS(id));
+  return res.data;
 };
 
 export const deleteToken = async (id: string): Promise<ApiResponse<null>> => {
-  try {
-    const res = await axiosInstance.delete(API_ADMIN_TOKEN(id));
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.delete(API_ADMIN_TOKEN(id));
+  return res.data;
 };
 
 export const getTokenSummary = async (
   id: string,
 ): Promise<ApiResponse<TokenSummary>> => {
-  try {
-    const res = await axiosInstance.get(API_ADMIN_TOKEN_SUMMARY(id));
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.get(API_ADMIN_TOKEN_SUMMARY(id));
+  return res.data;
 };
 
 // A learner's raw progress docs, for the read-only "Progres" report.
 export const getTokenProgress = async (
   id: string,
 ): Promise<ApiResponse<ProgressMap>> => {
-  try {
-    const res = await axiosInstance.get(API_ADMIN_TOKEN_PROGRESS(id));
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.get(API_ADMIN_TOKEN_PROGRESS(id));
+  return res.data;
 };
 
 export const getLearnersOverview = async (): Promise<
   ApiResponse<LearnerOverview[]>
 > => {
-  try {
-    const res = await axiosInstance.get(API_ADMIN_LEARNERS);
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.get(API_ADMIN_LEARNERS);
+  return res.data;
 };

@@ -6,28 +6,16 @@ import { API_AUTH_LOGOUT, API_AUTH_ME, API_AUTH_REDEEM } from "@/routes";
 export const redeemToken = async (
   payload: RedeemPayload,
 ): Promise<ApiResponse<SessionData>> => {
-  try {
-    const res = await axiosInstance.post(API_AUTH_REDEEM, payload);
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.post(API_AUTH_REDEEM, payload);
+  return res.data;
 };
 
 export const getSession = async (): Promise<ApiResponse<SessionData>> => {
-  try {
-    const res = await axiosInstance.get(API_AUTH_ME);
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.get(API_AUTH_ME);
+  return res.data;
 };
 
 export const logout = async (): Promise<ApiResponse<null>> => {
-  try {
-    const res = await axiosInstance.post(API_AUTH_LOGOUT);
-    return res.data;
-  } catch (error) {
-    throw error;
-  }
+  const res = await axiosInstance.post(API_AUTH_LOGOUT);
+  return res.data;
 };
