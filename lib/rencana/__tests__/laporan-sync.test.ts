@@ -47,6 +47,21 @@ describe("laporAktivitas + sync", () => {
     expect(localStorage.getItem(`${sync.LAPORAN_OUTBOX_KEY}:tok`)).toBeNull();
   });
 
+  // Session gone: retrying can't help (and the app is on the token screen).
+  // The reports stay in this token's outbox for its next sign-in.
+  it("401 stops retrying and keeps the reports on the device", async () => {
+    await sync.startLaporan("tok", 20000);
+    postLaporan.mockRejectedValue({ response: { status: 401 } });
+    laporAktivitas("ulang_habis", { data: {} });
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(postLaporan).toHaveBeenCalledTimes(1);
+    await vi.advanceTimersByTimeAsync(60_000);
+    expect(postLaporan).toHaveBeenCalledTimes(1);
+    expect(localStorage.getItem(`${sync.LAPORAN_OUTBOX_KEY}:tok`)).toContain(
+      "ulang_habis",
+    );
+  });
+
   it("a closed tab's reports come back on the next start, for that token only", async () => {
     await sync.startLaporan("tok", 20000);
     postLaporan.mockRejectedValue(new Error("offline"));
