@@ -120,6 +120,16 @@ export const dictationPool = (
   return [...out.values()];
 };
 
+/** An Indonesian meaning of a dictation sentence (a word example or a
+ * scenario line), or "" when the content has none. A sentence in both may
+ * have two wordings; either is right. */
+export const dictationMeaning = (text: string, scenarios: Scenario[]) =>
+  idOf(text) ||
+  scenarios
+    .flatMap((sc) => sc.lines)
+    .find((l) => cleanSentence(l[1]) === text)?.[2] ||
+  "";
+
 /**
  * `n` sentences for a stage: unseen first, then the rest, shuffled with a
  * seed. If the stage has fewer than `n`, the nearest lengths fill it up

@@ -226,4 +226,21 @@ describe("MistakeReviewCard › Dengar & tulis", () => {
     fireEvent.click(screen.getByRole("button", { name: "Lanjut" }));
     expect(onGrade).toHaveBeenCalledWith(how);
   });
+
+  // The meaning comes from the content (old cards too), only after answering.
+  it("shows the Indonesian meaning after answering", () => {
+    setup(
+      mistake({
+        source: "Ujian",
+        category: "menyimak",
+        rule: undefined,
+        wrong: "the window leaves alone in our house",
+        correct: "The widow lives alone in her house.",
+      }),
+    );
+    const meaning = "Janda itu tinggal sendirian di rumahnya.";
+    expect(screen.queryByText(meaning)).toBeNull();
+    answer(/Tulis yang kamu dengar/, "the window lives alone in our house");
+    expect(screen.getByText(meaning)).toBeTruthy();
+  });
 });

@@ -20,7 +20,9 @@ import SpeakButton from "@/components/ui/speak-button";
 import TextButton from "@/components/ui/text-button";
 import { accessErrorText } from "@/const/access.constant";
 import { categoryOf } from "@/const/mistake-categories.constant";
+import { VOCAB_SCEN } from "@/lib/content";
 import { checkDictation, type WordMark } from "@/lib/helpers/dictation.helper";
+import { dictationMeaning } from "@/lib/helpers/listening.helper";
 import { practiceOf } from "@/lib/helpers/practice-ref.helper";
 import { releaseSpeech, speak } from "@/lib/helpers/speech.helper";
 import type { SrsAnswer } from "@/lib/helpers/srs.helper";
@@ -32,6 +34,7 @@ import {
 } from "@/lib/hooks/useVoiceRecorder";
 import type { ErrorResponse } from "@/lib/types/api.types";
 import type { MistakeRecord } from "@/lib/types/mistake.types";
+import type { Scenario } from "@/lib/types/scenario.types";
 import { transcribeAudio } from "@/services/stt.service";
 
 import RuleSheet, { sectionOfMistake } from "../RuleSheet";
@@ -238,6 +241,11 @@ const MistakeReviewCard = ({
         : "bad"
     : judgeSentence(typed.includes("=") ? m.correct : answerOf(m), typed);
   const how = HOW[result];
+  // Shown after answering only: before, it would turn listening into translating.
+  const meaning =
+    listen && revealed
+      ? dictationMeaning(m.correct, VOCAB_SCEN as Scenario[])
+      : "";
   const settle = useGradeOnLeave(revealed ? m.id : null, () => onGrade(how));
 
   const ruleLink = !!topic && (
@@ -264,6 +272,9 @@ const MistakeReviewCard = ({
             </span>
             <SpeakButton text={m.correct} />
           </div>
+          {!!meaning && (
+            <span className="-mt-3 text-[15px] text-ink-2">{meaning}</span>
+          )}
           <p
             role="status"
             className={classNames(
