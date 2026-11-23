@@ -281,7 +281,11 @@ const MistakeReviewCard = ({
             role="status"
             className={classNames(
               "m-0 text-[15px] font-bold",
-              result === "bad" ? "text-bad" : "text-ok",
+              result === "bad"
+                ? "text-bad"
+                : result === "near"
+                  ? "text-warn"
+                  : "text-ok",
             )}
           >
             {listen ? (

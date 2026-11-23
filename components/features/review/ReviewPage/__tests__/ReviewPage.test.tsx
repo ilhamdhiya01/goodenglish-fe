@@ -74,7 +74,8 @@ describe("ReviewPage › word card, Indo → Inggris", () => {
     ["lesson", "Tepat.", /^Muncul lagi \w+, \d+ \w+/, "good"],
     [
       "leson",
-      "Hampir. Kamu menulis leson.",
+      // "_" marks where the missing letter goes.
+      "Hampir. Kamu menulis le_son.",
       /^Muncul lagi \w+, \d+ \w+/,
       "hard",
     ],
@@ -99,6 +100,16 @@ describe("ReviewPage › word card, Indo → Inggris", () => {
       expect(bumpSrs).toHaveBeenCalledWith(KEY, how);
     },
   );
+
+  // "Hampir" isn't green like "Tepat", and the letter to fix is marked.
+  it("an almost-right answer is amber with the wrong letter marked", () => {
+    render(<ReviewPage />);
+    typeAnswer("lessan");
+    const status = screen.getByRole("status");
+    expect(status.className).toContain("text-warn");
+    const marked = status.querySelector(".text-bad");
+    expect(marked?.textContent).toBe("a");
+  });
 
   it("Nggak tahu shows the answer without typing anything, rated Lupa", () => {
     render(<ReviewPage />);

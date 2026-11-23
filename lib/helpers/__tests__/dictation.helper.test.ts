@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   checkDictation,
   explainMarks,
+  markLetters,
   normalizeTokens,
   numberWords,
 } from "../dictation.helper";
@@ -141,5 +142,34 @@ describe("checkDictation", () => {
     expect(explainMarks(marks)).toBe(
       'Salah dengar: "sheep" → "ship". Terlewat: "is". Berlebih: "please".',
     );
+  });
+});
+
+// A typed word card: which of the learner's letters differ from the answer.
+describe("markLetters", () => {
+  const bad = (expected: string, typed: string) =>
+    markLetters(expected, typed)
+      .filter((p) => p.bad)
+      .map((p) => p.t)
+      .join("|");
+
+  it("marks the wrong letter, keeps the typed text whole", () => {
+    const parts = markLetters("either ... or", "eather or");
+    expect(parts.map((p) => p.t).join("")).toBe("eather or");
+    expect(bad("either ... or", "eather or")).toBe("a");
+  });
+
+  it("shows a missing letter as _, but not missing dots or spaces", () => {
+    expect(
+      markLetters("lesson", "leson")
+        .map((p) => p.t)
+        .join(""),
+    ).toMatch(/^les?_s?on$/);
+    expect(bad("lesson", "leson")).toBe("_");
+  });
+
+  it("marks extra letters; case and a right answer mark nothing", () => {
+    expect(bad("go", "goo")).toBe("o");
+    expect(bad("Monday", "monday")).toBe("");
   });
 });

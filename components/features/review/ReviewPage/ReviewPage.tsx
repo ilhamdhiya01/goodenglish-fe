@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -20,6 +21,7 @@ import { LEVELS } from "@/const/levels.constant";
 import { GAPS } from "@/const/srs.constant";
 import { hasNote, idOf, noteOf } from "@/lib/content";
 import { resolveItemKey } from "@/lib/helpers/derived.helper";
+import { markLetters } from "@/lib/helpers/dictation.helper";
 import { tallyOf } from "@/lib/helpers/plan-check.helper";
 import { nextSrs, type SrsAnswer } from "@/lib/helpers/srs.helper";
 import { today } from "@/lib/helpers/storage.helper";
@@ -345,11 +347,14 @@ const ReviewPage = React.memo(() => {
               {typing && result && (
                 <p
                   role="status"
-                  className={
+                  className={classNames(
+                    "m-0 text-[15px] font-bold",
                     result === "bad"
-                      ? "m-0 text-[15px] font-bold text-bad"
-                      : "m-0 text-[15px] font-bold text-ok"
-                  }
+                      ? "text-bad"
+                      : result === "near"
+                        ? "text-warn"
+                        : "text-ok",
+                  )}
                 >
                   {result === "ok"
                     ? "Tepat."
@@ -358,7 +363,25 @@ const ReviewPage = React.memo(() => {
                       : result === "near"
                         ? "Hampir. Kamu menulis "
                         : "Belum tepat. Kamu menulis "}
-                  {result !== "ok" && !!typed && (
+                  {result === "near" && !!typed && (
+                    <>
+                      {/* The letters to fix: wrong or extra, "_" = missing. */}
+                      {markLetters(item.it[1], typed).map((p, i) =>
+                        p.bad ? (
+                          <span
+                            key={i}
+                            className="text-bad underline decoration-wavy decoration-2 underline-offset-4"
+                          >
+                            {p.t}
+                          </span>
+                        ) : (
+                          <span key={i}>{p.t}</span>
+                        ),
+                      )}
+                      .
+                    </>
+                  )}
+                  {result === "bad" && !!typed && (
                     <>
                       <s className="decoration-2">{typed}</s>.
                     </>

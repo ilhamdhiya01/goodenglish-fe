@@ -200,6 +200,32 @@ export const alignWords = (expected: Token[], typed: Token[]): WordMark[] => {
   return out.reverse();
 };
 
+/** A typed word card, letter by letter: the learner's text in runs, `bad`
+ * where a letter differs from the answer or is extra, and "_" where a letter
+ * of the answer is missing (case ignored; missing dots or spaces aren't). */
+export const markLetters = (
+  expected: string,
+  typed: string,
+): { t: string; bad: boolean }[] => {
+  const letters = (s: string) => [...s.toLowerCase()].map((c) => ({ text: c }));
+  const chars = [...typed];
+  const out: { t: string; bad: boolean }[] = [];
+  const add = (t: string, bad: boolean) => {
+    const last = out[out.length - 1];
+    if (last?.bad === bad) last.t += t;
+    else out.push({ t, bad });
+  };
+  let j = 0;
+  for (const m of alignWords(letters(expected), letters(typed))) {
+    if (m.kind === "missing") {
+      if (/[a-z0-9]/.test(m.expected)) add("_", true);
+      continue;
+    }
+    add(chars[j++], m.kind !== "correct");
+  }
+  return out;
+};
+
 export const checkDictation = (
   sentence: string,
   typed: string,

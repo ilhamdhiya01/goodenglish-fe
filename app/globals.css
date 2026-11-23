@@ -42,6 +42,7 @@
   --color-bad-edge: #962a22;
   --color-bad-bg: #fdebe8;
   --color-bad-line: #eba59c;
+  --color-warn: #9a5a00; /* teks "Hampir" (nyaris benar); 5.5:1 di putih, 5.1:1 di sunken */
 
   /* Bentuk */
   --radius-sm: 8px; /* chip, kotak contoh */
