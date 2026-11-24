@@ -40,7 +40,7 @@ interface MistakeState extends MistakeData {
   add: (m: MistakeInput) => "new" | "repeat" | null;
   addMany: (list: MistakeInput[]) => void;
   /** Answer its card in Ulang (also counts in "selesai hari ini"). */
-  grade: (id: string, how: SrsAnswer) => void;
+  grade: (id: string, how: SrsAnswer, typed?: string) => void;
   setStatus: (id: string, status: MistakeStatus) => void;
   setReviewOn: (on: boolean) => void;
   setAll: (f: (cur: MistakeData) => MistakeData) => void;
@@ -73,8 +73,10 @@ export const useMistakeStore = create<MistakeState>((set, get) => {
       return result;
     },
     addMany: (list) => list.forEach((m) => get().add(m)),
-    grade: (id, how) => {
-      commit(gradeIn(pick(get()), id, how, today(), new Date().toISOString()));
+    grade: (id, how, typed) => {
+      commit(
+        gradeIn(pick(get()), id, how, today(), new Date().toISOString(), typed),
+      );
       laporAktivitas("kartu_diulang", {
         data: { kartu: "kesalahan", benar: how === "good" },
       });

@@ -99,7 +99,22 @@ describe("MistakeReviewCard › Betulkan kalimat", () => {
     expect(screen.getByRole("status").textContent).toContain(message);
     expect(screen.getByText(`kembali: ${how}`)).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Lanjut" }));
-    expect(onGrade).toHaveBeenCalledWith(how);
+    // The answer goes along: shown next time while it is still wrong.
+    expect(onGrade).toHaveBeenCalledWith(how, typed);
+  });
+
+  it("shows the last wrong answer instead of the first mistake", () => {
+    setup(mistake({ lastTry: "She going to school." }));
+    expect(
+      screen.getByText(
+        "Jawabanmu terakhir masih salah di bagian yang ditandai",
+      ),
+    ).toBeTruthy();
+    const marked = [...document.querySelectorAll(".text-bad.underline")].map(
+      (e) => e.textContent?.replace("Salah: ", ""),
+    );
+    expect(marked).toEqual(["going"]);
+    expect(screen.queryByText(/She go to school/)).toBeNull();
   });
 
   // A long sentence is judged by words: one long word left out is "almost",
@@ -135,7 +150,7 @@ describe("MistakeReviewCard › Betulkan kalimat", () => {
     expect(onGrade).not.toHaveBeenCalled();
     unmount();
     expect(onGrade).toHaveBeenCalledTimes(1);
-    expect(onGrade).toHaveBeenCalledWith("forgot");
+    expect(onGrade).toHaveBeenCalledWith("forgot", "She is going to school");
   });
 
   it("…and only once when Lanjut was pressed", () => {
@@ -166,7 +181,8 @@ describe("MistakeReviewCard › Betulkan kalimat", () => {
     answer(/versi yang benar/, typed);
     expect(screen.getByRole("status").textContent).toContain(message);
     fireEvent.click(screen.getByRole("button", { name: "Lanjut" }));
-    expect(onGrade).toHaveBeenCalledWith(how);
+    // Word pairs keep showing their pair, so no answer is kept.
+    expect(onGrade).toHaveBeenCalledWith(how, undefined);
   });
 
   it("Lihat aturannya opens the exact rule over the card", () => {
@@ -240,7 +256,8 @@ describe("MistakeReviewCard › Dengar & tulis", () => {
     answer(/Tulis yang kamu dengar/, typed);
     expect(screen.getByRole("status").textContent).toContain(message);
     fireEvent.click(screen.getByRole("button", { name: "Lanjut" }));
-    expect(onGrade).toHaveBeenCalledWith(how);
+    // Listening cards play the sentence: no answer is kept.
+    expect(onGrade).toHaveBeenCalledWith(how, undefined);
   });
 
   // The meaning comes from the content (old cards too), only after answering.

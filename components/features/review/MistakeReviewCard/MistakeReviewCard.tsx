@@ -148,8 +148,9 @@ interface Props {
   m: MistakeRecord;
   revealed: boolean;
   onReveal: () => void;
-  /** Rates the card (the result of what was typed decides). */
-  onGrade: (how: SrsAnswer) => void;
+  /** Rates the card (the result of what was typed decides); `typed` is the
+   * answer of a sentence card, shown next time while it is still wrong. */
+  onGrade: (how: SrsAnswer, typed?: string) => void;
   /** "Muncul lagi …" for an answer. */
   comesBack: (how: SrsAnswer) => string;
 }
@@ -228,7 +229,11 @@ const MistakeReviewCard = ({
   const topic = practice
     ? `${practice.subLabel} · ${practice.title}`
     : section?.title;
-  const marked = listen ? [] : markWrong(m.wrong, m.correct);
+  // A sentence card answered wrong before shows that last answer: it asks
+  // about what is still wrong. Word pairs and listening cards keep `wrong`.
+  const sentence = !listen && answerOf(m) === m.correct;
+  const shown = (sentence && m.lastTry) || m.wrong;
+  const marked = listen ? [] : markWrong(shown, m.correct);
   const anyMarked = marked.some((p) => p.bad);
 
   const marks = listen ? checkDictation(m.correct, typed).marks : [];
@@ -248,7 +253,8 @@ const MistakeReviewCard = ({
     : revealed
       ? dictationMeaning(m.correct, VOCAB_SCEN as Scenario[])
       : "";
-  const settle = useGradeOnLeave(revealed ? m.id : null, () => onGrade(how));
+  const grade = () => onGrade(how, sentence ? typed.trim() : undefined);
+  const settle = useGradeOnLeave(revealed ? m.id : null, grade);
 
   const ruleLink = !!topic && (
     <TextButton onClick={() => setRuleOpen(true)} className="self-start">
@@ -323,7 +329,7 @@ const MistakeReviewCard = ({
               variant="green"
               size="lg"
               autoFocus
-              onClick={() => settle() && onGrade(how)}
+              onClick={() => settle() && grade()}
               className="w-full"
             >
               Lanjut
@@ -354,9 +360,13 @@ const MistakeReviewCard = ({
           ) : (
             <div className="flex flex-col gap-2">
               <span className="text-[13px] font-bold text-bad">
-                {anyMarked
-                  ? "Kalimat ini salah di bagian yang ditandai"
-                  : "Kalimat ini salah"}
+                {shown !== m.wrong
+                  ? anyMarked
+                    ? "Jawabanmu terakhir masih salah di bagian yang ditandai"
+                    : "Jawabanmu terakhir masih salah"
+                  : anyMarked
+                    ? "Kalimat ini salah di bagian yang ditandai"
+                    : "Kalimat ini salah"}
               </span>
               <p className="m-0 text-[28px] leading-9 font-black tracking-[-0.015em] wrap-anywhere text-ink">
                 <Marked parts={marked} />

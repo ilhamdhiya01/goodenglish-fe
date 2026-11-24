@@ -66,6 +66,9 @@ export interface MistakeRecord extends MistakeInput {
   count: number;
   status: MistakeStatus;
   srs: MistakeSrs;
+  /** Ulang: the learner's last answer to this card while it is still not
+   * right; the card shows it instead of `wrong`. */
+  lastTry?: string;
 }
 
 export interface MistakeData {

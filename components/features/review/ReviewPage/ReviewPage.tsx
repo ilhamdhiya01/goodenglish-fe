@@ -164,8 +164,8 @@ const ReviewPage = React.memo(() => {
     },
   ];
 
-  const answer = (how: (typeof answers)[number]["how"]) => {
-    if (mistake) gradeMistake(mistake.id, how);
+  const answer = (how: (typeof answers)[number]["how"], typed?: string) => {
+    if (mistake) gradeMistake(mistake.id, how, typed);
     else if (rvKey) bumpSrs(rvKey, how);
   };
 

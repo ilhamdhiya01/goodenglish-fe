@@ -53,6 +53,27 @@ describe("rule", () => {
   });
 });
 
+// Ulang shows the last answer while it is still wrong, not the first mistake.
+describe("lastTry", () => {
+  it("keeps the last wrong answer, survives a reload, and goes when right", () => {
+    let d = add(EMPTY_MISTAKES);
+    const id = d.items[0].id;
+    d = gradeIn(d, id, "forgot", T + 1, NOW, " She going to school. ");
+    expect(d.items[0].lastTry).toBe("She going to school.");
+    expect(
+      normalizeMistakes(JSON.parse(JSON.stringify(d)), T).items[0].lastTry,
+    ).toBe("She going to school.");
+    // Nothing typed (a word pair, a listening card): the last one stays.
+    d = gradeIn(d, id, "hard", T + 2, NOW);
+    expect(d.items[0].lastTry).toBe("She going to school.");
+    d = gradeIn(d, id, "hard", T + 3, NOW, "She gose to school.");
+    expect(d.items[0].lastTry).toBe("She gose to school.");
+    d = gradeIn(d, id, "good", T + 4, NOW, "She goes to school.");
+    expect(d.items[0]).not.toHaveProperty("lastTry");
+    expect(d.items[0].wrong).toBe("She go to school.");
+  });
+});
+
 // The Indonesian sentence an Ujian question asked for (shown on the card).
 describe("meaning", () => {
   it("is kept, survives a reload, and reaches an older card on a repeat", () => {

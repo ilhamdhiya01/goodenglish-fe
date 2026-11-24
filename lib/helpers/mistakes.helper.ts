@@ -171,6 +171,7 @@ const readRecord = (raw: unknown, T: number): MistakeRecord | null => {
     level: (typeof m.level === "string" ? m.level : "pre") as LevelId,
     ...(typeof m.refId === "string" ? { refId: m.refId } : {}),
     ...(clean(m.meaning, 300) ? { meaning: clean(m.meaning, 300) } : {}),
+    ...(clean(m.lastTry, 600) ? { lastTry: clean(m.lastTry, 600) } : {}),
     createdAt,
     lastAt: typeof m.lastAt === "string" ? m.lastAt : createdAt,
     count: Math.max(1, num(m.count, 1)),
@@ -274,14 +275,19 @@ export const gradeIn = (
   how: SrsAnswer,
   T: number,
   now: string,
+  /** What was answered; kept as `lastTry` until the card is answered right. */
+  typed = "",
 ): MistakeData => {
-  const m = d.items.find((x) => x.id === id);
-  if (!m) return d;
+  const found = d.items.find((x) => x.id === id);
+  if (!found) return d;
+  const { lastTry: _old, ...m } = found;
+  const lastTry = how === "good" ? "" : clean(typed, 600) || (_old ?? "");
   const next = nextSrs({ st: m.srs.st, due: m.srs.due }, how, T);
   const streak = how === "good" ? m.srs.streak + 1 : 0;
   const mastered = streak >= MASTER_STREAK && next.gap >= MASTER_GAP;
   const rec: MistakeRecord = {
     ...m,
+    ...(lastTry ? { lastTry } : {}),
     lastAt: now,
     status: mastered ? "mastered" : m.status,
     srs: {
