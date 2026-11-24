@@ -12,3 +12,12 @@ describe("ASK_GEN.norm", () => {
     expect(norm("I won't go")).not.toContain("wo not");
   });
 });
+
+// The fill-to-4 step added "answer with a full stop", which the norm filter
+// then removed: e.g. "Has your boss needed more time?" kept 3 options.
+describe("ASK_GEN.make", () => {
+  it.each(["r1", "r3", "r4"])("gives every %s question 4 options", (rule) => {
+    for (const q of ASK_GEN!.make(rule, 200, 7, {}) as { opts: string[] }[])
+      expect(q.opts).toHaveLength(4);
+  });
+});
