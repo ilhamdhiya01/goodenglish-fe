@@ -36,6 +36,8 @@ import type { ErrorResponse } from "@/lib/types/api.types";
 import type { MistakeRecord } from "@/lib/types/mistake.types";
 import type { Scenario } from "@/lib/types/scenario.types";
 import { transcribeAudio } from "@/services/stt.service";
+import { useAccessStore } from "@/stores/useAccessStore";
+import { useAiChatStore } from "@/stores/useAiChatStore";
 
 import RuleSheet, { sectionOfMistake } from "../RuleSheet";
 
@@ -60,6 +62,12 @@ const HOW: Record<Result, SrsAnswer> = {
   ok: "good",
   near: "hard",
   bad: "forgot",
+};
+
+const RESULT_TEXT: Record<Result, string> = {
+  ok: "Tepat",
+  near: "Hampir",
+  bad: "Belum tepat",
 };
 
 const word = (s: string) => s.toLowerCase().replace(/[^a-z0-9']/g, "");
@@ -253,6 +261,28 @@ const MistakeReviewCard = ({
     : revealed
       ? dictationMeaning(m.correct, VOCAB_SCEN as Scenario[])
       : "";
+  const hasAi = useAccessStore((s) => !!s.session?.menus.includes("ai"));
+  // Tanya AI about this card, after Cek only (before, it would give the
+  // answer away). The card goes along as text for the model.
+  const askAi = () =>
+    useAiChatStore.getState().openWith(
+      {
+        word: answerOf(m),
+        mistake: [
+          `Sumber: ${m.source}${listen ? " (dikte: pelajar menulis kalimat yang ia dengar)" : ""}`,
+          `${listen ? "Dulu pelajar menulis" : "Kalimat salah"}: ${shown}`,
+          `Jawaban pelajar barusan: ${typed.trim()} (dinilai: ${RESULT_TEXT[result]})`,
+          `Yang benar: ${m.correct}`,
+          meaning && `Arti: ${meaning}`,
+          m.explanation_id && `Penjelasan dari aplikasi: ${m.explanation_id}`,
+          topic && `Materi: ${topic}`,
+        ]
+          .filter(Boolean)
+          .join("\n")
+          .slice(0, 2000),
+      },
+      {},
+    );
   const grade = () => onGrade(how, sentence ? typed.trim() : undefined);
   const settle = useGradeOnLeave(revealed ? m.id : null, grade);
 
@@ -323,6 +353,11 @@ const MistakeReviewCard = ({
             </p>
           )}
           {!listen && ruleLink}
+          {hasAi && (
+            <TextButton onClick={askAi} className="self-start">
+              Tanya AI soal ini
+            </TextButton>
+          )}
           {/* On a phone Lanjut stays above the bottom nav. */}
           <div className="flex flex-col gap-2 max-md:sticky max-md:bottom-[calc(76px+env(safe-area-inset-bottom))] max-md:-mx-1 max-md:bg-surface max-md:px-1 max-md:py-2">
             <Button

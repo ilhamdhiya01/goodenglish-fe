@@ -277,3 +277,42 @@ describe("MistakeReviewCard › Dengar & tulis", () => {
     expect(screen.getByText(meaning)).toBeTruthy();
   });
 });
+
+const { useAccessStore } = await import("@/stores/useAccessStore");
+const { useAiChatStore } = await import("@/stores/useAiChatStore");
+
+describe("Tanya AI soal ini", () => {
+  const withAi = (on: boolean) =>
+    useAccessStore.setState({
+      session: { menus: on ? ["ai"] : [] } as never,
+    });
+  const button = () =>
+    screen.queryByRole("button", { name: "Tanya AI soal ini" });
+
+  it("appears after Cek only and opens the chat with the card as context", () => {
+    withAi(true);
+    setup(mistake());
+    expect(button()).toBeNull();
+    answer(/Tulis atau ucapkan/, "She go to school");
+    fireEvent.click(button()!);
+
+    const { open, word } = useAiChatStore.getState();
+    expect(open).toBe(true);
+    expect(word?.word).toBe("She goes to school.");
+    expect(word?.mistake).toContain("Sumber: Tanya AI");
+    expect(word?.mistake).toContain("Kalimat salah: She go to school.");
+    expect(word?.mistake).toContain(
+      "Jawaban pelajar barusan: She go to school (dinilai: Hampir)",
+    );
+    expect(word?.mistake).toContain(
+      "Penjelasan dari aplikasi: He/she/it pakai -s.",
+    );
+  });
+
+  it("is hidden when the token has no Tanya AI", () => {
+    withAi(false);
+    setup(mistake());
+    answer(/Tulis atau ucapkan/, "She go to school");
+    expect(button()).toBeNull();
+  });
+});

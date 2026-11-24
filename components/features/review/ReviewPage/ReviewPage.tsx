@@ -33,6 +33,8 @@ import { useJumpToWord } from "@/lib/hooks/useJumpToWord";
 import { useNotes } from "@/lib/hooks/useNotes";
 import { useShellData } from "@/lib/hooks/useShellData";
 import { laporAktivitas } from "@/lib/rencana/lapor";
+import { useAccessStore } from "@/stores/useAccessStore";
+import { useAiChatStore } from "@/stores/useAiChatStore";
 import { useLaporanStore } from "@/stores/useLaporanStore";
 import { useMistakeStore } from "@/stores/useMistakeStore";
 import { usePlanStore } from "@/stores/usePlanStore";
@@ -106,6 +108,7 @@ const ReviewPage = React.memo(() => {
   const mistake =
     nextMistake && (!rvKey || doneToday % 2 === 1) ? nextMistake : null;
   const cardId = mistake ? `m:${mistake.id}` : `w:${rvKey}`;
+  const hasAi = useAccessStore((s) => !!s.session?.menus.includes("ai"));
   const [revealed, setRevealed] = useState(false);
   // Indo → Inggris word cards: the English word is typed, then rated from
   // the result (see `typing` below).
@@ -453,6 +456,19 @@ const ReviewPage = React.memo(() => {
                     </>
                   )}
                 </div>
+              )}
+              {hasAi && (
+                <TextButton
+                  title="Tanya AI soal kata ini"
+                  onClick={() =>
+                    useAiChatStore
+                      .getState()
+                      .openWith({ word: item.it[1], meaning: item.it[3] }, {})
+                  }
+                  className="self-start"
+                >
+                  tanya AI
+                </TextButton>
               )}
               {typing ? continueButton : answerButtons}
             </>

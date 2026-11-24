@@ -126,6 +126,20 @@ describe("AiChat panel", () => {
     expect(screen.getByText("Kata: commute")).toBeTruthy();
   });
 
+  it("shows the card a question came from once, above its first question", () => {
+    const card = "Are they at the hotel now?";
+    useAiChatStore.setState({
+      messages: [
+        { id: "1", role: "user", text: "coba cek ini", card },
+        { id: "2", role: "model", text: "Sudah tepat." },
+        { id: "3", role: "user", text: "contoh lain?", card },
+      ],
+    });
+    openPanel();
+    expect(screen.getAllByText("Dari kartu Ulang")).toHaveLength(1);
+    expect(screen.getAllByText("Are they at the hotel now?")).toHaveLength(1);
+  });
+
   it("reopens the thread this device had open, once", () => {
     localStorage.setItem("ge-ai-chat-v2", "c1");
     render(<AiChat />);

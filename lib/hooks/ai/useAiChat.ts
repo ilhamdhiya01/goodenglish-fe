@@ -7,7 +7,12 @@ import { accessErrorText } from "@/const/access.constant";
 import { noteOf, type WordNote } from "@/lib/content";
 import { useNotes } from "@/lib/hooks/useNotes";
 import { laporAktivitas } from "@/lib/rencana/lapor";
-import type { AiContext, AiMessage, AiRole } from "@/lib/types/ai.types";
+import type {
+  AiContext,
+  AiMessage,
+  AiRole,
+  AiWord,
+} from "@/lib/types/ai.types";
 import type { ErrorResponse } from "@/lib/types/api.types";
 import type { LevelId } from "@/lib/types/session.types";
 import {
@@ -48,6 +53,18 @@ const noteText = (n: WordNote): string =>
   ]
     .join("\n")
     .slice(0, 3000);
+
+/** What the card a question came from adds to the context. A mistake card
+ * goes as text plus its sentence (stored as the question's card), not as a
+ * word: the server would store the sentence as a word. */
+export const cardContext = (word: AiWord, note: WordNote | null): AiContext =>
+  word.mistake
+    ? { mistake: word.mistake, card: word.word }
+    : {
+        word: word.word,
+        meaning: word.meaning,
+        note: note ? noteText(note) : undefined,
+      };
 
 // Stored messages → what Gemini sees. Failed replies are dropped, and
 // same-role neighbours are merged so the turns alternate and start with the
@@ -117,13 +134,7 @@ export const useAiChat = () => {
       page: pathname.split("/")[1] || undefined,
       level,
       week,
-      ...(word
-        ? {
-            word: word.word,
-            meaning: word.meaning,
-            note: note ? noteText(note) : undefined,
-          }
-        : {}),
+      ...(word ? cardContext(word, note) : {}),
     };
   }, [pathname, level, week, word, notesReady]);
 
@@ -137,7 +148,9 @@ export const useAiChat = () => {
         id: newId(),
         role: "user",
         text: question,
-        word: store.word ?? undefined,
+        ...(store.word?.mistake
+          ? { card: store.word.word }
+          : { word: store.word ?? undefined }),
       });
       const replyId = newId();
       const history = toHistory(useAiChatStore.getState().messages);
@@ -163,6 +176,10 @@ export const useAiChat = () => {
             // Every checked sentence counts for Rencana; a wrong one also
             // goes to Buku kesalahanku.
             onCheck: (c) => {
+              // Asked from an Ulang mistake card: that card is already in Buku
+              // kesalahanku, and a check of it would add it again (as
+              // "coba cek ini" → the right sentence, Nov 2026).
+              if (store.word?.mistake) return;
               laporAktivitas("kalimat_dicek", {
                 data: { benar: c.isCorrect, sumber: "tanya_ai" },
               });
@@ -225,11 +242,12 @@ export const useAiConversationActions = () => {
         const { data } = await getAiConversation(id);
         useAiChatStore.getState().load(
           data.id,
-          data.messages.map(({ id: mid, role, text, word }) => ({
+          data.messages.map(({ id: mid, role, text, word, card }) => ({
             id: mid,
             role,
             text,
             word,
+            card,
           })),
         );
       } catch (err) {

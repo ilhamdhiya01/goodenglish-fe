@@ -3,9 +3,11 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 import {
+  LuBookOpen,
   LuChevronLeft,
   LuHistory,
   LuPlus,
+  LuRotateCcw,
   LuSendHorizontal,
   LuSquare,
   LuTrash2,
@@ -174,6 +176,37 @@ const History = ({ currentId, onOpen, onDelete }: HistoryProps) => {
 // dirender AppShell untuk token yang punya menu "ai". ≥1100px panel 400px di
 // kanan yang menggeser isi (klik di halaman tidak menutupnya); lebih sempit:
 // drawer / layar penuh yang tertutup saat menekan di luarnya.
+/** The card a question was asked from (a word, or an Ulang mistake card),
+ * above the first question about it. */
+const ContextCard = ({ text, card }: { text: string; card: boolean }) => {
+  const Icon = card ? LuRotateCcw : LuBookOpen;
+  return (
+    <div className="flex max-w-[85%] items-center gap-2.5 self-end rounded-xl border-2 border-accent-line bg-accent-tint py-2 pr-3.5 pl-2">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface text-accent-edge">
+        <Icon aria-hidden size={16} />
+      </span>
+      <span className="flex min-w-0 flex-col">
+        <span className="text-[11px] font-extrabold tracking-[0.06em] text-accent-edge uppercase">
+          {card ? "Dari kartu Ulang" : "Kata"}
+        </span>
+        <span className="text-[14px] leading-5 font-bold wrap-anywhere text-ink">
+          {text}
+        </span>
+      </span>
+    </div>
+  );
+};
+
+// What a question was about: an Ulang card's sentence or a word.
+const topicOf = (m: AiMessage) => m.card ?? m.word?.word;
+
+// The topic of the learner's previous question, so the card shows once per topic.
+const lastTopicBefore = (messages: AiMessage[], i: number) => {
+  for (let j = i - 1; j >= 0; j--)
+    if (messages[j].role === "user") return topicOf(messages[j]);
+  return undefined;
+};
+
 const AiChat = React.memo(() => {
   const open = useAiChatStore((s) => s.open);
   const messages = useAiChatStore((s) => s.messages);
@@ -270,13 +303,19 @@ const AiChat = React.memo(() => {
     : usage.limit === null
       ? `tanpa batas · ${usage.used} pertanyaan hari ini`
       : `sisa ${Math.max(0, usage.limit - usage.used)} dari ${usage.limit} pertanyaan hari ini`;
-  const ideas = word
+  const ideas = word?.mistake
     ? [
-        `Apa bedanya "${word.word}" dengan kata yang mirip?`,
-        `Beri 3 contoh kalimat sehari-hari dengan "${word.word}".`,
-        `Kesalahan apa yang sering terjadi saat memakai "${word.word}"?`,
+        "Apa yang salah di kartu ini?",
+        "Beri 3 contoh kalimat lain dengan pola yang benar.",
+        "Aturan apa yang perlu aku ingat di sini?",
       ]
-    : pageIdeas;
+    : word
+      ? [
+          `Apa bedanya "${word.word}" dengan kata yang mirip?`,
+          `Beri 3 contoh kalimat sehari-hari dengan "${word.word}".`,
+          `Kesalahan apa yang sering terjadi saat memakai "${word.word}"?`,
+        ]
+      : pageIdeas;
 
   const lastId = messages[messages.length - 1]?.id;
   // Out of questions for today: say so, and the field stays closed until
@@ -390,11 +429,11 @@ const AiChat = React.memo(() => {
         {view === "chat" &&
           messages.map((m, i) => (
             <React.Fragment key={m.id}>
-              {m.role === "user" && m.word && (
-                <span className="self-end rounded-[7px] bg-chip px-2 py-0.5 text-[12px] font-extrabold text-ink-2">
-                  Kata: {m.word.word}
-                </span>
-              )}
+              {m.role === "user" &&
+                !!topicOf(m) &&
+                topicOf(m) !== lastTopicBefore(messages, i) && (
+                  <ContextCard text={topicOf(m)!} card={!!m.card} />
+                )}
               <Bubble
                 m={m}
                 busy={busy}
@@ -414,7 +453,9 @@ const AiChat = React.memo(() => {
           {word && (
             <div className="flex">
               <span className="inline-flex min-w-0 items-center gap-1.5 rounded-full border-2 border-accent-line bg-accent-tint py-0.5 pr-1 pl-2.5 text-[13px] font-extrabold text-accent-edge">
-                <span className="truncate">Kata: {word.word}</span>
+                <span className="truncate">
+                  {word.mistake ? "Kalimat" : "Kata"}: {word.word}
+                </span>
                 <SpeakButton nested size={26} icon={12} text={word.word} />
                 <button
                   type="button"

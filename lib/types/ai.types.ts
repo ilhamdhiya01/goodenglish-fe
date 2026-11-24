@@ -11,12 +11,19 @@ export interface AiContext {
   word?: string;
   meaning?: string;
   note?: string;
+  /** An Ulang mistake card, flattened to text (instead of word/meaning/note). */
+  mistake?: string;
+  /** That card's right sentence, stored with the question. */
+  card?: string;
 }
 
 /** The word card a question came from. */
 export interface AiWord {
   word: string;
   meaning?: string;
+  /** Set when it is an Ulang mistake card: the card as text, sent as
+   * context.mistake; `word` is then its right sentence. */
+  mistake?: string;
 }
 
 // GET /ai/usage
@@ -46,8 +53,10 @@ export interface AiMessage {
   id: string;
   role: AiRole;
   text: string;
-  /** The word this message was about, shown as a chip. */
+  /** The word this message was about, shown above it. */
   word?: AiWord;
+  /** The Ulang mistake card it was about: that card's right sentence. */
+  card?: string;
   /** The reply failed; `text` holds the error to show. */
   error?: boolean;
 }

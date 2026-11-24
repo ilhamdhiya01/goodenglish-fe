@@ -127,6 +127,65 @@ test.describe("Ulang", () => {
   });
 });
 
+test.describe("Ulang: Tanya AI soal ini", () => {
+  test.use({
+    mock: {
+      progress: withDue,
+      aiReply: "Belum tepat. **She goes to school.**",
+      aiCheck: {
+        original: "Apa yang salah di kartu ini?",
+        isCorrect: false,
+        corrected: "She goes to school.",
+        explanationId: "He/she/it pakai -s.",
+        category: "aturan-dasar",
+      },
+    },
+  });
+
+  test("Tanya AI soal ini: setelah Cek, kartunya ikut sebagai konteks", async ({
+    page,
+    api,
+  }) => {
+    await openApp(page, "/review");
+    const ask = page.getByRole("button", { name: "Tanya AI soal ini" });
+    // Before Cek it would give the answer away.
+    await expect(ask).toHaveCount(0);
+    const box = page.getByRole("textbox", {
+      name: /Tulis atau ucapkan versi yang benar/,
+    });
+    await box.fill("she go to school");
+    await box.press("Enter");
+    await ask.click();
+
+    const panel = page.getByRole("dialog", { name: "Tanya AI" });
+    await expect(panel.getByText("Kalimat: She goes to school.")).toBeVisible();
+    await panel
+      .getByRole("button", { name: "Apa yang salah di kartu ini?" })
+      .click();
+    await expect.poll(() => api.chats.length).toBe(1);
+    const { context } = api.chats[0] as {
+      context: { mistake?: string; word?: string; card?: string };
+    };
+    expect(context.word).toBeUndefined();
+    expect(context.mistake).toContain("Kalimat salah: She go to school.");
+    expect(context.mistake).toContain(
+      "Jawaban pelajar barusan: she go to school",
+    );
+    expect(context.mistake).toContain("Yang benar: She goes to school.");
+    // Stored with the question, so the thread shows the card after a reload.
+    expect(context.card).toBe("She goes to school.");
+    // The model "checked" the card (as it did with "coba cek ini"): the
+    // card is in Buku kesalahanku already, nothing is added.
+    await expect(panel.getByText("Belum tepat.")).toBeVisible();
+    // Opening the chat doesn't grade the card: Lanjut still does (on a
+    // phone the panel covers the page, so it's closed first).
+    await page.keyboard.press("Escape");
+    await page.getByRole("button", { name: "Lanjut" }).click();
+    await expect.poll(() => doc(api)?.items[0].srs.reps).toBe(2);
+    expect(doc(api)!.items).toHaveLength(1);
+  });
+});
+
 test.describe("Ulang: kesalahan Dikte", () => {
   test.use({
     mock: {

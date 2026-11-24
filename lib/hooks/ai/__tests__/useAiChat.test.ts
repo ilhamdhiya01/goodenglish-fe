@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import type { AiMessage } from "@/lib/types/ai.types";
 
-import { toHistory } from "../useAiChat";
+import { cardContext, toHistory } from "../useAiChat";
 
 const msg = (role: AiMessage["role"], text: string, extra = {}): AiMessage => ({
   id: Math.random().toString(36),
@@ -41,5 +41,27 @@ describe("toHistory", () => {
     expect(history.length).toBeLessThanOrEqual(30);
     expect(history[0].role).toBe("user");
     expect(history[history.length - 1]).toEqual({ role: "user", text: "last" });
+  });
+});
+
+describe("cardContext", () => {
+  it("sends a word card as word and meaning", () => {
+    expect(
+      cardContext({ word: "commute", meaning: "pulang-pergi" }, null),
+    ).toEqual({
+      word: "commute",
+      meaning: "pulang-pergi",
+      note: undefined,
+    });
+  });
+
+  // Not as `word`: the server would store the sentence as a word.
+  it("sends a mistake card as text and its sentence as the card", () => {
+    expect(
+      cardContext(
+        { word: "She goes to school.", mistake: "Yang benar: …" },
+        null,
+      ),
+    ).toEqual({ mistake: "Yang benar: …", card: "She goes to school." });
   });
 });
