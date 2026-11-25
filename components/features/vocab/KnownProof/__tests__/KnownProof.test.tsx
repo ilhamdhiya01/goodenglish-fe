@@ -64,6 +64,34 @@ describe("judgeTyped", () => {
     expect(judgeTyped("cat", "cot")).toBe("bad");
     expect(judgeTyped("lesson", "class")).toBe("bad");
   });
+
+  // "…" in a pattern card is a blank: any words, the dots, or nothing.
+  it("lets the learner fill the … of a pattern with any words", () => {
+    expect(judgeTyped("What does … mean?", "what does it mean ?")).toBe("ok");
+    expect(judgeTyped("What does … mean?", "What does deadline mean")).toBe(
+      "ok",
+    );
+    expect(judgeTyped("What does … mean?", "what does ... mean?")).toBe("ok");
+    expect(judgeTyped("What does … mean?", "what does mean")).toBe("ok");
+    expect(judgeTyped("My name is …", "My name is Budi Santoso.")).toBe("ok");
+    expect(
+      judgeTyped("Can I have …, please?", "can I have a cup of tea, please"),
+    ).toBe("ok");
+    expect(judgeTyped("I'm going to …", "im going to go to Bali")).toBe("ok");
+    expect(
+      judgeTyped("Is there a … near here?", "is there a bank near here"),
+    ).toBe("ok");
+  });
+
+  it("still checks the words around the …", () => {
+    expect(judgeTyped("What does … mean?", "what do it mean")).toBe("bad");
+    expect(judgeTyped("What does … mean?", "it mean")).toBe("bad");
+    expect(judgeTyped("What does … mean?", "what does it mean please")).toBe(
+      "bad",
+    );
+    expect(judgeTyped("My name is …", "I am Budi")).toBe("bad");
+    expect(judgeTyped("What does … mean?", "what doe mean")).toBe("near");
+  });
 });
 
 describe("looseTarget", () => {

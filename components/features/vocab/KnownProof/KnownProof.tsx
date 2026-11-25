@@ -12,7 +12,11 @@ import Input from "@/components/ui/input";
 import SpeakButton from "@/components/ui/speak-button";
 import TextButton from "@/components/ui/text-button";
 import { accessErrorText } from "@/const/access.constant";
-import { checkDictation } from "@/lib/helpers/dictation.helper";
+import {
+  checkDictation,
+  normalizeTokens,
+  same,
+} from "@/lib/helpers/dictation.helper";
 import { releaseSpeech, speak } from "@/lib/helpers/speech.helper";
 import {
   extensionOf,
@@ -74,14 +78,47 @@ const withApostrophes = (en: string, typed: string) => {
     .join(" ");
 };
 
+// The blank of a pattern card ("What does … mean?", "My name is …").
+const SLOT = /…|\.{3}/;
+
+// Typed words = the pattern's words around each blank, in order, with any
+// words (or none) in the blanks.
+const fillsSlots = (en: string, typed: string) => {
+  const parts = en.split(SLOT).map(normalizeTokens);
+  const words = normalizeTokens(typed);
+  const fits = (k: number, from: number): boolean => {
+    const part = parts[k];
+    const last = k === parts.length - 1;
+    for (let at = from; at + part.length <= words.length; at++) {
+      if (part.every((t, n) => same(t, words[at + n])))
+        if (
+          last
+            ? at + part.length === words.length
+            : fits(k + 1, at + part.length)
+        )
+          return true;
+      if (k === 0) return false;
+    }
+    return false;
+  };
+  return fits(0, 0);
+};
+
 export type TypedResult = "ok" | "near" | "bad";
 
 /**
  * ok: every word right, ignoring case and punctuation (checkDictation also
- * takes I'm = I am and 10 = ten). near: a slip, one letter per 12 ("leson"),
- * none under 5 letters. bad: anything else.
+ * takes I'm = I am and 10 = ten); a "…" may be filled with any words or left
+ * out. near: a slip, one letter per 12 ("leson"), none under 5 letters.
+ * bad: anything else.
  */
 export const judgeTyped = (en: string, typed: string): TypedResult => {
+  if (SLOT.test(en)) {
+    if (fillsSlots(en, withApostrophes(en, typed))) return "ok";
+    // shortcut: a slip next to a filled blank ("what dose it mean") is bad,
+    // not near; align the words first if learners hit that.
+    en = en.split(SLOT).join(" ");
+  }
   const { marks } = checkDictation(en, withApostrophes(en, typed));
   if (marks.length && marks.every((m) => m.kind === "correct")) return "ok";
   const want = flat(en);

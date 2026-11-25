@@ -152,7 +152,8 @@ export const normalizeTokens = (text: string): Token[] => {
 };
 
 const forms = (t: Token) => t.alts ?? [t.text];
-const same = (a: Token, b: Token) => forms(a).some((f) => forms(b).includes(f));
+export const same = (a: Token, b: Token) =>
+  forms(a).some((f) => forms(b).includes(f));
 // Show the readable form of "_s"/"_d" placeholders.
 const show = (t: Token) => (t.alts ? t.alts[0] : t.text);
 
