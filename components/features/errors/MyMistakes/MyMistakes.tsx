@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import React, { useMemo, useState } from "react";
-import { LuArchive, LuArchiveRestore, LuBookOpen } from "react-icons/lu";
+import {
+  LuArchive,
+  LuArchiveRestore,
+  LuBookOpen,
+  LuTrash2,
+} from "react-icons/lu";
 
 import Jalak from "@/components/brand/Jalak";
 import RuleSheet, {
@@ -26,6 +31,7 @@ import {
   type MistakeRecord,
   type MistakeStatus,
 } from "@/lib/types/mistake.types";
+import { confirmDialog } from "@/stores/useConfirmStore";
 import { useMistakeStore } from "@/stores/useMistakeStore";
 
 const STATUS_LABEL: Record<MistakeStatus, string> = {
@@ -50,6 +56,7 @@ const LEARN_CLASS =
 
 const MistakeCard = ({ m }: { m: MistakeRecord }) => {
   const setStatus = useMistakeStore((s) => s.setStatus);
+  const remove = useMistakeStore((s) => s.remove);
   const cat = categoryOf(m.category);
   const [ruleOpen, setRuleOpen] = useState(false);
   // Same sheet as Ulang's "Lihat aturannya" when there is something to show
@@ -123,6 +130,22 @@ const MistakeCard = ({ m }: { m: MistakeRecord }) => {
             Aktifkan lagi
           </Button>
         )}
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() =>
+            void confirmDialog({
+              title: "Hapus dari Buku kesalahanku?",
+              message:
+                "Kartunya hilang dari sini dan dari Ulang. Kalau salah yang sama terulang, akan dicatat lagi.",
+              confirmLabel: "Hapus",
+              tone: "danger",
+            }).then((ok) => ok && remove(m.id))
+          }
+        >
+          <LuTrash2 aria-hidden size={14} />
+          Hapus
+        </Button>
       </div>
       {ruleOpen && <RuleSheet m={m} onClose={() => setRuleOpen(false)} />}
     </Card>

@@ -42,6 +42,8 @@ interface MistakeState extends MistakeData {
   /** Answer its card in Ulang (also counts in "selesai hari ini"). */
   grade: (id: string, how: SrsAnswer, typed?: string) => void;
   setStatus: (id: string, status: MistakeStatus) => void;
+  /** Delete for good: the same mistake made again is saved as a new one. */
+  remove: (id: string) => void;
   setReviewOn: (on: boolean) => void;
   setAll: (f: (cur: MistakeData) => MistakeData) => void;
   hydrate: () => void;
@@ -88,6 +90,10 @@ export const useMistakeStore = create<MistakeState>((set, get) => {
       commit(
         setStatusIn(pick(get()), id, status, today(), new Date().toISOString()),
       ),
+    remove: (id) => {
+      const d = pick(get());
+      commit({ ...d, items: d.items.filter((m) => m.id !== id) });
+    },
     setReviewOn: (reviewOn) => commit({ ...pick(get()), reviewOn }),
     setAll: (f) => commit(f(pick(get()))),
   };

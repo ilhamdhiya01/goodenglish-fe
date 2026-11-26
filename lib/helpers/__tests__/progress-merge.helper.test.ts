@@ -197,3 +197,40 @@ describe("mergeProgressDoc", () => {
     });
   });
 });
+
+// Hapus in Buku kesalahanku: the copy on the server (unchanged since the
+// last sync) must not bring the card back.
+describe("mergeProgressDoc › mistakes", () => {
+  const rec = {
+    id: "m1",
+    key: "she go to school→she goes to school",
+    source: "Tanya AI",
+    wrong: "She go to school.",
+    correct: "She goes to school.",
+    explanation_id: "",
+    category: "tense",
+    level: "pre",
+    createdAt: "2026-11-01T00:00:00.000Z",
+    lastAt: "2026-11-01T00:00:00.000Z",
+    count: 1,
+    status: "active",
+    srs: { st: 0, due: T + 1, streak: 0, lastGap: 0, reps: 0 },
+  };
+  const doc = (items: object[]) => ({
+    v: 2,
+    items,
+    reviewOn: true,
+    intro: { day: 0, n: 0 },
+  });
+
+  it("keeps a card deleted on this device deleted", () => {
+    const out = mergeProgressDoc(
+      "mistakes",
+      doc([rec]),
+      doc([]),
+      doc([rec]),
+      T,
+    ) as { items: unknown[] };
+    expect(out.items).toEqual([]);
+  });
+});

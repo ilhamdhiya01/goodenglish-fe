@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { MistakeRecord } from "@/lib/types/mistake.types";
@@ -10,6 +10,7 @@ vi.mock("@/lib/helpers/speech.helper", async (importOriginal) => ({
 
 const { default: MyMistakes } = await import("../MyMistakes");
 const { useMistakeStore } = await import("@/stores/useMistakeStore");
+const { useConfirmStore } = await import("@/stores/useConfirmStore");
 
 const mistake = (o: Partial<MistakeRecord>): MistakeRecord => ({
   id: "m1",
@@ -67,5 +68,27 @@ describe("MyMistakes › Pelajari aturannya", () => {
         .getByRole("link", { name: /Buka latihannya/ })
         .getAttribute("href"),
     ).toBe("/grammar/conj");
+  });
+});
+
+describe("MyMistakes › Hapus", () => {
+  beforeEach(() => useMistakeStore.setState({ items: [mistake({})] }));
+
+  it("asks first, then deletes the card", async () => {
+    render(<MyMistakes />);
+    fireEvent.click(screen.getByRole("button", { name: "Hapus" }));
+    expect(useConfirmStore.getState().request?.title).toBe(
+      "Hapus dari Buku kesalahanku?",
+    );
+    await act(async () => useConfirmStore.getState().settle(true));
+    expect(useMistakeStore.getState().items).toEqual([]);
+    expect(screen.queryByText("She go to school.")).toBeNull();
+  });
+
+  it("keeps the card when cancelled", async () => {
+    render(<MyMistakes />);
+    fireEvent.click(screen.getByRole("button", { name: "Hapus" }));
+    await act(async () => useConfirmStore.getState().settle(false));
+    expect(useMistakeStore.getState().items).toHaveLength(1);
   });
 });
