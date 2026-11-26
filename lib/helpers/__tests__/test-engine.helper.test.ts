@@ -17,6 +17,7 @@ import { bankGen, type BankItem } from "@/lib/helpers/bank-practice.helper";
 import { levelData } from "@/lib/helpers/level-data.helper";
 import type { TestAnswer, TestQuestion } from "@/lib/types/exam.types";
 import type { ListeningItem } from "@/lib/types/listening.types";
+import type { Item } from "@/lib/types/vocab.types";
 
 import {
   examPassed,
@@ -138,6 +139,26 @@ describe("vocab questions", () => {
         expect(q.options).toContain(q.answer);
       }
     });
+  });
+
+  // "mulai" with start and begin both offered had two right answers.
+  it("never offers a word with the same meaning as a distractor", () => {
+    const card = (en: string, id: string): Item => ["w", en, "", id, "", ""];
+    const items = [
+      card("start", "mulai (paling umum)"),
+      card("begin", "mulai (agak formal)"),
+      card("cat", "kucing"),
+      card("dog", "anjing"),
+      card("bird", "burung"),
+      card("fish", "ikan"),
+    ];
+    const data = { ...pre, V: { "1": { ...pre.V["1"], items } } };
+    for (let seed = 1; seed <= 30; seed++)
+      for (const q of vocabQuestions(data, "pre", ["vocab-rev"], seed))
+        if (q.kind === "vocab-rev" && /^mulai/.test(q.meaning))
+          expect(q.options).not.toContain(
+            q.answer === "start" ? "begin" : "start",
+          );
   });
 
   it("accepts typed answers in any listed form", () => {

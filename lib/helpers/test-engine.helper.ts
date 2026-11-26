@@ -90,11 +90,14 @@ export const vocabQuestions = (
     if (it) used.add(it[1]);
     return it;
   };
+  // A word with the same meaning ("mulai": start, begin) would be a second
+  // right answer, so it is never a distractor.
+  const base = (it: Item) => low(it[3].replace(/\([^)]*\)/g, ""));
   const others = (it: Item, field: 1 | 3) => {
     const have = new Set([low(it[field])]);
     return shuffle(
       r,
-      pool.filter((x) => x !== it),
+      pool.filter((x) => x !== it && base(x) !== base(it)),
     )
       .map((x) => x[field])
       .filter((v) => {

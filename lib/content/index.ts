@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- the content packs are untyped JS data (see raw/*.js); typing them is phase-2 work when content moves to the database. */
+import { MEANING_CONTEXT } from "./meaning-context";
 import { PRON_WORD_PAIRS } from "./pron-extra";
 import ask from "./raw/ask.js";
 import askgen from "./raw/askgen.js";
@@ -75,6 +76,21 @@ const W: Record<string, any> = {};
   // Last: appends to VOCAB_L / VOCAB_X / VERB_FORMS / VOCAB_ID set up above.
   extras3,
 ].forEach((f) => f(W));
+
+// Meanings shared by several English words get their context (see
+// meaning-context.ts), so an Indonesian prompt points to one word.
+const withContext = (x: any): void => {
+  if (!Array.isArray(x)) {
+    if (x && typeof x === "object") Object.values(x).forEach(withContext);
+    return;
+  }
+  if (typeof x[1] === "string" && typeof x[3] === "string") {
+    x[3] = MEANING_CONTEXT[`${x[1]}|${x[3]}`] ?? x[3];
+    return;
+  }
+  x.forEach(withContext);
+};
+[W.VOCAB, W.VOCAB_X, W.VOCAB_L].forEach(withContext);
 
 export const VOCAB: Record<string, any> = W.VOCAB || {};
 export const VOCAB_X: Record<string, any[]> = W.VOCAB_X || {};
