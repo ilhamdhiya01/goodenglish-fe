@@ -72,6 +72,13 @@ describe("ReviewPage › word card, Indo → Inggris", () => {
   // Stage 2 of 6 (st 1): Ingat → 7 days, Ragu → 2 days, Lupa → tomorrow.
   it.each([
     ["lesson", "Tepat.", /^Muncul lagi \w+, \d+ \w+/, "good"],
+    // Another spacing of the word: right, with the usual spelling.
+    [
+      "les son",
+      "Tepat. Biasanya ditulis lesson.",
+      /^Muncul lagi \w+, \d+ \w+/,
+      "good",
+    ],
     [
       "leson",
       // "_" marks where the missing letter goes.

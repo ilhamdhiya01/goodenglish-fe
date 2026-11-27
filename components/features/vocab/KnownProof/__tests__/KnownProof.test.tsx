@@ -11,6 +11,7 @@ const {
   judgeTyped,
   looseTarget,
   proofMode,
+  spacedOtherwise,
 } = await import("../KnownProof");
 
 const lesson = {
@@ -92,6 +93,30 @@ describe("judgeTyped", () => {
     expect(judgeTyped("My name is …", "I am Budi")).toBe("bad");
     expect(judgeTyped("What does … mean?", "what doe mean")).toBe("near");
   });
+
+  // "work space" for workspace was a slip (Ragu) though the word was known.
+  it("takes another spacing or hyphen of the same word", () => {
+    expect(judgeTyped("workspace", "work space")).toBe("ok");
+    expect(judgeTyped("seat belt", "seatbelt")).toBe("ok");
+    expect(judgeTyped("email", "e-mail")).toBe("ok");
+    expect(judgeTyped("ballpark figure", "ball park figure")).toBe("ok");
+  });
+
+  it("is wrong where the spacing makes another word", () => {
+    expect(judgeTyped("maybe", "may be")).toBe("bad");
+    expect(judgeTyped("every day", "everyday")).toBe("bad");
+    expect(judgeTyped("check-in", "check in")).toBe("bad");
+    expect(judgeTyped("takeout", "take out")).toBe("bad");
+    expect(judgeTyped("its", "it's")).not.toBe("ok");
+  });
+});
+
+describe("spacedOtherwise", () => {
+  it("is only about spaces and hyphens", () => {
+    expect(spacedOtherwise("workspace", "Work space")).toBe(true);
+    expect(spacedOtherwise("workspace", "Workspace.")).toBe(false);
+    expect(spacedOtherwise("its", "it's")).toBe(false);
+  });
 });
 
 describe("looseTarget", () => {
@@ -131,6 +156,14 @@ describe("KnownProof › typing", () => {
     expect(screen.getByRole("status").textContent).toContain("✓ Tepat!");
     act(() => vi.advanceTimersByTime(1000));
     expect(onDone).toHaveBeenCalledTimes(1);
+  });
+
+  it("shows the usual spelling when the spacing differs", () => {
+    setup({ en: "workspace", id: "ruang kerja", ex: "", target: null });
+    answer("work space");
+    expect(screen.getByRole("status").textContent).toContain(
+      "✓ Tepat! Biasanya ditulis workspace.",
+    );
   });
 
   it("shows the answer on a wrong word and lets the learner retry", () => {

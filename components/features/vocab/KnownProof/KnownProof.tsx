@@ -104,13 +104,64 @@ const fillsSlots = (en: string, typed: string) => {
   return fits(0, 0);
 };
 
+const spaced = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[‘’`]/g, "'")
+    .replace(/[^a-z0-9' -]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+const joined = (s: string) => spaced(s).replace(/[ -]/g, "");
+
+/** The same letters, only spaces or hyphens differ: "work space" for
+ * workspace. */
+export const spacedOtherwise = (en: string, typed: string) =>
+  joined(en) === joined(typed) && spaced(en) !== spaced(typed);
+
+// Where the split form is another word or another word class ("may be" for
+// maybe, the verb "check in" for the noun check-in), the spacing changes the
+// meaning: wrong.
+const SPACING_MATTERS = new Set([
+  "maybe",
+  "everyday",
+  "already",
+  "altogether",
+  "anyone",
+  "anyway",
+  "everyone",
+  "nobody",
+  "sometime",
+  "sometimes",
+  "awhile",
+  "into",
+  "onto",
+  "checkin",
+  "checkout",
+  "carryon",
+  "takeout",
+  "takeaway",
+  "pushback",
+  "setup",
+  "login",
+  "logout",
+  "signup",
+  "workout",
+  "breakdown",
+  "backup",
+  "takeoff",
+  "pickup",
+  "makeup",
+  "shutdown",
+]);
+
 export type TypedResult = "ok" | "near" | "bad";
 
 /**
  * ok: every word right, ignoring case and punctuation (checkDictation also
  * takes I'm = I am and 10 = ten); a "…" may be filled with any words or left
- * out. near: a slip, one letter per 12 ("leson"), none under 5 letters.
- * bad: anything else.
+ * out; spaces and hyphens may differ ("work space"), unless that makes
+ * another word (SPACING_MATTERS: bad). near: a slip, one letter per 12
+ * ("leson"), none under 5 letters. bad: anything else.
  */
 export const judgeTyped = (en: string, typed: string): TypedResult => {
   if (SLOT.test(en)) {
@@ -119,6 +170,9 @@ export const judgeTyped = (en: string, typed: string): TypedResult => {
     // not near; align the words first if learners hit that.
     en = en.split(SLOT).join(" ");
   }
+  // Before checkDictation, which already reads a hyphen as a space.
+  if (spacedOtherwise(en, typed))
+    return SPACING_MATTERS.has(joined(en)) ? "bad" : "ok";
   const { marks } = checkDictation(en, withApostrophes(en, typed));
   if (marks.length && marks.every((m) => m.kind === "correct")) return "ok";
   const want = flat(en);
@@ -330,7 +384,9 @@ const TypeProof = ({
     setResult(r);
     if (r === "bad") return;
     speak(en);
-    doneTimer.current = window.setTimeout(onDone, r === "near" ? 1600 : 900);
+    // Longer when there is a spelling to read.
+    const note = r === "near" || spacedOtherwise(en, typed);
+    doneTimer.current = window.setTimeout(onDone, note ? 1600 : 900);
   };
   const retry = () => {
     setTyped("");
@@ -391,6 +447,12 @@ const TypeProof = ({
         ) : result === "ok" ? (
           <span className={classNames(msgClass, "font-extrabold text-ok")}>
             ✓ Tepat!
+            {spacedOtherwise(en, typed) && (
+              <span className="font-bold">
+                {" "}
+                Biasanya ditulis <b className="font-extrabold">{bare(en)}</b>.
+              </span>
+            )}
           </span>
         ) : (
           <span className={classNames(msgClass, "font-semibold text-ink-2")}>

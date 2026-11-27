@@ -7,6 +7,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Jalak from "@/components/brand/Jalak";
 import {
   judgeTyped,
+  spacedOtherwise,
   type TypedResult,
 } from "@/components/features/vocab/KnownProof";
 import TargetMark from "@/components/shared/patterns/target-mark";
@@ -366,6 +367,12 @@ const ReviewPage = React.memo(() => {
                       : result === "near"
                         ? "Hampir. Kamu menulis "
                         : "Belum tepat. Kamu menulis "}
+                  {result === "ok" && spacedOtherwise(item.it[1], typed) && (
+                    <>
+                      {" "}
+                      Biasanya ditulis <b>{item.it[1]}</b>.
+                    </>
+                  )}
                   {result === "near" && !!typed && (
                     <>
                       {/* The letters to fix: wrong or extra, "_" = missing. */}
